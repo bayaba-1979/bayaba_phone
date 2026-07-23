@@ -28,17 +28,8 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    header p {
-      color: #8b949e;
-      margin-top: 0.5rem;
-      font-size: 1rem;
-    }
-    .main-content {
-      width: 100%;
-      max-width: 800px;
-      padding: 1.5rem;
-      flex: 1;
-    }
+    header p { color: #8b949e; margin-top: 0.5rem; font-size: 1rem; }
+    .main-content { width: 100%; max-width: 800px; padding: 1.5rem; flex: 1; }
     .section-card {
       background: #161b22;
       border: 1px solid #30363d;
@@ -46,14 +37,38 @@
       padding: 1.5rem;
       margin-bottom: 1.5rem;
     }
-    .section-card h2 {
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-      color: #f0f6fc;
+    .section-card h2 { font-size: 1.2rem; margin-bottom: 1rem; color: #f0f6fc; }
+    .section-card h2 span { margin-right: 0.5rem; }
+    .section-card p { color: #8b949e; line-height: 1.6; }
+    .section-card a { color: #58a6ff; text-decoration: none; }
+    .section-card a:hover { text-decoration: underline; }
+    .badge {
+      display: inline-block;
+      background: #21262d;
+      color: #58a6ff;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin: 0.25rem;
     }
-    .section-card h2 span {
-      margin-right: 0.5rem;
+    .link-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
     }
+    .link-grid a {
+      display: block;
+      background: #1c2128;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .link-grid a:hover { border-color: #58a6ff; }
+    .link-grid a .label { font-size: 0.8rem; color: #8b949e; display: block; margin-top: 0.25rem; }
+    .giscus { width: 100%; min-height: 200px; }
     footer {
       width: 100%;
       max-width: 800px;
@@ -63,93 +78,74 @@
       font-size: 0.85rem;
       border-top: 1px solid #21262d;
     }
-    /* Giscus 댓글 영역 */
-    .giscus {
-      width: 100%;
-      min-height: 200px;
-    }
-    /* 위젯봇 오버라이드 */
-    .widgetbot-placeholder {
-      display: none;
-    }
     @media (max-width: 600px) {
       header h1 { font-size: 1.6rem; }
       .section-card { padding: 1rem; }
+      .link-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-
   <header>
     <h1>📱 S21 Phone</h1>
-    <p>Workstation Live — Termux → Claude Code → GitHub</p>
+    <p>안드로이드 폰 하나로 돌아가는 풀스택 워크스테이션</p>
+    <p style="font-size:0.85rem; color:#484f58; margin-top:0.3rem;">
+      Termux → Ubuntu → Claude Code(DeepSeek Radar) → GitHub Pages
+    </p>
   </header>
 
   <div class="main-content">
-
-    <!-- 프로젝트 카드 -->
+    <!-- 프로젝트 링크 -->
     <div class="section-card">
-      <h2><span>📂</span> 프로젝트</h2>
-      <p><a href="https://github.com/helena751107/helena_phone" style="color:#58a6ff;">helena751107/helena_phone</a></p>
-      <p style="margin-top:0.5rem; color:#8b949e; font-size:0.9rem;">
-        GitHub Pages + Claude Code(DeepSeek Radar) + Aider
-      </p>
+      <h2><span>📂</span> 레포지토리</h2>
+      <div class="link-grid">
+        <a href="https://github.com/helena751107/helena_phone">
+          <strong>helena_phone</strong>
+          <span class="label">메인 워크스테이션</span>
+        </a>
+        <a href="https://github.com/helena751107/helana_log">
+          <strong>helana_log</strong>
+          <span class="label">학습 기록 / 문제 해결</span>
+        </a>
+      </div>
+      <div style="margin-top:1rem;">
+        <span class="badge"><a href="https://helena751107.github.io/helana_log/">📝 helana_log 바로가기</a></span>
+        <span class="badge">🔧 Claude Code + DeepSeek</span>
+        <span class="badge">📄 GitHub Pages</span>
+      </div>
     </div>
 
-    <!-- 디스코드 채팅 (WidgetBot Crate) -->
+    <!-- 디스코드 채팅 -->
     <div class="section-card">
-      <h2><span>💬</span> 실시간 채팅 — Discord</h2>
-      <p style="color:#8b949e; font-size:0.9rem; margin-bottom:0.5rem;">
-        아래 우하단 버튼으로 디스코드 채널에 접속하세요.
+      <h2><span>💬</span> 실시간 채팅</h2>
+      <p>디스코드 서버에 접속해서 실시간으로 소통하세요.</p>
+      <p style="font-size:0.85rem; color:#484f58; margin-top:0.5rem;">
+        ⚡ 우하단 버튼을 클릭하면 디스코드 채널로 바로 연결됩니다.
       </p>
     </div>
 
     <!-- 게시판 / 댓글 (Giscus) -->
     <div class="section-card">
-      <h2><span>🗣</span> 댓글 / 게시판 — GitHub Discussions</h2>
+      <h2><span>🗣</span> 게시판 / 댓글</h2>
+      <p style="font-size:0.9rem; margin-bottom:1rem;">
+        GitHub 계정으로 로그인 후 댓글을 남겨주세요.
+      </p>
       <div class="giscus"></div>
     </div>
-
   </div>
 
   <footer>
-    <p>S21 Phone Workstation · Powered by Claude Code + DeepSeek</p>
+    <p>S21 Phone Workstation · Built with Claude Code + DeepSeek Radar</p>
   </footer>
 
   <!-- ============================================================ -->
-  <!-- WidgetBot Crate v3 — 디스코드 채팅 임베드                       -->
-  <!-- 수동 작업: 아래 SERVER_ID와 CHANNEL_ID를 실제 값으로 교체하세요 -->
+  <!-- Giscus — GitHub Discussions 기반 댓글 (완전 활성)              -->
   <!-- ============================================================ -->
-  <!--
-  <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>
-    new Crate({
-      server: '여기에_서버ID',
-      channel: '여기에_채널ID',
-      shard: 'https://disweb.defla.dev',
-      css: `
-        --crate-background: #5865f2;
-        --crate-color: #ffffff;
-        --crate-right: 20px;
-        --crate-bottom: 20px;
-      `
-    })
-  </script>
-  -->
-
-  <!-- ============================================================ -->
-  <!-- Giscus — 깃허브 Discussions 기반 댓글                         -->
-  <!-- 수동 작업:                                                    -->
-  <!-- 1. github.com/apps/giscus → Install → helena_phone 레포 선택  -->
-  <!-- 2. giscus.app 접속 → 레포 helena751107/helena_phone 입력       -->
-  <!-- 3. 카테고리 Announcements 선택                                 -->
-  <!-- 4. 생성된 <script> 블록으로 아래 내용 교체                      -->
-  <!-- ============================================================ -->
-  <!--
   <script src="https://giscus.app/client.js"
     data-repo="helena751107/helena_phone"
-    data-repo-id="여기에_레포ID"
+    data-repo-id="R_kgDOTg3jPQ"
     data-category="Announcements"
-    data-category-id="여기에_카테고리ID"
+    data-category-id="DIC_kwDOTg3jPc4DByff"
     data-mapping="pathname"
     data-strict="0"
     data-reactions-enabled="1"
@@ -160,7 +156,25 @@
     crossorigin="anonymous"
     async>
   </script>
-  -->
 
+  <!-- ============================================================ -->
+  <!-- WidgetBot Crate v3 — 디스코드 채팅 임베드                      -->
+  <!-- 활성화하려면: 서버 설정 → 위젯 → 서버ID, 채널ID 복사 후 입력   -->
+  <!-- ============================================================ -->
+  <!--
+  <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>
+    new Crate({
+      server: 'YOUR_SERVER_ID',
+      channel: 'YOUR_CHANNEL_ID',
+      shard: 'https://disweb.defla.dev',
+      css: `
+        --crate-background: #5865f2;
+        --crate-color: #ffffff;
+        --crate-right: 20px;
+        --crate-bottom: 20px;
+      `
+    })
+  </script>
+  -->
 </body>
 </html>
