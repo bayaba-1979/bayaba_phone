@@ -1,1 +1,166 @@
-<!DOCTYPE html><html lang="ko"><body><h1>S21 Workstation Live</h1></body></html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S21 Phone — Workstation Live</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      width: 100%;
+      max-width: 800px;
+      padding: 3rem 1.5rem 1.5rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, #58a6ff, #bc8cff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    header p {
+      color: #8b949e;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+    .main-content {
+      width: 100%;
+      max-width: 800px;
+      padding: 1.5rem;
+      flex: 1;
+    }
+    .section-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #f0f6fc;
+    }
+    .section-card h2 span {
+      margin-right: 0.5rem;
+    }
+    footer {
+      width: 100%;
+      max-width: 800px;
+      padding: 1.5rem;
+      text-align: center;
+      color: #484f58;
+      font-size: 0.85rem;
+      border-top: 1px solid #21262d;
+    }
+    /* Giscus 댓글 영역 */
+    .giscus {
+      width: 100%;
+      min-height: 200px;
+    }
+    /* 위젯봇 오버라이드 */
+    .widgetbot-placeholder {
+      display: none;
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.6rem; }
+      .section-card { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📱 S21 Phone</h1>
+    <p>Workstation Live — Termux → Claude Code → GitHub</p>
+  </header>
+
+  <div class="main-content">
+
+    <!-- 프로젝트 카드 -->
+    <div class="section-card">
+      <h2><span>📂</span> 프로젝트</h2>
+      <p><a href="https://github.com/helena751107/helena_phone" style="color:#58a6ff;">helena751107/helena_phone</a></p>
+      <p style="margin-top:0.5rem; color:#8b949e; font-size:0.9rem;">
+        GitHub Pages + Claude Code(DeepSeek Radar) + Aider
+      </p>
+    </div>
+
+    <!-- 디스코드 채팅 (WidgetBot Crate) -->
+    <div class="section-card">
+      <h2><span>💬</span> 실시간 채팅 — Discord</h2>
+      <p style="color:#8b949e; font-size:0.9rem; margin-bottom:0.5rem;">
+        아래 우하단 버튼으로 디스코드 채널에 접속하세요.
+      </p>
+    </div>
+
+    <!-- 게시판 / 댓글 (Giscus) -->
+    <div class="section-card">
+      <h2><span>🗣</span> 댓글 / 게시판 — GitHub Discussions</h2>
+      <div class="giscus"></div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>S21 Phone Workstation · Powered by Claude Code + DeepSeek</p>
+  </footer>
+
+  <!-- ============================================================ -->
+  <!-- WidgetBot Crate v3 — 디스코드 채팅 임베드                       -->
+  <!-- 수동 작업: 아래 SERVER_ID와 CHANNEL_ID를 실제 값으로 교체하세요 -->
+  <!-- ============================================================ -->
+  <!--
+  <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>
+    new Crate({
+      server: '여기에_서버ID',
+      channel: '여기에_채널ID',
+      shard: 'https://disweb.defla.dev',
+      css: `
+        --crate-background: #5865f2;
+        --crate-color: #ffffff;
+        --crate-right: 20px;
+        --crate-bottom: 20px;
+      `
+    })
+  </script>
+  -->
+
+  <!-- ============================================================ -->
+  <!-- Giscus — 깃허브 Discussions 기반 댓글                         -->
+  <!-- 수동 작업:                                                    -->
+  <!-- 1. github.com/apps/giscus → Install → helena_phone 레포 선택  -->
+  <!-- 2. giscus.app 접속 → 레포 helena751107/helena_phone 입력       -->
+  <!-- 3. 카테고리 Announcements 선택                                 -->
+  <!-- 4. 생성된 <script> 블록으로 아래 내용 교체                      -->
+  <!-- ============================================================ -->
+  <!--
+  <script src="https://giscus.app/client.js"
+    data-repo="helena751107/helena_phone"
+    data-repo-id="여기에_레포ID"
+    data-category="Announcements"
+    data-category-id="여기에_카테고리ID"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="dark"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+  </script>
+  -->
+
+</body>
+</html>
