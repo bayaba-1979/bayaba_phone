@@ -9,9 +9,12 @@ INBOX="${1:-/data/data/com.termux/files/home/inbox}"
 OUTDIR="/root/work/out/auto"
 DONE_DIR="/data/data/com.termux/files/home/processed"
 
-# TG 토큰 (직접 하드코딩 — source 문제 방지)
-TG_TOKEN="REDACTED"
-TG_CHAT="REDACTED"
+# TG 토큰 — .secrets.env에서 로드
+if [ -f "$HOME/work/.secrets.env" ]; then
+  set -a; source "$HOME/work/.secrets.env"; set +a
+fi
+TG_TOKEN="${TG_TOKEN:?TG_TOKEN 없음}"
+TG_CHAT="${TG_CHAT:?TG_CHAT 없음}"
 WATCH_MODE=false
 
 [[ "$1" == "--watch" ]] && WATCH_MODE=true && INBOX="${2:-$INBOX}"

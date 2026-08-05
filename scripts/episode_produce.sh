@@ -9,8 +9,12 @@ URL="${2:?페이지 URL 필요}"
 TITLE="${3:?제목 필요}"
 OUTDIR="/root/work/out/${EP}"
 WORKDIR="/root/work/helena-programming/director/out"
-TG_TOKEN="REDACTED"
-TG_CHAT="REDACTED"
+# 시크릿 로드
+if [ -f "$HOME/work/.secrets.env" ]; then
+  set -a; source "$HOME/work/.secrets.env"; set +a
+fi
+TG_TOKEN="${TG_TOKEN:?TG_TOKEN 없음}"
+TG_CHAT="${TG_CHAT:?TG_CHAT 없음}"
 VOICE="ko-KR-SunHiNeural"
 RESOLUTION="720:1280"
 PRESET="ultrafast"
