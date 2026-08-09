@@ -1,0 +1,49 @@
+name: 📰 Tistory RSS → 기자/
+
+on:
+  schedule:
+    - cron: '7 * * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch RSS → 기자/
+        run: |
+          mkdir -p 기자
+          python3 << 'PYEOF'
+          import os, hashlib, urllib.request, xml.etree.ElementTree as ET
+          blog = "galaxys21-pwuser"
+          out_dir = "기자"
+          rss_url = f"https://{blog}.tistory.com/rss"
+          print(f"📡 {rss_url}")
+          try:
+              req = urllib.request.Request(rss_url, headers={"User-Agent": "helena-bot/1.0"})
+              with urllib.request.urlopen(req, timeout=30) as resp:
+                  data = resp.read().decode("utf-8")
+              root = ET.fromstring(data)
+              for item in root.findall(".//item")[:10]:
+                  title_el = item.find("title"); link_el = item.find("link")
+                  desc_el = item.find("description"); date_el = item.find("pubDate")
+                  title = title_el.text.strip() if title_el is not None and title_el.text else "(no-title)"
+                  link = link_el.text.strip() if link_el is not None and link_el.text else ""
+                  desc = desc_el.text.strip() if desc_el is not None and desc_el.text else ""
+                  pubdate = date_el.text.strip() if date_el is not None and date_el.text else ""
+                  if not link: continue
+                  fid = hashlib.md5(link.encode()).hexdigest()[:12]
+                  fname = os.path.join(out_dir, f"{blog}_{fid}.md")
+                  if os.path.exists(fname): continue
+                  with open(fname, "w") as f:
+                      f.write(f"---\nsource: {link}\ndate: {pubdate}\nblog: {blog}\n---\n\n# {title}\n\n{desc}\n\n---\n원문: {link}\n")
+                  print(f"  ✅ {title}")
+          except Exception as e:
+              print(f"  ⚠️ {e}")
+          PYEOF
+      - name: Commit & push
+        run: |
+          if git diff --quiet 기자/ 2>/dev/null; then echo "변경 없음"; exit 0; fi
+          git config user.name "helena-bot"; git config user.email "bot@helena.phone"
+          git add 기자/; git commit -m "📰 RSS sync: $(date +%Y-%m-%d\ %H:%M)" || true; git push
