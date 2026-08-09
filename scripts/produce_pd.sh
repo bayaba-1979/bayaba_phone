@@ -17,14 +17,27 @@
 #   3. produce_pd.sh 실행 → _bridge_pickup.sh가 자동 감지
 #
 # 사용 (매번 동일):
-#   bash scripts/produce_pd.sh [ep_id] [page_url]
+#   bash scripts/produce_pd.sh [ep_id] [page_url] [--bgm <url|path>] [--bgm-volume <0.0-1.0>]
 #   bash scripts/produce_pd.sh pd_intro
+#   bash scripts/produce_pd.sh pd_my "https://..." --bgm "https://youtu.be/xxx" --bgm-volume 0.015
 #
 
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 EP="${1:-pd_intro}"
 URL="${2:-https://helena751107.github.io/helena_phone/}"
+shift 2 2>/dev/null || true
+
+# ── Optional flags ──
+BGM_SOURCE=""       # --bgm: YouTube URL or local file path
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --bgm) BGM_SOURCE="$2"; shift 2 ;;
+    --bgm-volume) export BGM_VOLUME="$2"; shift 2 ;;
+    *) shift ;;
+  esac
+done
+
 OUTDIR="${OUTDIR:-$ROOT/out/$EP}"
 export OUTDIR EP URL ROOT
 export BGM_VOLUME="${BGM_VOLUME:-0.025}"  # Golden whisper — 들릴락 말락 은은
@@ -32,6 +45,27 @@ export TTS_ENGINE="${TTS_ENGINE:-edge}"   # edge=YuJin(유진 · 차분한 내�
 export GROK_TTS_VOICE="${GROK_TTS_VOICE:-ara}"
 export VOICE="${VOICE:-ko-KR-YuJinNeural}"   # Edge TTS 한국어 여성 (유진 · 차분한 내레이션)
 export PYTHONIOENCODING=utf-8
+
+# ── BGM source: YouTube download or local path ──
+if [[ -n "$BGM_SOURCE" ]]; then
+  if [[ "$BGM_SOURCE" =~ ^https?://.*(youtube\.com|youtu\.be) ]]; then
+    echo "  🎵 --bgm YouTube: $BGM_SOURCE"
+    BGM_DOWNLOAD="$OUTDIR/bgm_youtube.m4a"
+    mkdir -p "$OUTDIR"
+    yt-dlp -q --no-playlist -f "bestaudio[ext=m4a]/bestaudio" \
+      -o "$BGM_DOWNLOAD" "$BGM_SOURCE" 2>&1 || echo "  ⚠️ yt-dlp failed"
+    if [[ -f "$BGM_DOWNLOAD" ]]; then
+      export BGM_PATH="$BGM_DOWNLOAD"
+      echo "  ✅ YouTube BGM downloaded → $BGM_DOWNLOAD"
+    fi
+  elif [[ -f "$BGM_SOURCE" ]]; then
+    export BGM_PATH="$BGM_SOURCE"
+    echo "  🎵 --bgm local: $BGM_SOURCE"
+  else
+    echo "  ⚠️ --bgm file not found: $BGM_SOURCE"
+  fi
+fi
+echo "  🔊 BGM_VOLUME=$BGM_VOLUME (--bgm-volume override)"
 
 # ── STANDARD v2 pin (변경 금지 — configs/video_pd_pipeline_CURRENT.json) ──
 export PD_STANDARD="video_pd_pipeline_v2"
