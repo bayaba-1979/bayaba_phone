@@ -4,6 +4,7 @@
 페이지를 로드하고 섹션(heading + 본문)을 추출해 beat 구성을 자동 생성합니다.
 각 beat에는 스크롤 캡처를 위한 CSS selector(scroll_sel)가 포함됩니다.
 
+V11: :has-text() selector only (nth-of-type 제거), context 300자 확장.
 V10: Generic page support — Tistory, GitHub Pages, Velog, Naver Blog 등.
 
 Usage:
@@ -75,7 +76,7 @@ def extract_sections(page) -> list[dict]:
             // Collect text from sibling elements until next heading
             let contextText = '';
             let next = h.nextElementSibling;
-            const maxSiblings = 8;
+            const maxSiblings = 12;
             let count = 0;
             while (next && count < maxSiblings) {
                 if (['H1','H2','H3','H4'].includes(next.tagName)) break;
@@ -86,28 +87,14 @@ def extract_sections(page) -> list[dict]:
                 next = next.nextElementSibling;
                 count++;
             }
-            contextText = contextText.trim().substring(0, 200);
+            contextText = contextText.trim().substring(0, 300);
 
-            // Build CSS selector — use nth-of-type counting within container
-            const containerTag = container.tagName.toLowerCase();
-            const sameTagHeadings = container.querySelectorAll(tag);
-            let nth = 1;
-            for (let i = 0; i < sameTagHeadings.length; i++) {
-                if (sameTagHeadings[i] === h) {
-                    nth = i + 1;
-                    break;
-                }
-            }
-
-            // Build a Playwright-safe selector
-            // V10.1: Use text-based selectors (more reliable than nth-of-type)
-            // Also store the heading text for fallback matching
+            // Build Playwright :has-text() selector (V11: only text-based, no nth-of-type)
             let scrollSel;
             if (h.id) {
                 scrollSel = '#' + h.id;
             } else {
-                // Use partial text match — Playwright locator supports :has-text()
-                const shortText = text.substring(0, 20).replace(/["'\\]/g, '');
+                const shortText = text.substring(0, 25).replace(/["'\\\\]/g, '');
                 scrollSel = tag + ':has-text("' + shortText + '")';
             }
 
@@ -232,9 +219,9 @@ def main() -> int:
             color_tag = role_tags[i % len(role_tags)]
 
             vo_draft = sec.get("context", "") or sec["heading"]
-            # Trim to reasonable VO length
-            if len(vo_draft) > 120:
-                vo_draft = vo_draft[:117] + "..."
+            # Store full context for P0.5 to work with (no truncation here)
+            if len(vo_draft) > 200:
+                vo_draft = vo_draft[:197] + "..."
 
             sections[i]["beat"] = {
                 "id": beat_id,
@@ -259,7 +246,7 @@ def main() -> int:
             "standard": "video_pd_pipeline_v2",
             "bgm_volume": 0.025,
             "resolution": "1080:1920",
-            "version": "v10",
+            "version": "v11",
             "channel_stinger": {"enabled": True, "duration": 0.5, "text": "S21 Phone"},
             "pattern_interrupt": {"enabled": True, "duration": 0.4},
             "loop_match": {"enabled": True, "open_color": "gold", "close_color": "gold"},

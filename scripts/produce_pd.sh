@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 🎬 produce_pd.sh — PD Pipeline STANDARD v3 (canonical · Grok-free · V9 renderer)
+# 🎬 produce_pd.sh — PD Pipeline STANDARD v3 (canonical · V11 content-based)
 # 표준: configs/video_pd_pipeline_v2.json · CURRENT → configs/video_pd_pipeline_CURRENT.json
 # 역할:
 #   Factory(공짜) = Playwright 페이지 캡처 + FFmpeg Ken Burns + xfade multi-transition
@@ -55,18 +55,26 @@ echo "=== 🎬 produce_pd · $EP ==="
 echo "  URL=$URL"
 echo "  BGM_VOLUME=$BGM_VOLUME (golden)  TTS=$TTS_ENGINE/jf_alpha (Kokoro)"
 
-# ── P0 shot bible (auto-parse URL or create default) ──
+# ── P0 shot bible (V11: force-reparse external URLs for fresh :has-text() selectors) ──
 BIBLE="$OUTDIR/shot_bible.json"
+NEED_PARSE=false
 if [[ ! -f "$BIBLE" ]]; then
-  # V10: if URL is provided and not the default helena page, auto-parse
+  NEED_PARSE=true
+elif [[ -n "$URL" ]] && [[ "$URL" != "https://helena751107.github.io/helena_phone/" ]]; then
+  # External URL: always re-parse to get fresh :has-text() selectors
+  echo "[P0] External URL detected — force-reparsing for fresh selectors..."
+  NEED_PARSE=true
+fi
+
+if $NEED_PARSE; then
   if [[ -n "$URL" ]] && [[ "$URL" != "https://helena751107.github.io/helena_phone/" ]]; then
     echo "[P0] Auto-parsing URL → shot_bible..."
-    python3 "$ROOT/scripts/_parse_url.py" "$URL" "$OUTDIR" || true
+    python3 "$ROOT/scripts/_parse_url.py" "$URL" "$OUTDIR" || echo "  ⚠️ [P0] parse failed, continuing" >&2
     if [[ -f "$BIBLE" ]]; then
-      echo "[P0.5] Generating VO drafts..."
-      python3 "$ROOT/scripts/_generate_vo.py" "$OUTDIR" || true
+      echo "[P0.5] Generating VO from content..."
+      python3 "$ROOT/scripts/_generate_vo.py" "$OUTDIR" || echo "  ⚠️ [P0.5] VO generation failed, continuing" >&2
       echo "[P0.6] Building directing map..."
-      python3 "$ROOT/scripts/_direct_map.py" "$OUTDIR" || true
+      python3 "$ROOT/scripts/_direct_map.py" "$OUTDIR" || echo "  ⚠️ [P0.6] directing map failed, continuing" >&2
       echo "  ✅ shot_bible auto-generated from URL"
     else
       echo "  ⚠️ Auto-parse failed — using default shot_bible"
@@ -128,79 +136,9 @@ PY
   fi
 fi
 
-# ── P1 Factory: Playwright page captures (V10: scroll_sel from shot_bible) ──
+# ── P1 Factory: Playwright page captures (V11: _capture_stills.py with text locator fallback) ──
 echo "[P1] Playwright scroll captures (shot_bible scroll_sel)..."
-python3 - <<'PY'
-import os, json
-from pathlib import Path
-from playwright.sync_api import sync_playwright
-
-outdir = Path(os.environ["OUTDIR"])
-stills = outdir / "stills"
-stills.mkdir(exist_ok=True)
-url = os.environ["URL"]
-
-bible = json.loads((outdir / "shot_bible.json").read_text(encoding="utf-8"))
-beats = bible.get("beats") or []
-
-# Build beat list: filter page kind, track sequential index
-page_beats = [(i, b) for i, b in enumerate(beats) if b.get("kind") != "bridge"]
-if not page_beats:
-    page_beats = [(i, b) for i, b in enumerate(beats)]  # fallback: all beats
-
-with sync_playwright() as p:
-    b = p.chromium.launch(args=["--disable-dev-shm-usage"])
-    page = b.new_page(viewport={"width": 390, "height": 844}, device_scale_factor=3)
-    page.goto(url, wait_until="networkidle", timeout=120000)
-    page.wait_for_timeout(2000)
-    # remove custom cursors / floating UI
-    page.evaluate("""() => {
-      document.querySelectorAll('.cursor,.cursor-dot,.floating-btn,.scroll-top').forEach(e => e.remove());
-    }""")
-    # try to hide fixed nav bars by scrolling past them
-    try:
-        nav_h = page.evaluate("""() => {
-          const nav = document.querySelector('nav,header,.navbar,.tistory-header,.top-bar');
-          return nav ? nav.offsetHeight : 0;
-        }""")
-        if nav_h and nav_h > 40:
-            page.evaluate(f"window.scrollBy(0, {nav_h + 10})")
-            page.wait_for_timeout(400)
-    except Exception:
-        pass
-
-    for beat_idx, (orig_idx, beat) in enumerate(page_beats):
-        bid = beat["id"]
-        sel = beat.get("scroll_sel") or beat.get("section_selector")
-
-        if sel:
-            try:
-                el = page.locator(sel).first
-                el.scroll_into_view_if_needed(timeout=8000)
-                page.wait_for_timeout(600)
-                # scroll up slightly so heading isn't at the very top edge
-                page.evaluate("window.scrollBy(0, -60)")
-                page.wait_for_timeout(300)
-            except Exception as e:
-                print(f"  ! scroll {bid}: {e} -> fallback progressive")
-                sel = None
-
-        if not sel:
-            # Progressive scroll: each beat scrolls further down the page
-            scroll_y = beat_idx * int(page.evaluate("window.innerHeight")) * 0.75
-            page.evaluate(f"window.scrollTo({{top: {scroll_y}, behavior: 'smooth'}})")
-            page.wait_for_timeout(700)
-
-        dest = stills / f"{bid}.png"
-        page.screenshot(path=str(dest), full_page=False)
-        # legacy name for _render_video.py compat
-        page.screenshot(path=str(outdir / f"{bid}.png"), full_page=False)
-        print(f"  📸 {bid} ({dest.stat().st_size} bytes)  sel={sel or 'scroll-y'}")
-
-    b.close()
-print("  page captures done")
-
-PY
+python3 "$ROOT/scripts/_capture_stills.py" "$OUTDIR" --url "$URL"
 
 # ── P2 TTS (voice engine: Kokoro jf_alpha local → 폴백 grok/openai/edge) ──
 echo "[P2] Voice engine TTS..."
@@ -358,13 +296,12 @@ if [[ -n "${TG_TOKEN:-}" && -n "${TG_CHAT:-}" && -f "$TG720" ]]; then
     -F chat_id="$TG_CHAT" \
     -F video=@"$TG720" \
     -F supports_streaming=true \
-    -F caption="🎬 ${EP} · PD pipeline V9 CNN
-🔥 72pt bold · per-word pop animation (200%→100% \t() scale bounce)
-🟥 Red banner bg (BorderStyle=3) · word-wrap multi-line
-TTS: Edge YuJin · bridges: Android 갤러리 chrono-pair
-BGM vol=${BGM_VOLUME} · yuv420p High · QA gate
-📝 ASS burn-in: ${EP}.ass
-— produce_pd.sh v3/V9 CNN Breaking News" \    -o /tmp/tg_pd.json -w "\nhttp=%{http_code}\n" || true
+    -F caption="🎬 ${EP} · PD Pipeline V11
+🔥 72pt bold · per-word pop (200%→100% \t() scale bounce)
+🟥 Red banner bg · :has-text() selector + text locator fallback
+📖 Content-based VO (no template filling) · pan_up/down diversity
+🎵 BGM vol=${BGM_VOLUME} · yuv420p High · QA gate
+— produce_pd.sh V11 · 콘텐츠 이해 기반 숏폼" \    -o /tmp/tg_pd.json -w "\nhttp=%{http_code}\n" || true
   python3 -c "import json;d=json.load(open('/tmp/tg_pd.json')); print('TG', d.get('ok'), d.get('result',{}).get('message_id') if d.get('ok') else d.get('description','')[:80])" 2>/dev/null || echo "TG parse skip"
 else
   echo "  (TG skip — no token or no file)"

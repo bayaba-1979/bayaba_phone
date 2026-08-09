@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""P0.5 VO Generator — shot_bible 기반 한국어 내레이션 초안 생성
+"""P0.5 VO Generator — 콘텐츠 기반 한국어 내레이션 생성 (V11)
 
-각 beat의 caption + context를 읽고 자연스러운 한국어 VO 문장을 생성합니다.
-Grok API가 사용 가능하면 LLM 기반 생성, 없으면 템플릿 기반 fallback.
+P0가 추출한 context 문장을 그대로 VO로 사용합니다.
+템플릿 매꾸기 대신, 페이지에서 실제로 읽은 문장이 VO가 됩니다.
+Grok API가 사용 가능하면 LLM이 다듬고, 없으면 context를 그대로 씁니다.
 
 Usage:
   python3 scripts/_generate_vo.py <OUTDIR>
-  python3 scripts/_generate_vo.py /root/work/out/pd_tistory_v2
+  python3 scripts/_generate_vo.py /root/work/out/pd_tistory_v3
 """
 from __future__ import annotations
 
@@ -15,10 +16,10 @@ from pathlib import Path
 
 
 def grok_generate(prompt: str) -> str | None:
-    """Try Grok CLI for VO generation. Returns None if unavailable."""
+    """Try Grok CLI for VO polishing. Returns None if unavailable."""
     try:
         r = subprocess.run(
-            ["grok", "한국어로 2-3문장의 짧은 내레이션을 만들어줘. " + prompt],
+            ["grok", "한국어로 2-3문장의 짧은 내레이션을 만들어줘. 원문을 살리되 자연스럽게. " + prompt],
             capture_output=True, text=True, timeout=30,
         )
         if r.returncode == 0:
@@ -30,54 +31,39 @@ def grok_generate(prompt: str) -> str | None:
     return None
 
 
-def template_vo(beat: dict, bible: dict) -> str:
-    """Template-based VO generation when LLM is unavailable."""
-    role = beat.get("role", "build")
+def content_vo(beat: dict, bible: dict) -> str:
+    """Use P0-extracted context directly as VO — no template filling.
+
+    Strategy:
+    1. P0 stored raw context text in beat["vo"]
+    2. Extract first 1-2 meaningful sentences from that context
+    3. If context is empty, fall back to caption
+    """
+    context = beat.get("vo", "")  # P0 put raw context here
     caption = beat.get("caption", "")
-    context = beat.get("vo", "")  # P0 puts raw context in vo field
     title = bible.get("title", "")
 
-    # Clean context: remove heading repetition
+    # Remove heading repetition from context
     if context.startswith(caption):
         context = context[len(caption):].strip()
         if context.startswith("."):
             context = context[1:].strip()
 
-    # Extract key sentence (first meaningful sentence)
-    sentences = [s.strip() for s in context.replace("\n", " ").split(".") if len(s.strip()) > 10]
-    key_sentence = sentences[0] if sentences else context[:80]
+    # Extract meaningful sentences (8자 이상, 마침표/느낌표/물음표 기준)
+    raw_sentences = context.replace("\n", " ").replace("  ", " ")
+    sentences = []
+    for s in raw_sentences.split("."):
+        s = s.strip()
+        if len(s) > 8:
+            sentences.append(s)
 
-    templates = {
-        "hook": [
-            f"지금 보시는 건 {title or caption}입니다. {key_sentence}.",
-            f"{caption}. {key_sentence} — 이게 핵심입니다.",
-        ],
-        "build": [
-            f"{caption}. {key_sentence}.",
-            f"{caption}에 대해 알려드릴게요. {key_sentence}.",
-        ],
-        "climax": [
-            f"여기가 중요합니다. {caption} — {key_sentence}.",
-            f"핵심은 {caption}입니다. {key_sentence}.",
-        ],
-        "resolve": [
-            f"정리하면 {key_sentence}. {caption}.",
-            f"{key_sentence}. 이것이 {title or caption}의 전부입니다.",
-        ],
-    }
-
-    options = templates.get(role, templates["build"])
-    # Pick the option that best fits the context length
-    if len(key_sentence) > 50:
-        vo = options[0]
+    if len(sentences) >= 2:
+        return f"{sentences[0]}. {sentences[1]}."
+    elif len(sentences) == 1:
+        return sentences[0] + "."
     else:
-        vo = options[1] if len(options) > 1 else options[0]
-
-    # Trim to reasonable length (Edge TTS handles long text but shorter = better pacing)
-    if len(vo) > 150:
-        vo = vo[:147] + "..."
-
-    return vo
+        # No useful context — use caption as the VO itself
+        return caption
 
 
 def main() -> int:
@@ -99,34 +85,40 @@ def main() -> int:
         print("⚠️  No beats in shot_bible — skip VO generation")
         return 0
 
-    print(f"🎙  P0.5 VO Generator — {len(beats)} beats")
+    print(f"🎙  P0.5 VO Generator (content-based) — {len(beats)} beats")
 
-    # ── Try Grok first ──
+    # ── Try Grok for first beat only (hook — sets the tone) ──
     use_llm = False
-    for beat in beats:
+    for i, beat in enumerate(beats):
         caption = beat.get("caption", "")
         context_raw = beat.get("vo", "")
-        prompt = f"제목: {caption}. 내용: {context_raw[:200]}"
 
-        vo = grok_generate(prompt)
-        if vo:
-            use_llm = True
-            beat["vo"] = vo
-        else:
-            beat["vo"] = template_vo(beat, bible)
+        if i == 0:
+            # Try LLM for the hook beat (sets overall tone)
+            prompt = f"제목: {bible.get('title','')}. 첫 섹션: {caption}. 내용: {context_raw[:200]}"
+            llm_vo = grok_generate(prompt)
+            if llm_vo:
+                use_llm = True
+                beat["vo"] = llm_vo
+                continue
+
+        # Content-based VO (no template filling)
+        beat["vo"] = content_vo(beat, bible)
 
     if use_llm:
-        print("  🤖 VO generated via Grok LLM")
+        print("  🤖 Hook VO polished via Grok LLM")
     else:
-        print("  📝 VO generated via template (Grok unavailable)")
+        print("  📝 VO from extracted content (Grok unavailable)")
 
     # ── Save ──
+    bible["version"] = "v11"
     bible_path.write_text(
         json.dumps(bible, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
     for b in beats:
-        print(f"  {b['id']:25s} | {b['vo'][:70]}...")
+        vo_text = b.get("vo", "")
+        print(f"  {b['id']:25s} | {vo_text[:80]}{'...' if len(vo_text)>80 else ''}")
 
     print(f"  ✅ shot_bible updated — Next: python3 scripts/_direct_map.py {outdir}")
     return 0

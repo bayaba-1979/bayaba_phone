@@ -130,10 +130,19 @@ def build_filter_for_slide(img, mp3, out_clip, beat, fonts, fps, W, H, brand, pr
 
     if pan_dir == 'right':
         pan_x = f'iw/2-(iw/zoom/2)+{pan_amount}*iw*(2*on/{nframes}-1)/zoom'
+        pan_y = f'ih/2-(ih/zoom/2)'
     elif pan_dir == 'left':
         pan_x = f'iw/2-(iw/zoom/2)-{pan_amount}*iw*(2*on/{nframes}-1)/zoom'
+        pan_y = f'ih/2-(ih/zoom/2)'
+    elif pan_dir == 'up':
+        pan_x = f'iw/2-(iw/zoom/2)'
+        pan_y = f'ih/2-(ih/zoom/2)-{pan_amount}*ih*(2*on/{nframes}-1)/zoom'
+    elif pan_dir == 'down':
+        pan_x = f'iw/2-(iw/zoom/2)'
+        pan_y = f'ih/2-(ih/zoom/2)+{pan_amount}*ih*(2*on/{nframes}-1)/zoom'
     else:
         pan_x = f'iw/2-(iw/zoom/2)'
+        pan_y = f'ih/2-(ih/zoom/2)'
 
     # ── Color grade ──
     if grade_key not in COLOR_GRADES:
@@ -171,20 +180,23 @@ def build_filter_for_slide(img, mp3, out_clip, beat, fonts, fps, W, H, brand, pr
     cta = ""
     brand_esc = escape_drawtext(brand)
     footer = (
-        f",drawtext=text='{brand_esc}':fontcolor=#999999:fontsize=16"
-        f":x=w-text_w-20:y=h-32:{font_opt}:shadowcolor=black@0.4:shadowx=1:shadowy=1"
+        f",drawtext=text='{brand_esc}':fontcolor=#888888:fontsize=22"
+        f":x=w-text_w-24:y=h-40:{font_opt}:shadowcolor=black@0.4:shadowx=1:shadowy=1"
     )
 
-    # V10: soft gradient overlay for text readability (replaces harsh black bars)
+    # V11: 2-layer pseudo-gradient overlay (bottom-heavy, fades upward)
+    # Layer 1: darker at very bottom (text sits here)
+    # Layer 2: lighter transition zone above
     bars = (
-        f",drawbox=x=0:y=ih*0.72:w=iw:h=ih*0.28:color=0x0a0a0f@0.45:t=fill"
+        f",drawbox=x=0:y=ih*0.80:w=iw:h=ih*0.20:color=0x0a0a0f@0.55:t=fill"
+        f",drawbox=x=0:y=ih*0.68:w=iw:h=ih*0.14:color=0x0a0a0f@0.25:t=fill"
     )
 
     # ── Assemble vf ──
     vf = (
         f"scale={W*2}:{H*2}:force_original_aspect_ratio=decrease,"
         f"pad={W*2}:{H*2}:(ow-iw)/2:(oh-ih)/2,"
-        f"zoompan=z='{zoom_expr}':d={nframes}:x='{pan_x}':y='ih/2-(ih/zoom/2)':s={W}x{H}:fps={fps},"
+        f"zoompan=z='{zoom_expr}':d={nframes}:x='{pan_x}':y='{pan_y}':s={W}x{H}:fps={fps},"
         f"fade=t=in:st=0:d=0.35,"
     )
     if grade and grade != 'natural' and grade != '':
@@ -738,7 +750,7 @@ for bm in beat_map.values():
     zs = bm.get('zoom', {})
     if isinstance(zs, dict):
         zooms.add(zs.get('type', '?'))
-print(f'  🎬 V8 FX: zoom={zooms if zooms else "N/A"} · duck={"ON" if duck_enabled else "OFF"} · stinger={stinger_on} · interrupt={int_on} · loop={lm_on} · karaoke={ass_on}')
+print(f'  🎬 V11 FX: zoom={zooms if zooms else "N/A"} · duck={"ON" if duck_enabled else "OFF"} · stinger={stinger_on} · interrupt={int_on} · loop={lm_on} · karaoke={ass_on}')
 
 # ── CapCut-style shorts variant ──
 if PRESET in ('shorts', 'tiktok'):
