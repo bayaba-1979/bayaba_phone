@@ -1,6 +1,27 @@
 # 📋 S21 Phone — 전체 개발일지
 
 
+### 🎬 PD Pipeline V11 — 만점 업그레이드 (_Claude · 2026-08-09 12:00)
+
+정수 평가 19/40(C+) → 전면 개선. 6파일 수정 + 1신규, TG msg 372.
+
+**핵심 개선:**
+- CSS `:has-text()` selector 8/8 전부 성공 (V10은 전부 timeout → fallback)
+- VO: 템플릿 폐기 → P0 추출 콘텐츠 문장 그대로 사용 ("이해"에 가까워짐)
+- 연출: `pan_up`/`pan_down` 추가, 4종 zoom (pan_right 62→50%)
+- 시각: 2-layer pseudo-gradient (`drawbox` 2단 중첩), footer 16→22px
+- 코드: P1 heredoc → `_capture_stills.py` 분리, Playwright text locator 2차 fallback
+- 오류: `|| true` → stderr 로깅, TG caption V9→V11, 외부 URL force-reparse
+
+**파일:** `_parse_url.py` · `_generate_vo.py` · `_direct_map.py` · `_render_video.py` · `_capture_stills.py`(신규) · `produce_pd.sh`
+
+**아직 부족한 점:**
+- pan_right 여전히 50% — 연출 다양성 추가 개선 여지
+- `_timing.json` 미생성으로 SRT 타이밍 ffprobe fallback (부정확)
+- Grok LLM VO 미연동 (API 호출 불안정)
+- S21 CPU 한계로 전체 파이프라인 ~20분
+
+
 ### 🔧 자막-내레이션 싱크 수정 (xfade-aware timing) (_Claude · 2026-08-08 17:00)
 
 **문제:** 자막(SRT/ASS)과 내레이션 싱크가 크게 어긋남. Beat 1 자막이 5.0s에서 시작하는데 실제 VO는 0.1s에서 시작.
