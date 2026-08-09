@@ -1,6 +1,32 @@
 # 📋 S21 Phone — 전체 개발일지
 
 
+### 🎬 PD Pipeline V12 — 전문가급 품질 지표 5종 (_Claude · 2026-08-09 16:00)
+
+V11이 "파이프라인이 안 깨진다"는 안정성 검증이었다면, V12는 "결과물이 프로급인가"를 검증하는 2티어 QA 체계 완성. 8파일 수정, TG msg 374.
+
+**5종 품질 지표 추가:**
+- **소스 해상도 헤드룸:** `device_scale_factor` 3x→5x (1950×4220, 출력 1080×1920 대비 width 1.81x). Ken Burns zoom artifact 방지.
+- **오디오 LUFS:** `volume=1.0` → `loudnorm=I=-16:TP=-1.5:LRA=11:linear=true` (P4 `_render_video.py` + P5 `_pd_assemble.py`, 총 4개소). YouTube 권장 -16 LUFS.
+- **Easing:** Cosine ease-in-out 문서화 (V11부터 적용됐으나 지표로 미기재).
+- **Grok TTS 공식 폐기:** API 403 상태, SuperGrok 미포함 확인. 콘텐츠 추출 VO로 완전 대체.
+- **GPU/NPU 우선순위 하향:** proot glibc↔Android bionic ABI 충돌로 구조적 한계. S25 업그레이드 시 재검토로 전환.
+
+**검증:**
+- P0: 8/8 `:has-text()` selector 100% 성공, zero fallback
+- P0.5: 콘텐츠 기반 VO (실제 페이지 문장 사용)
+- P0.6: zoom 4종 (out/in/pan_right/pan_up/pan_down), pan_right 50% (V10 62.5% → 개선)
+- P1: 1950×4220 5x DPI 캡처 확인, CSS 8/8 성공
+- LUFS: `_render_video.py` 2개소 + `_pd_assemble.py` 2개소 loudnorm 치환 확인
+
+**기술백서 업데이트:**
+- Section 9: 2티어 QA 체계 (안정성 9항목 + 전문가 7항목)
+- Section 10: Grok 폐기 확정, GPU/NPU 구조적 한계로 보류, 다중 페이지 GitHub Pages 연결
+- Section 5-6: DPI 5x, LUFS, Grok 제거, GPU/NPU 상태 갱신
+
+**커밋:** 2d696b4 `feat: PD Pipeline V12 — 전문가급 품질 지표 5종 반영`
+
+
 ### 🎬 PD Pipeline V11 — 만점 업그레이드 (_Claude · 2026-08-09 12:00)
 
 정수 평가 19/40(C+) → 전면 개선. 6파일 수정 + 1신규, TG msg 372.
