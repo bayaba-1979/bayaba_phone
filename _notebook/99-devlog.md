@@ -1,6 +1,45 @@
 # 📋 S21 Phone — 전체 개발일지
 
 
+### 🎬 PD Pipeline V13 — ⌨️ 타자기 자막 + 하드 2줄 제한 + BGM 변수화 (_Claude · 2026-08-09 18:50)
+
+V12가 품질 지표였다면, V13은 자막 스타일의 근본적 전환. CNN Breaking News(per-word scale pop, 빨간 배경바, BorderStyle=3 opaque box)를 완전히 폐기하고 **타자기(Typewriter) 스타일**로 교체.
+
+**`_make_ass.py` 전면 재작성:**
+- **Per-character → per-character Hangul syllable**: 각 음절이 개별 Dialogue 이벤트로 등장
+- **Typewriter snap**: `\fscx180\fscy180\t(0,40,\fscx100\fscy100)` — 180%로 등장 후 40ms 안에 100%로 스냅
+- **No background box**: BorderStyle=3(불투명 박스) → BorderStyle=1(외곽선 only), 흰색 텍스트 + 검은 외곽선
+- **Hard 2-line limit**: `MAX_VO_CHARS=32` — VO 텍스트를 32자로 하드 트렁케이트 (72pt 기준 한글 ~16자/줄). 마침표·쉼표·공백 경계에서 스마트 컷
+- **3x speed**: `SPEED_MULT=3.0` — 모든 텍스트가 beat duration의 1/3 안에 타이핑 완료, 성우 음성보다 먼저 끝남
+- **Lower third position**: `MARGIN_V=400`, y=1520 (1080×1920 기준 하단)
+
+**BGM 변수화 (`produce_pd.sh`):**
+- `--bgm` 플래그: YouTube URL이면 yt-dlp로 자동 다운로드(m4a), 로컬 파일 경로도 지원
+- `--bgm-volume` 플래그: CLI에서 BGM 볼륨 직접 지정 (기본값 0.025)
+- `BGM_SOURCE` env var로 MCP 연동
+
+**V13 버전 범프 (8개 파일):**
+- `_parse_url.py`: `"version": "v13"`, `standard: "video_pd_pipeline_v3"`, header
+- `_generate_vo.py`: `bible["version"] = "v13"`, header
+- `_direct_map.py`: `bible["version"] = "v13"`, header, pan_up/down 문서화
+- `_capture_stills.py`: header V13
+- `_render_video.py`: V13 comment
+- `_make_ass.py`: V13 typewriter docstring
+- `produce_pd.sh`: header, TG caption, footer → V13
+- `pd_pipeline_mcp.py`: v1.1, bgm_source tool param 추가
+
+**검증 (pd_tistory_v4 전체 파이프라인):**
+- P0: 8/8 `:has-text()` selector 100%
+- P0.5: 콘텐츠 기반 VO (컨텍스트 추출)
+- P0.6: zoom 4종 (out×2, pan_right×4, pan_up×1, pan_down×1)
+- P1: CSS 8/8 캡처 성공 (3.6MB total), 다양한 byte size = 서로 다른 섹션
+- P4c: ASS typewriter burn-in (177 Dialogue lines, per-char)
+- P5: playable 33MB, dur=122.9s, LUFS -16
+- QA: unique_frames=10/10, black=0
+- P6: TG 720p 15MB 전송 완료
+
+**커밋:** (pending)
+
 ### 🎬 PD Pipeline V12 — 전문가급 품질 지표 5종 (_Claude · 2026-08-09 16:00)
 
 V11이 "파이프라인이 안 깨진다"는 안정성 검증이었다면, V12는 "결과물이 프로급인가"를 검증하는 2티어 QA 체계 완성. 8파일 수정, TG msg 374.

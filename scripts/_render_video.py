@@ -184,7 +184,7 @@ def build_filter_for_slide(img, mp3, out_clip, beat, fonts, fps, W, H, brand, pr
         f":x=w-text_w-24:y=h-40:{font_opt}:shadowcolor=black@0.4:shadowx=1:shadowy=1"
     )
 
-    # V12: 2-layer pseudo-gradient overlay (bottom-heavy, fades upward) + LUFS -16 voice
+    # V13: 2-layer pseudo-gradient overlay (bottom-heavy, fades upward) + LUFS -16 voice
     # Layer 1: darker at very bottom (text sits here)
     # Layer 2: lighter transition zone above
     bars = (
@@ -752,7 +752,7 @@ for bm in beat_map.values():
     zs = bm.get('zoom', {})
     if isinstance(zs, dict):
         zooms.add(zs.get('type', '?'))
-print(f'  🎬 V12 FX: zoom={zooms if zooms else "N/A"} · duck={"ON" if duck_enabled else "OFF"} · stinger={stinger_on} · interrupt={int_on} · loop={lm_on} · karaoke={ass_on}')
+print(f'  🎬 V13 FX: zoom={zooms if zooms else "N/A"} · duck={"ON" if duck_enabled else "OFF"} · stinger={stinger_on} · interrupt={int_on} · loop={lm_on} · karaoke={ass_on}')
 
 # ── CapCut-style shorts variant ──
 if PRESET in ('shorts', 'tiktok'):

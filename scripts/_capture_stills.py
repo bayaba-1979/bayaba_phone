@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""P1 Still Capture — Playwright page screenshots per beat (V12)
+"""P1 Still Capture — Playwright page screenshots per beat (V13)
 
 Reads shot_bible.json scroll_sel per beat, scrolls to each section, captures viewport.
 Fallback chain: CSS :has-text() → Playwright text locator → progressive scroll.

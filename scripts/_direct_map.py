@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""P0.6 Directing Map — 콘텐츠 기반 연출 자동 결정 (V12)
+"""P0.6 Directing Map — 콘텐츠 기반 연출 자동 결정 (V13)
 
 VO 길이, caption, role, beat 위치를 분석해 per-beat 연출 결정:
 - zoom type (in/out/pan_right/pan_left/pan_up/pan_down)
 - color_tag (gold/warm/teal/cool/cinematic/natural)
 - scroll_sel 검증
 
-Rule-based — LLM 불필요. V12: pan_up/down 추가, zoom 분배 다양화 (pan_right ≤40%).
+Rule-based — LLM 불필요. V13: pan_up/down 추가, zoom 분배 다양화 (pan_right ≤40%).
 
 Usage:
   python3 scripts/_direct_map.py <OUTDIR>
@@ -119,7 +119,7 @@ def main() -> int:
         return 0
 
     total = len(beats)
-    print(f"🎬 P0.6 Directing Map (V12) — {total} beats")
+    print(f"🎬 P0.6 Directing Map (V13) — {total} beats")
 
     page_beats = [b for b in beats if b.get("kind") != "bridge"]
     page_total = len(page_beats)
@@ -174,7 +174,7 @@ def main() -> int:
     print(f"  📊 Zoom diversity: {zoom_counts} | pan_right={pan_right_pct}% | unique={unique_zooms} types")
 
     # ── Save ──
-    bible["version"] = "v12"
+    bible["version"] = "v13"
     bible_path.write_text(
         json.dumps(bible, ensure_ascii=False, indent=2), encoding="utf-8"
     )

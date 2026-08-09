@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-pd_pipeline_mcp.py — PD Pipeline MCP Server v1.0
+pd_pipeline_mcp.py — PD Pipeline MCP Server v1.1
 
-Short-form video production on demand.
+Short-form video production on demand. V13 typewriter ASS + LUFS -16 + 5x DPI.
 produce_pd.sh wrapper — start, monitor, stop, list.
 
 Usage:
@@ -56,6 +56,10 @@ TOOLS: list[dict[str, Any]] = [
                 "url": {
                     "type": "string",
                     "description": "캡처할 페이지 URL. 기본값: https://helena751107.github.io/helena_phone/",
+                },
+                "bgm_source": {
+                    "type": "string",
+                    "description": "BGM 음원 경로 또는 YouTube URL. YouTube URL이면 yt-dlp로 자동 다운로드. 생략 시 기본 BGM.",
                 },
                 "bgm_volume": {
                     "type": "number",
@@ -195,7 +199,7 @@ def list_episodes() -> list[dict]:
     return episodes
 
 
-def produce(ep_id: str, url: str, bgm_volume: float, voice: str = "ko-KR-YuJinNeural", force: bool = False) -> dict:
+def produce(ep_id: str, url: str, bgm_volume: float, bgm_source: str = "", voice: str = "ko-KR-YuJinNeural", force: bool = False) -> dict:
     """Launch produce_pd.sh as a background job."""
     outdir = OUT_BASE / ep_id
     playable = outdir / f"{ep_id}_playable.mp4"
@@ -214,6 +218,7 @@ def produce(ep_id: str, url: str, bgm_volume: float, voice: str = "ko-KR-YuJinNe
     env["URL"] = url
     env["OUTDIR"] = str(outdir)
     env["BGM_VOLUME"] = str(bgm_volume)
+    env["BGM_SOURCE"] = bgm_source
     env["VOICE"] = voice
     env["TTS_ENGINE"] = "edge"
 
@@ -520,6 +525,7 @@ def handle_request(method: str, params: dict | None = None) -> dict:
                     ep_id=args.get("ep_id", "pd_intro"),
                     url=args.get("url", "https://helena751107.github.io/helena_phone/"),
                     bgm_volume=float(args.get("bgm_volume", 0.025)),
+                    bgm_source=args.get("bgm_source", ""),
                     voice=args.get("voice", "ko-KR-YuJinNeural"),
                     force=bool(args.get("force", False)),
                 )

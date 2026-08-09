@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""ASS typewriter subtitle generator V10 — 타이핑 타자기 스타일
+"""ASS typewriter subtitle generator V10 — ⌨️ 타자기 스타일 (V13 hard-limit)
 
-Per-character typewriter reveal: 글자가 한 글자씩 "탁탁탁" 나타나는 효과.
+Per-character typewriter reveal: 글자가 한 글자씩 "탁탁탁" 타자기처럼 나타남.
 No background box — 깔끔한 흰색 글자 + 검은 그림자만.
-
-V10: Per-character typing (scale pop 130%→100% over 60ms) · white text · no banner bg
+V13: 32자 하드컷 (2줄 보장), 180%→100% snap 40ms, 3x speed, y=1520.
 V9.1: _timing.json xfade-aware per-beat timestamps.
 
 Usage:
@@ -31,16 +30,19 @@ def format_ass_time(seconds: float) -> str:
 # ═══════════════════════════════════════════════════════════════
 
 FONT_SIZE    = 72          # pt
-POP_SCALE    = 130         # % — start at 130% when char appears
-POP_MS       = 60          # ms — quick "tak" snap to 100%
-MARGIN_V     = 180         # px from bottom
+POP_SCALE    = 180         # % — big typewriter strike impact
+POP_MS       = 40          # ms — fast percussive snap
+MARGIN_V     = 400         # px from bottom → text block in lower third
 PLAY_RES_X   = 1080
 PLAY_RES_Y   = 1920
 CENTER_X     = 540
-SUBTITLE_Y   = PLAY_RES_Y - MARGIN_V  # 1740
+SUBTITLE_Y   = PLAY_RES_Y - MARGIN_V  # 1520 — bottom line baseline
 LINE_SPACING = int(FONT_SIZE * 1.45)  # px between baselines
 MAX_LINE_W   = PLAY_RES_X - 120       # 960px — leave side margins
+MAX_LINES    = 2            # hard limit — never exceed 2 lines
 CHAR_GAP     = 3            # px gap between characters
+SPEED_MULT   = 3.0          # typing 3x faster than beat — finish before voice
+MAX_VO_CHARS = 32           # hard truncate VO to ~2 lines (Korean ~16 char/line)
 
 
 def char_width_px(ch: str) -> int:
@@ -143,6 +145,17 @@ def main() -> int:
     for beat in beats:
         bid      = beat["id"]
         vo_text  = beat.get("vo") or beat.get("caption") or bid
+
+        # ── Hard truncate: max MAX_VO_CHARS chars → guarantee ≤2 lines ──
+        if len(vo_text) > MAX_VO_CHARS:
+            # Try to cut at a natural boundary (space or period)
+            cut = MAX_VO_CHARS
+            for sep in ["." "," " " "\n"]:
+                pos = vo_text.rfind(sep, 0, MAX_VO_CHARS)
+                if pos > MAX_VO_CHARS // 2:
+                    cut = pos + 1
+                    break
+            vo_text = vo_text[:cut].rstrip()
         caption  = beat.get("caption") or ""
         pause    = float(beat.get("pause", 0))
 
@@ -168,7 +181,7 @@ def main() -> int:
             n_visible = 1
             visible_indices = [0]
 
-        char_dur = dur / n_visible  # time between each visible char appearing
+        char_dur = dur / (n_visible * SPEED_MULT)  # time between each visible char (2x faster)
 
         # ── Layout: wrap chars into lines ──
         # Build list of (char, width, is_visible)
@@ -195,8 +208,23 @@ def main() -> int:
         if line_start < len(chars):
             lines.append((line_start, len(chars), line_w, vis_in_line))
 
+        # ── Truncate to MAX_LINES (2) — only show first 2 lines ──
+        if len(lines) > MAX_LINES:
+            lines = lines[:MAX_LINES]
+            # Truncate chars to only include characters in kept lines
+            kept_end = lines[-1][1]  # end_char_idx of last kept line
+            chars = chars[:kept_end]
+            # Recalculate visible indices for truncated chars
+            visible_indices = [i for i, ch in enumerate(chars) if ch != " "]
+            n_visible = len(visible_indices)
+            if n_visible == 0:
+                n_visible = 1
+                visible_indices = [0]
+            char_dur = dur / (n_visible * SPEED_MULT)
+            char_info = char_info[:kept_end]
+
         n_lines = len(lines)
-        # y positions
+        # y positions — bottom-most line at SUBTITLE_Y
         line_base_ys = [SUBTITLE_Y - (n_lines - 1 - li) * LINE_SPACING
                         for li in range(n_lines)]
 
@@ -260,8 +288,8 @@ def main() -> int:
 
     last_end = beat_timing[beats[-1]["id"]]["end"] if use_timing and beats and beats[-1]["id"] in beat_timing else (fallback_cursor if not use_timing else 0)
     print(f"  ⌨️  ASS Typewriter: {len(beats)} beats · {total_chars_all_beats} chars · total={last_end:.1f}s · {ass_path}")
-    print(f"  💬 Per-char typing: {POP_SCALE}%→100% snap over {POP_MS}ms")
-    print(f"  🖊️  {FONT_SIZE}pt white · black outline · no background box")
+    print(f"  💬 Per-char typing: {POP_SCALE}%→100% snap over {POP_MS}ms · {SPEED_MULT}x speed")
+    print(f"  🖊️  {FONT_SIZE}pt white · black outline · no bg box · max {MAX_LINES} lines · y={SUBTITLE_Y}")
     timing_src = "xfade _timing.json" if use_timing else "ffprobe fallback"
     print(f"  ⏱️  timing source: {timing_src}")
 

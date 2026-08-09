@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""P0.5 VO Generator — 콘텐츠 기반 한국어 내레이션 생성 (V12)
+"""P0.5 VO Generator — 콘텐츠 기반 한국어 내레이션 생성 (V13)
 
 P0가 추출한 context 문장을 그대로 VO로 사용합니다.
 템플릿 매꾸기 대신, 페이지에서 실제로 읽은 문장이 VO가 됩니다.
@@ -111,7 +111,7 @@ def main() -> int:
         print("  📝 VO from extracted content (Grok unavailable)")
 
     # ── Save ──
-    bible["version"] = "v12"
+    bible["version"] = "v13"
     bible_path.write_text(
         json.dumps(bible, ensure_ascii=False, indent=2), encoding="utf-8"
     )

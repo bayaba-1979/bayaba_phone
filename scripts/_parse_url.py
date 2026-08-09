@@ -4,7 +4,7 @@
 페이지를 로드하고 섹션(heading + 본문)을 추출해 beat 구성을 자동 생성합니다.
 각 beat에는 스크롤 캡처를 위한 CSS selector(scroll_sel)가 포함됩니다.
 
-V12: 5x DPI captures + LUFS -16 audio. V11: :has-text() selector only (nth-of-type 제거), context 300자 확장.
+V13: ⌨️ typewriter ASS + hard 2-line limit + 3x speed. V12: 5x DPI + LUFS -16.
 V10: Generic page support — Tistory, GitHub Pages, Velog, Naver Blog 등.
 
 Usage:
@@ -243,10 +243,10 @@ def main() -> int:
             "id": ep,
             "url": url,
             "title": page_title,
-            "standard": "video_pd_pipeline_v2",
+            "standard": "video_pd_pipeline_v3",
             "bgm_volume": 0.025,
             "resolution": "1080:1920",
-            "version": "v12",
+            "version": "v13",
             "channel_stinger": {"enabled": True, "duration": 0.5, "text": "S21 Phone"},
             "pattern_interrupt": {"enabled": True, "duration": 0.4},
             "loop_match": {"enabled": True, "open_color": "gold", "close_color": "gold"},
