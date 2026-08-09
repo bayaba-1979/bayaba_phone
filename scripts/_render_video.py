@@ -184,7 +184,7 @@ def build_filter_for_slide(img, mp3, out_clip, beat, fonts, fps, W, H, brand, pr
         f":x=w-text_w-24:y=h-40:{font_opt}:shadowcolor=black@0.4:shadowx=1:shadowy=1"
     )
 
-    # V11: 2-layer pseudo-gradient overlay (bottom-heavy, fades upward)
+    # V12: 2-layer pseudo-gradient overlay (bottom-heavy, fades upward) + LUFS -16 voice
     # Layer 1: darker at very bottom (text sits here)
     # Layer 2: lighter transition zone above
     bars = (
@@ -690,7 +690,8 @@ if bgm and os.path.exists(bgm):
         # sidechaincompress: main=music[1:a], sidechain=voice[0:a]
         # V7: BGM envelope → ducking → mix
         filter_complex = (
-            f'[0:a]aformat=sample_rates=48000:channel_layouts=stereo,volume=1.0[voice];'
+            f'[0:a]aformat=sample_rates=48000:channel_layouts=stereo,'
+            f'loudnorm=I=-16:TP=-1.5:LRA=11:linear=true[voice];'
             f'[1:a]aformat=sample_rates=48000:channel_layouts=stereo,'
             f'{bgm_env_expr},'
             f'afade=t=in:st=0:d=1.5,afade=t=out:st={fade_out_st:.1f}:d=2.0[music_pre];'
@@ -701,7 +702,8 @@ if bgm and os.path.exists(bgm):
     else:
         print(f'  🎵 BGM mix {os.path.basename(bgm)} vol={bgm_vol} (whisper, no ducking) + 📈 swell')
         filter_complex = (
-            f'[0:a]aformat=sample_rates=48000:channel_layouts=stereo,volume=1.0[voice];'
+            f'[0:a]aformat=sample_rates=48000:channel_layouts=stereo,'
+            f'loudnorm=I=-16:TP=-1.5:LRA=11:linear=true[voice];'
             f'[1:a]aformat=sample_rates=48000:channel_layouts=stereo,'
             f'{bgm_env_expr},'
             f'afade=t=in:st=0:d=1.5,afade=t=out:st={fade_out_st:.1f}:d=2.0[music];'
@@ -750,7 +752,7 @@ for bm in beat_map.values():
     zs = bm.get('zoom', {})
     if isinstance(zs, dict):
         zooms.add(zs.get('type', '?'))
-print(f'  🎬 V11 FX: zoom={zooms if zooms else "N/A"} · duck={"ON" if duck_enabled else "OFF"} · stinger={stinger_on} · interrupt={int_on} · loop={lm_on} · karaoke={ass_on}')
+print(f'  🎬 V12 FX: zoom={zooms if zooms else "N/A"} · duck={"ON" if duck_enabled else "OFF"} · stinger={stinger_on} · interrupt={int_on} · loop={lm_on} · karaoke={ass_on}')
 
 # ── CapCut-style shorts variant ──
 if PRESET in ('shorts', 'tiktok'):

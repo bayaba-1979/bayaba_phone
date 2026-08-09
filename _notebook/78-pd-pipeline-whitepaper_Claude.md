@@ -1,6 +1,6 @@
 # 🎬 PD Pipeline 기술 백서 — URL 하나로 숏폼 자동 제작
 
-**버전:** V11 · **일자:** 2026-08-09 · **위치:** S21 Phone (aarch64 proot Ubuntu)  
+**버전:** V12 · **일자:** 2026-08-09 · **위치:** S21 Phone (aarch64 proot Ubuntu)  
 **저자:** Boss + Claude Code · **라이선스:** MIT · **TG:** @S21Phone_Bot
 
 ---
@@ -34,14 +34,15 @@ P0.6 (_direct_map.py)       VO 길이·역할 기반 zoom/color_tag/pause 자동
 P1 (_capture_stills.py)     Playwright로 beat마다 scroll_sel 요소로 스크롤 → viewport 캡처
   │                           Fallback chain: :has-text() → text locator → progressive scroll
   ▼
-P2 (voice_engine.py)        Edge TTS (YuJinNeural) / Sherpa-ONNX / Grok → MP3 음성 합성
-  │                           우선순위: local → grok → edge (자동 fallback)
+P2 (voice_engine.py)        Edge TTS (YuJinNeural) / Sherpa-ONNX → MP3 음성 합성
+  │                           우선순위: local → edge (Grok TTS 폐기 — API 403, SuperGrok 미포함)
   ▼
 P3 (_bridge_pickup.sh)      Android 갤러리에서 bridge 영상(오프닝/클로징) 자동 감지
   │
   ▼
 P4 (_render_video.py)       755줄 FFmpeg 제작 엔진:
-  │                           • Ken Burns zoom/pan (코사인 easing)
+  │                           • Ken Burns zoom/pan (코사인 easing, 6방향)
+  │                           • LUFS -16 오디오 정규화 (loudnorm 필터)
   │                           • 6종 color grade (FFmpeg eq+colorbalance)
   │                           • xfade multi-transition (fade/wipe/slide/dissolve)
   │                           • channel stinger (0.5s 로고 비프)
@@ -49,6 +50,7 @@ P4 (_render_video.py)       755줄 FFmpeg 제작 엔진:
   │                           • BGM sidechain ducking (sidechaincompress)
   │                           • 하단 pseudo-gradient 오버레이 (2-layer drawbox)
   │                           • end card (loop_match color + fade-in 텍스트)
+  │                           • 소스 해상도 5x DPI (390×844@5x → 1950×4220, width 1.81x 출력)
   │
   ▼
 P4b (_make_ass.py)          CNN Breaking News 스타일 ASS 자막
@@ -58,7 +60,7 @@ P4c (ffmpeg)                ASS 자막을 VO body에 burn-in
   │
   ▼
 P5 (_pd_assemble.py)        Bridge(오프닝/클로징) 연결 + full-timeline BGM mix + QA gate
-  │                           slide diversity check (unique frames ≥ 10, black frames = 0)
+  │                           LUFS -16 VO 정규화 → sidechain ducking → slide diversity check
   ▼
 P5b (_make_srt.py)          YouTube caption용 SRT 생성
   │
@@ -179,9 +181,9 @@ curl -s -X POST http://localhost:8765/ \
 
 | 계층 | 기술 | 비고 |
 |------|------|------|
-| 브라우저 자동화 | **Playwright** (Chromium) | 페이지 로드·DOM 파싱·스크롤 캡처, viewport=390×844@3x |
-| 음성 합성 | **Edge TTS** (YuJinNeural), Sherpa-ONNX (Kokoro), Grok TTS | multi-provider auto-fallback |
-| 영상 인코딩 | **FFmpeg** (libx264 High@L4.0) | Ken Burns zoompan · xfade · sidechaincompress · drawtext · vignette |
+| 브라우저 자동화 | **Playwright** (Chromium) | 페이지 로드·DOM 파싱·스크롤 캡처, viewport=390×844@5x (1950×4220 소스) |
+| 음성 합성 | **Edge TTS** (YuJinNeural), Sherpa-ONNX (Kokoro) | local 우선, Grok TTS 폐기 (API 403) |
+| 영상 인코딩 | **FFmpeg** (libx264 High@L4.0, 30fps) | Ken Burns zoompan · xfade · sidechaincompress · loudnorm · drawtext · vignette |
 | 자막 | **ASS** (Advanced SubStation Alpha) | CNN Breaking News 스타일, per-word `\t()` scale pop |
 | BGM | FluidSynth → 헬레나 피아노 렌더 | Satie Gymnopédie №1, Clair de Lune 등 (Boss 자작, Content ID 회피) |
 | MCP 프로토콜 | **JSON-RPC 2.0** (STDIO/HTTP) | Python 3 stdlib only, 외부 의존성 0 |
@@ -199,7 +201,8 @@ OS:         Android 14 → Termux → proot Ubuntu (aarch64 glibc)
 저장소:     /root/work/ (helena_phone) + /root/work/helena-programming/
 
 ⚠️ CPU-only. Ken Burns 인코딩 beat당 1~3분, 총 15~20분.
-   GPU/NPU 가속은 Termux bionic 브릿지로 탐색 중 (2026-08-07).
+   GPU(Mali-G78)/NPU(Exynos) 가속은 proot glibc↔Android bionic ABI 충돌로 구조적 한계.
+   Termux bionic 브릿지 실험 보류 → S25 업그레이드 시 재검토 (2026-08-09).
 ```
 
 ---
@@ -211,7 +214,7 @@ OS:         Android 14 → Termux → proot Ubuntu (aarch64 glibc)
   "standard": "video_pd_pipeline_v2",
   "bgm_volume": 0.025,
   "resolution": "1080:1920",
-  "version": "v11",
+  "version": "v12",
   "channel_stinger": {"enabled": true, "duration": 0.5, "text": "S21 Phone"},
   "pattern_interrupt": {"enabled": true, "duration": 0.4},
   "loop_match": {"enabled": true, "open_color": "gold", "close_color": "gold"},
@@ -231,7 +234,7 @@ OS:         Android 14 → Termux → proot Ubuntu (aarch64 glibc)
   "standard": "video_pd_pipeline_v2",
   "bgm_volume": 0.025,
   "resolution": "1080:1920",
-  "version": "v11",
+  "version": "v12",
   "page_bg_color": "rgb(244, 229, 201)",
   "beats": [
     {
@@ -257,17 +260,35 @@ OS:         Android 14 → Termux → proot Ubuntu (aarch64 glibc)
 
 ---
 
-## 9. 현재 상태 (V11, 2026-08-09)
+## 9. 현재 상태 (V12, 2026-08-09)
 
-| 지표 | 값 |
-|------|-----|
-| CSS selector 성공률 | **8/8 (100%)** — `:has-text()` format, zero fallback |
-| Zoom 다양성 | 4종 (out, in, pan_right, pan_up, pan_down) |
-| Color grade | 6종 (gold, warm, teal, cool, cinematic, natural) |
-| VO 방식 | 콘텐츠 추출 문장 직접 사용 (템플릿 NO) |
-| Fallback chain | CSS → Playwright text locator → progressive scroll (3단계) |
-| 전체 소요시간 | ~20분 (S21 CPU-only, 8-beat 123초 영상 기준) |
-| TG 전송 | msg 372 (V11 최신) |
+### 9.1 안정성 지표 (파이프라인이 깨지지 않는가)
+
+| 지표 | 값 | 검증 방법 |
+|------|-----|-----------|
+| CSS selector 성공률 | **100%** (8/8) | `:has-text()` 포맷, zero fallback |
+| Fallback chain | CSS → Playwright text locator → progressive scroll | 3단계, 단계별 성공 카운트 리포트 |
+| VO 품질 | 콘텐츠 추출 문장 직접 사용 | 템플릿 NO, context 기반 1~2문장 자동 추출 |
+| Zoom 다양성 | 6종 (out/in/pan_right/pan_left/pan_up/pan_down) | `_direct_map.py` diversity report |
+| Color grade | 6종 (gold/warm/teal/cool/cinematic/natural) | position-based cycle |
+| 에러 처리 | `|| echo "⚠️ [step] failed" >&2` | 모든 단계 실패 원인 stderr 기록 |
+| Code modularity | P1 heredoc → `_capture_stills.py` 독립 파일 | Bash 인라인 Python 제거 |
+| QA gate | Slide diversity ≥ 10 unique frames, black frames = 0 | `_qa_video_slides.py` + P5 gate |
+| 전체 소요시간 | ~20분 | S21 CPU-only, 8-beat 123초 영상 기준 |
+
+### 9.2 전문가 품질 지표 (결과물이 프로급인가)
+
+| 지표 | V12 값 | 기준 | 적용 위치 |
+|------|--------|------|-----------|
+| **Easing** | ✅ Cosine ease-in-out | `zoom_expr = base + amount*(1-cos(PI*on/nframes))/2` | `_render_video.py` P4 |
+| **소스 해상도 헤드룸** | **1.81x width** (1950×4220 소스, 1080×1920 출력) | Ken Burns zoom 최대 1.8x까지 무손실 (통상 1.2x 사용, 여유 충분) | `_capture_stills.py` P1, `_parse_url.py` P0 |
+| **오디오 LUFS** | ✅ **-16 LUFS** (TP=-1.5, LRA=11) | YouTube 권장 -14~-16 LUFS, `ffmpeg loudnorm` 필터 | `_render_video.py` P4, `_pd_assemble.py` P5 |
+| **Frame rate** | **30fps** | 숏폼 표준 30fps, FFmpeg `fps=30` + `-r 30` | `_render_video.py`, `_pd_assemble.py` normalize_av |
+| **BGM 저작권** | ✅ Boss 자작 피아노 (Content ID 회피) | FluidSynth → Satie Gymnopédie, Clair de Lune | `helena-piano/bgm/output/` |
+| **자막 가독성** | 72pt Bold + per-word scale pop + 레드 배경바 | CNN Breaking News 스타일, `\t()` 애니메이션 | `_make_ass.py` P4b |
+| **Transition** | 4종 xfade cycle (fade/wipeleft/slideright/dissolve) | 0.4s duration, `_timing.json` 보정 | `_render_video.py` P4 |
+
+> **V11→V12 변경사항:** ① device_scale_factor 3x→5x (소스 해상도 260% 헤드룸) ② `volume=1.0` → `loudnorm=I=-16:TP=-1.5:LRA=11` (P4+P5, 4개소) ③ Grok TTS 공식 폐기 ④ GPU/NPU 구조적 한계로 보류
 
 ---
 
@@ -275,9 +296,10 @@ OS:         Android 14 → Termux → proot Ubuntu (aarch64 glibc)
 
 | 과제 | 상태 |
 |------|------|
-| LLM 기반 VO (Grok) | Grok CLI 호출 불안정 → API 직접 연동 필요 |
-| GPU/NPU 가속 | Termux bionic 브릿지 탐색 중. FFmpeg 인코딩 15분 → 2분 목표 |
+| LLM 기반 VO (Grok) | **폐기 확정.** Grok TTS API 403, SuperGrok 구독에 TTS 미포함. 콘텐츠 추출 VO로 대체 완료 |
+| GPU/NPU 가속 | **구조적 한계로 보류.** proot glibc↔Android bionic ABI 충돌. S25 업그레이드 시 재검토 |
 | `_timing.json` 생성 | xfade 정확 타이밍 데이터 누락 시 SRT 부정확 → 버그 수정 필요 |
-| 다중 페이지 지원 | 현재 단일 URL만. "시리즈" 모드 (목차 → 각 글) 구상 |
+| 다중 페이지 지원 | 현재 단일 URL만. "시리즈" 모드 (목차 → 각 글) 구상. GitHub Pages linked-repos 아이디어 연결 |
 | YouTube Shorts 직접 업로드 | OAuth 완료. API 연동 대기 중 |
 | 에이전트 자동 발행 | Boss가 URL만 던지면 → 파싱 → 제작 → TG 검수 → 발행 승인 |
+| NPU 추론 (장기) | Exynos NPU NCP v24 커널 확인, Termux에서 DRM/NPU sysfs 접근 가능. ParksyTTS 471초→실시간 목표 |

@@ -161,7 +161,8 @@ def main() -> int:
         if duck_enabled:
             print(f"  🎵 FULL-timeline BGM {bgm.name} vol={bgm_vol} 🔊 ducking dur={dur:.1f}s")
             filter_cplx = (
-                f"[0:a]aformat=sample_rates=48000:channel_layouts=stereo,volume=1.0[voice];"
+                f"[0:a]aformat=sample_rates=48000:channel_layouts=stereo,"
+            f"loudnorm=I=-16:TP=-1.5:LRA=11:linear=true[voice];"
                 f"[1:a]aformat=sample_rates=48000:channel_layouts=stereo,"
                 f"volume={bgm_vol},afade=t=in:st=0:d=1.5,afade=t=out:st={fade_out:.1f}:d=2.0[music_pre];"
                 f"[music_pre][voice]sidechaincompress="
@@ -171,7 +172,8 @@ def main() -> int:
         else:
             print(f"  🎵 FULL-timeline BGM {bgm.name} vol={bgm_vol} dur={dur:.1f}s")
             filter_cplx = (
-                f"[0:a]aformat=sample_rates=48000:channel_layouts=stereo,volume=1.0[voice];"
+                f"[0:a]aformat=sample_rates=48000:channel_layouts=stereo,"
+            f"loudnorm=I=-16:TP=-1.5:LRA=11:linear=true[voice];"
                 f"[1:a]aformat=sample_rates=48000:channel_layouts=stereo,"
                 f"volume={bgm_vol},afade=t=in:st=0:d=1.5,afade=t=out:st={fade_out:.1f}:d=2.0[music];"
                 f"[voice][music]amix=inputs=2:duration=first:dropout_transition=2:normalize=0[aout]"

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""P1 Still Capture — Playwright page screenshots per beat (V11)
+"""P1 Still Capture — Playwright page screenshots per beat (V12)
 
 Reads shot_bible.json scroll_sel per beat, scrolls to each section, captures viewport.
 Fallback chain: CSS :has-text() → Playwright text locator → progressive scroll.
@@ -44,7 +44,7 @@ def main() -> int:
 
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--disable-dev-shm-usage"])
-        page = browser.new_page(viewport={"width": 390, "height": 844}, device_scale_factor=3)
+        page = browser.new_page(viewport={"width": 390, "height": 844}, device_scale_factor=5)
         page.goto(url, wait_until="networkidle", timeout=120000)
         page.wait_for_timeout(2000)
 

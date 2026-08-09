@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 🎬 produce_pd.sh — PD Pipeline STANDARD v3 (canonical · V11 content-based)
+# 🎬 produce_pd.sh — PD Pipeline STANDARD v3 (canonical · V12 LUFS + 5x DPI)
 # 표준: configs/video_pd_pipeline_v2.json · CURRENT → configs/video_pd_pipeline_CURRENT.json
 # 역할:
 #   Factory(공짜) = Playwright 페이지 캡처 + FFmpeg Ken Burns + xfade multi-transition
@@ -55,7 +55,7 @@ echo "=== 🎬 produce_pd · $EP ==="
 echo "  URL=$URL"
 echo "  BGM_VOLUME=$BGM_VOLUME (golden)  TTS=$TTS_ENGINE/jf_alpha (Kokoro)"
 
-# ── P0 shot bible (V11: force-reparse external URLs for fresh :has-text() selectors) ──
+# ── P0 shot bible (V12: force-reparse external URLs for fresh :has-text() selectors, 5x DPI) ──
 BIBLE="$OUTDIR/shot_bible.json"
 NEED_PARSE=false
 if [[ ! -f "$BIBLE" ]]; then
@@ -136,7 +136,7 @@ PY
   fi
 fi
 
-# ── P1 Factory: Playwright page captures (V11: _capture_stills.py with text locator fallback) ──
+# ── P1 Factory: Playwright page captures (V12: _capture_stills.py 5x DPI, 3-stage fallback) ──
 echo "[P1] Playwright scroll captures (shot_bible scroll_sel)..."
 python3 "$ROOT/scripts/_capture_stills.py" "$OUTDIR" --url "$URL"
 
@@ -296,12 +296,12 @@ if [[ -n "${TG_TOKEN:-}" && -n "${TG_CHAT:-}" && -f "$TG720" ]]; then
     -F chat_id="$TG_CHAT" \
     -F video=@"$TG720" \
     -F supports_streaming=true \
-    -F caption="🎬 ${EP} · PD Pipeline V11
+    -F caption="🎬 ${EP} · PD Pipeline V12
 🔥 72pt bold · per-word pop (200%→100% \t() scale bounce)
 🟥 Red banner bg · :has-text() selector + text locator fallback
 📖 Content-based VO (no template filling) · pan_up/down diversity
-🎵 BGM vol=${BGM_VOLUME} · yuv420p High · QA gate
-— produce_pd.sh V11 · 콘텐츠 이해 기반 숏폼" \    -o /tmp/tg_pd.json -w "\nhttp=%{http_code}\n" || true
+🎵 BGM vol=${BGM_VOLUME} · LUFS -16 · yuv420p High · QA gate
+— produce_pd.sh V12 · 콘텐츠 이해 + 프로급 오디오·화질" \    -o /tmp/tg_pd.json -w "\nhttp=%{http_code}\n" || true
   python3 -c "import json;d=json.load(open('/tmp/tg_pd.json')); print('TG', d.get('ok'), d.get('result',{}).get('message_id') if d.get('ok') else d.get('description','')[:80])" 2>/dev/null || echo "TG parse skip"
 else
   echo "  (TG skip — no token or no file)"
