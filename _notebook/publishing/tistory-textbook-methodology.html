@@ -1,0 +1,96 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}
+.steps{counter-reset:step;list-style:none;margin-bottom:12px}
+.steps li{counter-increment:step;padding:8px 10px 8px 40px;position:relative;border-left:2px solid var(--bdr2);margin-left:14px;margin-bottom:3px;color:var(--t2)}
+.steps li::before{content:counter(step);position:absolute;left:-14px;top:6px;width:26px;height:26px;border-radius:50%;background:var(--a);color:#fff;font-size:.73rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+
+<div class="hero">
+<div class="eyebrow">Methodology Discovery · 2026-08-10</div>
+<h1>📚 티스토리 = 하이테크 IT 교재 플랫폼</h1>
+<div class="subtitle">무질서한 개발 히스토리를 체계적 커리큘럼으로 —<br>"교재화" 방법론의 발견</div>
+</div>
+
+<section>
+<div class="info-box"><strong>💡 발견의 순간:</strong> 2026-08-10, 3개 레포의 ~200건 문서를 티스토리로 이전하는 작업 중 깨달았다. <strong>이건 단순한 "글 옮기기"가 아니다. 무질서한 개발 노트를 Part·Chapter 커리큘럼으로 재편하는, 하나의 독립된 출판 방법론이다.</strong></div>
+</section>
+
+<section>
+<h2>🎯 무엇이 다른가 — 일반 블로그 vs 교재화 블로그</h2>
+<div class="tbl-wrap" style="overflow-x:auto;margin-bottom:10px">
+<table style="width:100%;border-collapse:collapse;font-size:.82rem;line-height:1.45">
+<thead><tr style="background:var(--s2)"><th style="padding:6px 9px;border:1px solid var(--bdr2);text-align:left;font-weight:700">구분</th><th style="padding:6px 9px;border:1px solid var(--bdr2);text-align:left;font-weight:700">일반 기술 블로그</th><th style="padding:6px 9px;border:1px solid var(--bdr2);text-align:left;font-weight:700">교재화 블로그</th></tr></thead>
+<tbody>
+<tr><td style="padding:6px 9px;border:1px solid var(--bdr2);font-weight:700">구조</td><td style="padding:6px 9px;border:1px solid var(--bdr2);color:var(--t2)">생각나는 대로, 순서 없이</td><td style="padding:6px 9px;border:1px solid var(--bdr2);color:var(--t2)">Part·Chapter 위계, 선수-후행 관계</td></tr>
+<tr><td style="padding:6px 9px;border:1px solid var(--bdr2);font-weight:700">목적</td><td style="padding:6px 9px;border:1px solid var(--bdr2);color:var(--t2)">기록·공유·과시</td><td style="padding:6px 9px;border:1px solid var(--bdr2);color:var(--t2)">처음부터 끝까지 따라오면 기술 완성</td></tr>
+<tr><td style="padding:6px 9px;border:1px solid var(--bdr2);font-weight:700">독자 경험</td><td style="padding:6px 9px;border:1px solid var(--bdr2);color:var(--t2)">파편화된 정보 헤매기</td><td style="padding:6px 9px;border:1px solid var(--bdr2);color:var(--t2)">커리큘럼 따라 체계적 학습</td></tr>
+<tr><td style="padding:6px 9px;border:1px solid var(--bdr2);font-weight:700">완결성</td><td style="padding:6px 9px;border:1px solid var(--bdr2);color:var(--t2)">없음. 시작만 있고 끝은 없음</td><td style="padding:6px 9px;border:1px solid var(--bdr2);color:var(--t2)">각 Part가 하나의 역량을 보장</td></tr>
+</tbody></table></div>
+</section>
+
+<section>
+<h2>🔄 교재화 5단계 프로세스</h2>
+<ol class="steps">
+<li><strong>전수 조사</strong> — 모든 레포의 md/html 문서를 빠짐없이 나열. 빠진 문서가 있으면 커리큘럼에 구멍이 생긴다.</li>
+<li><strong>주제 클러스터링</strong> — 유사 주제끼리 묶어 Part(대분류) 도출. 보통 6~10개 Part가 나온다.</li>
+<li><strong>Chapter 분할</strong> — 각 Part를 학습 단위로 쪼개기. Part당 2~6개 Chapter. 한 Chapter가 한 번의 학습 세션.</li>
+<li><strong>콘텐츠 매핑</strong> — 각 Chapter에 해당하는 원본 문서 연결 + 우선순위(⭐⭐⭐/⭐⭐/⭐) 태깅.</li>
+<li><strong>순차 출판</strong> — 우선순위순으로 md→HTML 변환 → Paste Pipeline → 티스토리 발행.</li>
+</ol>
+</section>
+
+<section>
+<h2>🏗️ 왜 티스토리인가</h2>
+<div class="info-box green"><strong>✅ 무료 + 무제한 글 + 커스텀 HTML/CSS 가능.</strong> 카테고리 2레벨이 Part·Chapter 구조와 정확히 일치한다. GitHub Pages보다 진입장벽이 낮고(클릭만으로 글 작성), 모바일에서도 글 작성 가능. 검색엔진 자연 유입도 얻을 수 있다.</div>
+</section>
+
+<section>
+<h2>🔁 자기 참조적 구조 — 교재화 방법론 자체도 교재가 된다</h2>
+<p>이 방법론의 가장 흥미로운 특성: <strong>"어떻게 교재를 만드는가"가 교재의 한 Chapter가 된다.</strong></p>
+<p>즉, 독자는 이 블로그에서:</p>
+<ul style="margin-bottom:10px;padding-left:22px;color:var(--t2)">
+<li>"폰으로 AI 워크스테이션 구축하는 법"을 <strong>배우면서</strong></li>
+<li>"그 지식이 어떻게 교재로 구조화되었는지"도 <strong>동시에 목격</strong>한다</li>
+</ul>
+<p>메타 인지와 실용 지식이 하나의 커리큘럼 안에서 전달되는 구조. 이게 이 방법론의 진짜 차별점이다.</p>
+</section>
+
+<section>
+<h2>📐 적용 가능 도메인</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+<div style="background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px"><strong>📱 폰→AI 워크스테이션</strong><br><span style="color:var(--t2);font-size:.83rem">Termux·proot·CC·DeepSeek</span></div>
+<div style="background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px"><strong>🔧 오픈소스 도구 연쇄</strong><br><span style="color:var(--t2);font-size:.83rem">FFmpeg·yt-dlp·Playwright</span></div>
+<div style="background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px"><strong>🎬 저비용 콘텐츠 제작</strong><br><span style="color:var(--t2);font-size:.83rem">숏폼·TTS·PD Pipeline</span></div>
+<div style="background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px"><strong>❤️ 돌봄·복지 시스템</strong><br><span style="color:var(--t2);font-size:.83rem">기초생계·치매·장애 솔루션</span></div>
+</div>
+</section>
+
+<section>
+<h2>🚀 라이브 교재화 — 더 진화된 모델</h2>
+<div class="info-box gold"><strong>🔮 다음 단계:</strong> 티스토리 카테고리를 프로젝트 <strong>시작 시점에 먼저</strong> 만들어두고, 작업하면서 실시간으로 채워나가는 "라이브 교재화". 개발과 출판이 동시에 일어난다. 끝나면 교재도 완성. 지연 없는 지식 자산화.</div>
+</section>
+
+<div class="footer">
+<p>📚 티스토리 교재화 방법론 · 2026-08-10 (_Claude)<br>
+helena-programming/templates/ · <a href="https://galaxys21-pwuser.tistory.com" style="color:var(--a)">galaxys21-pwuser.tistory.com</a><br>
+[[tistory-textbook-methodology]] · [[tistory-content-migration-map]]</p>
+</div>
