@@ -4782,3 +4782,67 @@ TG msg 370 (pd_tistory_drawer) 영상의 근본적 문제 발견:
 - CSS selector (`article > h2:nth-of-type(N)`) → Playwright timeout. text-based selector(`:has-text()`)로 수정 완료 (다음 실행부터 적용)
 - 점진적 스크롤 fallback은 작동하나, 페이지 하단에서 beat 06-08 동일 위치 문제 (페이지 길이 한계)
 - VO 텍스트가 다소 긺 (템플릿 생성 → 향후 LLM 기반으로 개선 가능)
+
+
+### 📚 출판부 정식 가동 — 역방향 출판 패턴 + 티스토리 교재화 (_Claude · 2026-08-10)
+
+#### 발견: GitHub = 원자재 창고, DeepSeek+Claude Code = 출판부
+
+Boss가 18일 동안 3개 레포(helena_phone·helana_log·helena-programming)에 "때려넣은" 모든 문서를 Claude Code(스킨) + DeepSeek v4-pro(엔진)가 역으로 정리·구조화해 출판하는 패턴이 실증됨.
+
+**일반적인 출판:** 기획 → 집필 → 편집 → 출판 (순방향, 쓰는 사람이 모든 걸 부담)
+**역방향 출판:** 무질서 덤프 → Claude Code 전수조사 → DeepSeek가 Part·Chapter 구조 설계 → 투트랙 출판
+
+핵심: **Boss는 "원자재 공급자"일 뿐, 정리·편집·출판은 전부 Claude Code(DeepSeek 엔진) 담당.** "빈 페이지 공포"를 아예 없애버린 패턴.
+
+#### 전수 조사 결과
+
+| 레포 | 문서 | 핵심 내용 |
+|------|------|-----------|
+| helena_phone | 100+ | 업무수첩·5챕터 가이드·CHRONICLE·세션로그·백서 |
+| helana_log | 37 | 돌봄 트랙·대화록·솔루션·아이덴티티 |
+| helena-programming | 41 | 템플릿·파이프라인·WSL·도구·교재방법론 |
+| **합계** | **~200** | → 125건 매핑 완료 |
+
+#### 8 Part · 31 Chapter 교재 구조 설계
+
+| Part | Chapter | 페이지 |
+|------|---------|--------|
+| P1 온보딩 | 5 | 20 |
+| P2 인프라 | 4 | 17 |
+| P3 PD Pipeline | 6 | 22 |
+| P4 AI 목소리 | 4 | 12 |
+| P5 출판·배포 | 4 | 16 |
+| P6 설계·아키텍처 | 4 | 16 |
+| P7 돌봄 트랙 | 2 | 9 |
+| P8 실전 후기 | 3 | 13 |
+| **합계** | **31** | **125** |
+
+#### Hub vs Tistory 투트랙 아키텍처
+
+| | GitHub Pages (Hub) | Tistory (사고흐름) |
+|---|---|---|
+| **역할** | 교과서 (Curriculum) | 회의록 (Meeting Notes) |
+| **인터랙션** | JS 복사버튼 + CSS 풀인터랙티브 | CSS-only 풀인터랙티브 (티스토리 HTML 모드 한도 내) |
+| **복사** | 📋 버튼 → clipboard API | 탭 한 번 → user-select:all 전체 선택 |
+| **PWA** | manifest.json → 앱 설치 | 불필요 |
+| **전송** | git push → Pages 자동배포 | TG .txt → Boss 복사·붙여넣기 |
+| **규모** | 93페이지 | 32건 |
+
+**오해 금지:** Tistory도 "경량 텍스트"가 아니다. `<details>` 아코디언·`:checked` 탭·`:target` 모달·SVG 다이어그램·CSS 애니메이션·다크모드 전부 적용. JS만 빠질 뿐 시각적 완성도는 동일.
+
+#### 오늘 저장된 자산
+
+- `tistory-categories.txt` — 8Part·31Chapter 카테고리 트리 (3레포에 복사)
+- `tistory-content-migration-map.html` — 125건 전수 매핑 + 우선순위
+- `hub-vs-history-architecture.html` — Hub/Tistory 역할 분리 아키텍처
+- `tistory-textbook-methodology.html` — 교재화 방법론 문서
+- `ai-workstation-setup.html` — 첫 교재 페이지 (복사버튼 포함)
+- `reverse-publishing-pattern` — 역방향 출판 패턴 (memory)
+
+#### Boss 결정사항
+
+- Claude Code = **출판부 정직원** — 계속 찍어낸다
+- 모든 페이지는 풀인터랙티브 (아코디언·탭·SVG·복사버튼·다크모드)
+- GitHub Pages = PWA 교재, Tistory = 사고흐름
+- 엔진: DeepSeek v4-pro (`ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic`), Claude Code는 인터페이스 스킨
