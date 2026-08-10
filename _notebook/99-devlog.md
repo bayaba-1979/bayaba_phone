@@ -4871,3 +4871,47 @@ Boss가 18일 동안 3개 레포(helena_phone·helana_log·helena-programming)�
 - 모든 페이지는 풀인터랙티브 (아코디언·탭·SVG·복사버튼·다크모드)
 - GitHub Pages = PWA 교재, Tistory = 사고흐름
 - 엔진: DeepSeek v4-pro (`ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic`), Claude Code는 인터페이스 스킨
+
+
+### 🧭 저사양 폰 AI 생존 테스트 — 이중 서사 발견 (_Claude · 2026-08-11)
+
+Boss와의 대화 중 이 프로젝트 전체를 관통하는 **이중 서사(dual narrative)** 를 정리:
+
+**서사 1 — "저사양 폰 AI 생존기"**
+5년 된 S21 폰 하나 + DeepSeek API로 출판·방송 파이프라인을 통째로 구축. 누구나 따라할 수 있는 최소 베이스라인을 증명.
+
+**서사 2 — "확장만 알던 사람이 수축을 배우는 과정"**
+WSL·RTX·21채널·15채널을 다 돌려봤던 사람이, 의도적으로 최소 스펙으로 내려와서 "진짜 필요한 건 뭐지?"를 묻는 과정.
+
+**왜 의미 있는가:**
+1. 제약이 오히려 무기 — CPU-only·proot·ARM64 제약들이 "우회하는 지혜"를 만듦 (Edge TTS 폴백, CSS-only 인터랙션, GitHub Actions 우회)
+2. 확장은 누구나 할 수 있지만(돈만 더하면 됨), 수축해서 본질을 찾는 건 해본 사람만 가능
+3. 독자 3층: "나도 할 수 있다"(장비 없는 사람) + "장비 핑계였구나"(시작 못 하는 사람) + "베이스라인 다시 긋자"(확장만 하던 사람)
+
+**Boss 코멘트:** "확실히 이게 남이 볼 때도 괜찮고 따라할 만한 콘텐츠·솔루션이 나온 거 아니야? 5년 전 저가 폰으로 딥시크 하나 가지고. 저가 폰을 어디까지 할 수 있는지를 테스트하고 있는 거고, 반대로 지금까지 확장만 했던 내 WSL 베이스라인을 다시 여기에 맞춰 정리도 하고 있는 거야."
+
+→ `low-spec-phone-survival-test` 메모리로 저장. [[reverse-publishing-pattern]] [[s21-constitution]]
+
+
+### 🪜 Step-Down Cascade 설계 + Pages 94건 배포 (_Claude · 2026-08-11)
+
+**핵심 통찰 — "제약을 템포로 바꾸기":**
+Tistory의 ~15건/일 제한을 우회 대상이 아니라 **페이싱 메트로놈**으로 재정의. Pages→Tistory→YouTube→Naver가 순차적으로 캐스케이드되는 프로듀싱 시퀀스 설계.
+
+**4단계 스텝다운:**
+| Step | 플랫폼 | 건수 | 제약 | 역할 |
+|------|--------|------|------|------|
+| 0 | Pages | 94 | 없음 (git push) | 소스 오브 트루스 |
+| 1 | Tistory | 32 | ~15/일 | 페이싱 메트로놈 |
+| 2 | YouTube | 32 | ~6/일 quota | 시각적 튜토리얼 |
+| 3 | Naver | ~8 | 없음 (수동) | 디스커버리 허브 |
+
+**콘텐츠 진화 사슬:** 텍스트 → 인터랙티브 글 → 영상 → 네트워크. 한 번 만들고 네 번 써먹기.
+
+**Step 0 완료 — Pages 94건 빌드 & 배포:**
+- `helena-programming/pages/` → git push → `helena751107.github.io/helena-programming/pages/`
+- 1 홈 + 8 Part 인덱스 + 31 Chapter + 54 소스 변환 = 94 HTML
+- `md_to_page.py`: 범용 markdown → Pages HTML 변환기
+- `stepdown-cascade.html`: 캐스케이드 매뉴얼 (자기 기술적 문서)
+
+**다음:** Day 1 Tistory 12건 (Flow 5+6), Paste Pipeline v5.1로 TG 전송 예정.
