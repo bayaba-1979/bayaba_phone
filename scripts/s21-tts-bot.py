@@ -65,12 +65,13 @@ async def handle_radio(msg: dict) -> str | None:
     chat_id = msg.get("chat", {}).get("id", 0)
     cmd = text.split()[0] if text else "/radio"
 
-    import sys, subprocess
-    pipeline = "/root/work/helena-programming/pipelines/radio_ticket/dispatch.py"
+    import sys, subprocess, json
+    pipeline_dir = "/root/work/helena-programming/pipelines/radio_ticket"
+    pipeline = f"{pipeline_dir}/dispatch.py"
 
     if cmd == "/radio_status":
-        # 로그 요약만
-        logf = "/root/work/helena-programming/pipelines/radio_ticket/dispatch.log"
+        # 로그 요약
+        logf = f"{pipeline_dir}/dispatch.log"
         if os.path.exists(logf):
             lines = open(logf).readlines()[-10:]
             requests.post(f"{TG_API}/sendMessage",
@@ -82,6 +83,35 @@ async def handle_radio(msg: dict) -> str | None:
                          timeout=10)
         return "ok"
 
+    if cmd == "/radio_box":
+        # 선물함 조회
+        gb_file = f"{pipeline_dir}/giftbox.json"
+        if os.path.exists(gb_file):
+            try:
+                gb = json.loads(open(gb_file).read())
+                unsent = [s for s in gb if not s.get("sent")]
+                msg_lines = [f"🎁 선물함 (총 {len(gb)}건, 미제출 {len(unsent)}건)\n"]
+                for s in gb[-5:]:
+                    icon = {"classic":"🎻","gayo":"🎤","pop":"🎸"}.get(s.get("channel_type",""),"🎙")
+                    status = "✅" if s.get("sent") else "📤"
+                    link = s.get("apply_url","")[:60]
+                    msg_lines.append(f"{icon} {status} {s.get('channel','')} | {s.get('performance','')[:30]}")
+                    if link:
+                        msg_lines.append(f"   🔗 {link}")
+                    msg_lines.append("")
+                requests.post(f"{TG_API}/sendMessage",
+                             json={"chat_id": chat_id, "text": "\n".join(msg_lines)},
+                             timeout=10)
+            except Exception as e:
+                requests.post(f"{TG_API}/sendMessage",
+                             json={"chat_id": chat_id, "text": f"❌ 선물함 오류: {e}"},
+                             timeout=10)
+        else:
+            requests.post(f"{TG_API}/sendMessage",
+                         json={"chat_id": chat_id, "text": "📭 아직 생성된 사연이 없어요. /radio_test 로 첫 사연을 만들어보세요!"},
+                         timeout=10)
+        return "ok"
+
     # /radio 또는 /radio_test
     dry = (cmd == "/radio_test")
     requests.post(f"{TG_API}/sendMessage",
@@ -89,24 +119,35 @@ async def handle_radio(msg: dict) -> str | None:
                  timeout=10)
 
     try:
-        # dispatch.py를 subprocess로 실행
         c = [sys.executable, pipeline]
         if dry:
             c.append("--dry-run")
         p = subprocess.run(c, capture_output=True, text=True, timeout=300)
 
         if dry:
-            # 사연 내용을 TG로 전송
-            out = p.stdout[-3000:]
-            # 사연 구분해서 보내기 (길면 나눠서)
+            # 사연 내용을 TG로 전송 (stdout에 제출 링크 포함됨)
+            out = p.stdout[-3500:]
             for chunk in [out[i:i+3500] for i in range(0, len(out), 3500)]:
                 if chunk.strip():
                     requests.post(f"{TG_API}/sendMessage",
                                  json={"chat_id": chat_id, "text": "📝 사연:\n" + chunk},
                                  timeout=10)
         else:
+            # 전체 실행 완료 — 선물함 링크 추가
+            gb_file = f"{pipeline_dir}/giftbox.json"
+            tip = ""
+            if os.path.exists(gb_file):
+                try:
+                    gb = json.loads(open(gb_file).read())
+                    latest = [s for s in gb if not s.get("sent")][-3:]
+                    if latest:
+                        tip = "\n\n📬 제출 링크:\n"
+                        for s in latest:
+                            tip += f"• {s.get('channel','')}: {s.get('apply_url','')}\n"
+                except:
+                    pass
             requests.post(f"{TG_API}/sendMessage",
-                         json={"chat_id": chat_id, "text": "✅ Helena Ticket 실행 완료! 3채널 사연이 전송되었습니다."},
+                         json={"chat_id": chat_id, "text": f"✅ Helena Ticket 실행 완료! 3채널 사연이 전송되었습니다.{tip}\n\n💡 /radio_box 로 선물함을 확인하세요."},
                          timeout=10)
     except subprocess.TimeoutExpired:
         requests.post(f"{TG_API}/sendMessage",
@@ -152,7 +193,8 @@ async def poll_once(offset: int = 0) -> int:
             if cb:
                 await handle_callback(cb)
             msg = u.get("message", {})
-            if msg and msg.get("text", "").startswith("/radio"):
+            txt = msg.get("text", "")
+            if txt.startswith("/radio") or txt.startswith("/radio_"):
                 await handle_radio(msg)
     except Exception:
         pass
