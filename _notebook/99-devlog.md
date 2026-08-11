@@ -4980,3 +4980,73 @@ onnxruntime 1.28: NnapiProvider + XnnpackProvider + ACLProvider ✅ 컴파일
 2. Kokoro/VITS TTS 모델 NNAPI 추론 테스트
 3. 성공 시 → proot ↔ Termux localhost HTTP 브릿지 구축
 4. 실패 시 → XNNPACK CPU 가속으로 폴백 (5~10배 개선)
+
+
+---
+
+## §81 — "PC처럼 쓴다" 목표 대비 현재 위치 + STT NNAPI 정정 (2026-08-11, _Claude)
+
+### 아키텍처 이해 정정
+
+**proot Ubuntu ≠ "자체 연산 인덱스."** 정확한 비유는:
+```
+Windows(호스트 OS) : WSL2(리눅스 호환 레이어)
+   =
+Android(호스트 OS) : proot Ubuntu(리눅스 호환 레이어)
+```
+proot는 독립된 컴퓨팅 단위가 아니라 **Android 커널 위에 얹힌 유저스페이스 레이어**다. Boss가 PC에서 WSL2로 구축한 패턴을 폰에 그대로 이식한 거지, 새로운 아키텍처를 만든 게 아니다. **검증된 패턴의 플랫폼 이식.**
+
+### BIOS급 통제 — 의도적 제외
+
+PC에서는 BIOS/펌웨어 레벨까지 통제했지만, 폰에서는 **Boss가 직접 금지선 그은 영역.** 누나 삼성페이·온라인뱅킹 때문에 루팅/Shizuku 계열 전부 배제. 따라서:
+
+| 레이어 | PC | 폰 | 비고 |
+|--------|----|----|------|
+| 펌웨어/BIOS | 통제 | **제외** (루팅 금지선) | Boss 결정 |
+| OS 유저스페이스 | WSL2 전체 | proot Ubuntu | 동일 패턴 |
+| 하드웨어 가속 | GPU 직통 | Termux → NNAPI 우회 | ABI 제약 우회 |
+| 파일시스템 | 전체 | /storage/emulated/0/ | 앱 레벨 권한 |
+
+**실제 목표는 "BIOS까지 미러링"이 아니라, "OS 위에서 자연어로 접근 가능한 모든 하드웨어 기능(카메라·저장소·센서·NPU)을 완전히 커맨드하는 레이어"까지 미러링하는 것.** 그리고 그 선은 기술적 한계가 아니라 Boss의 의도적 설계 결정이다.
+
+### STT NNAPI "실측 완료" 정정
+
+⚠️ **이전 기록 오류:** §80과 CLAUDE.md에 "STT 검증 완료"라고 썼지만, 이건 **S21에서 직접 돌려본 결과가 아니다.** 근거는:
+
+- Pixel 6 기준 sherpa-onnx 공식 벤치마크 (RTF 0.035)
+- Exynos 2100 스펙상 NNAPI 지원 충분
+- sherpa-onnx Android arm64 wheel에 NNAPI delegate 포함
+
+→ "된다"가 아니라 **"될 근거가 충분하다"** 단계. 실제 확인은 Termux에 설치해서 돌려봐야 한다.
+
+**CLAUDE.md 수정 완료:** "STT 검증 완료" → "STT 근거 충분 (Pixel 6 벤치마크) — ⚠️ S21 실측은 아직"
+
+### "PC처럼 쓴다" 목표 대비 현재 위치
+
+**완료된 것:**
+| 항목 | 상태 | 수준 |
+|------|------|------|
+| 파일시스템 브릿지 (proot ↔ Android) | ✅ 완성 | PC급 — 저장소 제약 없음 |
+| 네트워크 (텔레그램·GitHub·API) | ✅ 완성 | PC급 |
+| STT 텍스트 처리 | ✅ 완성 | PC급 |
+| PD Pipeline (URL→숏폼) | ✅ V10 작동 | PC급 (워크플로우) |
+| Log Publisher (md→HTML→TG) | ✅ 작동 | PC급 |
+| PWA 앱 레지스트리 | ✅ 12종 등록 | PC급 |
+
+**경로 확인, 실측 대기:**
+| 항목 | 상태 | 비고 |
+|------|------|------|
+| NPU 가속 (Termux → NNAPI) | 🔶 경로 확인 | S21 실측 0회 |
+| GPU 가속 (OpenCL) | 🔶 dev/mali0 존재 | ABI 장벽 = Termux 필요 |
+
+**남은 병목 — 하나뿐:**
+> **TTS 음성 합성 속도.** 현재 ParksyTTS CPU 471초(3.5초 음성). NPU 붙이면 10초대 예상.
+> 이 한 가지만 해결되면 "폰을 PC처럼 자연어로 지휘하는 커맨더 구조"는 **구조적으로 완성.**
+
+### 현재 세션 TODO
+
+1. ~~STT NNAPI 기록 정정~~ → 완료 (이 항목)
+2. Termux에 sherpa-onnx 설치 → **진짜 S21 실측**
+3. TTS 모델 NNAPI 추론 테스트 → "된다/안 된다" 결론
+4. 성공 시 → proot ↔ Termux localhost HTTP 브릿지
+5. PD Pipeline V11 업그레이드 (별도 플랜)

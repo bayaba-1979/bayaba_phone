@@ -25,9 +25,9 @@
   - 이전 기록 "sysfs permission 문제" → **틀림**. 실제 원인은 **glibc/bionic ABI 불일치**.
   - proot(glibc)에서는 `libneuralnetworks.so`(bionic)를 dlopen할 수 없음. 권한이 아니라 링킹 문제.
   - Termux는 `untrusted_app` SELinux 도메인으로 실행 → 일반 앱과 동일한 NDK API(NNAPI 포함) 접근 가능. **루팅 불필요.**
-  - sherpa-onnx NNAPI: **STT 검증 완료** (Pixel 6, RTF 0.035). **TTS는 모델별 실패 사례** 있음 (Piper 텐서 차원 불일치 이슈).
+  - sherpa-onnx NNAPI: **STT 근거 충분** (Pixel 6 벤치마크 RTF 0.035, sherpa-onnx 공식) — ⚠️ **S21 실측은 아직 안 함**. **TTS는 모델별 실패 사례** 있음 (Piper 텐서 차원 불일치 이슈).
 - **단기 전략:** Termux(bionic)에 sherpa-onnx 설치 → NNAPI delegate 활성화 시도 → proot에서 localhost HTTP 브릿지로 추론 요청.
-- **TTS 리스크:** ParksyTTS가 쓰는 구체적 TTS 아키텍처가 NNAPI에서 실제로 돌아가는지는 실기기 테스트로만 확인 가능. STT는 확정, TTS는 미확정.
+- **TTS 리스크:** ParksyTTS가 쓰는 구체적 TTS 아키텍처가 NNAPI에서 실제로 돌아가는지는 실기기 테스트로만 확인 가능. **STT도 S21 실측은 아직 — Pixel 6 벤치마크 근거만 있음.** TTS는 미확정.
 
 > 우리 폰 안에는 AI 계산기(NPU, 26 TOPS)와 그림 그리는 부품(GPU, Mali-G78)이 모두 있어!
 > 근데 proot은 glibc 언어를 쓰고 안드로이드는 bionic 언어를 써서 서로 말이 안 통해.

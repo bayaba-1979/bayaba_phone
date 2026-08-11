@@ -335,7 +335,8 @@ if [[ -n "${TG_TOKEN:-}" && -n "${TG_CHAT:-}" && -f "$TG720" ]]; then
 🟥 Red banner bg · :has-text() selector + text locator fallback
 📖 Content-based VO (no template filling) · pan_up/down diversity
 🎵 BGM vol=${BGM_VOLUME} · LUFS -16 · yuv420p High · QA gate
-— produce_pd.sh V13 · ⌨️ typewriter ASS + LUFS -16 + 5x DPI" \    -o /tmp/tg_pd.json -w "\nhttp=%{http_code}\n" || true
+— produce_pd.sh V13 · ⌨️ typewriter ASS + LUFS -16 + 5x DPI" \
+    -o /tmp/tg_pd.json -w "\nhttp=%{http_code}\n" || echo "  ⚠️ [P6] TG send failed, continuing" >&2
   python3 -c "import json;d=json.load(open('/tmp/tg_pd.json')); print('TG', d.get('ok'), d.get('result',{}).get('message_id') if d.get('ok') else d.get('description','')[:80])" 2>/dev/null || echo "TG parse skip"
 else
   echo "  (TG skip — no token or no file)"
