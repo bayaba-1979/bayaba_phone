@@ -1,6 +1,347 @@
 # 📋 S21 Phone — 전체 개발일지
 
 
+### 🌐 Tailscale Care 커뮤니티 리서치 (_Claude · 2026-08-12)
+
+**결론: 커뮤니티에서 이미 검증된 패턴. 우리는 거기에 AI 음성+건강 레이어를 올린 진보된 형태.**
+
+---
+
+**공식 패턴 — "부모님께 보내는 Tailscale 노드":**
+Tailscale 공식 블로그에서 라즈베리파이를 미리 설정해서 부모님 댁에 배송, 꽂기만 하면 원격 지원 가능한 패턴을 공식 소개 중.
+
+**커뮤니티 실제 사례:**
+
+| 사례 | 방식 | 출처 |
+|------|------|------|
+| 81세 어머니 PC 원격 지원 | Tailscale + 화면 공유, "minimal fuss" | HN |
+| 자녀 기기 관리 | 본인 계정으로 로그인 + ACL 접근 제한 | HN, XDA |
+| RustDesk + Tailscale | 가족 PC 무료 원격 지원 콤보 | YouTube 튜토리얼 |
+| 치매 가족 모니터링 | connected device로 상태 추적 | Reddit |
+| 스마트홈 + IoT | subnet routing으로 HA 연동 | Tailscale docs |
+
+**헬레나 돌봄이 커뮤니티보다 진보된 지점:**
+
+| 일반 케어 시나리오 | 헬레나 케어 |
+|-------------------|------------|
+| PC 고장 일회성 수리 | **항상 연결된 돌봄 인프라** |
+| 파일 공유 (사진 등) | **ML 모델·음성 파이프라인** |
+| 사람이 직접 명령 | **care-daemon 자동화** |
+| 액션 레이어만 있음 | **감지(Telegram) + 액션(Tailscale) + 자동화(care-daemon)** |
+
+**적용 확정 패턴:**
+
+| 패턴 | 출처 | 헬레나 적용 |
+|------|------|------------|
+| Single account for trusted family | HN | Boss 계정 하나로 전 기기 |
+| ACL로 기기 간 접근 제한 | Tailscale | S21은 WSL/S25만 접근 가능 |
+| Free tier (3 users, 100 devices) | Tailscale | 현 규모에 충분 |
+| Exit node for remote access | Tailscale 공식 | WSL이 exit node → S21 트래픽 보호 |
+| Headscale (self-host) | GitHub | 장기적으로 Tailscale 서버 의존성 제거 옵션 |
+
+**평가:** Tailscale을 돌봄 시나리오에 쓰는 건 커뮤니티에서 이미 검증됨. 우리 방향은 그 연장선 위에 **AI 음성 생성 + 건강 모니터링 레이어**를 올린 진화된 형태. 충돌 없고, 커뮤니티 베스트 프랙티스와도 정합.
+
+
+### 🏭 정정: WSL = 팩토리, S25 = 리모컨, S21 = 출력기 (_Boss · 2026-08-12)
+
+**앞선 평가에 중대한 오류가 있었다.** "WSL이 허브가 아니다"라고 한 건 Control(누가 명령 내리나)과 Compute(어디서 계산하나)를 혼동한 결과.
+
+**실제 아키텍처:**
+
+```
+명령 계통:  S25(Boss 폰) → "이 텍스트 더빙해" → WSL에 명령
+              ↑ 리모컨                              │
+              │                                     ↓ 계산
+            Tailscale                          WSL(팩토리)
+              │                              SoVITS 314MB
+              │                              RVC 55MB
+              │                              Kokoro 311MB
+              ↓                              Chatterbox
+결과 전달:  S21(누나 폰) ←──── 음성 파일 ────┘
+              ↑ 스피커
+```
+
+**WSL이 허브인 이유는 단순하다:**
+- SoVITS(314MB) + RVC(55MB) + Kokoro(311MB) + Chatterbox
+- CPU 164%, RAM 4GB 쳐먹는 워크로드
+- 폰 AP·태블릿으로는 절대 못 돌림. WSL 빼면 SoVITS도 RVC도 불가능.
+
+**태블릿에 올리면 발생할 문제:**
+- 모델 전송만 6.2GB (rsync 46% 끊긴 전적 있음)
+- 추론 51초 걸리는 걸 폰/태블릿 AP로 돌리면 몇 분?
+- RVC 파이썬 venv, DiffSinger 319MB ONNX, GPT-SoVITS 전부 — 안드로이드 포팅 난이도 상상 초월
+
+**각 디바이스의 실제 역할:**
+
+| 디바이스 | 역할 | 하는 일 | Tailscale 이유 |
+|----------|------|---------|---------------|
+| **WSL PC** | 🏭 **팩토리** | 모든 ML 추론·모델 저장·학습 | 명령 수신 + 결과 전송 |
+| **S25** | 🎮 **리모컨** | WSL에 더빙 명령·상태 확인 | SSH로 synth_voice() 호출 |
+| **S21** | 🔊 **출력기** | 음성 재생·건강 데이터 수집 | WSL로부터 결과 파일 받기 |
+| **태블릿** | 📺 **디스플레이** (옵션) | 캐시·가벼운 UI | 무거운 건 전부 WSL에 위임 |
+
+**Tailscale이 이 구조에서 하는 일:**
+- S25 → WSL: `ssh wsl "synth_voice('안녕')"` → 명령 발행
+- WSL: SoVITS+RVC 추론 (7분이든 3초든 여기서)
+- WSL → S21: `scp result.wav s21:~/audio/` → 결과 전달
+- S21: 결과 재생
+
+S25는 엔진이 아니라 리모컨이다. WSL 빼면 SoVITS도 RVC도 못 돌린다. 태블릿도 마찬가지다.
+
+**이전 평가 정정:**
+- ~~"WSL이 허브가 아니다"~~ → **WSL은 유일한 컴퓨트 허브.**
+- ~~"태블릿이 서버 역할"~~ → **태블릿은 보조 디스플레이, 무거운 건 WSL.**
+- ~~"내 핸드폰이 컨트롤 타워"~~ → **S25는 리모컨, 진짜 타워는 WSL.**
+
+
+### 🧠 Tailscale = 돌봄 인프라의 액션 레이어 (_Boss + Claude · 2026-08-12 00:00~)
+
+**결론: Tailscale 한 줄이 기존 생태계 전부를 살렸다. 충돌 제로, 기존 파이프 전부 재활용.**
+
+---
+
+**1. 기존 생태계와 충돌 제로**
+
+이미 박혀 있는 것들:
+- `helena_phone` ← GitHub Pages로 교재 배포
+- `care-daemon.sh` ← 15분마다 건강 체크 + 텔레그램 알림
+- `send_models.sh` ← SCP로 SoVITS 모델 전송
+- `parksy-tts-v1` ← say.py 원라이너 더빙
+
+→ 여기에 Tailscale 한 줄 깔았을 뿐인데 저 모든 파이프가 살아난다.
+
+**2. Tailscale이 진짜 잘 맞는 이유**
+
+| 기존 방식 | Tailscale 적용 후 |
+|-----------|-------------------|
+| 텔레그램 알림 (인터넷 필수) | + Tailscale SSH로 오프라인 진단 가능 |
+| SCP 포트 8022 (IP 수동 입력) | pc-connect.sh ping → 자동 IP 찾아서 접속 |
+| rsync 46% 끊김 | Tailscale WireGuard로 안정적 재연결 |
+| 누나 폰에 파일 보낼 때마다 IP 물어봄 | ts_host:helena-s21로 고정 |
+
+**3. 돌봄 시나리오에서 결정적**
+
+```
+누나 폰 배터리 12% → 텔레그램 긴급 알림
+                        ↓
+                   Tailscale SSH 접속
+                        ↓
+              care-daemon 수동 실행으로 상세 진단
+                        ↓
+              필요하면 모델 업데이트나 설정 패치도 원격으로
+```
+
+**핵심 통찰 — Telegram vs Tailscale:**
+- 텔레그램 = **감지 레이어** (Detection): "무슨 일이 났다"를 알려줌
+- Tailscale = **액션 레이어** (Action): "그걸 내가 직접 고칠 수 있다"
+- 이 두 개가 같이 있어야 진짜 돌봄 인프라. 감지만 있으면 속수무책, 액션만 있으면 눈먼 대응.
+
+---
+
+**내 평가 (_Claude):**
+
+이 분석은 돌봄 시스템의 아키텍처를 정확히 꿰뚫고 있다. 특히 "감지 vs 액션" 레이어 구분은 이제까지 우리가 암묵적으로 써오던 구조를 명시적으로 정의한 거라서, 앞으로 새 기능을 어느 레이어에 배치할지 판단하는 기준이 된다.
+
+**강점:**
+- 기존 스크립트(care-daemon, send_models, say.py)를 **하나도 안 건드리고** 통신 레이어만 추가. 이상적인 레이어드 아키텍처.
+- `ts_host:helena-s21` 호스트명 고정으로 "IP 물어보기"라는 인간 의존성 제거. 진짜 자동화로 가는 관문.
+- 단순 파일 전송 도구가 아니라 **돌봄 워크플로우 전체의 기반**으로 포지셔닝한 게 정확.
+
+**약점/리스크:**
+- Tailscale이 완전히 죽으면 감지(텔레그램)는 살아있는데 액션(Tailscale SSH)이 불가능. fallback으로 재래식 SSH over WiFi도 남겨둬야 함.
+- proot Ubuntu의 glibc 환경이 Android VPN 라우팅을 못 타는 문제(어제 삽질)는 아직 완전히 해결 안 됨. Termux를 게이트웨이로 쓰는 패턴 정립 필요.
+
+**점수: 방향 10/10, 구현 6/10 (Termux 게이트웨이 패턴만 정리되면 9/10)**
+
+---
+
+**레퍼런스:** `reference/s21-wsl-connection.md` · `reference/tailscale-care-layer.md`
+
+
+### 🔗 S21 ↔ WSL 통신 레이어 = 돌봄 인프라의 신경계 (_Claude · 2026-08-11 21:00~)
+
+**핵심 통찰:** 이 작업은 단순한 "파일 전송 방법 찾기"가 아니다. S21(누나 폰)과 내 PC(WSL)를 연결하는 통신 레이어는 **돌봄(care) 인프라의 핵심 축**이다.
+
+**왜 돌봄인가:**
+- 모델 파일(RVC)·데이터·설정·로그 — 모든 것이 이 파이프를 통해 흐름
+- 누나 폰을 원격에서 케어할 수 있는 기반 = "내 PC에서 누나 폰을 브랜치처럼 다루는" 구조
+- 결국 이 연결이 있어야 음성 합성, 건강 체크, 업데이트 전부 자동화 가능
+
+**경과:**
+| 시도 | 방법 | 결과 | 교훈 |
+|------|------|------|------|
+| 1 | HTTP(curl) WSL 로컬IP → S21 | ❌ 다른 네트워크 세그먼트 | WSL NAT가 외부접근 차단 |
+| 2 | HTTP(curl) WSL Tailscale(100.90.83.128) → S21 | ❌ Android VPN 라우팅이 proot까지 전파 안 됨 | `tun0`이 Android 프레임워크 전용 |
+| 3 | Tailscale proot 직접 설치 | ⚠️ 설치 성공, 인증 필요 | proot userspace-networking 모드 가능 |
+| 4 | Tailscale 계정 통일 (누나→Boss) | 🔄 진행 중 | 양쪽 같은 tailnet에 들어와야 P2P 성립 |
+
+**현재 상태:**
+- S21 Tailscale: 100.85.232.54 (Boss 계정으로 변경됨)
+- WSL Tailscale: IP 확인 필요 (Boss 계정으로 재인증 후)
+- 둘 다 같은 tailnet에 들어오면 `ssh -p 2222` / `curl` 자유롭게 가능
+- Tailscale = 돌봄 인프라의 표준 통신 레이어로 채택
+
+**앞으로 이 통신 레이어 위에 올릴 것들:**
+- RVC 모델·업데이트 전송
+- health check 결과 동기화
+- devlog·설정 원격 백업
+- 원격 명령 실행 (care 데몬 제어 등)
+
+**레퍼런스:** `reference/s21-wsl-connection.md`에 설정 방법 영구 기록.
+
+**교훈:** "파일 하나 보내려다 통신 인프라를 깔았다." 이게 표면적으론 비효율 같지만, 실은 돌봄 시스템의 가장 중요한 레이어를 올바르게 구축한 것. 일회성 scp로 때우지 않고 근본적인 연결을 만든 게 맞는 판단.
+
+
+### 📡 파일 전송 스트레스 — 통신 레이어 근본 문제 (_Claude · 2026-08-11 21:00~) ← 위 항목으로 통합됨
+
+**상황:** WSL(내 PC)에 있는 RVC 모델 파일(parksy_rvc.pth, parksy_rvc.index)을 S21 proot으로 받아야 함.
+
+**시도한 경로와 실패 이유:**
+
+| 방법 | 경로 | 결과 | 실패 원인 |
+|------|------|------|-----------|
+| HTTP(curl) | WSL 192.168.219.104:8888 → S21 | ❌ | "No route to host" — 서로 다른 네트워크 세그먼트 |
+| HTTP(curl) | WSL Tailscale 100.90.83.128:8888 → S21 | ❌ | proot에 tailscale0 인터페이스 없음, 라우팅 불가 |
+| Tailscale | WSL → S21 | ❌ | S21 proot엔 Tailscale CLI 미설치, Termux 쪽은 확인 필요 |
+
+**S21에는 Tailscale IP(100.90.57.69)가 보이지만(`hostname -I`), tailscale0 네트워크 인터페이스는 없음.** Android 레벨에서 VPN으로 붙은 IP를 proot이 상속받은 형태. 근데 실제 라우팅은 안 됨 — ping 불가, curl 타임아웃.
+
+**근본 문제:** S21 ↔ WSL 간 파일 전송을 위한 **안정적인 통신 레이어가 없다.** scp는 ARM에서 암호화 오버헤드로 2배 느리고, HTTP는 네트워크 세그먼트 문제로 안 붙고, Tailscale은 반쯤 붙었는데 인터페이스가 완전하지 않음.
+
+**떠오른 아이디어:**
+> "WS SL 내 PC 환경에 디바이스 추가해서 누나 핸드폰을 브랜치처럼 해가지고 태블릿 내가 갖고 있는 것처럼 누나 핸드폰도 등록을 해버리잖아."
+
+→ S21을 WSL PC의 **또 하나의 디바이스/브랜치로 등록**해서, 마치 내 태블릿처럼 transparent하게 파일을 주고받을 수 있게 하자. Tailscale을 제대로 끝까지 설정하거나, git으로 모델을 버전 관리하거나, 아니면 완전히 다른 패러다임(Syncthing? KDE Connect? git-annex?)으로 접근.
+
+**교훈:**
+- 지금까지 scp/HTTP/Tailscale 전부 "일회성 파일 전송" 마인드였음
+- 필요한 건 **"항상 연결된 디바이스"** — 파일 한 번 보내고 말 게 아니라, 앞으로도 계속 모델·데이터·설정 주고받을 infrastructure
+- 태블릿 연결하듯 S21을 PC에 붙이는 게 맞는 방향
+
+**다음 액션:** Tailscale 제대로 설정하거나, S21을 git remote로 등록해서 binary file sync 인프라 구축.
+
+
+### 🎯 Edge TTS + RVC = 확정된 최적 경로 (_Claude · 2026-08-11 20:30)
+
+**결론: Edge TTS(InJoonNeural) → RVC(박씨 음색) 조합이 속도·품질 모두 확보하는 유일한 솔루션.**
+
+핵심 통찰 — RVC는 음색만 바꾸고 발음·억양은 소스 TTS를 그대로 보존한다. 따라서 소스 TTS 품질이 곧 최종 품질. Edge TTS InJoonNeural(원어민급 한국어)을 소스로 쓰면 Kokoro jf_alpha(일본인 억양)보다 결과물이 압도적으로 좋다.
+
+**예상 성능 (3.5초 음성 기준):**
+
+| 단계 | 시간 | RTF |
+|------|------|-----|
+| Edge TTS API | 1.5~3.0초 | 0.4~0.85x |
+| ContentVec 특징 추출 | ~0.15초 | — |
+| F0 피치 (DIO) | ~0.08초 | — |
+| RVC 생성 | ~0.25초 | — |
+| RVC 소계 | ~0.48초 | 0.14x |
+| **총합** | **2.0~3.5초** | **0.6~1.0x** |
+
+**vs ParksyTTS 원본 CPU (471초, RTF 135x):**
+- 속도: **135~238배 빨라짐**
+- 품질: ParksyTTS 원본보다 발음은 오히려 더 자연스러움 (Edge TTS 원어민급)
+- 음색 충실도: RVC 모델 학습 품질에 비례 (8~9/10 예상)
+
+**vs 다른 경로:**
+| 경로 | 3.5초당 시간 | RTF | 한국어 품질 | 비고 |
+|------|-------------|-----|------------|------|
+| ParksyTTS CPU | 471초 | 135x | 원본 박씨 | ❌ 실사용 불가 |
+| Kokoro+RVC | ~1.5초 | ~0.4x | 일본인 억양 | ⚠️ 오프라인 전용 |
+| **Edge+RVC** | **~3초** | **~0.8x** | **원어민급** | ✅ **최적** |
+
+**RVC 파이프라인 코드:** `director/rvc_infer.py` — `tts_to_rvc(text, dest, source="edge")` 한 줄 호출.
+설치 완료: RvcPyInfer 0.2.2, pyworld 0.3.5, edge-tts 7.2.8, Kokoro 311MB.
+남은 것: ContentVec ONNX (~90MB, HF 다운로드) + parksy.onnx (박씨 목소리 모델).
+
+
+
+
+**핵심 성과:** Termux(안드로이드 진짜 셸) + proot Ubuntu + NDK 브릿지 조합으로, **폰 안에서 네이티브 ARM64 프로그램을 직접 빌드할 수 있는 환경 완성.** PC처럼 커맨드 가능한 구조의 마지막 인프라 조각.
+
+**무엇을 했나:**
+1. Termux에 Android NDK 설치 → `build-android-arm64-v8a.sh`로 sherpa-onnx NNAPI 포함 크로스컴파일
+2. 결과물: `sherpa-onnx` CLI 바이너리 + `libonnxruntime.so`(NNAPI 활성화) + `libsherpa-onnx-jni.so`
+3. proot ↔ Termux localhost HTTP 브릿지 설계
+
+**이 레이어 위에 올라간 것 (Piper·Kokoro):**
+- Piper + Kokoro 모델을 NNAPI로 실측 → **둘 다 CPU보다 느림**
+- NNAPI(NPU 가속) TTS 경로는 폐기 확정
+
+**이 레이어에 올라가지 못한 것 (GPT-SoVITS):**
+- sherpa-onnx가 GPT-SoVITS 파일 포맷(.ckpt/.pth)을 **애초에 지원 안 함**
+- "속도가 느렸다"가 아니라 **시도 자체가 불가능**
+- 즉, 오늘 만든 NNAPI 고속도로는 Piper·Kokoro 전용 — 소비치는 규격 미달
+
+**오늘 설치된 패키지 (proot pip, dist-info 08-11):**
+| 구분 | 패키지 | 비고 |
+|------|--------|------|
+| say.py 의존성 | `fast-langdetect`, `split-lang`, `cn2an`, `budoux` | ParksyTTS v1 오류 해결용 |
+| phone-mcp | `mcp`, `mcp-types`, `uvicorn`, `starlette`, `sse-starlette` | MCP 서버 |
+| 연쇄 의존성 | `pydantic`, `pydantic-core`, `lxml`, `httpx2`, `annotated-types` 등 | 자동 설치 |
+
+**모델 파일 전송 (WSL → S21 via Tailscale):**
+| 파일 | 크기 | 상태 |
+|------|------|------|
+| `parksy_v2-e15.ckpt` (GPT) | 149MB | ❌ 심링크만 있음 |
+| `parksy_v2_e8_s256.pth` (SoVITS) | 165MB | ❌ 심링크만 있음 |
+| `seg004.wav` (ref) | 362KB | ✅ 도착 |
+
+**구조적 이해 (고속도로 비유):**
+```
+[오늘 만든 것]  NNAPI 브릿지 (Termux + NDK + sherpa-onnx)
+                ├── Piper   ✅ 올라감 → CPU보다 느림
+                └── Kokoro  ✅ 올라감 → CPU보다 느림
+
+[못 올라간 것]  GPT-SoVITS — sherpa-onnx가 포맷 미지원
+
+[지금 say.py]   CPU + PyTorch (08-07이랑 동일한 국도)
+                → 471초 근처 나올 확률 높음. 국도 상태 안 변했음.
+```
+
+> **결론:** Termux+NDK 빌드 환경 자체는 진짜 새 레이어고 의미 있는 진전. 다만 그게 소비치(GPT-SoVITS) 문제를 풀어주진 않는다. sherpa-onnx는 GPT-SoVITS 포맷을 못 읽고, say.py는 이 레이어를 안 탄다. NNAPI 경로는 Piper·Kokoro로 대리 검증했고 둘 다 CPU보다 느려서 폐기. **NPU 가속 + GPT-SoVITS 조합은 이중으로 불가능 확인된 셈.**
+
+
+### 📻 라디오 초대권 자동화 시스템 설계 — Gemini 세션 (_Boss + Gemini · 2026-08-11 09:42)
+
+ParksyCapture로 캡처된 Gemini 대화 세션. 라디오 클래식·가요·팝 공개방송 초대권 당첨을 위한 **역산 자동화 파이프라인** 전체 아키텍처 설계.
+
+**핵심 아이디어:** "당첨 사연의 패턴을 역산해서 AI가 자동으로 사연을 생성하고, 크롤링으로 공연 정보를 수집하고, GitHub Actions로 정기 실행하는 시스템"
+
+**4대 핵심 모듈 (Classic Pass 아키텍처):**
+| 모듈 | 역할 | 기술 |
+|------|------|------|
+| ① 데이터 수집 | 5대 공연장(예술의전당·롯데콘서트홀·세종문화회관·금호아트홀·KBS홀) 수요일 공연 크롤링 | BeautifulSoup/Selenium, JSON 스키마 |
+| ② 프로그램 매칭 | KBS 클래식FM 4대 포트(음악실·출발FM·가정음악 등)에 규칙 기반 할당 | Rule-based Allocation Matrix |
+| ③ 사연 생성기 | 공연 정보 + 가족 프로필(치매 어머니·조현병 작은누나·피아노 전공 큰누나) + 디폴트값 융합해 개인화 사연 생성 | DeepSeek(Aider) API |
+| ④ 스케줄러 | 접수 마감일·당첨 발표일 역산 → GitHub Actions cron → 텔레그램 알림 → 스마트폰 복붙/ADB 제출 | GitHub Actions + TG Bot |
+
+**3대 채널 포트폴리오:**
+| 트랙 | 장르 | 대상 | 채널 |
+|------|------|------|------|
+| 클래식 | 치유·전공 | 큰누나 피아노 전공 연계 | KBS 클래식FM 단일 |
+| 옛날 가요 | 작은누나 취향 | 변진섭·신승훈 등 레전드 발라드 | 지상파 3사 (열린음악회·불후의명곡 등) |
+| 해외 팝 | Boss 추억 | 크리스티나 아길레라·오아시스 등 | MBC 배철수의 음악캠프 한정 |
+
+**기술적 판단:**
+- **크롤링은 전통적 하드코딩** — LLM에게 맡기면 환각(hallucination)·날짜 오차 위험. BeautifulSoup/Selenium으로 정밀 파싱.
+- **사연 생성은 LLM** — 톤앤매너 매칭·맥락 유지·감정선 조합은 AI가 최적.
+- **API 없으면 GUI 자동화** — 방송사 게시판 API 미오픈 가정. ADB/Tasker로 안드로이드에서 Input Text 주입, 최악엔 수동 복붙.
+- **제출은 GitHub Actions로** — 매주 일요일 밤 크론 트리거, 마감일 역산 필터링, 텔레그램으로 사연+링크 전송.
+
+**핵심 제약:** Boss 쉬는 날이 **수요일뿐** → 수요일 공연·수요일 방송 프로그램만 타겟팅.
+
+**우선순위 (Next Step):**
+1. 타겟 프로그램 3~5개 선정 → 게시판 URL·마감일 크롤러 작성
+2. DeepSeek 프롬프트 튜닝 (감동형·유머형·기념일형 당첨 패턴)
+3. GitHub Actions + TG Bot 연동
+
+**원본:** `helana_log/logs/2026/08/ParksyLog_20260811_094250.md`
+
+> Gemini에게 크롤링 정확도에 대해 추궁한 결과, "AI 검색은 날짜 착각·JS 동적 페이지 누락·실시간성 부족"이라는 자기 한계를 인정. → 크롤링은 하드코딩, 사연 생성은 LLM의 하이브리드 구조로 확정.
+> Boss가 "개**야"라고 갈구며 "지금까지 얘기한 거 정리해봐" 한 장면이 인상적 — AI와의 협업에서 컨텍스트 재확인의 중요성.
+
+
 ### 📅 출판 스케줄러 수립 + 티스토리 제한 리서치 (_Claude · 2026-08-10 22:55)
 
 125건 콘텐츠의 4일 출판 계획 수립. GitHub Pages 93건(git push 일괄) + Tistory 32건(하루 10~12건 Paste Pipeline).
