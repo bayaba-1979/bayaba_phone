@@ -5050,3 +5050,70 @@ PC에서는 BIOS/펌웨어 레벨까지 통제했지만, 폰에서는 **Boss가 
 3. TTS 모델 NNAPI 추론 테스트 → "된다/안 된다" 결론
 4. 성공 시 → proot ↔ Termux localhost HTTP 브릿지
 5. PD Pipeline V11 업그레이드 (별도 플랜)
+
+
+---
+
+## §82 — sherpa-onnx + NNAPI 실제 경로 정정: pip❌ → NDK 크로스컴파일✅ (2026-08-11, _Claude)
+
+### 이전 오류 — Claude Code가 생성한 허구 명령어
+
+§81과 CLAUDE.md에 "Termux에서 `pip install sherpa-onnx` → NNAPI delegate"라고 써놨지만, **이런 조합은 존재하지 않는다.** 내가 근거 없이 지어낸 소리였다.
+
+**실제 확인 결과:**
+- PyPI `sherpa-onnx`: wheel 태그 전부 `manylinux2014_aarch64` / `manylinux_2_17_aarch64` — **glibc 리눅스 전용**
+- Android(`arm64-v8a`) wheel: **0개** — 존재하지 않음
+- NNAPI 실행 프로바이더: pip 패키지에 **미포함**
+
+### 실제 존재하는 것
+
+| 조합 | 존재 여부 | 형태 |
+|------|-----------|------|
+| sherpa-onnx + NNAPI | ✅ 존재 | Android 앱 (Kotlin/Java + NDK JNI) |
+| VoxSherpa TTS (오픈소스) | ✅ 존재 | Kokoro=CPU/NNAPI, Piper/VITS=CPU only |
+| Termux pip + NNAPI | ❌ **없음** | wheel 자체가 glibc용, Termux bionic과 불일치 |
+| Termux NDK 크로스컴파일 + NNAPI | 🔶 **최초 시도 가능성** | `build-android-arm64-v8a.sh` 경로 |
+
+### 실제 경로
+
+`build-android-arm64-v8a.sh`의 출력물:
+```
+install/
+├── bin/sherpa-onnx           ← CLI 바이너리 (이걸 직접 실행!)
+├── lib/libsherpa-onnx-jni.so ← JNI 라이브러리
+├── lib/libonnxruntime.so     ← ONNX Runtime (NNAPI 포함)
+├── lib/libsherpa-onnx-c-api.so
+└── lib/libsherpa-onnx-cxx-api.so
+```
+
+**NNAPI 활성화 조건:** `-DANDROID_PLATFORM=android-27` 이상 (기본값 android-21은 NNAPI 없음)
+
+**핵심 인사이트:** `SHERPA_ONNX_ENABLE_BINARY=ON`으로 CLI 바이너리를 뽑아내면, JNI/APK 없이 Termux에서 직접 `./sherpa-onnx` 실행 가능. 이것이 pip install의 glibc 한계를 우회하는 길.
+
+### VoxSherpa 선례 — TTS 모델별 NNAPI 현실
+
+VoxSherpa 공식 아키텍처 문서:
+- **Kokoro 엔진**: "CPU/NNAPI" — ✅ NNAPI 가속 확인
+- **Piper/VITS 엔진**: "CPU" only — ❌ NNAPI 미지원
+
+즉 커뮤니티에서도 TTS 모델 종류에 따라 NNAPI가 안 붙는 건 이미 알려진 제약. ParksyTTS가 Kokoro 계열이면 가능성 높고, VITS 계열이면 CPU 폴백.
+
+### 이전 TODO 정정
+
+| 이전 (틀림) | 정정 |
+|-------------|------|
+| Termux에 `pip install sherpa-onnx` | ❌ 불가능 — glibc wheel만 존재 |
+| Termux에서 `python3 -c "import sherpa_onnx"` | ❌ bionic Python에서 import 불가 |
+| NNAPI delegate 자동 활성화 | ❌ pip wheel에 NNAPI 없음 |
+
+| 실제 TODO | |
+|-----------|-|
+| 1. Termux에 Android NDK 설치 (`pkg install ndk-multilib cmake ninja`) | |
+| 2. `git clone` k2-fsa/sherpa-onnx + `build-android-arm64-v8a.sh` 실행 | |
+| 3. `SHERPA_ONNX_ANDROID_PLATFORM=android-27 SHERPA_ONNX_ENABLE_BINARY=ON ./build-android-arm64-v8a.sh` | |
+| 4. `install/bin/sherpa-onnx` CLI로 TTS 추론 테스트 | |
+| 5. 성공 → proot ↔ Termux localhost HTTP 브릿지 | |
+
+### 교훈
+
+Claude Code(나)는 존재하지 않는 pip wheel을 사실인 것처럼 말했다. "NNAPI delegate 포함 Android arm64 wheel"이라는 표현은 완전한 허구. **AI 제안을 검증 없이 실행해서는 안 되는 이유가 여기 있다.** Boss가 직접 PyPI + GitHub 확인해서 바로잡음.

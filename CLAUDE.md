@@ -26,13 +26,20 @@
   - proot(glibc)에서는 `libneuralnetworks.so`(bionic)를 dlopen할 수 없음. 권한이 아니라 링킹 문제.
   - Termux는 `untrusted_app` SELinux 도메인으로 실행 → 일반 앱과 동일한 NDK API(NNAPI 포함) 접근 가능. **루팅 불필요.**
   - sherpa-onnx NNAPI: **STT 근거 충분** (Pixel 6 벤치마크 RTF 0.035, sherpa-onnx 공식) — ⚠️ **S21 실측은 아직 안 함**. **TTS는 모델별 실패 사례** 있음 (Piper 텐서 차원 불일치 이슈).
-- **단기 전략:** Termux(bionic)에 sherpa-onnx 설치 → NNAPI delegate 활성화 시도 → proot에서 localhost HTTP 브릿지로 추론 요청.
+- **단기 전략 (2026-08-11 재정정):**
+  - ❌ ~~`pip install sherpa-onnx` → NNAPI~~ — **불가능**. PyPI wheel은 `manylinux2014_aarch64`(glibc) 전용, NNAPI 프로바이더 미포함.
+  - ✅ **실제 경로:** Termux에 Android NDK 설치 → `build-android-arm64-v8a.sh`로 크로스컴파일 (`-DANDROID_PLATFORM=android-27` → NNAPI 활성화)
+  - 결과물: `install/bin/sherpa-onnx` CLI 바이너리 + `libonnxruntime.so`(NNAPI 포함) + `libsherpa-onnx-jni.so`
+  - VoxSherpa(TTS 앱) 선례: Kokoro=CPU/NNAPI, Piper/VITS=CPU only — TTS 모델별 NNAPI 호환성 차이 확인됨
+  - proot → localhost HTTP 브릿지로 CLI 바이너리 호출
 - **TTS 리스크:** ParksyTTS가 쓰는 구체적 TTS 아키텍처가 NNAPI에서 실제로 돌아가는지는 실기기 테스트로만 확인 가능. **STT도 S21 실측은 아직 — Pixel 6 벤치마크 근거만 있음.** TTS는 미확정.
 
 > 우리 폰 안에는 AI 계산기(NPU, 26 TOPS)와 그림 그리는 부품(GPU, Mali-G78)이 모두 있어!
 > 근데 proot은 glibc 언어를 쓰고 안드로이드는 bionic 언어를 써서 서로 말이 안 통해.
 > Termux는 bionic 언어를 네이티브로 쓰니까 안드로이드랑 바로 대화할 수 있어.
-> 그래서 "Termux에 AI 두뇌(sherpa-onnx) 띄워놓고, proot이 localhost로 부탁하기" 전략으로 가는 중!
+> 그래서 "Termux에서 NDK로 AI 두뇌(sherpa-onnx)를 직접 컴파일하고, NNAPI 가속 넣어서 CLI로 실행" 전략!
+> pip install로는 안 돼 — PyPI에 올라온 건 glibc용이라 Termux(bionic)랑 안 맞고 NNAPI도 없어.
+> NDK로 직접 빌드해야 진짜 NNAPI가 붙은 바이너리가 나와.
 
 ### 이미 해결된 것 — 다시 건드리지 말 것
 - 한국어는 BERT 불필요 → 0-vector 처리, 코드 반영 완료
