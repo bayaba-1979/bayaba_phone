@@ -1,0 +1,60 @@
+{
+  "profile": {
+    "name": "박씨",
+    "role": "보호자(동생) · 육체노동자 · 출판사 AI 프로젝트 진행 중",
+    "day_off": "수요일",
+    "family": {
+      "mother": "치매 어머니",
+      "sister_small": "조현병 작은누나 (취미: 피아노)",
+      "sister_big": "큰누나 (피아노 전공)"
+    }
+  },
+
+  "channels": {
+    "classic": {
+      "name": "KBS 클래식 FM",
+      "description": "정통 클래식 공연 초대권 — 5대 공연장 타겟",
+      "programs": [
+        {"name": "KBS 음악실", "time": "09:00", "tone": "우아하고 깊이있게"},
+        {"name": "출발 FM과 함께", "time": "07:00", "tone": "산뜻하고 간결하게"},
+        {"name": "가정음악", "time": "10:00", "tone": "따뜻하고 차분하게"},
+        {"name": "FM 살롱", "time": "11:00", "tone": "세련되고 감성적으로"}
+      ]
+    },
+    "gayo": {
+      "name": "지상파 3사 가요",
+      "description": "작은누나 좋아하는 레전드 가요 방청권",
+      "programs": [
+        {"name": "열린음악회", "station": "KBS", "tone": "가족애, 추억, 감동"},
+        {"name": "불후의 명곡", "station": "KBS", "tone": "음악적 헌정, 존경"},
+        {"name": "가요무대", "station": "KBS", "tone": "옛 추억, 향수"}
+      ],
+      "favorite_singers": ["변진섭", "신승훈", "이문세", "조용필", "이선희"]
+    },
+    "pop": {
+      "name": "배철수의 음악캠프",
+      "station": "MBC FM4U",
+      "description": "해외 팝 공개방송/스튜디오 라이브",
+      "tone": "치열한 삶 속 음악의 위로, 젊은 날의 열정",
+      "favorite_artists": ["Christina Aguilera", "Oasis", "Adele", "Jason Mraz"]
+    }
+  },
+
+  "venues": [
+    {"name": "예술의전당", "url": "https://www.sac.or.kr/sac/main/schedule.do", "type": "js"},
+    {"name": "롯데콘서트홀", "url": "https://www.lotteconcerthall.com/kor/performance/calendar", "type": "ajax"},
+    {"name": "세종문화회관", "url": "https://www.sejongpac.or.kr/portal/performance/performanceSchedule.do", "type": "static"},
+    {"name": "금호아트홀 연세", "url": "https://www.kumhoarthall.com/kor/performance/schedule", "type": "static"},
+    {"name": "KBS홀", "url": "https://www.kbs.co.kr/studio/booking/schedule", "type": "static"}
+  ],
+
+  "deepseek": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-chat"
+  },
+
+  "schedule": {
+    "cron": "0 22 * * 0",
+    "description": "매주 일요일 밤 10시 실행"
+  }
+}
