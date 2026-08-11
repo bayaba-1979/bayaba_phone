@@ -17,14 +17,22 @@
 
 > 쉽게 말하면: 우리 폰에서 목소리 만드는 작업은 엄청 느려. 3.5초짜리 목소리 하나 만드는 데 7분 51초나 걸려!
 
-### 지금 하고 있는 일 — NPU/GPU 가속 (2026-08-07)
+### 지금 하고 있는 일 — NPU/GPU 가속 (2026-08-11 갱신)
 - **CPU-only 한계 확인됨.** ParksyTTS 추론 471초는 실사용 불가.
-- **GPU (Mali-G78):** `/dev/mali0` 존재, `/vendor/lib64/libOpenCL.so` 있음. proot glibc → bionic ABI 충돌로 직통 불가.
-- **NPU (Exynos NPU):** NCP v24 커널 확인. `/sys/class/drm` permission 문제.
-- **핵심 발견 — Termux가 열쇠:** Termux(bionic) → DRM + NPU sysfs 접근 가능. proot ↔ Termux localhost 브릿지 구상.
-- **단기 전략:** Sherpa-ONNX Kokoro/VITS로 CPU 추론 가속 (GPT-SoVITS보다 10~100배 빠름). NNAPI delegate 포함 Android prebuilt binary 탐색 중.
+- **GPU (Mali-G78 MP14):** `/dev/mali0` 존재, OpenCL lib 있음. proot(glibc) → bionic ABI 불일치로 직통 불가.
+- **NPU (Exynos 2100, 26 TOPS):** ENPU 런타임 전체 존재. NNAPI HAL 1.3 + EDEN 드라이버 정의됨.
+- **핵심 발견 — Termux가 열쇠 (2026-08-11 정정):**
+  - 이전 기록 "sysfs permission 문제" → **틀림**. 실제 원인은 **glibc/bionic ABI 불일치**.
+  - proot(glibc)에서는 `libneuralnetworks.so`(bionic)를 dlopen할 수 없음. 권한이 아니라 링킹 문제.
+  - Termux는 `untrusted_app` SELinux 도메인으로 실행 → 일반 앱과 동일한 NDK API(NNAPI 포함) 접근 가능. **루팅 불필요.**
+  - sherpa-onnx NNAPI: **STT 검증 완료** (Pixel 6, RTF 0.035). **TTS는 모델별 실패 사례** 있음 (Piper 텐서 차원 불일치 이슈).
+- **단기 전략:** Termux(bionic)에 sherpa-onnx 설치 → NNAPI delegate 활성화 시도 → proot에서 localhost HTTP 브릿지로 추론 요청.
+- **TTS 리스크:** ParksyTTS가 쓰는 구체적 TTS 아키텍처가 NNAPI에서 실제로 돌아가는지는 실기기 테스트로만 확인 가능. STT는 확정, TTS는 미확정.
 
-> 우리 폰 안에는 그림 그리는 부품(GPU)과 AI 계산하는 부품(NPU)이 따로 있어. 근데 이 부품들을 직접 쓰지 못하고 있어. Termux라는 다른 통로로 우회해서 쓰는 방법을 찾는 중!
+> 우리 폰 안에는 AI 계산기(NPU, 26 TOPS)와 그림 그리는 부품(GPU, Mali-G78)이 모두 있어!
+> 근데 proot은 glibc 언어를 쓰고 안드로이드는 bionic 언어를 써서 서로 말이 안 통해.
+> Termux는 bionic 언어를 네이티브로 쓰니까 안드로이드랑 바로 대화할 수 있어.
+> 그래서 "Termux에 AI 두뇌(sherpa-onnx) 띄워놓고, proot이 localhost로 부탁하기" 전략으로 가는 중!
 
 ### 이미 해결된 것 — 다시 건드리지 말 것
 - 한국어는 BERT 불필요 → 0-vector 처리, 코드 반영 완료

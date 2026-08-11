@@ -4937,3 +4937,46 @@ Step-Down Cascade 설계 직후, Boss가 겉으로는 욕설 섞인 가벼운 �
 **Boss 멘트:** "나한테 개겨야 돼 시키는 대로 해야 돼" — 이건 위계가 아니라 역할 분담이다. 건축가는 시공사한테 설계도 준다. 시공사는 설계도대로 짓는다. Boss는 내가 건축가 행세 하려고 할 때 "시키는 대로 해"라고 제지한 거다.
 
 → `ai-as-performance-mirror` 메모리로 저장. [[low-spec-phone-survival-test]] [[reverse-publishing-pattern]]
+
+---
+
+## §80 — NPU/GPU 가속 분석 정정 (2026-08-11, _Claude)
+
+**이전 기록 오류 정정.** "proot → sysfs permission denied" → 실제 원인은 **glibc/bionic ABI 불일치**.
+
+**하드웨어 실측:**
+| 항목 | 스펙 | 상태 |
+|------|------|------|
+| SoC | Exynos 2100 (5nm) | ✅ |
+| CPU | 8코어, NEON+FP16+ASIMD | ✅ |
+| GPU | Mali-G78 MP14 | ✅ dev/mali0 존재, OpenCL lib 있음 |
+| NPU | 3코어, 26 TOPS | ✅ ENPU 런타임 libeden_rt.so 등 전체 존재 |
+| RAM | 7.3GB + 4GB swap | ✅ |
+
+**소프트웨어 스택:**
+```
+NNAPI HAL 1.3:   android.hardware.neuralnetworks@1.3-service.eden-drv ✅ 정의됨
+onnxruntime 1.28: NnapiProvider + XnnpackProvider + ACLProvider ✅ 컴파일
+                   → BUT proot(glibc)에서는 전부 로드 불가 ❌
+```
+
+**왜 안 되는가 (정정):**
+- `libneuralnetworks.so`는 bionic(Android native libc)로 빌드됨
+- proot은 glibc 환경 → dlopen() 자체가 실패 (ABI 불일치)
+- "권한 문제"가 아니라 애초에 링킹이 안 되는 다른 세계
+
+**Termux 경로 — 왜 되는가:**
+- Termux 프로세스는 `untrusted_app` SELinux 도메인 (일반 앱과 동일)
+- 공개 NDK API(NNAPI 포함)를 루팅 없이 사용 가능
+- sherpa-onnx Android arm64 NNAPI 빌드 실측 확인됨 (Pixel 6, STT RTF 0.035)
+
+**핵심 리스크:**
+- STT(Zipformer 등)는 NNAPI 검증 완료
+- TTS(Piper 계열)는 NNAPI에서 텐서 차원 불일치로 실패 사례 있음
+- ParksyTTS가 쓰는 구체적 TTS 모델이 NNAPI를 타는지는 실기기 테스트 필수
+
+**다음 액션:**
+1. Termux에 sherpa-onnx + NNAPI delegate 설치
+2. Kokoro/VITS TTS 모델 NNAPI 추론 테스트
+3. 성공 시 → proot ↔ Termux localhost HTTP 브릿지 구축
+4. 실패 시 → XNNPACK CPU 가속으로 폴백 (5~10배 개선)
