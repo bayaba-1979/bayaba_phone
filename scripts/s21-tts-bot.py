@@ -55,6 +55,70 @@ def tg_answer(cb_id: str):
     requests.post(f"{TG_API}/answerCallbackQuery",
                   json={"callback_query_id": cb_id}, timeout=5)
 
+# ── /radio 명령어 처리 ─────────────────────────────
+async def handle_radio(msg: dict) -> str | None:
+    """텍스트 메시지에서 /radio 명령 감지 → 파이프라인 실행 → 결과 반환"""
+    text = msg.get("text", "").strip()
+    if not text.startswith("/radio"):
+        return None
+
+    chat_id = msg.get("chat", {}).get("id", 0)
+    cmd = text.split()[0] if text else "/radio"
+
+    import sys, subprocess
+    pipeline = "/root/work/helena-programming/pipelines/radio_ticket/dispatch.py"
+
+    if cmd == "/radio_status":
+        # 로그 요약만
+        logf = "/root/work/helena-programming/pipelines/radio_ticket/dispatch.log"
+        if os.path.exists(logf):
+            lines = open(logf).readlines()[-10:]
+            requests.post(f"{TG_API}/sendMessage",
+                         json={"chat_id": chat_id, "text": "📋 최근 로그:\n" + "".join(lines[-8:])},
+                         timeout=10)
+        else:
+            requests.post(f"{TG_API}/sendMessage",
+                         json={"chat_id": chat_id, "text": "📋 아직 실행 기록이 없습니다."},
+                         timeout=10)
+        return "ok"
+
+    # /radio 또는 /radio_test
+    dry = (cmd == "/radio_test")
+    requests.post(f"{TG_API}/sendMessage",
+                 json={"chat_id": chat_id, "text": "🎙 Helena Ticket 실행 중..." + (" (dry-run)" if dry else "")},
+                 timeout=10)
+
+    try:
+        # dispatch.py를 subprocess로 실행
+        c = [sys.executable, pipeline]
+        if dry:
+            c.append("--dry-run")
+        p = subprocess.run(c, capture_output=True, text=True, timeout=300)
+
+        if dry:
+            # 사연 내용을 TG로 전송
+            out = p.stdout[-3000:]
+            # 사연 구분해서 보내기 (길면 나눠서)
+            for chunk in [out[i:i+3500] for i in range(0, len(out), 3500)]:
+                if chunk.strip():
+                    requests.post(f"{TG_API}/sendMessage",
+                                 json={"chat_id": chat_id, "text": "📝 사연:\n" + chunk},
+                                 timeout=10)
+        else:
+            requests.post(f"{TG_API}/sendMessage",
+                         json={"chat_id": chat_id, "text": "✅ Helena Ticket 실행 완료! 3채널 사연이 전송되었습니다."},
+                         timeout=10)
+    except subprocess.TimeoutExpired:
+        requests.post(f"{TG_API}/sendMessage",
+                     json={"chat_id": chat_id, "text": "⏰ 시간 초과 (5분). 파이프라인이 너무 오래 걸립니다."},
+                     timeout=10)
+    except Exception as e:
+        requests.post(f"{TG_API}/sendMessage",
+                     json={"chat_id": chat_id, "text": f"❌ 오류: {e}"},
+                     timeout=10)
+
+    return "ok"
+
 # ── 콜백 처리 ──────────────────────────────────────
 async def handle_callback(cb: dict):
     cb_id = cb["id"]
@@ -87,6 +151,9 @@ async def poll_once(offset: int = 0) -> int:
             cb = u.get("callback_query")
             if cb:
                 await handle_callback(cb)
+            msg = u.get("message", {})
+            if msg and msg.get("text", "").startswith("/radio"):
+                await handle_radio(msg)
     except Exception:
         pass
     return offset
