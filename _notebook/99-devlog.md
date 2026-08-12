@@ -1,6 +1,74 @@
 # 📋 S21 Phone — 전체 개발일지
 
 
+### 🎙️ 사도신경 더빙 — RVC ONNX 전환 + S21 추론 성공 (_Claude · 2026-08-12)
+
+**배경:** 직전 WSL 세션에서 작업하던 사도신경 더빙 워크플로우가 끊겨서 S21에서 재수행.
+
+**핵심 작업: parksy_rvc.pth → parksy.onnx 변환**
+- 기존 WSL: PyTorch RVC (parksy_rvc.pth + .index, f0method=rmvpe, index_rate=0.75)
+- S21: RvcPyInfer (ONNX) — .pth를 ONNX로 변환 필요
+- RVC 리포 클론 (`/tmp/rvc_repo`, 최신 v2 아키텍처)
+- 새로운 `SynthesizerTrnMs768NSFsid` 클래스 사용 (구형 `SynthesizerTrnMsNSFsidM` 아님)
+- 상대위치 임베딩 ONNX 트레이싱 이슈 → monkeypatch 적용 (MultiHeadAttention 4종)
+- `torch.onnx.export(dynamo=False)`로 구형 TorchScript 경로 사용
+- parksy.onnx: 110.3MB, 48kHz 네이티브
+
+**rvc_infer.py 수정:**
+- RvcPyInfer 0.2.2 API에 맞게 `build_task()` → `task.run()` 패턴 수정
+- `rmvpe=` 파라미터 → `RvcContext(rmvpe=path)` + `f0extract_algorithm="rmvpe"`
+- `index_path` + `index_rate=0.75` 직접 전달
+
+**결과:**
+| 항목 | WSL (끊긴 세션) | S21 (이번 세션) |
+|------|----------------|-----------------|
+| 모델 | parksy_rvc.pth (PyTorch) | parksy.onnx (RvcPyInfer) |
+| 샘플레이트 | 40,000Hz | 48,000Hz |
+| f0method | rmvpe | rmvpe |
+| index_rate | 0.75 | 0.75 |
+| Edge TTS 속도 | -10% | -8% |
+| 추론 시간 | (기록 없음) | 154.2초 (RTF 3.3) |
+| RMS | 0.108 | 0.108 ✅ |
+
+**사도신경 오디오:** 46.5초, 728KB mp3. 텔레그램 전송 완료.
+
+**교훈:**
+- RVC v2 .pth 모델은 새로운 `infer/module/models.py` 아키텍처와 호환됨 (103개 enc_q missing은 예상된 것 — ContentVec은 별도 ONNX)
+- `torch.onnx.export` dynamo 모드는 상대위치 임베딩의 동적 reshape 처리 못 함 → `dynamo=False` + monkeypatch 필수
+- RvcPyInfer 0.2.2에서 rmvpe는 `build_task`가 아닌 `RvcContext(rmvpe=)`로 설정
+
+
+### 🔗 Tailscale 테스트 — WSL→S21 파일 전송 (_Claude · 2026-08-12)
+
+S21(저사양 폰, 한 달째 거의 미사용)에서 Tailscale로 WSL 파일 받기 테스트.
+
+**결과:** 됨. LTE 상태에서 WSL→S21로 RVC 모델 235MB 전송 성공.
+
+**과정에서 걸린 것들:**
+
+| 문제 | 해결 |
+|------|------|
+| proot에서 TCP 안 됨 | `SO_BINDTODEVICE` 권한 없음 → Termux 네이티브 바이너리로 우회 |
+| Google/GitHub 계정 분리 | 같은 이메일이어도 Tailscale은 인증 방식 따라 별개 tailnet 생성 |
+| auth key 인증 실패 | state 파일 삭제 후 재시작해야 새 tailnet으로 편입 |
+| DERP relay로만 연결 | 직접 연결은 안 되고 Tokyo 릴레이(76ms) 경유 — 그래도 전송 됨 |
+
+**테스트한 경로:**
+```bash
+# Termux tailscale ssh로 pipe 전송
+tailscale ssh dtslib 'cat /home/dtsli/rvc_models/parksy_rvc/parksy_rvc.pth' > ~/rvc_models/parksy_rvc/parksy_rvc.pth
+tailscale ssh dtslib 'cat /home/dtsli/rvc_models/parksy_rvc/parksy_rvc.index' > ~/rvc_models/parksy_rvc/parksy_rvc.index
+```
+
+**현재 S21에 받은 파일:**
+- `~/rvc_models/parksy_rvc/parksy_rvc.pth` 55MB
+- `~/rvc_models/parksy_rvc/parksy_rvc.index` 180MB
+
+**proot vs Termux:**
+- proot: Tailscale mesh 확인·peer 감시 가능, TCP 전송 불가
+- Termux: TCP/UDP 정상, 네이티브 권한으로 Tailscale SSH·SCP 가능
+
+
 ### 🌐 Tailscale Care 커뮤니티 리서치 (_Claude · 2026-08-12)
 
 **결론: 커뮤니티에서 이미 검증된 패턴. 우리는 거기에 AI 음성+건강 레이어를 올린 진보된 형태.**
