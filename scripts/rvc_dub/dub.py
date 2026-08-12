@@ -133,7 +133,8 @@ async def main():
     parser.add_argument("--out-dir", default="/tmp/dub", help="출력 디렉토리")
     parser.add_argument("--voice", default="ko-KR-SunHiNeural", help="Edge TTS 음성")
     parser.add_argument("--rate", default="-8%", help="Edge TTS 속도")
-    parser.add_argument("--rvc-model", required=True, help="RVC .onnx 모델 경로")
+    parser.add_argument("--profile", default=None, help="음성 프로필명 (~/rvc_models/<name>/profile.json)")
+    parser.add_argument("--rvc-model", default=None, help="RVC .onnx 모델 경로")
     parser.add_argument("--rvc-index", default=None, help="RVC .index 경로")
     parser.add_argument("--index-rate", type=float, default=0.75, help="Feature retrieval blend")
     parser.add_argument("--f0-up", type=float, default=0, help="피치 조정 (semitones)")
@@ -145,25 +146,52 @@ async def main():
     out_dir.mkdir(parents=True, exist_ok=True)
 
     name = args.name
+    voice = args.voice
+    rate = args.rate
+    index_rate = args.index_rate
+    f0_up = args.f0_up
+
+    # ── 프로필 로딩 ──────────────────────────────────────
+    if args.profile:
+        profile_path = Path.home() / "rvc_models" / args.profile / "profile.json"
+        if profile_path.exists():
+            import json
+            profile = json.loads(profile_path.read_text())
+            voice = profile.get("base_tts", voice)
+            rate = profile.get("tts_rate", rate)
+            index_rate = profile.get("index_rate", index_rate)
+            f0_up = profile.get("f0_up_key", f0_up)
+            if not args.rvc_model:
+                rvc_model_name = profile.get("rvc_model", "parksy.onnx")
+                args.rvc_model = str(Path.home() / "rvc_models" / args.profile / rvc_model_name)
+            if not args.rvc_index:
+                idx_name = profile.get("rvc_index", "parksy_rvc.index")
+                args.rvc_index = str(Path.home() / "rvc_models" / args.profile / idx_name)
+            print(f"📋 프로필 로드: {profile.get('name', args.profile)}")
+        else:
+            print(f"⚠️  프로필 없음: {profile_path} — CLI 인자 사용")
+
+    if not args.rvc_model:
+        parser.error("--rvc-model 또는 --profile 필수")
     rvc_model = Path(args.rvc_model)
     rvc_index = Path(args.rvc_index) if args.rvc_index else None
 
     print("=" * 60)
     print(f"🎙️  RVC 성우 더빙: {name}")
-    print(f"    베이스 음성: {args.voice} ({args.rate})")
+    print(f"    베이스 음성: {voice} ({rate})")
     print(f"    RVC 모델:    {rvc_model.name}")
     if rvc_index:
         print(f"    RVC 인덱스:  {rvc_index.name}")
-    print(f"    index_rate:  {args.index_rate}")
+    print(f"    index_rate:  {index_rate}")
     print("=" * 60)
 
     total_t0 = time.time()
 
     # ── STEP 1: Edge TTS ─────────────────────────────────
     print("\n━━━ STEP 1: Edge TTS ━━━")
-    print(f"음성: {args.voice} / 속도: {args.rate}")
+    print(f"음성: {voice} / 속도: {rate}")
     tts_wav = out_dir / f"{name}_raw.wav"
-    dur = await tts_generate(args.text, tts_wav, args.voice, args.rate)
+    dur = await tts_generate(args.text, tts_wav, voice, rate)
     print(f"길이: {dur:.1f}초")
 
     if args.skip_rvc:
@@ -172,7 +200,7 @@ async def main():
         # ── STEP 2: RVC 변환 ─────────────────────────────
         print("\n━━━ STEP 2: RVC 음색 변환 ━━━")
         print(f"모델: {rvc_model.name}")
-        print(f"f0method: rmvpe / index_rate: {args.index_rate}")
+        print(f"f0method: rmvpe / index_rate: {index_rate}")
         rvc_wav = out_dir / f"{name}_rvc.wav"
 
         # 샘플레이트 맞추기 (필요시)
@@ -191,8 +219,8 @@ async def main():
             src_wav, rvc_wav,
             rvc_model=rvc_model,
             rvc_index=rvc_index,
-            index_rate=args.index_rate,
-            f0_up_semitone=args.f0_up,
+            index_rate=index_rate,
+            f0_up_semitone=f0_up,
         )
         final_wav = rvc_wav
 

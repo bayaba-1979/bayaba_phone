@@ -9,11 +9,12 @@
 #
 # 예시:
 #   bash scripts/rvc_dub/dub.sh apostles.txt apostles
-#   bash scripts/rvc_dub/dub.sh -t "사도신경 전문..."
+#   bash scripts/rvc_dub/dub.sh -p taesoon 대본.txt
 #
 # 환경변수 (선택):
-#   DUB_RVC_MODEL    → RVC .onnx 모델 경로 (기본값: parksy.onnx)
-#   DUB_RVC_INDEX    → RVC .index 경로 (기본값: parksy_rvc.index)
+#   DUB_PROFILE      → 음성 프로필명 (~/rvc_models/<name>/profile.json)
+#   DUB_RVC_MODEL    → RVC .onnx 모델 경로 (--profile 있으면 무시됨)
+#   DUB_RVC_INDEX    → RVC .index 경로 (--profile 있으면 무시됨)
 #   DUB_EDGE_VOICE   → Edge TTS 음성 (기본값: ko-KR-SunHiNeural)
 #   DUB_EDGE_RATE    → Edge TTS 속도 (기본값: -8%)
 #   DUB_SEND_TG      → 완료 후 텔레그램 전송 (기본값: 1)
@@ -30,19 +31,27 @@ NAME="dub_output"
 if [ "${1:-}" = "-t" ]; then
     TEXT="${2:?텍스트를 입력하세요}"
     NAME="${3:-dub_output}"
+elif [ "${1:-}" = "-p" ]; then
+    PROFILE="${2:?프로필명을 입력하세요}"
+    TEXT_FILE="${3:?텍스트 파일을 입력하세요}"
+    NAME="${4:-$(basename "$TEXT_FILE" .txt)}"
+    TEXT="$(cat "$TEXT_FILE")"
 else
-    TEXT_FILE="${1:?텍스트 파일 또는 -t '텍스트'}"
+    TEXT_FILE="${1:?텍스트 파일 또는 -t '텍스트' 또는 -p <프로필> <파일>}"
     NAME="${2:-$(basename "$TEXT_FILE" .txt)}"
     TEXT="$(cat "$TEXT_FILE")"
 fi
+
+# 프로필
+PROFILE="${DUB_PROFILE:-${PROFILE:-}}"
 
 # 음성 설정 (기본: 여성 베이스)
 VOICE="${DUB_EDGE_VOICE:-ko-KR-SunHiNeural}"
 RATE="${DUB_EDGE_RATE:--8%}"
 
 # RVC 모델
-RVC_MODEL="${DUB_RVC_MODEL:-$REPO_ROOT/voice_models/rvc/parksy.onnx}"
-RVC_INDEX="${DUB_RVC_INDEX:-$HOME/rvc_models/parksy_rvc/parksy_rvc.index}"
+RVC_MODEL="${DUB_RVC_MODEL:-}"
+RVC_INDEX="${DUB_RVC_INDEX:-}"
 
 # 출력 디렉토리
 OUT_DIR="$REPO_ROOT/_dub/${NAME}"
@@ -54,14 +63,27 @@ echo "    베이스 음성: ${VOICE} (${RATE})"
 echo "    RVC 모델:    $(basename "$RVC_MODEL")"
 echo ""
 
+PROFILE_ARG=""
+RVC_MODEL_ARG=""
+RVC_INDEX_ARG=""
+if [ -n "${PROFILE:-}" ]; then
+    PROFILE_ARG="--profile $PROFILE"
+else
+    RVC_MODEL="${RVC_MODEL:-$REPO_ROOT/voice_models/rvc/parksy.onnx}"
+    RVC_INDEX="${RVC_INDEX:-$HOME/rvc_models/parksy_rvc/parksy_rvc.index}"
+    RVC_MODEL_ARG="--rvc-model $RVC_MODEL"
+    RVC_INDEX_ARG="--rvc-index $RVC_INDEX"
+fi
+
 python3 "$SCRIPT_DIR/dub.py" \
     --text "$TEXT" \
     --name "$NAME" \
     --out-dir "$OUT_DIR" \
     --voice "$VOICE" \
     --rate "$RATE" \
-    --rvc-model "$RVC_MODEL" \
-    --rvc-index "$RVC_INDEX"
+    $PROFILE_ARG \
+    $RVC_MODEL_ARG \
+    $RVC_INDEX_ARG
 
 # ── 텔레그램 ──────────────────────────────────────────────
 if [ "${DUB_SEND_TG:-1}" = "1" ]; then
