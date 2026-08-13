@@ -1,58 +1,52 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# start-proot-tailscale.sh — proot Ubuntu 안에서 실행 (helena-proot 데몬 + 양 노드 up)
+# start-proot-tailscale.sh — proot Ubuntu 안에서 실행 (helena-proot 데몬 + `up`)
 # ==============================================================================
-# boot 스크립트(~/.termux/boot/start-tailscale-boot.sh)가 proot-distro로 호출.
+# boot 스크립트(~/.termux/boot/start-tailscale-boot.sh)가
+#   proot-distro login ubuntu --no-kill-on-exit -- bash start-proot-tailscale.sh
+# 로 호출. 이 스크립트가 종료된 뒤 proot이 "--no-kill-on-exit"으로 block되어
+# glibc 데몬(41641)을 계속 살려둠 → 상주 keep-alive 루프 없이도 데몬 생존(CPU ~0).
 #
 # 하는 일 (전부 proot/glibc 맥락):
-#   [A] helena-proot  glibc tailscaled 데몬 기동 (port 41641, stale 소켓 정리)
-#   [B] helena-proot  `up` — glibc tailscale (기본 소켓)
-#   [C] helena-android `up` — glibc tailscale이 **bionic 데몬 소켓**을 직접 제어
+#   [A] helena-proot glibc tailscaled 데몬 기동 (port 41641, stale 소켓 정리)
+#   [B] helena-proot `up` — glibc tailscale (기본 소켓)
+#
+#   (helena-android `up`은 여기서 안 함 — native 부팅 스크립트가 bionic 데몬이
+#    살아난 순간 proot glibc CLI로 1회 실행. 정확히 준비된 시점에 up → 타임아웃
+#    추측 불필요.)
 #
 # ==============================================================================
 # 2026-08-13 정정 — native bionic `tailscale` CLI는 seccomp(faccessat2→SIGSYS)로
-#   결정적으로 죽음. proot의 glibc `tailscale`는 bionic 데몬 소켓까지 제어 가능
-#   (검증: `tailscale --socket=<bionic sock> up` exit=0, 버전 1.102.2 동일).
-#   → 두 노드 `up`을 전부 여기서 glibc CLI로 처리해 SIGSYS를 원천 우회.
+#   결정적으로 죽음. proot의 glibc `tailscale`는 bionic 데몬 소켓까지 제어 가능.
 #
 #   ⚠️ liveness/종료 판정은 `pgrep -f`/`pkill -f` 금지 — 부모 셸 cmdline에 패턴
-#      문자열이 들어가면 오살 위험(실측: 테스트 중 내 셸이 pkill에 죽음).
-#      → `pgrep -x tailscaled`(프로세스명 정확일치) + `/proc/PID/cmdline`의
-#        `--port=` 필터로 안전하게 구분.
-#
-# 별도 파일로 분리한 이유: 부팅 스크립트와 분리해 cmdline 오염을 최소화.
+#      문자열이 들어가면 오살 위험. → 소켓에 실제 연결(status)로 판정.
+# ==============================================================================
+# 2026-08-13 배터리 재설계 — 상주 keep-alive(60s wake) 루프 제거:
+#   - 기존: helper가 60초마다 wake하며 데몬 유지 + up 재확인 → 상시 배터리 소모.
+#   - 변경: proot-distro `--no-kill-on-exit`(proot 기본 block 동작)이 부모로
+#     남아 데몬을 유지(CPU ~0). up은 최초 1회 — 성공하면 tailscaled가 netmon으로
+#     자동 재연결하므로 재-up 불필요. → 통화 대기 수준(상시 wake 0) 달성.
 # ==============================================================================
 
 set -u
 
-# --keepalive: 부팅 후 상주 모드. 이 플래그가 없으면(수동 복구) 기동+up 후 종료.
-KEEPALIVE=0
-[ "${1:-}" = "--keepalive" ] && KEEPALIVE=1
-
-# ------------------------------------------------------------------------------
-# [A] helena-proot — glibc tailscaled 데몬 (port 41641)
-# ------------------------------------------------------------------------------
 PROOT_PORT=41641
 PROOT_SOCK=/var/run/tailscale/tailscaled.sock
 PROOT_LOG=/var/log/tailscaled.log
 
-# 특정 포트의 tailscaled PID를 찾음.
-# `pgrep -f '[t]ailscaled.*--port=N'`: proot에서 검증된 신뢰 패턴(tailscale-check.sh와 동일).
-#   - `[t]ailscaled` 괄호 트릭: pgrep 자신의 cmdline("[t]ailscaled")엔 "tailscaled"
-#     부분문자열이 없어 자기매칭 방지.
-#   - `pgrep -x`(프로세스명 일치)는 proot에서 간헐적으로 데몬을 놓침 → 사용 금지.
+# 특정 포트의 tailscaled PID를 찾음 (proot에선 간헐적 놓침 있음 — liveness는
+# 아래 ensure_proot_daemon의 socket 연결로 판정하므로 여기선 좀비 정리용으로만).
 daemon_pid() {
-  pgrep -f "[t]ailscaled.*--port=$1" 2>/dev/null | head -1
+  pgrep -f "[t]tailscaled.*--port=$1" 2>/dev/null | head -1
 }
 
-# [A] proot 데몬 생존 보장 (멱등 함수 — keep-alive 루프에서도 재사용)
-#   서빙 중 판정 = 소켓에 실제 연결(status). cmdline 매칭이 아니므로 오살·오판 차단.
+# [A] proot 데몬 생존 보장 (멱등 — 서빙 중 판정은 소켓 실제 연결)
 ensure_proot_daemon() {
   if tailscale --socket="$PROOT_SOCK" status >/dev/null 2>&1; then
     return 0
   fi
   # 좀비(프로세스만 살아있고 소켓 없음) 또는 죽음 → 강제 정리 후 재기동.
-  # 재부팅 직후 proot /run은 tmpfs 아님(영속) → 재부팅 전 stale 소켓이 바인딩 방해.
   ZPID=$(daemon_pid "$PROOT_PORT" 2>/dev/null)
   [ -n "$ZPID" ] && kill -9 "$ZPID" 2>/dev/null || true
   rm -f "$PROOT_SOCK" 2>/dev/null || true
@@ -61,58 +55,37 @@ ensure_proot_daemon() {
   sleep 3
 }
 
-# ------------------------------------------------------------------------------
-# up_with_retry — 소켓이 준비될 때까지 대기하며 `up` 재시도 (콜드 부팅 대비)
-#   (참고: SIGSYS와 무관. 여기 재시도는 "데몬이 소켓을 아직 안 만들었을 때"의
-#    정상적인 타이밍 대기. native CLI의 결정적 SIGSYS 재시도와는 다름.)
-# ------------------------------------------------------------------------------
+# node_running — 실제 backend 상태가 Running인지 (up 성공 여부가 아니라 상태가 목표)
+node_running() {
+  tailscale --socket="$1" status --json 2>/dev/null \
+    | grep -qE '"BackendState"[[:space:]]*:[[:space:]]*"Running"'
+}
+
+# up_with_retry — 소켓이 준비되고 backend가 Running이 될 때까지 대기 (콜드 부팅 대비)
 up_with_retry() {
-  local sock="$1" host="$2" label="$3" i
-  for i in 1 2 3 4 5 6; do
+  local sock="$1" host="$2" label="$3" max_wait="$4" waited=0
+  # max_wait: 총 대기(초). 30초 간격으로 up 시도 + Running 확인.
+  while [ "$waited" -lt "$max_wait" ]; do
     if [ -S "$sock" ]; then
-      if tailscale --socket="$sock" up --ssh --hostname="$host" 2>&1; then
-        echo "$label up 성공 (시도 ${i})"
+      # up 실행(exit 무시 — "prefs write access denied"는 이미 Running일 때의 무해 응답).
+      # 실제 목표는 backend Running이므로 status로 확인.
+      tailscale --socket="$sock" up --ssh --hostname="$host" >/dev/null 2>&1 || true
+      if node_running "$sock"; then
+        echo "$label Running 확인 (대기 ${waited}s)"
         return 0
       fi
     fi
-    if [ "$i" -lt 6 ]; then
-      echo "[warn] $label 소켓 미준비/up 실패 (시도 ${i}/6) — 5초 대기"
-      sleep 5
-    fi
+    sleep 30
+    waited=$((waited + 30))
   done
-  echo "[warn] $label up 최종 실패 (데몬 기동 확인 필요)"
+  echo "[warn] $label Running 미도달 (${max_wait}s 경과 — 데몬 기동 확인 필요)"
   return 1
 }
 
 # ------------------------------------------------------------------------------
-# [B] helena-proot 데몬 생존 보장 + `up` — glibc tailscale (기본 소켓)
+# [A]+[B] proot 데몬 생존 보장 + `up`
 # ------------------------------------------------------------------------------
 ensure_proot_daemon
-up_with_retry "$PROOT_SOCK" "helena-proot" "helena-proot"
+up_with_retry "$PROOT_SOCK" "helena-proot" "helena-proot" 120
 
-# ------------------------------------------------------------------------------
-# [C] helena-android `up` — glibc tailscale → bionic 데몬 소켓 직접 제어
-#     (native bionic CLI는 SIGSYS로 죽으므로 여기서 glibc로 대체)
-# ------------------------------------------------------------------------------
-TERMUX_SOCK=/data/data/com.termux/files/usr/var/lib/tailscale/tailscaled.sock
-up_with_retry "$TERMUX_SOCK" "helena-android" "helena-android"
-
-# ------------------------------------------------------------------------------
-# [D] keep-alive 상주 루프 — 부팅 후 proot 세션을 살려두어 데몬이 proot-distro의
-#     --kill-on-exit으로 휩쓸리지 않게 함. 이 루프(foreground)가 살아있는 한
-#     proot 세션도 살아있고, 그 안의 glibc 데몬도 살아있음.
-#     + 양 노드 up을 주기 재확인 → bionic 데몬이 늦게 떠도 자가치유.
-# ------------------------------------------------------------------------------
-if [ "$KEEPALIVE" = 1 ]; then
-  echo "proot keep-alive 상주 시작 (port ${PROOT_PORT} 데몬 + 양 노드 up 주기 재확인)"
-  while true; do
-    ensure_proot_daemon
-    tailscale --socket="$PROOT_SOCK" up --ssh --hostname="helena-proot" >/dev/null 2>&1 || true
-    if [ -S "$TERMUX_SOCK" ]; then
-      tailscale --socket="$TERMUX_SOCK" up --ssh --hostname="helena-android" >/dev/null 2>&1 || true
-    fi
-    sleep 60
-  done
-fi
-
-echo "proot helper 완료 (port ${PROOT_PORT} 데몬 + 양 노드 up)"
+echo "proot helper 완료 (port ${PROOT_PORT} 데몬 + up)"

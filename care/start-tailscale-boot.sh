@@ -4,9 +4,10 @@
 # ==============================================================================
 # 위치: Termux의 ~/.termux/boot/ 에 복사 (Termux:Boot 앱이 부팅 시 실행)
 #
-# 동작: 폰 부팅 → Termux:Boot → 이 스크립트 → tailscaled 2개 기동
-#   [1] helena-android — Termux 네이티브(bionic) tailscaled **데몬**만 여기서 기동
-#   [2] helena-proot   — proot Ubuntu의 glibc 데몬 + 두 노드 `up` 전부 (helper 호출)
+# 동작: 폰 부팅 → Termux:Boot → 이 스크립트 → tailscaled 2개 기동 + 양 노드 up
+#   [1] helena-android — Termux 네이티브(bionic) tailscaled 데몬 기동 + `up` 1회
+#       (데몬이 살아난 순간 proot glibc CLI로 up — native bionic CLI는 SIGSYS)
+#   [2] helena-proot   — proot Ubuntu의 glibc 데몬 + `up` (helper 호출, --no-kill-on-exit)
 #
 # ==============================================================================
 # 2026-08-13 정정 — "레이어별 재검토"로 밝혀낸 진짜 원인 (이전 fix 전면 교체):
@@ -48,10 +49,19 @@ echo "[$(date '+%F %T')] boot script START (uptime ${UPTIME_S:-?}s)" >> "$BOOTLO
 # 화면 꺼져도 CPU 깊은 잠 방지 (실패해도 계속 진행)
 "$TS/bin/termux-wake-lock" >> "$BOOTLOG" 2>&1 || echo "[warn] termux-wake-lock 실패" >> "$BOOTLOG"
 
+# ⚠️ 배터리: wake-lock은 부팅 정착(최악 ~15분)에만 필요. 20분 후 자동 해제 —
+#   무한 유지로 CPU 깊은잠이 막히면 "통화 대기 수준" 배터리를 못 지킴.
+(
+  trap '' HUP INT TERM 2>/dev/null
+  sleep 1200
+  "$TS/bin/termux-wake-unlock" >> "$BOOTLOG" 2>&1 || true
+  echo "[$(date '+%F %T')] wake-lock 해제 (부팅 정착 20분 경과)" >> "$BOOTLOG"
+) >> "$BOOTLOG" 2>&1 &
+
 # ==============================================================================
 # [1] helena-android — Termux 네이티브(bionic) tailscaled **데몬** (port 41642)
 #     데몬은 clipboard 미사용 → SIGSYS 없음. stale 소켓만 rm -f로 정리.
-#     `up`은 여기서 안 함 — proot helper가 glibc CLI로 처리.
+#     데몬이 살아나면 여기서 proot glibc CLI로 `up` 1회 실행 (아래 루프 내부).
 # ==============================================================================
 TS_STATE="$TS/var/lib/tailscale/tailscaled.state"
 TS_SOCK="$TS/var/lib/tailscale/tailscaled.sock"
@@ -93,6 +103,16 @@ else
       # 생존 확인: 프로세스가 살아있으면 성공(루프 종료). 죽었으면(netmon 미정착) 재시도.
       if [ -n "$DAEMON_PID" ] && kill -0 "$DAEMON_PID" 2>/dev/null; then
         echo "[$(date '+%F %T')] [1] Termux tailscaled 기동 성공 (시도 $TRY, PID $DAEMON_PID)" >> "$BOOTLOG"
+        # 데몬 살아남 → bionic 노드 `up` 1회 (proot glibc CLI — native bionic CLI는
+        # SIGSYS로 죽음). tailscaled가 netmon으로 이후 자동 재연결하므로 재-up 불필요.
+        # 소켓 준비 대기(최대 ~30s) 후 up.
+        for s in 1 2 3 4 5 6; do
+          [ -S "$TS_SOCK" ] && break
+          sleep 5
+        done
+        "$TS/bin/proot-distro" login ubuntu -- \
+          tailscale --socket="$TS_SOCK" up --ssh --hostname="helena-android" \
+          >> "$BOOTLOG" 2>&1 || true
         exit 0
       fi
       # 30회마다 1줄 로그 — 영구 실패(재시도 멈춤 없음) 판별용.
@@ -104,17 +124,16 @@ else
 fi
 
 # ==============================================================================
-# [2] helena-proot glibc 데몬 기동 + 두 노드 `up` 전부 → proot helper에서 처리.
+# [2] helena-proot glibc 데몬 기동 + `up` → proot helper에서 처리.
 #     (glibc `tailscale` CLI로 bionic/proot 양쪽 소켓 제어 — native bionic CLI는
 #      SIGSYS로 죽기 때문에 여기서 절대 `tailscale up` 네이티브 호출 금지)
 # ==============================================================================
-echo "[$(date '+%F %T')] [2] proot(glibc) 데몬 기동 (keep-alive 상주 세션)" >> "$BOOTLOG"
-# ⚠️ 2026-08-13 20:25 부팅 실측: helper proot 세션이 종료되면 proot-distro의
-#   --kill-on-exit이 안에서 기동한 glibc 데몬까지 SIGKILL로 휩쓸었음.
-#   → timeout(세션 종료) 대신 nohup+백그라운드로 탈부착하고, helper는 --keepalive
-#     루프가 foreground로 살아있게 해 proot 세션(그리고 데몬)을 계속 유지.
-nohup "$TS/bin/proot-distro" login ubuntu -- \
-  bash /root/work/care/start-proot-tailscale.sh --keepalive \
+echo "[$(date '+%F %T')] [2] proot(glibc) 데몬 기동 (--no-kill-on-exit 상주 블록)" >> "$BOOTLOG"
+# ⚠️ 2026-08-13 배터리 재설계: 기존 --keepalive(60s wake 루프)는 상시 배터리 소모.
+#   → `--no-kill-on-exit`으로 proot-distro가 block(CPU ~0)하며 glibc 데몬을 유지.
+#   helper는 데몬+up 후 종료. tailscaled가 netmon으로 자동 재연결하므로 재-up 불필요.
+nohup "$TS/bin/proot-distro" login ubuntu --no-kill-on-exit -- \
+  bash /root/work/care/start-proot-tailscale.sh \
   >> "$BOOTLOG" 2>&1 < /dev/null &
 
 echo "[$(date '+%F %T')] boot script END" >> "$BOOTLOG" 2>&1
