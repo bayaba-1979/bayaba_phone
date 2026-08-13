@@ -9,6 +9,11 @@
 
 ## ✅ 최종 결과 (2026-08-13)
 
+> ⚠️ **2026-08-13 후속 발견(중요 정정):** S21에는 Tailscale 클라이언트가 **2개** 있고 서로 **다른 tailnet**에 붙어 있다.
+> - proot → `REDACTED`(Helena Google, 3기기 온라인) ← 아래 표는 이것
+> - Termux → `REDACTED@github`(박씨 GitHub "Uncle, Parksy", **device=0**, 데몬 정지)
+> - **박씨 기기 5개는 `REDACTED@github` 망에 있음** → "계정 통일 완료"는 proot 한정. 박씨가 SSH로 들어오려면 S21이 박씨 망(GitHub)에 있어야 함. 어느 망으로 통일할지는 §6 참고.
+
 | 항목 | 값 |
 |------|-----|
 | tailnet | `REDACTED` (누나 Google 계정) |

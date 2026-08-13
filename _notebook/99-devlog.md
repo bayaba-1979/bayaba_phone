@@ -1,6 +1,16 @@
 # 📋 S21 Phone — 전체 개발일지
 
 
+### 🎙️ 헬레나 성우 베이스라인 잠금 + 주의 기도 더빙 (_Grok · 2026-08-13)
+
+**결정:** 시편 23편으로 검증된 5단계(Edge SunHi −15%/−3Hz → 침묵제거 → RVC WebUI PyTorch + rmvpe + index 0.75 → 마스터링 192k)를 **성우 더빙 표준**으로 잠금.
+
+- 기술 원본: `_notebook/81-helena-rvc-dubbing-standard_Claude.md`
+- 잠금·이력 파싱: `_notebook/82-helena-rvc-baseline-lords-prayer_Grok.md`
+- 폐기: `scripts/rvc_dub/dub.py` ONNX/RvcPyInfer, ContentVec, ParksyTTS 본편 더빙
+- 첫 적용: 주의 기도(개역개정, 호흡 부호 고정) → `lords_prayer_natural.mp3` → Telegram sendAudio
+- S21 실측 속도: 오디오 1초 ≈ RVC 14초. Stage 3는 `setsid nohup` 필수.
+
 ### 🎙️ 사도신경 더빙 — RVC ONNX 전환 + S21 추론 성공 (_Claude · 2026-08-12)
 
 **배경:** 직전 WSL 세션에서 작업하던 사도신경 더빙 워크플로우가 끊겨서 S21에서 재수행.
@@ -5526,3 +5536,49 @@ VoxSherpa 공식 아키텍처 문서:
 ### 교훈
 
 Claude Code(나)는 존재하지 않는 pip wheel을 사실인 것처럼 말했다. "NNAPI delegate 포함 Android arm64 wheel"이라는 표현은 완전한 허구. **AI 제안을 검증 없이 실행해서는 안 되는 이유가 여기 있다.** Boss가 직접 PyPI + GitHub 확인해서 바로잡음.
+
+## §83 — Tailscale 돌봄 데몬: "클라이언트 2개 · tailnet 2개" 근본 원인 발견 (2026-08-13, _Claude)
+
+### 핵심 발견 — S21에 Tailscale이 2개, 서로 다른 tailnet에 붙어 있음
+
+"폰이 tailnet에 안 잡힌다"는 문제의 진짜 원인. 한 폰에 tailscale 클라이언트가 2개 있고, 각각 다른 계정(tailnet)에 로그인돼 있었다.
+
+| 클라이언트 | 로그인 계정 | tailnet | 기기 | 상태 |
+|-----------|------------|---------|------|------|
+| proot tailscale | `REDACTED` (Helena) | `tailb4c349.ts.net` | 3개 | ✅ 온라인 · SSH · owner |
+| Termux tailscale | `REDACTED@github` (박씨 "Uncle, Parksy") | GitHub 망 | 0개 | ⚠️ 계정만 · 기기 0 · 데몬 정지 |
+
+**박씨 기기 5개는 `REDACTED@github` 망에 있다.** proot는 Helena Google 망에 있으므로 박씨가 SSH로 못 들어온다. 이게 "안 잡힘"의 최종 정체.
+
+### 왜 혼란했나 — 두 관점이 서로 다른 tailnet을 보고 있었음
+
+- 폰 에이전트 = Termux(GitHub, device=0) 관점 → "device=0, auth key 필요"
+- 나(proot) = Helena Google 망(3기기 온라인) 관점 → "이미 됨, 박씨 기기 없음"
+- 둘 다 부분적으로만 맞음. 같은 폰의 서로 다른 tailnet 2개를 본 것.
+
+### 확정 기술 사실
+
+- proot은 CapEff=0 → 기본 TUN 불가, `--tun=userspace-networking` 필수 (v1.102.2 실측).
+- userspace 모드 = `tailscale0` 없음 → 임의 포트(5555) 직결 불가. `tailscale ssh`/`tailscale serve`만.
+- ADB-over-Tailscale: `adb connect <tailscale-ip>:5555` 직결 ❌. 맞는 경로는 `tailscale ssh` → 폰 내부 localhost로 adbd 연결(로컬 브릿지).
+- 재부팅 = 저장된 노드키로 자동 재연결 (인증키 불필요, 시뮬레이션 증명).
+
+### 보안 — ACL 단방향 + 키 회수
+
+- default ACL = tailnet 내 전방향 P2P. 돌봄이면 `박씨 → 누나 S21` 단방향만.
+- 평문 노출 키 2개 회수: `REDACTED...` / `REDACTED...` (관리콘솔 수동).
+
+### 남은 결정 — 어느 tailnet이 표준인가
+
+| 선택지 | 장점 | 단점 |
+|--------|------|------|
+| A. GitHub 망(`REDACTED@github`) 통일 | 박씨 기기 5개 이미 있음 → 바로 SSH | 계정 = 박씨 명의 ("누나 명의"와 충돌) |
+| B. Helena Google 망(`REDACTED`) 통일 | 누나 명의 (CONSTITUTION 부합) | 박씨 기기 5개 이전 필요 |
+
+돌봄은 "절대 안 깨질 것"이 1순위 → 실용적으로는 A가 유리. 결정은 Boss 몫.
+
+### 문서
+
+- 백서: `care/tailscale-care-whitepaper_Claude.md`
+- 진단 상세: `care/tailscale-care-daemon_Claude.md`
+- 부팅 스크립트: `care/start-tailscale-boot.sh`
