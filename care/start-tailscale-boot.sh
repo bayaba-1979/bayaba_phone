@@ -63,18 +63,37 @@ if [ -S "$TS_SOCK" ] && [ -n "$TS_PID" ]; then
   echo "[$(date '+%F %T')] [1] Termux tailscaled 이미 실행 중 (소켓+프로세스 정상)" >> "$BOOTLOG"
 else
   echo "[$(date '+%F %T')] [1] Termux tailscaled 기동 (port 41642)" >> "$BOOTLOG"
-  # 좀비(프로세스만 살아있고 소켓 없음) 또는 죽음 → 강제 정리 후 재기동.
-  # 재부팅 전 stale 소켓 제거 (영속 디렉터리라 잔존).
-  [ -n "$TS_PID" ] && kill -9 "$TS_PID" 2>/dev/null || true
-  rm -f "$TS_SOCK" 2>/dev/null || true
-  # nohup: 부팅 스크립트 종료 시 SIGHUP/프로세스그룹 정리로 데몬이 휩쓸리지 않게 탈부착.
-  nohup "$TS/bin/tailscaled" \
-    --state="$TS_STATE" \
-    --socket="$TS_SOCK" \
-    --tun=userspace-networking \
-    --port=41642 \
-    >> "$TS_LOG" 2>&1 &
-  sleep 3
+  # 부팅 직후 bionic tailscaled가 netmon.New "netlinkrib: permission denied"로
+  # 죽는 일시 현상(2026-08-13 19:52 실측). netmon 실패는 기동 후 ~1초 내 발생 →
+  # 8초 대기 후 프로세스 생존 확인, 죽었으면 재기동. 최대 10회(창 ~80초).
+  MAX_TRY=10
+  TRY=0
+  while [ "$TRY" -lt "$MAX_TRY" ]; do
+    # 좀비(프로세스만 살아있고 소켓 없음) 또는 이전 시도 잔재 → 강제 정리 후 재기동.
+    # 재부팅 전 stale 소켓 제거 (영속 디렉터리라 잔존).
+    ZPID=$(find_ts_pid 41642 | head -1)
+    [ -n "$ZPID" ] && kill -9 "$ZPID" 2>/dev/null || true
+    rm -f "$TS_SOCK" 2>/dev/null || true
+    # nohup: 부팅 스크립트 종료 시 SIGHUP/프로세스그룹 정리로 데몬이 휩쓸리지 않게 탈부착.
+    nohup "$TS/bin/tailscaled" \
+      --state="$TS_STATE" \
+      --socket="$TS_SOCK" \
+      --tun=userspace-networking \
+      --port=41642 \
+      >> "$TS_LOG" 2>&1 &
+    DAEMON_PID=$!
+    sleep 8
+    # 생존 확인: 프로세스가 살아있으면 성공. 죽었으면(netmon 일시현상) 재시도.
+    if [ -n "$DAEMON_PID" ] && kill -0 "$DAEMON_PID" 2>/dev/null; then
+      echo "[$(date '+%F %T')] [1] Termux tailscaled 기동 성공 (시도 $((TRY+1)), PID $DAEMON_PID)" >> "$BOOTLOG"
+      break
+    fi
+    echo "[$(date '+%F %T')] [warn] Termux tailscaled 사망 감지 (시도 $((TRY+1))/$MAX_TRY) — netmon 일시현상, 재시도" >> "$BOOTLOG"
+    TRY=$((TRY+1))
+  done
+  if [ "$TRY" -ge "$MAX_TRY" ]; then
+    echo "[warn] [1] Termux tailscaled $MAX_TRY회 기동 실패 — 수동 확인 필요 (proot 노드는 계속 진행)" >> "$BOOTLOG"
+  fi
 fi
 
 # ==============================================================================
