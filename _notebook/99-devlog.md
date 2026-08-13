@@ -5600,3 +5600,20 @@ Claude Code(나)는 존재하지 않는 pip wheel을 사실인 것처럼 말했�
 - 등록에 쓴 옛 auth key(`kBsBJh...`)는 소진 → 관리콘솔에서 revoke.
 
 **남은 일:** 옛 키 revoke · Termux:Boot 자동시작 · ACL 단방향(박씨→S21) · phantom process killer 해제 · 하트비트 워치독.
+
+---
+
+### 📡 Tailscale 노드 2개 완성 + 자동화 (_Claude · 2026-08-13)
+
+**결과:** S21 노드 2개가 모두 `REDACTED@` 망에 온라인:
+- `helena-proot` (100.87.229.125) — proot Ubuntu 작업실 셸 (포트 41641)
+- `helena-android` (100.97.231.3) — Termux 네이티브(bionic), proot 안 거쳐 더 견고 (포트 41642)
+
+**완료:**
+- Termux(안드로이드) tailscaled 기동 — proot과 소켓/포트(41642)/상태 분리, `localhost-1` → `helena-android` 호스트명 변경
+- proot tailscaled 중복 프로세스 → SIGKILL 정리, 깨끗하게 1개 재기동
+- `start-tailscale-boot.sh` 갱신 — 노드 2개 자동기동 (Termux 네이티브 → proot 순, 포트 분리)
+
+**못 한 것 (proot 한계):**
+- Phantom process killer 해제 — `settings`가 `INTERACT_ACROSS_USERS` 권한 거부 → **adb 또는 삼성 설정 수동 필요**
+- ACL 단방향 — API 키로 가능하나 tailnet 전체 영향이라 보류(신중 필요)
