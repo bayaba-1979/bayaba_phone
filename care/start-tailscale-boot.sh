@@ -31,7 +31,10 @@
 # ==============================================================================
 
 TS=/data/data/com.termux/files/usr
-BOOTLOG="$TS/home/tailscale-boot.log"
+# ⚠️ $TS = Termux PREFIX(.../usr). 홈은 .../files/home (PREFIX와 다름!).
+#   $TS/home 은 존재하지 않아 redirect 실패 → 로그 유실 + `[2]` proot-distro 자체가
+#   실행 안 되는 버그(2026-08-13 19:52 재부팅에서 실측). 절대경로로 고정.
+BOOTLOG=/data/data/com.termux/files/home/tailscale-boot.log
 
 # 특정 포트의 tailscaled PID를 찾기 (proot 검증 패턴 `pgrep -f '[t]ailscaled...'`)
 find_ts_pid() {
