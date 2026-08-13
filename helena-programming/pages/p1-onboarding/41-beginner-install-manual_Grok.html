@@ -1,0 +1,309 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P1 · Ch1.5</div><h1>실전 설치 사례</h1>
+<div class="subtitle">온보딩 — 폰 하나로 AI 워크스테이션</div></div>
+<h1>초심자 설치 — 딱 3화면</h1>
+<blockquote>
+<p><strong>리버스 엔지니어링 결론:</strong><br />
+초심자가 막히는 지점은 “변수·OWNER/WORK·두 번 설치·선택지”다.<br />
+<strong>앱 2개 → 붙여넣기 1번 → 브라우저로 확인</strong> 이 최단 경로다.</p>
+</blockquote>
+<p>명의 기본값: <code>helena751107</code><br />
+스크립트: <code>g/easy.sh</code> (쉬움) · <code>g/install.sh</code> (고급)</p>
+<blockquote>
+<p>🔧 <strong>다른 사람 계정으로 설치할 때:</strong><br />
+<code>OWNER_GITHUB=클라이언트명 bash &lt;(curl -sL ...)</code><br />
+이렇게 env만 앞에 붙이면 <code>S21-START.txt</code>와 Pages 주소가 그 사람 명의로 바뀐다.<br />
+토큰 없이 public clone만 하니까 키 발급 불필요.</p>
+</blockquote>
+<hr />
+<h2>화면 1 — 앱 두 개만</h2>
+<ol>
+<li>폰 브라우저에서 <strong>F-Droid</strong> 설치<br />
+   https://f-droid.org/</li>
+<li>F-Droid 앱 열고 검색:</li>
+<li><strong>Termux</strong> 설치  </li>
+<li><strong>Termux:API</strong> 설치 (이름 비슷, <strong>둘 다</strong>)</li>
+<li><strong>Termux</strong> 아이콘 눌러 실행 (검은 화면 = 정상)</li>
+</ol>
+<p>☐ 여기까지 됐으면 화면 2</p>
+<hr />
+<h2>화면 2 — 한 줄만 붙여넣기</h2>
+<p>Termux 검은 화면에 <strong>아래 전체를 길게 눌러 붙여넣기</strong> 후 Enter.</p>
+<div class="codehilite"><pre><span></span><code>bash<span class="w"> </span>&lt;<span class="o">(</span>curl<span class="w"> </span>-sL<span class="w"> </span>https://raw.githubusercontent.com/helena751107/helena_phone/main/g/easy.sh<span class="o">)</span>
+</code></pre></div>
+
+<ul>
+<li>처음이면 Ubuntu 깔리면서 <strong>몇 분</strong> 걸림. 가만히 둔다.  </li>
+<li><code>✅ 쉬운 설치 끝</code> 이 보이면 성공.  </li>
+<li>중간에 저장소 권한 팝업 → <strong>허용</strong>.</li>
+</ul>
+<p>☐ 성공 문구 봤으면 화면 3</p>
+<hr />
+<h2>화면 3 — 됐는지 확인</h2>
+<h3>A) 터미널 (매일 쓰는 주문)</h3>
+<div class="codehilite"><pre><span></span><code>proot-distro<span class="w"> </span>login<span class="w"> </span>ubuntu
+<span class="nb">cd</span><span class="w"> </span>/root/work
+cat<span class="w"> </span>S21-START.txt
+</code></pre></div>
+
+<p><code>S21-START.txt</code> 가 읽히면 워크스페이스 준비 완료.</p>
+<h3>B) 브라우저 (눈으로 확인)</h3>
+<p>폰 브라우저 주소창:</p>
+<div class="codehilite"><pre><span></span><code>https://helena751107.github.io/helena_phone/
+</code></pre></div>
+
+<p>페이지가 열리면 <strong>설치 성공</strong>이다.<br />
+(위성)<br />
+https://helena751107.github.io/helana_log/<br />
+https://helena751107.github.io/helana-faith/<br />
+https://helena751107.github.io/helena-piano/<br />
+https://helena751107.github.io/helena-psycare/</p>
+<hr />
+<h2>끝. 오늘은 여기까지.</h2>
+<p>키 발급, 토큰, Claude, Grok, 푸시는 <strong>오늘 안 해도 됨.</strong><br />
+사이트만 보이면 1단계 통과.</p>
+<hr />
+<h2>(나중) 필요할 때만 — 고급</h2>
+<p>푸시·에이전트·텔레그램이 필요해지면:</p>
+<div class="codehilite"><pre><span></span><code>proot-distro<span class="w"> </span>login<span class="w"> </span>ubuntu
+<span class="nb">cd</span><span class="w"> </span>/root/work
+<span class="nb">export</span><span class="w"> </span><span class="nv">GITHUB_USER</span><span class="o">=</span><span class="s2">&quot;작업계정&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GITHUB_TOKEN</span><span class="o">=</span><span class="s2">&quot;ghp_xxx&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEEPSEEK_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-xxx&quot;</span>
+bash<span class="w"> </span>g/install.sh
+</code></pre></div>
+
+<p>변수 설명:</p>
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>뜻</th>
+<th>초심자</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OWNER_GITHUB</code></td>
+<td>명의·공개 주인</td>
+<td>기본 <code>helena751107</code> (안 바꿔도 됨)</td>
+</tr>
+<tr>
+<td><code>GITHUB_USER</code></td>
+<td>푸시하는 손</td>
+<td>나중에</td>
+</tr>
+<tr>
+<td><code>GITHUB_TOKEN</code></td>
+<td>비밀번호 대신</td>
+<td>나중에</td>
+</tr>
+<tr>
+<td><code>TEMPLATE_REPO</code></td>
+<td>클론 원본</td>
+<td>기본 그대로</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>🔧 설치자용 체크리스트 (사회복지사·가족)</h2>
+<blockquote>
+<p>남의 폰에 깔아줄 때 — <strong>설치 전</strong> 확인 4가지:</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>☐ Android 버전: 10 이상 (설정 → 휴대전화 정보 → 소프트웨어 정보)
+☐ 저장공간: 5GB 이상 여유 (설정 → 디바이스 케어 → 저장공간)
+☐ Wi-Fi: 연결됨 (Ubuntu 200MB+ 다운로드)
+☐ F-Droid APK: https://f-droid.org/ 에서 미리 받아둘 것
+</code></pre></div>
+
+<p>설치 중 주의:
+- <strong>Ubuntu 다운로드 3~7분</strong> — 이 구간은 가만히. "멈췄다"고 끄면 안 됨.
+- <strong>저장소 권한 팝업</strong> — 반드시 <strong>허용</strong>. 안 뜨면 괜찮음.
+- <strong>끝난 후:</strong> <code>pkg install termux-api -y</code> 한 번 더 (MCP 도구용 — devlog §16)</p>
+<hr />
+<h2>고장 표 (짧게)</h2>
+<table>
+<thead>
+<tr>
+<th>보이면</th>
+<th>할 일</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>curl: not found</td>
+<td><code>pkg install curl</code> 후 easy 한 줄 다시</td>
+</tr>
+<tr>
+<td>proot-distro 없음</td>
+<td><code>pkg install proot-distro</code></td>
+</tr>
+<tr>
+<td>저장 공간</td>
+<td>사진/앱 지워 5GB 확보</td>
+</tr>
+<tr>
+<td>클론 실패</td>
+<td>Wi-Fi 확인 후 easy 한 줄 다시</td>
+</tr>
+<tr>
+<td>Pages 안 열림</td>
+<td>주소 오타 · 나중에 다시</td>
+</tr>
+<tr>
+<td>termux-api ENOENT</td>
+<td><code>pkg install termux-api -y</code> (devlog §16)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>왜 이렇게 짧아졌나 (리버스)</h2>
+<table>
+<thead>
+<tr>
+<th>예전</th>
+<th>문제</th>
+<th>지금</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>변수 잔뜩</td>
+<td>초심자 포기</td>
+<td>easy는 <strong>질문 없음</strong></td>
+</tr>
+<tr>
+<td>Termux / Ubuntu 두 번 설치</td>
+<td>어디서 치는지 모름</td>
+<td><strong>한 줄이 알아서 넘김</strong></td>
+</tr>
+<tr>
+<td>OWNER/WORK 설명 먼저</td>
+<td>개념 과부하</td>
+<td><strong>사이트 연 다음에</strong> 설명</td>
+</tr>
+<tr>
+<td>install.sh 만</td>
+<td>선택지 많음</td>
+<td><strong>easy → 성공 경험 먼저</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>관련 링크</h2>
+<table>
+<thead>
+<tr>
+<th>무엇</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>이 매뉴얼</td>
+<td>https://helena751107.github.io/helena_phone/install-guide.html</td>
+</tr>
+<tr>
+<td>랜딩 Install</td>
+<td>https://helena751107.github.io/helena_phone/#install</td>
+</tr>
+<tr>
+<td>easy 소스</td>
+<td>https://raw.githubusercontent.com/helena751107/helena_phone/main/g/easy.sh</td>
+</tr>
+<tr>
+<td>허브</td>
+<td>https://helena751107.github.io/helena_phone/</td>
+</tr>
+</tbody>
+</table>
+<p><em>초심자 3화면 · agent _Grok · 2026-07-27</em></p>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>

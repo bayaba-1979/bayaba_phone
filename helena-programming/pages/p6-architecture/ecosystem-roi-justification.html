@@ -1,0 +1,304 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P6 · Ch6.3</div><h1>ROI·공짜 클라우드 정당화</h1>
+<div class="subtitle">설계·아키텍처 — 이 모든 게 왜 작동하는가</div></div>
+<div class="hero">
+<div class="eyebrow">ROI Justification · 2026-08-10</div>
+<h1>🏗️ S21 지식관리 생태계 — 기술적 설득 보고서</h1>
+<div class="subtitle">6레포 · 937파일 · 27 워크플로우 · 월 $0 · 2계층 양방향 브릿지 설계<br>누나 케이스 스터디를 위한 정량적 타당성 증명</div>
+</div>
+
+<!-- ═══ BIG NUMBERS ═══ -->
+<section>
+<h2>📊 한눈에 보는 규모</h2>
+<div class="vbar">
+<div class="vcard highlight"><div class="num">$0<span style="font-size:.5em">/월</span></div><div class="lbl">운영비용</div></div>
+<div class="vcard"><div class="num">6</div><div class="lbl">GitHub 레포</div></div>
+<div class="vcard"><div class="num">937</div><div class="lbl">관리 파일</div></div>
+<div class="vcard"><div class="num">27</div><div class="lbl">자동화 워크플로우</div></div>
+<div class="vcard"><div class="num">124<span style="font-size:.4em">MB</span></div><div class="lbl">지식 베이스</div></div>
+</div>
+<div class="vbar">
+<div class="vcard"><div class="num">6</div><div class="lbl">Pages 사이트</div></div>
+<div class="vcard"><div class="num">5</div><div class="lbl">RSS 파이프</div></div>
+<div class="vcard"><div class="num">5</div><div class="lbl">티스토리 채널</div></div>
+<div class="vcard"><div class="num">2</div><div class="lbl">브릿지 (Paste+RSS)</div></div>
+</div>
+</section>
+
+<!-- ═══ COST COMPARISON ═══ -->
+<section>
+<h2>💰 비용 비교 — 상용 도구 대비</h2>
+<p>이 생태계와 동일한 기능을 상용 SaaS로 구현할 경우의 월간 비용.</p>
+<div class="tbl-wrap">
+<table class="tbl">
+<thead><tr><th>기능</th><th>우리 구현</th><th>비용</th><th>상용 대안</th><th>대안 비용</th><th>판정</th></tr></thead>
+<tbody>
+<tr><td><strong>지식 베이스</strong></td><td>GitHub Pages ×6</td><td class="num">$0</td><td>Notion Team</td><td class="num">$10/월</td><td class="verdict win">✅ $10 절감</td></tr>
+<tr><td><strong>버전 관리</strong></td><td>Git ×6</td><td class="num">$0</td><td>GitHub Free</td><td class="num">$0</td><td class="verdict tie">➖ 동일</td></tr>
+<tr><td><strong>자동화 (CI/CD)</strong></td><td>Actions ×27</td><td class="num">$0</td><td>Zapier 27 Zaps</td><td class="num">$73/월</td><td class="verdict win">✅ $73 절감</td></tr>
+<tr><td><strong>RSS → 백업</strong></td><td>Cron ×5</td><td class="num">$0</td><td>IFTTT Pro+</td><td class="num">$5/월</td><td class="verdict win">✅ $5 절감</td></tr>
+<tr><td><strong>콘텐츠 배포</strong></td><td>Paste Pipeline</td><td class="num">$0</td><td>Buffer/Zapier</td><td class="num">$6/월</td><td class="verdict win">✅ $6 절감</td></tr>
+<tr><td><strong>웹 호스팅</strong></td><td>Pages CDN ×6</td><td class="num">$0</td><td>Vercel Pro</td><td class="num">$20/월</td><td class="verdict win">✅ $20 절감</td></tr>
+<tr><td><strong>검색</strong></td><td>GitHub 검색</td><td class="num">$0</td><td>Algolia</td><td class="num">$29/월</td><td class="verdict win">✅ $29 절감</td></tr>
+<tr><td><strong>모니터링</strong></td><td>health check</td><td class="num">$0</td><td>UptimeRobot</td><td class="num">$7/월</td><td class="verdict win">✅ $7 절감</td></tr>
+<tr style="background:var(--goldbg);font-weight:700"><td><strong>월간 합계</strong></td><td><strong>헬레나 생태계</strong></td><td class="num" style="color:var(--gold);font-size:.95rem"><strong>$0</strong></td><td><strong>상용 동등구성</strong></td><td class="num" style="color:var(--rd);font-size:.95rem"><strong>~$150/월</strong></td><td class="verdict win">✅ 연 $1,800</td></tr>
+</tbody>
+</table>
+</div>
+<div class="info-box gold"><strong>💡 핵심 인사이트:</strong> GitHub Free 티어 하나로 연간 <strong>$1,800</strong> 상당의 SaaS 스택을 대체. Notion은 페이지·버전관리·자동화가 따로 과금되지만 우리는 전부 통합 무료. 공짜 클라우드(GitHub Actions = 7GB RAM·Ubuntu 24.04·무제한 실행)가 핵심 엔진.</div>
+</section>
+
+<!-- ═══ ARCHITECTURE ═══ -->
+<section>
+<h2>🧬 설계 원리 — 2계층 양방향 브릿지</h2>
+<p>일반 블로그·위키와 근본적으로 다른 <strong>2계층 설계</strong>. 사람 공간과 기계 공간을 분리하고 브릿지로 연결.</p>
+
+<figure class="diagram">
+<div style="display:flex;gap:12px;align-items:stretch;flex-wrap:wrap">
+<div style="flex:1;min-width:180px;border:2px dashed var(--p);border-radius:8px;padding:10px;background:var(--pbg)">
+<div style="font-weight:800;font-size:.82rem;color:var(--p);margin-bottom:6px">🌐 외부 생태계 (Human)</div>
+<div class="r"><span class="node n-p">LLM 대화</span><span class="arr">→</span><span class="node n-a">티스토리5</span></div>
+<div class="r" style="margin-top:4px"><span class="node n-y">텔레그램</span><span class="arr">→</span><span class="node n-gold">네이버</span></div>
+<div style="font-size:.66rem;color:var(--t3);margin-top:6px">읽기·댓글·공유·검색</div>
+</div>
+<div style="display:flex;align-items:center;font-weight:800;font-size:.78rem;color:var(--gold);min-width:60px;text-align:center;flex-direction:column;justify-content:center">
+<div>📋 Paste →</div>
+<div style="font-size:.6rem;color:var(--t3);margin:2px 0">내부→외부</div>
+<div style="color:var(--bdr)">│</div>
+<div style="font-size:.6rem;color:var(--t3);margin:2px 0">외부→내부</div>
+<div>← 📡 RSS</div>
+</div>
+<div style="flex:1;min-width:180px;border:2px dashed var(--g);border-radius:8px;padding:10px;background:var(--gbg)">
+<div style="font-weight:800;font-size:.82rem;color:var(--g);margin-bottom:6px">⚙️ 내부 생태계 (Machine)</div>
+<div class="r"><span class="node n-g">GitHub6</span><span class="arr">→</span><span class="node n-a">Pages6</span></div>
+<div class="r" style="margin-top:4px"><span class="node n-g">Actions27</span><span class="arr">→</span><span class="node n-y">기자/RSS</span></div>
+<div style="font-size:.66rem;color:var(--t3);margin-top:6px">버전추적·영구보존·CI</div>
+</div>
+</div>
+<figcaption>Paste Pipeline(→발행) + RSS Sync(←백업) = 양방향 순환. 사람 공간과 기계 공간의 완전한 분리.</figcaption>
+</figure>
+
+<div class="grid2">
+<div class="card"><div class="card-hd">📋 Paste Pipeline (내부→외부)</div><div class="card-dsc">LLM 대화 → .md 로그 → HTML 변환 → TG .txt 전송 → 사람 5-Click → 티스토리 발행. <strong>API 없이</strong> 2~3분/건.</div></div>
+<div class="card"><div class="card-hd">📡 RSS Sync (외부→내부)</div><div class="card-dsc">Tistory RSS → GitHub Actions cron → 기자/ 디렉토리 → Pages 자동배포. <strong>5레포 각각 1:1</strong> 매칭.</div></div>
+</div>
+</section>
+
+<!-- ═══ REPO TABLE ═══ -->
+<section>
+<h2>📦 레포지토리 6종 — 역할·규모·상태</h2>
+<div class="tbl-wrap">
+<table class="tbl">
+<thead><tr><th>#</th><th>레포</th><th>도메인</th><th>파일</th><th>WF</th><th>Pages</th><th>RSS</th><th>규모</th><th>티스토리</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td><strong>helena_phone</strong></td><td>📱 S21 최적화 바이블</td><td class="num">558</td><td class="num">8</td><td class="verdict win">✅</td><td class="verdict win">✅</td><td>11MB</td><td>galaxys21-pwuser</td></tr>
+<tr><td class="num">2</td><td><strong>helana_log</strong></td><td>🗃️ 행정 대화록</td><td class="num">72</td><td class="num">8</td><td class="verdict win">✅</td><td class="verdict win">✅</td><td>660KB</td><td>mynote11605</td></tr>
+<tr><td class="num">3</td><td><strong>helana-faith</strong></td><td>✝️ 가족 신앙사</td><td class="num">24</td><td class="num">1</td><td class="verdict win">✅</td><td class="verdict win">✅</td><td>309KB</td><td>helana-christianity</td></tr>
+<tr><td class="num">4</td><td><strong>helena-piano</strong></td><td>🎹 피아노 종합</td><td class="num">81</td><td class="num">2</td><td class="verdict win">✅</td><td class="verdict win">✅</td><td>104MB</td><td>helena-piano</td></tr>
+<tr><td class="num">5</td><td><strong>helena-psycare</strong></td><td>🧠 멘탈케어</td><td class="num">26</td><td class="num">1</td><td class="verdict win">✅</td><td class="verdict win">✅</td><td>297KB</td><td>helena-psycare</td></tr>
+<tr><td class="num">6</td><td><strong>helena-programming</strong></td><td>🛠️ 콘텐츠 스튜디오</td><td class="num">176</td><td class="num">7</td><td class="verdict win">✅</td><td class="chip-manual">N/A</td><td>11MB</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<div class="info-box"><strong>🔑 설계 원칙:</strong> 5개 콘텐츠 레포는 각자 자기 티스토리와 <strong>1:1:1 매칭</strong> (티스토리 1개 ↔ GitHub 1개 ↔ Pages 1개). helena-programming은 스튜디오 본체 — 티스토리 없이 도구·파이프라인만.</div>
+</section>
+
+<!-- ═══ WORKFLOW DETAIL ═══ -->
+<section>
+<h2>⚡ 자동화 파이프라인 — 27개 워크플로우 상세</h2>
+<div class="tbl-wrap">
+<table class="tbl">
+<thead><tr><th>레포</th><th>WF 수</th><th>주요 워크플로우</th></tr></thead>
+<tbody>
+<tr><td><strong>helena_phone</strong></td><td class="num">8</td><td>tistory-sync · deploy-pages · acceptance-tests · design-library-guard · feedback-collector · issue-terminal · router-compiler · rule-tuner</td></tr>
+<tr><td><strong>helana_log</strong></td><td class="num">8</td><td>tistory-sync · log-to-tistory · deploy-pages · acceptance-tests · design-library-guard · feedback-collector · issue-terminal · router-compiler · rule-tuner</td></tr>
+<tr><td><strong>helana-faith</strong></td><td class="num">1</td><td>tistory-sync</td></tr>
+<tr><td><strong>helena-piano</strong></td><td class="num">2</td><td>tistory-sync · render-bgm</td></tr>
+<tr><td><strong>helena-psycare</strong></td><td class="num">1</td><td>tistory-sync</td></tr>
+<tr><td><strong>helena-programming</strong></td><td class="num">7</td><td>build-apk · deploy-vercel · compute · render-audio · render-cad · extract-midi · constitution-guard</td></tr>
+</tbody>
+</table>
+</div>
+<div class="vbar">
+<div class="vcard"><div class="num">5</div><div class="lbl">RSS Sync 크론</div></div>
+<div class="vcard"><div class="num">6</div><div class="lbl">Pages 배포</div></div>
+<div class="vcard"><div class="num">6</div><div class="lbl">품질 게이트</div></div>
+<div class="vcard"><div class="num">5</div><div class="lbl">CPU 파이프</div></div>
+<div class="vcard"><div class="num">5</div><div class="lbl">기타 자동화</div></div>
+</div>
+</section>
+
+<!-- ═══ COMPARISON ═══ -->
+<section>
+<h2>🥊 Notion·Confluence·WordPress vs 헬레나 생태계</h2>
+<div class="tbl-wrap">
+<table class="tbl">
+<thead><tr><th>기준</th><th>Notion</th><th>Confluence</th><th>WordPress</th><th><strong>헬레나</strong></th></tr></thead>
+<tbody>
+<tr><td><strong>월 비용</strong></td><td class="num">$10~</td><td class="num">$6/명</td><td class="num">$5~</td><td class="num" style="color:var(--g);font-weight:700">$0</td></tr>
+<tr><td><strong>버전 관리</strong></td><td>제한적</td><td>있음</td><td>없음</td><td class="verdict win">✅ Git 전체 이력</td></tr>
+<tr><td><strong>자동화</strong></td><td>DB 전용</td><td>제한적</td><td>플러그인</td><td class="verdict win">✅ 27개 Actions</td></tr>
+<tr><td><strong>오프라인</strong></td><td>불가</td><td>불가</td><td>불가</td><td class="verdict win">✅ 로컬 Git</td></tr>
+<tr><td><strong>데이터 소유</strong></td><td>Notion 서버</td><td>Atlassian</td><td>호스팅사</td><td class="verdict win">✅ GitHub+로컬</td></tr>
+<tr><td><strong>RSS 수집</strong></td><td>별도 비용</td><td>별도 비용</td><td>기본</td><td class="verdict win">✅ 5채널 자동</td></tr>
+<tr><td><strong>APK 빌드</strong></td><td>불가</td><td>불가</td><td>불가</td><td class="verdict win">✅ Flutter CI</td></tr>
+<tr><td><strong>오디오 렌더링</strong></td><td>불가</td><td>불가</td><td>불가</td><td class="verdict win">✅ FFmpeg 파이프</td></tr>
+<tr><td><strong>CAD 렌더링</strong></td><td>불가</td><td>불가</td><td>불가</td><td class="verdict win">✅ FreeCAD 파이프</td></tr>
+<tr><td><strong>숏폼 제작</strong></td><td>불가</td><td>불가</td><td>불가</td><td class="verdict win">✅ PD Pipeline</td></tr>
+</tbody>
+</table>
+</div>
+<div class="info-box gold"><strong>🏆 결정적 차이:</strong> 상용 도구는 <strong>문서 저장소</strong>에서 끝난다. 헬레나 생태계는 문서 저장 + APK 빌드 + 오디오 렌더링 + CAD + 숏폼 영상 제작까지 <strong>단일 인프라로 통합</strong>. Notion에서는 불가능한 작업을 GitHub Actions의 무료 컴퓨팅(7GB RAM)으로 수행.</div>
+</section>
+
+<!-- ═══ INNOVATION ═══ -->
+<section>
+<h2>💡 기술적 독창성 — "돈 없이"가 아니라 "돈으로 살 수 없는" 설계</h2>
+
+<div class="grid2">
+<div class="card"><div class="card-hd">1. API 없이 자동화</div><div class="card-dsc">Tistory API 종료(2024) → Paste Pipeline + RSS Sync로 <strong>API 없는 양방향 브릿지</strong> 구현. 업계에서 유사 사례 없음.</div></div>
+<div class="card"><div class="card-hd">2. CSS-only 인터랙션</div><div class="card-dsc">Tistory HTML 모드는 JS·on* 핸들러 금지. <code>:checked</code>·<code>&lt;details&gt;</code>·<code>:target</code>만으로 탭·아코디언·버튼·다크모드 전부 구현.</div></div>
+<div class="card"><div class="card-hd">3. .txt 클립보드 표준</div><div class="card-dsc">HTML 코드를 <code>.html</code>이 아닌 <code>.txt</code>로 전송 → 안드로이드 텍스트 편집기에서 열림 → 전체복사 가능. <strong>확장자 하나로 UX 장벽 해결.</strong></div></div>
+<div class="card"><div class="card-hd">4. 원격 워크플로우 배포</div><div class="card-dsc">checkout 안 된 원격 레포에 <code>gh api PUT</code>으로 workflow 직접 생성. 5레포 × tistory-sync.yml 배포를 <strong>5분 만에 완료</strong>.</div></div>
+<div class="card"><div class="card-hd">5. 공짜 슈퍼컴퓨터</div><div class="card-dsc">GitHub Actions = Ubuntu 24.04 + 7GB RAM + 무제한 실행. APK 빌드·오디오 렌더링·CAD·컴퓨트를 <strong>전부 Actions에서 무료 처리</strong>.</div></div>
+<div class="card"><div class="card-hd">6. 1:1:1 매핑</div><div class="card-dsc">티스토리:GitHub:Pages = 1:1:1. 일반 RSS 리더(전부 한곳)와 달리 <strong>채널별 독립 레포</strong>로 버전 추적·권한·히스토리 분리.</div></div>
+</div>
+</section>
+
+<!-- ═══ LESSONS ═══ -->
+<section>
+<h2>📐 이 설계가 증명하는 것</h2>
+
+<div class="quote">
+<strong>1. "무료"는 부가 효과일 뿐, 본질은 아키텍처다.</strong><br>
+GitHub Free가 우연히 공짜인 게 아니라, Git + CI/CD + Pages + API 라는 <strong>완결된 플랫폼</strong>을 무료로 제공하기 때문에 가능한 설계. 단순히 "돈 아꼈다"가 아니라 "돈으로 살 수 없는 통합"을 구현한 것.
+</div>
+
+<div class="quote">
+<strong>2. 제약이 설계를 좋게 만든다.</strong><br>
+Tistory API 없음 → Paste Pipeline 발명. HTML 모드 JS 금지 → CSS-only 인터랙션. 안드로이드 .html 브라우저 렌더링 → .txt 표준. <strong>모든 혁신이 제약에서 탄생.</strong>
+</div>
+
+<div class="quote">
+<strong>3. 2계층 분리가 핵심이다.</strong><br>
+사람 공간(LLM·티스토리·텔레그램)과 기계 공간(GitHub·Pages·Actions)을 분리하고 양방향 브릿지로 연결. 어느 한쪽이 멈춰도 다른 쪽은 살아있다. <strong>단일 장애점 없음.</strong>
+</div>
+
+<div class="quote">
+<strong>4. 확장은 복사-붙여넣기다.</strong><br>
+7번째 채널이 필요하면? 레포 생성 → tistory-sync.yml 복사 → blog 변수만 바꾸면 새 채널 추가 5분. <strong>한계 비용 0의 확장성.</strong>
+</div>
+</section>
+
+<!-- ═══ NEXT ═══ -->
+<section>
+<h2>🔮 로드맵 — 지금 당장 가능한 것</h2>
+<div class="tbl-wrap">
+<table class="tbl">
+<thead><tr><th>단계</th><th>내용</th><th>기간</th><th>비용</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td><strong>누나 케이스 스터디 레포</strong> — 7번째 채널 (치료·복지·일지)</td><td>1일</td><td class="num">$0</td></tr>
+<tr><td class="num">2</td><td><strong>YouTube 4채널 RSS</strong> — helena-piano 등 영상 피드 연동</td><td>2일</td><td class="num">$0</td></tr>
+<tr><td class="num">3</td><td><strong>ParksyCapture 자동화</strong> — inotifywait → 대화 자동 캡처</td><td>3일</td><td class="num">$0</td></tr>
+<tr><td class="num">4</td><td><strong>크로스 레포 검색</strong> — GitHub Search API로 6레포 통합 검색</td><td>1일</td><td class="num">$0</td></tr>
+<tr><td class="num">5</td><td><strong>모바일 대시보드</strong> — 6레포·27WF 상태 한눈에</td><td>2일</td><td class="num">$0</td></tr>
+</tbody>
+</table>
+</div>
+<div class="info-box green"><strong>🟢 핵심 메시지:</strong> 7번째 채널(누나 전용) 추가해도 운영비 $0. 한계 비용은 <strong>레포 하나 + workflow 하나 복사 5분</strong>. Notion·Confluence는 사용자 1명 추가될 때마다 과금되지만, 이 생태계는 사용자 무제한.</div>
+</section>
+
+<div class="footer">
+<p>🏗️ S21 Helena Knowledge Ecosystem · ROI Justification Report v1<br>
+🌐 <a href="https://github.com/helena751107" style="color:var(--a)">github.com/helena751107</a> · 6 repos · 937 files · 27 workflows · $0/month<br>
+생성: 2026-08-10 (_Claude) · Tistory HTML 모드 호환 · <a href="https://helena751107.github.io/helena-programming/" style="color:var(--a)">helena-programming Pages</a></p>
+</div>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>

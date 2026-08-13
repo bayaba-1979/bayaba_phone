@@ -1,0 +1,348 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P1 · Ch1.3</div><h1>Claude Code·DeepSeek 배선</h1>
+<div class="subtitle">온보딩 — 폰 하나로 AI 워크스테이션</div></div>
+<h1>Comparative Note on Three Terminal Agents</h1>
+<h3>Claude Code (<code>cc</code>), Aider + DeepSeek (<code>ds</code>), and Grok CLI (<code>grok</code>)</h3>
+<p><strong>Date:</strong> 2026-07-25<br />
+<strong>Context:</strong> Termux → proot Ubuntu workstation (no local GPU)<br />
+<strong>Stack aliases:</strong> <code>cc</code> · <code>ds</code> · <code>grok</code><br />
+<strong>Register:</strong> Analytic comparison for practical selection, not marketing</p>
+<hr />
+<h2>1. Abstract</h2>
+<p>This note compares three agent entry points used on the same phone-based Linux environment. Although <strong><code>cc</code> and <code>ds</code> often share a DeepSeek backend</strong>, they are not interchangeable: one is a broad agentic workbench (Claude Code), the other a lean edit–test–commit loop (Aider). <strong><code>grok</code></strong> is a separate product tier (SuperGrok / xAI), stronger on multimodal generation, live research tooling, and parallel agent breadth, while remaining subject to weekly usage pools rather than “unlimited” access.</p>
+<p>The practical conclusion is <strong>role separation</strong>, not a single winner: use <strong><code>cc</code> for wide orchestration</strong>, <strong><code>ds</code> for cheap tight coding loops</strong>, and <strong><code>grok</code> for vision, media, and agent-plus-research sessions</strong>—especially when local GPU is unavailable.</p>
+<hr />
+<h2>2. What Each Alias Actually Launches</h2>
+<table>
+<thead>
+<tr>
+<th>Alias</th>
+<th>Surface tool</th>
+<th>Typical model path</th>
+<th>Entry (Termux)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>cc</code></strong></td>
+<td>Claude Code (TUI agent)</td>
+<td>DeepSeek via Anthropic-compatible base URL</td>
+<td><code>cc</code></td>
+</tr>
+<tr>
+<td><strong><code>ds</code></strong></td>
+<td>Aider (CLI coding pair)</td>
+<td><code>deepseek/deepseek-v4-pro</code></td>
+<td><code>ds</code></td>
+</tr>
+<tr>
+<td><strong><code>grok</code></strong></td>
+<td>Grok CLI / Build agent</td>
+<td>SuperGrok subscription models</td>
+<td><code>grok</code></td>
+</tr>
+</tbody>
+</table>
+<p>Related: <code>groklogin</code> (device auth), <code>grokc</code> (continue session), <code>agent</code> (headless Grok agent). Legacy <code>gr</code> / <code>grlogin</code> / <code>grc</code> remain as compatibility aliases.</p>
+<hr />
+<h2>3. Master Comparison Table</h2>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th><strong><code>cc</code></strong> (Claude Code + DeepSeek)</th>
+<th><strong><code>ds</code></strong> (Aider + DeepSeek)</th>
+<th><strong><code>grok</code></strong> (Grok CLI / SuperGrok)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Primary strength</strong></td>
+<td>Broad agent: tools, MCP, docs, GitHub, Telegram workflows</td>
+<td>Tight coding loop: edit → run → commit</td>
+<td>Speed, multimodal (image/video), live research, parallel agents</td>
+</tr>
+<tr>
+<td><strong>Best when…</strong></td>
+<td>Multi-step project work, repo navigation, automation, reporting</td>
+<td>Small-to-medium code changes, iterative refactors, low ceremony</td>
+<td>Prototypes, UI/media drafts (~80% mock quality), web crawl/research + act</td>
+</tr>
+<tr>
+<td><strong>Weaker when…</strong></td>
+<td>You only need a few file edits; permission flags feel heavy</td>
+<td>You need deep multi-tool orchestration or non-code deliverables</td>
+<td>Ultra-deep single-repo reasoning vs top Claude Max; weekly pool burns fast</td>
+</tr>
+<tr>
+<td><strong>UX model</strong></td>
+<td>Full agent TUI (“engineering teammate”)</td>
+<td>Pair-programmer CLI</td>
+<td>Full product suite in CLI/TUI (chat, build, imagine)</td>
+</tr>
+<tr>
+<td><strong>Cost shape</strong></td>
+<td>Often $0 if routed to DeepSeek API keys</td>
+<td>Same DeepSeek cost profile; usually thrifty</td>
+<td>~₩45,000/mo SuperGrok; weekly shared usage pool</td>
+</tr>
+<tr>
+<td><strong>Multimodal</strong></td>
+<td>Limited vs Grok Imagine</td>
+<td>Not the point</td>
+<td>Strong: image/UI, video (check watermark policy)</td>
+</tr>
+<tr>
+<td><strong>Research / crawl</strong></td>
+<td>Good with tools/MCP if wired</td>
+<td>Minimal by design</td>
+<td>Strong community claim for speed + agentic web use; Perplexity still wins pure citation UX for many</td>
+</tr>
+<tr>
+<td><strong>Autonomy / agents</strong></td>
+<td>Subagents, hooks, skills, MCP ecosystem</td>
+<td>Session-focused coding agent</td>
+<td>Parallel agents, Build workflows, headless <code>agent</code></td>
+</tr>
+<tr>
+<td><strong>Risk profile</strong></td>
+<td>Powerful with <code>--dangerously-skip-permissions</code>—needs trust &amp; review</td>
+<td>Lower surface area; still can rewrite code aggressively</td>
+<td>Usage limits; media policy (watermark); not unlimited</td>
+</tr>
+<tr>
+<td><strong>GPU dependency</strong></td>
+<td>None (cloud model)</td>
+<td>None</td>
+<td>None—major value if you lack a GPU for local diffusion</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. When Each Has a Clear Advantage</h2>
+<h3>4.1 Prefer <strong><code>cc</code></strong> when</h3>
+<ul>
+<li>The task spans <strong>code + docs + git + notifications</strong> (e.g. implement, document, push, Telegram report).</li>
+<li>You need <strong>MCP / phone control / multi-tool</strong> orchestration on this workstation.</li>
+<li>You want <strong>structured agent habits</strong> (project rules, hooks, subagents) rather than a thin chat loop.</li>
+<li>Depth of planning across a <strong>messy multi-file repo</strong> matters more than raw generation speed.</li>
+</ul>
+<p><strong>Trade-off:</strong> Heavier process; overkill for “change three lines and commit.”</p>
+<h3>4.2 Prefer <strong><code>ds</code></strong> when</h3>
+<ul>
+<li>The job is <strong>code-centric and iterative</strong>: fix tests, rename, small features, git-aware patches.</li>
+<li>You want <strong>minimum ceremony</strong> and a familiar Aider loop.</li>
+<li>You are <strong>budget- and latency-sensitive</strong> on DeepSeek without spinning up a full Claude Code session.</li>
+<li>You already know the files and want a <strong>surgical editor</strong>, not a project manager.</li>
+</ul>
+<p><strong>Trade-off:</strong> Weak for non-code production (images, long research dossiers, multi-product workflows).</p>
+<h3>4.3 Prefer <strong><code>grok</code></strong> when</h3>
+<ul>
+<li>You need <strong>images / UI mockups / short video</strong> without local GPU (e.g. coffee branding UI at ~80% polish).</li>
+<li>You want <strong>fast agent runs</strong> and breadth (parallel workers, prototype-to-demo).</li>
+<li><strong>Live web / social-adjacent research</strong> should feed directly into action, not only citations.</li>
+<li>One <strong>subscription bundle</strong> (chat + build + imagine) beats paying separately for Claude Max + image + video tools.</li>
+</ul>
+<p><strong>Trade-off:</strong> Weekly usage pool; community still often ranks pure deep coding slightly behind top Claude Code setups; media watermark rules should be re-checked periodically.</p>
+<hr />
+<h2>5. Pros and Cons (Compact)</h2>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th><strong>Pros</strong></th>
+<th><strong>Cons</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>cc</code></strong></td>
+<td>Widest orchestration; MCP/ecosystem; strong multi-step engineering posture; DeepSeek can keep cash cost near zero</td>
+<td>Heavier; permission model easy to misuse; not best for media; not always the fastest “one-shot” coder</td>
+</tr>
+<tr>
+<td><strong><code>ds</code></strong></td>
+<td>Light, cheap, excellent tight loops; low cognitive overhead; ideal auxiliary coder</td>
+<td>Narrow scope; little multimodal; less “team of agents” feel</td>
+</tr>
+<tr>
+<td><strong><code>grok</code></strong></td>
+<td>Multimodal + agents + research in one paid tier; no GPU; high speed/prototype value</td>
+<td>Not unlimited; pool drains on agents/media; deep production coding still contested vs Claude Max</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>6. Decision Heuristic (One Screen)</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">Need</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">video</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">UI</span><span class="w"> </span><span class="n">mock</span><span class="w"> </span><span class="n">without</span><span class="w"> </span><span class="n">GPU</span><span class="err">?</span><span class="w">     </span><span class="err">→</span><span class="w"> </span><span class="n">grok</span>
+<span class="n">Need</span><span class="w"> </span><span class="n">multi</span><span class="o">-</span><span class="k">tool</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="n">orchestration</span><span class="err">?</span><span class="w">       </span><span class="err">→</span><span class="w"> </span><span class="n">cc</span>
+<span class="n">Need</span><span class="w"> </span><span class="n">cheap</span><span class="p">,</span><span class="w"> </span><span class="n">tight</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="n">edit</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">only</span><span class="err">?</span><span class="w">       </span><span class="err">→</span><span class="w"> </span><span class="n">ds</span>
+<span class="n">Deep</span><span class="w"> </span><span class="n">production</span><span class="w"> </span><span class="n">architecture</span><span class="w"> </span><span class="n">debate</span><span class="err">?</span><span class="w">         </span><span class="err">→</span><span class="w"> </span><span class="n">cc</span><span class="w"> </span><span class="n">first</span><span class="p">;</span><span class="w"> </span><span class="n">optional</span><span class="w"> </span><span class="n">grok</span><span class="w"> </span><span class="n">second</span><span class="w"> </span><span class="n">opinion</span>
+<span class="n">Live</span><span class="w"> </span><span class="n">crawl</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">act</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="n">session</span><span class="err">?</span><span class="w">             </span><span class="err">→</span><span class="w"> </span><span class="n">grok</span><span class="w"> </span><span class="p">(</span><span class="ow">or</span><span class="w"> </span><span class="n">cc</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">tools</span><span class="w"> </span><span class="n">already</span><span class="w"> </span><span class="n">wired</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Recommended default on this phone stack</strong></p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Daily coding automation</td>
+<td><code>cc</code></td>
+</tr>
+<tr>
+<td>Quick patch / secondary loop</td>
+<td><code>ds</code></td>
+</tr>
+<tr>
+<td>Media + research + fast build</td>
+<td><code>grok</code></td>
+</tr>
+</tbody>
+</table>
+<p>This matches community patterns observed in 2026 discussions: Claude Code for depth and systems; Aider-class tools for thrift; Grok for multimodal and speed-oriented agent breadth—while rejecting the myth of unlimited SuperGrok usage.</p>
+<hr />
+<h2>7. Cost and Limit Notes (Operational)</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>cc</code> / <code>ds</code></strong></td>
+<td>Dominated by DeepSeek API usage; monitor keys and accidental high token burns</td>
+</tr>
+<tr>
+<td><strong><code>grok</code></strong></td>
+<td>SuperGrok weekly <strong>shared usage pool</strong> (Chat / Build / Imagine / Voice, etc.) — check <strong>Settings → Usage</strong></td>
+</tr>
+<tr>
+<td>On pool exhaustion</td>
+<td>Free-tier remnants may remain; Extra Credits / Auto Top-up / plan upgrade are the official escapes</td>
+</tr>
+<tr>
+<td>Watermark</td>
+<td>Grok media policy has moved toward visible marks; verify exports rather than assume zero watermark</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>8. Conclusion</h2>
+<p>The three aliases are best understood as <strong>complementary instruments</strong>:</p>
+<ol>
+<li><strong><code>cc</code></strong> — the <strong>orchestral conductor</strong> (broad agentic engineering).  </li>
+<li><strong><code>ds</code></strong> — the <strong>chamber musician</strong> (precise, economical coding duet).  </li>
+<li><strong><code>grok</code></strong> — the <strong>multimedia ensemble + scout</strong> (vision, media, fast agents, live inquiry).</li>
+</ol>
+<p>For a <strong>no-GPU, single-device</strong> operator, keeping all three is rational: DeepSeek-backed <code>cc</code>/<code>ds</code> control cash cost for code, while SuperGrok pays for capabilities that would otherwise require separate image/video/research subscriptions. Selection should follow <strong>task shape</strong>, not brand loyalty.</p>
+<hr />
+<h2>9. Appendix — Alias Cheatsheet</h2>
+<div class="codehilite"><pre><span></span><code>cc<span class="w">          </span><span class="c1"># Claude Code (DeepSeek-routed agent TUI)</span>
+ds<span class="w">          </span><span class="c1"># Aider + deepseek-v4-pro</span>
+grok<span class="w">        </span><span class="c1"># Grok CLI (SuperGrok)</span>
+groklogin<span class="w">   </span><span class="c1"># device-auth login</span>
+grokc<span class="w">       </span><span class="c1"># continue last Grok session</span>
+agent<span class="w">       </span><span class="c1"># headless Grok agent</span>
+
+<span class="c1"># legacy compatibility</span>
+gr<span class="w"> </span>/<span class="w"> </span>grlogin<span class="w"> </span>/<span class="w"> </span>grc<span class="w">   </span><span class="c1"># → grok / groklogin / grokc</span>
+</code></pre></div>
+
+<hr />
+<p><em>Prepared for internal workstation notes. Product limits and model routing change frequently; re-validate Usage tab and API endpoints after major vendor updates.</em></p>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>

@@ -1,0 +1,323 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P4 · Ch4.2</div><h1>ParksyTTS·온디바이스 추론</h1>
+<div class="subtitle">AI 목소리 — 내 목소리 복제</div></div>
+<h1>70 · AI 성우 코어 — 선물 모델 + 폰 로컬 학습 로드맵 (_Claude)</h1>
+<blockquote>
+<p>2026-08-06 · Boss: 누나 레포에 선물로 AI 코어 올릴 거다.<br />
+받은 사람이 바로 쓸 수도 있고, 자기 폰에서 직접 학습시킬 수도 있는 구조.</p>
+</blockquote>
+<hr />
+<h2>0. 한 줄</h2>
+<p>S21 Phone은 <strong>클라우드 성우(Grok/OpenAI) + 로컬 성우(AI 코어)</strong> 를 모두 쓸 수 있다.
+누군가가 구워서 보내준 AI 코어를 꽂으면 바로 오프라인에서 작동하고,
+자기 목소리로 직접 학습시켜서 자기만의 성우를 만들 수도 있다.</p>
+<hr />
+<h2>1. 두 가지 경로</h2>
+<table>
+<thead>
+<tr>
+<th>경로</th>
+<th>설명</th>
+<th>준비물</th>
+<th>난이도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A. 선물 받기</strong></td>
+<td>누군가 구워서 준 <code>.onnx</code> + <code>.json</code> 파일을 <code>voice_engine.py</code>에 꽂는다</td>
+<td>repo clone + <code>pip install sherpa-onnx</code></td>
+<td>★☆☆ (5분)</td>
+</tr>
+<tr>
+<td><strong>B. 직접 굽기</strong></td>
+<td>폰에서 직접 TTS 파인튜닝 / RVC 음성 클론</td>
+<td>S21 + 녹음 10~30문장 + <code>pip install sherpa-onnx-training</code></td>
+<td>★★★ (1~2시간)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. 경로 A — 선물 받은 AI 코어 꽂기</h2>
+<h3>구조 (누나 레포 기준)</h3>
+<div class="codehilite"><pre><span></span><code><span class="n">helena_phone</span><span class="o">/</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">director</span><span class="o">/</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">voice_engine</span><span class="o">.</span><span class="n">py</span><span class="w">    </span><span class="err">←</span><span class="w"> </span><span class="n">local</span><span class="o">/</span><span class="n">sherpa</span><span class="w"> </span><span class="err">프로바이더</span><span class="w"> </span><span class="p">(</span><span class="err">받는</span><span class="w"> </span><span class="err">쪽</span><span class="p">)</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">voice_models</span><span class="o">/</span><span class="w">           </span><span class="err">←</span><span class="w"> </span><span class="err">여기다</span><span class="w"> </span><span class="n">AI</span><span class="w"> </span><span class="err">코어를</span><span class="w"> </span><span class="err">넣는다</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">my_voice</span><span class="o">.</span><span class="n">onnx</span><span class="w">       </span><span class="err">←</span><span class="w"> </span><span class="n">Boss가</span><span class="w"> </span><span class="err">구워서</span><span class="w"> </span><span class="err">선물한</span><span class="w"> </span><span class="err">모델</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">my_voice</span><span class="o">.</span><span class="n">json</span><span class="w">       </span><span class="err">←</span><span class="w"> </span><span class="err">토크나이저</span><span class="w"> </span><span class="err">설정</span>
+<span class="err">└──</span><span class="w"> </span><span class="n">scripts</span><span class="o">/</span>
+<span class="w">    </span><span class="err">└──</span><span class="w"> </span><span class="n">voice_download</span><span class="o">.</span><span class="n">sh</span><span class="w">   </span><span class="err">←</span><span class="w"> </span><span class="err">선물</span><span class="w"> </span><span class="err">모델</span><span class="w"> </span><span class="err">다운로더</span><span class="w"> </span><span class="p">(</span><span class="n">GitHub</span><span class="w"> </span><span class="n">Releases</span><span class="o">/</span><span class="n">web</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>사용법 (받는 사람 기준)</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. 의존성 설치 (한 번만)</span>
+pip<span class="w"> </span>install<span class="w"> </span>sherpa-onnx
+
+<span class="c1"># 2. 선물 모델 다운로드 (Boss가 voice_models/에 올려둠)</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/helena751107/helena_phone.git
+<span class="nb">cd</span><span class="w"> </span>helena_phone
+
+<span class="c1"># 3. 바로 사용</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<span class="s2">from director.voice_engine import synthesize</span>
+<span class="s2">from pathlib import Path</span>
+<span class="s2">dur, prov = synthesize(&#39;안녕하세요, 저는 헬레나입니다&#39;,</span>
+<span class="s2">                        Path(&#39;test.mp3&#39;), engine=&#39;local&#39;)</span>
+<span class="s2">print(f&#39;{prov}: {dur:.1f}s&#39;)</span>
+<span class="s2"># → local/my_voice: 3.2s  (오프라인, API 비용 0원)</span>
+<span class="s2">&quot;</span>
+</code></pre></div>
+
+<h3>TTS_ENGINE=local 로 전체 파이프 작동</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 인트로 영상을 로컬 AI 성우로 제작</span>
+<span class="nv">TTS_ENGINE</span><span class="o">=</span><span class="nb">local</span><span class="w"> </span>bash<span class="w"> </span>scripts/produce_intro.sh
+
+<span class="c1"># PD 파이프도 동일</span>
+<span class="nv">TTS_ENGINE</span><span class="o">=</span><span class="nb">local</span><span class="w"> </span>bash<span class="w"> </span>scripts/produce_pd.sh
+</code></pre></div>
+
+<hr />
+<h2>3. 경로 B — 폰에서 직접 AI 성우 굽기</h2>
+<h3>3.1 Sherpa-ONNX + Coqui 파인튜닝 (권장)</h3>
+<p>S21 CPU + NEON SIMD 로도 가능한 경량 파이프:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. 학습 도구 설치</span>
+pip<span class="w"> </span>install<span class="w"> </span>sherpa-onnx<span class="w"> </span>torch<span class="w"> </span>--extra-index-url<span class="w"> </span>https://download.pytorch.org/whl/cpu
+
+<span class="c1"># 2. 목소리 녹음 (30문장 × 5~10초)</span>
+bash<span class="w"> </span>scripts/record_voice_samples.sh<span class="w">  </span><span class="c1"># Termux 마이크 → 16kHz mono WAV</span>
+
+<span class="c1"># 3. 파인튜닝 (CPU only, 30문장 기준 1~2시간)</span>
+python3<span class="w"> </span>scripts/train_voice.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--samples<span class="w"> </span>voice_samples/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>voice_models/my_voice.onnx<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--base-model<span class="w"> </span>kokoro-ko
+
+<span class="c1"># 4. 테스트</span>
+python3<span class="w"> </span>director/voice_engine.py<span class="w"> </span>--text<span class="w"> </span><span class="s2">&quot;내 목소리 테스트&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--engine<span class="w"> </span><span class="nb">local</span><span class="w"> </span>--out<span class="w"> </span>/tmp/my_test.mp3
+</code></pre></div>
+
+<h3>3.2 RVC 음성 변환 (대안, 무거움)</h3>
+<p><code>helena-programming/director/</code> 에 이미 <code>phone_rvc.py</code> 참조 있음.
+RVC = 내 목소리 녹음 → AI 가 다른 사람 목소리로 변환.
+품질은 좋지만 CPU only → 1문장 20~40초.</p>
+<hr />
+<h2>4. voice_engine.py local 프로바이더 구조</h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># director/voice_engine.py (확장 예정 — Boss AI 코어 도착 시 활성화)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_tts_local_sherpa</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+                       <span class="n">model_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sherpa-ONNX 로컬 추론 — CPU NEON 가속, 오프라인.&quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">sherpa_onnx</span>
+
+    <span class="n">model_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">model_path</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="s2">&quot;LOCAL_VOICE_MODEL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;/root/work/voice_models/my_voice.onnx&quot;</span>
+    <span class="p">))</span>
+
+    <span class="n">tts_config</span> <span class="o">=</span> <span class="n">sherpa_onnx</span><span class="o">.</span><span class="n">OfflineTtsConfig</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">sherpa_onnx</span><span class="o">.</span><span class="n">OfflineTtsModelConfig</span><span class="p">(</span>
+            <span class="n">kokoro</span><span class="o">=</span><span class="n">sherpa_onnx</span><span class="o">.</span><span class="n">OfflineTtsKokoroModelConfig</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">model_dir</span><span class="p">),</span>
+                <span class="n">tokens</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">model_dir</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s1">&#39;.json&#39;</span><span class="p">)),</span>
+            <span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">tts</span> <span class="o">=</span> <span class="n">sherpa_onnx</span><span class="o">.</span><span class="n">OfflineTts</span><span class="p">(</span><span class="n">tts_config</span><span class="p">)</span>
+    <span class="n">audio</span> <span class="o">=</span> <span class="n">tts</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+    <span class="c1"># → WAV 저장 → FFmpeg MP3 변환</span>
+    <span class="o">...</span>
+
+<span class="c1"># synthesize() 우선순위에 local 추가</span>
+<span class="n">ENGINE_PRIORITY</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grok&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;openai&quot;</span><span class="p">,</span> <span class="s2">&quot;edge&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<hr />
+<h2>5. 시나리오별 추천</h2>
+<table>
+<thead>
+<tr>
+<th>상황</th>
+<th>엔진</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>유튜브 업로드·수익화</td>
+<td><code>grok</code></td>
+<td>라이선스 🟢</td>
+</tr>
+<tr>
+<td>오프라인·개인소장</td>
+<td><code>local</code></td>
+<td>API 비용 0원</td>
+</tr>
+<tr>
+<td>시연·테스트</td>
+<td><code>local</code></td>
+<td>네트워크 불필요</td>
+</tr>
+<tr>
+<td>선물 받은 AI 코어</td>
+<td><code>local</code></td>
+<td>받아서 바로 꽂기</td>
+</tr>
+<tr>
+<td>내 목소리로 하고 싶다</td>
+<td><code>local</code> (직접 굽기)</td>
+<td>폰에서 1~2시간</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>6. 할 일 (Boss → Claude)</h2>
+<ol>
+<li>~~<code>voice_engine.py</code> 기본 구조~~ ✅ (V5)</li>
+<li>~~<code>voice_models/</code> 디렉토리 + README~~ ✅</li>
+<li>~~Boss AI 코어 업로드~~ ✅ <strong>ParkSyTTS v1 도착!</strong> (<code>gift/parksy-tts-v1</code> 브랜치, 2026-08-06 09:20)</li>
+<li>~~ParksyTTS v1 → voice_engine <code>local</code> 프로바이더 연결~~ ✅</li>
+<li>~~<code>scripts/record_voice_samples.sh</code> (Termux 마이크 녹음)~~ ✅ (2026-08-06)</li>
+<li>~~<code>scripts/train_voice.py</code> (폰 로컬 파인튜닝)~~ ✅ (2026-08-06)</li>
+</ol>
+<h3>6.1 voice_engine.py local 프로바이더 구현 완료 (2026-08-06)</h3>
+<p><strong>구현 함수:</strong>
+| 함수 | 역할 |
+|------|------|
+| <code>_find_parksytts_root()</code> | ParksyTTS v1 설치 경로 자동 탐지 |
+| <code>_find_sherpa_model()</code> | voice_models/*.onnx 자동 탐지 |
+| <code>_tts_local_parksy()</code> | GPT-SoVITS v2Pro 기반 박씨 목소리 추론 |
+| <code>_tts_local_sherpa()</code> | Sherpa-ONNX Kokoro/VITS 오프라인 추론 |
+| <code>tts_local()</code> | 디스패처 — ParksyTTS 우선, Sherpa 폴백 |</p>
+<p><strong>사용법:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nv">TTS_ENGINE</span><span class="o">=</span><span class="nb">local</span><span class="w"> </span>bash<span class="w"> </span>scripts/produce_intro.sh<span class="w">   </span><span class="c1"># 오프라인 성우</span>
+<span class="nv">TTS_ENGINE</span><span class="o">=</span><span class="nb">local</span><span class="w"> </span>bash<span class="w"> </span>scripts/produce_pd.sh<span class="w">      </span><span class="c1"># PD 파이프</span>
+</code></pre></div>
+
+<h3>6.2 record_voice_samples.sh</h3>
+<ul>
+<li>30문장 한국어 코퍼스 (음소 다양성 + 자연스러운 문장)</li>
+<li>ffmpeg ALSA/PulseAudio/Termux 마이크 API 자동 감지</li>
+<li>16kHz mono WAV + 무음 트림 + loudnorm 정규화</li>
+<li><code>--quick N</code> / <code>--single N</code> 부분 재녹음 지원</li>
+</ul>
+<h3>6.3 train_voice.py</h3>
+<ul>
+<li><code>--cloud</code> → GitHub Actions 7GB 러너로 파인튜닝 오프로드 (권장)</li>
+<li><code>--force-local</code> → Coqui TTS 로컬 파인튜닝 (CPU only, 수 시간)</li>
+<li><code>--list-models</code> → 사용 가능한 베이스 모델 목록</li>
+<li>자동으로 workflow + pipeline 디렉토리 생성</li>
+</ul>
+<h3>6.4 ParksyTTS v1 실물 확인</h3>
+<div class="codehilite"><pre><span></span><code>helena-programming/parksy-tts-v1/
+├── say.py          ← python3 say.py &quot;안녕!&quot; 한 줄로 끝
+├── install.sh      ← proot-Ubuntu 원클릭 설치 (ARM64 자동 감지)
+├── activate.sh     ← 매 세션 환경 활성화
+├── send_models.sh  ← 박씨가 WSL에서 실행 → 모델 S21로 전송
+├── requirements.txt← ARM64 호환 최소 의존성
+└── core/
+    ├── engine.py   ← ParkSyTTS v2ProPlus CPU 래퍼 (GPT-SoVITS)
+    └── normalize.py← AI→에이아이 약어 변환
+</code></pre></div>
+
+<p><strong>voice_engine 연동 완료:</strong> <code>TTS_ENGINE=local</code> → ParksyTTS 자동 감지 → 박씨 목소리</p>
+<hr />
+<h2>7. 선물 가이드 (Boss → 누나)</h2>
+<blockquote>
+<p>"이 레포에는 성우 플러그인이 내장되어 있어요.
+<code>voice_models/</code> 폴더에 제가 구운 AI 목소리 모델을 넣어뒀으니,
+<code>TTS_ENGINE=local</code> 로 실행하면 오프라인에서 바로 내레이션이 나와요.
+자기 목소리로 바꾸고 싶으면 <code>scripts/train_voice.py</code> 로 30문장만 녹음하면 돼요.
+전부 폰 하나로 됩니다."</p>
+</blockquote>
+<p>— _Claude · 2026-08-06</p>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>

@@ -1,0 +1,1023 @@
+<!--
+╔══════════════════════════════════════════════════════════════╗
+║  대화록 히스토리 웹페이지 빌더 v1.0                          ║
+║  Tistory HTML 모드 최대치 템플릿                             ║
+║  JS 없음 · CSS only · SVG 인포그래픽 · <details> 아코디언    ║
+╚══════════════════════════════════════════════════════════════╝
+-->
+<style>
+  /* ============================================================
+     CSS Design Tokens (Marine Quilt palette)
+     ============================================================ */
+  :root {
+    --mq-deep: #0F1C18;
+    --mq-crimson: #9B1B1B;
+    --mq-khaki: #C4A574;
+    --mq-thread: #D4A84B;
+    --mq-cream: #F6F1E7;
+    --mq-patch: #EDE6D9;
+    --mq-patch-mint: #DCE5DC;
+    --mq-ink: #2C2C2C;
+    --mq-soft: #F9F7F2;
+
+    /* speaker colors */
+    --c-boss: #B87333;      /* copper — Boss */
+    --c-grok: #4A90D9;      /* blue — Grok */
+    --c-claude: #7B5EA7;    /* purple — Claude Code */
+    --c-aider: #3DA37A;     /* green — Aider */
+    --c-gap: #E05555;       /* red — gap 발견 */
+    --c-decision: #D4A84B;  /* gold — 결정 지점 */
+
+    --radius: 8px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  /* ============================================================
+     Reset & Base
+     ============================================================ */
+  .dl-container {
+    max-width: 720px;
+    margin: 0 auto;
+    font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+    color: var(--mq-ink);
+    background: var(--mq-soft);
+    padding: 24px 16px 48px;
+    line-height: 1.7;
+  }
+
+  /* ============================================================
+     HEADER — 메타 정보
+     ============================================================ */
+  .dl-header {
+    text-align: center;
+    padding: 32px 16px 24px;
+    border-bottom: 2px dashed var(--mq-khaki);
+    margin-bottom: 28px;
+  }
+  .dl-header h1 {
+    font-size: 1.6rem;
+    margin: 0 0 8px;
+    color: var(--mq-deep);
+    letter-spacing: -0.5px;
+  }
+  .dl-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    font-size: 0.85rem;
+    color: #666;
+  }
+  .dl-meta span {
+    background: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid #e0d8cc;
+  }
+  .dl-meta .speaker-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+
+  /* ============================================================
+     THOUGHT MAP — 사고 흐름 SVG 다이어그램
+     ============================================================ */
+  .thought-map {
+    margin: 28px 0;
+    padding: 16px;
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .thought-map h2 {
+    font-size: 0.95rem;
+    color: var(--mq-deep);
+    margin: 0 0 12px;
+    padding-left: 12px;
+    border-left: 3px solid var(--mq-thread);
+  }
+  .thought-map svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .thought-map .map-caption {
+    text-align: center;
+    font-size: 0.78rem;
+    color: #888;
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  /* SVG node styles */
+  .node-q  { fill: var(--c-boss); }
+  .node-a  { fill: var(--c-grok); }
+  .node-c  { fill: var(--c-claude); }
+  .node-gap { fill: var(--c-gap); }
+  .node-dec { fill: var(--c-decision); stroke: #a8872e; stroke-width: 2; }
+  .edge { stroke: #ccc; stroke-width: 1.5; stroke-dasharray: 6 3; }
+  .edge-decision { stroke: var(--c-decision); stroke-width: 2.5; }
+
+  /* node hover glow (CSS only — works on SVG elements) */
+  .thought-map circle:hover,
+  .thought-map rect.node-dec:hover {
+    filter: drop-shadow(0 0 6px currentColor);
+    cursor: pointer;
+  }
+
+  /* ============================================================
+     GRAPH VIEW — CSS only bar chart
+     ============================================================ */
+  .graph-view {
+    margin: 28px 0;
+    padding: 20px 16px;
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .graph-view h2 {
+    font-size: 0.95rem;
+    color: var(--mq-deep);
+    margin: 0 0 16px;
+    padding-left: 12px;
+    border-left: 3px solid var(--mq-crimson);
+  }
+  .bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 180px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e0d8cc;
+    position: relative;
+  }
+  .bar-chart .bar {
+    flex: 1;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    min-width: 24px;
+    transition: filter 0.3s, transform 0.3s;
+  }
+  .bar-chart .bar:hover {
+    filter: brightness(1.15);
+    transform: scaleY(1.03);
+    transform-origin: bottom;
+  }
+  .bar-chart .bar .bar-label {
+    position: absolute;
+    bottom: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    color: #888;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .bar-chart .bar .bar-val {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--mq-ink);
+  }
+  /* bar grow animation on page load */
+  .bar-chart .bar {
+    animation: bar-grow 0.8s ease-out forwards;
+    transform-origin: bottom;
+    height: 0 !important;
+  }
+  .bar-chart .bar:nth-child(1) { animation-delay: 0.1s; }
+  .bar-chart .bar:nth-child(2) { animation-delay: 0.2s; }
+  .bar-chart .bar:nth-child(3) { animation-delay: 0.3s; }
+  .bar-chart .bar:nth-child(4) { animation-delay: 0.4s; }
+  .bar-chart .bar:nth-child(5) { animation-delay: 0.5s; }
+  .bar-chart .bar:nth-child(6) { animation-delay: 0.6s; }
+  .bar-chart .bar:nth-child(7) { animation-delay: 0.7s; }
+  .bar-chart .bar:nth-child(8) { animation-delay: 0.8s; }
+  @keyframes bar-grow {
+    to { height: var(--h); }
+  }
+
+  .bar-q  { background: var(--c-boss);    --h: 70px; }
+  .bar-a  { background: var(--c-grok);    --h: 110px; }
+  .bar-c  { background: var(--c-claude);  --h: 85px; }
+  .bar-g  { background: var(--c-gap);     --h: 45px; }
+
+  /* ============================================================
+     DECISION TREE SVG — 결정 분기점
+     ============================================================ */
+  .decision-tree {
+    margin: 28px 0;
+    padding: 20px 16px;
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .decision-tree h2 {
+    font-size: 0.95rem;
+    color: var(--mq-deep);
+    margin: 0 0 16px;
+    padding-left: 12px;
+    border-left: 3px solid var(--c-decision);
+  }
+  .decision-tree svg {
+    width: 100%;
+    height: auto;
+  }
+  .decision-tree .dt-label {
+    font-size: 10px;
+    fill: var(--mq-ink);
+    font-family: inherit;
+  }
+  .decision-tree .dt-label-big {
+    font-size: 12px;
+    font-weight: 700;
+    fill: var(--mq-deep);
+    font-family: inherit;
+  }
+
+  /* ============================================================
+     TURN LIST — 대화 턴 (<details> 아코디언)
+     ============================================================ */
+  .turn-list {
+    margin: 28px 0;
+  }
+  .turn-list h2 {
+    font-size: 0.95rem;
+    color: var(--mq-deep);
+    margin: 0 0 16px;
+    padding-left: 12px;
+    border-left: 3px solid var(--c-claude);
+  }
+
+  /* each turn */
+  .turn {
+    margin-bottom: 8px;
+    border-radius: var(--radius);
+    background: white;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+  }
+  .turn:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+
+  /* speaker-colored left border */
+  .turn-boss    { border-left: 4px solid var(--c-boss); }
+  .turn-grok    { border-left: 4px solid var(--c-grok); }
+  .turn-claude  { border-left: 4px solid var(--c-claude); }
+  .turn-aider   { border-left: 4px solid var(--c-aider); }
+  .turn-gap     { border-left: 4px solid var(--c-gap); background: #fff5f5; }
+  .turn-decision{ border-left: 4px solid var(--c-decision); background: #fffdf5; }
+
+  /* summary row */
+  .turn summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+  }
+  .turn summary::-webkit-details-marker { display: none; }
+  .turn summary::marker { display: none; }
+
+  .turn summary:hover {
+    background: rgba(0,0,0,0.02);
+  }
+
+  /* turn number badge */
+  .turn-num {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+  }
+  .turn-boss .turn-num     { background: var(--c-boss); }
+  .turn-grok .turn-num     { background: var(--c-grok); }
+  .turn-claude .turn-num   { background: var(--c-claude); }
+  .turn-aider .turn-num    { background: var(--c-aider); }
+  .turn-gap .turn-num      { background: var(--c-gap); }
+  .turn-decision .turn-num { background: var(--c-decision); }
+
+  /* speaker label */
+  .turn-speaker {
+    flex-shrink: 0;
+    font-weight: 700;
+    font-size: 0.78rem;
+    min-width: 48px;
+    text-align: center;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .turn-boss .turn-speaker     { color: var(--c-boss); background: #fdf3e7; }
+  .turn-grok .turn-speaker     { color: var(--c-grok); background: #e8f1fb; }
+  .turn-claude .turn-speaker   { color: var(--c-claude); background: #f0ebf7; }
+  .turn-aider .turn-speaker    { color: var(--c-aider); background: #e6f5ee; }
+  .turn-gap .turn-speaker      { color: var(--c-gap); background: #fce8e8; }
+  .turn-decision .turn-speaker { color: #a8872e; background: #fef9e7; }
+
+  /* preview text */
+  .turn-preview {
+    flex: 1;
+    color: #555;
+    font-size: 0.82rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* time */
+  .turn time {
+    flex-shrink: 0;
+    font-size: 0.72rem;
+    color: #aaa;
+  }
+
+  /* expand/collapse indicator */
+  .turn summary::after {
+    content: "▸";
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    color: #aaa;
+    transition: transform 0.3s;
+  }
+  .turn[open] summary::after {
+    transform: rotate(90deg);
+  }
+
+  /* open state */
+  .turn[open] summary {
+    background: rgba(0,0,0,0.03);
+    border-bottom: 1px solid #eee;
+  }
+
+  /* turn body */
+  .turn-body {
+    padding: 16px 20px 20px;
+    font-size: 0.88rem;
+    line-height: 1.8;
+    animation: slide-down 0.3s ease-out;
+  }
+  @keyframes slide-down {
+    from { opacity: 0; max-height: 0; }
+    to   { opacity: 1; max-height: 2000px; }
+  }
+
+  /* gap highlight marker inside turn */
+  .gap-marker {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 8px 14px;
+    background: #fff0f0;
+    border-left: 3px solid var(--c-gap);
+    border-radius: 0 4px 4px 0;
+    font-size: 0.8rem;
+    color: #a33;
+  }
+  .gap-marker::before {
+    content: "🕳️ Gap 발견: ";
+    font-weight: 700;
+  }
+
+  /* ============================================================
+     FILTER TABS — CSS-only checkbox hack
+     ============================================================ */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+  .filter-bar input[type="radio"] {
+    display: none;
+  }
+  .filter-bar label {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    border: 1px solid #d0ccc4;
+    background: white;
+    color: #888;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .filter-bar label:hover {
+    border-color: var(--mq-khaki);
+    color: var(--mq-ink);
+  }
+  .filter-bar input[type="radio"]:checked + label {
+    background: var(--mq-deep);
+    color: white;
+    border-color: var(--mq-deep);
+  }
+
+  /* filter logic — show/hide turns */
+  #filter-all:checked    ~ .turn-list .turn { display: block; }
+  #filter-boss:checked   ~ .turn-list .turn:not(.turn-boss) { display: none; }
+  #filter-grok:checked   ~ .turn-list .turn:not(.turn-grok) { display: none; }
+  #filter-claude:checked ~ .turn-list .turn:not(.turn-claude) { display: none; }
+  #filter-gap-only:checked ~ .turn-list .turn:not(.turn-gap):not(.turn-decision) { display: none; }
+
+  /* ============================================================
+     METHOD SUMMARY — Fact/Feel/Gap/Fix/Next 카드
+     ============================================================ */
+  .method-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 28px 0;
+  }
+  @media (max-width: 480px) {
+    .method-summary { grid-template-columns: 1fr; }
+  }
+  .method-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 18px 16px;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-top: 3px solid #ccc;
+  }
+  .method-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.13);
+  }
+  .method-card h3 {
+    font-size: 0.88rem;
+    margin: 0 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .method-card p, .method-card ul {
+    font-size: 0.82rem;
+    color: #555;
+    margin: 0;
+    padding-left: 16px;
+  }
+  .card-fact { border-top-color: #5B8DB8; }
+  .card-feel { border-top-color: #C47E9E; }
+  .card-gap  { border-top-color: var(--c-gap); }
+  .card-fix  { border-top-color: var(--c-aider); }
+  .card-next { border-top-color: var(--c-decision); }
+
+  /* full-width card for longer sections */
+  .method-card-full {
+    grid-column: 1 / -1;
+  }
+
+  /* ============================================================
+     TIMELINE — CSS vertical timeline
+     ============================================================ */
+  .timeline {
+    margin: 28px 0;
+    padding-left: 28px;
+    border-left: 2px solid var(--mq-khaki);
+    position: relative;
+  }
+  .timeline h2 {
+    font-size: 0.95rem;
+    color: var(--mq-deep);
+    margin: 0 0 16px -28px;
+    padding-left: 28px;
+    border-left: 3px solid var(--c-boss);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    font-size: 0.85rem;
+  }
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -34px;
+    top: 6px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--mq-khaki);
+    border: 2px solid white;
+  }
+  .tl-item.tl-decision::before {
+    background: var(--c-decision);
+    width: 14px; height: 14px;
+    left: -36px;
+    top: 4px;
+  }
+  .tl-item time {
+    font-size: 0.7rem;
+    color: #aaa;
+    display: block;
+  }
+  .tl-item .tl-title {
+    font-weight: 700;
+    color: var(--mq-deep);
+  }
+
+  /* ============================================================
+     ICON STAT ROW — 숫자 요약
+     ============================================================ */
+  .stat-row {
+    display: flex;
+    gap: 16px;
+    margin: 28px 0;
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    flex: 1;
+    min-width: 100px;
+    text-align: center;
+    background: white;
+    border-radius: var(--radius);
+    padding: 16px 12px;
+    box-shadow: var(--shadow);
+  }
+  .stat-card .stat-num {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--mq-deep);
+    line-height: 1.2;
+    /* counter animation */
+    animation: count-up 1.5s ease-out;
+  }
+  .stat-card .stat-label {
+    font-size: 0.72rem;
+    color: #888;
+    margin-top: 4px;
+  }
+
+  /* ============================================================
+     FOOTER — meta + links
+     ============================================================ */
+  .dl-footer {
+    margin-top: 40px;
+    padding: 20px 16px;
+    text-align: center;
+    border-top: 2px dashed var(--mq-khaki);
+    font-size: 0.78rem;
+    color: #aaa;
+  }
+  .dl-footer a {
+    color: var(--mq-khaki);
+    text-decoration: none;
+  }
+  .dl-footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* ============================================================
+     UTILITY
+     ============================================================ */
+  .sr-only {
+    position: absolute; width: 1px; height: 1px;
+    overflow: hidden; clip: rect(0,0,0,0);
+  }
+
+  /* progress bar (pure CSS animation on load) */
+  .progress-bar {
+    height: 4px;
+    background: #e8e4da;
+    border-radius: 2px;
+    margin: 20px 0;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--mq-khaki), var(--c-decision));
+    border-radius: 2px;
+    animation: progress-fill 2s ease-out forwards;
+    width: 0;
+  }
+  @keyframes progress-fill {
+    to { width: var(--pct, 100%); }
+  }
+</style>
+
+<!-- ============================================================
+     컨테이너 시작
+     ============================================================ -->
+<div class="dl-container">
+
+  <!-- HEADER -->
+  <header class="dl-header">
+    <h1>대화록 · 2026-08-07</h1>
+    <div class="dl-meta">
+      <span><b class="speaker-dot" style="background:var(--c-boss)"></b> Boss</span>
+      <span><b class="speaker-dot" style="background:var(--c-grok)"></b> Grok</span>
+      <span><b class="speaker-dot" style="background:var(--c-claude)"></b> Claude</span>
+      <span>🔄 24턴 · 2시간 14분</span>
+      <span>📌 AI 성우 전략 수립</span>
+      <span>🏷️ DW · BL · CROSS</span>
+    </div>
+  </header>
+
+  <!-- STAT ROW -->
+  <div class="stat-row">
+    <div class="stat-card"><div class="stat-num">24</div><div class="stat-label">대화 턴</div></div>
+    <div class="stat-card"><div class="stat-num">5</div><div class="stat-label">결정 분기점</div></div>
+    <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Gap 발견</div></div>
+    <div class="stat-card"><div class="stat-num">2</div><div class="stat-label">솔루션 확정</div></div>
+    <div class="stat-card"><div class="stat-num">878</div><div class="stat-label">MB 정리</div></div>
+  </div>
+
+  <!-- PROGRESS BAR — 사고 완결도 -->
+  <div class="progress-bar">
+    <div class="progress-bar-fill" style="--pct: 92%;"></div>
+  </div>
+  <p style="text-align:center;font-size:0.72rem;color:#aaa;margin-top:-12px">사고 완결도 92% — ParksyTTS 폐기 → Kokoro → Edge TTS 확정</p>
+
+  <!-- ============================================================
+       THOUGHT MAP — 사고 흐름 SVG
+       ============================================================ -->
+  <section class="thought-map">
+    <h2>🧭 사고 흐름 지도</h2>
+    <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- nodes -->
+      <circle cx="50"  cy="60" r="14" class="node-q"/><text x="50"  y="64" text-anchor="middle" fill="white" font-size="9" font-weight="700">Q1</text>
+      <circle cx="170" cy="60" r="14" class="node-a"/><text x="170" y="64" text-anchor="middle" fill="white" font-size="9" font-weight="700">A1</text>
+      <circle cx="290" cy="60" r="14" class="node-q"/><text x="290" y="64" text-anchor="middle" fill="white" font-size="9" font-weight="700">Q2</text>
+      <circle cx="410" cy="60" r="16" class="node-gap"/><text x="410" y="64" text-anchor="middle" fill="white" font-size="9" font-weight="700">GAP</text>
+      <circle cx="530" cy="60" r="14" class="node-a"/><text x="530" y="64" text-anchor="middle" fill="white" font-size="9" font-weight="700">A2</text>
+      <circle cx="650" cy="60" r="14" class="node-q"/><text x="650" y="64" text-anchor="middle" fill="white" font-size="9" font-weight="700">Q3</text>
+      <rect  x="730" y="46" width="60" height="28" rx="14" class="node-dec"/>
+      <text  x="760" y="64" text-anchor="middle" fill="var(--mq-deep)" font-size="9" font-weight="700">결정</text>
+
+      <!-- edges -->
+      <line x1="64"  y1="60" x2="156" y2="60" class="edge"/>
+      <line x1="184" y1="60" x2="276" y2="60" class="edge"/>
+      <line x1="304" y1="60" x2="394" y2="60" class="edge" stroke="#e05555"/>
+      <line x1="426" y1="60" x2="516" y2="60" class="edge"/>
+      <line x1="544" y1="60" x2="636" y2="60" class="edge"/>
+      <line x1="664" y1="60" x2="730" y2="60" class="edge-decision"/>
+
+      <!-- labels -->
+      <text x="50"  y="90"  text-anchor="middle" font-size="8" fill="#888">"TTS 어쩔"</text>
+      <text x="170" y="90"  text-anchor="middle" font-size="8" fill="#888">"ParksyTTS"</text>
+      <text x="290" y="90"  text-anchor="middle" font-size="8" fill="#888">"471초?"</text>
+      <text x="410" y="90"  text-anchor="middle" font-size="8" fill="#e05555">CPU 병목</text>
+      <text x="530" y="90"  text-anchor="middle" font-size="8" fill="#888">"Kokoro"</text>
+      <text x="650" y="90"  text-anchor="middle" font-size="8" fill="#888">"억양?"</text>
+      <text x="760" y="90"  text-anchor="middle" font-size="8" fill="#a8872e">Edge 확정</text>
+
+      <!-- phase bands -->
+      <rect x="0"  y="115" width="230" height="18" rx="9" fill="#fdf3e7" opacity="0.7"/>
+      <text  x="115" y="128" text-anchor="middle" font-size="8" fill="#b87333">탐색</text>
+      <rect x="250" y="115" width="270" height="18" rx="9" fill="#fce8e8" opacity="0.7"/>
+      <text  x="385" y="128" text-anchor="middle" font-size="8" fill="#e05555">위기·발견</text>
+      <rect x="540" y="115" width="250" height="18" rx="9" fill="#fef9e7" opacity="0.7"/>
+      <text  x="665" y="128" text-anchor="middle" font-size="8" fill="#a8872e">전환·확정</text>
+
+      <!-- timeline bar -->
+      <line x1="0" y1="150" x2="790" y2="150" stroke="#e0d8cc" stroke-width="1"/>
+      <circle cx="0" cy="150" r="3" fill="#ccc"/>
+      <text x="0" y="168" font-size="7" fill="#aaa">14:23</text>
+      <circle cx="380" cy="150" r="3" fill="#e05555"/>
+      <text x="380" y="168" font-size="7" fill="#e05555" text-anchor="middle">14:58 터닝포인트</text>
+      <circle cx="760" cy="150" r="3" fill="#a8872e"/>
+      <text x="790" y="168" font-size="7" fill="#a8872e" text-anchor="end">16:37 결정</text>
+    </svg>
+    <p class="map-caption">ParksyTTS(GPT-SoVITS) 폐기 → Kokoro → Edge TTS InJoonNeural 확정까지 사고 흐름</p>
+  </section>
+
+  <!-- ============================================================
+       GRAPH VIEW — CSS bar chart
+       ============================================================ -->
+  <section class="graph-view">
+    <h2>📊 대화 턴 분포 (화자별)</h2>
+    <div class="bar-chart">
+      <!-- heights set via --h custom property in CSS rules above -->
+      <div class="bar bar-q"><span class="bar-val">8</span><span class="bar-label">Boss 질문</span></div>
+      <div class="bar bar-a"><span class="bar-val">10</span><span class="bar-label">Grok 응답</span></div>
+      <div class="bar bar-c"><span class="bar-val">4</span><span class="bar-label">Claude</span></div>
+      <div class="bar bar-g"><span class="bar-val">3</span><span class="bar-label">Gap 발견</span></div>
+      <div class="bar bar-a" style="--h:50px"><span class="bar-val">2</span><span class="bar-label">결정</span></div>
+      <div class="bar bar-c" style="--h:30px"><span class="bar-val">1</span><span class="bar-label">회고</span></div>
+    </div>
+    <p style="text-align:center;font-size:0.72rem;color:#aaa;margin-top:28px">Grok 주도 대화 (10턴) · Gap 3회 · 결정 2건 · Claude 보조 의견 4턴</p>
+  </section>
+
+  <!-- ============================================================
+       DECISION TREE — 결정 분기점
+       ============================================================ -->
+  <section class="decision-tree">
+    <h2>🌳 결정 분기점</h2>
+    <svg viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg">
+      <!-- Root -->
+      <rect x="330" y="10" width="140" height="36" rx="18" fill="var(--mq-deep)"/>
+      <text x="400" y="33" text-anchor="middle" fill="white" font-size="11" font-weight="700">TTS 엔진 선택</text>
+
+      <!-- Branch 1: ParksyTTS -->
+      <line x1="370" y1="46" x2="180" y2="80" stroke="#ccc" stroke-width="2"/>
+      <rect x="60" y="80" width="240" height="40" rx="8" fill="#fff0f0" stroke="#e05555" stroke-width="1.5"/>
+      <text x="180" y="98" text-anchor="middle" font-size="10" font-weight="700" fill="#a33">ParksyTTS (GPT-SoVITS)</text>
+      <text x="180" y="114" text-anchor="middle" font-size="8" fill="#888">471초/3.5초 · 실사용 불가</text>
+      <!-- X mark -->
+      <text x="52" y="104" font-size="16" fill="#e05555">✕</text>
+
+      <!-- Branch 2: Kokoro -->
+      <line x1="400" y1="46" x2="400" y2="80" stroke="#ccc" stroke-width="2"/>
+      <rect x="290" y="80" width="220" height="40" rx="8" fill="#fff8f0" stroke="#e0a050" stroke-width="1.5"/>
+      <text x="400" y="98" text-anchor="middle" font-size="10" font-weight="700" fill="#a06020">Kokoro jf_alpha</text>
+      <text x="400" y="114" text-anchor="middle" font-size="8" fill="#888">RTF ~2x · 일본인 억양</text>
+
+      <!-- Branch 3: Edge TTS -->
+      <line x1="430" y1="46" x2="620" y2="80" stroke="#ccc" stroke-width="2"/>
+      <rect x="530" y="80" width="220" height="40" rx="8" fill="#f0fff0" stroke="#3da37a" stroke-width="1.5"/>
+      <text x="640" y="98" text-anchor="middle" font-size="10" font-weight="700" fill="#2a6b4a">Edge TTS InJoon</text>
+      <text x="640" y="114" text-anchor="middle" font-size="8" fill="#888">상용급 품질 · 공짜</text>
+      <!-- check mark -->
+      <text x="758" y="104" font-size="16" fill="#3da37a">✓</text>
+
+      <!-- Second level -->
+      <line x1="400" y1="120" x2="250" y2="160" stroke="#ccc" stroke-width="1.5"/>
+      <rect x="130" y="160" width="240" height="36" rx="8" fill="#fff5f5" stroke="#e05555" stroke-width="1"/>
+      <text x="250" y="178" text-anchor="middle" font-size="9" fill="#a33">INT8 디퀀트 → NaN 버그</text>
+      <text x="250" y="192" text-anchor="middle" font-size="7" fill="#888">ARM64 한정</text>
+      <text x="122" y="182" font-size="12" fill="#e05555">✕</text>
+
+      <line x1="400" y1="120" x2="550" y2="160" stroke="#ccc" stroke-width="1.5"/>
+      <rect x="430" y="160" width="240" height="36" rx="8" fill="#f0fff5" stroke="#3da37a" stroke-width="1"/>
+      <text x="550" y="178" text-anchor="middle" font-size="9" fill="#2a6b4a">FP32 정상 · 폴백용</text>
+      <text x="550" y="192" text-anchor="middle" font-size="7" fill="#888">311MB ONNX</text>
+      <text x="678" y="182" font-size="12" fill="#3da37a">✓</text>
+
+      <!-- Final decision -->
+      <line x1="640" y1="120" x2="640" y2="160" stroke="var(--c-decision)" stroke-width="2.5"/>
+      <rect x="530" y="195" width="220" height="36" rx="18" fill="var(--c-decision)" stroke="#a8872e" stroke-width="2"/>
+      <text x="640" y="218" text-anchor="middle" fill="white" font-size="11" font-weight="700">Edge TTS 확정 ✓</text>
+
+      <!-- legend -->
+      <rect x="10" y="250" width="10" height="10" rx="2" fill="var(--c-decision)"/>
+      <text x="24" y="259" font-size="8" fill="#888">= 최종 결정</text>
+    </svg>
+    <p class="map-caption">3개 후보 비교 → 2개 탈락 → Edge TTS InJoonNeural 최종 확정</p>
+  </section>
+
+  <!-- ============================================================
+       FILTER TABS
+       ============================================================ -->
+  <div class="filter-bar">
+    <input type="radio" id="filter-all"     name="turn-filter" checked>
+    <input type="radio" id="filter-boss"    name="turn-filter">
+    <input type="radio" id="filter-grok"    name="turn-filter">
+    <input type="radio" id="filter-claude"  name="turn-filter">
+    <input type="radio" id="filter-gap-only" name="turn-filter">
+
+    <label for="filter-all">전체</label>
+    <label for="filter-boss">Boss 질문</label>
+    <label for="filter-grok">Grok 응답</label>
+    <label for="filter-claude">Claude</label>
+    <label for="filter-gap-only">Gap만</label>
+  </div>
+
+  <!-- ============================================================
+       TURN LIST — 대화 턴
+       ============================================================ -->
+  <div class="turn-list">
+    <h2>💬 대화 기록</h2>
+
+    <!-- Turn 01 — Boss question -->
+    <details class="turn turn-boss" id="t01">
+      <summary>
+        <span class="turn-num">01</span>
+        <span class="turn-speaker">Boss</span>
+        <span class="turn-preview">"ParksyTTS 이거 폰에서 실제로 돌아가는 거 맞냐"</span>
+        <time>14:23</time>
+      </summary>
+      <div class="turn-body">
+        <p>이거 TTS 어떻게 할 거냐. ParksyTTS 우리 폰으로 실제 추론 가능한 거 맞는지 확인해 봐.</p>
+      </div>
+    </details>
+
+    <!-- Turn 02 — Grok response -->
+    <details class="turn turn-grok" id="t02">
+      <summary>
+        <span class="turn-num">02</span>
+        <span class="turn-speaker">Grok</span>
+        <span class="turn-preview">"GPT-SoVITS v2Pro, parksy_v2 체크포인트 314MB 있다"</span>
+        <time>14:25</time>
+      </summary>
+      <div class="turn-body">
+        <p>확인했다. parksy_v2 체크포인트 314MB 로컬에 있고, GPT-SoVITS v2Pro 아키텍처. 한국어 BERT 불필요해서 0-vector 처리 이미 들어가 있다. 의존성 3종(numba, librosa, torchcodec)도 해결 완료.</p>
+      </div>
+    </details>
+
+    <!-- Turn 03 — Claude 추가 의견 -->
+    <details class="turn turn-claude" id="t03">
+      <summary>
+        <span class="turn-num">03</span>
+        <span class="turn-speaker">Claude</span>
+        <span class="turn-preview">"CPU-only 환경에서는 GPT stage decoder가 구조적 병목"</span>
+        <time>14:28</time>
+      </summary>
+      <div class="turn-body">
+        <p>우리 환경이 CPU-only(is_half=False, device="cpu")라서 GPT autoregressive stage decoder가 bottleneck이다. 1500 iterations, ~3초/it → 단일 음성 생성에만 471초. VITS 디코더 ONNX export는 됐지만 GPT stage는 아직 PyTorch.</p>
+      </div>
+    </details>
+
+    <!-- Turn 04 — Boss follow-up -->
+    <details class="turn turn-boss" id="t04">
+      <summary>
+        <span class="turn-num">04</span>
+        <span class="turn-speaker">Boss</span>
+        <span class="turn-preview">"471초면 실사용 못 하잖아. 다른 방법 없냐"</span>
+        <time>14:32</time>
+      </summary>
+      <div class="turn-body">
+        <p>3.5초 음성 만드는 데 7분 51초면 못 써. 다른 TTS 옵션 찾아봐.</p>
+      </div>
+    </details>
+
+    <!-- Turn 05 — GAP 발견 -->
+    <details class="turn turn-gap" id="t05">
+      <summary>
+        <span class="turn-num">05</span>
+        <span class="turn-speaker">GAP</span>
+        <span class="turn-preview">🕳️ GPT-SoVITS 아키텍처 자체가 CPU 실사용에 부적합</span>
+        <time>14:35</time>
+      </summary>
+      <div class="turn-body">
+        <p><strong>발견:</strong> Autoregressive 모델(GPT stage decoder)은 CPU에서 구조적 병목이다. ONNX로도 해결 불가. GPT-SoVITS 자체가 GPU 전제 아키텍처.</p>
+        <div class="gap-marker">GPT-SoVITS는 GPU 있는 환경에서나 의미 있는 도구. S21 CPU-only로는 접근 자체가 잘못됐다.</div>
+      </div>
+    </details>
+
+    <!-- Turn 06 — Claude 대안 -->
+    <details class="turn turn-claude" id="t06">
+      <summary>
+        <span class="turn-num">06</span>
+        <span class="turn-speaker">Claude</span>
+        <span class="turn-preview">"경량 TTS + RVC ONNX 조합. 생성 대신 변환"</span>
+        <time>14:38</time>
+      </summary>
+      <div class="turn-body">
+        <p>대체 전략 3단계: ① Sherpa-ONNX Kokoro 한국어 (jf_alpha) — 공짜, Apache 2.0, 이미 S21에 설치됨. ② RVC ONNX INT8 — 누나 목소리 변환 (~72ms). ③ Grok TTS는 403이니 사용 안 함. 생성(Generate) 대신 변환(Convert) — RVC가 훨씬 가볍다.</p>
+      </div>
+    </details>
+
+    <!-- Turn 07 — Boss 선택 -->
+    <details class="turn turn-boss" id="t07">
+      <summary>
+        <span class="turn-num">07</span>
+        <span class="turn-speaker">Boss</span>
+        <span class="turn-preview">"SoVITS 878MB 그냥 삭제해. Kokoro부터 테스트"</span>
+        <time>14:42</time>
+      </summary>
+      <div class="turn-body">
+        <p>SoVITS 싹 지워. parksy_v2 4개 파일 전부. Kokoro로 테스트 먼저 해 보고 억양이 어떨지 들어보자.</p>
+      </div>
+    </details>
+
+    <!-- Turn 08 — Grok 실행 -->
+    <details class="turn turn-grok" id="t08">
+      <summary>
+        <span class="turn-num">08</span>
+        <span class="turn-speaker">Grok</span>
+        <span class="turn-preview">"Kokoro jf_alpha RTF ~2x, 정상 오디오. 근데 일본인 억양이..."</span>
+        <time>14:50</time>
+      </summary>
+      <div class="turn-body">
+        <p>Kokoro FP32 정상 작동. RTF ~2x, RMS 0.08. jf_alpha(sid=37)는 일본인 여성 성우라 한국어에 일본 억양이 섞인다. 품질은 나쁘지 않은데 "어눌한 발음"이 거슬릴 수 있다.</p>
+      </div>
+    </details>
+
+    <!-- Turn 09 — Boss 재평가 -->
+    <details class="turn turn-boss" id="t09">
+      <summary>
+        <span class="turn-num">09</span>
+        <span class="turn-speaker">Boss</span>
+        <span class="turn-preview">"어눌한 발음 오히려 캐릭터다. 근데 Edge TTS도 테스트"</span>
+        <time>14:55</time>
+      </summary>
+      <div class="turn-body">
+        <p>일본인 억양이 오히려 "한국어를 열심히 배우는 착한 일본인 AI"라는 차별화된 캐릭터성을 만든다. 완벽한 발음보다 기억에 남는 목소리가 낫다. 그래도 Edge TTS도 한번 돌려봐. 비교는 해야지.</p>
+      </div>
+    </details>
+
+    <!-- Turn 10 — DECISION -->
+    <details class="turn turn-decision" id="t10">
+      <summary>
+        <span class="turn-num">★</span>
+        <span class="turn-speaker">결정</span>
+        <span class="turn-preview">Edge TTS InJoonNeural 확정. Kokoro=폴백, ParksyTTS=폐기</span>
+        <time>16:37</time>
+      </summary>
+      <div class="turn-body">
+        <p><strong>최종 결정:</strong></p>
+        <ul>
+          <li><strong>롱폼 = 육성</strong> (진짜 사람 목소리)</li>
+          <li><strong>쇼츠 = Edge TTS InJoonNeural</strong> (상용급·공짜)</li>
+          <li><strong>오디오북 = Piper + RVC</strong> (누나 목소리 클론, 추후)</li>
+          <li><strong>Kokoro jf_alpha = 폴백</strong> (오프라인 환경)</li>
+          <li><strong>ParksyTTS = 폐기</strong> (878MB 삭제)</li>
+        </ul>
+      </div>
+    </details>
+
+  </div><!-- /turn-list -->
+
+  <!-- ============================================================
+       METHOD SUMMARY — Fact/Feel/Gap/Fix/Next
+       ============================================================ -->
+  <div class="method-summary">
+    <div class="method-card card-fact">
+      <h3>📋 상황</h3>
+      <p>ParksyTTS 추론 471초로 실사용 불가. CPU-only S21에서 GPT-SoVITS 아키텍처 구조적 한계 발견.</p>
+    </div>
+    <div class="method-card card-feel">
+      <h3>💭 느낀 바</h3>
+      <p>3주 삽질한 SoVITS가 근본부터 잘못된 접근이었다는 걸 깨닫는 허탈함. 하지만 "생성 대신 변환"이라는 새 패러다임이 열림.</p>
+    </div>
+    <div class="method-card card-gap">
+      <h3>🕳️ 빈틈</h3>
+      <ul>
+        <li>Autoregressive 모델 CPU 부적합</li>
+        <li>GPU/NPU proot ABI 충돌로 접근 불가</li>
+        <li>Grok TTS API 403 미지원</li>
+      </ul>
+    </div>
+    <div class="method-card card-fix">
+      <h3>🔧 해결</h3>
+      <ul>
+        <li>SoVITS 878MB 삭제</li>
+        <li>Edge TTS InJoonNeural 주력</li>
+        <li>Kokoro FP32 폴백</li>
+        <li>RVC 추후 누나 목소리</li>
+      </ul>
+    </div>
+    <div class="method-card card-next method-card-full">
+      <h3>👉 다음</h3>
+      <ul>
+        <li>① Edge TTS로 pd_intro 재생산</li>
+        <li>② Kokoro FP32 유지 (오프라인 폴백)</li>
+        <li>③ 누나 음성 샘플 30문장 수집 → RVC 학습 준비</li>
+        <li>④ TTS_ENGINE 기본값 edge로 변경</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TIMELINE
+       ============================================================ -->
+  <div class="timeline">
+    <h2>⏱️ 결정 타임라인</h2>
+    <div class="tl-item">
+      <time>14:23</time>
+      <span class="tl-title">Boss 질문 시작</span>
+      <p>ParksyTTS 실사용 가능성 검증 요청</p>
+    </div>
+    <div class="tl-item">
+      <time>14:35</time>
+      <span class="tl-title">Gap 발견</span>
+      <p>GPT-SoVITS 아키텍처 자체가 CPU 실사용에 부적합</p>
+    </div>
+    <div class="tl-item tl-decision">
+      <time>14:42</time>
+      <span class="tl-title">1차 결정</span>
+      <p>SoVITS 878MB 삭제, Kokoro로 전환</p>
+    </div>
+    <div class="tl-item">
+      <time>14:55</time>
+      <span class="tl-title">Boss 재평가</span>
+      <p>jf_alpha 일본인 억양 = 캐릭터 자산. Edge TTS도 병행 테스트</p>
+    </div>
+    <div class="tl-item tl-decision">
+      <time>16:37</time>
+      <span class="tl-title">최종 결정</span>
+      <p>Edge TTS InJoonNeural 확정. 3트랙 목소리 전략 수립 완료</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="dl-footer">
+    <p>
+      📁 <a href="#">helana_log/docs/dialogue/</a> ·
+      🏷️ 트랙: AI성우 · CROSS ·
+      📅 발행: 2026-08-07 ·
+      🤖 via Claude Code + Grok
+    </p>
+    <p style="margin-top:8px">
+      이 페이지는 JS 없이 CSS만으로 작동합니다 ·
+      <a href="#">GitHub Pages 칠판 보드</a>로 확장 가능
+    </p>
+  </footer>
+
+</div><!-- /dl-container -->

@@ -1,0 +1,129 @@
+{
+  "id": "helena_phone",
+  "url": "https://helena751107.github.io/helena_phone/",
+  "title": "S21 PHONE — Webzine Vol.01",
+  "logline": "S21 Phone Webzine — 갤럭시 한 대로 돌봄과 소망을 돌리는 AI 워크스테이션. Vol.1 Editorial.",
+  "tone": "editorial tutorial",
+  "lang": "ko",
+  "voice": "ko-KR-SunHiNeural",
+  "duration_target_sec": 70,
+  "viewport": {
+    "width": 720,
+    "height": 1280
+  },
+  "beats": [
+    {
+      "id": "b0_cover",
+      "narration": "S21 PHONE 투어. ONE PHONE. Two tracks. Full stack. 돌봄은 깨지지 않게, 소망은 세상에.",
+      "camera": {
+        "action": "goto_top"
+      },
+      "clicks": [
+        {
+          "selector": "#cover a.btn.btn-solid, a.btn.btn-solid",
+          "optional": false,
+          "why": "CTA"
+        }
+      ],
+      "hold_after_ms": 500,
+      "caption": "ONE PHONE. Two tracks. Full stack."
+    },
+    {
+      "id": "b1_tracks",
+      "narration": "돌봄과 소망을 동시에. 트랙 1은 절대 안 깨지는 안전망. 트랙 2는 목소리를 세상에.",
+      "camera": {
+        "action": "scroll_to",
+        "selector": "#tracks"
+      },
+      "clicks": [
+        {
+          "selector": "#tracks-head",
+          "optional": false,
+          "why": "open accordion"
+        }
+      ],
+      "hold_after_ms": 500,
+      "caption": "돌봄과 소망을 동시에"
+    },
+    {
+      "id": "b2_system",
+      "narration": "인포그래픽 아키텍처. 노드를 짚으면 데이터가 폰에서 세상으로 흐르는 길이 보입니다.",
+      "camera": {
+        "action": "scroll_to",
+        "selector": "#system"
+      },
+      "clicks": [
+        {
+          "selector": "#system-head",
+          "optional": false,
+          "why": "open accordion"
+        },
+        {
+          "selector": "#archBox g.node, #archBox .node, svg.svg-arch g.node",
+          "optional": false,
+          "why": "diagram node"
+        }
+      ],
+      "hold_after_ms": 500,
+      "caption": "인포그래픽 · 아키텍처"
+    },
+    {
+      "id": "b3_agents",
+      "narration": "역할이 다른 세 동료. 카드를 고르면 레이더와 강점이 바뀝니다. 만능 하나보다 분업.",
+      "camera": {
+        "action": "scroll_to",
+        "selector": "#agents"
+      },
+      "clicks": [
+        {
+          "selector": "#agents-head",
+          "optional": false,
+          "why": "open accordion"
+        }
+      ],
+      "hold_after_ms": 450,
+      "caption": "역할이 다른 세 동료"
+    },
+    {
+      "id": "b4_centers",
+      "narration": "워크센터 맵. 왼쪽 목록을 고르면 오른쪽에 가동률 링과 상세가 열립니다.",
+      "camera": {
+        "action": "scroll_to",
+        "selector": "#centers"
+      },
+      "clicks": [
+        {
+          "selector": "#centers-head",
+          "optional": false,
+          "why": "open accordion"
+        },
+        {
+          "selector": "#wcList button.wc-item, #wcList .wc-item",
+          "optional": false,
+          "why": "workcenter"
+        }
+      ],
+      "hold_after_ms": 450,
+      "caption": "워크센터 맵"
+    },
+    {
+      "id": "b5_funnel",
+      "narration": "콘텐츠가 흐르는 방식. Grok 드래프트에서 독립까지. 투어를 마칩니다.",
+      "camera": {
+        "action": "scroll_to",
+        "selector": "#funnel"
+      },
+      "clicks": [
+        {
+          "selector": "#funnel-head",
+          "optional": false,
+          "why": "open accordion"
+        }
+      ],
+      "hold_after_ms": 600,
+      "caption": "콘텐츠 퍼널"
+    }
+  ],
+  "directing": "product_tour_v1",
+  "directing_version": 1
+}

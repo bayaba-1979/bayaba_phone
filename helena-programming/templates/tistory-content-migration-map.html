@@ -1,0 +1,437 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:20px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:8px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:520px}
+table.tbl{width:100%;border-collapse:collapse;margin-bottom:2px;font-size:.8rem;line-height:1.45}
+table.tbl th,table.tbl td{padding:5px 8px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table.tbl th{background:var(--s2);font-weight:700;font-size:.71rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table.tbl td{color:var(--t2)}
+table.tbl tr:hover td{background:var(--al)}
+.counter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.counter{flex:1;min-width:70px;text-align:center;background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:9px 6px}
+.counter .num{font-size:1.4rem;font-weight:800;color:var(--a)}
+.counter .label{font-size:.7rem;color:var(--t3);margin-top:1px}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.68rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-p1{background:#dbe8f6;color:#1a3a5c}.chip-p2{background:#d4e8d8;color:#1a3a2e}.chip-p3{background:#fdf0d0;color:#6e5000}
+.chip-p4{background:#fcd8e6;color:#6e1840}.chip-p5{background:#e6d6f2;color:#3e1860}.chip-p6{background:#d8f0f0;color:#1a4048}
+.chip-p7{background:#f8e0d0;color:#6e3000}.chip-p8{background:#e0e0e8;color:#2e2e48}
+.chip-star{background:var(--ybg);color:var(--y);font-size:.75rem;padding:1px 5px}
+@media(prefers-color-scheme:dark){.chip-p1{background:#1a2838;color:#8cc0f0}.chip-p2{background:#1a3028;color:#8cd8a8}.chip-p3{background:#302818;color:#e8c850}.chip-p4{background:#301828;color:#f088b0}.chip-p5{background:#221838;color:#b888e0}.chip-p6{background:#182830;color:#80d0d8}.chip-p7{background:#2a1c10;color:#f0a868}.chip-p8{background:#1c1c28;color:#a0a0c0}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.9rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t);transition:background .15s}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.58rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px;font-weight:900}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}.tbl-wrap table{min-width:400px}}
+</style>
+
+<div class="hero">
+<div class="eyebrow">Tistory Migration Map · 2026-08-10</div>
+<h1>🗂️ 콘텐츠 전수 매핑 — 3레포 → 티스토리</h1>
+<div class="subtitle">helena_phone + helana_log + helena-programming<br>8 Part · 31 Chapter · ~120건</div>
+</div>
+
+<div class="counter-bar">
+<div class="counter"><div class="num">8</div><div class="label">Part</div></div>
+<div class="counter"><div class="num">31</div><div class="label">Chapter</div></div>
+<div class="counter"><div class="num">~120</div><div class="label">매핑 콘텐츠</div></div>
+<div class="counter"><div class="num">3</div><div class="label">레포</div></div>
+<div class="counter"><div class="num">v1.0</div><div class="label">버전</div></div>
+</div>
+
+<!-- ═══ PART 1 ═══ -->
+<section>
+<h2><span class="chip chip-p1">PART 1</span> 온보딩 — 폰 하나로 AI 워크스테이션</h2>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐⭐</span> Ch1.1 워크스테이션 백서 — 3건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>📱 폰 하나로 AI 워크스테이션 짓기 (완결판)</td><td>templates/ai-workstation-setup.html</td><td>helena-programming</td><td>HTML 완성</td></tr>
+<tr><td>AI 워크스테이션 — 첫 설치 케이스 회의 준비</td><td>_notebook/46-first-install-case-study-meeting-prep_Boss.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>PC+WSL 설치 셋업 (데스크톱 버전)</td><td>_notebook/40-pc-wsl-setup_Boss.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐⭐</span> Ch1.2 Termux·proot·Ubuntu — 5건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>Termux 셋업 가이드</td><td>01-foundation/termux-setup.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>proot Ubuntu 설치 리포트</td><td>_notebook/15-proot-report.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>proot Ubuntu 상세 가이드</td><td>01-foundation/proot-ubuntu.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>Termux 키보드 최적화 (Keys Cafe)</td><td>_notebook/termux-keyboard-optimization/</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>초보자 설치 매뉴얼 (Grok판)</td><td>_notebook/41-beginner-install-manual_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐⭐</span> Ch1.3 Claude Code·DeepSeek 배선 — 5건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>Claude Code 설치·설정 가이드</td><td>01-foundation/claude-code.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>Git·GitHub 셋업</td><td>01-foundation/git-github.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>DeepSeek 세션 로그 (2026-08-02)</td><td>_notebook/61-session-deepseek-cc-2026-08-02_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>AI 에이전트 3종 비교 (CC·DS·Grok)</td><td>_notebook/ai-agents-cc-ds-grok-comparison-2026-07-25.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>GitHub 공짜로 끝까지 쓰기</td><td>_notebook/41-github-free-maxout_Boss.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch1.4 GitHub·Pages·무료전시장 — 4건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>GitHub Pages 가이드</td><td>02-network/github-pages.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>GitHub Pages 웹페이지 커버리지 시스템</td><td>_notebook/33-webpage-coverage_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>생태계 지식 워크플로 (5×5×5)</td><td>templates/ecosystem-knowledge-workflow.html</td><td>helena-programming</td><td>HTML 완성</td></tr>
+<tr><td>GitHub 무료 인프라 최대 활용</td><td>_notebook/41-github-free-maxout_Boss.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch1.5 실전 설치 사례 — 3건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>PC 삽질 포스트모템 (WSL)</td><td>_notebook/42-pc-sapjil-postmortem_Boss.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>첫 설치 케이스스터디 회의 준비</td><td>_notebook/46-first-install-case-study-meeting-prep_Boss.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>S21 벤치마크 리포트</td><td>_notebook/22-s21-benchmark.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+</section>
+
+<!-- ═══ PART 2 ═══ -->
+<section>
+<h2><span class="chip chip-p2">PART 2</span> 인프라 — 연결과 자동화</h2>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch2.1 텔레그램·보고회의실 — 5건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>텔레그램 가이드</td><td>02-network/telegram.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>텔레그램 가이드 (노트북판)</td><td>_notebook/03-telegram.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>텔레그램 전송 표준 (v5.1 .txt)</td><td>docs/telegram-delivery-standard.md</td><td>helena-programming</td><td>md</td></tr>
+<tr><td>CLI 레퍼런스 (tg.sh 포함)</td><td>_notebook/07-cli-reference.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>시크릿·환경변수 관리</td><td>_notebook/08-secrets.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch2.2 Discord·커뮤니티 — 3건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>Discord 가이드</td><td>02-network/discord.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>Discord 설정 (노트북판)</td><td>_notebook/02-discord.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>다중 AI 전략 (에이전트 협업)</td><td>_notebook/25-multi-ai-strategy.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐⭐</span> Ch2.3 Phone MCP·하드웨어 제어 — 4건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>Phone MCP 서버 가이드</td><td>_notebook/10-phone-mcp.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>Phone MCP 상세</td><td>04-phone-control/phone-mcp.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>Termux:API 가이드</td><td>04-phone-control/termux-api.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>배터리 절약</td><td>05-optimization/battery-saving.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch2.4 건강체크·돌봄 데몬 — 5건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>S21 건강체크 시스템</td><td>_notebook/11-health.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>건강체크 상세</td><td>04-phone-control/health-check.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>돌봄 데몬 설계</td><td>_notebook/14-daemon-design.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>저장소 최적화</td><td>05-optimization/storage.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>성능 최적화</td><td>05-optimization/performance.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+</section>
+
+<!-- ═══ PART 3 ═══ -->
+<section>
+<h2><span class="chip chip-p3">PART 3</span> PD Pipeline — URL 하나로 숏폼 영상</h2>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐⭐</span> Ch3.1 파이프라인 개요·백서 — 4건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>PD Pipeline 기술 백서</td><td>_notebook/78-pd-pipeline-whitepaper_Claude.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>PD Pipeline 표준 v2 Lock</td><td>_notebook/72-pd-pipeline-standard-v2-lock_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>PD Pipeline 문서 (helena-programming)</td><td>docs/PIPELINE.md</td><td>helena-programming</td><td>md</td></tr>
+<tr><td>Director README</td><td>director/README.md</td><td>helena-programming</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐⭐</span> Ch3.2 P0 URL→콘텐츠 이해 — 3건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>Paste Pipeline 원리</td><td>_notebook/24-paste-pipeline.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>Paste Pipeline 템플릿</td><td>templates/paste-pipeline.html</td><td>helena-programming</td><td>HTML 완성</td></tr>
+<tr><td>URL 파싱 솔루션</td><td>_notebook/26-naver-parsing-solution.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch3.3 P1·P2 캡처·음성합성 — 3건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>Grok 영상 프로세스 백서</td><td>_notebook/59-grok-video-process-whitepaper_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>영상 플레이어블 인코딩 수정</td><td>_notebook/65-video-playable-encode-fix_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>영상 플러그인 표준 v1</td><td>_notebook/63-video-plugin-standard-v1_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch3.4 P3·P4 영상·자막 — 3건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>PD 인트로 v2 슬라이드·검은막대 수정</td><td>_notebook/71-pd-intro-v2-slide-black-fix_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>Grok PD 음성·브릿지·페이지 래스터</td><td>_notebook/66-grok-pd-voice-bridge-not-page-raster_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>폰트·BGM 수정</td><td>_notebook/70-font-bgm-fix_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch3.5 Director·연출 시스템 — 5건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>Director Pro v3 비주얼 증명</td><td>_notebook/50-director-pro-v3-visual-proof_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>Director Pro v5 5막 구성</td><td>_notebook/54-director-pro-v5-five-act_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>Director Pro v6 완성</td><td>_notebook/55-director-pro-v6-perfect_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>Director Pro v8 소망</td><td>_notebook/60-director-pro-v8-wish_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>Director 품질 가이드</td><td>director/QUALITY.md</td><td>helena-programming</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch3.6 BGM·브릿지·인코딩 — 4건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>Grok 구독·음성·BGM 장애</td><td>_notebook/67-grok-subscribe-voice-bgm-hurdle_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>랜딩 6클립 BGM 기획</td><td>_notebook/61-landing-6clip-bgm-plan_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>Grok 영상·PD·브릿지 v1</td><td>_notebook/69-session-resume-pd-bridge-v1_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>Grok PD 노트북 리포트</td><td>_notebook/73-pd-grok-notebook-report_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+</section>
+
+<!-- ═══ PART 4 ═══ -->
+<section>
+<h2><span class="chip chip-p4">PART 4</span> AI 목소리 — 내 목소리 복제</h2>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐⭐</span> Ch4.1 3트랙 목소리 전략 — 4건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>3트랙 목소리 전략 (롱폼·쇼츠·오디오북)</td><td>memory/voice-strategy-three-track.md</td><td>—</td><td>memory</td></tr>
+<tr><td>AI 성우 백서 — 목소리≠폰트</td><td>_notebook/80-ai-voice-actor-whitepaper_Boss.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>영상 3트랙 전략</td><td>_notebook/58-video-three-tracks_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>음성 엔진 플러그인 최종</td><td>_notebook/69-voice-engine-plugin-final_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐⭐</span> Ch4.2 ParksyTTS·온디바이스 추론 — 3건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>ParksyTTS README</td><td>parksy-tts-v1/README.md</td><td>helena-programming</td><td>md</td></tr>
+<tr><td>TTS+RVC 경량 솔루션</td><td>_notebook/74-tts-rvc-lightweight-solution_Claude.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>AI 목소리 코어·선물·로컬 학습</td><td>_notebook/70-ai-voice-core-gift-local-train_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch4.3 Edge TTS·Piper — 3건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>Edge TTS 전략 정리</td><td>memory/edge-tts-strategy.md</td><td>—</td><td>memory</td></tr>
+<tr><td>ParksyTTS → Piper·RVC 로드맵</td><td>memory/tts-rvc-lightweight-solution.md</td><td>—</td><td>memory</td></tr>
+<tr><td>S21 음성구동 분석</td><td>_notebook/38-s21-voice-driven-analysis.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐</span> Ch4.4 RVC·학습·녹음 — 2건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>STT 무료 정당화</td><td>_notebook/34-stt-zero-cost-justification.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>하이브리드 이미지·영상 백서</td><td>_notebook/33-hybrid-image-video-whitepaper.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+</section>
+
+<!-- ═══ PART 5 ═══ -->
+<section>
+<h2><span class="chip chip-p5">PART 5</span> 출판·배포 — 만든 걸 세상에</h2>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐⭐</span> Ch5.1 Paste Pipeline — 4건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>Paste Pipeline 설계</td><td>_notebook/24-paste-pipeline.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>Paste Pipeline 템플릿</td><td>templates/paste-pipeline.html</td><td>helena-programming</td><td>HTML 완성</td></tr>
+<tr><td>티스토리 마스터 가이드</td><td>_notebook/tistory-master-guide_Claude.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>티스토리 HTML 한계·솔루션</td><td>tools/tistory-html-limits.md</td><td>helena-programming</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐⭐</span> Ch5.2 루프백·사이버네틱 검증 — 3건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>루프백 발견 문서</td><td>templates/loopback-discovery.html</td><td>helena-programming</td><td>HTML 완성</td></tr>
+<tr><td>출판부 — 번역·검증 관리</td><td>_notebook/75-translation-logic-management_Claude.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>페이지 작법 표준</td><td>_notebook/76-page-writing-standard_Claude.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch5.3 YouTube·네이버 연동 — 5건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>YouTube 가이드</td><td>_notebook/06-youtube.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>YouTube 상세</td><td>03-broadcast/youtube.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>네이버 웹진 솔루션</td><td>_notebook/23-naver-webzine-solution.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>네이버 강의·음성소개 (Vol.0)</td><td>_notebook/40-lecture-draft-s21-voice-vol0_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>네이버 블로그 소개 최종</td><td>_notebook/41-naver-blog-intro-final.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐⭐</span> Ch5.4 WSL 슬롯·확장 로드맵 — 4건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>WSL 확장 슬롯 문서</td><td>templates/wsl-expansion-slot.html</td><td>helena-programming</td><td>HTML 완성</td></tr>
+<tr><td>S21↔WSL 업그레이드 경로</td><td>templates/s21-wsl-upgrade-path.html</td><td>helena-programming</td><td>HTML 완성</td></tr>
+<tr><td>WSL 자동화 코드 보존 (7파일)</td><td>reference/wsl-automation/</td><td>helena-programming</td><td>코드</td></tr>
+<tr><td>PC+WSL 셋업</td><td>_notebook/40-pc-wsl-setup_Boss.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+</section>
+
+<!-- ═══ PART 6 ═══ -->
+<section>
+<h2><span class="chip chip-p6">PART 6</span> 설계·아키텍처 — 왜 작동하는가</h2>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐⭐</span> Ch6.1 2계층·5×5×5 생태계 — 4건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>생태계 지식 워크플로 (5×5×5)</td><td>templates/ecosystem-knowledge-workflow.html</td><td>helena-programming</td><td>HTML 완성</td></tr>
+<tr><td>생태계 백서 v1.0</td><td>_notebook/32-ecosystem-whitepaper.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>생태계 백서 v1.1</td><td>_notebook/35-ecosystem-whitepaper-v1.1.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>생태계 개요</td><td>_notebook/09-ecosystem.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch6.2 슬롯 아키텍처·환경 독립 — 4건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>WSL 확장 슬롯</td><td>templates/wsl-expansion-slot.html</td><td>helena-programming</td><td>HTML 완성</td></tr>
+<tr><td>노드 프로토콜 아키텍처</td><td>_notebook/46-node-protocol-architecture.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>냉장고 아키텍처 (참조자산)</td><td>_notebook/46-fridge-architecture_Claude.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>UI 없는 설계자</td><td>_notebook/43-ui-less-architect.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐⭐</span> Ch6.3 ROI·공짜 클라우드 정당화 — 4건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>ROI 정당화 문서</td><td>templates/ecosystem-roi-justification.html</td><td>helena-programming</td><td>HTML 완성</td></tr>
+<tr><td>무료 런타임 플래너 백서</td><td>_notebook/37-free-runtime-planner-whitepaper_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>자가 플랫폼 정당화</td><td>_notebook/39-self-platform-justification.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>확정판 개발 백서</td><td>_notebook/40-definitive-dev-whitepaper.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch6.4 4로봇·에이전트 방법론 — 4건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>에이전트 파일 마크 규약</td><td>_notebook/30-agent-file-marks.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>에이전트 역할 — Grok</td><td>_notebook/31-agent-roles_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>Claude-Grok 파이프라인</td><td>_notebook/27-claude-grok-pipeline.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>Grok-GitHub 브릿지</td><td>_notebook/28-grok-github-bridge.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+</section>
+
+<!-- ═══ PART 7 ═══ -->
+<section>
+<h2><span class="chip chip-p7">PART 7</span> 돌봄 트랙 — 기술의 목적</h2>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch7.1 기초생계·치매·장애 솔루션 — 6건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>기초생계 트랙</td><td>docs/tracks/basic-livelihood.md</td><td>helana_log</td><td>md</td></tr>
+<tr><td>치매 케어 트랙</td><td>docs/tracks/dementia-care.md</td><td>helana_log</td><td>md</td></tr>
+<tr><td>장애 복지 트랙</td><td>docs/tracks/disability-welfare.md</td><td>helana_log</td><td>md</td></tr>
+<tr><td>솔루션 총람</td><td>docs/solutions/README.md</td><td>helana_log</td><td>md</td></tr>
+<tr><td>헬레나 로그 아이덴티티</td><td>docs/IDENTITY.md</td><td>helana_log</td><td>md</td></tr>
+<tr><td>헬레나 로그 방법론</td><td>docs/METHOD.md</td><td>helana_log</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐</span> Ch7.2 대화록·방법론·아이덴티티 — 3건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>오프닝 대화록 (2026-07-26)</td><td>docs/dialogue/2026-07-26-opening.md</td><td>helana_log</td><td>md</td></tr>
+<tr><td>대화록 템플릿</td><td>docs/dialogue/_TEMPLATE.md</td><td>helana_log</td><td>md</td></tr>
+<tr><td>헌법 (CONSTITUTION)</td><td>CONSTITUTION.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+</section>
+
+<!-- ═══ PART 8 ═══ -->
+<section>
+<h2><span class="chip chip-p8">PART 8</span> 실전 — 후기와 교훈</h2>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch8.1 설치 삽질 포스트모템 — 4건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>PC 삽질 포스트모템</td><td>_notebook/42-pc-sapjil-postmortem_Boss.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>중간 평가</td><td>_notebook/13-midterm-eval.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>중간 평가 v2</td><td>_notebook/13-midterm-eval-v2.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>인간-AI 대화 위기</td><td>_notebook/47-human-ai-dialogue-crisis.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch8.2 케이스스터디·벤치마크 — 4건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>S21 벤치마크</td><td>_notebook/22-s21-benchmark.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>통합 개발 계획</td><td>_notebook/21-integrated-dev-plan.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>워크센터 최종</td><td>_notebook/20-workcenters-final.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>최종 전략</td><td>_notebook/19-final-strategy.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+
+<details class="acc"><summary><span class="chip chip-star">⭐⭐</span> Ch8.3 업무일지 하이라이트 — 5건</summary><div class="acc-body">
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>제목</th><th>원본</th><th>레포</th><th>형식</th></tr></thead>
+<tbody>
+<tr><td>CHRONICLE (연대기)</td><td>CHRONICLE.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>DevLog</td><td>_notebook/99-devlog.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>통합 연대기</td><td>_notebook/17-merged-chronicle.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>교과서 방법론</td><td>_notebook/16-textbook-methodology.md</td><td>helena_phone</td><td>md</td></tr>
+<tr><td>프로젝트 기획 vs 헬레나 (Grok)</td><td>_notebook/36-project-planning-vs-helena_Grok.md</td><td>helena_phone</td><td>md</td></tr>
+</tbody></table></div></div></details>
+</section>
+
+<!-- ═══ SUMMARY ═══ -->
+<section>
+<h2>📊 Part별 집계</h2>
+<div class="tbl-wrap">
+<table class="tbl">
+<thead><tr><th>Part</th><th>Chapter</th><th>매핑 콘텐츠</th><th>HTML 완성</th><th>md 원본</th><th>우선순위</th></tr></thead>
+<tbody>
+<tr><td><span class="chip chip-p1">P1</span> 온보딩</td><td>5</td><td><strong>20</strong></td><td>1</td><td>19</td><td>⭐⭐⭐ 최우선</td></tr>
+<tr><td><span class="chip chip-p2">P2</span> 인프라</td><td>4</td><td><strong>17</strong></td><td>0</td><td>17</td><td>⭐⭐⭐ 최우선</td></tr>
+<tr><td><span class="chip chip-p3">P3</span> PD Pipeline</td><td>6</td><td><strong>22</strong></td><td>1</td><td>21</td><td>⭐⭐⭐ 최우선</td></tr>
+<tr><td><span class="chip chip-p4">P4</span> AI 목소리</td><td>4</td><td><strong>12</strong></td><td>0</td><td>12</td><td>⭐⭐</td></tr>
+<tr><td><span class="chip chip-p5">P5</span> 출판·배포</td><td>4</td><td><strong>16</strong></td><td>4</td><td>12</td><td>⭐⭐⭐ 최우선</td></tr>
+<tr><td><span class="chip chip-p6">P6</span> 설계·아키텍처</td><td>4</td><td><strong>16</strong></td><td>3</td><td>13</td><td>⭐⭐</td></tr>
+<tr><td><span class="chip chip-p7">P7</span> 돌봄 트랙</td><td>2</td><td><strong>9</strong></td><td>0</td><td>9</td><td>⭐</td></tr>
+<tr><td><span class="chip chip-p8">P8</span> 실전 후기</td><td>3</td><td><strong>13</strong></td><td>0</td><td>13</td><td>⭐⭐</td></tr>
+<tr style="font-weight:800;background:var(--s2)"><td><strong>합계</strong></td><td><strong>31</strong></td><td><strong>125</strong></td><td><strong>9</strong></td><td><strong>116</strong></td><td></td></tr>
+</tbody></table>
+</div>
+</section>
+
+<div class="footer">
+<p>🗂️ Tistory Content Migration Map v1.0 · 2026-08-10 (_Claude)<br>
+🌐 <a href="https://galaxys21-pwuser.tistory.com" style="color:var(--a)">galaxys21-pwuser.tistory.com</a> · <a href="https://github.com/helena751107" style="color:var(--a)">github.com/helena751107</a><br>
+3레포 → 8 Part · 31 Chapter · 125 콘텐츠 매핑 완료<br>
+⭐⭐⭐ 최우선(75건) 먼저 발행 → 나머지(50건) 순차</p>
+</div>

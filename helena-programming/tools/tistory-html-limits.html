@@ -1,0 +1,441 @@
+<!-- ═══════════════════════════════════════════════════════════════
+  Tistory HTML 모드 — 기술 한도 레퍼런스
+  티스토리 글쓰기 HTML 모드에서 가능한/불가능한 모든 것
+  ═══════════════════════════════════════════════════════════════ -->
+<meta charset="utf-8">
+<title>Tistory HTML 모드 기술 한도</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<style>
+  :root {
+    --bg: #fffef9;
+    --card: #ffffff;
+    --ink: #2c2c2c;
+    --muted: #777;
+    --border: #e8e4da;
+    --green: #2d8a56;
+    --red: #c0392b;
+    --amber: #d48223;
+    --blue: #3b6fb6;
+    --radius: 10px;
+    --shadow: 0 2px 12px rgba(0,0,0,.06);
+    font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
+    color: var(--ink);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1a1a1a;
+      --card: #252525;
+      --ink: #e0ddd4;
+      --muted: #999;
+      --border: #3a3a3a;
+      --shadow: 0 2px 12px rgba(0,0,0,.25);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1a1a1a;
+    --card: #252525;
+    --ink: #e0ddd4;
+    --muted: #999;
+    --border: #3a3a3a;
+    --shadow: 0 2px 12px rgba(0,0,0,.25);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px 20px 80px;
+    line-height: 1.75;
+  }
+
+  /* header */
+  .hero {
+    text-align: center;
+    padding: 40px 0 28px;
+    border-bottom: 2px dashed var(--border);
+    margin-bottom: 32px;
+  }
+  .hero h1 { font-size: 1.7rem; margin-bottom: 6px; letter-spacing: -0.5px; }
+  .hero .sub { color: var(--muted); font-size: .9rem; }
+  .hero .badge {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    font-size: .7rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-top: 10px;
+  }
+
+  /* section cards */
+  section {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px 20px;
+    margin-bottom: 20px;
+  }
+  section h2 {
+    font-size: 1.05rem;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 4px solid var(--blue);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  section h3 {
+    font-size: .9rem;
+    margin: 16px 0 6px;
+    color: var(--ink);
+  }
+
+  /* comparison table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: .85rem;
+  }
+  th, td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    font-size: .75rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  td:first-child { font-family: 'SF Mono', 'Fira Code', monospace; font-size: .8rem; }
+  .yes { color: var(--green); font-weight: 700; }
+  .no  { color: var(--red); font-weight: 700; }
+  .warn { color: var(--amber); font-weight: 700; }
+
+  /* code blocks */
+  code {
+    font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+    font-size: .82rem;
+  }
+  pre {
+    background: #f7f5f0;
+    border-radius: 6px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    margin: 10px 0;
+    line-height: 1.6;
+    font-size: .78rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) pre { background: #1e1e1e; }
+  }
+  :root[data-theme="dark"] pre { background: #1e1e1e; }
+
+  /* tag strips */
+  .tag-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 10px 0;
+  }
+  .tag {
+    font-size: .72rem;
+    padding: 3px 10px;
+    border-radius: 14px;
+    font-weight: 600;
+  }
+  .tag-green  { background: #e6f5ee; color: var(--green); }
+  .tag-red    { background: #fce8e8; color: var(--red); }
+  .tag-amber  { background: #fef5e7; color: var(--amber); }
+
+  /* pattern cards */
+  .pattern-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  @media (max-width: 520px) { .pattern-grid { grid-template-columns: 1fr; } }
+  .pattern-card {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid var(--border);
+  }
+  .pattern-card h4 { font-size: .82rem; margin-bottom: 4px; }
+
+  /* test checklist */
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: .84rem;
+  }
+  .checklist li::before {
+    content: "☐";
+    flex-shrink: 0;
+    color: var(--muted);
+    font-size: 1rem;
+  }
+
+  /* footer */
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: .78rem;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 2px dashed var(--border);
+  }
+  footer a { color: var(--blue); }
+
+  /* details accordion */
+  details {
+    margin: 10px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  details summary {
+    padding: 10px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: .84rem;
+    background: var(--bg);
+    list-style: none;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: "▸ "; color: var(--muted); }
+  details[open] summary::before { content: "▾ "; }
+  details .inner { padding: 12px 16px; font-size: .82rem; }
+
+  /* blockquote */
+  blockquote {
+    border-left: 3px solid var(--amber);
+    padding: 10px 16px;
+    margin: 12px 0;
+    background: var(--bg);
+    border-radius: 0 8px 8px 0;
+    font-size: .84rem;
+    color: var(--muted);
+  }
+  blockquote strong { color: var(--ink); }
+</style>
+
+<div class="hero">
+  <h1>🧪 Tistory HTML 모드 — 기술 한도</h1>
+  <p class="sub">티스토리 <strong>글쓰기 HTML 모드</strong>에서 가능한 것과 불가능한 것 전부<br>(스킨 편집 아님 — 스킨 편집은 JS·CSS 모든 게 자유)</p>
+  <span class="badge">XSS 필터 = JS만 막는다. CSS·SVG는 통과.</span>
+</div>
+
+<!-- STANCE TABLE -->
+<section>
+  <h2>⚖️ 스킨 편집 vs 글쓰기 HTML 모드</h2>
+  <table>
+    <tr><th>항목</th><th>스킨 편집 (skin.html)</th><th>글쓰기 HTML 모드</th></tr>
+    <tr><td><code>&lt;script&gt;</code></td><td class="yes">✅ 가능</td><td class="no">❌ 전부 제거</td></tr>
+    <tr><td><code>&lt;style&gt;</code></td><td class="yes">✅ 가능</td><td class="yes">✅ 가능</td></tr>
+    <tr><td>이벤트 핸들러 <code>on*</code></td><td class="yes">✅ 가능</td><td class="no">❌ 속성 제거</td></tr>
+    <tr><td>SVG 인라인</td><td class="yes">✅ 가능</td><td class="yes">✅ 가능</td></tr>
+    <tr><td>CSS 애니메이션</td><td class="yes">✅ 가능</td><td class="yes">✅ 가능</td></tr>
+    <tr><td><code>data-*</code> 속성</td><td class="yes">✅ 가능</td><td class="yes">✅ 가능</td></tr>
+    <tr><td><code>&lt;iframe&gt;</code></td><td class="yes">✅ 가능</td><td class="warn">⚠️ 제한적</td></tr>
+    <tr><td>HTML5 시맨틱</td><td class="yes">✅ 가능</td><td class="yes">✅ 가능</td></tr>
+  </table>
+  <blockquote>
+    <strong>핵심 원칙:</strong> 티스토리 글쓰기 HTML 필터는 <strong>XSS 방지</strong>가 유일한 목적이다. JS 실행 경로만 차단하고, CSS 표현·SVG 그래픽·HTML 구조는 건드리지 않는다.
+  </blockquote>
+</section>
+
+<!-- ✅ ALLOWED -->
+<section>
+  <h2>✅ 완전 지원 — 안심하고 써도 되는 것</h2>
+
+  <h3>HTML 요소</h3>
+  <div class="tag-strip">
+    <span class="tag tag-green">&lt;article&gt;</span>
+    <span class="tag tag-green">&lt;section&gt;</span>
+    <span class="tag tag-green">&lt;header&gt;</span>
+    <span class="tag tag-green">&lt;footer&gt;</span>
+    <span class="tag tag-green">&lt;nav&gt;</span>
+    <span class="tag tag-green">&lt;details&gt;</span>
+    <span class="tag tag-green">&lt;summary&gt;</span>
+    <span class="tag tag-green">&lt;figure&gt;</span>
+    <span class="tag tag-green">&lt;picture&gt;</span>
+    <span class="tag tag-green">&lt;audio&gt;</span>
+    <span class="tag tag-green">&lt;video&gt;</span>
+    <span class="tag tag-green">&lt;table&gt;</span>
+    <span class="tag tag-green">&lt;mark&gt;</span>
+    <span class="tag tag-green">&lt;time&gt;</span>
+    <span class="tag tag-green">&lt;abbr&gt;</span>
+    <span class="tag tag-green">&lt;blockquote&gt;</span>
+  </div>
+
+  <h3>CSS — 전부 가능</h3>
+  <details>
+    <summary>Flexbox, Grid</summary>
+    <div class="inner"><code>display: flex; display: grid; gap; place-items; align-content; ...</code></div>
+  </details>
+  <details>
+    <summary>애니메이션</summary>
+    <div class="inner"><code>@keyframes</code>, <code>animation</code>, <code>transition</code> — 전부 가능. JS 없이도 진입 애니메이션, 프로그레스 바, 타이핑 효과 등 구현.</div>
+  </details>
+  <details>
+    <summary>CSS 변수 + 계산</summary>
+    <div class="inner"><code>:root { --color: #333; }</code>, <code>calc()</code>, <code>counter()</code>, <code>@media</code> 쿼리 — 전부 가능.</div>
+  </details>
+  <details>
+    <summary>가상 선택자 (인터랙션)</summary>
+    <div class="inner"><code>:hover</code>, <code>:focus</code>, <code>:target</code>, <code>:checked</code>, <code>:nth-child()</code>, <code>:not()</code>, <code>::before</code>, <code>::after</code> — 이게 JS를 대체하는 핵심.</div>
+  </details>
+  <details>
+    <summary>폰트</summary>
+    <div class="inner"><code>@import url('https://fonts.googleapis.com/...')</code> — 대부분 통과. 불안하면 구글 폰트 CSS를 직접 <code>&lt;style&gt;</code> 안에 <code>@font-face</code>로 복사.</div>
+  </details>
+
+  <h3>SVG — 인라인 전부 가능</h3>
+  <pre>&lt;svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;circle&gt; &lt;rect&gt; &lt;path&gt; &lt;line&gt; &lt;polyline&gt; &lt;text&gt; &lt;tspan&gt;
+  &lt;g&gt; &lt;defs&gt; &lt;use&gt; &lt;symbol&gt;
+  &lt;linearGradient&gt; &lt;radialGradient&gt; &lt;pattern&gt; &lt;clipPath&gt; &lt;mask&gt;
+  &lt;filter&gt;  &lt;!-- SVG 필터(드롭섀도우 등) --&gt;
+  &lt;style&gt;  &lt;!-- SVG 안에서도 CSS 사용 가능 --&gt;
+  &lt;animate&gt; &lt;animateTransform&gt;  &lt;!-- SMIL 애니메이션 (테스트 필요) --&gt;
+&lt;/svg&gt;</pre>
+</section>
+
+<!-- ❌ BLOCKED -->
+<section>
+  <h2>❌ 완전 차단 — 시도해도 사라지는 것</h2>
+
+  <h3>JavaScript 관련 (전부 막힘)</h3>
+  <pre>&lt;!-- 전부 제거됨 --&gt;
+&lt;script&gt;...&lt;/script&gt;
+&lt;script src="..."&gt;&lt;/script&gt;
+&lt;button onclick="..."&gt;
+&lt;body onload="..."&gt;
+&lt;img onerror="..."&gt;
+&lt;a href="javascript:..."&gt;        &lt;!-- javascript: URL 차단 --&gt;
+&lt;svg&gt;&lt;script&gt;...&lt;/script&gt;&lt;/svg&gt;  &lt;!-- SVG 안 script도 제거 --&gt;</pre>
+
+  <h3>이벤트 핸들러 속성 (전부 제거)</h3>
+  <div class="tag-strip">
+    <span class="tag tag-red">onclick</span>
+    <span class="tag tag-red">onload</span>
+    <span class="tag tag-red">onerror</span>
+    <span class="tag tag-red">onmouseover</span>
+    <span class="tag tag-red">onmouseout</span>
+    <span class="tag tag-red">onfocus</span>
+    <span class="tag tag-red">onblur</span>
+    <span class="tag tag-red">onchange</span>
+    <span class="tag tag-red">oninput</span>
+    <span class="tag tag-red">onsubmit</span>
+    <span class="tag tag-red">onkeydown</span>
+    <span class="tag tag-red">ontouchstart</span>
+    <span class="tag tag-red">onwheel</span>
+    <span class="tag tag-red">oncopy</span>
+    <span class="tag tag-red">ondrag</span>
+  </div>
+  <p style="font-size:.8rem;color:var(--muted);margin-top:10px">
+    <code>on*</code> 속성은 완전히 제거되지만, <strong><code>data-*</code> 속성은 보존</strong>된다. <code>data-*</code>는 HTML5 표준이라 XSS 위협으로 분류되지 않음. JS 없이도 CSS 선택자로 <code>data-*</code> 값을 읽을 순 없지만, 마크업 메타데이터 용도로 유용.
+  </p>
+</section>
+
+<!-- ⚠️ GRAY -->
+<section>
+  <h2>⚠️ 회색 지대 — 환경 따라 다름</h2>
+  <table>
+    <tr><th>항목</th><th>통과 확률</th><th>비고</th></tr>
+    <tr><td><code>&lt;iframe&gt;</code></td><td class="warn">중간</td><td>티스토리 정책 따라 차단 가능성</td></tr>
+    <tr><td><code>&lt;embed&gt;</code>, <code>&lt;object&gt;</code></td><td class="no">낮음</td><td>보안상 차단 가능성 높음</td></tr>
+    <tr><td>body 내 <code>&lt;link&gt;</code></td><td class="warn">중간</td><td>HTML 스펙 위반이지만 통과 가능성</td></tr>
+    <tr><td>CSS <code>@import</code></td><td class="yes">높음</td><td>대부분 통과. 실패 시 <code>@font-face</code> 직접 사용</td></tr>
+    <tr><td><code>&lt;canvas&gt;</code></td><td class="no">낮음</td><td>JS 없으면 무의미해서 필터가 제거할 수도</td></tr>
+    <tr><td><code>&lt;form&gt;</code> + <code>&lt;input&gt;</code></td><td class="yes">요소는 남음</td><td>JS 없으니 제출 불가, UI 요소로만</td></tr>
+    <tr><td>SVG <code>&lt;animate&gt;</code></td><td class="warn">중간</td><td>SMIL. 브라우저 지원하나 티스토리 미지원 가능</td></tr>
+    <tr><td>CSS <code>:has()</code></td><td class="yes">브라우저 의존</td><td>2023년 말 크롬 지원. 구형 WebView 제외</td></tr>
+    <tr><td>CSS <code>@property</code></td><td class="warn">브라우저 의존</td><td>Houdini. 크롬 85+</td></tr>
+    <tr><td><code>&lt;meta&gt;</code> 태그</td><td class="no">낮음</td><td>body 영역에서 제거 가능성</td></tr>
+    <tr><td><code>&lt;!-- --&gt;</code> 주석</td><td class="yes">높음</td><td>HTML 주석은 남음. IE 조건부 주석만 제거</td></tr>
+  </table>
+</section>
+
+<!-- 🧪 TEST CHECKLIST -->
+<section>
+  <h2>🧪 발행 후 확인 체크리스트</h2>
+  <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px">
+    아래 코드를 HTML 모드로 글 발행 후, <strong>실제 발행된 페이지</strong>에서 DevTools(F12)로 확인.
+  </p>
+  <ol class="checklist">
+    <li><code>&lt;style&gt;</code> 생존 — 빨간색 텍스트가 보이면 통과</li>
+    <li><code>&lt;details&gt;</code> 작동 — 클릭해서 열리면 통과</li>
+    <li><code>:target</code> 작동 — 링크 클릭 시 배경색 바뀌면 통과</li>
+    <li><code>SVG</code> 생존 — 파란 원이 보이면 통과</li>
+    <li><code>data-*</code> 속성 — DevTools로 확인</li>
+    <li><code>@import</code> 폰트 — Noto Sans KR 적용 확인</li>
+    <li><code>&lt;iframe&gt;</code> — 보이면 통과, 없으면 차단</li>
+  </ol>
+  <blockquote>제거된 요소는 소스에서 <strong>흔적도 없이 사라진다</strong>. 없는 걸 확인하려면 원본과 발행본을 diff.</blockquote>
+</section>
+
+<!-- 🎯 PATTERNS -->
+<section>
+  <h2>🎯 실전: JS 없는 풀인터랙티브 패턴 6종</h2>
+  <div class="pattern-grid">
+    <div class="pattern-card">
+      <h4>① 아코디언 대화록</h4>
+      <p style="font-size:.78rem;color:var(--muted)"><code>&lt;details&gt;</code> per 턴. 화자별 좌측 컬러 바. 열릴 때 transition.</p>
+    </div>
+    <div class="pattern-card">
+      <h4>② 탭 필터</h4>
+      <p style="font-size:.78rem;color:var(--muted)">숨은 radio + <code>:checked ~ .list</code>. 전체/Boss/Gap만 보기.</p>
+    </div>
+    <div class="pattern-card">
+      <h4>③ SVG 사고 지도</h4>
+      <p style="font-size:.78rem;color:var(--muted)">inline SVG 결정 트리·타임라인. <code>:hover</code> 노드 강조. <code>data-*</code> 메타.</p>
+    </div>
+    <div class="pattern-card">
+      <h4>④ CSS 그래프</h4>
+      <p style="font-size:.78rem;color:var(--muted)">flex + <code>--h</code> 커스텀 프로퍼티 바 차트. <code>@keyframes</code> 성장 애니메이션.</p>
+    </div>
+    <div class="pattern-card">
+      <h4>⑤ 타임라인</h4>
+      <p style="font-size:.78rem;color:var(--muted)"><code>border-left</code> 줄기 + <code>::before</code> 원 마커. 결정 지점 강조.</p>
+    </div>
+    <div class="pattern-card">
+      <h4>⑥ 카드 그리드</h4>
+      <p style="font-size:.78rem;color:var(--muted)">Fact/Feel/Gap/Fix/Next <code>grid</code>. <code>:hover translateY</code>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 📦 CONCLUSION -->
+<section>
+  <h2>📦 결론: 티스토리 HTML 모드 최대치</h2>
+  <table>
+    <tr><th>계층</th><th>가능 여부</th><th>핵심</th></tr>
+    <tr><td>HTML5 구조</td><td class="yes">✅ 전부</td><td>시맨틱·아코디언·표·미디어</td></tr>
+    <tr><td>CSS 표현</td><td class="yes">✅ 전부</td><td>Grid·Flexbox·애니메이션·변수·미디어쿼리</td></tr>
+    <tr><td>SVG</td><td class="yes">✅ 인라인 전부</td><td>모든 벡터 요소 + CSS 호버</td></tr>
+    <tr><td>CSS 상태</td><td class="yes">✅ 전부</td><td><code>:target</code>, <code>:checked</code>, <code>:hover</code>, <code>:focus</code></td></tr>
+    <tr><td>CSS 가상요소</td><td class="yes">✅ 전부</td><td><code>::before</code>, <code>::after</code>, <code>::marker</code></td></tr>
+    <tr><td>JS 인터랙션</td><td class="no">❌ 전부 불가</td><td><code>&lt;script&gt;</code>, <code>on*</code>, <code>javascript:</code></td></tr>
+    <tr><td>외부 리소스</td><td class="warn">⚠️ 대부분</td><td>이미지·폰트·오디오 URL 통과, iframe 의심</td></tr>
+  </table>
+  <blockquote>
+    <strong>최대치 = JS 없이 CSS+SVG+HTML5만으로 구현 가능한 모든 인터랙션.</strong><br>
+    <code>&lt;details&gt;</code>, <code>:target</code>, <code>:checked</code>, SVG CSS animation, <code>@keyframes</code>, Grid, Flexbox — 이 조합이면 인포그래픽·대시보드·인터랙티브 기사 수준의 페이지를 JS 없이도 만들 수 있다.
+  </blockquote>
+</section>
+
+<footer>
+  <p>📅 2026-08-09 · v1.0 · Helena Programming<br>
+  <a href="https://github.com/helena751107/helena-programming">helena-programming</a> ·
+  관련: <a href="#">dialogue-log.html 템플릿</a></p>
+</footer>

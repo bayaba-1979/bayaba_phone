@@ -1,0 +1,365 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P1 · Ch1.1</div><h1>워크스테이션 백서</h1>
+<div class="subtitle">온보딩 — 폰 하나로 AI 워크스테이션</div></div>
+<div class="hero">
+<div class="eyebrow">AI 워크스테이션 백서 · 완결판 · 2026-08-09</div>
+<h1>📱 폰 하나로 AI 워크스테이션 짓기</h1>
+<div class="subtitle">Termux → proot Ubuntu → Claude Code + DeepSeek<br>처음부터 끝까지, 에러 없는 순서 — 10단계</div>
+</div>
+
+<!-- COUNTER BAR -->
+<div class="counter-bar">
+<div class="counter"><div class="num">10</div><div class="label">설치 단계</div></div>
+<div class="counter"><div class="num">6</div><div class="label">발견·수정된 버그</div></div>
+<div class="counter"><div class="num">3</div><div class="label">준비물</div></div>
+<div class="counter"><div class="num">~15분</div><div class="label">소요 시간</div></div>
+<div class="counter"><div class="num">v1.0</div><div class="label">완결판</div></div>
+</div>
+
+<!-- ═══ INTRO ═══ -->
+<section>
+<div class="info-box"><strong>📢 이 문서는</strong> 여러 대의 폰(S21, 호야당 아저씨, 친구)에 실제로 설치하면서 나온 사고들을 <strong>전부 반영</strong>해 고친 최종 버전이다. 앞으로는 이 순서 그대로 가면 오늘 겪은 에러들을 하나도 다시 안 만난다.</div>
+<div class="info-box green"><strong>🔑 원칙 하나만 기억:</strong> 어떤 스크립트도 토큰을 채팅에 적으라고 요구하지 않는다. 전부 <code>read</code>로 그 자리에서 직접 입력받는다.</div>
+</section>
+
+<!-- ═══ PREREQUISITES ═══ -->
+<section>
+<h2>📦 준비물 — 미리 발급받아둘 것</h2>
+<div class="tbl-wrap">
+<table class="tbl">
+<thead><tr><th>변수</th><th>어디서</th><th>필수 여부</th></tr></thead>
+<tbody>
+<tr><td class="hl">DeepSeek API 키</td><td>platform.deepseek.com → API Keys</td><td><span class="chip chip-required">필수</span></td></tr>
+<tr><td class="hl">GitHub 아이디 + 개인 액세스 토큰 (ghp_...)</td><td>github.com → Settings → Developer settings (repo 권한)</td><td><span class="chip chip-required">필수</span></td></tr>
+<tr><td class="hl">텔레그램 봇 토큰</td><td>텔레그램 @BotFather → /newbot</td><td><span class="chip chip-optional">선택</span></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- ═══ STEP 1 ═══ -->
+<section>
+<h2>1️⃣ 우분투 설치 <span style="font-size:.78rem;color:var(--t3);font-weight:400">— 겉, Termux ~ $</span></h2>
+<div class="step">
+<div class="step-hd"><div class="step-num">1</div><div class="step-ttl">패키지 업데이트 + proot-distro 설치<div class="step-sub">Termux 세션 (프롬프트: <code>~ $</code>)</div></div></div>
+<pre><code>pkg update -y && pkg upgrade -y
+pkg install -y proot-distro
+proot-distro install ubuntu
+proot-distro login ubuntu</code></pre>
+<div class="check check-done">✅ 프롬프트가 <code>root@localhost:~#</code>로 바뀌면 통과.</div>
+<div class="info-box orange"><strong>⚠️ proot-distro install ubuntu</strong>를 실수로 두 번 치면 "container already exists" 뜬다 — 에러 아니다, 그냥 <code>proot-distro login ubuntu</code>로 바로 넘어가면 된다.</div>
+</div>
+</section>
+
+<!-- ═══ STEP 2 ═══ -->
+<section>
+<h2>2️⃣ 기본 도구 + Claude Code <span style="font-size:.78rem;color:var(--t3);font-weight:400">— 속, root@</span></h2>
+<div class="step">
+<div class="step-hd"><div class="step-num">2</div><div class="step-ttl">apt 패키지 + Node.js + Claude Code 설치<div class="step-sub">우분투 내부 (프롬프트: <code>root@</code>)</div></div></div>
+<pre><code>apt update && apt install -y curl git nano nodejs npm python3 python3-venv
+npm install -g @anthropic-ai/claude-code
+claude --version</code></pre>
+<div class="check check-done">✅ 버전 번호(<code>2.x.x</code>) 찍히면 통과.</div>
+</div>
+</section>
+
+<!-- ═══ STEP 3 ═══ -->
+<section>
+<h2>3️⃣ DeepSeek 엔진 배선 <span style="font-size:.78rem;color:var(--t3);font-weight:400">— 대화형</span></h2>
+<div class="step">
+<div class="step-hd"><div class="step-num">3</div><div class="step-ttl">환경변수 설정<div class="step-sub">API 키를 안전하게 입력받아 저장</div></div></div>
+<pre><code>read -p "DeepSeek API 키 입력: " DEEPSEEK_API_KEY
+cat >> ~/.bashrc << EOF
+export DEEPSEEK_API_KEY="$DEEPSEEK_API_KEY"
+export ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic
+export ANTHROPIC_AUTH_TOKEN=\$DEEPSEEK_API_KEY
+export ANTHROPIC_MODEL=deepseek-v4-pro
+EOF
+grep -E 'DEEPSEEK_API_KEY|ANTHROPIC_' ~/.bashrc >> ~/.profile
+source ~/.bashrc
+echo $ANTHROPIC_BASE_URL</code></pre>
+<div class="check check-done">✅ <code>https://api.deepseek.com/anthropic</code> 출력되면 통과.</div>
+<div class="info-box red"><strong>❗ 모델명은 <code>deepseek-v4-pro</code> 고정.</strong> <code>deepseek-chat</code>은 2026년 7월 24일부로 완전히 폐기된 이름이라 절대 쓰지 않는다.</div>
+</div>
+</section>
+
+<!-- ═══ STEP 4 ═══ -->
+<section>
+<h2>4️⃣ 과금 안전장치 <span style="font-size:.78rem;color:var(--t3);font-weight:400">— ⚠️ 여기서 건너뛰지 말 것</span></h2>
+<div class="step">
+<div class="step-hd"><div class="step-num">4</div><div class="step-ttl">DeepSeek 캐시 과금 방지 + 온보딩 우회<div class="step-sub">이 단계를 빼먹으면 며칠 만에 잔액 증발</div></div></div>
+<div class="info-box red" style="margin-bottom:10px"><strong>🔥 왜 필요한가:</strong> Claude Code가 매 요청마다 랜덤 식별값을 헤더에 박아 넣는데, 이게 DeepSeek의 캐시 프리픽스를 매번 깨뜨려서 <strong>정상가의 최대 50배로 과금</strong>되는 알려진 문제가 있다. 미리 막는다.</div>
+<pre><code>mkdir -p ~/.claude
+cat > ~/.claude/settings.json << 'EOF'
+{
+  "env": {
+    "CLAUDE_CODE_ATTRIBUTION_HEADER": "0",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "ENABLE_TOOL_SEARCH": "true",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "deepseek-v4-pro"
+  }
+}
+EOF
+
+python3 -c "
+import json, os
+p = os.path.expanduser('~/.claude.json')
+try:
+    with open(p) as f: d = json.load(f)
+except FileNotFoundError:
+    d = {}
+d['hasCompletedOnboarding'] = True
+d['primaryApiKey'] = os.environ.get('DEEPSEEK_API_KEY','')
+with open(p,'w') as f: json.dump(d, f, indent=2)
+print('patched:', p)
+"</code></pre>
+<div class="check check-done">✅ <code>patched: /root/.claude.json</code> 출력되면 통과.</div>
+</div>
+</section>
+
+<!-- ═══ STEP 5 ═══ -->
+<section>
+<h2>5️⃣ 발사 테스트</h2>
+<div class="step">
+<div class="step-hd"><div class="step-num">5</div><div class="step-ttl">Claude Code 첫 실행 확인<div class="step-sub">우분투 안에서</div></div></div>
+<pre><code>mkdir -p ~/work && cd ~/work
+IS_SANDBOX=1 claude --dangerously-skip-permissions</code></pre>
+<div class="check check-done">✅ 동의화면 뜨면 화살표로 <strong>2. Yes, I accept</strong> 선택 → 엔터.</div>
+<div class="check check-done">✅ 로그인 요구 없이 바로 메인 화면 뜨고, 배너에 <code>deepseek-v4-pro</code> 표시되면 통과. <code>hey</code>처럼 아무 말이나 쳐서 응답+Cost 표시까지 나오면 완전 확인.</div>
+</div>
+</section>
+
+<!-- ═══ STEP 6 ═══ -->
+<section>
+<h2>6️⃣ 두 글자 진입로 <span style="font-size:.78rem;color:var(--t3);font-weight:400">— ⚠️ 반드시 겉으로 나온 뒤</span></h2>
+<div class="step">
+<div class="step-hd"><div class="step-num">6</div><div class="step-ttl"><code>cc</code> 알리아스 등록<div class="step-sub">Termux 겉(~ $)으로 나와서 실행</div></div></div>
+<div class="info-box orange"><strong>⚠️ 중요한 순서:</strong><br>1. Claude Code 안이면 <code>/exit</code>로 먼저 나오고<br>2. 그 다음 셸에서 <code>exit</code> 한 번 더 — <strong>프롬프트가 <code>~ $</code>인지 반드시 확인</strong><br><br><strong>root@ 상태에서 다음 줄을 치면</strong> 알리아스가 컨테이너 안에 박혀서 <code>"proot-distro should not be executed under PRoot"</code> 에러가 난다 — 오늘 두 번 겪었던 사고다.</div>
+<pre><code>echo "alias cc='proot-distro login ubuntu -- bash -lc \"cd ~/work && IS_SANDBOX=1 claude --dangerously-skip-permissions\"'" >> ~/.bashrc
+source ~/.bashrc
+cc</code></pre>
+<div class="check check-done">✅ 겉(<code>~ $</code>)에서 <code>cc</code> 두 글자로 바로 Claude Code 뜨면 완료.</div>
+</div>
+</section>
+
+<!-- ═══ STEP 7 ═══ -->
+<section>
+<h2>7️⃣ GitHub 연동 <span style="font-size:.78rem;color:var(--t3);font-weight:400">— 대화형</span></h2>
+<div class="step">
+<div class="step-hd"><div class="step-num">7</div><div class="step-ttl">레포 생성 + Pages 배포<div class="step-sub">우분투 안에서</div></div></div>
+<pre><code>proot-distro login ubuntu
+
+read -p "GitHub 아이디: " GITHUB_USER
+read -sp "GitHub 토큰(ghp_...): " GITHUB_TOKEN; echo
+read -p "새 레포 이름: " REPO_NAME
+
+git config --global user.name "$GITHUB_USER"
+git config --global user.email "$GITHUB_USER@users.noreply.github.com"
+git config --global credential.helper store
+
+curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
+  https://api.github.com/user/repos -d "{\"name\":\"$REPO_NAME\"}"
+
+cd ~/work
+git init 2>/dev/null
+git remote remove origin 2>/dev/null
+git remote add origin "https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/$REPO_NAME.git"
+git branch -M main
+echo "&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;body&gt;&lt;h1&gt;Workstation Live&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;" > index.html
+git add -A && git commit -m "init: workstation"
+git push -u origin main
+
+curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
+  -H "Accept: application/vnd.github+json" \
+  "https://api.github.com/repos/$GITHUB_USER/$REPO_NAME/pages" \
+  -d '{"source":{"branch":"main","path":"/"}}'</code></pre>
+<div class="check check-done">✅ push 성공 + Pages 활성화 응답 오면 통과. 2분 뒤 <code>https://&lt;아이디&gt;.github.io/&lt;레포&gt;/</code> 접속 확인.</div>
+</div>
+</section>
+
+<!-- ═══ STEP 8 ═══ -->
+<section>
+<h2>8️⃣ 텔레그램 보고 회의실 <span style="font-size:.78rem;color:var(--t3);font-weight:400">— 선택, 대화형</span></h2>
+<div class="step">
+<div class="step-hd"><div class="step-num">8</div><div class="step-ttl">tg.sh 보고 스크립트 설치<div class="step-sub">텔레그램 봇한테 먼저 메시지 1개 보내둘 것 (필수 선행 조건)</div></div></div>
+<pre><code>read -sp "텔레그램 봇 토큰: " TG_TOKEN; echo
+TG_CHAT=$(curl -s "https://api.telegram.org/bot$TG_TOKEN/getUpdates" \
+  | grep -o '"chat":{"id":[0-9-]*' | head -1 | grep -o '[0-9-]*$')
+
+echo "export TG_TOKEN=\"$TG_TOKEN\"" >> ~/.bashrc
+echo "export TG_CHAT=\"$TG_CHAT\"" >> ~/.bashrc
+source ~/.bashrc
+
+cat > ~/work/tg.sh << 'EOF'
+#!/bin/bash
+curl -s -X POST "https://api.telegram.org/bot$TG_TOKEN/sendMessage" \
+  -d chat_id=$TG_CHAT -d text="$1" >/dev/null
+EOF
+chmod +x ~/work/tg.sh
+bash ~/work/tg.sh "🟢 워크스테이션 개통 완료"</code></pre>
+<div class="check check-done">✅ 텔레그램에 메시지 도착하면 통과.</div>
+</div>
+</section>
+
+<!-- ═══ STEP 9 ═══ -->
+<section>
+<h2>9️⃣ 나머지는 에이전트한테 자연어로 위임</h2>
+<div class="step">
+<div class="step-hd"><div class="step-num">9</div><div class="step-ttl">MCP·YouTube 등 — 하드코딩하지 않고 말로 시킨다<div class="step-sub">절차가 자주 바뀌는 것들은 cc에게 자연어로 위임</div></div></div>
+<div class="grid2">
+<div class="card" style="border-left:3px solid var(--p)"><div class="card-hd">📱 phone-mcp-server</div><div class="card-dsc"><em>"phone-mcp-server 설치해줘. 순수 Termux:API 기반인지, 루트/Shizuku 필요 없는지 먼저 확인하고 진행해."</em></div></div>
+<div class="card" style="border-left:3px solid var(--rd)"><div class="card-hd">▶️ YouTube 연동</div><div class="card-dsc"><em>"YouTube 채널 연동하고 싶어. 콘솔에서 뭘 눌러야 하는지 순서대로 알려주고, 클라이언트ID/시크릿 받으면 Device Code Flow로 인증까지 진행해줘."</em></div></div>
+</div>
+</div>
+</section>
+
+<!-- ═══ STEP 10 ═══ -->
+<section>
+<h2>🔟 헌법 씨앗 <span style="font-size:.78rem;color:var(--t3);font-weight:400">— 마지막</span></h2>
+<div class="step">
+<div class="step-hd"><div class="step-num">10</div><div class="step-ttl">CONSTITUTION.md 생성<div class="step-sub">cc 안에서 자연어로 시킨다</div></div></div>
+<pre><code>CONSTITUTION.md 만들어줘. 최소 3원칙만:
+1) 루팅/Shizuku 금지
+2) 토큰은 절대 대화 로그에 하드코딩하지 말 것 — read 프롬프트나
+   환경변수 파일에서만 읽을 것
+3) 새 세션은 이 문서부터 읽고 시작할 것</code></pre>
+</div>
+</section>
+
+<!-- ═══ BUG REFERENCE ═══ -->
+<section>
+<h2>🐛 오늘 발견된 버그 요약 (참고용)</h2>
+<p>39커밋 · 102파일 · 15,874줄짜리 삽질이 위 10단계로 압축됐다. 다음 폰부터는 이거 하나면 끝난다.</p>
+
+<details class="bug"><summary>pip/numpy 빌드 에러</summary><div class="bug-body"><strong>원인:</strong> 겉(Termux)에서 pip 직접 설치 시도<br><strong>반영:</strong> 1~2단계에서 처음부터 우분투 안에서만 설치</div></details>
+<details class="bug"><summary>proot-distro should not be executed under PRoot</summary><div class="bug-body"><strong>원인:</strong> 알리아스를 속(root@)에서 등록<br><strong>반영:</strong> 6단계 경고문으로 명시</div></details>
+<details class="bug"><summary>/login 요구, "Opus 5" 배너</summary><div class="bug-body"><strong>원인:</strong> 서드파티 백엔드 사용 시 온보딩 플래그 미설정<br><strong>반영:</strong> 4단계 .claude.json 패치로 사전 차단</div></details>
+<details class="bug"><summary>며칠 만에 잔액 증발</summary><div class="bug-body"><strong>원인:</strong> attribution 헤더가 캐시 프리픽스를 매번 깨뜨림<br><strong>반영:</strong> 4단계에서 처음부터 차단</div></details>
+<details class="bug"><summary>deepseek-chat 관련 400 에러</summary><div class="bug-body"><strong>원인:</strong> 폐기된 모델명 재사용<br><strong>반영:</strong> 전 구간 deepseek-v4-pro로 고정</div></details>
+</section>
+
+<div class="footer">
+<p>📱 AI 워크스테이션 백서 · 완결판 v1.0<br>
+🌐 <a href="https://github.com/helena751107" style="color:var(--a)">github.com/helena751107</a> · helena-programming/templates/<br>
+생성: 2026-08-10 (_Claude) · S21·호야당·친구폰 실전 검증 완료<br>
+39커밋·102파일·15,874줄의 삽질 → 10단계·6버그 수정으로 압축</p>
+</div>
+
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>

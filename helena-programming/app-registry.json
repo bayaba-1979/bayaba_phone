@@ -1,0 +1,199 @@
+[
+  {
+    "id": "helena-studio",
+    "name": "Helena Studio",
+    "package": "com.helena.studio",
+    "directory": "apps/helena-studio",
+    "version": "0.1.0",
+    "version_code": 1,
+    "status": "scaffold",
+    "download_active": false,
+    "category": "creative",
+    "overlay": false,
+    "description": "온디바이스 콘텐츠 스튜디오 — 다이어그램·음성더빙·SVG합성",
+    "icon_emoji": "🎨",
+    "release_tag": null,
+    "workflow": "build-apk.yml",
+    "source_origin": "original",
+    "theme_strategy": "constants_class",
+    "compile_sdk": 35,
+    "min_sdk": 26,
+    "target_sdk": 34,
+    "java_version": "17",
+    "domains": [
+      "on-device",
+      "web-mcp"
+    ]
+  },
+  {
+    "id": "clip-shorts",
+    "name": "Clip Shorts — Helena Edition",
+    "package": "com.helena.clipshorts",
+    "directory": "apps/clip-shorts",
+    "version": "7.0.0",
+    "version_code": 1,
+    "status": "forked",
+    "download_active": false,
+    "category": "creative",
+    "overlay": false,
+    "description": "FFmpeg.wasm PWA — 클립 이어붙이기·이미지+오디오→영상 변환·3분 쇼츠 생성",
+    "icon_emoji": "🎬",
+    "source_origin": "REDACTED/dtslib-cloud-appstore/clip-shorts",
+    "domains": [
+      "web-mcp",
+      "on-device"
+    ],
+    "tech": "FFmpeg.wasm 0.11.0 + core-st",
+    "planned_features": [
+      "이미지+오디오 → 영상 클립 변환",
+      "TTS 더빙 트랙 주입",
+      "parksy-audio RVC 프리셋",
+      "MCP export_video 파이프"
+    ]
+  },
+  {
+    "id": "audio-stitch",
+    "name": "Audio Stitch",
+    "package": null,
+    "directory": "apps/audio-stitch",
+    "version": "0.1.0",
+    "status": "scaffold",
+    "download_active": false,
+    "category": "creative",
+    "overlay": false,
+    "description": "오디오 클립 업로드 → 순서 조정 → 이어붙이기 (인브라우저 AudioContext)",
+    "icon_emoji": "🎧",
+    "source_origin": "original",
+    "domains": [
+      "on-device"
+    ],
+    "tech": "Pure HTML/JS, AudioContext API",
+    "planned_features": [
+      "Edge TTS로 클립 직접 생성",
+      "Web Audio API 페이드인/아웃",
+      "clip-shorts 연동"
+    ]
+  },
+  {
+    "id": "webpage-to-audiobook",
+    "name": "Webpage → Audiobook",
+    "package": null,
+    "directory": "scripts/webpage_to_audiobook.py",
+    "version": "0.1.0",
+    "status": "verified",
+    "download_active": false,
+    "category": "pipeline",
+    "overlay": false,
+    "description": "웹페이지 → 텍스트 추출 → Edge TTS → MP3 오디오북 (S21 단독, 무료)",
+    "icon_emoji": "📖",
+    "source_origin": "original",
+    "domains": [
+      "on-device"
+    ],
+    "tech": "Python, edge-tts, ffmpeg",
+    "verified_on": "2026-07-31",
+    "verified_result": "46-fridge-architecture_Claude.md → 3.3MB MP3, 9.5분"
+  },
+  {
+    "id": "pipeline-audio",
+    "name": "오디오 렌더링 파이프",
+    "directory": "pipelines/audio",
+    "version": "0.1.0",
+    "status": "active",
+    "category": "pipeline",
+    "description": "FFmpeg + Reaper headless — .wav .rpp → MP3/OGG/FLAC 렌더링. Actions 7GB 러너.",
+    "icon_emoji": "🎵",
+    "workflow": "render-audio.yml",
+    "source_origin": "original",
+    "domains": [
+      "cloud-cpu"
+    ],
+    "tech": "FFmpeg, SoX, Reaper Linux (xvfb)"
+  },
+  {
+    "id": "pipeline-cad",
+    "name": "CAD 파라메트릭 파이프",
+    "directory": "pipelines/cad",
+    "version": "0.1.0",
+    "status": "active",
+    "category": "pipeline",
+    "description": "FreeCAD Python 파라메트릭 모델링 → STL/STEP 출력. Actions 7GB 러너.",
+    "icon_emoji": "📐",
+    "workflow": "render-cad.yml",
+    "source_origin": "original",
+    "domains": [
+      "cloud-cpu"
+    ],
+    "tech": "FreeCAD CLI, Python"
+  },
+  {
+    "id": "pipeline-compute",
+    "name": "범용 CPU 컴퓨트",
+    "directory": "pipelines/compute",
+    "version": "0.1.0",
+    "status": "active",
+    "category": "pipeline",
+    "description": "아무 Python·Shell 스크립트나 Actions 7GB 러너에서 실행. 빌드·분석·변환.",
+    "icon_emoji": "⚡",
+    "workflow": "compute.yml",
+    "source_origin": "original",
+    "domains": [
+      "cloud-cpu"
+    ],
+    "tech": "Python 3, Shell, CMake, OpenCV"
+  },
+  {
+    "id": "helena-ticket",
+    "name": "Helena Ticket",
+    "directory": "apps/radio-ticket",
+    "version": "0.1.0",
+    "status": "active",
+    "category": "app",
+    "description": "라디오 초대권 사연 자동화 — Yes24 크롤링·DeepSeek 생성·TG 배달. PWA(홈화면)+TG(/radio)+MCP 3way.",
+    "icon_emoji": "🎙",
+    "source_origin": "original",
+    "domains": [
+      "on-device",
+      "mcp",
+      "pwa",
+      "telegram"
+    ],
+    "tech": "Python 3, DeepSeek API, Yes24 HTML, Telegram Bot API, PWA",
+    "verified_on": "2026-08-11",
+    "verified_result": "Yes24 19건 수집, 3채널 사연 생성 완료"
+  },
+  {
+    "id": "pd-pipeline-mcp",
+    "name": "PD Pipeline MCP",
+    "directory": "mcp/pd_pipeline_mcp.py",
+    "version": "1.2.0",
+    "status": "active",
+    "category": "mcp",
+    "description": "숏폼 영상 제작 + 로그 출판 통합 MCP 서버 (9도구). PD 6종(pd_parse_url·pd_produce·pd_status·pd_list·pd_stop·pd_output) + Log 3종(log_list·log_to_html·log_to_tg). JSON-RPC STDIO/HTTP.",
+    "icon_emoji": "🎬",
+    "source_origin": "original",
+    "domains": [
+      "on-device",
+      "mcp"
+    ],
+    "tech": "Python 3 stdlib, JSON-RPC STDIO/HTTP, Playwright, FFmpeg, Edge TTS, Telegram Bot API"
+  },
+  {
+    "id": "log-publisher",
+    "name": "Log Publisher — ParksyLog → Tistory",
+    "directory": "scripts/log_to_tg.py",
+    "version": "1.0.0",
+    "status": "active",
+    "category": "pipeline",
+    "description": "ParksyLog(.md) → Tistory HTML 변환 → Telegram 파일 전송 → 사람 복붙 5분 발행. Paste Pipeline 모델. MCP 도구 3종(log_list·log_to_html·log_to_tg)으로도 호출 가능.",
+    "icon_emoji": "📨",
+    "source_origin": "original",
+    "domains": [
+      "on-device",
+      "mcp"
+    ],
+    "tech": "Python 3, parksy_to_html.py CSS-only converter, Telegram Bot API",
+    "verified_on": "2026-08-11",
+    "verified_result": "ParksyLog_20260811_094250.md → HTML 변환 → TG .txt 전송 완료"
+  }
+]

@@ -1,0 +1,219 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P6 · Ch6.2</div><h1>슬롯 아키텍처·환경 독립</h1>
+<div class="subtitle">설계·아키텍처 — 이 모든 게 왜 작동하는가</div></div>
+<div class="hero">
+<div class="eyebrow"><span class="badge badge-slot">Expansion · 2026-08-10</span></div>
+<h1>🔌 WSL 확장 슬롯 — 플러그 앤 플레이 아키텍처</h1>
+<div class="subtitle">S21에서 설계한 2계층·양방향 브릿지·루프백은 <strong>환경 독립적</strong>이다.<br>WSL 머신을 "슬롯"처럼 꽂으면 수동 → 완전자동으로 즉시 업그레이드.</div>
+</div>
+
+<!-- ═══ THE CONCEPT ═══ -->
+<section>
+<h2>💡 핵심 개념 — "슬롯 아키텍처"</h2>
+
+<p>S21 Paste Pipeline의 모든 설계는 <strong>특정 기계에 종속되지 않는다.</strong> Git·Actions·Telegram API·RSS·웹표준 — 전부 네트워크 너머에 있는 추상화 계층이다. 즉 <strong>실행 머신이 바뀌어도 설계는 그대로</strong>.</p>
+
+<figure class="slot-diagram">
+<div style="text-align:center;margin-bottom:8px;font-size:.78rem;font-weight:700;color:var(--t2)">공유 코어 (GitHub — 머신 독립적)</div>
+<div class="row" style="margin-bottom:12px">
+<span class="node n-core">🌐 GitHub 6레포</span>
+<span class="arr">↔</span>
+<span class="node n-core">⚡ Actions 27WF</span>
+<span class="arr">↔</span>
+<span class="node n-core">🌐 Pages 6곳</span>
+<span class="arr">↔</span>
+<span class="node n-core">📡 RSS 5파이프</span>
+</div>
+
+<div style="text-align:center;margin-bottom:6px;font-size:.78rem;font-weight:700;color:var(--t2)">실행 슬롯 — 머신 교체 가능</div>
+<div class="row">
+<div style="text-align:center;padding:10px 14px;border:2px solid var(--p);border-radius:8px;background:var(--pbg)">
+<div style="font-weight:800;color:var(--p);margin-bottom:4px">🟣 슬롯 #1: S21 (현재)</div>
+<div style="font-size:.68rem;color:var(--t3);line-height:1.5">Paste Pipeline v5.1<br>.txt 표준·5-Click 수동<br>루프백 평가·기획</div>
+</div>
+<span class="big-arrow">⇄</span>
+<span style="text-align:center;padding:8px 10px;border:2px dashed var(--gold);border-radius:6px;background:var(--goldbg);font-size:.7rem;color:var(--gold);font-weight:700">동일<br>설계<br>공유</span>
+<span class="big-arrow">⇄</span>
+<div style="text-align:center;padding:10px 14px;border:2px solid var(--g);border-radius:8px;background:var(--gbg)">
+<div style="font-weight:800;color:var(--g);margin-bottom:4px">🟢 슬롯 #2: WSL (대기)</div>
+<div style="font-size:.68rem;color:var(--t3);line-height:1.5">Playwright 완전자동<br>21+15+3채널·MCP 20도구<br>코드 완성·환경 대기</div>
+</div>
+</div>
+<div class="row" style="margin-top:10px">
+<span class="node n-bridge" style="font-size:.71rem">📋 Paste(내부→외부) + 📡 RSS(외부→내부) + 🔄 Loopback(평가)</span>
+</div>
+<figcaption>두 슬롯은 동일한 GitHub 코어를 공유한다. 실행 머신만 다를 뿐, 설계 원리·데이터·파이프라인은 100% 공유.</figcaption>
+</figure>
+</section>
+
+<!-- ═══ WHAT CHANGES ═══ -->
+<section>
+<h2>🔌 WSL 슬롯을 꽂으면 달라지는 것</h2>
+
+<div class="tbl-wrap">
+<table class="tbl">
+<thead><tr><th>차원</th><th><span class="chip chip-s21">S21 슬롯 (현재)</span></th><th><span class="chip chip-wsl">WSL 슬롯 (꽂으면)</span></th></tr></thead>
+<tbody>
+<tr><td><strong>티스토리 발행</strong></td><td>사람 5-Click (2~3분/건)</td><td>Playwright 자동 (30초·무인)</td></tr>
+<tr><td><strong>적용 채널</strong></td><td>5 Tistory</td><td>21 Tistory + 15 YouTube + 3 Naver + Discord 28</td></tr>
+<tr><td><strong>HTML 품질</strong></td><td>parksy_to_html.py</td><td>generator.py (파피루스 CSS v4.0·단행본급)</td></tr>
+<tr><td><strong>콘텐츠 형식</strong></td><td>Markdown 직변환</td><td>posts/*.json 표준화 → publisher.py 일괄처리</td></tr>
+<tr><td><strong>계정</strong></td><td>0 (로그인 불필요)</td><td>5계정·Kakao 세션·자동갱신</td></tr>
+<tr><td><strong>MCP 도구</strong></td><td>6</td><td>26+ (통계·카테고리·스킨·영상·채널관리)</td></tr>
+<tr><td><strong>사람 역할</strong></td><td>발행자</td><td>감독자 (승인·전략·품질)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="info-box green"><strong>🔌 플러그 앤 플레이:</strong> WSL 머신에 <code>git clone</code> + <code>pip install playwright</code> + <code>python3 login.py</code> 한 번이면 슬롯 활성화 완료. GitHub 코어는 그대로, 실행 슬롯만 교체. <strong>데이터 마이그레이션 제로.</strong></div>
+</section>
+
+<!-- ═══ WHY THIS WORKS ═══ -->
+<section>
+<h2>🧬 왜 "슬롯 교체"가 가능한가 — 설계의 4가지 환경 독립성</h2>
+
+<div class="grid2">
+<div class="card" style="border-left:3px solid var(--a)"><div class="card-hd">1. Git = 범용 저장소</div><div class="card-dsc">콘텐츠·코드·설정 전부 Git. <code>git pull</code> 한 번으로 어떤 머신에서든 동일 상태 복제. WSL이든 S21이든 같은 레포를 바라본다.</div></div>
+<div class="card" style="border-left:3px solid var(--a)"><div class="card-hd">2. Actions = 원격 실행</div><div class="card-dsc">RSS·Pages 배포·품질 게이트는 GitHub Actions가 대신 실행. <strong>내 컴퓨터가 꺼져도 파이프라인은 돈다.</strong></div></div>
+<div class="card" style="border-left:3px solid var(--a)"><div class="card-hd">3. HTTP API = 언어 무관</div><div class="card-dsc">Telegram·RSS·GitHub API 모두 HTTP. curl이면 충분. Python·Node·Shell — 어떤 언어로도 구현 가능.</div></div>
+<div class="card" style="border-left:3px solid var(--a)"><div class="card-hd">4. 웹표준 = 영구 호환</div><div class="card-dsc">HTML·CSS·RSS·JSON — 30년 된 표준. 기계·OS·브라우저가 바뀌어도 콘텐츠는 깨지지 않는다.</div></div>
+</div>
+</section>
+
+<!-- ═══ THE CODE ═══ -->
+<section>
+<h2>📦 이미 준비된 코드 — reference/wsl-automation/</h2>
+
+<div class="tbl-wrap">
+<table class="tbl">
+<thead><tr><th>파일</th><th>출처</th><th>하는 일</th><th>WSL에서 실행</th></tr></thead>
+<tbody>
+<tr><td><strong>_tistory_publish.py</strong></td><td>dtslib-papyrus</td><td>Playwright 발행 — TinyMCE 제어·Kakao 로그인·세션 쿠키</td><td><code>publish_tistory(account, blog, title, html)</code></td></tr>
+<tr><td><strong>publisher.py</strong></td><td>parksy-logs</td><td>배치 발행기 — posts/*.json → 계정별 순차 발행</td><td><code>python3 publisher.py --blog 철학자박씨</code></td></tr>
+<tr><td><strong>generator.py</strong></td><td>parksy-logs</td><td>MD → 단행본 HTML (파피루스 CSS v4.0)</td><td><code>python3 generator.py --blog 철학자박씨 --input draft.md</code></td></tr>
+<tr><td><strong>parksy_distributor_mcp.py</strong></td><td>dtslib-papyrus</td><td>MCP 20+도구 — TG·YT·Naver·Tistory·Discord·통계</td><td>MCP stdio 서버</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- ═══ ACTIVATION ═══ -->
+<section>
+<h2>⚡ WSL 슬롯 활성화 — 3단계면 끝</h2>
+
+<div class="grid3">
+<div class="card" style="text-align:center"><div class="card-hd">Step 1</div><div class="card-dsc"><strong>환경 준비</strong><br><pre style="font-size:.7rem;margin-top:4px">git clone → pip install → playwright install chromium</pre>5분</div></div>
+<div class="card" style="text-align:center"><div class="card-hd">Step 2</div><div class="card-dsc"><strong>로그인</strong><br><pre style="font-size:.7rem;margin-top:4px">python3 login.py → Kakao OAuth → 쿠키 저장</pre>2분</div></div>
+<div class="card" style="text-align:center"><div class="card-hd">Step 3</div><div class="card-dsc"><strong>발행</strong><br><pre style="font-size:.7rem;margin-top:4px">python3 publisher.py</pre>무인 자동</div></div>
+</div>
+
+<div class="info-box gold"><strong>⚠️ S21은 폐기되지 않는다.</strong> WSL이 "손"(발행)을 맡으면 S21은 "두뇌"(기획·루프백 평가·품질 감독)에 집중. <strong>두 슬롯은 경쟁이 아니라 분업.</strong></div>
+</section>
+
+<!-- ═══ WHY IT MATTERS ═══ -->
+<section>
+<h2>🎯 이게 증명하는 것</h2>
+
+<div class="grid2">
+<div class="card" style="border-left:3px solid var(--g)"><div class="card-hd">환경 독립적 설계는 확장성을 낳는다</div><div class="card-dsc">S21에서 시작했지만 WSL·클라우드VM·GitHub Codespaces 어디서든 동일하게 작동. <strong>머신은 슬롯일 뿐.</strong></div></div>
+<div class="card" style="border-left:3px solid var(--g)"><div class="card-hd">코드는 준비됐다, 환경만 기다린다</div><div class="card-dsc">WSL 자동화 코드는 이미 2026-05부터 존재. S21에서 3개월간 다듬은 설계 원리가 WSL 코드와 <strong>완벽히 호환.</strong></div></div>
+<div class="card" style="border-left:3px solid var(--g)"><div class="card-hd">사람 역할은 기계가 대체할 수 없는 곳으로</div><div class="card-dsc">발행(기계적) → WSL. 기획·전략·품질판단(인간적) → S21. <strong>자동화는 사람을 대체하는 게 아니라 해방하는 것.</strong></div></div>
+<div class="card" style="border-left:3px solid var(--g)"><div class="card-hd">한계 비용 0의 확장</div><div class="card-dsc">28번째 채널 추가? blog_map.json에 한 줄. 2번째 머신 추가? git clone 한 번. <strong>이 아키텍처는 늘려도 비용이 늘지 않는다.</strong></div></div>
+</div>
+</section>
+
+<div class="footer">
+<p>🔌 WSL Expansion Slot — Plug &amp; Play Architecture<br>
+🌐 <a href="https://github.com/helena751107/helena-programming" style="color:var(--a)">helena-programming/reference/wsl-automation/</a> · 코드 7종 보존 완료<br>
+설계는 환경을 타지 않는다. 실행 슬롯만 바꾸면 된다.<br>
+생성: 2026-08-10 (_Claude) · Tistory HTML 모드 호환</p>
+</div>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>

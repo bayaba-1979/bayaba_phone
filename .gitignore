@@ -24,3 +24,12 @@ Thumbs.db
 out/
 voice_models/
 voice_models/parksy_v2/*.onnx
+
+# 음성 모델 · RVC 번들 (대용량 바이너리 — git 부적합)
+kokoro-multi-lang-v1_0/
+helena_rvc_bundle/
+helena_rvc_bundle.tar.gz
+
+# 돌봄 체크 생성 파일 (최신 스냅샷·워치독 상태는 이력 불필요)
+_notebook/health/*latest*.json
+_notebook/watchdog-state.json

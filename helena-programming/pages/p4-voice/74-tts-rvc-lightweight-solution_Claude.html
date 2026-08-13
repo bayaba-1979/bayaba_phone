@@ -1,0 +1,387 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P4 · Ch4.3</div><h1>Edge TTS·Piper</h1>
+<div class="subtitle">AI 목소리 — 내 목소리 복제</div></div>
+<h1>🎤 경량 TTS + RVC 성우 더빙 솔루션 (2026-08-07, _Claude)</h1>
+<h2>문제</h2>
+<p>ParksyTTS (GPT-SoVITS) CPU 추론이 471초 for 3.5초 음성으로 실사용 불가.
+SoVITS 모델 포기하고 경량 TTS + RVC 조합으로 전환 결정.</p>
+<h2>핵심 아키텍처</h2>
+<div class="codehilite"><pre><span></span><code><span class="k">[대본 텍스트]</span>
+<span class="w">    </span><span class="na">│</span>
+<span class="w">    </span><span class="na">▼</span>
+<span class="na">NeuTTS Nano (GGUF, ARM64 CPU, ~2x 실시간)</span>
+<span class="w">  </span><span class="na">→ 자연스러운 한국어 TTS 음성 (몇 초)</span>
+<span class="w">    </span><span class="na">│</span>
+<span class="w">    </span><span class="na">▼</span>
+<span class="na">RVC ONNX INT8 (~380MB, ARM64 CPU, ~72ms)</span>
+<span class="w">  </span><span class="na">→ 누나 목소리로 변환</span>
+<span class="w">    </span><span class="na">│</span>
+<span class="w">    </span><span class="na">▼</span>
+<span class="na">ffmpeg 후처리 (노멀라이즈, EQ)</span>
+<span class="w">    </span><span class="na">│</span>
+<span class="w">    </span><span class="na">▼</span>
+<span class="na">최종 WAV → 영상 더빙</span>
+</code></pre></div>
+
+<p><strong>총 추론 시간 예상:</strong> TTS 수 초 + RVC 0.1초 = <strong>10초 내외</strong> (기존 ParksyTTS 471초 대비 ~50배 단축)</p>
+<h2>RVC on ARM64 — 완전 가능</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>원본 RVC PyTorch</th>
+<th>INT8 ONNX (모바일 최적화)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>모델 크기</td>
+<td>2.3 GB</td>
+<td><strong>380 MB</strong> (83%↓)</td>
+</tr>
+<tr>
+<td>추론 지연</td>
+<td>350 ms</td>
+<td><strong>72 ms</strong> (79%↓)</td>
+</tr>
+<tr>
+<td>메모리</td>
+<td>1.8 GB</td>
+<td><strong>420 MB</strong> (77%↓)</td>
+</tr>
+<tr>
+<td>CPU 사용률</td>
+<td>95%</td>
+<td><strong>45%</strong></td>
+</tr>
+</tbody>
+</table>
+<h3>export 경로</h3>
+<ol>
+<li>PyTorch <code>.pth</code> 모델 → <code>export_onnx()</code> → <code>.onnx</code></li>
+<li>ONNX Runtime graph optimize + INT8 양자화</li>
+<li><code>onnxruntime-android</code> / <code>onnxruntime</code> (proot glibc) 로 ARM64 추론</li>
+</ol>
+<h3>기존 pre-built 자산</h3>
+<ul>
+<li><strong>HuggingFace:</strong> <code>TigreGotico/voiceclonnx-rvc</code> — ContentVec encoder 91MB + RMVPE pitch 94MB (INT8)</li>
+<li><strong>라이브러리:</strong> <code>vconnx</code> — <code>pip install</code> 한 줄로 RVC 추론</li>
+<li><strong>npm:</strong> <code>rvc-onnx-web</code> — TypeScript로 pth→onnx 변환 (Python 불필요)</li>
+</ul>
+<h3>ONNX Runtime 최적화</h3>
+<div class="codehilite"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>onnxruntime.tools.optimize_onnx_model<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--input<span class="w"> </span>model.onnx<span class="w"> </span>--output<span class="w"> </span>optimized.onnx
+</code></pre></div>
+
+<p>→ 20~30% 연산 감소</p>
+<h3>동적 양자화</h3>
+<ul>
+<li><code>torch.nn.Linear</code>, <code>Conv1d</code> → qint8</li>
+<li>LSTM 레이어는 별도 qconfig</li>
+<li>결과: <strong>72% 크기 감소, 3.2× 추론 가속, &lt;2% 품질 손실</strong></li>
+</ul>
+<hr />
+<h2>TTS 엔진 비교</h2>
+<table>
+<thead>
+<tr>
+<th>모델</th>
+<th>크기</th>
+<th>한국어</th>
+<th>Voice Cloning</th>
+<th>포맷</th>
+<th>CPU 추론</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NeuTTS Nano</strong></td>
+<td>~120M params</td>
+<td>✅</td>
+<td>✅ Instant</td>
+<td>GGUF</td>
+<td>✅ ~2x RTF</td>
+<td>🔥 1순위</td>
+</tr>
+<tr>
+<td><strong>Chatterbox-LiteRT</strong></td>
+<td>~500MB INT8</td>
+<td>✅</td>
+<td>✅ Zero-shot</td>
+<td>TFLite</td>
+<td>✅ ~0.95 RTF</td>
+<td>실험적</td>
+</tr>
+<tr>
+<td>VoxCPM2-LiteRT</td>
+<td>8.7GB FP16</td>
+<td>✅</td>
+<td>✅ Zero-shot</td>
+<td>TFLite</td>
+<td>❌ 무거움</td>
+<td>S21 부적합</td>
+</tr>
+<tr>
+<td>Sherpa-ONNX Kokoro</td>
+<td>~300MB</td>
+<td>⚠️ 확인 필요</td>
+<td>❌ 미지원</td>
+<td>ONNX</td>
+<td>✅</td>
+<td>Voice cloning 안 됨</td>
+</tr>
+<tr>
+<td>GPT-SoVITS</td>
+<td>~2GB+</td>
+<td>✅</td>
+<td>✅ Few-shot</td>
+<td>PyTorch</td>
+<td>❌ 471초</td>
+<td>포기 확정</td>
+</tr>
+</tbody>
+</table>
+<h3>1순위: NeuTTS Nano</h3>
+<ul>
+<li>GitHub 6,178 stars, 2026년 7월 기준 트렌딩</li>
+<li>GGUF 포맷 → ARM64 CPU 네이티브, Snapdragon/Exynos 최적화</li>
+<li>9개 언어(한국어 포함), instant voice cloning</li>
+<li>120M active parameters → S21에서 충분히 구동</li>
+</ul>
+<h3>폴백: Sherpa-ONNX Kokoro</h3>
+<ul>
+<li>이미 S21에 설치·검증 완료</li>
+<li>한국어 모델 실제 지원 여부 확인 필요</li>
+<li>Voice cloning 안 되므로 RVC 변환 필수</li>
+</ul>
+<hr />
+<h2>누나 목소리 RVC 모델 만들기</h2>
+<h3>학습</h3>
+<ul>
+<li>필요 데이터: 누나 목소리 10~30분 clean 음성</li>
+<li>GitHub Actions에서 RVC 학습 1회 실행 (로컬 CPU 부담 없음)</li>
+<li>사전 녹음 스크립트: <code>scripts/record_voice_samples.sh</code> 이미 있음</li>
+</ul>
+<h3>커뮤니티 레퍼런스</h3>
+<p>voice-models.com에 한국어 여성 RVC 모델 다수:
+- <strong>NELL 시리즈</strong> — 310분 데이터셋, V11까지 실험 완료
+- <strong>Harang (하랑)</strong> — BOOTH 판매, 부드러운 여성 목소리
+- <strong>Jane</strong> — 실시간 보이스 체인저 특화</p>
+<h3>학습 후 추론</h3>
+<ol>
+<li><code>.pth</code> → ONNX export</li>
+<li>INT8 양자화 → ~380MB</li>
+<li>S21 proot에 배치</li>
+<li><code>vconnx</code>로 추론</li>
+</ol>
+<hr />
+<h2>Grok TTS 라이선스</h2>
+<p>Grok TTS는 현재 SuperGrok 구독에 포함 안 됨 (403). 그러나 추후 사용 가능해질 경우:
+- xAI ToS 상 생성된 음성에 대한 저작권 제한 없음 (오픈소스 출력물로 간주)
+- 상업적 사용 가능
+- 다만 현재는 미사용 — TTS_ENGINE=local 유지</p>
+<hr />
+<h2>실행 계획</h2>
+<table>
+<thead>
+<tr>
+<th>순위</th>
+<th>작업</th>
+<th>예상 시간</th>
+<th>난이도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🔴 1</td>
+<td><code>pip install vconnx onnxruntime</code> → RVC ONNX 추론 테스트</td>
+<td>20분</td>
+<td>쉬움</td>
+</tr>
+<tr>
+<td>🔴 2</td>
+<td>Sherpa-ONNX Kokoro 한국어 모델 존재 확인</td>
+<td>10분</td>
+<td>쉬움</td>
+</tr>
+<tr>
+<td>🟡 3</td>
+<td>NeuTTS Nano GGUF 다운로드 → S21에서 TTS 테스트</td>
+<td>30분</td>
+<td>중간</td>
+</tr>
+<tr>
+<td>🟡 4</td>
+<td>TTS 출력 → RVC 변환 파이프 검증</td>
+<td>30분</td>
+<td>중간</td>
+</tr>
+<tr>
+<td>🟢 5</td>
+<td>누나 목소리 샘플 수집 (10~30분)</td>
+<td>수동</td>
+<td>-</td>
+</tr>
+<tr>
+<td>🟢 6</td>
+<td>GitHub Actions RVC 학습 워크플로우</td>
+<td>1시간</td>
+<td>중간</td>
+</tr>
+<tr>
+<td>🟢 7</td>
+<td>voice_engine.py에 <code>tts_rvc</code> 프로바이더 추가</td>
+<td>30분</td>
+<td>쉬움</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>예상 효과</h2>
+<table>
+<thead>
+<tr>
+<th>지표</th>
+<th>현재 (ParksyTTS)</th>
+<th>목표 (NeuTTS+RVC)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.5초 음성 생성</td>
+<td>471초</td>
+<td>~10초</td>
+</tr>
+<tr>
+<td>실시간 대비</td>
+<td>135배 느림</td>
+<td>~3배</td>
+</tr>
+<tr>
+<td>메모리</td>
+<td>2GB+</td>
+<td>~500MB</td>
+</tr>
+<tr>
+<td>모델 파일 크기</td>
+<td>314MB 체크포인트</td>
+<td>~500MB ONNX 총합</td>
+</tr>
+<tr>
+<td>품질</td>
+<td>ParksyTTS v1 양호</td>
+<td>TTS 자연스러움 + RVC 개성</td>
+</tr>
+<tr>
+<td>확장성</td>
+<td>CPU-only 한계</td>
+<td>ONNX 생태계 (모바일·서버·브라우저)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>레퍼런스</h2>
+<ul>
+<li>RVC ONNX HuggingFace: https://huggingface.co/TigreGotico/voiceclonnx-rvc</li>
+<li>vconnx 라이브러리: <code>pip install vconnx</code></li>
+<li>rvc-onnx-web (npm): https://www.npmjs.com/package/rvc-onnx-web</li>
+<li>NeuTTS Nano: https://www.neuphonic.com/models/neutts-nano</li>
+<li>Chatterbox-LiteRT: https://huggingface.co/soniqo/Chatterbox-LiteRT</li>
+<li>Sherpa-ONNX: https://github.com/k2-fsa/sherpa-onnx</li>
+<li>한국어 RVC 모델: https://voice-models.com (NELL, Jane, Harang 등)</li>
+</ul>
+<hr />
+<blockquote>
+<p><strong>결론:</strong> SoVITS는 포기. TTS(NeuTTS Nano 또는 Sherpa-ONNX Kokoro) + RVC ONNX = S21에서 실사용 가능한 성우 더빙 파이프.
+Grok TTS는 저작권 문제 없으나 현재 403. local 프로바이더에 이 파이프를 추가하는 게 정답.</p>
+</blockquote>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>

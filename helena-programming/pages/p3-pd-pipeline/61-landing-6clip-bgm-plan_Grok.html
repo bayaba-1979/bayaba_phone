@@ -1,0 +1,392 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P3 · Ch3.6</div><h1>BGM·브릿지·인코딩</h1>
+<div class="subtitle">PD Pipeline — URL 하나로 숏폼 영상</div></div>
+<h1>61 · 랜딩 6샷 디렉터 파이프 — 개발 계획서 (_Grok) <strong>v2 정정</strong></h1>
+<blockquote>
+<p>작성: 2026-08-05 · 디렉터: Grok<br />
+<strong>v1 오류 정정:</strong> “스크린샷 + 공짜 edge-tts만 이으면 된다” = <strong>V1 싸구려 트랙</strong>.<br />
+<strong>정본:</strong> Grok 구독 능력 발휘 — <strong>Imagine 키프레임·10초 영상 생성 + 성우 더빙 + 로컬 FFmpeg 합성</strong>.<br />
+랜딩 웹페이지 = <strong>베이스라인·연출 대본</strong> (복붙 캡처 소스가 아님).</p>
+</blockquote>
+<hr />
+<h2>0. Boss 지적 — 수용</h2>
+<table>
+<thead>
+<tr>
+<th>틀림 (v1)</th>
+<th>맞음 (v2)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Playwright 캡처 6장 붙이기</td>
+<td><strong>Grok가 샷을 만든다</strong> (image → video)</td>
+</tr>
+<tr>
+<td>edge-tts가 본체 성우</td>
+<td><strong>Grok 보이스/프리미엄 더빙 우선</strong>, 로컬은 폴백</td>
+</tr>
+<tr>
+<td>웹페이지 = 찍을 화면</td>
+<td><strong>웹페이지 = 감독용 베이스라인</strong> (스토리·카피·브랜드·구조)</td>
+</tr>
+<tr>
+<td>“괜찮게 나올까?” 변명</td>
+<td><strong>이게 CLI 영상 자동화 테스트 목적</strong> — 능력 발휘</td>
+</tr>
+</tbody>
+</table>
+<p><strong>한 줄:</strong>  </p>
+<blockquote>
+<p>비싼 Grok = 손·눈·카메라·성우. proot FFmpeg = 편집실. 랜딩 = 시나리오 원본.</p>
+</blockquote>
+<hr />
+<h2>1. 역할 분담 (정본)</h2>
+<table>
+<thead>
+<tr>
+<th>역할</th>
+<th>담당</th>
+<th>도구</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>감독</strong></td>
+<td>Grok</td>
+<td>6샷 스토리·감정·카메라·대본</td>
+</tr>
+<tr>
+<td><strong>키프레임</strong></td>
+<td>Grok Imagine</td>
+<td><code>image_gen</code> / <code>image_edit</code> (랜딩 톤·레퍼런스)</td>
+</tr>
+<tr>
+<td><strong>본편 샷 영상</strong></td>
+<td>Grok Imagine</td>
+<td><code>image_to_video</code> <strong>duration=10</strong> (또는 6+4 조립)</td>
+</tr>
+<tr>
+<td><strong>성우 더빙</strong></td>
+<td>Grok Voice 우선</td>
+<td>보이스 풀(Ara/Eve/Luna 등 multilingual) · 불가 시 OpenAI tts-1-hd · 최후 edge+humanize</td>
+</tr>
+<tr>
+<td><strong>BGM</strong></td>
+<td>Boss 자작</td>
+<td><a href="https://youtube.com/shorts/onIbZX6On3A">Shorts onIbZX6On3A</a> · volume ≈ 0.08~0.12</td>
+</tr>
+<tr>
+<td><strong>편집·mux</strong></td>
+<td>이 터미널 proot</td>
+<td>FFmpeg concat + amix + loudnorm</td>
+</tr>
+<tr>
+<td><strong>배포</strong></td>
+<td>로컬</td>
+<td>TG sendVideo / 파일</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. 베이스라인 — 랜딩 파싱 (연출 재료)</h2>
+<p>URL: https://helena751107.github.io/helena_phone/</p>
+<table>
+<thead>
+<tr>
+<th>재료</th>
+<th>감독 사용법</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>히어로 카피</td>
+<td>오프닝 훅 대사·무드</td>
+</tr>
+<tr>
+<td>Dual Track / Agents / System / Centers / Funnel / Constitution</td>
+<td><strong>샷 주제·감정 아크</strong></td>
+</tr>
+<tr>
+<td>골드 <code>#d4a84b</code> · 다크 페이퍼 · 세리프 타이틀</td>
+<td><strong>비주얼 룩 고정</strong></td>
+</tr>
+<tr>
+<td>“핸드오프가 곧 성공”</td>
+<td>엔딩 한 방</td>
+</tr>
+<tr>
+<td>실제 DOM 스크린샷</td>
+<td>필요 시 <strong>레퍼런스 1장</strong> (image_edit 시드) — 최종 영상이 아님</td>
+</tr>
+</tbody>
+</table>
+<p>랜딩을 “그대로 녹화”하는 게 아니라,<br />
+랜딩이 말하는 세계를 <strong>Grok 샷으로 재연출</strong>한다.</p>
+<hr />
+<h2>3. 6샷 디렉팅 (10초 × 6 = 60초)</h2>
+<table>
+<thead>
+<tr>
+<th>샷</th>
+<th>베이스 챕터</th>
+<th>감정</th>
+<th>카메라/모션</th>
+<th>더빙 요지 (한 호흡)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>S1</strong></td>
+<td>Cover</td>
+<td>훅</td>
+<td>느린 push-in, 폰·빛</td>
+<td>갤럭시 한 대. 돌봄과 소망.</td>
+</tr>
+<tr>
+<td><strong>S2</strong></td>
+<td>Three Agents</td>
+<td>동료</td>
+<td>카드 패럴랙스·전환</td>
+<td>세 동료. 지휘·외과·미디어.</td>
+</tr>
+<tr>
+<td><strong>S3</strong></td>
+<td>System Map</td>
+<td>신뢰</td>
+<td>노드 따라 패닝</td>
+<td>폰에서 세상으로 흐르는 맵.</td>
+</tr>
+<tr>
+<td><strong>S4</strong></td>
+<td>Seven Centers</td>
+<td>리듬</td>
+<td>센터 링 순회</td>
+<td>일곱 워크센터. 공장이 돈다.</td>
+</tr>
+<tr>
+<td><strong>S5</strong></td>
+<td>Funnel + Cost</td>
+<td>상승</td>
+<td>위로 슬라이드·밝아짐</td>
+<td>웹진에서 독립까지. 비용은 거의 제로.</td>
+</tr>
+<tr>
+<td><strong>S6</strong></td>
+<td>Constitution</td>
+<td>여운</td>
+<td>홀드 후 살짝 pull-out</td>
+<td>핸드오프가 곧 성공. 계정은 누나 명의.</td>
+</tr>
+</tbody>
+</table>
+<p>룩 앵커: dark editorial webzine · gold accent · cinematic UI · 9:16 Shorts.</p>
+<hr />
+<h2>4. CLI 자동화 파이프 (이게 테스트 본체)</h2>
+<div class="codehilite"><pre><span></span><code>[1] Scout     랜딩 파싱 → shot_bible.json (주제·카피·감정)
+[2] Keyframe  image_gen / image_edit × 6  (9:16, 룩 고정)
+[3] Animate   image_to_video × 6  (duration=10, 샷별 모션 프롬프트)
+[4] Dub       Grok Voice(또는 차선) × 6  → 10s 맞춤(apad/atempo)
+[5] Mix shot  ffmpeg: video + dub per shot
+[6] Concat    ffmpeg concat demuxer -c copy
+[7] BGM       yt-dlp Boss음원 → volume=0.10 amix → final
+[8] Ship      out/landing6/landing6_final.mp4 → TG
+</code></pre></div>
+
+<h3>4.1 핵심 명령 패턴</h3>
+<div class="codehilite"><pre><span></span><code># 샷 영상 (Grok 도구)
+image_gen(prompt=키프레임, aspect_ratio=&quot;9:16&quot;)
+image_to_video(image=키프레임, prompt=모션 1문장, duration=10)
+
+# 합성 (터미널)
+ffmpeg -i shot.mp4 -i dub.m4a -map 0:v -map 1:a -c:v copy -c:a aac -shortest shot_dub.mp4
+ffmpeg -f concat -safe 0 -i list.txt -c copy body.mp4
+ffmpeg -i body.mp4 -i bgm.m4a -filter_complex &quot;[1:a]volume=0.10[bg];[0:a][bg]amix=...&quot; final.mp4
+</code></pre></div>
+
+<h3>4.2 산출 경로</h3>
+<div class="codehilite"><pre><span></span><code>out/landing6/
+  shot_bible.json
+  kf_01.png … kf_06.png
+  s01.mp4 … s06.mp4          # Imagine 10s
+  dub_01.m4a … dub_06.m4a
+  s01_dub.mp4 … s06_dub.mp4
+  bgm_60.m4a
+  landing6_final.mp4
+</code></pre></div>
+
+<hr />
+<h2>5. 성우 정책</h2>
+<ol>
+<li><strong>1순위:</strong> Grok Voice MCP 성우 (Ara / Eve / Luna 등 · multilingual) — 보이스 목록 확인됨  </li>
+<li><strong>2순위:</strong> OpenAI <code>tts-1-hd</code> (<code>voice_engine.py</code> 이미 있음, 키 있을 때)  </li>
+<li><strong>3순위:</strong> edge-tts + broadcast humanize (<code>voice_engine.py</code>) — <strong>폴백일 뿐 본체 아님</strong></li>
+</ol>
+<p>대본은 감독(Grok)이 샷별로 씀. 성우 연출 지시(속도·무게·여운) 포함.</p>
+<hr />
+<h2>6. 품질 바 (파일럿 합격선)</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>바</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>비주얼</td>
+<td>캡처 슬라이드쇼 티 안 남. 샷마다 의도된 모션</td>
+</tr>
+<tr>
+<td>일관성</td>
+<td>골드·다크 룩 6샷 유지 (키프레임 레퍼런스 체인)</td>
+</tr>
+<tr>
+<td>더빙</td>
+<td>말 또렷, BGM에 안 먹힘</td>
+</tr>
+<tr>
+<td>BGM</td>
+<td>Boss 음원 인지 가능, volume≤0.12</td>
+</tr>
+<tr>
+<td>길이</td>
+<td>60s ±1s · 9:16</td>
+</tr>
+<tr>
+<td>목적</td>
+<td><strong>CLI에서 Grok 영상 자동화 파이프 동작 증명</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>7. 일정</h2>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✅</td>
+<td>랜딩 파싱 · 계획 v2 정정</td>
+</tr>
+<tr>
+<td>다음</td>
+<td>shot_bible.json + 키프레임 6</td>
+</tr>
+<tr>
+<td>다음</td>
+<td>image_to_video × 6</td>
+</tr>
+<tr>
+<td>다음</td>
+<td>더빙 × 6 + BGM amix</td>
+</tr>
+<tr>
+<td>다음</td>
+<td>final → TG</td>
+</tr>
+</tbody>
+</table>
+<p><strong>GO 신호:</strong> Boss “찍어” / “만들어” → 즉시 Phase 키프레임부터 실행.</p>
+<hr />
+<h2>8. 결론</h2>
+<ul>
+<li>Grok 구독 가치 = <strong>영상 생성 + 연출 + 더빙 지휘</strong>, 문서 변명 아님.  </li>
+<li>웹페이지는 <strong>감독이 읽는 대본·룩북</strong>.  </li>
+<li>proot는 <strong>합성·자동화 공장</strong>.  </li>
+<li>이 파일럿 = 10초×6 이어붙이기 <strong>실전 테스트</strong>.</li>
+</ul>
+<p>— _Grok · v2 정정</p>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>

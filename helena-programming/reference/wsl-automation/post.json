@@ -1,0 +1,11 @@
+{
+  "account": "{{ACCOUNT_ID}}",
+  "blog_slug": "{{BLOG_SLUG}}",
+  "blog_name": "{{BLOG_NAME}}",
+  "title": "{{POST_TITLE}}",
+  "content": "<article class='book-root'>...단행본 HTML...</article>",
+  "tags": ["태그1", "태그2"],
+  "series": "{{SERIES_NAME}}",
+  "visibility": "public",
+  "generated": "{{GENERATED_DATE}}"
+}

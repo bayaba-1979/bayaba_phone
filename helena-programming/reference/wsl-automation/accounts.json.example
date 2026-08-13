@@ -1,0 +1,14 @@
+{
+  "__note__": "이 파일을 실제 계정 정보로 채우세요. 이 템플릿을 복사해서 사용 가능",
+  "password": "{{KAKAO_PASSWORD}}",
+  "accounts": [
+    {
+      "id": "my_account",
+      "email": "{{KAKAO_EMAIL}}",
+      "nickname": "Your Nickname",
+      "blogs": [
+        {"slug": "my-blog", "name": "My Blog", "topic": "Your Topic"}
+      ]
+    }
+  ]
+}

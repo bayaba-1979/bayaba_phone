@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#0f0f0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.json">
+<title>🎙 라디오 초대권</title>
+<style>
+:root{--bg:#0f0f0f;--surface:#1a1a1a;--border:#2a2a2a;--text:#e0e0e0;--muted:#888;--accent:#d4a853;--green:#4caf84;--red:#e0556a;--blue:#6ba4d6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,system-ui,sans-serif;background:var(--bg);color:var(--text);max-width:480px;margin:0 auto;padding:12px;line-height:1.5;padding-bottom:100px}
+h1{font-size:1.3rem;text-align:center;padding:20px 0 4px}
+.sub{color:var(--muted);font-size:0.78rem;text-align:center;margin-bottom:12px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;margin:10px 0}
+.card h2{font-size:0.95rem;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.stat-row{display:flex;gap:6px}
+.stat{flex:1;text-align:center;padding:10px 4px;background:var(--bg);border-radius:8px}
+.stat .n{font-size:1.3rem;font-weight:700;color:var(--accent)}
+.stat .l{font-size:0.68rem;color:var(--muted);margin-top:2px}
+.vlist{max-height:320px;overflow-y:auto}
+.vitem{display:grid;grid-template-columns:1fr auto;gap:2px 6px;padding:7px 0;border-bottom:1px solid var(--border);font-size:0.8rem;align-items:center}
+.vitem:last-child{border-bottom:none}
+.vtitle{font-weight:500}
+.vinfo{color:var(--muted);font-size:0.7rem;text-align:right}
+.tag{font-size:0.62rem;padding:2px 6px;border-radius:4px;background:var(--border);color:var(--muted);white-space:nowrap}
+.tag.date{background:#1a2a1a;color:var(--green)}
+.tag.piano{background:#2a1a2a;color:var(--blue)}
+.btn-row{display:flex;gap:6px;flex-wrap:wrap}
+.btn{padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .15s}
+.btn:active{border-color:var(--accent);color:var(--accent)}
+.btn.go{background:var(--accent);color:#000;border-color:var(--accent);font-weight:600}
+.btn:disabled{opacity:.3;pointer-events:none}
+.story{font-size:0.8rem;line-height:1.65;white-space:pre-wrap;background:var(--bg);padding:12px;border-radius:8px;max-height:300px;overflow-y:auto;margin-top:8px}
+.ch-tag{font-size:0.68rem;padding:2px 8px;border-radius:99px;background:var(--accent);color:#000;font-weight:600;display:inline-block;margin-bottom:8px}
+.log{font-family:monospace;font-size:0.7rem;max-height:160px;overflow-y:auto;background:var(--bg);padding:8px;border-radius:8px;color:var(--muted);white-space:pre-wrap}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;padding:10px 20px;border-radius:99px;font-size:0.85rem;font-weight:600;z-index:99;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.on{opacity:1}
+.status{display:inline-block;width:7px;height:7px;border-radius:50%}
+.status.ok{background:var(--green)}
+.spin{animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.empty{color:var(--muted);text-align:center;padding:24px 0}
+/* 선물함 */
+.gift-item{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;margin:8px 0}
+.gift-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.gift-story{font-size:0.78rem;line-height:1.55;color:var(--muted);margin:8px 0;max-height:80px;overflow:hidden;position:relative}
+.gift-story::after{content:'';position:absolute;bottom:0;left:0;right:0;height:24px;background:linear-gradient(transparent,var(--bg))}
+.gift-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.btn-sm{padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:0.72rem;cursor:pointer}
+.btn-sm:active{border-color:var(--accent);color:var(--accent)}
+.btn-sm.link{border-color:var(--blue);color:var(--blue)}
+.btn-sm.copy{background:var(--accent);color:#000;border-color:var(--accent);font-weight:600}
+.btn-sm.sent{background:var(--green);color:#000;border-color:var(--green)}
+.badge{font-size:0.6rem;padding:2px 7px;border-radius:99px;font-weight:600}
+.badge.pending{background:#3a2a1a;color:#d4a853}
+.badge.sent{background:#1a2a1a;color:var(--green)}
+footer{text-align:center;padding:20px 0;color:var(--muted);font-size:0.68rem}
+footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<h1>🎙 라디오 초대권</h1>
+<div class="sub">Yes24 → DeepSeek → TG 배달 &nbsp;<span id="dot" class="status ok"></span></div>
+
+<!-- 스탯 -->
+<div class="card">
+  <h2>📊 현황</h2>
+  <div class="stat-row">
+    <div class="stat"><div class="n" id="s-total">-</div><div class="l">공연</div></div>
+    <div class="stat"><div class="n" id="s-date">-</div><div class="l">날짜有</div></div>
+    <div class="stat"><div class="n">3</div><div class="l">채널</div></div>
+    <div class="stat"><div class="n" id="s-last">-</div><div class="l">마지막</div></div>
+  </div>
+</div>
+
+<!-- 공연 목록 -->
+<div class="card">
+  <h2>🎵 공연 <span style="font-size:0.7rem;color:var(--muted);margin-left:auto" id="v-count"></span></h2>
+  <div class="vlist" id="vlist"><div class="empty">🔄 로딩...</div></div>
+</div>
+
+<!-- 버튼 -->
+<div class="card">
+  <h2>⚡ 실행</h2>
+  <div class="btn-row">
+    <button class="btn" onclick="call('crawl')" id="btn-crawl">🕷 크롤링</button>
+    <button class="btn go" onclick="call('dispatch',{dry_run:true})" id="btn-dry">✍️ 사연만</button>
+    <button class="btn go" onclick="call('dispatch')" id="btn-go">🚀 전체실행</button>
+  </div>
+</div>
+
+<!-- 🎁 선물함 -->
+<div class="card" id="giftbox-card">
+  <h2>🎁 선물함 <span style="font-size:0.7rem;color:var(--muted);margin-left:auto" id="gift-count"></span></h2>
+  <div id="giftbox"><div class="empty">🔄 불러오는 중...</div></div>
+</div>
+
+<!-- 사연 미리보기 -->
+<div class="card" id="story-card" style="display:none">
+  <h2>📝 사연</h2>
+  <div id="story-content"></div>
+</div>
+
+<!-- 로그 -->
+<div class="card">
+  <h2>📋 로그</h2>
+  <div class="log" id="log"><div class="empty">서버 시작 대기...</div></div>
+</div>
+
+<footer>
+  <a href="https://github.com/helena751107/helena-programming/tree/main/apps/radio-ticket">GitHub ↗</a>
+  &nbsp;·&nbsp; TG: /radio /radio_box &nbsp;·&nbsp; :8766
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = '';
+
+async function api(path, method='GET', body=null) {
+  const opts = {method, headers:{'Content-Type':'application/json'}};
+  if (body) opts.body = JSON.stringify(body);
+  const r = await fetch(API + path, opts);
+  return r.json();
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('on');
+  setTimeout(() => t.classList.remove('on'), 2500);
+}
+
+function esc(s) { return String(s||'').replace(/[<>&]/g,c=>({'<':'<','>':'>','&':'&'}[c])); }
+
+async function load() {
+  // 공연 목록
+  try {
+    const v = await api('/api/venues');
+    if (v.venues) {
+      const dated = v.venues.filter(x => x.date && x.date.length>3);
+      document.getElementById('s-total').textContent = v.venues.length;
+      document.getElementById('s-date').textContent = dated.length;
+      document.getElementById('v-count').textContent = `(${v.venues.length}건)`;
+      renderVenues(v.venues);
+    }
+  } catch(e) { document.getElementById('vlist').innerHTML = '<div class="empty">서버 연결 안 됨</div>'; }
+
+  // 선물함
+  loadGiftbox();
+
+  // 로그
+  try {
+    const s = await api('/api/status');
+    if (s.log && s.log.length) {
+      document.getElementById('log').textContent = s.log.slice(-15).join('\n');
+      document.getElementById('s-last').textContent = s.last_run || s.log[s.log.length-1]?.slice(11,16) || '-';
+    }
+  } catch(e) {}
+}
+
+function renderVenues(items) {
+  const el = document.getElementById('vlist');
+  if (!items.length) { el.innerHTML = '<div class="empty">데이터 없음</div>'; return; }
+  el.innerHTML = items.map(p => {
+    const hasDate = p.date && p.date.length > 3;
+    const isPiano = (p.title||'').includes('피아노');
+    return `<div class="vitem">
+      <span class="vtitle">${esc(p.title||'')}</span>
+      <span class="tag ${hasDate?'date':isPiano?'piano':''}">${esc(hasDate?p.date:(p.venue||'미정'))}</span>
+      <span class="vinfo">${esc(p.venue||'')}</span>
+    </div>`;
+  }).join('');
+}
+
+// ── 선물함 ────────────────────────────────────────
+let _giftboxData = [];
+
+async function loadGiftbox() {
+  try {
+    const r = await api('/api/stories');
+    if (r.stories) {
+      _giftboxData = r.stories.reverse(); // 최신순
+      document.getElementById('gift-count').textContent = `(${_giftboxData.length}건)`;
+      renderGiftbox(_giftboxData);
+    }
+  } catch(e) {
+    document.getElementById('giftbox').innerHTML = '<div class="empty">서버 연결 안 됨</div>';
+  }
+}
+
+function renderGiftbox(items) {
+  const el = document.getElementById('giftbox');
+  if (!items.length) {
+    el.innerHTML = '<div class="empty">📭 아직 생성된 사연이 없어요<br><small style="color:var(--muted)">「✍️ 사연만」 버튼으로 첫 사연을 만들어보세요</small></div>';
+    return;
+  }
+  el.innerHTML = items.slice(0, 20).map(s => {
+    const chTag = s.channel_type === 'classic' ? '🎻' : s.channel_type === 'gayo' ? '🎤' : '🎸';
+    const sentClass = s.sent ? 'sent' : 'pending';
+    const sentLabel = s.sent ? '✅ 제출완료' : '📤 미제출';
+    return `<div class="gift-item" id="gift-${esc(s.id)}">
+      <div class="gift-head">
+        <span>${chTag} <b style="font-size:0.82rem">${esc(s.channel)}</b></span>
+        <span class="badge ${sentClass}">${sentLabel}</span>
+      </div>
+      <div style="font-size:0.75rem;color:var(--accent)">${esc(s.performance||'')} · ${esc(s.location||'')}</div>
+      <div class="gift-story">${esc((s.story||'').slice(0,200))}</div>
+      <div class="gift-actions">
+        <button class="btn-sm copy" onclick="copyFullStory('${esc(s.id)}')" title="전체 사연 복사">📋 사연복사</button>
+        ${s.apply_url ? `<button class="btn-sm link" onclick="openLink('${esc(s.apply_url)}')" title="제출 페이지 열기">🔗 제출페이지</button>` : ''}
+        ${!s.sent ? `<button class="btn-sm" onclick="markSent('${esc(s.id)}')" title="제출 완료로 표시">✅ 제출했어요</button>` : ''}
+      </div>
+      <div style="font-size:0.65rem;color:var(--muted);margin-top:4px">${esc((s.generated_at||'').slice(0,16))} | ${esc(s.apply_instruction||'')}</div>
+    </div>`;
+  }).join('');
+}
+
+function copyFullStory(id) {
+  const item = _giftboxData.find(s => s.id === id);
+  if (!item) return;
+  // 전체 스토리는 API로 다시 가져와야 함 — 우선 보이는 것 복사
+  const storyText = item.story || '';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(storyText).then(() => toast('📋 사연이 클립보드에 복사됐어요! 이제 제출 페이지에 붙여넣으세요.'));
+  } else {
+    // fallback: textarea trick
+    const ta = document.createElement('textarea');
+    ta.value = storyText;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    toast('📋 사연 복사 완료!');
+  }
+}
+
+function openLink(url) {
+  toast('🔗 제출 페이지로 이동합니다');
+  window.open(url, '_blank');
+}
+
+async function markSent(id) {
+  try {
+    const r = await api('/api/stories/' + encodeURIComponent(id) + '/sent', 'POST');
+    if (r.ok) {
+      // UI 업데이트
+      const item = _giftboxData.find(s => s.id === id);
+      if (item) { item.sent = true; item.sent_at = new Date().toISOString(); }
+      renderGiftbox(_giftboxData);
+      toast('✅ 제출 완료로 표시했어요!');
+    } else {
+      toast('❌ 표시 실패');
+    }
+  } catch(e) {
+    toast('❌ 서버 오류');
+  }
+}
+
+async function call(endpoint, body=null) {
+  const btn = document.getElementById(body ? (body.dry_run ? 'btn-dry' : 'btn-go') : 'btn-crawl');
+  btn.disabled = true;
+  toast('⚡ 실행 중...');
+
+  try {
+    let r;
+    if (endpoint === 'crawl') {
+      r = await api('/api/crawl');
+      if (r.venues) { renderVenues(r.venues); document.getElementById('s-total').textContent = r.count; }
+    } else if (endpoint === 'dispatch') {
+      r = await api('/api/dispatch', 'POST', body || {});
+      // 사연 표시
+      if (body && body.dry_run && r.stdout) {
+        showStories(r.stdout);
+      }
+    }
+    toast(r.ok ? '✅ 완료' : '❌ ' + (r.error || '실패'));
+    setTimeout(load, 800);
+    // 즉시 선물함 새로고침
+    setTimeout(loadGiftbox, 400);
+  } catch(e) {
+    toast('❌ 서버 오류');
+  }
+  btn.disabled = false;
+}
+
+function showStories(stdout) {
+  const card = document.getElementById('story-card');
+  const content = document.getElementById('story-content');
+  card.style.display = 'block';
+
+  // stdout에서 사연 파싱
+  const parts = stdout.split(/={20,}/);
+  let html = '';
+  for (const p of parts) {
+    const lines = p.trim().split('\n');
+    if (lines.length < 3) continue;
+    const header = lines[0].trim();
+    const story = lines.slice(1).join('\n').trim();
+    if (story.length > 30) {
+      html += `<div class="ch-tag">${esc(header)}</div>`;
+      html += `<div class="story">${esc(story.slice(0, 800))}${story.length>800?'...':''}</div>`;
+    }
+  }
+  content.innerHTML = html || '<div class="empty">사연 생성 중...</div>';
+}
+
+// Init
+load();
+setInterval(load, 60000);
+
+// PWA 등록
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-08-13 02:12:17 KST",
+  "host": "localhost",
+  "kernel": "6.17.0-PRoot-Distro",
+  "grade": "B",
+  "battery": {
+    "percentage": 33,
+    "temperature": 37.1,
+    "status": "DISCHARGING",
+    "health": "GOOD",
+    "plugged": "UNPLUGGED"
+  },
+  "wifi": {
+    "ssid": "KT_GiGA_5G_61A9",
+    "ip": "61.83.218.237",
+    "rssi": -48,
+    "link_speed": 680
+  },
+  "networks": {
+    "google": 200,
+    "github": 200,
+    "gh_pages": 200
+  },
+  "results": {
+    "pass": 28,
+    "warn": 4,
+    "fail": 1,
+    "skip": 1,
+    "total": 34
+  },
+  "memory": {
+    "total_mb": 7200,
+    "available_mb": 2530,
+    "free_mb": 438,
+    "swap_used_mb": 2035,
+    "swap_total_mb": 4095,
+    "swap_pct": 49
+  },
+  "processes": {
+    "claude_sessions": 2,
+    "orphan_scanners": 0
+  },
+  "mcp": {
+    "port": 3456,
+    "http_status": 000000,
+    "tools": 18
+  }
+}

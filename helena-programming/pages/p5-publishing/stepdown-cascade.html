@@ -1,0 +1,370 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P5 · Ch5.2</div><h1>Step-Down Cascade</h1>
+<div class="subtitle">출판·배포 — 만든 걸 세상에</div></div>
+<div class="hero">
+<div class="eyebrow">Step-Down Cascade v1.0 · 2026-08-11</div>
+<h1>🪜 Step-Down Cascade — 제약을 템포로 바꾸는 프로듀싱 시퀀스</h1>
+<div class="subtitle">업로드 한도는 제약이 아니라 <strong>페이싱 메트로놈</strong>이다<br>Pages(완결본) → Tistory(일별 드립) → YouTube(영상화) → Naver(링크 퀼트)<br>한 콘텐츠가 4단계를 거치며 진화한다</div>
+</div>
+
+<div class="counter-bar">
+<div class="counter"><div class="num highlight-num st0">93</div><div class="label">Pages (git push)</div></div>
+<div class="counter"><div class="num highlight-num st1">32</div><div class="label">Tistory (~15/day)</div></div>
+<div class="counter"><div class="num highlight-num st2">32</div><div class="label">YouTube (PD Pipe)</div></div>
+<div class="counter"><div class="num highlight-num st3">8</div><div class="label">Naver (weekly)</div></div>
+<div class="counter"><div class="num">7</div><div class="label">Days total</div></div>
+<div class="counter"><div class="num">~30min</div><div class="label">Boss/day</div></div>
+</div>
+
+<section>
+<div class="info-box green"><strong>💡 핵심 통찰:</strong> 보통 사람은 "15건 제한? 짜증나. 어떻게 우회하지?"라고 생각한다. 이 시스템은 <strong>"15건이면 하루 템포가 생기네. 이 템포에 나머지 플랫폼을 맞추자"</strong>라고 생각한다. 제약을 우회하는 게 아니라, 제약을 <strong>지휘자</strong>로 임명하는 것.</div>
+</section>
+
+<section>
+<h2>🪜 4단계 스텝다운 캐스케이드</h2>
+
+<div class="cascade">
+
+<div class="cascade-step">
+<div class="cs-num s0">0</div>
+<div class="cs-body">
+<div class="cs-title"><span class="chip chip-pages">GitHub Pages</span> 완결 교과서 — Day 0, git push 한 방</div>
+<div class="cs-meta">93페이지 · 8Part · 31Chapter · 소요시간 ~5분</div>
+<div class="cs-desc">모든 콘텐츠의 <strong>소스 오브 트루스</strong>. 풀인터랙티브 HTML (JS 복사버튼·PWA·다크모드). 한 번에 전부 배포. 제약 없음 — git push가 전부.</div>
+</div>
+</div>
+
+<div class="cs-arrow">⬇️ 각 Pages Chapter가 Tistory 원고가 된다</div>
+
+<div class="cascade-step">
+<div class="cs-num s1">1</div>
+<div class="cs-body">
+<div class="cs-title"><span class="chip chip-tistory">Tistory</span> 사고흐름 — Day 1~3, ~15/day</div>
+<div class="cs-meta">32건 · CSS-only 풀인터랙티브 · 하루 15건이 <strong>페이싱 메트로놈</strong></div>
+<div class="cs-desc"><strong>이 단계가 전체 시퀀스의 템포를 결정한다.</strong> 15건/일 제한이 "오늘 뭘 올릴까"를 강제 → 자연스러운 편집 캘린더. 각 글은 사고흐름·결정 과정·실전 교훈. Pages의 교과서를 "이야기"로 다시 쓴 버전.</div>
+</div>
+</div>
+
+<div class="cs-arrow">⬇️ 각 Tistory 글 URL → PD Pipeline 입력</div>
+
+<div class="cascade-step">
+<div class="cs-num s2">2</div>
+<div class="cs-body">
+<div class="cs-title"><span class="chip chip-youtube">YouTube</span> 숏폼 튜토리얼 — Day 2~5, Tistory 발행 다음날</div>
+<div class="cs-meta">32건 · PD Pipeline V13 · 1080×1920 · Edge TTS YuJinNeural</div>
+<div class="cs-desc">각 Tistory 글 URL을 PD Pipeline에 넣어 숏폼 영상으로 변환. <strong>텍스트가 영상이 된다.</strong> 영상 설명란에 Tistory 링크 + Pages 링크 → 크로스링킹. 유튜브 쇼츠 피드가 두 번째 유입 채널.</div>
+</div>
+</div>
+
+<div class="cs-arrow">⬇️ 한 주간의 YouTube + Tistory 링크를 엮어서</div>
+
+<div class="cascade-step">
+<div class="cs-num s3">3</div>
+<div class="cs-body">
+<div class="cs-title"><span class="chip chip-naver">Naver</span> 링크 퀼트 웹진 — Day 3~7, 주 1~2회</div>
+<div class="cs-meta">~8건 · Marine Quilt 시스템 · TG 패키지 → 복붙 5분</div>
+<div class="cs-desc">한 주간 만들어진 YouTube 영상 + Tistory 글을 <strong>테마로 엮어서 큐레이션</strong>. "이번 주에는 이런 걸 배웠습니다" 형식. 네이버가 디스커버리 허브 + SEO 진입점. 여기서 유입된 독자가 Tistory·YouTube·Pages로 흩어진다.</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section>
+<h2>📐 왜 이 순서인가 — 콘텐츠 진화의 논리</h2>
+
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>단계</th><th>플랫폼</th><th>형식</th><th>제약</th><th>콘텐츠 상태</th></tr></thead>
+<tbody>
+<tr><td><strong>Step 0</strong></td><td><span class="chip chip-pages">Pages</span></td><td>완결 교과서</td><td>없음</td><td>📄 텍스트 + JS 인터랙션</td></tr>
+<tr><td><strong>Step 1</strong></td><td><span class="chip chip-tistory">Tistory</span></td><td>사고흐름 이야기</td><td>~15/일, JS 금지</td><td>📄→📖 CSS-only 인터랙티브 글</td></tr>
+<tr><td><strong>Step 2</strong></td><td><span class="chip chip-youtube">YouTube</span></td><td>숏폼 영상</td><td>quota 10,000/일 (~6건)</td><td>📖→🎬 1080×1920 시각적 튜토리얼</td></tr>
+<tr><td><strong>Step 3</strong></td><td><span class="chip chip-naver">Naver</span></td><td>큐레이션 웹진</td><td>없음 (수동)</td><td>🎬→🗺️ 테마별 디스커버리 허브</td></tr>
+</tbody></table></div>
+
+<div class="info-box purple"><strong>🔑 진화의 방향:</strong> 텍스트 → 인터랙티브 글 → 영상 → 네트워크. 각 단계가 이전 단계의 콘텐츠를 <strong>더 풍부한 형식으로 재해석</strong>한다. 같은 내용이지만 매체가 달라지면서 새로운 독자층에 도달. <strong>한 번 만들고 네 번 써먹는 구조.</strong></div>
+</section>
+
+<section>
+<h2>📅 7일 실행 스케줄</h2>
+
+<div class="tbl-wrap"><table class="daily-table">
+<thead><tr><th>Day</th><th><span class="chip chip-pages">Pages</span></th><th><span class="chip chip-tistory">Tistory</span></th><th><span class="chip chip-youtube">YouTube</span></th><th><span class="chip chip-naver">Naver</span></th><th>Boss 시간</th></tr></thead>
+<tbody>
+<tr><td class="day-label">Day 0<br><span style="font-size:.7rem;color:var(--t3)">오늘</span></td>
+<td><strong>93건 빌드 + push</strong><br>Pages 배포 완료</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>~5분</td></tr>
+<tr><td class="day-label">Day 1<br><span style="font-size:.7rem;color:var(--t3)">내일</span></td>
+<td>✅ 완료</td>
+<td><strong>Flow 5 + Flow 6 일부</strong><br>실전교훈 8건 + 기획 4건<br>총 12건 발행</td>
+<td>—</td>
+<td>—</td>
+<td>~30분</td></tr>
+<tr><td class="day-label">Day 2</td>
+<td>✅ 완료</td>
+<td><strong>Flow 1 + Flow 3</strong><br>PD개발일지 6건 + 인프라 5건<br>총 11건 발행</td>
+<td><strong>Day 1 Tistory 12건</strong><br>→ PD Pipeline 배치<br>(백그라운드)</td>
+<td>—</td>
+<td>~25분</td></tr>
+<tr><td class="day-label">Day 3</td>
+<td>✅ 완료</td>
+<td><strong>Flow 2 + Flow 4 + 나머지</strong><br>목소리 4건 + 돌봄 4건 + 기타<br>총 ~9건 발행</td>
+<td><strong>Day 2 Tistory 11건</strong><br>→ PD Pipeline 배치</td>
+<td>—</td>
+<td>~20분</td></tr>
+<tr><td class="day-label">Day 4</td>
+<td>✅ 완료</td>
+<td>✅ 32건 완료</td>
+<td><strong>Day 3 Tistory 9건</strong><br>→ PD Pipeline 배치</td>
+<td><strong>Marine Quilt #1</strong><br>Day 1~3 YouTube 링크<br>+ Tistory 링크 퀼트</td>
+<td>~15분</td></tr>
+<tr><td class="day-label">Day 5</td>
+<td>✅ 완료</td>
+<td>✅ 완료</td>
+<td><strong>나머지 영상</strong><br>+ upload to YT</td>
+<td>—</td>
+<td>~10분</td></tr>
+<tr><td class="day-label">Day 6~7</td>
+<td>✅ 완료</td>
+<td>✅ 완료</td>
+<td>✅ 완료</td>
+<td><strong>Marine Quilt #2</strong><br>주간 종합 웹진</td>
+<td>~10분</td></tr>
+</tbody></table></div>
+</section>
+
+<section>
+<h2>🛠️ 단계별 실행 명령어</h2>
+
+<details class="acc"><summary><span class="chip chip-pages">Step 0</span> Pages 빌드 & 배포 — 한 번에 끝</summary><div class="acc-body">
+<p>모든 페이지는 <code>helena-programming/pages/</code> 아래 Part·Chapter 구조로 빌드된다.</p>
+<div class="copy-wrap"><pre><code># 1. 페이지 빌드 (Claude Code)
+cd /root/work/helena-programming
+python3 scripts/md_to_page.py --all  # 전체 93건 변환
+
+# 2. 배포
+git add pages/
+git commit -m "feat: 93-page textbook deploy (Step 0 cascade)"
+git push</code></pre></div>
+<p>→ <strong>완료.</strong> 5분 후 <code>helena751107.github.io/helena-programming/pages/</code> 에서 확인.</p>
+</div></details>
+
+<details class="acc"><summary><span class="chip chip-tistory">Step 1</span> Tistory 발행 — 하루 12~15건</summary><div class="acc-body">
+<p><strong>Paste Pipeline v5.1:</strong> CC가 HTML 생성 → minify → TG .txt 전송 → Boss가 복사·붙여넣기.</p>
+<div class="copy-wrap"><pre><code># Claude Code에 명령:
+"오늘 Tistory Day 1 분량 준비해줘. Flow 5(8건) + Flow 6(4건).
+ CSS-only 인터랙티브 HTML로 만들고 TG로 .txt 전송."</code></pre></div>
+<p><strong>건당 2~3분.</strong> TG에서 .txt 열기 → 전체 복사 → 티스토리 HTML 모드에 붙여넣기 → 카테고리 선택 → 발행.</p>
+<div class="info-box gold"><strong>⚠️ 주의:</strong> 하루 15건 초과 금지. 10~12건 권장. 신규 블로그는 보수적으로.</div>
+</div></details>
+
+<details class="acc"><summary><span class="chip chip-youtube">Step 2</span> YouTube 영상화 — PD Pipeline</summary><div class="acc-body">
+<p>각 Tistory 글 URL을 PD Pipeline에 입력. <code>produce_pd.sh</code> V13.</p>
+<div class="copy-wrap"><pre><code># 단일 영상 제작 (MCP):
+# pd_parse_url(url="https://galaxys21-pwuser.tistory.com/123")
+# → pd_produce(ep_id="pd_xxx")
+
+# CLI 배치:
+for url in $(cat tistory_urls_day1.txt); do
+  EP="pd_$(date +%s)"
+  bash scripts/produce_pd.sh "$EP" "$url"
+done
+
+# YouTube 업로드:
+python3 scripts/yt_upload.py --channel phone \
+  --title "제목" --desc "설명란 (Tistory 링크 포함)" \
+  out/pd_xxx/pd_xxx_playable.mp4</code></pre></div>
+<p><strong>설명란 템플릿:</strong></p>
+<div class="copy-wrap"><pre><code>📖 원본 글: https://galaxys21-pwuser.tistory.com/XXX
+📚 전체 교재: https://helena751107.github.io/helena-programming/pages/
+🔔 구독: @S21Phone
+
+#S21 phone #AI workstation #Termux #DeepSeek #저사양폰생존기</code></pre></div>
+</div></details>
+
+<details class="acc"><summary><span class="chip chip-naver">Step 3</span> Naver 링크 퀼트 — Marine Quilt</summary><div class="acc-body">
+<p><strong>Marine Quilt 시스템</strong> (<code>/root/work/naver/quilt/</code>) 사용. Claude Code가 TG 패키지 생성 → Boss가 5분 만에 붙여넣기.</p>
+<div class="copy-wrap"><pre><code># Claude Code에 명령:
+"이번 주 YouTube 영상 12개 + Tistory 글 12개의 링크를
+ Marine Quilt 템플릿(weekly-seosik-paste.txt)에 채워서
+ TG로 보내줘. 테마: 'S21 폰 하나로 AI 워크스테이션 구축하기'"</code></pre></div>
+<p>Boss 할 일: (1) TG에서 패키지 열기 (2) Naver 스마트에디터 ONE 열기 (3) 제목·본문·유튜브 URL 붙여넣기 (4) 발행.</p>
+</div></details>
+</section>
+
+<section>
+<h2>🧠 메트로놈 원리 — 왜 이게 작동하는가</h2>
+
+<div class="grid2">
+<div class="card">
+<div class="card-hd">🎯 제약 = 편집 캘린더</div>
+<div class="card-dsc">무제한이면 "언제 올리지?"라는 질문이 생긴다. 15/일 제한은 "오늘 12건, 내일 11건, 모레 9건"이라는 자연스러운 편집 리듬을 강제한다. <strong>결정 피로가 사라진다.</strong></div>
+</div>
+<div class="card">
+<div class="card-hd">🔄 한 번 만들고 네 번 써먹기</div>
+<div class="card-dsc">원본 콘텐츠(노트북 md) 하나가 Pages 교재 → Tistory 이야기 → YouTube 영상 → Naver 웹진으로 진화. <strong>같은 내용, 다른 매체, 다른 독자.</strong></div>
+</div>
+<div class="card">
+<div class="card-hd">🔗 자동 크로스링킹</div>
+<div class="card-dsc">각 YouTube 설명란 → Tistory 링크. 각 Tistory 글 → Pages 링크. 각 Naver 웹진 → YouTube 플레이리스트. <strong>SEO 시너지가 누적된다.</strong></div>
+</div>
+<div class="card">
+<div class="card-hd">🧵 콘텐츠 진화 사슬</div>
+<div class="card-dsc">텍스트가 영상이 되고, 영상이 네트워크가 된다. 각 단계가 이전보다 더 풍부한 형식. <strong>한 번에 완벽할 필요 없이, 단계마다 개선.</strong></div>
+</div>
+</div>
+
+<div class="info-box"><strong>📐 설계 원칙:</strong> 이 시스템의 핵심은 "한 플랫폼에서 모든 걸 다 하려고 하지 않는 것"이다. Pages는 완결성, Tistory는 일관성, YouTube는 접근성, Naver는 발견성 — <strong>각 플랫폼의 강점에 집중하고, 약점은 링크로 보완한다.</strong></div>
+</section>
+
+<section>
+<h2>📋 일별 체크리스트</h2>
+
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>체크 항목</th><th>Day 0</th><th>Day 1</th><th>Day 2</th><th>Day 3</th><th>Day 4</th><th>Day 5~7</th></tr></thead>
+<tbody>
+<tr><td>Pages 93건 배포</td><td>☐</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>Tistory 발행 (건수)</td><td>-</td><td>12</td><td>11</td><td>9</td><td>-</td><td>-</td></tr>
+<tr><td>Tistory 누적</td><td>0/32</td><td>12/32</td><td>23/32</td><td>32/32</td><td>✅</td><td>✅</td></tr>
+<tr><td>YouTube PD 제작</td><td>-</td><td>-</td><td>12건</td><td>11건</td><td>9건</td><td>-</td></tr>
+<tr><td>YouTube 업로드</td><td>-</td><td>-</td><td>-</td><td>6건</td><td>6건</td><td>완료</td></tr>
+<tr><td>Naver Marine Quilt</td><td>-</td><td>-</td><td>-</td><td>-</td><td>#1</td><td>#2</td></tr>
+<tr><td>크로스링크 확인</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td>스팸 차단 여부</td><td>-</td><td>☐</td><td>☐</td><td>☐</td><td>-</td><td>-</td></tr>
+<tr><td>TG 보고</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+</tbody></table></div>
+</section>
+
+<section>
+<h2>🔬 자기 기술적(Self-Describing) 문서</h2>
+
+<div class="info-box green"><strong>🪞 이 페이지 자체가 Step-Down Cascade의 첫 번째 증거다:</strong> 이 HTML은 <strong>GitHub Pages용</strong>으로 작성되었고(JS 포함), 동시에 <strong>Tistory 1호 글로 발행</strong>될 CSS-only 버전도 존재한다(TG로 전송). 이어서 이 페이지의 내용을 PD Pipeline에 넣어 <strong>YouTube 숏폼</strong>을 만들고, 그 영상을 <strong>Naver Marine Quilt</strong>로 엮을 것이다. <strong>매뉴얼이 자기 자신의 발행 방법을 실증한다.</strong></div>
+</section>
+
+<div class="footer">
+<p>🪜 Step-Down Cascade v1.0 · 2026-08-11 (_Claude)<br>
+🌐 <a href="https://helena751107.github.io/helena-programming/" style="color:var(--a)">Hub (Pages)</a> · <a href="https://galaxys21-pwuser.tistory.com" style="color:var(--a)">Tistory</a> · <a href="https://youtube.com/@S21Phone" style="color:var(--a)">YouTube</a> · <a href="https://blog.naver.com/helena1975" style="color:var(--a)">Naver</a><br>
+93 Pages + 32 Tistory + 32 YouTube + 8 Naver = 165개 콘텐츠 · 7일 · 하루 30분 · S21 단독</p>
+</div>
+
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>

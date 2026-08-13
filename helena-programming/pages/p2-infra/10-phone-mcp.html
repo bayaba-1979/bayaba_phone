@@ -1,0 +1,433 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P2 · Ch2.3</div><h1>Phone MCP·하드웨어 제어</h1>
+<div class="subtitle">인프라 — 연결과 자동화</div></div>
+<h1>phone-mcp-server — 핸드폰 통제 MCP</h1>
+<blockquote>
+<p>순수 Termux:API 기반. 루트/ADB/Shizuku 불필요.
+설치일: 2026-07-24</p>
+</blockquote>
+<h2>상태</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>서버</td>
+<td><code>http://localhost:3456/mcp</code></td>
+</tr>
+<tr>
+<td>상태</td>
+<td>✅ <strong>검증 완료</strong> (2026-07-24)</td>
+</tr>
+<tr>
+<td>도구</td>
+<td>18개</td>
+</tr>
+<tr>
+<td>소스</td>
+<td><code>github.com/htekdev/phone-mcp-server</code></td>
+</tr>
+</tbody>
+</table>
+<h2>설치 위치</h2>
+<table>
+<thead>
+<tr>
+<th>파일</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/tmp/phone-mcp-server/</code></td>
+<td>소스 코드 (clone)</td>
+</tr>
+<tr>
+<td><code>/root/work/phone-mcp.sh</code></td>
+<td>실행 스크립트</td>
+</tr>
+<tr>
+<td><code>/root/.claude/settings.json</code></td>
+<td>MCP 등록 (Streamable HTTP)</td>
+</tr>
+<tr>
+<td><code>~/.bashrc</code></td>
+<td>세션 자동 시작</td>
+</tr>
+</tbody>
+</table>
+<h2>사용 가능한 도구</h2>
+<table>
+<thead>
+<tr>
+<th>도구</th>
+<th>설명</th>
+<th>권한 필요</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>send_sms</code></td>
+<td>SMS 발송</td>
+<td>SMS</td>
+</tr>
+<tr>
+<td><code>read_sms</code></td>
+<td>SMS 수신함 조회</td>
+<td>SMS</td>
+</tr>
+<tr>
+<td><code>get_contacts</code></td>
+<td>연락처 목록</td>
+<td>연락처</td>
+</tr>
+<tr>
+<td><code>get_location</code></td>
+<td>GPS 위치</td>
+<td>위치</td>
+</tr>
+<tr>
+<td><code>get_battery</code></td>
+<td>배터리 잔량/온도</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>get_clipboard</code></td>
+<td>클립보드 읽기</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>set_clipboard</code></td>
+<td>클립보드 쓰기</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>take_photo</code></td>
+<td>사진 촬영</td>
+<td>카메라</td>
+</tr>
+<tr>
+<td><code>get_call_log</code></td>
+<td>통화 기록</td>
+<td>통화기록</td>
+</tr>
+<tr>
+<td><code>make_call</code></td>
+<td>전화 걸기</td>
+<td>전화</td>
+</tr>
+<tr>
+<td><code>get_wifi_info</code></td>
+<td>WiFi 정보</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>flashlight</code></td>
+<td>플래시 ON/OFF</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>vibrate</code></td>
+<td>진동</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>send_notification</code></td>
+<td>알림 표시</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>get_volume</code></td>
+<td>볼륨 확인</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>set_volume</code></td>
+<td>볼륨 조절</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>record_audio</code></td>
+<td>음성 녹음</td>
+<td>마이크</td>
+</tr>
+<tr>
+<td><code>device_info</code></td>
+<td>종합 디바이스 정보</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>shell</code></td>
+<td>셸 명령 (보안 필터)</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2>시작 방법</h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 수동 시작</span>
+bash<span class="w"> </span>~/work/phone-mcp.sh<span class="w"> </span>--port<span class="w"> </span><span class="m">3456</span>
+
+<span class="c1"># 자동 시작 (.bashrc에 등록됨)</span>
+<span class="c1"># proot Ubuntu 로그인 시 자동 실행</span>
+</code></pre></div>
+
+<h2>주의사항</h2>
+<ul>
+<li>최초 각 API 사용 시 폰에서 권한 팝업 허용 필요</li>
+<li>SMS/RCS는 읽을 수 없음 (SMS/MMS만)</li>
+<li>같은 WiFi 네트워크 필요</li>
+<li>settings.json 수정 후 cc 재시작해야 MCP 도구 활성화됨</li>
+<li><strong>⭐ 필수: <code>termux-api</code> 패키지 설치</strong> — <code>pkg install termux-api</code>를 Termux에서 실행해야 termux-battery-status 등 CLI 도구가 설치됨</li>
+<li>MCP 서버는 <code>phone-mcp.sh</code> wrapper로 실행해야 PATH에 Termux 바이너리가 포함됨</li>
+<li>Termux:API 안드로이드 앱 (APK)은 F-Droid 또는 GitHub Releases에서 별도 설치 필요</li>
+</ul>
+<h2>참고</h2>
+<ul>
+<li>UI 화면 클릭(tap_screen)은 이 서버에서 지원 안 함</li>
+<li>화면 자동화 필요 시 xlisp/termux-mcp-server 필요 (ADB 권한 요구)</li>
+<li>루팅 금지 조건으로 인해 xlisp 계열은 설치 보류</li>
+</ul>
+<h2>Domain vs Codomain — 폰 통제 경계선 분석</h2>
+<blockquote>
+<p>분석일: 2026-07-24 | 근거: 실제 도구 목록 + Android SELinux 권한 모델</p>
+</blockquote>
+<h3>Domain ✅ (가능 — Termux:API가 공식 허용)</h3>
+<div class="codehilite"><pre><span></span><code>백그라운드 API 통제 (18개 도구)
+
+📡 Read-only 센서
+  • 배터리(잔량/온도)  • WiFi 정보
+  • GPS 위치            • 디바이스 정보
+  • 볼륨 상태
+
+📨 메시징
+  • SMS 발송/수신함 조회  • 연락처 목록
+  • 통화 기록 조회         • 전화 걸기
+
+🛠️ 단순 시스템 액션
+  • 플래시 ON/OFF     • 진동 울리기
+  • 볼륨 조절          • 알림 표시
+  • 클립보드 읽기/쓰기  • 사진 촬영 / 음성 녹음
+  • 셸 명령 (필터링됨)
+</code></pre></div>
+
+<h3>Codomain ❌ (절대 불가능 — OS가 차단)</h3>
+<div class="codehilite"><pre><span></span><code>GUI 조작 = 완전히 닫힘 (0%)
+
+✗ 화면 터치 주입 (input tap)
+✗ 앱 내부 탐색/조작
+✗ 스크린샷 획득 + 분석 → 행동
+✗ 시스템 설정 변경
+
+원인: Android SELinux + 권한 모델
+→ input tap = root/ADB only
+→ root = 삼성페이/뱅킹앱 보안 깨짐
+</code></pre></div>
+
+<h3>경계선의 본질</h3>
+<div class="codehilite"><pre><span></span><code>백그라운드 API (Termux:API)
+    ─── 완전 통제 가능 ───
+    SMS · 센서 · 클립보드 · 알림 · 촬영
+    ↑ 앱 수준에서 OS가 공개한 API
+    ↑ 뱅킹앱과 충돌 없음
+
+        ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+            ▲ 이 선은 절대 못 넘음 ▲
+        ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+GUI 조작 (터치 주입)
+    ─── 완전히 닫힘 ───
+    tap_screen · swipe · 앱 내 탐색
+    ↑ root 또는 ADB 필요
+    ↑ 또는 Accessibility Service (앱 제작 필요)
+    ↑ 뱅킹앱 안전과 공존 불가 (root)
+</code></pre></div>
+
+<h3>유일한 합법 경로: Accessibility Service</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>현재(root/ADB)</th>
+<th>Accessibility Service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>삼성페이 안전</td>
+<td>❌ (root)</td>
+<td>✅ (이론상)</td>
+</tr>
+<tr>
+<td>tap/swipe 가능</td>
+<td>✅ (ADB)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>별도 APK 필요</td>
+<td>❌</td>
+<td>✅ (앱 제작 필요)</td>
+</tr>
+<tr>
+<td>공사 규모</td>
+<td>0줄</td>
+<td>수천 줄 + 플레이스토어 배포</td>
+</tr>
+<tr>
+<td>지금 단계 적합성</td>
+<td>❌ (루팅=금지)</td>
+<td>❌ (오버엔지니어링)</td>
+</tr>
+</tbody>
+</table>
+<h3>현재 결론</h3>
+<blockquote>
+<p><strong>지금 폰 = 완벽한 "센서+메신저 노드"</strong>
+백그라운드 API 통제는 거의 100% 열렸고,
+GUI 화면 조작은 0%로 완전히 닫혀 있다.
+GUI 통제가 진짜 필요해지면 그때 Accessibility Service 트랙 별도 검토.</p>
+</blockquote>
+<hr />
+<h2>현재 검증 상태 (2026-07-25)</h2>
+<table>
+<thead>
+<tr>
+<th>카테고리</th>
+<th>도구</th>
+<th>검증</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>배터리</td>
+<td>get_battery</td>
+<td>✅ 85%·38.5°C·GOOD</td>
+</tr>
+<tr>
+<td>WiFi</td>
+<td>get_wifi_info</td>
+<td>✅ RSSI -49dBm</td>
+</tr>
+<tr>
+<td>카메라</td>
+<td>take_photo</td>
+<td>✅ 4대 인식</td>
+</tr>
+<tr>
+<td>플래시</td>
+<td>flashlight on/off</td>
+<td>✅ 하드웨어 제어</td>
+</tr>
+<tr>
+<td>SMS</td>
+<td>send_sms·read_sms</td>
+<td>⚠️ 미검증</td>
+</tr>
+<tr>
+<td>GPS</td>
+<td>get_location</td>
+<td>⚠️ 실내 제한</td>
+</tr>
+<tr>
+<td>클립보드</td>
+<td>get/set_clipboard</td>
+<td>✅ 읽기·쓰기</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>핵심:</strong> 백그라운드 API 100% 통제 가능. GUI 조작(tap_screen)은 0%.
+그래서 티스토리·네이버 자동화는 Playwright(브라우저 레벨)로, MCP는 폰 하드웨어만.</p>
+</blockquote>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>

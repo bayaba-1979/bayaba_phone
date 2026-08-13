@@ -1,0 +1,235 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P3 · Ch3.2</div><h1>P0 URL→콘텐츠 이해</h1>
+<div class="subtitle">PD Pipeline — URL 하나로 숏폼 영상</div></div>
+<h1>72 · PD 영상 표준 v2 확정 (LOCK) (_Grok)</h1>
+<blockquote>
+<p>Boss 2026-08-06: 「여기로 버전 확정. 이게 표준. 매번 동일하게 작업되게 저장.」</p>
+</blockquote>
+<hr />
+<h2>정본</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CURRENT</strong></td>
+<td><code>configs/video_pd_pipeline_CURRENT.json</code> → <strong>v2</strong></td>
+</tr>
+<tr>
+<td><strong>스펙</strong></td>
+<td><code>configs/video_pd_pipeline_v2.json</code></td>
+</tr>
+<tr>
+<td><strong>엔트리</strong></td>
+<td><code>bash scripts/produce_pd.sh [ep] [url]</code></td>
+</tr>
+<tr>
+<td><strong>v1</strong></td>
+<td><code>superseded</code> — 신규 작업 금지</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>매번 같은가? → <strong>예 (엔트리 1개 + 상수 핀)</strong></h2>
+<p>한 줄만 치면 동일 파이프:</p>
+<div class="codehilite"><pre><span></span><code>bash<span class="w"> </span>scripts/produce_pd.sh<span class="w"> </span>pd_intro
+<span class="c1"># 또는</span>
+<span class="nv">BGM_VOLUME</span><span class="o">=</span><span class="m">0</span>.025<span class="w"> </span><span class="nv">TTS_ENGINE</span><span class="o">=</span>grok<span class="w"> </span>bash<span class="w"> </span>scripts/produce_pd.sh<span class="w"> </span>&lt;ep&gt;<span class="w"> </span>&lt;url&gt;
+</code></pre></div>
+
+<h3>고정 상수 (세션마다 바꾸지 말 것)</h3>
+<table>
+<thead>
+<tr>
+<th>상수</th>
+<th>값</th>
+<th>어디에 박혀 있나</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BGM 볼륨</td>
+<td><strong>0.025</strong></td>
+<td><code>produce_pd.sh</code> · <code>_render_video.py</code> · <code>_pd_assemble.py</code> · v2 JSON</td>
+</tr>
+<tr>
+<td>성우</td>
+<td><strong>grok / ara</strong></td>
+<td><code>produce_pd.sh</code> 기본값</td>
+</tr>
+<tr>
+<td>해상도</td>
+<td>1080×1920 yuv420p High</td>
+<td><code>_render_video</code> · assemble</td>
+</tr>
+<tr>
+<td>조립</td>
+<td><strong>concat demuxer</strong> (xfade 오프셋 금지)</td>
+<td><code>_render_video.py</code> v2</td>
+</tr>
+<tr>
+<td>폰트</td>
+<td>Noto Sans/Serif <strong>CJK KR</strong></td>
+<td><code>_render_video.py</code></td>
+</tr>
+<tr>
+<td>BGM 소스</td>
+<td>Boss 렌더 <code>bgm_shorts</code> → helena-piano</td>
+<td>우선순위 리스트</td>
+</tr>
+<tr>
+<td>브릿지</td>
+<td>앞·뒤 소수만 · 페이지 재래스터 금지</td>
+<td>역할 표</td>
+</tr>
+<tr>
+<td><strong>SHIP 전</strong></td>
+<td><code>_qa_video_slides.py</code> 통과 필수</td>
+<td><code>_pd_assemble.py</code></td>
+</tr>
+</tbody>
+</table>
+<h3>단계 (항상 동일)</h3>
+<div class="codehilite"><pre><span></span><code>P0 bible → P1 Playwright stills → P2 Grok TTS
+  → P3 bridge(있으면) → P4 render+concat → P5 assemble+BGM
+  → P5b QA gate → P6 TG
+</code></pre></div>
+
+<hr />
+<h2>스크립트 맵 (손대지 말 것 / 여기만 타라)</h2>
+<table>
+<thead>
+<tr>
+<th>역할</th>
+<th>파일</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>엔트리</td>
+<td><code>scripts/produce_pd.sh</code></td>
+</tr>
+<tr>
+<td>클립+concat</td>
+<td><code>scripts/_render_video.py</code></td>
+</tr>
+<tr>
+<td>북엔드+BGM</td>
+<td><code>scripts/_pd_assemble.py</code></td>
+</tr>
+<tr>
+<td>QA</td>
+<td><code>scripts/_qa_video_slides.py</code></td>
+</tr>
+<tr>
+<td>브릿지 FX</td>
+<td><code>scripts/bridge_fx.sh</code></td>
+</tr>
+<tr>
+<td>프롬프트 브릿지</td>
+<td><code>configs/imagine_prompt_standard_v1.json</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>규칙</h2>
+<ol>
+<li><strong>새 세션에서 파이프를 다시 발명하지 말 것.</strong> CURRENT → v2 만.</li>
+<li>QA 실패면 TG 보내지 말 것.</li>
+<li>상수 바꾸려면 v2 → <strong>v3</strong> 로 올리고 CURRENT를 갱신 (슬쩍 수정 금지).</li>
+<li>페이지 본편은 공짜 공장. Grok 토큰은 성우·PD·브릿지.</li>
+</ol>
+<p>— _Grok · LOCK</p>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>

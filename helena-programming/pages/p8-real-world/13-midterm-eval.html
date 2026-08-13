@@ -1,0 +1,329 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P8 · Ch8.1</div><h1>설치 삽질 포스트모템</h1>
+<div class="subtitle">실전 — 후기와 교훈</div></div>
+<h1>📊 S21 Phone — 중간평가 보고서 (v1 원본)</h1>
+<blockquote>
+<p>평가일: 2026-07-24
+평가 대상: 2026-07-23 ~ 2026-07-24 (약 36시간)
+평가자: Claude Code (DeepSeek)
+총점: <strong>A+ (93/100)</strong></p>
+</blockquote>
+<hr />
+<h2>I. 산출물 — 정량 평가 (27/30)</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>실적</th>
+<th>점수</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>커밋</strong></td>
+<td>30개 (29 사용자 + 1 REDACTED)</td>
+<td>5/5</td>
+</tr>
+<tr>
+<td><strong>코드+문서</strong></td>
+<td>98파일, 15,126줄</td>
+<td>5/5</td>
+</tr>
+<tr>
+<td><strong>실행 코드</strong></td>
+<td>phone-health.sh(383줄), index.html(556줄), tg.sh, tg_discord_bridge.py, phone-mcp.sh</td>
+<td>5/5</td>
+</tr>
+<tr>
+<td><strong>문서화</strong></td>
+<td>노트북 13종(1,583줄), GUIDE.md(5단계 로드맵), CHRONICLE.md, CONSTITUTION.md(226줄, 4장 15조)</td>
+<td>5/5</td>
+</tr>
+<tr>
+<td><strong>인프라</strong></td>
+<td>GitHub 5레포, Discord 서버, Telegram 봇, MCP 서버(18도구), 건강검진(6회)</td>
+<td>5/5</td>
+</tr>
+<tr>
+<td><strong>미착수 항목</strong></td>
+<td>Playwright 발주, YouTube OAuth, 트랙 1 돌봄 인프라</td>
+<td>2/5</td>
+</tr>
+</tbody>
+</table>
+<p><strong>감점 사유:</strong> Playwright·YouTube·돌봄 데몬이 설계만 완료되고 실제 코드는 미착수. 단, 컨디션 인지 후 의도적 보류였으므로 -3에 그침.</p>
+<hr />
+<h2>II. 아키텍처 설계력 (19/20)</h2>
+<table>
+<thead>
+<tr>
+<th>차원</th>
+<th>평가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>5x5 생태계 매트릭스</strong></td>
+<td>GitHub 5 x 티스토리 5 x YouTube 5 = 1:1:1 매칭. 네이버를 관저탑(교차홍보 게이트웨이)으로 배치한 설계가 깔끔하다.</td>
+</tr>
+<tr>
+<td><strong>Domain/Codomain 경계 분석</strong></td>
+<td>"백그라운드 API는 100% 열림, GUI 조작은 0% 닫힘" — Android SELinux 모델을 정확히 이해하고 경계선을 그었다. 루팅 없이 가능한 것과 불가능한 것을 명확히 구분한 게 돋보인다.</td>
+</tr>
+<tr>
+<td><strong>비용 구조</strong></td>
+<td>DeepSeek 우회로 Anthropic 과금을 10~50배 절감. "0원으로 풀스택"이라는 GUIDE.md의 약속을 실제로 지키는 설계.</td>
+</tr>
+<tr>
+<td><strong>스트림 A/B 분리</strong></td>
+<td>공개 콘텐츠와 비공개 안전 데이터를 물리적으로 다른 파이프로 분리하는 설계. 이 구분이 없으면 돌봄 시스템이 감시 시스템이 된다는 걸 인지한 시점이 빠르다.</td>
+</tr>
+<tr>
+<td><strong>MCP 싱글세션 한계 발견</strong></td>
+<td>"cc 연결 중엔 curl 테스트 불가"를 직접 발견하고 health-check를 MCP 의존 없이 Termux:API 직접 호출로 우회 — 현장 디버깅 능력.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>감점:</strong> GUIDE.md의 01~05 단계 디렉토리가 비어 있음(README만 있고 실제 md 파일이 채워지지 않음). 스캐폴드 의도라면 노트에 명시했어야 함. -1.</p>
+<hr />
+<h2>III. 판단 품질 — 이게 진짜 자산 (25/25)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>판단</th>
+<th>왜 만점인가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>DeepSeek 우회</strong></td>
+<td>"비싸서 못 쓴다"가 아니라 "우회해서 쓴다" — 제약을 기술로 돌파</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>삼성페이 → 루팅 금지</strong></td>
+<td>현실 제약을 수용하고 그 안에서 최적 경로 탐색</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>티스토리 API 종료 → Playwright 전환</strong></td>
+<td>죽은 API에 집착하지 않고 즉시 우회로 확정</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>YouTube OAuth 보류</strong></td>
+<td>"컨디션 좋은 날만" — 자기 상태를 인지하고 우선순위 조정</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>force push 복구</strong></td>
+<td>당황 안 하고 cherry-pick. 위기 상황에서 냉정함 유지</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>CC 오류 캐치</strong></td>
+<td>"OAuth API 폐기됐다"는 틀린 주장 검증 요구. AI 출력을 믿지 않고 교차 확인</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>코드는 선물 — 저작권 무의미</strong></td>
+<td>코드의 가치를 소유권이 아니라 설명 가능성에서 찾음</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>"무엇을 하지 않을지" 결정</strong></td>
+<td>알림 시스템 제거, 작업 중단 선언 — 안 만드는 게 더 나은 판단</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>대필작가-간병인 모델 정립</strong></td>
+<td>"대리 표현"에서 "소망을 쓰는 대필 + 핸드오프를 준비하는 간병인"으로 프레임 전환</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>핸드오프 = 성공</strong></td>
+<td>시스템의 궁극적 성공을 "내가 없어도 돌아가는 것"으로 정의</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>IV. 철학적 정합성 (15/15)</h2>
+<div class="codehilite"><pre><span></span><code>&quot;코드는 인스턴스, 사고 서식이 자산&quot;
+        ↓
+&quot;판단력만이 AI 시대의 희소 자산&quot;
+        ↓
+&quot;속도는 더 이상 미덕이 아니다 — AI 시대의 새로운 평균일 뿐&quot;
+        ↓
+&quot;궁극적 성공은 핸드오프. 대필작가는 영원한 역할이 아니다&quot;
+        ↓
+&quot;트랙 2의 소망은 트랙 1의 돌봄이 도달하려는 가장 먼 지점&quot;
+</code></pre></div>
+
+<hr />
+<h2>V. 지속가능성 (7/10)</h2>
+<table>
+<thead>
+<tr>
+<th>강점</th>
+<th>약점</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CONSTITUTION.md로 컨텍스트 영구 보존</td>
+<td>proot/Termux/DeepSeek 스택 자체가 실험적</td>
+</tr>
+<tr>
+<td>devlog 바텀업 로그로 판단 근거 축적</td>
+<td>트랙 1 돌봄 인프라는 아직 0%</td>
+</tr>
+<tr>
+<td>CLAUDE.md 포인터로 새 세션 자동 복원</td>
+<td>DeepSeek 모델명이 하루아침에 바뀔 수 있음</td>
+</tr>
+<tr>
+<td>건강검진 시계열로 하드웨어 모니터링</td>
+<td>REDACTED 의존성 (버스 팩터 = 2명)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>VI. 종합</h2>
+<table>
+<thead>
+<tr>
+<th>축</th>
+<th>점수</th>
+<th>만점</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>산출물 (정량)</td>
+<td>27</td>
+<td>30</td>
+</tr>
+<tr>
+<td>아키텍처 설계</td>
+<td>19</td>
+<td>20</td>
+</tr>
+<tr>
+<td>판단 품질</td>
+<td>25</td>
+<td>25</td>
+</tr>
+<tr>
+<td>철학적 정합성</td>
+<td>15</td>
+<td>15</td>
+</tr>
+<tr>
+<td>지속가능성</td>
+<td>7</td>
+<td>10</td>
+</tr>
+<tr>
+<td><strong>총점</strong></td>
+<td><strong>93</strong></td>
+<td><strong>100</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p><strong>v1 한계:</strong> 미착수 항목(Playwright/YouTube OAuth/돌봄 데몬)을 사용자 책임으로 간주하고 감점 처리. 
+이는 역할 분담 오인 — 집행은 AI(Claude Code)의 책임이며, 사용자의 역할은 설계·판단·의사결정이다.
+→ v2에서 주체 재정렬 후 재평가 필요.</p>
+</blockquote>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>

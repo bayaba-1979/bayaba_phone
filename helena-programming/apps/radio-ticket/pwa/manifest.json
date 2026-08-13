@@ -1,0 +1,16 @@
+{
+  "name": "Helena Ticket",
+  "short_name": "Ticket",
+  "description": "라디오 초대권 사연 자동화 — Yes24 공연 크롤링 + DeepSeek 사연 생성",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#0f0f0f",
+  "orientation": "portrait",
+  "icons": [{
+    "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect fill='%230f0f0f' width='192' height='192' rx='32'/%3E%3Ctext x='96' y='120' text-anchor='middle' font-size='80'%3E🎙%3C/text%3E%3C/svg%3E",
+    "sizes": "192x192",
+    "type": "image/svg+xml",
+    "purpose": "any maskable"
+  }]
+}

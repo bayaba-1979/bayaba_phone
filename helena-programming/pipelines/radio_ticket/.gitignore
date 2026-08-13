@@ -1,0 +1,4 @@
+__pycache__/
+dispatch*.json
+dispatch.log
+*.pyc

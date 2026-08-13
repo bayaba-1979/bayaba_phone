@@ -1,0 +1,165 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.counter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.counter{flex:1;min-width:70px;text-align:center;background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:9px 6px}
+.counter .num{font-size:1.4rem;font-weight:800;color:var(--a)}
+.counter .label{font-size:.7rem;color:var(--t3);margin-top:1px}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.68rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-hub{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-hub{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:14px 16px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.9rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.83rem}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table.tbl{width:100%;border-collapse:collapse;font-size:.8rem;line-height:1.45}
+table.tbl th,table.tbl td{padding:5px 8px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table.tbl th{background:var(--s2);font-weight:700;font-size:.71rem;letter-spacing:.04em;color:var(--t)}
+table.tbl td{color:var(--t2)}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+
+<div class="hero">
+<div class="eyebrow">Architecture Decision · 2026-08-10</div>
+<h1>📐 Hub vs Tistory — 플랫폼 역할 분리</h1>
+<div class="subtitle">GitHub Pages (PWA·교재·앱급) + Tistory (사고흐름·회의록)<br>둘 다 풀인터랙티브 HTML. JS 유무만 다르다.</div>
+</div>
+
+<div class="counter-bar">
+<div class="counter"><div class="num">93</div><div class="label">Hub 페이지 (Pages)</div></div>
+<div class="counter"><div class="num">32</div><div class="label">Tistory 글 (사고흐름)</div></div>
+<div class="counter"><div class="num">125</div><div class="label">총 콘텐츠</div></div>
+<div class="counter"><div class="num">0</div><div class="label">중복 작업</div></div>
+</div>
+
+<section>
+<div class="info-box"><strong>🎯 핵심 원칙:</strong> 두 플랫폼 모두 <strong>풀인터랙티브 HTML</strong> — 아코디언·탭·SVG 다이어그램·다크모드·코드블록 선택. 차이는 JS 유무뿐: Pages = <code>&lt;script&gt;</code> 가능 (복사버튼·PWA), Tistory = CSS-only 인터랙션 (<code>:checked</code>·<code>:target</code>·<code>&lt;details&gt;</code>·<code>user-select:all</code>). <strong>시각적 완성도는 동일. 제약만 다르다.</strong></div>
+</section>
+
+<section>
+<h2>⚡ 한눈에 비교</h2>
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>기준</th><th><span class="chip chip-hub">GitHub Pages · Hub</span></th><th><span class="chip chip-tistory">Tistory · 사고흐름</span></th></tr></thead>
+<tbody>
+<tr><td><strong>비유</strong></td><td>📚 교과서 (Curriculum)</td><td>📓 회의록 (Meeting Notes)</td></tr>
+<tr><td><strong>독자 질문</strong></td><td>"이 순서대로 하면 나도 되나요?"</td><td>"무슨 생각으로 이 결정을 했나요?"</td></tr>
+<tr><td><strong>인터랙션</strong></td><td>JS 복사버튼 + CSS 아코디언·탭·다크모드</td><td>CSS-only: &lt;details&gt;·:checked·:target·SVG·user-select:all</td></tr>
+<tr><td><strong>복사 방식</strong></td><td>📋 버튼 → clipboard API</td><td>탭 한 번 → 코드블록 전체 선택 (user-select:all)</td></tr>
+<tr><td><strong>설치</strong></td><td>PWA — manifest.json → 앱처럼</td><td>웹에서 바로 읽기</td></tr>
+<tr><td><strong>페이지당 공수</strong></td><td>HTML 풀커스텀 (JS + CSS)</td><td>HTML 풀커스텀 (CSS-only, 티스토리 한도 내)</td></tr>
+<tr><td><strong>전송</strong></td><td>git push → Pages 자동배포</td><td>TG .txt → 복사·붙여넣기 (5분)</td></tr>
+<tr><td><strong>URL</strong></td><td>helena751107.github.io/helena-programming/</td><td>galaxys21-pwuser.tistory.com/</td></tr>
+</tbody></table></div>
+</section>
+
+<section>
+<h2>📚 GitHub Pages Hub — 93페이지 (8 Part)</h2>
+
+<details class="acc"><summary><span class="chip chip-hub">P1</span> 온보딩 — 20페이지</summary><div class="acc-body">
+<p>워크스테이션 백서·Termux·proot·Claude Code·GitHub Pages·설치 사례. <strong>모든 코드 블록에 복사 버튼.</strong> PWA로 설치하면 오프라인에서도 설치 매뉴얼 확인 가능.</p>
+</div></details>
+
+<details class="acc"><summary><span class="chip chip-hub">P2</span> 인프라 — 17페이지</summary><div class="acc-body">
+<p>텔레그램·Discord·Phone MCP·건강체크·돌봄 데몬·성능 최적화. 각 도구별 설정 가이드 + 트러블슈팅.</p>
+</div></details>
+
+<details class="acc"><summary><span class="chip chip-hub">P3</span> PD Pipeline — 16페이지</summary><div class="acc-body">
+<p>Pipeline 백서·P0~P6 각 단계·Director·BGM·브릿지. <strong>세션 로그는 제외</strong> — 파이프라인 구조와 사용법만.</p>
+</div></details>
+
+<details class="acc"><summary><span class="chip chip-hub">P4</span> AI 목소리 — 8페이지</summary><div class="acc-body">
+<p>3트랙 전략·ParksyTTS·Edge TTS·Piper·AI 성우 백서. <strong>실험 노트 제외</strong> — 확정된 전략 문서만.</p>
+</div></details>
+
+<details class="acc"><summary><span class="chip chip-hub">P5</span> 출판·배포 — 16페이지</summary><div class="acc-body">
+<p>Paste Pipeline·루프백·YouTube·네이버·WSL 확장 슬롯. 교재화 방법론 자체도 여기에 포함.</p>
+</div></details>
+
+<details class="acc"><summary><span class="chip chip-hub">P6</span> 설계·아키텍처 — 16페이지</summary><div class="acc-body">
+<p>5×5×5 생태계·슬롯 아키텍처·ROI 정당화·4로봇 방법론. <strong>이 모든 게 왜 작동하는가</strong>에 대한 답.</p>
+</div></details>
+</section>
+
+<section>
+<h2>📝 Tistory 사고흐름 — 32건 (6 Flow) · CSS-only 풀인터랙티브</h2>
+
+<div class="info-box red" style="margin-bottom:14px"><strong>❗ 오해 금지:</strong> Tistory라고 "경량 텍스트"가 아니다. <strong>티스토리 HTML 모드 한도 내에서 최대 인터랙티브.</strong> JS만 빠지고 <code>&lt;details&gt;</code> 아코디언·<code>:checked</code> 탭·<code>:target</code> 모달·SVG 다이어그램·CSS 애니메이션·다크모드 전부 들어간다. <strong>코드 블록은 <code>user-select: all</code>로 탭 한 번에 전체 선택.</strong> GitHub Pages와 동일한 수준의 시각적 완성도, JS 유무만 다르다.</div>
+
+<details class="acc"><summary><span class="chip chip-tistory">Flow 1</span> PD Pipeline 개발일지 — 6건</summary><div class="acc-body">
+<p>Grok 세션 로그(v1→v8)·영상·PD·브릿지 회의록. <strong>"무엇을 시도했고, 무엇이 실패했고, 어떻게 해결했는가"</strong>의 기록.</p>
+</div></details>
+
+<details class="acc"><summary><span class="chip chip-tistory">Flow 2</span> 목소리 실험 노트 — 4건</summary><div class="acc-body">
+<p>TTS·RVC 실험 기록·STT 무료 검토·음성 엔진 결정 과정.</p>
+</div></details>
+
+<details class="acc"><summary><span class="chip chip-tistory">Flow 3</span> 인프라 의사결정 — 5건</summary><div class="acc-body">
+<p>다중 AI 전략·Claude-Grok 파이프라인·Grok-GitHub 브릿지 설계 결정.</p>
+</div></details>
+
+<details class="acc"><summary><span class="chip chip-tistory">Flow 4</span> 돌봄 대화록 — 4건</summary><div class="acc-body">
+<p>오프닝 대화록·기초생계·치매·장애 방법론·아이덴티티 정의.</p>
+</div></details>
+
+<details class="acc"><summary><span class="chip chip-tistory">Flow 5</span> 실전 교훈 — 8건</summary><div class="acc-body">
+<p>PC 삽질 포스트모템·중간 평가·케이스스터디·CHRONICLE·DevLog.</p>
+</div></details>
+
+<details class="acc"><summary><span class="chip chip-tistory">Flow 6</span> 기획·전략 — 5건</summary><div class="acc-body">
+<p>프로젝트 기획 vs 헬레나·네이버·웹진·최종 전략·통합 계획.</p>
+</div></details>
+</section>
+
+<section>
+<h2>🔗 연결 구조 — Hub ↔ Tistory</h2>
+<div class="grid2">
+<div class="card"><div class="card-hd"><span class="chip chip-hub">Hub → Tistory</span></div><div class="card-dsc">각 기술 페이지 하단에 "이 결정이 어떻게 내려졌는가" 링크 — 해당 Tistory Flow로 연결</div></div>
+<div class="card"><div class="card-hd"><span class="chip chip-tistory">Tistory → Hub</span></div><div class="card-dsc">각 회의록/세션로그 상단에 "이 주제의 최종 교재" 링크 — 해당 Pages Chapter로 연결</div></div>
+</div>
+<div class="info-box gold"><strong>🔑 핵심:</strong> 독자는 교재(Hub)를 보며 "어떻게"를 배우고, 필요하면 사고흐름(Tistory)로 넘어가 "왜 이렇게 했는지"를 이해한다. 두 레이어가 하나의 완결된 지식 체계를 이룬다.</div>
+</section>
+
+<section>
+<h2>🛠️ 기술 구현</h2>
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>요소</th><th>Hub (GitHub Pages)</th><th>Tistory (사고흐름)</th></tr></thead>
+<tbody>
+<tr><td><strong>HTML 생성</strong></td><td>parksy_to_html.py + 수동 튜닝</td><td>Paste Pipeline v5.1</td></tr>
+<tr><td><strong>전송</strong></td><td>git push → Pages 자동배포</td><td>TG .txt → 복사·붙여넣기</td></tr>
+<tr><td><strong>PWA</strong></td><td>manifest.json + sw.js (설치 가능)</td><td>불필요</td></tr>
+<tr><td><strong>CSS</strong></td><td>풀커스텀 (다크모드·아코디언·복사버튼)</td><td>티스토리 스킨 + 인라인 CSS</td></tr>
+<tr><td><strong>업데이트</strong></td><td>git commit → push → 자동</td><td>TG 재전송 → 재발행</td></tr>
+</tbody></table></div>
+</section>
+
+<div class="footer">
+<p>📐 Hub vs Tistory — 플랫폼 역할 분리 · 2026-08-10 (_Claude)<br>
+🌐 <a href="https://helena751107.github.io/helena-programming/" style="color:var(--a)">Hub (GitHub Pages)</a> · <a href="https://galaxys21-pwuser.tistory.com" style="color:var(--a)">사고흐름 (Tistory)</a><br>
+Hub 93페이지 (PWA·JS) + Tistory 32건 (CSS-only 풀인터랙티브) = 125건 · 중복 0</p>
+</div>

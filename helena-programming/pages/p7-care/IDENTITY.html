@@ -1,0 +1,173 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P7 · Ch7.2</div><h1>대화록·방법론·아이덴티티</h1>
+<div class="subtitle">돌봄 트랙 — 기술의 목적</div></div>
+<h1>Helana Log — 정체성 헌장</h1>
+<blockquote>
+<p>일반 개발 일지가 아니다.<br />
+<strong>대한민국 행정 · 장애복지 · 기초생활 · 치매 돌봄</strong>을,<br />
+한 가정의 현장에서 겪은 체감 → 개선점 → 솔루션으로 쌓는 <strong>대화록 아카이브</strong>다.</p>
+</blockquote>
+<hr />
+<h2>한 줄 정의</h2>
+<p><strong>Helana Log</strong> = 조현병·중증 정신질환 당사자인 누나, 기초생활 보장 수급 가구, 치매 어머니를 포함한 <strong>복합 돌봄 가정</strong>이 대한민국 행정과 만날 때 생기는 마찰·공백·희망을, AI·가족과 나눈 대화로 기록하고 정책 개선 씨앗으로 남기는 공간.</p>
+<h2>왜 이 레포인가</h2>
+<ul>
+<li>행정은 창구·법령·예산으로 쪼개져 있고, 가정은 한 사람·한 날로 이어진다.</li>
+<li>공식 민원 문서만으로는 <strong>느낀 바</strong>(수치화되지 않은 체감)가 남지 않는다.</li>
+<li>체감만 쌓이면 원망이 되고, 개선점·솔루션 없이 끝나면 기록의 공적 가치가 약하다.</li>
+<li>그래서 형식은 <strong>대화록</strong>: 질문–답–반박–정리–다음 행동.</li>
+</ul>
+<h2>세 축 (트랙)</h2>
+<table>
+<thead>
+<tr>
+<th>코드</th>
+<th>트랙</th>
+<th>가정 맥락</th>
+<th>행정 접점 예</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DW</code></td>
+<td>장애 · 정신건강 복지</td>
+<td>조현병 등 정신질환 당사자 누나</td>
+<td>장애인 등록, 활동지원, 정신건강복지센터, 병원–행정 연계</td>
+</tr>
+<tr>
+<td><code>BL</code></td>
+<td>기초생활 보장</td>
+<td>수급·차상위 등 생계 안전망</td>
+<td>생계·의료·주거 급여, 재산·소득 조사, 부양의무·가구 기준</td>
+</tr>
+<tr>
+<td><code>DC</code></td>
+<td>치매 · 노인 돌봄</td>
+<td>치매 어머니</td>
+<td>치매안심센터, 장기요양, 노인맞춤돌봄, 보호자 지원</td>
+</tr>
+</tbody>
+</table>
+<p>세 축은 서류상 별개 부서여도, <strong>하루의 돌봄</strong> 안에서는 동시에 움직인다. 로그는 그 동시성을 숨기지 않는다.</p>
+<h2>이 레포가 아닌 것</h2>
+<ul>
+<li>법률 자문·개별 수급 심사 대행소가 아니다.</li>
+<li>의료 진단·처방 가이드가 아니다.</li>
+<li>일반 코딩 트러블슈팅 일지(과거 성격)가 아니다. 기술 메모가 필요하면 다른 레포(helena_phone 등)로 분리한다.</li>
+<li>특정 공무원·기관을 실명으로 비난하는 채널이 아니다. <strong>제도·프로세스·정보 설계</strong>를 겨냥한다.</li>
+</ul>
+<h2>이 레포인 것</h2>
+<ol>
+<li><strong>대화록</strong> — AI·가족·자원봉사·당사자 관점이 섞인 1차 기록  </li>
+<li><strong>개선 카드</strong> — 한 문장 문제 + 관할 추정 + 제안  </li>
+<li><strong>솔루션 스케치</strong> — 당장 쓸 체크리스트, 서식 초안, 연계 맵, 프로토타입 아이디어  </li>
+<li><strong>랜딩</strong> — 방문자가 3분 안에 “무엇을 기록하는 곳인지” 이해하게 하는 편집 면</li>
+</ol>
+<h2>톤</h2>
+<ul>
+<li>존중: 당사자·보호자·일선 공무원 모두를 사람으로 둔다.</li>
+<li>구체: “힘들다”보다 “어느 창구에서 몇 번째 서류가 막혔는지”.</li>
+<li>실행 가능: 매 대화록 끝에 <strong>다음 한 걸음</strong>을 남긴다.</li>
+<li>공개 신중: 주민번호·계좌·정확한 주소·진료기록 원문은 올리지 않는다. 필요하면 가명·일반화.</li>
+</ul>
+<h2>브랜드 한 줄 (카피)</h2>
+<p><strong>행정은 창구로 쪼개지고, 가정은 하루로 이어진다.<br />
+그 틈을 대화로 메우는 로그.</strong></p>
+<h2>관련 문서</h2>
+<ul>
+<li><a href="./METHOD.md">METHOD.md</a> — 대화록 쓰는 법  </li>
+<li><a href="./tracks/">tracks/</a> — 트랙별 메모  </li>
+<li><a href="./dialogue/">dialogue/</a> — 대화록 본문  </li>
+<li><a href="./solutions/">solutions/</a> — 솔루션 스케치  </li>
+</ul>
+<hr />
+<p><em>모든 공개 계정·서사는 큰누나(헬레나) 생태계 명의로 이어진다.</em></p>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>

@@ -1,0 +1,668 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P3 · Ch3.3</div><h1>P1·P2 캡처·음성합성</h1>
+<div class="subtitle">PD Pipeline — URL 하나로 숏폼 영상</div></div>
+<h1>백서: Grok으로 제품 투어 영상 만들기</h1>
+<blockquote>
+<p><strong>S21 Phone · Helena Director / Perfect Ship</strong><br />
+버전: 1.0 · 2026-08-02 · 작성: _Grok<br />
+대상: Boss · 설치자 · “구독하면 뭐가 달라지나” 묻는 사람</p>
+</blockquote>
+<hr />
+<h2>0. 한 장 요약</h2>
+<div class="codehilite"><pre><span></span><code>URL 하나 (또는 시나리오 JSON)
+        │
+        ▼
+┌───────────────────────────────────────┐
+│  Grok 구독 = 손·눈 (에이전트)          │
+│  perfect_ship = 카메라·편집실 (로컬)   │
+└───────────────────────────────────────┘
+        │
+        ├─ Scout (페이지 구조)
+        ├─ 연출 5막 (directing)
+        ├─ TTS-first 나레이션
+        ├─ Playwright 촬영 + 커서·줌
+        ├─ FFmpeg 합성
+        ├─ Vision QA + process 사다리
+        ▼
+     mp4 SHIP → 텔레그램 / YouTube
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>오해</th>
+<th>진실</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Grok 서버가 영상을 렌더한다”</td>
+<td><strong>아님.</strong> 렌더는 폰(로컬) Playwright + ffmpeg</td>
+</tr>
+<tr>
+<td>“Grok 없으면 영상 자체가 안 된다”</td>
+<td><strong>V1(PPT)은 된다.</strong> Grok은 <strong>V2 품질 루프·파이프 유지</strong></td>
+</tr>
+<tr>
+<td>“한 번에 시네마틱 런칭 필름”</td>
+<td><strong>아님.</strong> 그건 V3 ComfyUI. Grok 파이프는 <strong>제품 투어 A−</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>1. 영상은 3트랙이다</h2>
+<p>헌법의 돌봄/소망 <strong>투트랙</strong>과 별개. <strong>품질·비용 3단.</strong></p>
+<table>
+<thead>
+<tr>
+<th>트랙</th>
+<th>이름</th>
+<th>도구</th>
+<th>품질</th>
+<th>비용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>V1</strong></td>
+<td>PPT·리포트</td>
+<td>DeepSeek + Edge TTS + 단순 Playwright</td>
+<td>개발일지·내부용</td>
+<td>~0원</td>
+</tr>
+<tr>
+<td><strong>V2</strong></td>
+<td>제품 투어</td>
+<td><strong>Grok + Director / perfect_ship</strong></td>
+<td>커서·줌·게이트</td>
+<td>Grok 구독</td>
+</tr>
+<tr>
+<td><strong>V3</strong></td>
+<td>프로 마감</td>
+<td>ComfyUI + PC GPU / RunPod</td>
+<td>시네마틱 최종본</td>
+<td>GPU·종량제</td>
+</tr>
+</tbody>
+</table>
+<p><strong>이 백서의 범위 = V2.</strong><br />
+“Grok 써서 영상 만드는 프로세스”의 정본.</p>
+<p>상세: <code>_notebook/58-video-three-tracks_Grok.md</code></p>
+<hr />
+<h2>2. Grok이 하는 일 / 안 하는 일</h2>
+<h3>2.1 Grok이 하는 일 (손·눈)</h3>
+<table>
+<thead>
+<tr>
+<th>역할</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>디자이너·시공</td>
+<td>파이프 설계, 버그 패치, 연출 JSON, 오버레이</td>
+</tr>
+<tr>
+<td>비전 검수</td>
+<td>프레임 보고 “커서가 메트릭에 있다” 같은 <strong>사람급 지적</strong></td>
+</tr>
+<tr>
+<td>프로세스 고정</td>
+<td>perfect_ship 사다리·정책·remediation 문서화</td>
+</tr>
+<tr>
+<td>커뮤니티 리서치</td>
+<td>recast / Purple Owl 등과 비교해 바 맞추기</td>
+</tr>
+</tbody>
+</table>
+<h3>2.2 로컬이 하는 일 (카메라·편집실)</h3>
+<table>
+<thead>
+<tr>
+<th>역할</th>
+<th>도구</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>페이지 조작·녹화</td>
+<td>Playwright (Chromium)</td>
+</tr>
+<tr>
+<td>나레이션</td>
+<td>edge-tts (또는 OPENAI_API_KEY 시 tts-1-hd)</td>
+</tr>
+<tr>
+<td>합성·배속·자막</td>
+<td>ffmpeg</td>
+</tr>
+<tr>
+<td>픽셀 게이트</td>
+<td>vision_qa.py (로컬 휴리스틱)</td>
+</tr>
+<tr>
+<td>결정론 거부</td>
+<td>enforce.py · perfect_ship.py</td>
+</tr>
+</tbody>
+</table>
+<h3>2.3 한 줄</h3>
+<blockquote>
+<p><strong>Grok = 파이프를 깎는 사람. perfect_ship = 파이프가 찍는 기계.</strong><br />
+구독료는 “기계 가동비”가 아니라 “깎는 사람 + 비전 루프”에 가깝다.</p>
+</blockquote>
+<hr />
+<h2>3. 프로세스 (고정 순서)</h2>
+<p><strong>마음대로 순서를 바꾸지 않는다.</strong><br />
+실패하면 remediation 키만 고치고 <strong>같은 사다리를 다시</strong> 탄다.</p>
+<h3>3.1 유일한 진입점</h3>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/work/helena-programming/director<span class="w">   </span><span class="c1"># 또는 워크스페이스 경로</span>
+
+python3<span class="w"> </span>perfect_ship.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--scenario<span class="w"> </span>scenarios/helena_phone.json<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>out/helena_phone.mp4<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--format<span class="w"> </span>shorts_1080<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--subs<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--tts<span class="w"> </span>auto
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>플래그</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--scenario</code></td>
+<td>대본(대사·클릭·카메라). 없으면 <code>--url</code>로 Scout 생성</td>
+</tr>
+<tr>
+<td><code>--format shorts_1080</code></td>
+<td>1080×1920 (기본 A-bar 숏츠)</td>
+</tr>
+<tr>
+<td><code>--subs</code></td>
+<td>SRT 번인 + <code>.srt</code> 파일</td>
+</tr>
+<tr>
+<td><code>--tts auto</code></td>
+<td>OpenAI 키 있으면 고품질 TTS, 없으면 edge+humanize</td>
+</tr>
+</tbody>
+</table>
+<h3>3.2 사다리 L0–L9</h3>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>이름</th>
+<th>하는 일</th>
+<th>실패 exit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L0</td>
+<td>Scout</td>
+<td>URL 페이지 구조·인터랙티브 파악</td>
+<td>3</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Directing</td>
+<td>5막 연출·정책 스탬프</td>
+<td>3</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>Voice</td>
+<td><strong>TTS 먼저</strong> · 길이 측정 · multi-click pad</td>
+<td>3</td>
+</tr>
+<tr>
+<td>L3</td>
+<td>Shoot</td>
+<td>5막 연주 · 커서 락 · auto-zoom · 전체 클릭</td>
+<td>4</td>
+</tr>
+<tr>
+<td>L4</td>
+<td>Proof</td>
+<td>클릭 전후 PNG gold/teal</td>
+<td>4</td>
+</tr>
+<tr>
+<td>L5</td>
+<td>Edit</td>
+<td>리드 블랙 트림 · VO 길면 freeze · 영상 길면 배속 압축</td>
+<td>2</td>
+</tr>
+<tr>
+<td>L6</td>
+<td>Quality</td>
+<td>G1–G7</td>
+<td>2</td>
+</tr>
+<tr>
+<td>L7</td>
+<td>Vision QA</td>
+<td>점수 ≥100 · 검정/링 hard gate</td>
+<td>5</td>
+</tr>
+<tr>
+<td>L8</td>
+<td>Process</td>
+<td>perfect_ship 전체 검증</td>
+<td>6</td>
+</tr>
+<tr>
+<td>L9</td>
+<td><strong>SHIP</strong></td>
+<td>TG/배포 <strong>허용</strong></td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>정의 파일: <code>director/process/perfect_ship_v1.json</code><br />
+구현: <code>director/perfect_ship.py</code></p>
+<h3>3.3 SHIP 없이 텔레그램에 영상 올리지 말 것</h3>
+<div class="codehilite"><pre><span></span><code>SHIP 배지 없음 → 전송 금지
+*.process.json 의 ship: true 확인
+</code></pre></div>
+
+<hr />
+<h2>4. 한 비트(장면) 안에서 일어나는 일</h2>
+<p>연출 성경: <code>directing/product_tour_v1.json</code></p>
+<p>매 비트 = <strong>5막</strong> (VO 길이가 시계):</p>
+<table>
+<thead>
+<tr>
+<th>막</th>
+<th>비율 감각</th>
+<th>화면</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>establish</td>
+<td>~12%</td>
+<td>카메라 도착 · chip/STEP · 빛 ON</td>
+</tr>
+<tr>
+<td>focus</td>
+<td>~15%</td>
+<td>커서 → primary · 줌 인</td>
+</tr>
+<tr>
+<td>act</td>
+<td>~22%</td>
+<td>demoClick · 실클릭 · proof</td>
+</tr>
+<tr>
+<td>hold</td>
+<td>~43%</td>
+<td>결과 유지 · 나레이션</td>
+</tr>
+<tr>
+<td>release</td>
+<td>~8%</td>
+<td>빛 끄기 · 다음 준비</td>
+</tr>
+</tbody>
+</table>
+<p><strong>금지 (anti-pattern):</strong></p>
+<ul>
+<li>커서가 FILES/COMMITS 메트릭에 주차  </li>
+<li>클릭 숫자만 통과하고 링/리플 없음  </li>
+<li>시간 없다고 2번째 클릭 스킵  </li>
+<li>클릭 직후 바로 다음 장면 (결과 안 보임)  </li>
+<li>세션마다 다른 순서로 품질 땜빵  </li>
+</ul>
+<hr />
+<h2>5. 산출물 목록</h2>
+<p>한 번 SHIP 하면 보통 옆에 붙는다:</p>
+<div class="codehilite"><pre><span></span><code>out/NAME.mp4              ← 본편
+out/NAME.actions.json     ← 클릭·phase·zoom 로그
+out/NAME.vision_qa.json   ← 비전 점수
+out/NAME.process.json     ← 사다리 PASS/FAIL
+out/NAME.process.md       ← 사람이 읽는 리포트
+out/NAME.quality.json
+out/NAME.srt              ← 자막 (옵션)
+out/NAME.audit.json
+</code></pre></div>
+
+<p>실패 시: <code>process.md</code> 의 <strong>Remediation</strong> 만 보고 해당 코드 고친 뒤<br />
+<code>perfect_ship.py</code> <strong>재실행</strong>. 새 임시 스크립트 만들지 말 것.</p>
+<hr />
+<h2>6. 실제 명령 치트시트</h2>
+<h3>6.1 기본 (helena_phone 랜딩 투어)</h3>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>helena-programming/director
+python3<span class="w"> </span>perfect_ship.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--scenario<span class="w"> </span>scenarios/helena_phone.json<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>out/helena_phone.mp4<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--format<span class="w"> </span>shorts_1080<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--subs
+</code></pre></div>
+
+<h3>6.2 URL만 주고 Scout부터</h3>
+<div class="codehilite"><pre><span></span><code>python3<span class="w"> </span>perfect_ship.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--url<span class="w"> </span>https://helena751107.github.io/helena_phone/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>out/demo.mp4<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--format<span class="w"> </span>shorts_1080
+</code></pre></div>
+
+<h3>6.3 이미 찍힌 것만 재검증</h3>
+<div class="codehilite"><pre><span></span><code>python3<span class="w"> </span>perfect_ship.py<span class="w"> </span>--verify-only<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--scenario<span class="w"> </span>scenarios/helena_phone.json<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>out/helena_phone_pro_v7.mp4<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--work<span class="w"> </span>out/work_helena_phone
+</code></pre></div>
+
+<h3>6.4 텔레그램 (SHIP 후)</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 텍스트 보고</span>
+bash<span class="w"> </span>~/work/tg.sh<span class="w"> </span><span class="s1">&#39;✅ Director SHIP — out/xxx.mp4&#39;</span>
+
+<span class="c1"># 영상 첨부</span>
+curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;https://api.telegram.org/bot</span><span class="nv">$TG_TOKEN</span><span class="s2">/sendVideo&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-F<span class="w"> </span><span class="nv">chat_id</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$TG_CHAT</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-F<span class="w"> </span><span class="nv">video</span><span class="o">=</span>@<span class="s2">&quot;out/xxx.mp4&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-F<span class="w"> </span><span class="nv">caption</span><span class="o">=</span><span class="s2">&quot;🎬 Product Tour SHIP&quot;</span>
+</code></pre></div>
+
+<hr />
+<h2>7. 파일 지도 (V2)</h2>
+<table>
+<thead>
+<tr>
+<th>경로</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>perfect_ship.py</code></td>
+<td><strong>유일한 진입점</strong></td>
+</tr>
+<tr>
+<td><code>process/perfect_ship_v1.json</code></td>
+<td>사다리 · remediation</td>
+</tr>
+<tr>
+<td><code>run_director.py</code></td>
+<td>Scout→Shoot→Edit 연주</td>
+</tr>
+<tr>
+<td><code>directing/product_tour_v1.json</code></td>
+<td>5막 연출</td>
+</tr>
+<tr>
+<td><code>policy/tutorial_v1.json</code></td>
+<td>ship 금지 조건</td>
+</tr>
+<tr>
+<td><code>enforce.py</code></td>
+<td>결정론 게이트</td>
+</tr>
+<tr>
+<td><code>overlays.js</code></td>
+<td>커서·링·autoZoom</td>
+</tr>
+<tr>
+<td><code>voice_engine.py</code></td>
+<td>TTS-first</td>
+</tr>
+<tr>
+<td><code>vision_qa.py</code></td>
+<td>프레임 점수</td>
+</tr>
+<tr>
+<td><code>subtitles.py</code></td>
+<td>SRT</td>
+</tr>
+<tr>
+<td><code>scenarios/*.json</code></td>
+<td>대본</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>8. 커뮤니티에서의 위치 (과장 없이)</h2>
+<table>
+<thead>
+<tr>
+<th>비교</th>
+<th>평가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Purple Owl / DIY 블로그</td>
+<td>우리는 <strong>게이트·사다리</strong>가 더 두꺼움</td>
+</tr>
+<tr>
+<td>playwright-recast</td>
+<td>줌·ElevenLabs·패키징은 그쪽이 앞설 수 있음</td>
+</tr>
+<tr>
+<td>Screen Studio</td>
+<td><strong>마케팅 시네마틱</strong> — 우리 V2 목표가 아님 (V3)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>정직한 라벨:</strong><br />
+「폰에서 도는 <strong>재현 가능한 제품 투어 자동화 (커뮤니티 A−, 프로세스 A)</strong>」</p>
+<hr />
+<h2>9. 비용 감각</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>V2에서</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Grok 구독</td>
+<td>파이프 유지·비전 루프 (이미 쓰는 돈이면 추가 체감 적음)</td>
+</tr>
+<tr>
+<td>edge-tts</td>
+<td>사실상 0</td>
+</tr>
+<tr>
+<td>OpenAI TTS</td>
+<td>키 있을 때만 종량 (옵션)</td>
+</tr>
+<tr>
+<td>폰 전기·시간</td>
+<td>1편 렌더 수 분~십수 분 (해상도·비트 수)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>팔 메시지 (Boss 감각):</strong><br />
+구독을 강요하지 않는다.<br />
+<strong>0원이면 V1, 구독이면 V2, GPU 있으면 V3.</strong></p>
+<hr />
+<h2>10. 실패했을 때</h2>
+<ol>
+<li><code>out/*.process.md</code> 연다  </li>
+<li>✗ 난 Stage 확인  </li>
+<li><code>remediation_ids</code> → <code>process/perfect_ship_v1.json</code> 의 remediation_map  </li>
+<li><strong>그 코드만</strong> 패치  </li>
+<li><code>perfect_ship.py</code> 다시  </li>
+</ol>
+<p>예:</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>증상</th>
+<th>어디 손대나</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AP1</td>
+<td>커서 메트릭 주차</td>
+<td>overlays.js cursor lock</td>
+</tr>
+<tr>
+<td>AP3</td>
+<td>2클릭 드롭</td>
+<td>multi_click_pad / shoot</td>
+</tr>
+<tr>
+<td>AP7</td>
+<td>줌 없음</td>
+<td>autoZoom</td>
+</tr>
+<tr>
+<td>AP8</td>
+<td>TTS-first 아님</td>
+<td>voice_engine</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>11. 관련 문서</h2>
+<table>
+<thead>
+<tr>
+<th>문서</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>58-video-three-tracks_Grok.md</code></td>
+<td>V1·V2·V3 정본</td>
+</tr>
+<tr>
+<td><code>56-director-perfect-ship-process_Grok.md</code></td>
+<td>사다리 코드화</td>
+</tr>
+<tr>
+<td><code>57-director-community-a-bar_Grok.md</code></td>
+<td>줌·1080·커뮤니티 바</td>
+</tr>
+<tr>
+<td><code>33-hybrid-image-video-whitepaper.md</code></td>
+<td>Grok Imagine 드래프트 ↔ Comfy 마감 (이미지·V3 감각)</td>
+</tr>
+<tr>
+<td><code>helena-programming/director/README.md</code></td>
+<td>엔지니어용 진입</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>12. 결론</h2>
+<ol>
+<li><strong>Grok 영상 = V2 제품 투어 파이프</strong>이지, 서버 렌더 서비스가 아니다.  </li>
+<li><strong>프로세스는 perfect_ship 한 줄</strong>로 고정한다. 즉흥 금지.  </li>
+<li><strong>SHIP 게이트를 통과한 뒤에만</strong> 텔레그램·배포.  </li>
+<li>더 올리고 싶으면 V3(ComfyUI)로 넘긴다. V2에서 시네마틱을 강요하지 않는다.</li>
+</ol>
+<hr />
+<h2>서명</h2>
+<ul>
+<li>백서 작성: <strong>_Grok</strong> (2026-08-02)  </li>
+<li>근거 파이프: helena-programming/director · pro_v7 SHIP 이력  </li>
+<li>Boss 검수: <em>대기</em></li>
+</ul>
+<hr />
+<p><em>EOF · S21 Phone · 코드는 선물 · 판단력만 희소</em></p>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>

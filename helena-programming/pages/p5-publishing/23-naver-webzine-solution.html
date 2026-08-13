@@ -1,0 +1,277 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P5 · Ch5.4</div><h1>YouTube·네이버 연동</h1>
+<div class="subtitle">출판·배포 — 만든 걸 세상에</div></div>
+<h1>🎨 네이버 웹진 — 최종 솔루션 (2026-07-25)</h1>
+<blockquote>
+<p>리서치 결론: 스마트에디터 ONE은 HTML 모드 미지원.
+코드 템플릿 ❌, 시각 서식 ✅, YouTube CDN ✅.</p>
+</blockquote>
+<hr />
+<h2>1. 기술 제약 정리</h2>
+<table>
+<thead>
+<tr>
+<th>시도</th>
+<th>결과</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML 복사붙여넣기</td>
+<td>❌</td>
+<td>스마트에디터 ONE이 raw HTML 입력 차단</td>
+</tr>
+<tr>
+<td>스킨 편집</td>
+<td>✅</td>
+<td>전체 블로그 디자인. HTML/CSS 직접 작성 가능. <strong>1회 작업</strong></td>
+</tr>
+<tr>
+<td>서식 (스냅샷)</td>
+<td>✅</td>
+<td>에디터 내 블록 구성 저장 → 새 글에서 불러오기</td>
+</tr>
+<tr>
+<td>YouTube 링크</td>
+<td>✅</td>
+<td>URL 붙여넣기 → 미리보기 카드 자동 생성</td>
+</tr>
+<tr>
+<td>이미지 URL 삽입</td>
+<td>✅</td>
+<td>GitHub Pages를 CDN으로 사용</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. 콘텐츠 전략 — "이미지 대신 짧은 클립"</h2>
+<h3>원칙</h3>
+<ul>
+<li>❌ AI 이미지 생성 안 함 (비용·품질·진정성 문제)</li>
+<li>❌ Cloudinary 등 유료 CDN 안 씀</li>
+<li>✅ YouTube를 무료 영상 CDN으로 사용</li>
+<li>✅ 폰 화면 녹화 → 짧은 설명 클립 → YouTube 업로드 → 네이버 임베드</li>
+</ul>
+<h3>YouTube = 무제한 무료 CDN</h3>
+<div class="codehilite"><pre><span></span><code><span class="n">폰</span><span class="w"> </span><span class="n">화면</span><span class="w"> </span><span class="n">녹화</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">~</span><span class="mi">3</span><span class="n">분</span><span class="p">)</span>
+<span class="w">    </span><span class="err">│</span>
+<span class="w">    </span><span class="err">▼</span>
+<span class="n">YouTube</span><span class="w"> </span><span class="nv">@helena_phone</span><span class="w"> </span><span class="n">업로드</span>
+<span class="w">    </span><span class="err">│</span>
+<span class="w">    </span><span class="err">▼</span>
+<span class="n">네이버</span><span class="w"> </span><span class="n">에디터에서</span><span class="w"> </span><span class="n">URL</span><span class="w"> </span><span class="n">붙여넣기</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">자동</span><span class="w"> </span><span class="n">임베드</span>
+</code></pre></div>
+
+<p><strong>장점:</strong>
+- 무료·무제한·영구 보존
+- 네이버 에디터에서 자동 미리보기 카드 생성
+- 영상이 이미지보다 설명력이 훨씬 높음
+- 실제 작업 화면이라 신뢰감 있음</p>
+<hr />
+<h2>3. 주간 발행 워크플로우</h2>
+<h3>Claude Code → Telegram 배달</h3>
+<div class="codehilite"><pre><span></span><code><span class="n">매주</span><span class="w"> </span><span class="n">일요일</span><span class="p">,</span><span class="w"> </span><span class="n">TG로</span><span class="w"> </span><span class="n">발행</span><span class="w"> </span><span class="n">패키지</span><span class="w"> </span><span class="nl">전송</span><span class="p">:</span>
+
+<span class="err">📋</span><span class="w"> </span><span class="o">[</span><span class="n">주간 워크센터 리포트</span><span class="o">]</span><span class="w"> </span><span class="mi">2026</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">25</span>
+
+<span class="err">🏭</span><span class="w"> </span><span class="n">이번</span><span class="w"> </span><span class="n">주</span><span class="w"> </span><span class="nl">GitHub</span><span class="p">:</span>
+<span class="w">  </span><span class="p">(</span><span class="n">git</span><span class="w"> </span><span class="nf">log</span><span class="w"> </span><span class="c1">--oneline --since=&quot;7일전&quot;)</span>
+
+<span class="err">📱</span><span class="w"> </span><span class="nl">디바이스</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">배터리</span><span class="p">:</span><span class="w"> </span><span class="n">XX</span><span class="o">%</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="nl">저장</span><span class="p">:</span><span class="w"> </span><span class="n">XXGB</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="nl">온도</span><span class="p">:</span><span class="w"> </span><span class="n">XX</span><span class="err">°</span><span class="n">C</span>
+
+<span class="err">📺</span><span class="w"> </span><span class="n">이번</span><span class="w"> </span><span class="n">주</span><span class="w"> </span><span class="nl">클립</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">youtu</span><span class="p">.</span><span class="n">be</span><span class="o">/</span><span class="n">XXXXX</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="p">(</span><span class="n">영상</span><span class="w"> </span><span class="n">제목</span><span class="p">)</span>
+<span class="w">  </span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">youtu</span><span class="p">.</span><span class="n">be</span><span class="o">/</span><span class="n">YYYYY</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="p">(</span><span class="n">영상</span><span class="w"> </span><span class="n">제목</span><span class="p">)</span>
+
+<span class="err">🧠</span><span class="w"> </span><span class="nl">판단</span><span class="p">:</span>
+<span class="w">  </span><span class="ss">&quot;이번 주 핵심 결정 한 줄&quot;</span>
+
+<span class="err">🔗:</span>
+<span class="w">  </span><span class="nl">GitHub</span><span class="p">:</span><span class="w"> </span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">helena751107</span><span class="o">/</span><span class="n">helena_phone</span>
+<span class="w">  </span><span class="nl">영문</span><span class="p">:</span><span class="w"> </span><span class="n">helena751107</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">helena_phone</span><span class="o">/</span><span class="k">index</span><span class="o">-</span><span class="n">en</span><span class="p">.</span><span class="n">html</span>
+<span class="w">  </span><span class="nl">YouTube</span><span class="p">:</span><span class="w"> </span><span class="n">youtube</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="nv">@helena_phone</span>
+</code></pre></div>
+
+<h3>사람 → 네이버 발행 (5분)</h3>
+<ol>
+<li>TG 메시지 복사</li>
+<li>네이버 글쓰기 → 제목 붙여넣기</li>
+<li>본문 붙여넣기 (에디터가 자동 서식)</li>
+<li>YouTube 링크 → 자동 임베드 카드</li>
+<li>GitHub 이미지 URL → 이미지 삽입</li>
+<li>서식에서 미리 만들어둔 푸터·헤더 불러오기</li>
+<li>발행</li>
+</ol>
+<hr />
+<h2>4. 1회 설정 작업</h2>
+<h3>A. 블로그 스킨 (내가 CSS 파일 제공)</h3>
+<ul>
+<li>관리자 → 스킨 편집 → HTML/CSS 붙여넣기</li>
+<li>웹진 스타일: 깔끔한 타이포그래피, 강조 색상, 링크 카드 스타일</li>
+</ul>
+<h3>B. 서식 등록 (네가 에디터에서)</h3>
+<ul>
+<li>네이버 글쓰기 → 헤더·푸터·링크 박스 배치 → "서식으로 저장"</li>
+<li>매주 새 글 쓸 때 "서식 불러오기"로 재사용</li>
+</ul>
+<h3>C. YouTube 재생목록</h3>
+<ul>
+<li>"웹진 클립" 플레이리스트 생성</li>
+<li>짧은 설명 클립 전용 보관</li>
+</ul>
+<hr />
+<h2>5. 생산된 파일</h2>
+<table>
+<thead>
+<tr>
+<th>파일</th>
+<th>용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>naver/quilt/</code></strong></td>
+<td><strong>정본 · Marine Quilt 스킨+서식+TG 패키지 (2026-07-27)</strong></td>
+</tr>
+<tr>
+<td><code>naver/quilt/BOSS-CARD.md</code></td>
+<td>Boss 3분 설치 카드</td>
+</tr>
+<tr>
+<td><code>naver/quilt/skin-custom.css</code></td>
+<td>스킨 CSS 1회</td>
+</tr>
+<tr>
+<td><code>naver/quilt/weekly-seosik-preview.html</code></td>
+<td>서식 시각 기준</td>
+</tr>
+<tr>
+<td><code>naver/quilt/weekly-seosik-paste.txt</code></td>
+<td>서식 저장용 텍스트</td>
+</tr>
+<tr>
+<td><code>naver/quilt/tg-package-template.md</code></td>
+<td>Claude→TG 배달 포맷</td>
+</tr>
+<tr>
+<td><code>scripts/naver_template.html</code></td>
+<td>(레거시 참고) HTML — 스마트에디터 직접 사용 불가</td>
+</tr>
+<tr>
+<td><code>scripts/naver_recipe.py</code></td>
+<td>(참고용) 요리레시피 메타포 생성기</td>
+</tr>
+<tr>
+<td><code>_notebook/23-naver-webzine-solution.md</code></td>
+<td>이 문서 — 솔루션 원칙</td>
+</tr>
+<tr>
+<td><code>_notebook/42-marine-quilt-naver-design_Grok.md</code></td>
+<td>디자인 패키지 노트</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>6. 교훈</h2>
+<blockquote>
+<p><strong>"플랫폼이 허용한 방식으로만 하라.</strong>
+HTML 모드가 없으면 없는 대로, YouTube 임베드가 되면 되는 대로.
+제약 안에서 가장 효율적인 파이프를 만드는 게 진짜 설계다."</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>📱 helena751107.github.io/helena_phone
+📺 youtube.com/@helena_phone
+🌐 m.blog.naver.com/helena1975</p>
+</blockquote>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>

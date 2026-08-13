@@ -1,0 +1,517 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P3 · Ch3.1</div><h1>파이프라인 개요</h1>
+<div class="subtitle">PD Pipeline — URL 하나로 숏폼 영상</div></div>
+<h1>🎬 PD Pipeline 기술 백서 — URL 하나로 숏폼 자동 제작</h1>
+<p><strong>버전:</strong> V12 · <strong>일자:</strong> 2026-08-09 · <strong>위치:</strong> S21 Phone (aarch64 proot Ubuntu)<br />
+<strong>저자:</strong> Boss + Claude Code · <strong>라이선스:</strong> MIT · <strong>TG:</strong> @S21Phone_Bot</p>
+<hr />
+<h2>1. 개요 — 이게 뭐냐</h2>
+<p>웹페이지 URL 하나만 주면 AI가 <strong>페이지를 읽고, 이해하고, 스크린샷 찍고, 한국어 내레이션을 입혀서 9:16 숏폼 영상(1080×1920, ~2분)을 자동 제작</strong>하는 파이프라인이다.</p>
+<p>일반 숏폼 도구(템플릿 끼워맞추기)와 근본적으로 다르다:<br />
+→ <strong>실제 페이지를 Playwright로 열어서 섹션별로 다른 위치를 스크롤·캡처</strong>하고,<br />
+→ <strong>추출된 콘텐츠 문장을 그대로 내레이션(VO)으로 사용</strong>하며,<br />
+→ <strong>FFmpeg Ken Burns(줌/팬) + CNN Breaking News 자막 + BGM 더킹</strong>까지 전자동.</p>
+<p><strong>차별점:</strong> "같은 그림 6번 우려먹기"가 아니라, 진짜 다른 8장면을 캡처하고 진짜 페이지 내용을 읽는다.</p>
+<hr />
+<h2>2. 아키텍처 — P0 → P6 파이프라인</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">P0</span><span class="w"> </span><span class="p">(</span><span class="n">_parse_url</span><span class="p">.</span><span class="n">py</span><span class="p">)</span><span class="w">          </span><span class="n">Playwright로</span><span class="w"> </span><span class="n">URL</span><span class="w"> </span><span class="n">열기</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">DOM</span><span class="w"> </span><span class="n">파싱</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">섹션</span><span class="w"> </span><span class="n">추출</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="n">제목</span><span class="err">·</span><span class="n">heading</span><span class="err">·</span><span class="n">본문</span><span class="w"> </span><span class="n">추출</span><span class="p">,</span><span class="w"> </span><span class="o">:</span><span class="n">has</span><span class="o">-</span><span class="n">text</span><span class="p">()</span><span class="w"> </span><span class="n">CSS</span><span class="w"> </span><span class="n">selector</span><span class="w"> </span><span class="n">생성</span>
+<span class="w">  </span><span class="err">▼</span>
+<span class="n">P0</span><span class="mf">.5</span><span class="w"> </span><span class="p">(</span><span class="n">_generate_vo</span><span class="p">.</span><span class="n">py</span><span class="p">)</span><span class="w">      </span><span class="n">추출된</span><span class="w"> </span><span class="n">콘텐츠</span><span class="w"> </span><span class="n">문장</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">한국어</span><span class="w"> </span><span class="n">내레이션</span><span class="p">(</span><span class="n">VO</span><span class="p">)</span><span class="w"> </span><span class="n">초안</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="n">템플릿</span><span class="w"> </span><span class="nb">NO</span><span class="p">.</span><span class="w"> </span><span class="n">실제</span><span class="w"> </span><span class="n">페이지</span><span class="w"> </span><span class="n">문장을</span><span class="w"> </span><span class="n">그대로</span><span class="w"> </span><span class="n">VO로</span><span class="w"> </span><span class="n">사용</span>
+<span class="w">  </span><span class="err">▼</span>
+<span class="n">P0</span><span class="mf">.6</span><span class="w"> </span><span class="p">(</span><span class="n">_direct_map</span><span class="p">.</span><span class="n">py</span><span class="p">)</span><span class="w">       </span><span class="n">VO</span><span class="w"> </span><span class="n">길이</span><span class="err">·</span><span class="n">역할</span><span class="w"> </span><span class="n">기반</span><span class="w"> </span><span class="n">zoom</span><span class="o">/</span><span class="n">color_tag</span><span class="o">/</span><span class="n">pause</span><span class="w"> </span><span class="n">자동</span><span class="w"> </span><span class="n">결정</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="n">zoom</span><span class="o">:</span><span class="w"> </span><span class="k">out</span><span class="p">,</span><span class="w"> </span><span class="k">in</span><span class="p">,</span><span class="w"> </span><span class="n">pan_right</span><span class="p">,</span><span class="w"> </span><span class="n">pan_left</span><span class="p">,</span><span class="w"> </span><span class="n">pan_up</span><span class="p">,</span><span class="w"> </span><span class="n">pan_down</span><span class="w"> </span><span class="p">(</span><span class="mi">6</span><span class="n">종</span><span class="p">)</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="n">color</span><span class="o">:</span><span class="w"> </span><span class="n">gold</span><span class="p">,</span><span class="w"> </span><span class="n">warm</span><span class="p">,</span><span class="w"> </span><span class="n">teal</span><span class="p">,</span><span class="w"> </span><span class="n">cool</span><span class="p">,</span><span class="w"> </span><span class="n">cinematic</span><span class="p">,</span><span class="w"> </span><span class="n">natural</span><span class="w"> </span><span class="p">(</span><span class="mi">6</span><span class="n">종</span><span class="p">)</span>
+<span class="w">  </span><span class="err">▼</span>
+<span class="n">P1</span><span class="w"> </span><span class="p">(</span><span class="n">_capture_stills</span><span class="p">.</span><span class="n">py</span><span class="p">)</span><span class="w">     </span><span class="n">Playwright로</span><span class="w"> </span><span class="n">beat마다</span><span class="w"> </span><span class="n">scroll_sel</span><span class="w"> </span><span class="n">요소로</span><span class="w"> </span><span class="n">스크롤</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">viewport</span><span class="w"> </span><span class="n">캡처</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="n">Fallback</span><span class="w"> </span><span class="n">chain</span><span class="o">:</span><span class="w"> </span><span class="o">:</span><span class="n">has</span><span class="o">-</span><span class="n">text</span><span class="p">()</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="n">locator</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">progressive</span><span class="w"> </span><span class="n">scroll</span>
+<span class="w">  </span><span class="err">▼</span>
+<span class="n">P2</span><span class="w"> </span><span class="p">(</span><span class="n">voice_engine</span><span class="p">.</span><span class="n">py</span><span class="p">)</span><span class="w">        </span><span class="n">Edge</span><span class="w"> </span><span class="n">TTS</span><span class="w"> </span><span class="p">(</span><span class="n">YuJinNeural</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Sherpa</span><span class="o">-</span><span class="n">ONNX</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">MP3</span><span class="w"> </span><span class="n">음성</span><span class="w"> </span><span class="n">합성</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="n">우선순위</span><span class="o">:</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="p">(</span><span class="n">Grok</span><span class="w"> </span><span class="n">TTS</span><span class="w"> </span><span class="n">폐기</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="mi">403</span><span class="p">,</span><span class="w"> </span><span class="n">SuperGrok</span><span class="w"> </span><span class="n">미포함</span><span class="p">)</span>
+<span class="w">  </span><span class="err">▼</span>
+<span class="n">P3</span><span class="w"> </span><span class="p">(</span><span class="n">_bridge_pickup</span><span class="p">.</span><span class="n">sh</span><span class="p">)</span><span class="w">      </span><span class="n">Android</span><span class="w"> </span><span class="n">갤러리에서</span><span class="w"> </span><span class="n">bridge</span><span class="w"> </span><span class="n">영상</span><span class="p">(</span><span class="n">오프닝</span><span class="o">/</span><span class="n">클로징</span><span class="p">)</span><span class="w"> </span><span class="n">자동</span><span class="w"> </span><span class="n">감지</span>
+<span class="w">  </span><span class="err">│</span>
+<span class="w">  </span><span class="err">▼</span>
+<span class="n">P4</span><span class="w"> </span><span class="p">(</span><span class="n">_render_video</span><span class="p">.</span><span class="n">py</span><span class="p">)</span><span class="w">       </span><span class="mi">755</span><span class="n">줄</span><span class="w"> </span><span class="n">FFmpeg</span><span class="w"> </span><span class="n">제작</span><span class="w"> </span><span class="n">엔진</span><span class="o">:</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="err">•</span><span class="w"> </span><span class="n">Ken</span><span class="w"> </span><span class="n">Burns</span><span class="w"> </span><span class="n">zoom</span><span class="o">/</span><span class="n">pan</span><span class="w"> </span><span class="p">(</span><span class="n">코사인</span><span class="w"> </span><span class="n">easing</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="n">방향</span><span class="p">)</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="err">•</span><span class="w"> </span><span class="n">LUFS</span><span class="w"> </span><span class="mi">-16</span><span class="w"> </span><span class="n">오디오</span><span class="w"> </span><span class="n">정규화</span><span class="w"> </span><span class="p">(</span><span class="n">loudnorm</span><span class="w"> </span><span class="n">필터</span><span class="p">)</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="err">•</span><span class="w"> </span><span class="mi">6</span><span class="n">종</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="n">grade</span><span class="w"> </span><span class="p">(</span><span class="n">FFmpeg</span><span class="w"> </span><span class="n">eq</span><span class="o">+</span><span class="n">colorbalance</span><span class="p">)</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="err">•</span><span class="w"> </span><span class="n">xfade</span><span class="w"> </span><span class="n">multi</span><span class="o">-</span><span class="n">transition</span><span class="w"> </span><span class="p">(</span><span class="n">fade</span><span class="o">/</span><span class="n">wipe</span><span class="o">/</span><span class="n">slide</span><span class="o">/</span><span class="n">dissolve</span><span class="p">)</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="err">•</span><span class="w"> </span><span class="n">channel</span><span class="w"> </span><span class="n">stinger</span><span class="w"> </span><span class="p">(</span><span class="mf">0.5</span><span class="n">s</span><span class="w"> </span><span class="n">로고</span><span class="w"> </span><span class="n">비프</span><span class="p">)</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="err">•</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="n">interrupt</span><span class="w"> </span><span class="p">(</span><span class="mf">0.4</span><span class="n">s</span><span class="w"> </span><span class="n">화이트</span><span class="w"> </span><span class="n">플래시</span><span class="p">)</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="err">•</span><span class="w"> </span><span class="n">BGM</span><span class="w"> </span><span class="n">sidechain</span><span class="w"> </span><span class="n">ducking</span><span class="w"> </span><span class="p">(</span><span class="n">sidechaincompress</span><span class="p">)</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="err">•</span><span class="w"> </span><span class="n">하단</span><span class="w"> </span><span class="n">pseudo</span><span class="o">-</span><span class="n">gradient</span><span class="w"> </span><span class="n">오버레이</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="o">-</span><span class="n">layer</span><span class="w"> </span><span class="n">drawbox</span><span class="p">)</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="err">•</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="n">card</span><span class="w"> </span><span class="p">(</span><span class="n">loop_match</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fade</span><span class="o">-</span><span class="k">in</span><span class="w"> </span><span class="n">텍스트</span><span class="p">)</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="err">•</span><span class="w"> </span><span class="n">소스</span><span class="w"> </span><span class="n">해상도</span><span class="w"> </span><span class="mi">5</span><span class="n">x</span><span class="w"> </span><span class="n">DPI</span><span class="w"> </span><span class="p">(</span><span class="mi">390</span><span class="err">×</span><span class="mi">844@5</span><span class="n">x</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="mi">1950</span><span class="err">×</span><span class="mi">4220</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="mf">1.81</span><span class="n">x</span><span class="w"> </span><span class="n">출력</span><span class="p">)</span>
+<span class="w">  </span><span class="err">│</span>
+<span class="w">  </span><span class="err">▼</span>
+<span class="n">P4b</span><span class="w"> </span><span class="p">(</span><span class="n">_make_ass</span><span class="p">.</span><span class="n">py</span><span class="p">)</span><span class="w">          </span><span class="n">CNN</span><span class="w"> </span><span class="n">Breaking</span><span class="w"> </span><span class="n">News</span><span class="w"> </span><span class="n">스타일</span><span class="w"> </span><span class="n">ASS</span><span class="w"> </span><span class="n">자막</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="mi">72</span><span class="n">pt</span><span class="w"> </span><span class="n">Bold</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">per</span><span class="o">-</span><span class="n">word</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="n">pop</span><span class="w"> </span><span class="p">(</span><span class="mi">200</span><span class="o">%</span><span class="err">→</span><span class="mi">100</span><span class="o">%</span><span class="p">)</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">레드</span><span class="w"> </span><span class="n">배경바</span>
+<span class="w">  </span><span class="err">▼</span>
+<span class="n">P4c</span><span class="w"> </span><span class="p">(</span><span class="n">ffmpeg</span><span class="p">)</span><span class="w">                </span><span class="n">ASS</span><span class="w"> </span><span class="n">자막을</span><span class="w"> </span><span class="n">VO</span><span class="w"> </span><span class="n">body에</span><span class="w"> </span><span class="n">burn</span><span class="o">-</span><span class="k">in</span>
+<span class="w">  </span><span class="err">│</span>
+<span class="w">  </span><span class="err">▼</span>
+<span class="n">P5</span><span class="w"> </span><span class="p">(</span><span class="n">_pd_assemble</span><span class="p">.</span><span class="n">py</span><span class="p">)</span><span class="w">        </span><span class="n">Bridge</span><span class="p">(</span><span class="n">오프닝</span><span class="o">/</span><span class="n">클로징</span><span class="p">)</span><span class="w"> </span><span class="n">연결</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">full</span><span class="o">-</span><span class="n">timeline</span><span class="w"> </span><span class="n">BGM</span><span class="w"> </span><span class="n">mix</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">QA</span><span class="w"> </span><span class="n">gate</span>
+<span class="w">  </span><span class="err">│</span><span class="w">                           </span><span class="n">LUFS</span><span class="w"> </span><span class="mi">-16</span><span class="w"> </span><span class="n">VO</span><span class="w"> </span><span class="n">정규화</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">sidechain</span><span class="w"> </span><span class="n">ducking</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">slide</span><span class="w"> </span><span class="n">diversity</span><span class="w"> </span><span class="n">check</span>
+<span class="w">  </span><span class="err">▼</span>
+<span class="n">P5b</span><span class="w"> </span><span class="p">(</span><span class="n">_make_srt</span><span class="p">.</span><span class="n">py</span><span class="p">)</span><span class="w">          </span><span class="n">YouTube</span><span class="w"> </span><span class="n">caption용</span><span class="w"> </span><span class="n">SRT</span><span class="w"> </span><span class="n">생성</span>
+<span class="w">  </span><span class="err">│</span>
+<span class="w">  </span><span class="err">▼</span>
+<span class="n">P6</span><span class="w"> </span><span class="p">(</span><span class="n">ffmpeg</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">curl</span><span class="p">)</span><span class="w">          </span><span class="mi">720</span><span class="n">p</span><span class="w"> </span><span class="n">TG</span><span class="w"> </span><span class="n">인코딩</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="p">@</span><span class="n">S21Phone_Bot</span><span class="w"> </span><span class="n">전송</span>
+</code></pre></div>
+
+<hr />
+<h2>3. 저장소 구조 — 어디에 뭐가 있나</h2>
+<h3>주 저장소: <code>helena751107/helena_phone</code> (<code>/root/work/</code>)</h3>
+<div class="codehilite"><pre><span></span><code>scripts/
+  produce_pd.sh          ← 메인 진입점 (CLI)
+  _parse_url.py          ← P0: URL → shot_bible
+  _generate_vo.py        ← P0.5: 콘텐츠 → VO
+  _direct_map.py         ← P0.6: VO → 연출 결정
+  _capture_stills.py     ← P1: scroll_sel → 스크린샷
+  _render_video.py       ← P4: FFmpeg Ken Burns 렌더러
+  _make_ass.py           ← P4b: CNN 자막
+  _make_srt.py           ← P5b: YouTube SRT
+  _pd_assemble.py        ← P5: 최종 조립 + BGM
+  _bridge_pickup.sh      ← P3: Android bridge 감지
+  _qa_video_slides.py    ← QA: 슬라이드 다양성 검증
+
+configs/
+  video_pd_pipeline_v2.json  ← 표준 설정 (1080×1920, BGM vol=0.025, role_pacing)
+
+out/
+  pd_intro/              ← helena_phone 소개 (기본, 6 beats)
+  pd_magic/              ← 마술·매직 숏폼 시험
+  pd_tistory_v3/         ← 티스토리 활용법 (V11 최신, 8 beats)
+  <span class="k">...</span>                    ← pd_&lt;domain&gt;_&lt;path&gt; 자동 생성
+
+helena-piano/bgm/output/ ← Boss 자작 BGM (Satie Gymnopédie, Clair de Lune 등)
+</code></pre></div>
+
+<h3>MCP 저장소: <code>helena751107/helena-programming</code> (<code>/root/work/helena-programming/</code>)</h3>
+<div class="codehilite"><pre><span></span><code><span class="n">mcp</span><span class="o">/</span>
+<span class="w">  </span><span class="n">pd_pipeline_mcp</span><span class="o">.</span><span class="n">py</span><span class="w">     </span><span class="err">←</span><span class="w"> </span><span class="n">PD</span><span class="w"> </span><span class="n">Pipeline</span><span class="w"> </span><span class="n">MCP</span><span class="w"> </span><span class="err">서버</span><span class="w"> </span><span class="n">v1</span><span class="o">.</span><span class="mi">0</span><span class="w"> </span><span class="p">(</span><span class="n">STDIO</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">HTTP</span><span class="p">)</span>
+<span class="w">  </span><span class="n">mcp_server</span><span class="o">.</span><span class="n">py</span><span class="w">          </span><span class="err">←</span><span class="w"> </span><span class="n">Helena</span><span class="w"> </span><span class="n">Studio</span><span class="w"> </span><span class="n">MCP</span><span class="w"> </span><span class="err">서버</span><span class="w"> </span><span class="p">(</span><span class="err">기존</span><span class="p">)</span>
+<span class="w">  </span><span class="n">pyproject</span><span class="o">.</span><span class="n">toml</span>
+
+<span class="n">tools</span><span class="o">/</span><span class="n">voice</span><span class="o">/</span>
+<span class="w">  </span><span class="n">voice_engine</span><span class="o">.</span><span class="n">py</span><span class="w">        </span><span class="err">←</span><span class="w"> </span><span class="n">TTS</span><span class="w"> </span><span class="err">멀티프로바이더</span><span class="w"> </span><span class="p">(</span><span class="n">local</span><span class="w"> </span><span class="n">Sherpa</span><span class="o">-</span><span class="n">ONNX</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Grok</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Edge</span><span class="p">)</span>
+
+<span class="n">director</span><span class="o">/</span>
+<span class="w">  </span><span class="n">run_director</span><span class="o">.</span><span class="n">py</span><span class="w">        </span><span class="err">←</span><span class="w"> </span><span class="err">헬레나</span><span class="w"> </span><span class="err">스튜디오</span><span class="w"> </span><span class="err">연출</span><span class="w"> </span><span class="err">엔진</span>
+<span class="w">  </span><span class="n">voice_engine</span><span class="o">.</span><span class="n">py</span>
+<span class="w">  </span><span class="n">subtitles</span><span class="o">.</span><span class="n">py</span><span class="w">           </span><span class="err">←</span><span class="w"> </span><span class="err">자막</span><span class="w"> </span><span class="err">렌더링</span>
+</code></pre></div>
+
+<hr />
+<h2>4. 실행 방법 — 에이전트가 이걸 어떻게 부르나</h2>
+<h3>방법 A: CLI (직접 호출)</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># URL 하나로 끝까지</span>
+bash<span class="w"> </span>/root/work/scripts/produce_pd.sh<span class="w"> </span>&lt;ep_id&gt;<span class="w"> </span>&lt;url&gt;
+
+<span class="c1"># 예시</span>
+bash<span class="w"> </span>/root/work/scripts/produce_pd.sh<span class="w"> </span>pd_my_blog<span class="w"> </span><span class="s2">&quot;https://mynote11605.tistory.com/m/2&quot;</span>
+
+<span class="c1"># 환경변수 오버라이드</span>
+<span class="nv">BGM_VOLUME</span><span class="o">=</span><span class="m">0</span>.03<span class="w"> </span><span class="nv">VOICE</span><span class="o">=</span>ko-KR-SunHiNeural<span class="w"> </span>bash<span class="w"> </span>scripts/produce_pd.sh<span class="w"> </span>...
+</code></pre></div>
+
+<h3>방법 B: MCP (Claude Code가 호출)</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// ~/.claude.json → mcpServers</span>
+<span class="nt">&quot;pd-pipeline&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python3&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;/root/work/helena-programming/mcp/pd_pipeline_mcp.py&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>MCP 6도구:</strong>
+| 도구 | 인자 | 설명 |
+|------|------|------|
+| <code>pd_parse_url</code> | <code>url</code>, <code>ep?</code>, <code>generate_vo?</code> | URL → shot_bible 자동 생성 (P0~P0.6) |
+| <code>pd_produce</code> | <code>ep_id</code>, <code>url?</code>, <code>bgm_volume?</code>, <code>voice?</code>, <code>force?</code> | 풀파이프라인 실행 (P1~P6) |
+| <code>pd_status</code> | <code>job_id?</code> | 작업 상태 확인 + 로그 tail |
+| <code>pd_list</code> | — | 완료된 에피소드 목록 |
+| <code>pd_stop</code> | <code>job_id?</code> | 실행 중인 작업 중지 |
+| <code>pd_output</code> | <code>job_id?</code> | 출력 파일 경로·크기 확인 |</p>
+<p><strong>에이전트 워크플로 예시:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="mf">1.</span><span class="w"> </span><span class="n">pd_parse_url</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s">&quot;https://타겟페이지주소&quot;</span><span class="p">)</span>
+<span class="w">   </span><span class="err">→</span><span class="w"> </span><span class="n">shot_bible</span><span class="mf">.</span><span class="n">json</span><span class="w"> </span><span class="n">자동</span><span class="w"> </span><span class="n">생성</span><span class="w"> </span><span class="p">(</span><span class="n">섹션</span><span class="err">·</span><span class="n">VO</span><span class="err">·</span><span class="n">연출</span><span class="w"> </span><span class="n">포함</span><span class="p">)</span>
+<span class="mf">2.</span><span class="w"> </span><span class="p">(</span><span class="n">선택</span><span class="p">)</span><span class="w"> </span><span class="n">shot_bible</span><span class="w"> </span><span class="n">수동</span><span class="w"> </span><span class="n">편집</span>
+<span class="mf">3.</span><span class="w"> </span><span class="n">pd_produce</span><span class="p">(</span><span class="n">ep_id</span><span class="o">=</span><span class="s">&quot;pd_타겟&quot;</span><span class="p">)</span>
+<span class="w">   </span><span class="err">→</span><span class="w"> </span><span class="n">백그라운드</span><span class="w"> </span><span class="n">실행</span><span class="p">,</span><span class="w"> </span><span class="n">job_id</span><span class="w"> </span><span class="n">반환</span>
+<span class="mf">4.</span><span class="w"> </span><span class="n">pd_status</span><span class="p">(</span><span class="n">job_id</span><span class="p">)</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">완료</span><span class="w"> </span><span class="n">확인</span>
+<span class="mf">5.</span><span class="w"> </span><span class="n">pd_output</span><span class="p">(</span><span class="n">job_id</span><span class="p">)</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">TG</span><span class="w"> </span><span class="n">링크</span><span class="w"> </span><span class="n">확인</span>
+</code></pre></div>
+
+<h3>방법 C: HTTP (curl로 직접)</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># pd-pipeline MCP 서버 HTTP 모드 기동</span>
+python3<span class="w"> </span>/root/work/helena-programming/mcp/pd_pipeline_mcp.py<span class="w"> </span>--http<span class="w"> </span>--port<span class="w"> </span><span class="m">8765</span><span class="w"> </span><span class="p">&amp;</span>
+
+<span class="c1"># URL 파싱</span>
+curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8765/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;method&quot;:&quot;tools/call&quot;,&quot;params&quot;:{&quot;name&quot;:&quot;pd_parse_url&quot;,&quot;arguments&quot;:{&quot;url&quot;:&quot;https://...&quot;}}}&#39;</span>
+
+<span class="c1"># 파이프라인 실행</span>
+curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8765/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;method&quot;:&quot;tools/call&quot;,&quot;params&quot;:{&quot;name&quot;:&quot;pd_produce&quot;,&quot;arguments&quot;:{&quot;ep_id&quot;:&quot;pd_xxx&quot;}}}&#39;</span>
+</code></pre></div>
+
+<hr />
+<h2>5. 핵심 기술 스택</h2>
+<table>
+<thead>
+<tr>
+<th>계층</th>
+<th>기술</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>브라우저 자동화</td>
+<td><strong>Playwright</strong> (Chromium)</td>
+<td>페이지 로드·DOM 파싱·스크롤 캡처, viewport=390×844@5x (1950×4220 소스)</td>
+</tr>
+<tr>
+<td>음성 합성</td>
+<td><strong>Edge TTS</strong> (YuJinNeural), Sherpa-ONNX (Kokoro)</td>
+<td>local 우선, Grok TTS 폐기 (API 403)</td>
+</tr>
+<tr>
+<td>영상 인코딩</td>
+<td><strong>FFmpeg</strong> (libx264 High@L4.0, 30fps)</td>
+<td>Ken Burns zoompan · xfade · sidechaincompress · loudnorm · drawtext · vignette</td>
+</tr>
+<tr>
+<td>자막</td>
+<td><strong>ASS</strong> (Advanced SubStation Alpha)</td>
+<td>CNN Breaking News 스타일, per-word <code>\t()</code> scale pop</td>
+</tr>
+<tr>
+<td>BGM</td>
+<td>FluidSynth → 헬레나 피아노 렌더</td>
+<td>Satie Gymnopédie №1, Clair de Lune 등 (Boss 자작, Content ID 회피)</td>
+</tr>
+<tr>
+<td>MCP 프로토콜</td>
+<td><strong>JSON-RPC 2.0</strong> (STDIO/HTTP)</td>
+<td>Python 3 stdlib only, 외부 의존성 0</td>
+</tr>
+<tr>
+<td>Job 관리</td>
+<td><code>/tmp/pd_mcp_jobs.json</code></td>
+<td>PID·상태·로그 경로 저장</td>
+</tr>
+<tr>
+<td>메신저</td>
+<td><strong>Telegram Bot API</strong> (<code>sendVideo</code>)</td>
+<td>720p H.264 + 128k AAC, <code>supports_streaming=true</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>6. 환경 — 어디서 돌아가나</h2>
+<div class="codehilite"><pre><span></span><code>하드웨어:   Galaxy S21 (SM-G991N) · Exynos 2100 · Mali-G78 GPU · NPU
+OS:         Android 14 → Termux → proot Ubuntu (aarch64 glibc)
+런타임:     Python 3.14 · FFmpeg 6.x · Playwright 1.x
+저장소:     /root/work/ (helena_phone) + /root/work/helena-programming/
+
+⚠️ CPU-only. Ken Burns 인코딩 beat당 1~3분, 총 15~20분.
+   GPU(Mali-G78)/NPU(Exynos) 가속은 proot glibc↔Android bionic ABI 충돌로 구조적 한계.
+   Termux bionic 브릿지 실험 보류 → S25 업그레이드 시 재검토 (2026-08-09).
+</code></pre></div>
+
+<hr />
+<h2>7. 설정 파일 — <code>configs/video_pd_pipeline_v2.json</code></h2>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;standard&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;video_pd_pipeline_v2&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;bgm_volume&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.025</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;resolution&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1080:1920&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v12&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;channel_stinger&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;S21 Phone&quot;</span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;pattern_interrupt&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4</span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;loop_match&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;open_color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gold&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;close_color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gold&quot;</span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;role_pacing&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;hook&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2.5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;build&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">3.5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;climax&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">4.5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;resolve&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">3.0</span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2>8. shot_bible.json 구조 — 파이프라인의 두뇌</h2>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pd_mynote11605_m-2&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://mynote11605.tistory.com/m/2&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;티스토리 활용법&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;standard&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;video_pd_pipeline_v2&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;bgm_volume&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.025</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;resolution&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1080:1920&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v12&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;page_bg_color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rgb(244, 229, 201)&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;beats&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;01_티스토리활용법&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;page&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hook&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;emotion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hook&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;zoom&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;out&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;pan&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;none&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;color_tag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gold&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;pause&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;caption&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;티스토리 활용법&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;vo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;티스토리 활용법&quot;</span><span class="p">,</span><span class="w">                    </span><span class="c1">// ← P0.5가 채움 (실제 콘텐츠 문장)</span>
+<span class="w">      </span><span class="nt">&quot;scroll_sel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;h3:has-text(\&quot;티스토리 활용법\&quot;)&quot;</span><span class="w">  </span><span class="c1">// ← P0가 생성 (:has-text() 포맷)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// ... 6~10 beats</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;bridges&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;b_open&quot;</span><span class="p">,</span><span class="w">  </span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bridge/b_open.mp4&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;b_close&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bridge/b_close.mp4&quot;</span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2>9. 현재 상태 (V12, 2026-08-09)</h2>
+<h3>9.1 안정성 지표 (파이프라인이 깨지지 않는가)</h3>
+<table>
+<thead>
+<tr>
+<th>지표</th>
+<th>값</th>
+<th>검증 방법</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CSS selector 성공률</td>
+<td><strong>100%</strong> (8/8)</td>
+<td><code>:has-text()</code> 포맷, zero fallback</td>
+</tr>
+<tr>
+<td>Fallback chain</td>
+<td>CSS → Playwright text locator → progressive scroll</td>
+<td>3단계, 단계별 성공 카운트 리포트</td>
+</tr>
+<tr>
+<td>VO 품질</td>
+<td>콘텐츠 추출 문장 직접 사용</td>
+<td>템플릿 NO, context 기반 1~2문장 자동 추출</td>
+</tr>
+<tr>
+<td>Zoom 다양성</td>
+<td>6종 (out/in/pan_right/pan_left/pan_up/pan_down)</td>
+<td><code>_direct_map.py</code> diversity report</td>
+</tr>
+<tr>
+<td>Color grade</td>
+<td>6종 (gold/warm/teal/cool/cinematic/natural)</td>
+<td>position-based cycle</td>
+</tr>
+<tr>
+<td>에러 처리</td>
+<td><code>|| echo "⚠️ [step] failed" &gt;&amp;2</code></td>
+<td>모든 단계 실패 원인 stderr 기록</td>
+</tr>
+<tr>
+<td>Code modularity</td>
+<td>P1 heredoc → <code>_capture_stills.py</code> 독립 파일</td>
+<td>Bash 인라인 Python 제거</td>
+</tr>
+<tr>
+<td>QA gate</td>
+<td>Slide diversity ≥ 10 unique frames, black frames = 0</td>
+<td><code>_qa_video_slides.py</code> + P5 gate</td>
+</tr>
+<tr>
+<td>전체 소요시간</td>
+<td>~20분</td>
+<td>S21 CPU-only, 8-beat 123초 영상 기준</td>
+</tr>
+</tbody>
+</table>
+<h3>9.2 전문가 품질 지표 (결과물이 프로급인가)</h3>
+<table>
+<thead>
+<tr>
+<th>지표</th>
+<th>V12 값</th>
+<th>기준</th>
+<th>적용 위치</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Easing</strong></td>
+<td>✅ Cosine ease-in-out</td>
+<td><code>zoom_expr = base + amount*(1-cos(PI*on/nframes))/2</code></td>
+<td><code>_render_video.py</code> P4</td>
+</tr>
+<tr>
+<td><strong>소스 해상도 헤드룸</strong></td>
+<td><strong>1.81x width</strong> (1950×4220 소스, 1080×1920 출력)</td>
+<td>Ken Burns zoom 최대 1.8x까지 무손실 (통상 1.2x 사용, 여유 충분)</td>
+<td><code>_capture_stills.py</code> P1, <code>_parse_url.py</code> P0</td>
+</tr>
+<tr>
+<td><strong>오디오 LUFS</strong></td>
+<td>✅ <strong>-16 LUFS</strong> (TP=-1.5, LRA=11)</td>
+<td>YouTube 권장 -14~-16 LUFS, <code>ffmpeg loudnorm</code> 필터</td>
+<td><code>_render_video.py</code> P4, <code>_pd_assemble.py</code> P5</td>
+</tr>
+<tr>
+<td><strong>Frame rate</strong></td>
+<td><strong>30fps</strong></td>
+<td>숏폼 표준 30fps, FFmpeg <code>fps=30</code> + <code>-r 30</code></td>
+<td><code>_render_video.py</code>, <code>_pd_assemble.py</code> normalize_av</td>
+</tr>
+<tr>
+<td><strong>BGM 저작권</strong></td>
+<td>✅ Boss 자작 피아노 (Content ID 회피)</td>
+<td>FluidSynth → Satie Gymnopédie, Clair de Lune</td>
+<td><code>helena-piano/bgm/output/</code></td>
+</tr>
+<tr>
+<td><strong>자막 가독성</strong></td>
+<td>72pt Bold + per-word scale pop + 레드 배경바</td>
+<td>CNN Breaking News 스타일, <code>\t()</code> 애니메이션</td>
+<td><code>_make_ass.py</code> P4b</td>
+</tr>
+<tr>
+<td><strong>Transition</strong></td>
+<td>4종 xfade cycle (fade/wipeleft/slideright/dissolve)</td>
+<td>0.4s duration, <code>_timing.json</code> 보정</td>
+<td><code>_render_video.py</code> P4</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>V11→V12 변경사항:</strong> ① device_scale_factor 3x→5x (소스 해상도 260% 헤드룸) ② <code>volume=1.0</code> → <code>loudnorm=I=-16:TP=-1.5:LRA=11</code> (P4+P5, 4개소) ③ Grok TTS 공식 폐기 ④ GPU/NPU 구조적 한계로 보류</p>
+</blockquote>
+<hr />
+<h2>10. 한계와 다음 과제</h2>
+<table>
+<thead>
+<tr>
+<th>과제</th>
+<th>상태</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LLM 기반 VO (Grok)</td>
+<td><strong>폐기 확정.</strong> Grok TTS API 403, SuperGrok 구독에 TTS 미포함. 콘텐츠 추출 VO로 대체 완료</td>
+</tr>
+<tr>
+<td>GPU/NPU 가속</td>
+<td><strong>구조적 한계로 보류.</strong> proot glibc↔Android bionic ABI 충돌. S25 업그레이드 시 재검토</td>
+</tr>
+<tr>
+<td><code>_timing.json</code> 생성</td>
+<td>xfade 정확 타이밍 데이터 누락 시 SRT 부정확 → 버그 수정 필요</td>
+</tr>
+<tr>
+<td>다중 페이지 지원</td>
+<td>현재 단일 URL만. "시리즈" 모드 (목차 → 각 글) 구상. GitHub Pages linked-repos 아이디어 연결</td>
+</tr>
+<tr>
+<td>YouTube Shorts 직접 업로드</td>
+<td>OAuth 완료. API 연동 대기 중</td>
+</tr>
+<tr>
+<td>에이전트 자동 발행</td>
+<td>Boss가 URL만 던지면 → 파싱 → 제작 → TG 검수 → 발행 승인</td>
+</tr>
+<tr>
+<td>NPU 추론 (장기)</td>
+<td>Exynos NPU NCP v24 커널 확인, Termux에서 DRM/NPU sysfs 접근 가능. ParksyTTS 471초→실시간 목표</td>
+</tr>
+</tbody>
+</table>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>

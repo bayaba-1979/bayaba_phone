@@ -1,0 +1,177 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--gold:#b8860b;--goldbg:#fef8e8;--cbg:#f4f2ed;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--gold:#d4a840;--goldbg:#282010;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--gold:#d4a840;--goldbg:#282010;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:10px;letter-spacing:.2em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:3px;line-height:1.25}
+.hero .subtitle{font-size:.88rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+.tbl-wrap{overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:580px}
+table.tbl{width:100%;border-collapse:collapse;margin-bottom:2px;font-size:.82rem;line-height:1.45}
+table.tbl th,table.tbl td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table.tbl th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table.tbl td{color:var(--t2)}
+table.tbl tr:hover td{background:var(--al)}
+table.tbl .hl{font-weight:700;color:var(--t)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:680px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.83rem}
+.info-box{background:var(--bbg);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.gold{background:var(--goldbg);border-left-color:var(--gold)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.gold strong{color:var(--gold)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.71rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-s21{background:var(--pbg);color:var(--p)}.chip-wsl{background:var(--gbg);color:var(--g)}.chip-shared{background:var(--goldbg);color:var(--gold)}
+.arrow-down{text-align:center;font-size:1.4rem;color:var(--a);margin:6px 0;font-weight:900}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+pre{background:var(--cbg);padding:7px 10px;border-radius:var(--r);font-family:var(--ffm);font-size:.74rem;line-height:1.5;overflow-x:auto;margin-bottom:8px;border:1px solid var(--bdr2)}
+</style>
+
+<div class="hero">
+<div class="eyebrow">Architecture Reference · 2026-08-10</div>
+<h1>📡 S21 ↔ WSL — 2트랙 티스토리 자동화 로드맵</h1>
+<div class="subtitle">S21 Paste Pipeline(수동 5-Click) → WSL Playwright(완전 무인화)<br>동일한 설계 원리, 다른 실행 환경. 업그레이드 경로 확보.</div>
+</div>
+
+<!-- ═══ OVERVIEW ═══ -->
+<section>
+<h2>🗺️ 두 시스템 한눈에</h2>
+
+<div class="grid2">
+<div class="card" style="border-left:3px solid var(--p)">
+<div class="card-hd"><span class="chip chip-s21">S21</span> Paste Pipeline v5.1</div>
+<div class="card-dsc">
+<strong>환경:</strong> proot Ubuntu on Galaxy S21 (aarch64)<br>
+<strong>방식:</strong> LLM 대화 → .md → HTML → TG .txt 전송 → 사람 5-Click<br>
+<strong>채널:</strong> 5 Tistory<br>
+<strong>장점:</strong> Playwright 불필요·경량·S21 온디바이스<br>
+<strong>제약:</strong> 사람 개입 필수·2~3분/건<br>
+<strong>상태:</strong> <span style="color:var(--g);font-weight:700">✅ 운영 중</span>
+</div>
+</div>
+<div class="card" style="border-left:3px solid var(--g)">
+<div class="card-hd"><span class="chip chip-wsl">WSL</span> Parksy Distributor v1.0</div>
+<div class="card-dsc">
+<strong>환경:</strong> WSL2 Ubuntu (x86_64, Playwright 가능)<br>
+<strong>방식:</strong> generator.py → publisher.py → Playwright → Tistory 자동발행<br>
+<strong>채널:</strong> 21 Tistory + 15 YouTube + 3 Naver + Discord 28<br>
+<strong>장점:</strong> 완전 무인화·MCP 20+도구·멀티플랫폼<br>
+<strong>제약:</strong> WSL 필요·Playwright 의존성 무거움<br>
+<strong>상태:</strong> <span style="color:var(--y);font-weight:700">⏸️ WSL 머신에서 대기</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ═══ COMPARISON ═══ -->
+<section>
+<h2>📊 기능 비교</h2>
+<div class="tbl-wrap">
+<table class="tbl">
+<thead><tr><th>기능</th><th><span class="chip chip-s21">S21</span></th><th><span class="chip chip-wsl">WSL</span></th><th>통합 시</th></tr></thead>
+<tbody>
+<tr><td class="hl">티스토리 채널</td><td>5</td><td><strong>21</strong></td><td>26 (완전 커버리지)</td></tr>
+<tr><td class="hl">발행 방식</td><td>사람 5-Click</td><td><strong>Playwright 자동</strong></td><td>채널 성격별 선택</td></tr>
+<tr><td class="hl">HTML 생성</td><td>parksy_to_html.py</td><td><strong>generator.py</strong> (파피루스 CSS v4.0)</td><td>generator.py 우위 — 단행본급</td></tr>
+<tr><td class="hl">콘텐츠 형식</td><td>Markdown</td><td><strong>posts/*.json</strong> + template</td><td>JSON 표준화</td></tr>
+<tr><td class="hl">멀티플랫폼</td><td>Telegram only</td><td><strong>TG + YT + Naver + Discord</strong></td><td>완전 크로스플랫폼</td></tr>
+<tr><td class="hl">MCP 도구</td><td>6</td><td><strong>20+</strong></td><td>26+</td></tr>
+<tr><td class="hl">계정 관리</td><td>불필요</td><td>5계정 + 쿠키 세션</td><td>세션 만료 감시 필요</td></tr>
+<tr><td class="hl">로그인</td><td>불필요</td><td>Kakao OAuth → 쿠키</td><td>login.py 주기적 갱신</td></tr>
+<tr><td class="hl">YouTube</td><td>—</td><td><strong>15채널 × 4계정</strong></td><td>PD Pipeline 영상 직결</td></tr>
+<tr><td class="hl">Naver</td><td>—</td><td><strong>3블로그</strong></td><td>API 붙으면 Paste Pipeline</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- ═══ ARCHITECTURE ═══ -->
+<section>
+<h2>🏗️ 공유 설계 — 두 시스템을 관통하는 원리</h2>
+
+<p>실행 환경이 달라도 <strong>설계 원리는 동일</strong>하다:</p>
+
+<div class="tbl-wrap">
+<table class="tbl">
+<thead><tr><th>원리</th><th><span class="chip chip-s21">S21 구현</span></th><th><span class="chip chip-wsl">WSL 구현</span></th></tr></thead>
+<tbody>
+<tr><td class="hl">2계층 분리</td><td>Human(LLM·TG·Tistory) / Machine(GitHub·Pages·Actions)</td><td>Human(LLM·MCP) / Machine(Playwright·Tistory·YouTube API)</td></tr>
+<tr><td class="hl">양방향 브릿지</td><td>Paste(내부→외부) + RSS(외부→내부) + Loopback(평가)</td><td>parksy_distribute_all(내부→외부) + parksy_*_list_*(외부→내부)</td></tr>
+<tr><td class="hl">CSS-only 인터랙션</td><td>:checked·details·CSS variables</td><td>파피루스 CSS v4.0 (동일 원리)</td></tr>
+<tr><td class="hl">단일 진실</td><td>configs/ecosystem-map.json</td><td>channel_map.json</td></tr>
+<tr><td class="hl">MCP 래퍼</td><td>helena-studio-mcp</td><td>parksy-distributor (FastMCP)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="info-box green"><strong>🔑 핵심:</strong> 두 시스템은 <strong>같은 설계도의 다른 구현체</strong>. S21은 경량·모바일·수동, WSL은 중량·데스크톱·자동. Paste Pipeline의 구조적 발견(루프백·2계층·.txt 표준)은 WSL 버전에도 그대로 적용 가능.</div>
+</section>
+
+<!-- ═══ UPGRADE PATH ═══ -->
+<section>
+<h2>🔄 업그레이드 경로 — S21 → WSL 단계적 전환</h2>
+
+<div class="tbl-wrap">
+<table class="tbl">
+<thead><tr><th>단계</th><th>내용</th><th>트리거</th><th>S21 영향</th></tr></thead>
+<tbody>
+<tr><td class="hl">0. 현재</td><td>S21 Paste Pipeline v5.1 독립 운영</td><td>—</td><td>주력</td></tr>
+<tr><td class="hl">1. 참조</td><td>WSL 코드베이스 → helena-programming/reference/wsl-automation/</td><td><span class="chip chip-s21">완료</span></td><td>없음 (문서화)</td></tr>
+<tr><td class="hl">2. MCP 통합</td><td>parksy-distributor MCP → helena-studio-mcp에 통합</td><td>WSL 환경 접근 가능 시</td><td>MCP 도구 6→26+</td></tr>
+<tr><td class="hl">3. generator.py 이식</td><td>파피루스 CSS v4.0 → S21 HTML 변환기로</td><td>단행본급 발행 필요 시</td><td>HTML 품질 ↑</td></tr>
+<tr><td class="hl">4. Hybrid 모드</td><td>중요 채널=WSL 자동, 일상=S21 수동</td><td>WSL 안정화 후</td><td>부하 분산</td></tr>
+<tr><td class="hl">5. Full WSL</td><td>모든 발행 WSL에서 자동화, S21=감독·검증·루프백</td><td>WSL 24/7 가동 시</td><td>역할 변경 (제작→감독)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="info-box gold"><strong>⚠️ 중요:</strong> WSL로 전환해도 <strong>S21은 폐기되지 않는다.</strong> S21의 새 역할 = <strong>품질 감독 + 루프백 평가 + 콘텐츠 기획</strong>. 발행이라는 기계적 작업에서 해방되어, LLM이 평가한 데이터를 바탕으로 더 나은 콘텐츠를 기획하는 두뇌 역할.</div>
+</section>
+
+<!-- ═══ CODE ASSETS ═══ -->
+<section>
+<h2>📦 코드 자산 보존 — reference/wsl-automation/</h2>
+<div class="tbl-wrap">
+<table class="tbl">
+<thead><tr><th>파일</th><th>원본</th><th>역할</th></tr></thead>
+<tbody>
+<tr><td class="hl">_tistory_publish.py</td><td>dtslib-papyrus</td><td>Playwright 발행 엔진 — TinyMCE setContent·Kakao 로그인·세션 쿠키 (단일 진실)</td></tr>
+<tr><td class="hl">parksy_distributor_mcp.py</td><td>dtslib-papyrus</td><td>MCP 서버 — 20+ 도구 (TG·YT·Naver·Tistory·Discord·통계)</td></tr>
+<tr><td class="hl">publisher.py</td><td>parksy-logs</td><td>배치 발행기 — posts/*.json 읽어서 계정별 순차 발행</td></tr>
+<tr><td class="hl">generator.py</td><td>parksy-logs</td><td>HTML 생성기 — 마크다운 → 파피루스 CSS v4.0 단행본</td></tr>
+<tr><td class="hl">accounts.json.example</td><td>parksy-logs</td><td>계정 템플릿 (5계정·비밀번호 중앙관리)</td></tr>
+<tr><td class="hl">post.json</td><td>parksy-logs</td><td>포스트 JSON 스키마</td></tr>
+<tr><td class="hl">parksy-logs-CLAUDE.md</td><td>parksy-logs</td><td>AI 에이전트 운영 지침</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- ═══ BOTTOM LINE ═══ -->
+<section>
+<h2>🎯 핵심 정리</h2>
+
+<div class="grid2">
+<div class="card" style="border-left:3px solid var(--p)"><div class="card-hd">S21 = 현재 주력</div><div class="card-dsc">5채널·Paste Pipeline·수동이지만 작동한다. API 없이도 양방향 루프 완성.</div></div>
+<div class="card" style="border-left:3px solid var(--g)"><div class="card-hd">WSL = 미래 확장</div><div class="card-dsc">21+15+3 채널·Playwright 완전자동·MCP 20도구. 환경 준비되면 즉시 가동.</div></div>
+<div class="card" style="border-left:3px solid var(--gold)"><div class="card-hd">둘은 경쟁이 아니라 보완</div><div class="card-dsc">S21=두뇌(기획·평가·루프백), WSL=손(발행·배포·크로스플랫폼). 같은 설계 원리.</div></div>
+<div class="card" style="border-left:3px solid var(--a)"><div class="card-hd">코드는 이미 준비됨</div><div class="card-dsc">WSL 코드 전부 reference/에 보존. 업그레이드 경로 문서화 완료. 환경만 되면 바로.</div></div>
+</div>
+</section>
+
+<div class="footer">
+<p>📡 S21 ↔ WSL 2-Track Tistory Automation · Architecture Reference<br>
+🌐 <a href="https://github.com/helena751107" style="color:var(--a)">github.com/helena751107</a> · <a href="https://github.com/REDACTED" style="color:var(--a)">github.com/REDACTED</a><br>
+reference: helena-programming/reference/wsl-automation/ (7 files)<br>
+생성: 2026-08-10 (_Claude) · Tistory HTML 모드 호환</p>
+</div>

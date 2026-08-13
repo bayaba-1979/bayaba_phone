@@ -1,0 +1,194 @@
+<style>
+:root{--bg:#f8f7f4;--s:#fefefe;--s2:#f0ede6;--t:#13110e;--t2:#4a4438;--t3:#7a7260;--bdr:#d9d2c0;--bdr2:#e8e3d4;--a:#1a3a5c;--a2:#2d5a88;--al:#e8f0f8;--g:#2d5a3e;--gbg:#e6f0e6;--rd:#a8403a;--rbg:#f8e8e6;--p:#5a3e7a;--pbg:#efe6f6;--y:#8a6a18;--ybg:#faf3e0;--o:#c06020;--obg:#fef0e4;--cbg:#eeebe4;--sh:0 1px 3px rgba(19,17,14,0.04);--r:8px;--rs:5px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}}
+:root[data-theme="dark"]{--bg:#14120e;--s:#1c1a14;--s2:#26231a;--t:#e8e4d8;--t2:#a89e88;--t3:#6e6450;--bdr:#3a3426;--bdr2:#2e2a1e;--a:#5a8eb8;--a2:#6ea8d8;--al:#162028;--g:#58a870;--gbg:#162818;--rd:#d06860;--rbg:#281816;--p:#9a78c0;--pbg:#201830;--y:#c8a040;--ybg:#282010;--o:#e89850;--obg:#2a1c10;--cbg:#201e16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.74;color:var(--t);background:var(--bg);max-width:860px;margin:0 auto;padding:0 20px 80px;overflow-x:hidden}
+.hero{text-align:center;padding:28px 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.hero h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.hero .subtitle{font-size:.9rem;color:var(--t2);line-height:1.55}
+section{margin-bottom:24px}
+h2{font-size:1.06rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:6px;margin-bottom:10px}
+h3{font-size:.92rem;font-weight:700;margin-bottom:6px;color:var(--a)}
+h4{font-size:.84rem;font-weight:700;margin-bottom:4px;color:var(--t)}
+p{margin-bottom:7px;color:var(--t2)}
+p strong{color:var(--t)}
+ul,ol{margin-bottom:10px;padding-left:22px;color:var(--t2)}
+li{margin-bottom:3px}
+li strong{color:var(--t)}
+blockquote{margin-bottom:10px;padding:8px 12px;background:var(--al);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;color:var(--t2);font-size:.9rem}
+blockquote strong{color:var(--t)}
+.tbl-wrap{max-width:100%;overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:480px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:.82rem;line-height:1.45}
+table th,table td{padding:6px 9px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+table th{background:var(--s2);font-weight:700;font-size:.73rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+table td{color:var(--t2)}
+.copy-wrap{position:relative;margin-bottom:10px}
+.copy-wrap pre{margin-bottom:0}
+pre{background:var(--cbg);padding:10px 44px 10px 13px;border-radius:var(--r);font-family:var(--ffm);font-size:.76rem;line-height:1.55;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:5px;border:1px solid var(--bdr2);background:var(--s);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s;z-index:1}
+.copy-btn:hover{background:var(--a);color:#fff;border-color:var(--a)}
+.copy-btn.copied{background:var(--g);color:#fff;border-color:var(--g)}
+code{font-family:var(--ffm);font-size:.88em;background:var(--cbg);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;font-size:inherit}
+.info-box{background:var(--al);border-left:3px solid var(--a);padding:9px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.83rem;color:var(--t)}
+.info-box.green{background:var(--gbg);border-left-color:var(--g)}
+.info-box.red{background:var(--rbg);border-left-color:var(--rd)}
+.info-box.gold{background:var(--ybg);border-left-color:var(--y)}
+.info-box.purple{background:var(--pbg);border-left-color:var(--p)}
+.info-box strong{color:var(--a)}.info-box.green strong{color:var(--g)}.info-box.red strong{color:var(--rd)}.info-box.gold strong{color:var(--y)}.info-box.purple strong{color:var(--p)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-pages{background:#d8e8f6;color:#1a3a5c}.chip-tistory{background:#f8e0d0;color:#6e3000}
+@media(prefers-color-scheme:dark){.chip-pages{background:#1a2838;color:#8cc0f0}.chip-tistory{background:#2a1c10;color:#f0a868}}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.88rem;margin-bottom:3px}
+.card-dsc{color:var(--t2);font-size:.82rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.88rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t)}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▶";font-size:.55rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
+.footer{text-align:center;padding:16px 0 4px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.74rem;margin-top:24px}
+@media(max-width:480px){body{font-size:14px;padding:0 12px 60px}.hero h1{font-size:1.2rem}}
+</style>
+<div class="hero">
+<div class="eyebrow">P8 · Ch8.4</div><h1>출판 스케줄러</h1>
+<div class="subtitle">실전 — 후기와 교훈</div></div>
+<div class="hero">
+<div class="eyebrow">Publishing Scheduler v1.0 · 2026-08-10</div>
+<h1>📅 출판 스케줄러 — 125건 · 4일 완료</h1>
+<div class="subtitle">GitHub Pages 93건 + Tistory 32건<br>S21 단독 운영 · WSL 불필요 · 하루 15~30분</div>
+</div>
+
+<div class="counter-bar">
+<div class="counter"><div class="num">125</div><div class="label">총 페이지</div></div>
+<div class="counter"><div class="num">4</div><div class="label">소요 일수</div></div>
+<div class="counter"><div class="num">~15분</div><div class="label">1일 작업시간</div></div>
+<div class="counter"><div class="num">0</div><div class="label">WSL 필요</div></div>
+</div>
+
+<section>
+<div class="info-box green"><strong>🎯 전제:</strong> S21 폰 하나, proot Ubuntu, Paste Pipeline v5.1 기준. GitHub Pages는 git push 한 번으로 93건 전부 배포. Tistory는 하루 10~12건씩 TG .txt로 받아서 복사·붙여넣기. <strong>수작업 90% 감소</strong> — 원래였으면 125페이지 HTML 직접 코딩(125시간 분량)을 Claude Code가 1인당 1분으로 단축.</div>
+</section>
+
+<section>
+<h2>📊 티스토리 발행 한도 리서치</h2>
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>항목</th><th>결과</th></tr></thead>
+<tbody>
+<tr><td><strong>공식 문서</strong></td><td>❌ 티스토리는 하루 글쓰기 개수 제한을 공식 문서화하지 않음 (운영정책 페이지 404)</td></tr>
+<tr><td><strong>실제 제한 방식</strong></td><td>고정 숫자 제한이 아니라 <strong>스팸 탐지 휴리스틱</strong> — 급격한 대량 발행·중복 콘텐츠·자동화 패턴 감지</td></tr>
+<tr><td><strong>커뮤니티 경험</strong></td><td>신규 블로그 기준 하루 <strong>15건 이하</strong> 권장. 30건 이상 연속 시 스팸 플래그 가능</td></tr>
+<tr><td><strong>카카오 정책</strong></td><td>댓글 자동화·대량 등록에 대한 제한 명시. 게시글도 유사 기준 적용 추정</td></tr>
+<tr><td><strong>본 스케줄 기준</strong></td><td>하루 <strong>10~12건</strong> — 안전 마진 확보. 점진적·자연스러운 패턴 유지</td></tr>
+<tr><td><strong>계정 나이 효과</strong></td><td>블로그 생성 2026-08-09. 현재 글 0건. <strong>신규 계정일수록 보수적으로 접근 필요.</strong></td></tr>
+</tbody></table></div>
+</section>
+
+<section>
+<h2>📅 4일 스케줄</h2>
+
+<h3>Day 1 — GitHub Pages 전체 배포 (~5분)</h3>
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>작업</th><th>방법</th><th>시간</th></tr></thead>
+<tbody>
+<tr><td>P1~P8 93페이지 HTML 빌드 + 템플릿 일괄 변환</td><td>Claude Code → parksy_to_html.py → git push</td><td>CC 백그라운드</td></tr>
+<tr><td>git push → Pages 자동 배포 확인</td><td><code>git push</code></td><td>1분</td></tr>
+<tr><td>PWA manifest.json 활성화 확인</td><td>Pages URL 접속 → "앱 설치" 버튼 확인</td><td>2분</td></tr>
+</tbody></table></div>
+
+<h3>Day 1~4 — Tistory 순차 발행 (매일 ~15분)</h3>
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>Day</th><th>Flow</th><th>건수</th><th>내용</th><th>상태</th></tr></thead>
+<tbody>
+<tr><td><strong>Day 1</strong></td><td>Flow 5: 실전 교훈</td><td>8</td><td>PC 삽질·중간평가·CHRONICLE·DevLog</td><td><span class="chip chip-go">▶ 오늘</span></td></tr>
+<tr><td><strong>Day 2</strong></td><td>Flow 1: PD Pipeline 개발일지 (v1~v4)</td><td>6</td><td>Grok 세션·영상·PD·브릿지 회의록</td><td><span class="chip chip-wait">대기</span></td></tr>
+<tr><td><strong>Day 2</strong></td><td>Flow 3: 인프라 의사결정</td><td>5</td><td>다중AI·Claude-Grok·브릿지 설계</td><td><span class="chip chip-wait">대기</span></td></tr>
+<tr><td><strong>Day 3</strong></td><td>Flow 1: PD Pipeline 개발일지 (v5~v8)</td><td>6</td><td>Director v5~v8·완성 리포트</td><td><span class="chip chip-wait">대기</span></td></tr>
+<tr><td><strong>Day 3</strong></td><td>Flow 2: 목소리 실험 노트</td><td>4</td><td>TTS·RVC·STT·음성엔진 결정</td><td><span class="chip chip-wait">대기</span></td></tr>
+<tr><td><strong>Day 4</strong></td><td>Flow 4: 돌봄 대화록</td><td>4</td><td>오프닝·기초생계·치매·아이덴티티</td><td><span class="chip chip-wait">대기</span></td></tr>
+<tr><td><strong>Day 4</strong></td><td>Flow 6: 기획·전략</td><td>5</td><td>웹진·네이버·최종전략·통합계획</td><td><span class="chip chip-wait">대기</span></td></tr>
+</tbody></table></div>
+</section>
+
+<section>
+<h2>🔄 건당 작업 흐름 (Paste Pipeline v5.1)</h2>
+<ol style="margin-bottom:10px;padding-left:22px;color:var(--t2);line-height:1.9">
+<li><strong>Claude Code</strong>: md 원본 읽기 → HTML 변환 (아코디언·탭·SVG·다크모드·user-select:all)</li>
+<li><strong>minify</strong>: 공백 최소화 → .txt 파일 저장</li>
+<li><strong>TG 전송</strong>: <code>sendDocument</code> .txt (content_type: text/plain)</li>
+<li><strong>Boss</strong>: TG에서 .txt 열기 → 전체 복사</li>
+<li><strong>티스토리</strong>: 글쓰기 HTML 모드 → 붙여넣기 → 카테고리 선택 → 발행</li>
+</ol>
+<div class="info-box gold"><strong>⏱️ 건당 2~3분.</strong> 1단계(CC HTML 생성)는 백그라운드에서 미리 완료. Boss는 TG 받아서 붙여넣기만 하면 끝.</div>
+</section>
+
+<section>
+<h2>🧠 연구 노트 — 티스토리 제한에 관해 알려진 것</h2>
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>출처</th><th>내용</th><th>신뢰도</th></tr></thead>
+<tbody>
+<tr><td>티스토리 공식</td><td>게시글 수 제한에 대한 명시적 수치 없음</td><td>✅ 확실</td></tr>
+<tr><td>티스토리 공지 #2694</td><td>댓글 자동화·반복 문구 대량 등록 제한 명시</td><td>✅ 확실</td></tr>
+<tr><td>커뮤니티 (블로그 질문답변)</td><td>신규 블로그 하루 15건 이하 권장</td><td>⚠️ 경험적</td></tr>
+<tr><td>카카오 운영정책</td><td>"비정상적 방법"으로 콘텐츠 대량 등록 금지</td><td>✅ 확실</td></tr>
+<tr><td>실제 사례</td><td>하루 30건 이상 연속 발행 시 스팸 차단 보고됨</td><td>⚠️ 경험적</td></tr>
+</tbody></table></div>
+<div class="info-box"><strong>📌 결론:</strong> 티스토리는 고정 수치 제한이 아니라 <strong>행위 기반 스팸 탐지</strong>. "자연스러운" 패턴(하루 10~15건 이내, 불규칙한 간격, 다양한 콘텐츠)이면 문제없다. 32건을 3~4일에 나누면 안전.</div>
+</section>
+
+<section>
+<h2>📋 체크리스트 — 매일 확인</h2>
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>항목</th><th>Day 1</th><th>Day 2</th><th>Day 3</th><th>Day 4</th></tr></thead>
+<tbody>
+<tr><td>Pages 93건 배포 완료</td><td>☐</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>Tistory 발행 (건수)</td><td>8</td><td>11</td><td>10</td><td>9</td></tr>
+<tr><td>Tistory 누적</td><td>8/32</td><td>19/32</td><td>29/32</td><td>32/32</td></tr>
+<tr><td>카테고리 지정 확인</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td>Pages ↔ Tistory 링크 확인</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td>스팸 차단 여부</td><td>☐</td><td>☐</td><td>☐</td><td>☐</td></tr>
+</tbody></table></div>
+</section>
+
+<div class="footer">
+<p>📅 Publishing Scheduler v1.0 · 2026-08-10 (_Claude)<br>
+🌐 <a href="https://helena751107.github.io/helena-programming/" style="color:var(--a)">Hub (Pages)</a> · <a href="https://galaxys21-pwuser.tistory.com" style="color:var(--a)">Tistory</a><br>
+125건 · 4일 · 하루 15분 · S21 단독 운영 · WSL 불필요</p>
+</div>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<script>
+(function(){
+var pres=document.querySelectorAll('pre');
+pres.forEach(function(pre){
+var wrap=document.createElement('div');
+wrap.className='copy-wrap';
+pre.parentNode.insertBefore(wrap,pre);
+wrap.appendChild(pre);
+var btn=document.createElement('button');
+btn.className='copy-btn';
+btn.title='복사';
+btn.textContent='📋';
+btn.onclick=function(){
+var txt=pre.textContent;
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+}).catch(function(){
+var ta=document.createElement('textarea');
+ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();
+document.execCommand('copy');document.body.removeChild(ta);
+btn.textContent='✅';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋';btn.classList.remove('copied');},1500);
+});
+};
+});
+})();
+</script>
