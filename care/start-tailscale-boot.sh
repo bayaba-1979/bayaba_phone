@@ -65,8 +65,10 @@ else
   echo "[$(date '+%F %T')] [1] Termux tailscaled 기동 (port 41642)" >> "$BOOTLOG"
   # 부팅 직후 bionic tailscaled가 netmon.New "netlinkrib: permission denied"로
   # 죽는 일시 현상(2026-08-13 19:52 실측). netmon 실패는 기동 후 ~1초 내 발생 →
-  # 8초 대기 후 프로세스 생존 확인, 죽었으면 재기동. 최대 10회(창 ~80초).
-  MAX_TRY=10
+  # 8초 대기 후 프로세스 생존 확인, 죽었으면 재기동.
+  # ⚠️ 2026-08-13 20:25 부팅에서 80초(10회) 창을 초과하는 정착(~3분) 실측 →
+  #   최대 75회(창 ~10분)로 확장. netmon 정착은 보통 ~3분.
+  MAX_TRY=75
   TRY=0
   while [ "$TRY" -lt "$MAX_TRY" ]; do
     # 좀비(프로세스만 살아있고 소켓 없음) 또는 이전 시도 잔재 → 강제 정리 후 재기동.
@@ -101,9 +103,13 @@ fi
 #     (glibc `tailscale` CLI로 bionic/proot 양쪽 소켓 제어 — native bionic CLI는
 #      SIGSYS로 죽기 때문에 여기서 절대 `tailscale up` 네이티브 호출 금지)
 # ==============================================================================
-echo "[$(date '+%F %T')] [2] proot(glibc) 데몬 + 양 노드 up 기동 (helper 호출)" >> "$BOOTLOG"
-timeout 90 "$TS/bin/proot-distro" login ubuntu -- \
-  bash /root/work/care/start-proot-tailscale.sh >> "$BOOTLOG" 2>&1 \
-  || echo "[warn] proot-distro 실행 실패 (시간초과/미설치)" >> "$BOOTLOG"
+echo "[$(date '+%F %T')] [2] proot(glibc) 데몬 기동 (keep-alive 상주 세션)" >> "$BOOTLOG"
+# ⚠️ 2026-08-13 20:25 부팅 실측: helper proot 세션이 종료되면 proot-distro의
+#   --kill-on-exit이 안에서 기동한 glibc 데몬까지 SIGKILL로 휩쓸었음.
+#   → timeout(세션 종료) 대신 nohup+백그라운드로 탈부착하고, helper는 --keepalive
+#     루프가 foreground로 살아있게 해 proot 세션(그리고 데몬)을 계속 유지.
+nohup "$TS/bin/proot-distro" login ubuntu -- \
+  bash /root/work/care/start-proot-tailscale.sh --keepalive \
+  >> "$BOOTLOG" 2>&1 < /dev/null &
 
 echo "[$(date '+%F %T')] boot script END" >> "$BOOTLOG" 2>&1

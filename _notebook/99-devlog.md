@@ -5715,3 +5715,24 @@ Claude Code(나)는 존재하지 않는 pip wheel을 사실인 것처럼 말했�
 **Boss 결정:** 크론을 추가하지 않고 **무상주 유지**. 아웃바운드 배터리/온도 경고는 수동(`tailscale-check.sh --telegram`)으로만. 인바운드 Tailscale은 이미 자동이므로 돌봄의 "문"은 열려 있음.
 
 **조치:** 백서·메모리의 "매 15분 크론" 표기를 현실(미스케줄)에 맞게 정정. `care-daemon.sh` 스크립트는 보존하되 현재 미사용. §90의 "정기 모니터(크론)" 분류는 이 결정으로 폐기.
+
+---
+
+### 🔧 Tailscale 부팅 완전자동화 — keep-alive 상주 + netmon 창 확장 (_Claude · 2026-08-13)
+
+**5차 재부팅(20:25) 검증 결과:**
+- ✅ Termux:Boot 자동기동 + retry 루프(234e4f3)는 기계적으로 정상 동작.
+- ❌ bionic 데몬: netmon 정착(~3분)이 80초 창 초과 → 10회 재시도 전부 실패.
+- ❌ **신규 원인 확정:** proot glibc 데몬이 부팅 helper proot 세션(`proot-distro login`) 종료 시 `--kill-on-exit`에 휩쓸려 SIGKILL. `nohup &`은 proot 세션 안에선 세션 종료 시 함께 죽음. (증거: `proot_cmd.py:116` — proot-distro가 기본으로 `--kill-on-exit`을 붙임)
+
+**fix 2건:**
+1. **netmon 창 확장** — `start-tailscale-boot.sh` [1] `MAX_TRY` 10→75 (창 80초→~10분). netmon 정착(~3분) 커버.
+2. **proot 데몬 keep-alive 상주** — 부팅 [2]를 `timeout 90`(세션 종료) → `nohup ... &`(탈부착)로 바꾸고, helper에 `--keepalive` 루프 추가. 루프(foreground)가 살아있는 한 proot 세션도 살아있어 `--kill-on-exit` 미발동 + 양 노드 `up` 주기(60s) 재확인으로 자가치유.
+
+**검증:** cold-start 시뮬레이션(proot 데몬 kill → helper 재기동 → keep-alive 생존 + 8항목 정상) 통과. 배포: repo + `~/.termux/boot/` 재배포.
+
+### 🔒 OS 자동 업데이트 차단 — 서버 역할 환경 고정 (_Boss · 2026-08-13)
+
+**Boss 결정:** 이 폰은 실사용 폰이 아니라 **서버**. 안드로이드 OS 업데이트(백그라운드 통제·Phantom Killer 강화·bionic/proot 우회로 차단)가 올라오면 잘 돌아가던 Tailscale이 어느 날 꼬일 위험 → **시스템 자동 OS 업데이트 OFF**로 환경 고정 완료.
+- 서버 원칙: "잘 돌아가면 업데이트도 함부로 안 한다".
+- 방어 2중화: OS 고정 + keep-alive 자가치유 + 부팅 retry 확장.

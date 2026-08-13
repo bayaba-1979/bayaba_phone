@@ -25,6 +25,10 @@
 
 set -u
 
+# --keepalive: 부팅 후 상주 모드. 이 플래그가 없으면(수동 복구) 기동+up 후 종료.
+KEEPALIVE=0
+[ "${1:-}" = "--keepalive" ] && KEEPALIVE=1
+
 # ------------------------------------------------------------------------------
 # [A] helena-proot — glibc tailscaled 데몬 (port 41641)
 # ------------------------------------------------------------------------------
@@ -41,11 +45,12 @@ daemon_pid() {
   pgrep -f "[t]ailscaled.*--port=$1" 2>/dev/null | head -1
 }
 
-# 서빙 중 판정 = 소켓에 실제 연결(status) 시도. cmdline 매칭이 아니므로
-#   부모/자기 셸 오살·오판 원천 차단 (pgrep -f는 좀비 종료에만 사용).
-if tailscale --socket="$PROOT_SOCK" status >/dev/null 2>&1; then
-  echo "proot tailscaled 이미 실행 중 (status 응답)"
-else
+# [A] proot 데몬 생존 보장 (멱등 함수 — keep-alive 루프에서도 재사용)
+#   서빙 중 판정 = 소켓에 실제 연결(status). cmdline 매칭이 아니므로 오살·오판 차단.
+ensure_proot_daemon() {
+  if tailscale --socket="$PROOT_SOCK" status >/dev/null 2>&1; then
+    return 0
+  fi
   # 좀비(프로세스만 살아있고 소켓 없음) 또는 죽음 → 강제 정리 후 재기동.
   # 재부팅 직후 proot /run은 tmpfs 아님(영속) → 재부팅 전 stale 소켓이 바인딩 방해.
   ZPID=$(daemon_pid "$PROOT_PORT" 2>/dev/null)
@@ -54,7 +59,7 @@ else
   nohup tailscaled --tun=userspace-networking --port="${PROOT_PORT}" \
     --socket="$PROOT_SOCK" >> "$PROOT_LOG" 2>&1 &
   sleep 3
-fi
+}
 
 # ------------------------------------------------------------------------------
 # up_with_retry — 소켓이 준비될 때까지 대기하며 `up` 재시도 (콜드 부팅 대비)
@@ -80,8 +85,9 @@ up_with_retry() {
 }
 
 # ------------------------------------------------------------------------------
-# [B] helena-proot `up` — glibc tailscale (기본 소켓)
+# [B] helena-proot 데몬 생존 보장 + `up` — glibc tailscale (기본 소켓)
 # ------------------------------------------------------------------------------
+ensure_proot_daemon
 up_with_retry "$PROOT_SOCK" "helena-proot" "helena-proot"
 
 # ------------------------------------------------------------------------------
@@ -90,5 +96,23 @@ up_with_retry "$PROOT_SOCK" "helena-proot" "helena-proot"
 # ------------------------------------------------------------------------------
 TERMUX_SOCK=/data/data/com.termux/files/usr/var/lib/tailscale/tailscaled.sock
 up_with_retry "$TERMUX_SOCK" "helena-android" "helena-android"
+
+# ------------------------------------------------------------------------------
+# [D] keep-alive 상주 루프 — 부팅 후 proot 세션을 살려두어 데몬이 proot-distro의
+#     --kill-on-exit으로 휩쓸리지 않게 함. 이 루프(foreground)가 살아있는 한
+#     proot 세션도 살아있고, 그 안의 glibc 데몬도 살아있음.
+#     + 양 노드 up을 주기 재확인 → bionic 데몬이 늦게 떠도 자가치유.
+# ------------------------------------------------------------------------------
+if [ "$KEEPALIVE" = 1 ]; then
+  echo "proot keep-alive 상주 시작 (port ${PROOT_PORT} 데몬 + 양 노드 up 주기 재확인)"
+  while true; do
+    ensure_proot_daemon
+    tailscale --socket="$PROOT_SOCK" up --ssh --hostname="helena-proot" >/dev/null 2>&1 || true
+    if [ -S "$TERMUX_SOCK" ]; then
+      tailscale --socket="$TERMUX_SOCK" up --ssh --hostname="helena-android" >/dev/null 2>&1 || true
+    fi
+    sleep 60
+  done
+fi
 
 echo "proot helper 완료 (port ${PROOT_PORT} 데몬 + 양 노드 up)"
