@@ -10,6 +10,9 @@
 #       _notebook/health/tailscale-latest.json      (최신, 대시보드용 고정 경로)
 #
 # 원칙: 워치독(상주 데몬) 없음. Boss가 원할 때 한 번 실행하는 헬스체크식 스크립트.
+#
+# 2026-08-14 단일 노드 전환 — helena-proot(41641) 제거. helena-android(41642)만
+#   점검. 모든 상태 조회는 bionic 소켓(--socket)으로.
 # ==============================================================================
 
 BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
@@ -19,13 +22,17 @@ TS="$(date '+%Y-%m-%d %H:%M:%S')"
 REPORT_FILE="${HEALTH_DIR}/tailscale-${NOW}.json"
 LATEST_FILE="${HEALTH_DIR}/tailscale-latest.json"
 
+# helena-android(bionic) 데몬 소켓 — 단일 노드
+BIONIC_SOCK="/data/data/com.termux/files/usr/var/lib/tailscale/tailscaled.sock"
+
 mkdir -p "$HEALTH_DIR"
 
 # .secrets.env (API 키 — 선택적. 없으면 API 검증 생략, 나머지는 그대로 동작)
 SECRETS="${BASE_DIR}/.secrets.env"
 [ -f "$SECRETS" ] && set -a && source "$SECRETS" 2>/dev/null && set +a
 
-# Termux PATH 선두 (tailscale 등)
+# Termux PATH 선두 (tailscale 등) — native bionic `tailscale status`는 정상 동작
+#   (SIGSYS는 `up`/`login` 등 clipboard import 경로만, status는 아님).
 export PATH="/data/data/com.termux/files/usr/bin:$PATH"
 
 OK="✅"; WARN="⚠️"; FAIL="❌"; INFO="ℹ️"
@@ -39,24 +46,16 @@ sect() { echo ""; echo "━━━ $* ━━━"; }
 echo "📡 돌봄 채널(Tailscale) 상태 — $TS"
 
 # 상태 변수 (JSON 보고용)
-PROOT_ALIVE="no"; TERMUX_ALIVE="no"; BACKEND="?"; SSH_AD="no"; PEER_CNT=0
+TERMUX_ALIVE="no"; BACKEND="?"; SSH_AD="no"; PEER_CNT=0
 
 # ============================================================
-# 1. tailscaled 프로세스 생존 (상주 2개 — proot 41641, Termux 41642)
+# 1. tailscaled 프로세스 생존 (단일 노드 — Termux 41642)
 # ============================================================
 
 sect "1. tailscaled 프로세스"
 
 # [t] 괄호 트릭: pgrep 자신/bash 자기매칭 방지
-PROOT_PID=$(pgrep -f '[t]ailscaled.*--port=41641' 2>/dev/null | head -1)
 TERMUX_PID=$(pgrep -f '[t]ailscaled.*--port=41642' 2>/dev/null | head -1)
-
-if [ -n "$PROOT_PID" ]; then
-  ok "helena-proot tailscaled (PID $PROOT_PID, port 41641)"
-  PROOT_ALIVE="yes"
-else
-  fail "helena-proot tailscaled 죽음 (port 41641)"
-fi
 
 if [ -n "$TERMUX_PID" ]; then
   ok "helena-android tailscaled (PID $TERMUX_PID, port 41642)"
@@ -66,12 +65,12 @@ else
 fi
 
 # ============================================================
-# 2. 로컬 노드(helena-proot) 상태 — 백엔드 / 온라인 / 태그 / SSH
+# 2. helena-android 노드 상태 — 백엔드 / 온라인 / 태그 / SSH
 # ============================================================
 
-sect "2. helena-proot 노드 상태"
+sect "2. helena-android 노드 상태"
 
-if tailscale status --json > /tmp/ts_check.json 2>/dev/null; then
+if tailscale --socket="$BIONIC_SOCK" status --json > /tmp/ts_check.json 2>/dev/null; then
   eval "$(python3 - <<'PY'
 import json
 d = json.load(open('/tmp/ts_check.json'))
@@ -108,7 +107,7 @@ fi
 
 sect "3. 인바운드 채널 (박씨 기기 가시성)"
 
-PEERS=$(tailscale status 2>/dev/null | grep -cE 'REDACTED@' || true)
+PEERS=$(tailscale --socket="$BIONIC_SOCK" status 2>/dev/null | grep -cE 'REDACTED@' || true)
 if [ "$PEERS" -ge 1 ] 2>/dev/null; then
   ok "박씨 기기 ${PEERS}대 가시 (박씨→S21 채널 정상)"
   PEER_CNT=$PEERS
@@ -165,7 +164,6 @@ cat > "$REPORT_FILE" <<JSON
   "pass": $PASS_CNT,
   "warn": $WARN_CNT,
   "fail": $FAIL_CNT,
-  "proot_alive": "$PROOT_ALIVE",
   "termux_alive": "$TERMUX_ALIVE",
   "backend": "$BACKEND",
   "ssh_advertising": "$SSH_AD",
@@ -182,9 +180,9 @@ info "최신: $LATEST_FILE"
 
 if [ "$1" = "--telegram" ] || [ "$2" = "--telegram" ]; then
   if [ "$FAIL_CNT" -eq 0 ]; then
-    MSG="✅ 돌봄 채널 정상 — proot+Termux 생존, backend Running, SSH 광고, 박씨 기기 ${PEER_CNT}대 가시 (통과 ${PASS_CNT})"
+    MSG="✅ 돌봄 채널 정상 — helena-android 생존, backend Running, SSH 광고, 박씨 기기 ${PEER_CNT}대 가시 (통과 ${PASS_CNT})"
   else
-    MSG="🔴 돌봄 채널 이상 — 실패 ${FAIL_CNT}개. proot생존=${PROOT_ALIVE} termux생존=${TERMUX_ALIVE} backend=${BACKEND}"
+    MSG="🔴 돌봄 채널 이상 — 실패 ${FAIL_CNT}개. termux생존=${TERMUX_ALIVE} backend=${BACKEND}"
   fi
   bash "$BASE_DIR/tg.sh" --no-button "$MSG" 2>/dev/null \
     && echo "  $OK 텔레그램 보고 전송" \

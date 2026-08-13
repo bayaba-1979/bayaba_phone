@@ -5736,3 +5736,57 @@ Claude Code(나)는 존재하지 않는 pip wheel을 사실인 것처럼 말했�
 **Boss 결정:** 이 폰은 실사용 폰이 아니라 **서버**. 안드로이드 OS 업데이트(백그라운드 통제·Phantom Killer 강화·bionic/proot 우회로 차단)가 올라오면 잘 돌아가던 Tailscale이 어느 날 꼬일 위험 → **시스템 자동 OS 업데이트 OFF**로 환경 고정 완료.
 - 서버 원칙: "잘 돌아가면 업데이트도 함부로 안 한다".
 - 방어 2중화: OS 고정 + keep-alive 자가치유 + 부팅 retry 확장.
+
+### ⚠️ Tailscale 재부팅 검증 6차 — bionic netmon 정착 11분, retry 창(10분) 초과 (_Claude · 2026-08-13)
+
+**결과:** 21:04 재부팅 → Termux:Boot 자동기동 ✅, proot 노드(helena-proot) keep-alive로 자동 복구 ✅, **bionic 노드(helena-android)는 자동기동 실패** → 수동 재기동으로 복구.
+- **원인:** 부팅 직후 `netmon.New: netlinkrib: permission denied` 일시현상이 이번엔 **~11분** 지속 (이전 3분~10분). 부팅 스크립트 retry 창 75회(≈10분)를 초과.
+- **현재 상태:** 수동 복구 후 tailscale-check.sh 8/8 통과, 양 노드 Running + tag:helena + SSH.
+- **📌 미완 fix (다음 세션):** (1) `MAX_TRY 75→120`(≈16분) (2) step[1](bionic retry)이 step[2](proot 기동)를 blocking → 병렬화로 proot 지연 2차 피해 제거.
+- 메모리: `post-reboot-check.md` 6차 검증 기록 완료.
+
+### ✅ Tailscale fix 적용 — 무한 재시도 + 병렬화 커밋 (_Claude · 2026-08-13)
+
+**6차 원인 확정 후 fix 적용·커밋(7f07483):** 고정 75회 재시도 → **무한 루프(성공까지) + background 병렬화**.
+- netmon 정착 시간이 가변(1~15분)이라 "고정 횟수"는 원천적으로 틀림. 횟수 제한 제거, 성공하면 루프 자체가 exit(상주 없음).
+- background로 돌려 step[2](proot 기동)와 병렬 → proot 노드가 bionic 재시도에 blocking되던 2차 피해 제거.
+- 배포본(`.termux/boot`) 일치 확인. 다음 재부팅에서 실전 검증 예정.
+
+**테스트 중 부수 정리:** bionic 데몬 3개(6681/6996/19759) 중복 기동 → 전부 kill + socket rm → 1개(7623) 재기동. 최종 tailscaled 2개(41641+41642)만. 8/8 통과.
+
+**📌 남은 배터리 이슈(미해결, Boss 판단 필요):**
+1. `termux-wake-lock` 부팅 후 무한 유지 → CPU 깊은잠 방지 = 상시 배터리 소모.
+2. keep-alive 60초 루프 → 60초마다 wake(상주). 간격 확대 또는 on-demand 재설계.
+- 메모리: `post-reboot-check.md` 7차 기록 완료.
+
+### ✅ 돌봄 데몬 배터리 재설계 — 상주 wake 루프 제거 (_Claude · 2026-08-13)
+
+**Boss 지시:** "쓸데없는 데몬 돌리면서 배터리 잡아먹지 마라 — 통화 대기 수준으로 하루는 가야 됨." 매번 방향 지시하는 것도 부담 → 자율 판단으로 배터리 소모원 2건 제거·커밋(db97e80).
+
+**1. keep-alive 60초 wake 루프 제거 → `--no-kill-on-exit`:**
+- 기존: helper가 60초마다 wake하며 데몬 유지 + up 재확인 → 상시 배터리 소모(하루 1440회 wake).
+- 변경: proot-distro `--no-kill-on-exit`(proot_cmd.py:112에 옵션 존재)으로 부모가 block(CPU ~0)하며 glibc 데몬 유지. helper는 데몬+up 후 종료.
+- **핵심 발견:** proot 데몬은 `--state` 없이 시작돼 `up`이 "prefs write access denied"로 실패하지만, **state 파일로 자동 재연결**되어 Running+Online 유지(keep-alive가 2.5시간 이 오류를 `|| true`로 삼키고 있었음). → 목표를 "up 성공"→"backend Running"으로 바꿔 헬퍼 성공 판정 강건화.
+
+**2. `termux-wake-lock` 무한 유지 → 20분 자동 해제:**
+- 부팅 정착(최악 ~15분)에만 필요한 wake-lock을 배경 서브셸 `sleep 1200` 후 `termux-wake-unlock`으로 해제.
+
+**+ bionic `up`을 데몬이 살아난 순간 native 루프에서 1회 실행** (타임아웃 추측 제거). 구문 검사(dash) + 헬퍼 실행(exit 0, Running 확인) 통과, 현재 8/8 정상. **전부 다음 재부팅에서 실전 검증 예정.**
+
+- 메모리: `post-reboot-check.md` 7차 배터리 기록 완료.
+
+### ✅ 100점 최적화 — 듀얼 노드 → 단일 노드 전환 (_Claude · 2026-08-14)
+
+**Boss 지시:** "재수를 하지 말고 100점짜리 최적화해놔. 지금." → 오늘(08-13) 재부팅 버그의 근원이 듀얼 노드(proot 겹층)임을 인정하고, 패치가 아니라 **구조 자체를 단순화**.
+
+**핵심 실증 — `up` 없이 자동 재연결:** bionic tailscaled를 kill → `up` 없이 재기동 → 40초 내 BackendState=Running, 동일 identity(helena-android, 100.97.231.3) 복원. `tailscaled.state`가 node key+prefs(hostname·ssh)를 보존하므로 **`up`(proot glibc CLI 의존)이 아예 불필요**해짐.
+
+**변경:**
+- ❌ helena-proot(proot/glibc, 41641) 노드 제거 — SIGSYS·--kill-on-exit·keep-alive·netmon 타이밍이 전부 proot 겹층 탓이었음.
+- ✅ helena-android(bionic, 41642) 단일 노드만 유지. 작업실 셸은 helena-android(Termux) → `proot-distro login ubuntu` 1홉으로 동일 접근.
+- ✅ 부팅 스크립트: keep-alive 루프·proot helper·`up` 전부 제거. wake-lock 20분 한정 + tailscaled 1개 기동(netmon 정착까지 무한 재시도)만.
+- ✅ `tailscale-check.sh` 단일 노드 재작성. `start-proot-tailscale.sh` deprecated 처리.
+
+**결과(실측):** 상주 프로세스 = tailscaled 1개(9.7MB). keepalive PATCH 루프 로그 소멸 확인. 7/7 체크 통과(backend Running·온라인·tag:helena·SSH 광고·박씨 기기 4대 가시·tailnet 등록). **통화 대기 수준.**
+
+**⚠️ 남은 것:** 실제 재부팅 검증(내가 재부팅 못 함 — proot 세션 죽음). 다음 재부팅 후 `post-reboot-check.md` 단일 노드 기준으로 확인.

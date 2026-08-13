@@ -7,6 +7,14 @@
 
 ---
 
+> ⚠️ **2026-08-14 개정 — 듀얼 노드 → 단일 노드 전환 (100점 최적화).** 아래 본문은 08-13의 듀얼 노드(helena-proot + helena-android) 설계를 기술한다. **현재 기준은 단일 노드(helena-android)다.**
+> - **helena-proot(proot/glibc, 41641) 제거** — proot 겹층(SIGSYS·--kill-on-exit·keep-alive·netmon 타이밍)이 08-13 재부팅 버그 전부의 근원이었음.
+> - 작업실 셸(본문 §1의 "helena-proot = 원격 조작용")은 helena-android(Termux) → `proot-distro login ubuntu` 1홉으로 동일 접근 가능.
+> - `up`(proot glibc CLI 의존) 제거 — `tailscaled.state`가 node key+prefs(hostname·ssh)를 보존 → 재기동 시 자동 재연결(실증 08-14).
+> - 상주 프로세스 = tailscaled 1개(9.7MB). 최신 스크립트: `start-tailscale-boot.sh`(단일 노드)·`tailscale-check.sh`(단일 노드). `start-proot-tailscale.sh`는 deprecated.
+
+---
+
 ## 0. 한 줄 요약 (TL;DR)
 
 돌봄 시스템에는 두 축이 필요하다.
