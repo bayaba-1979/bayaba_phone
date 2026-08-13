@@ -69,6 +69,10 @@ else
   # → 횟수 제한 제거, 성공할 때까지 재시도. 붙으면 루프 자체가 exit → 상주 없음(배터리
   #   임팩 0). background로 돌려 아래 [2](proot 기동)와 병렬 진행(proot 지연 방지).
   (
+    # 부팅 스크립트가 ~1초 만에 종료되면 이 서브셸이 SIGHUP/프로세스그룹 정리에
+    # 휩쓸릴 수 있음(netmon 정착 1~15분보다 훨씬 빠름). step[2]의 nohup과 동등하게
+    # HUP/INT/TERM을 무시해 탈부착 — 그래야 무한 재시도가 정착까지 살아남음.
+    trap '' HUP INT TERM 2>/dev/null
     TRY=0
     while true; do
       TRY=$((TRY+1))
