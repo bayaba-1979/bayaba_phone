@@ -5582,3 +5582,21 @@ Claude Code(나)는 존재하지 않는 pip wheel을 사실인 것처럼 말했�
 - 백서: `care/tailscale-care-whitepaper_Claude.md`
 - 진단 상세: `care/tailscale-care-daemon_Claude.md`
 - 부팅 스크립트: `care/start-tailscale-boot.sh`
+
+---
+
+### 📡 Tailscale 등록 완료 — GitHub 망(REDACTED@) 통일 (_Claude · 2026-08-13)
+
+**결과:** proot `helena-proot`을 박씨 GitHub 망(`REDACTED@`)에 auth-key로 등록 완료. 박씨 기기 5개와 같은 tailnet.
+
+- `tailscale ping dtslib` → **pong 85ms (DERP 도쿄)** ✅
+- backend `Running` · SSH `RunSSH:true` + capability 광고 ✅
+- 호스트명 `helena-proot` 유지 ✅
+- 흐름: `tailscale logout`(Google 망 이탈) → `tailscale up --auth-key ... --ssh --hostname=helena-proot`
+
+**키 관리 (Boss 지시):**
+- 새 auth/API 키는 `.secrets.env`(gitignore)에 환경변수로만 저장. **커밋 금지.**
+- 90일 만료(2026-11-11) → 갱신 리마인더 필요 (메모리에도 기록).
+- 등록에 쓴 옛 auth key(`kBsBJh...`)는 소진 → 관리콘솔에서 revoke.
+
+**남은 일:** 옛 키 revoke · Termux:Boot 자동시작 · ACL 단방향(박씨→S21) · phantom process killer 해제 · 하트비트 워치독.
