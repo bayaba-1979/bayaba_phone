@@ -5617,3 +5617,101 @@ Claude Code(나)는 존재하지 않는 pip wheel을 사실인 것처럼 말했�
 **못 한 것 (proot 한계):**
 - Phantom process killer 해제 — `settings`가 `INTERACT_ACROSS_USERS` 권한 거부 → **adb 또는 삼성 설정 수동 필요**
 - ACL 단방향 — API 키로 가능하나 tailnet 전체 영향이라 보류(신중 필요)
+
+---
+
+### 📡 ACL 단방향 완료 — 박씨→S21만 허용 (_Claude · 2026-08-13)
+
+**결과:** ACL로 간병인(박씨)→수혜자(누나 S21) **단방향** 통신을 강제. 누나 폰은 들어오는 접속만 받고, 밖으로 나가는 접속은 전부 차단.
+
+**적용 내역 (최신 `grants` + `ssh` 스키마):**
+- `tagOwners`: `tag:helena → autogroup:admin` — 헬레나 태그 소유권
+- `grants`: `autogroup:member → *` — 박씨 기기(멤버)는 전부 접근 가능(**절대 안 잠김**)
+- `ssh`: `member → tag:helena (accept)` — 박씨→헬레나 SSH 허용 + 기존 `member → self (check)` 유지
+
+**노드 태그 부여 (API):**
+- `helena-proot` (2485556499135188) → `tag:helena` ✅
+- `helena-android` (4316541607946258) → `tag:helena` ✅
+
+**검증 (단방향 시행 확정):**
+- 두 노드 다 `tag:helena` 동기화(`Self.Tags`) + 온라인 + SSH 광고(`cap/ssh`) ✅
+- netmap 필터링: helena-proot 피어 = 박씨 기기 4대만(인바운드용), helena-android 제외(tag↔tag 차단) ✅
+- `tailscale ssh` → 박씨 기기 **timeout(패킷 드랍)** = 아웃바운드 차단 ✅
+- ⚠️ `tailscale ping`은 disco 프로토콜이라 ACL 우회(정상) — 차단 검증은 데이터 평면(ssh timeout)으로
+
+**키 만료 구분:**
+- 노드 키 2027-02(6개월 기본, tailscaled 자동 갱신) ← 수동 조치 불필요
+- auth/API 키 2026-11-11(90일, 수동 갱신) ← **리마인더 대상**
+
+**남은 일:** 하트비트 워치독.
+
+---
+
+### 🔓 Phantom process killer 해제 확인 (_Claude · 2026-08-13)
+
+**결과:** Boss가 삼성 개발자 옵션 "자식 프로세스 제한 중지" 토글 ON 완료. Gemini 진단 검증 → **독립 확인**.
+
+- `getprop persist.sys.fflag.override.settings_enable_monitor_phantom_procs` = **`false`**
+- `false` = 팬텀 프로세스 모니터(킬러) 비활성화. 삼성이 이 개발자 옵션을 `persist.*` 프로퍼티로 구현.
+- ⚠️ `persist.` 접두라 재부팅 후 유지될 가능성 높으나, 혼재 보고 있음 → **재부팅 후 값 재확인 권장**.
+
+**한계:** 팬텀킬러는 여러 프로세스 킬러 중 하나일 뿐. 배터리 최적화(Doze) "제한 없음"·삼성 자동 시작 허용은 별개 설정(이미 처리). **진짜 검증은 Termux tailscaled가 며칠간 생존하는지** → 하트비트 워치독(다음 세션)이 담당.
+
+---
+
+### 📡 워치독 폐기 → on-demand 체크 스크립트 (_Claude · 2026-08-13)
+
+**Boss 결정:** 하트비트 워치독(상주 텔레그램 경고 데몬) **불필요**. 상주 프로세스(크롬류)가 RAM을 잡아먹는 걸 싫어함. 원하는 건 "내가 원할 때 체크하는 간단한 것" = 헬스체크식 on-demand.
+
+**대체:** `care/tailscale-check.sh` — 실행할 때만 도는 상태 확인 스크립트(비상주).
+- 검사 8항목: proot/Termux tailscaled 생존 · backend Running · 노드 온라인 · 태그 · SSH 광고 · 박씨 기기 가시성 · helena-android tailnet 온라인(API)
+- 결과: `_notebook/health/tailscale-*.json`(이력) + `tailscale-latest.json`(최신, 대시보드용 고정 경로)
+- `--telegram` 플래그로 그때만 보고
+- API 키 없어도 동작(API 항목만 경고로 생략)
+
+**원칙 기록:** 상주 데몬 대신 on-demand 스크립트 + 결과 파일 저장이 이 프로젝트의 모니터링 기본 방향.
+
+---
+
+### 📡 완결 백서 종합 + 텔레그램 보고 (_Claude · 2026-08-13)
+
+**결과:** Tailscale 돌봄 데몬 관련 전 기록(devlog §84~§88 · `care/*.md` · 스크립트 · 설정)을 하나로 종합해 **완결 백서**로 재작성.
+
+- **`care/tailscale-care-whitepaper_Claude.md`** — 최종 단일 백서 (기존 옛 상태[Google 망] 백서를 덮어씀)
+  - §0 한 줄 요약 · §1 최종 확정 상태 · §2 2노드 아키텍처 · §3 원인 4개 · §4 ACL 단방향 · §5 핵심 기술 사실 · §6 파일 지도 · §7 키 관리 · §8 운영 · §9 남은 일
+- **한 장 요약본을 텔레그램으로 전송** (1497자, 완료).
+
+**보존된 이력 문서:** `tailscale-care-daemon_Claude.md`(진단 상세)·`tailscale-situation-report_Claude.md`(계정 불일치 보고)는 이력으로 남김.
+
+---
+
+### 📝 용어 정리 — "돌봄 데몬" → "돌봄 시스템" (_Claude · 2026-08-13)
+
+**Boss 지적:** "온디맨드 데몬"은 형용모순 — 데몬(daemon)의 본질은 상주(24시간 RAM)인데, on-demand는 요청 시에만 도는 비상주라 모순.
+
+**정확한 3단 용어:**
+| 용어 | 대상 | 성격 |
+|------|------|------|
+| 상주 데몬 | `tailscaled` | 24시간 RAM 상주 (진짜 데몬은 이것 하나뿐) |
+| 정기 모니터(크론 태스크) | `care-daemon.sh` | 매 15분 크론 호출 → 종료 (상주 아님) |
+| 온디맨드 체크 | `tailscale-check.sh`·`phone-health.sh` | 요청 시에만 실행 |
+
+**조치:** 전체를 가리키는 말을 "돌봄 데몬"에서 **"돌봄 시스템"**으로 통일 (백서·메모리·인덱스 반영). `care-daemon.sh` 파일명은 크론 참조 유지를 위해 유지하되, 문서상으론 "정기 모니터(크론)"로 표기.
+
+---
+
+### 🚫 크론 미등록 확정 — 아웃바운드도 무상주로 (_Claude · 2026-08-13)
+
+**발견:** RAM 검증 중 크론 확인 → **crond 미상주 + Termux/proot crontab 둘 다 비어있음**. 문서상 "매 15분 크론"이었지만 실제로 `care-daemon.sh`는 스케줄이 안 걸려 있었다.
+
+**상주 측정 (자기매칭 제거 후):**
+| 항목 | 상주? | RAM |
+|------|------|-----|
+| tailscaled × 2 (proot 41641 + Termux 41642) | ✅ 상주 | ~25MB (대문, 최소 비용) |
+| care-daemon.sh / tailscale-check.sh / phone-health.sh | ❌ 비상주 | 0 |
+| crond | ❌ 미상주 | 0 |
+| python3 ~1.8GB | — | Claude Code 개발 세션 자체 (돌봄 시스템 아님) |
+
+**Boss 결정:** 크론을 추가하지 않고 **무상주 유지**. 아웃바운드 배터리/온도 경고는 수동(`tailscale-check.sh --telegram`)으로만. 인바운드 Tailscale은 이미 자동이므로 돌봄의 "문"은 열려 있음.
+
+**조치:** 백서·메모리의 "매 15분 크론" 표기를 현실(미스케줄)에 맞게 정정. `care-daemon.sh` 스크립트는 보존하되 현재 미사용. §90의 "정기 모니터(크론)" 분류는 이 결정으로 폐기.

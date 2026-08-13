@@ -1,155 +1,175 @@
-# Tailscale 돌봄 데몬 백서 — 원격 접속 채널 확립
+# 돌봄 시스템 백서 — Tailscale 인바운드 채널 (완결판)
 
-> 작성: 2026-08-13 · 작성자: `_Claude`
+> 작성: 2026-08-13 · 작성자: `_Claude` (출판부)
 > 위치: `care/` (트랙 1 돌봄 데몬)
-> 상태: **✅ 계정 통일 완료 · proot → `REDACTED` tailnet 접속 성공 · SSH 채널 개통**
-> 연관: `care/care-daemon.sh` (아웃바운드 알림) · `care/tailscale-care-daemon_Claude.md` (진단 상세)
+> 상태: **✅ 완결** — 인바운드(원격접속) 채널 구축·ACL 단방향·부팅 자동화·수동 체크까지 전부 확정
+> 본 문서는 `tailscale-care-daemon_Claude.md`(진단 상세)·`tailscale-situation-report_Claude.md`(계정 불일치 보고)·`_notebook/99-devlog.md` §84~§88 을 하나로 합친 **최종 단일 백서**다. 이 문서가 최신 상태의 기준.
 
 ---
 
-## ✅ 최종 결과 (2026-08-13)
+## 0. 한 줄 요약 (TL;DR)
 
-> ⚠️ **2026-08-13 후속 발견(중요 정정):** S21에는 Tailscale 클라이언트가 **2개** 있고 서로 **다른 tailnet**에 붙어 있다.
-> - proot → `REDACTED`(Helena Google, 3기기 온라인) ← 아래 표는 이것
-> - Termux → `REDACTED@github`(박씨 GitHub "Uncle, Parksy", **device=0**, 데몬 정지)
-> - **박씨 기기 5개는 `REDACTED@github` 망에 있음** → "계정 통일 완료"는 proot 한정. 박씨가 SSH로 들어오려면 S21이 박씨 망(GitHub)에 있어야 함. 어느 망으로 통일할지는 §6 참고.
+돌봄 시스템에는 두 축이 필요하다.
+- **아웃바운드** — 폰이 "밖으로" 보고 (텔레그램): `care-daemon.sh` (기존 스크립트, 현재 크론 미등록 → 수동)
+- **인바운드** — 간병인이 "안으로" 들어옴 (원격 셸·제어): **Tailscale** (이번에 완성)
+
+기존엔 보고만 있고 손이 없었다. 이제 박씨가 어디서든 `tailscale ssh`로 누나 폰에 들어올 수 있고, 반대로 누나 폰은 밖으로 나가지 못한다(**ACL 단방향**).
+
+```
+돌봄 시스템 = 아웃바운드(텔레그램 보고) + 인바운드(Tailscale 원격 접속)
+```
+
+---
+
+### 용어 정리 — "데몬"은 상주(24시간 RAM)를 뜻한다
+
+이 시스템에서 정확한 용어는 셋으로 나뉜다:
+
+| 용어 | 대상 | 성격 |
+|------|------|------|
+| **상주 데몬** | `tailscaled` | 24시간 RAM 상주 (진짜 데몬은 이것 하나뿐) |
+| **미사용 스크립트(크론 미등록)** | `care-daemon.sh` | 아웃바운드 보고용이었으나 크론 미등록 — 현재 수동으로만 (2026-08-13) |
+| **온디맨드 체크** | `tailscale-check.sh`·`phone-health.sh` | 요청 시에만 실행 (상주 아님) |
+
+> "온디맨드 데몬"은 형용모순. 따라서 전체를 가리킬 땐 "데몬"이 아니라 **"돌봄 시스템"**으로 통일한다.
+
+---
+
+## 1. 최종 확정 상태 (2026-08-13)
 
 | 항목 | 값 |
 |------|-----|
-| tailnet | `REDACTED` (누나 Google 계정) |
-| proot 노드 | `helena-proot` · `100.108.147.53` · MagicDNS `helena-proot.tailb4c349.ts.net` |
-| SSH | ✅ 광고됨 (`tailscale ssh` 동작 — userspace 모드에서 ProxyCommand 경유 확인) |
-| 안드로이드 앱 | `thomas-gall21-1` · `100.90.57.69` (온라인) |
-| 같은 망 여부 | ✅ 두 기기 모두 같은 tailnet |
-
-**핵심 성과:** proot이 GitHub(`REDACTED@github`)에서 누나 Google(`REDACTED`)로
-계정 통일 완료 → 아웃바운드(텔레그램) + 인바운드(Tailscale) 두 축이 모두 갖춰진 최초 상태.
-
-### 🔁 자동 재연결 증명 (재부팅 시뮬레이션)
-tailscaled를 완전 종료 → 재시작해보니 **인증/로그인 없이 저장된 노드키로 자동 재접속**됨.
-SSH 광고·호스트명(`helena-proot`) 설정도 재시작 후 그대로 복원.
-→ **"폰 켜지면 자동 연결"이 성립.** 재부팅에 인증키는 불필요 (인증키는 노드 해제 시에만 쓰는 안전장치).
-→ 부팅 스크립트: `care/start-tailscale-boot.sh` (Termux:Boot → `~/.termux/boot/`에 복사)
+| tailnet | `REDACTED@github` (박씨 GitHub 망) — **계정 통일 완료** |
+| 노드 1 | `helena-proot` · `100.87.229.125` · glibc/proot · 포트 **41641** · `tag:helena` |
+| 노드 2 | `helena-android` · `100.97.231.3` · Termux(bionic) · 포트 **41642** · `tag:helena` |
+| 박씨 기기 | 5대 (windows·linux·Tab S9·S25 Ultra 등) — 전부 같은 망 |
+| ACL | **단방향** — 박씨→S21 허용, S21→밖 차단 (`grants` + `ssh` + `tagOwners`) |
+| Phantom killer | **해제** — `getprop`로 `false` 확인 |
+| 부팅 자동화 | `~/.termux/boot/start-tailscale-boot.sh` — 노드 2개 자동 기동 |
+| 상태 체크 | `care/tailscale-check.sh` — on-demand (상주 없음) |
+| SSH | `tailscale ssh` 광고 중 — 박씨 접속 가능 |
 
 ---
 
-## 0. 한 장 요약 (TL;DR)
+## 2. 아키텍처 — 노드 2개를 나눈 이유
 
-돌봄 데몬은 **"밖으로 보고하는 채널(텔레그램)"만 있고 "안으로 들어오는 채널"이 없었다.**
-그 빈 구멍을 채우는 게 Tailscale 원격 접속인데, 지금 4가지 원인이 겹쳐 안 잡히고 있었다:
+한 폰(S21)에 Tailscale 클라이언트가 **2개** 있다. 둘을 나눈 건 **차등 진단** 때문이다.
 
-1. 배터리 최적화 → 데몬 살해 (✅ 해결)
-2. proot 권한 0개 → 기본 TUN 모드 불가 → `--tun=userspace-networking` 필수 (✅ 해결책 확정)
-3. 노드 해제(deauthorized) → 재인증 필요
-4. **계정 불일치** — 안드로이드 앱=Google, proot=GitHub → 서로 다른 tailnet (✅ 근본 원인 확정)
-
-**지금 할 일 하나:** proot을 GitHub에서 로그아웃하고 **Google 계정(`REDACTED`)으로 재로그인**하면 같은 tailnet에 들어간다.
-
----
-
-## 1. 목적 — 왜 Tailscale이 돌봄 데몬의 핵심인가
-
-CONSTITUTION.md의 돌봄 성공 기준은 **"절대 안 깨질 것"** 이다.
-기존 `care-daemon.sh`는 폰의 배터리·위치·움직임을 **텔레그램으로 밖으로 보고**만 한다.
-보고만 하고 손이 없으면, 이상 신호가 와도 간병인이 원격으로 들어가 조치할 수 없다.
-
-```
-돌봄 데몬 = 아웃바운드(텔레그램, ✅ 기존) + 인바운드(Tailscale 원격 접속, 🚧 본 백서)
-```
-
-Tailscale은 간병인이 "안으로" 들어오는 문이다. 문이 있어야 수호천사가 손이 생긴다.
-
----
-
-## 2. 진단 — 증상과 원인 4가지
-
-### 증상
-- `tailscale status` → `Logged out` / 노드가 tailnet에 안 잡힘
-- 다른 에이전트는 "배터리 최적화 때문"이라 진단 → 부분만 맞음
-
-### 원인 ① — 배터리 최적화(Doze)가 Termux를 죽임
-- Android가 백그라운드 앱을 잠재워 Termux→proot→tailscaled 통째로 죽음.
-- **조치 완료:** 배터리 "제한 없음" 변경.
-
-### 원인 ② — proot 권한 0개 → 기본 TUN 모드 불가 (핵심)
-실측 증거:
-```
-CapEff:  0000000000000000   ← 가짜 root, capability 0개
-tstun.New("tailscale0"): permission denied
-iptables: Failed to initialize nft: Permission denied
-```
-→ `--tun=userspace-networking`으로 우회 (v1.102.2에서 실측 동작 확인).
-
-### 원인 ③ — 노드 해제(deauthorized)
-상태 파일: `machineAuthorized=false` + `authURL=true` → 재인증 필요.
-
-### 원인 ④ — 계정 불일치 (근본 원인, 이번에 확정)
-| | 안드로이드 앱 | proot |
-|---|---|---|
-| 로그인 | **Google** `REDACTED` | **GitHub** `REDACTED@github` |
-| tailnet | (구글 계정망) | `REDACTED.github` |
-| 상태 | 접속 중 (100.85.232.54) | Logged out |
-
-**두 계정 = 서로 다른 두 개의 tailnet.** 아무리 둘 다 켜져도 서로 안 보인다.
-이게 "안 잡히는" 최종 원인.
-
----
-
-## 3. 솔루션
-
-### 3-1. 계정 통일 (즉시 실행)
-기준: **진짜 tailnet = Google(`REDACTED`)**, 누나 폰이 여기 있음.
-```bash
-tailscale logout          # GitHub 정체성 제거 (완료)
-tailscale up              # 새 로그인 URL → Google로 로그인
-# 또는 인증키(영구화): tailscale up --auth-key tskey-... --ssh
-```
-
-### 3-2. proot 실행 (userspace 필수)
-```bash
-tailscaled --tun=userspace-networking &
-tailscale up --auth-key tskey-... --ssh
-```
-
-### 3-3. 안드로이드 레이어 자동시작 체크리스트 (삼성 S21)
-| # | 설정 | 상태 |
-|---|------|------|
-| 1 | 배터리 제한 없음 | ✅ |
-| 2 | Termux:Boot 설치 | ⬜ |
-| 3 | 자동 실행 허용 | ⬜ |
-| 4 | 절전 예외 등록 | ⬜ |
-| 5 | Phantom process killer 끄기 | ⬜ (주범) |
-| 6 | termux-wake-lock | ⬜ |
-
-### 3-4. ⚠️ userspace 모드 한계
-`tailscale0` 인터페이스가 안 생김 → 직접 IP 접속 불가, **`tailscale ssh`/`tailscale serve`로 접속**.
-
----
-
-## 4. 아키텍처 — 3겹 탑
-
-```
-[안드로이드 부팅] → [Termux] → [proot Ubuntu] → [tailscaled userspace → tailscale up]
-```
-아무 한 겹이라도 자동 시작이 안 되면 데몬 죽음 → 재부팅 대비 자동시작 체인 필수.
-
----
-
-## 5. 실행 계획
-
-| 단계 | 내용 | 상태 |
+| 노드 | 정체 | 역할 |
 |------|------|------|
-| 1 | proot → 누나 Google(`REDACTED`) 재로그인 | ✅ 완료 |
-| 2 | `--ssh` 활성화 + tailnet 노드 확인 | ✅ 완료 |
-| 3 | 자동 재연결 증명 + 부팅 스크립트(`start-tailscale-boot.sh`) | ✅ 완료 (재부팅은 인증키 불필요) |
-| 4 | Termux:Boot 설치 + `~/.termux/boot/` 배치 (안드로이드 1개 수동 조치) | ⬜ 대기 |
-| 5 | 안드로이드 자동시작 체크리스트(팬텀킬러 등) + 하트비트 워치독 | ⬜ 대기 |
+| `helena-android` (Termux, bionic) | 안드로이드 네이티브 | **기기 생존 신호** — proot 겹층 없이 가장 견고 |
+| `helena-proot` (glibc) | proot Ubuntu | **작업실 셸** — 실제 원격 조작용 |
+
+- `helena-android`가 온라인 = **폰 자체는 살아있음** (방전 아님).
+- `helena-proot`가 온라인 = **작업실 셸 접속 가능**.
+- 둘 다 죽음 = 폰 방전 or 데몬 크래시 → 긴급.
+
+> ⚠️ **이 2노드 분리는 수혜자(누나 S21) 측에만 적용.** 간병인(박씨) 기기는 단일 노드로 충분.
+> 이 구분이 ACL 단방향(`tag:helena` 보호측 / `autogroup:member` 접속측)의 근거다.
+
+```
+[박씨 기기 5대]  ──(ACL 단방향: 들어감만 허용)──▶  [누나 S21]
+  autogroup:member                                        ├─ helena-android (Termux, 41642)
+  (태그 없음, 계정 소유)                                   └─ helena-proot   (proot,  41641)
+                                                          둘 다 tag:helena
+  [누나 S21]  ──✗ (아웃바운드 차단)──▶  [박씨 기기]
+```
 
 ---
 
-## 6. 리스크 / 다음 단계
+## 3. 왜 안 됐었나 — 원인 4개 (이력 압축)
 
-- [ ] Google 계정 인증 완료 → proot이 앱과 같은 tailnet에 드는지 검증
-- [ ] 재사용 인증키로 OAuth 반복 제거
-- [ ] Termux 네이티브 vs proot (돌봄 경로 최적화) 검토
-- [ ] "죽으면 알아차리는" 하트비트/워치독 구현
+1. **배터리 최적화(Doze)** 가 Termux를 죽임 → "제한 없음"으로 해결 ✅
+2. **proot 권한 0개**(CapEff=0) → 기본 TUN 모드 불가 → `--tun=userspace-networking` 필수 ✅
+3. **노드 해제(deauthorized)** → auth key로 재승인 ✅
+4. **계정 불일치** — proot이 Google(`REDACTED`)에, 박씨 기기가 GitHub(`REDACTED@`)에 갈라짐 → **GitHub 망으로 통일** ✅
+
+---
+
+## 4. 보안 모델 — ACL 단방향
+
+**목적:** 누나 폰은 "들어오는 접속만 받고, 밖으로 나가는 접속은 전부 차단". 유출·역이동 방지.
+
+적용된 ACL (최신 `grants` + `ssh` 스키마):
+
+```json
+{
+  "tagOwners": { "tag:helena": ["autogroup:admin"] },
+  "grants": [
+    { "src": ["autogroup:member"], "dst": ["*"], "ip": ["*"] }
+  ],
+  "ssh": [
+    { "action": "check",  "src": ["autogroup:member"], "dst": ["autogroup:self"], "users": ["autogroup:nonroot", "root"] },
+    { "action": "accept", "src": ["autogroup:member"], "dst": ["tag:helena"],      "users": ["autogroup:nonroot", "root"] }
+  ]
+}
+```
+
+| 규칙 | 의미 |
+|------|------|
+| `grants: member → *` | 박씨 기기는 전부 접근 가능 (**절대 안 잠김**) |
+| `ssh: member → tag:helena` | 박씨 → S21 SSH 허용 |
+| (helena는 src에 없음) | `tag:helena` 노드는 아웃바운드 전부 차단 = 단방향 |
+
+**검증:** `helena-proot`의 netmap에 `helena-android`가 안 보임(tag↔tag 차단) + 박씨 기기로의 `tailscale ssh`가 timeout(패킷 드랍) = 단방향 시행 확인.
+
+> ⚠️ `tailscale ping`은 disco 프로토콜이라 ACL을 우회해서 "pong"이 나온다 — 정상. 실제 차단은 데이터 평면(SSH timeout)으로 확인해야 한다.
+
+---
+
+## 5. 핵심 기술 사실 (절대 잊지 말 것)
+
+- **proot은 권한 0개** → `--tun=userspace-networking` **필수** (v1.102.2 실측 동작).
+- **userspace 모드는 `tailscale0` 없음** → 직접 IP(`ping`/`ssh IP`) 불가, `tailscale ssh`/`tailscale serve`로만 접속.
+- **재부팅엔 인증키 불필요** — 저장된 노드키가 자동 재접속 (실측 검증). 인증키는 노드 해제 시에만 안전장치.
+- **Termux bionic 바이너리는 proot에서 exec 가능** — `tailscale` CLI 공유.
+
+---
+
+## 6. 구성 파일 지도
+
+| 파일 | 역할 |
+|------|------|
+| `care/care-daemon.sh` | 아웃바운드 보고 스크립트 — 배터리·온도·GPS·움직임 → 텔레그램 (크론 미등록, 현재 수동) |
+| `care/care.conf` | 아웃바운드 임계값 (배터리 15%, 온도 45°C 등) |
+| `care/start-tailscale-boot.sh` | 부팅 시 노드 2개 자동 기동 (Termux:Boot → `~/.termux/boot/`) |
+| `care/tailscale-check.sh` | **on-demand 상태 체크** (상주 없음, `--telegram` 선택) |
+| `.secrets.env` | `TAILSCALE_AUTH_KEY`/`TAILSCALE_API_KEY` (gitignore, **커밋 금지**) |
+
+---
+
+## 7. 키 관리 — 만료 리마인더
+
+| 키 | 만료 | 처리 |
+|----|------|------|
+| auth key `k51Jyn…` | **2026-11-11** (90일) | **수동 갱신 필요** — 리마인더 대상 |
+| API key `knHqNem…` | **2026-11-11** (90일) | **수동 갱신 필요** — 리마인더 대상 |
+| 노드 키 | 2027-02 (6개월) | tailscaled가 자동 갱신 — 조치 불필요 |
+
+- 키는 `.secrets.env`(gitignore)에만 저장. **GitHub 커밋 금지.**
+- 갱신은 관리콘솔(Settings → Keys)에서. 만료 전 새 키 발급 → `.secrets.env` 갱신.
+
+---
+
+## 8. 운영 — 원할 때 상태 체크
+
+상주 워치독 없음 (RAM 상주 기피). 대신 on-demand:
+
+```bash
+bash care/tailscale-check.sh            # 상태 확인 (8항목)
+bash care/tailscale-check.sh --telegram # + 텔레그램 보고
+bash phone-health.sh                    # 기존 하드웨어 헬스체크
+```
+
+체크 8항목: proot/Termux tailscaled 생존 · backend Running · 온라인 · 태그 · SSH 광고 · 박씨 기기 가시성 · helena-android tailnet 등록.
+
+결과: `_notebook/health/tailscale-*.json`(이력) + `tailscale-latest.json`(최신, 대시보드용 고정 경로).
+
+---
+
+## 9. 남은 일 / 리스크
+
+- [ ] **재부팅 후 Phantom killer 값 유지 확인** — `getprop persist.sys.fflag.override.settings_enable_monitor_phantom_procs`가 재부팅 후에도 `false`인지.
+- [ ] **auth/API 키 갱신** — 2026-11-11 전에 (수동).
+- [ ] (선택) 대시보드 — `tailscale-latest.json`을 읽는 정적 페이지 (원하면).
+- 리스크: 삼성이 극단 메모리 압박 시 여전히 앱을 죽일 수 있음 → 주기적으로 `tailscale-check.sh` 돌려 확인.
