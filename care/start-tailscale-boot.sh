@@ -24,11 +24,19 @@
 #
 #   ✅ 두 노드 `up`은 전부 proot의 **glibc tailscale**로 실행. glibc CLI는
 #      bionic 데몬 소켓까지 제어 가능(검증: `tailscale --socket=<bionic sock> up` exit=0).
-#      → SIGSYS 자체를 우회.
+#
+#   ⚠️ 데몬 liveness 판정은 `pgrep -f "패턴"` 금지 — 부모 셸 cmdline에 패턴 문자열이
+#      들어가면 자기/부모 오살 위험. → `pgrep -x tailscaled`(프로세스명 정확일치)
+#      + `/proc/PID/cmdline`의 `--port=` 필터로 안전하게 구분.
 # ==============================================================================
 
 TS=/data/data/com.termux/files/usr
 BOOTLOG="$TS/home/tailscale-boot.log"
+
+# 특정 포트의 tailscaled PID를 찾기 (proot 검증 패턴 `pgrep -f '[t]ailscaled...'`)
+find_ts_pid() {
+  pgrep -f "[t]ailscaled.*--port=$1" 2>/dev/null | head -1
+}
 
 # 0) 부팅 로그 시작 마커 — 이 줄이 남으면 Termux:Boot 정상 수신 확인
 UPTIME_S=$(cut -d' ' -f1 /proc/uptime 2>/dev/null)
@@ -46,12 +54,18 @@ TS_STATE="$TS/var/lib/tailscale/tailscaled.state"
 TS_SOCK="$TS/var/lib/tailscale/tailscaled.sock"
 TS_LOG="$TS/var/lib/tailscale/tailscaled.log"
 
-if pgrep -f '[t]ailscaled.*--port=41642' >/dev/null 2>&1; then
-  echo "[$(date '+%F %T')] [1] Termux tailscaled 이미 실행 중" >> "$BOOTLOG"
+TS_PID=$(find_ts_pid 41642 | head -1)
+
+if [ -S "$TS_SOCK" ] && [ -n "$TS_PID" ]; then
+  echo "[$(date '+%F %T')] [1] Termux tailscaled 이미 실행 중 (소켓+프로세스 정상)" >> "$BOOTLOG"
 else
   echo "[$(date '+%F %T')] [1] Termux tailscaled 기동 (port 41642)" >> "$BOOTLOG"
-  rm -f "$TS_SOCK" 2>/dev/null   # 재부팅 전 stale 소켓 제거 (영속 디렉터리라 잔존)
-  "$TS/bin/tailscaled" \
+  # 좀비(프로세스만 살아있고 소켓 없음) 또는 죽음 → 강제 정리 후 재기동.
+  # 재부팅 전 stale 소켓 제거 (영속 디렉터리라 잔존).
+  [ -n "$TS_PID" ] && kill -9 "$TS_PID" 2>/dev/null || true
+  rm -f "$TS_SOCK" 2>/dev/null || true
+  # nohup: 부팅 스크립트 종료 시 SIGHUP/프로세스그룹 정리로 데몬이 휩쓸리지 않게 탈부착.
+  nohup "$TS/bin/tailscaled" \
     --state="$TS_STATE" \
     --socket="$TS_SOCK" \
     --tun=userspace-networking \
