@@ -38,6 +38,7 @@ _notebook/watchdog-state.json
 .tistory_session_*.json
 .naver_session*.json
 tistory-naver/cookies/
+tistory-naver/.cookies/
 tistory-naver/accounts.json
 tistory-naver/output/
 tistory-naver/posts/

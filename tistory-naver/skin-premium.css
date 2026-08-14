@@ -1,0 +1,354 @@
+/* ==========================================================================
+   HELENA PHONE — "오비탈" 프리미엄 다크 에디토리얼 스킨
+   --------------------------------------------------------------------------
+   팔레트 (Linear 다크 톤 베이스 + 전기 틸 브랜드)
+     배경    #08090a  (Linear 딥 블랙)
+     표면    #101216 / #14161c
+     테두리  #1e2128  (6% 화이트)
+     본문    #f7f8f8  (오프화이트)
+     보조    #8a8f98  (뮤트 슬레이트)
+     액센트  #2dd4bf  (전기 틸)  +  골드 #f0b429 (보조)
+   적용: 티스토리 관리 → 꾸미기 → 스킨 편집 → html 편집 → style.css 맨 아래 붙여넣기
+   ========================================================================== */
+
+/* ── 0. 글로벌 리셋 (폰트 겹침 방지) ─────────────────────────────────────── */
+#wrap, #wrap *, #container, #container * { box-sizing: border-box; }
+#wrap { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+/* ── 1. 다크 베이스 ──────────────────────────────────────────────────────── */
+html { background: #08090a; }
+body {
+  background: #08090a !important;
+  color: #f7f8f8;
+}
+#wrap {
+  background: #08090a !important;
+  color: #f7f8f8;
+  font-family: 'Pretendard', -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic',
+               'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  letter-spacing: -0.01em;
+  min-height: 100vh;
+}
+
+/* 은은한 방사형 글로우 (상단 틸, 하단 미묘) */
+#wrap::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1200px 600px at 12% -10%, rgba(45,212,191,0.07), transparent 60%),
+    radial-gradient(900px 500px at 90% 110%, rgba(240,180,41,0.04), transparent 55%);
+  z-index: 0;
+}
+
+/* ── 2. 레이아웃 — 좌측 사이드바 전환 ───────────────────────────────────── */
+#wrap.wrap-right #container {
+  display: flex;
+  flex-direction: row-reverse;        /* aside → 왼쪽 */
+  align-items: flex-start;
+  gap: 36px;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 28px 28px 64px;
+  position: relative;
+  z-index: 1;
+}
+#wrap.wrap-right #container .main {
+  flex: 1 1 auto;
+  min-width: 0;                       /* 긴 URL/코드 오버플로 방지 */
+  overflow-wrap: anywhere;
+}
+#wrap.wrap-right #container .area-aside {
+  flex: 0 0 300px;
+  width: 300px;
+  min-width: 0;
+  position: sticky;
+  top: 24px;
+  align-self: flex-start;
+}
+
+/* ── 3. 헤더 — 미니멀 글래스 바 ─────────────────────────────────────────── */
+.header {
+  background: rgba(8,9,10,0.82);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.header .inner-header {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+.header .title-logo a.link_logo {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  font-weight: 800;
+  font-size: 21px;
+  letter-spacing: -0.02em;
+  color: #f7f8f8;
+  text-decoration: none;
+}
+.header .title-logo a.link_logo::before {
+  content: "›_ ";
+  color: #2dd4bf;
+  font-family: 'SFMono-Regular', 'JetBrains Mono', Consolas, monospace;
+  font-weight: 700;
+}
+.header .title-logo a.link_logo:hover { color: #2dd4bf; transition: color .2s ease; }
+
+/* ── 4. 히어로 배너 (area-promotion 400px) — 틸 그라데이션 오버레이 ─────── */
+.area-promotion {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 0 0 28px;
+  box-shadow: 0 20px 50px -20px rgba(45,212,191,0.25);
+}
+.area-promotion::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8,9,10,0.05) 30%, rgba(8,9,10,0.72) 100%);
+  pointer-events: none;
+}
+
+/* ── 5. 글 목록 카드 — 에디토리얼 그리드 ────────────────────────────────── */
+.area-common .title-search {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: #f7f8f8;
+  margin: 8px 0 20px;
+  padding-left: 14px;
+  border-left: 3px solid #2dd4bf;
+  line-height: 1.4;
+}
+.article-type-common {
+  background: #101216;
+  border: 1px solid #1e2128;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 16px;
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+  overflow: hidden;
+}
+.article-type-common:hover {
+  transform: translateY(-3px);
+  border-color: rgba(45,212,191,0.45);
+  box-shadow: 0 16px 40px -18px rgba(0,0,0,0.7), 0 0 0 1px rgba(45,212,191,0.15);
+}
+.article-type-common .thumbnail img.img-thumbnail {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+.article-type-common .title {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+  color: #f7f8f8;
+  display: block;
+  margin-bottom: 6px;
+}
+.article-type-common .title a,
+.article-type-common .title { text-decoration: none; }
+.article-type-common .link-article:hover .title {
+  color: #2dd4bf;
+  transition: color .18s ease;
+}
+.article-type-common .summary {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #8a8f98;
+  margin: 0 0 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.article-type-common .box-meta {
+  font-size: 12.5px;
+  color: #8a8f98;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.article-type-common .box-meta .link-category {
+  color: #2dd4bf;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 2px 9px;
+  border: 1px solid rgba(45,212,191,0.3);
+  border-radius: 999px;
+  transition: background .18s ease;
+}
+.article-type-common .box-meta .link-category:hover { background: rgba(45,212,191,0.12); }
+.article-type-common .box-meta .date,
+.article-type-common .box-meta .reply { color: #6b7280; }
+
+/* ── 6. 사이드바 — 글래스 카드 ───────────────────────────────────────────── */
+.area-aside > div {
+  background: rgba(255,255,255,0.028);
+  border: 1px solid #1e2128;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 14px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.area-aside h3, .area-aside .title,
+.area-aside [class*="tit"] {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: #f7f8f8;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+.area-aside a { color: #c9ced6; text-decoration: none; transition: color .15s ease; }
+.area-aside a:hover { color: #2dd4bf; }
+.area-aside .box-category a {
+  display: block;
+  padding: 7px 0;
+  border-bottom: 1px dashed #1e2128;
+  font-size: 14px;
+  color: #c9ced6;
+}
+.area-aside .box-category a::before {
+  content: "▸ ";
+  color: #2dd4bf;
+  font-size: 12px;
+}
+.area-aside .box-category a:hover {
+  color: #f7f8f8;
+  padding-left: 6px;
+  transition: padding .15s ease, color .15s ease;
+}
+.area-aside .box-profile {
+  text-align: center;
+  background: linear-gradient(160deg, rgba(45,212,191,0.12), rgba(8,9,10,0) 55%);
+}
+
+/* ── 7. 본문 타이포 (글 읽기 뷰 .area-view) ──────────────────────────────── */
+.area-view h1, .area-view h2, .area-view h3, .area-view h4 {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #f7f8f8;
+  line-height: 1.35;
+  margin: 1.5em 0 0.6em;
+}
+.area-view h2 { font-size: 24px; padding-bottom: 8px; border-bottom: 1px solid #1e2128; }
+.area-view h3 { font-size: 20px; }
+.area-view h4 { font-size: 17px; }
+.area-view p { line-height: 1.85; color: #d8dbe0; margin: 0 0 1.1em; }
+.area-view a {
+  color: #2dd4bf;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(45,212,191,0.35);
+  transition: border-color .15s ease;
+}
+.area-view a:hover { border-bottom-color: #2dd4bf; }
+.area-view strong { color: #ffffff; }
+.area-view blockquote {
+  border-left: 3px solid #2dd4bf;
+  margin: 1.4em 0;
+  padding: 8px 0 8px 18px;
+  color: #aab1bb;
+  background: rgba(255,255,255,0.02);
+  border-radius: 0 8px 8px 0;
+}
+.area-view ul, .area-view ol { padding-left: 1.5em; }
+.area-view li { margin-bottom: 0.4em; color: #d8dbe0; }
+
+/* ── 8. 코드블록 — 터미널 미학 ───────────────────────────────────────────── */
+.area-view pre, .area-view code,
+.area-common pre, .area-common code {
+  font-family: 'SFMono-Regular', 'JetBrains Mono', Consolas, 'Fira Code', monospace;
+}
+.area-view pre {
+  background: #0d0f13;
+  color: #a5f3e6;
+  border: 1px solid #1e2128;
+  border-radius: 10px;
+  padding: 16px;
+  overflow-x: auto;
+  font-size: 13.5px;
+  line-height: 1.65;
+  position: relative;
+}
+.area-view :not(pre) > code {
+  background: #14161c;
+  color: #2dd4bf;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  border: 1px solid #1e2128;
+}
+
+/* ── 9. 표 (테이블) ─────────────────────────────────────────────────────── */
+.area-view table { width: 100%; border-collapse: collapse; margin: 1.2em 0; }
+.area-view th {
+  background: #14161c;
+  color: #f7f8f8;
+  padding: 10px 12px;
+  text-align: left;
+  border: 1px solid #1e2128;
+  font-weight: 700;
+}
+.area-view td {
+  padding: 9px 12px;
+  border: 1px solid #1e2128;
+  color: #d8dbe0;
+}
+.area-view tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+/* ── 10. 구분선 · 이미지 ────────────────────────────────────────────────── */
+.area-view hr { border: 0; border-top: 1px solid #1e2128; margin: 2em 0; }
+.area-view img { max-width: 100%; height: auto; border-radius: 10px; }
+
+/* ── 11. 스크롤바 — 다크 통일 ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #0a0b0d; }
+::-webkit-scrollbar-thumb {
+  background: #2a2e37;
+  border-radius: 6px;
+  border: 2px solid #0a0b0d;
+}
+::-webkit-scrollbar-thumb:hover { background: #2dd4bf; }
+
+/* ── 12. 푸터 ───────────────────────────────────────────────────────────── */
+#footer {
+  border-top: 1px solid #1e2128;
+  background: #0a0b0d;
+  color: #8a8f98;
+  padding: 28px 0;
+  position: relative;
+  z-index: 1;
+}
+#footer a { color: #2dd4bf; text-decoration: none; }
+
+/* ── 13. 반응형 — 모바일/태블릿에서 사이드바 아래로 ─────────────────────── */
+@media (max-width: 960px) {
+  #wrap.wrap-right #container {
+    flex-direction: column;          /* 좁은 화면: 사이드바 하단 이동 */
+    gap: 20px;
+    padding: 16px;
+  }
+  #wrap.wrap-right #container .area-aside {
+    flex: none;
+    width: 100%;
+    position: static;
+  }
+}

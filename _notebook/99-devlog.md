@@ -5877,3 +5877,12 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **재주입:** 빵꾸 3개(/12 배터리·/18 네이버·/19 성능) `save()`로 재발행 → QA 게이트 3건 전부 통과(text 2649~2762자). 전량 스윕도 빵꾸 0건.
 - **QA 게이트 (`tistory-naver/qa_gate.py`):** 발행 후 fetch로 마커(s21-post/s21-acc/`<details>`) + 본문 텍스트 길이(≥2500) 판정. `<svg`는 티스토리 크롬에 항상 존재해 마커에서 제외. RSS 자동발견(최근 10개) or `--ids` 지정.
 - **블로그 메타 정비:** `galaxys21-pwuser` 블로그 설명이 오타·중복 공백("딥시크에이더와  공짜 LLM으로  출판방송") → "갤럭시 S21 한 대로 만드는 0원 풀스택 — Termux·proot·Claude Code·MCP 설치부터 AI 음성·출판·방송 파이프라인까지, PART 1~8 실전 교재 업무수첩"으로 교체. meta description·og:description·twitter:description 반영 확인. 제목/닉네임은 canonical "Helena-Phone" 유지.
+
+### 🎨 티스토리 '오비탈' 스킨 교체 — 세션드롭 복구 + 상태 보존 (_Claude · 2026-08-14)
+
+- **작업:** `galaxys21-pwuser.tistory.com` 스킨을 "오비탈(Orbital)" 프리미엄 다크 에디토리얼 디자인으로 교체. 산출물 `tistory-naver/skin-premium.css`(11,769자).
+- **디자인 원본:** `OrbitPrompt/assets/css/orbit-theme.css` (퍼플 #a855f7 + 시안 #22d3ee 그라데이션 · 골드 · bg #050505 · Plus Jakarta Sans). ⚠️ **팔레트 불일치 미해결:** skin-premium.css는 "Linear 다크 톤 + 전기 틸 #2dd4bf"로 작성됨 — 퍼플/시안(OrbitPrompt 원본)과 다름. Boss 확정 필요.
+- **실기 구조 (curl 실측):** 기본 스킨 = Book Club 계열. `tt-body-index` · `wrap-right` · `area-aside` · `area-promotion` · `area-view` · `area-common` · `article-type-common`(+`article-type-thumbnail` — skin-premium.css가 **미커버**) · `title-search` · `header`/`inner-header`/`box-header`. 셀렉터 대부분 매칭, 섬네일형 카드만 누락.
+- **적용 메커니즘 유실:** `/manage/design/skin/current.json` + 스킨 등록/업로드 API — 이전 세션이 발견했으나 레포에 코드 미저장. 재발견 필요.
+- **블로커:** 로그인 세션 만료 (`from_login` 18:45 만료 → 22시대 302→`auth/login` 확인). S21 proot은 디스플레이 없어 headless=False 불가 → 재로그인은 PC 헤드풀 or Boss 수동.
+- **보존 조치:** skin-premium.css 커밋 + `.gitignore`에 `tistory-naver/.cookies/`(로그인 세션 데이터) 추가 차단 + 메모리 `tistory-orbital-skin.md` 저장.
