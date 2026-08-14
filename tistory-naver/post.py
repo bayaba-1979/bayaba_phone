@@ -58,7 +58,7 @@ async def kakao_login(page, email, pw):
     await page.wait_for_timeout(2000)
 
     try:
-        btn = page.locator("a.btn_login.link_kakao_id, a[href*='kakao']").first
+        btn = page.locator("a.btn_login.link_kakao_id, a:has-text('카카오계정으로 로그인')").first
         await btn.wait_for(state="visible", timeout=8000)
         await btn.click()
         await page.wait_for_timeout(4000)
@@ -111,13 +111,12 @@ async def kakao_login(page, email, pw):
 
 # ── 로그인 상태 확인 ────────────────────────────────────────
 async def ensure_logged_in(page, email, pw):
-    await page.goto("https://www.tistory.com/manage",
-                    wait_until="domcontentloaded", timeout=20000)
-    await page.wait_for_timeout(2000)
-    url = page.url
-    if "login" in url or "kakao.com" in url:
-        return await kakao_login(page, email, pw)
-    return True
+    # 로그인 여부: TSSESSION(티스토리 세션 쿠키) 존재 확인
+    # (tistory.com/manage 는 로그아웃 시 "페이지 없음"만 띄워 URL 로그인 감지가 불가)
+    cookies = await page.context.cookies("https://www.tistory.com")
+    if any(c["name"] == "TSSESSION" for c in cookies):
+        return True
+    return await kakao_login(page, email, pw)
 
 
 # ── 포스트 발행 ─────────────────────────────────────────────
@@ -134,98 +133,48 @@ async def publish_post(page, post: dict):
     await page.goto(write_url, wait_until="networkidle", timeout=30000)
     await page.wait_for_timeout(8000)
 
-    # ── 제목 입력 (evaluate 직접 — visible 우회) ──
-    title_filled = False
+    # ── 제목 입력 (실제 타이핑 — React controlled input은 evaluate로 상태 미반영) ──
     try:
-        # textarea#post-title-inp가 display:none일 수도 있으니 fill 강제
-        title_ok = await page.evaluate(f"""(t) => {{
-            const e = document.querySelector('#post-title-inp') || document.querySelector('textarea.textarea_tit');
-            if (!e) return false;
-            e.value = t;
-            e.dispatchEvent(new Event('input', {{bubbles:true}}));
-            e.dispatchEvent(new Event('change', {{bubbles:true}}));
-            return true;
-        }}""", title)
-        if title_ok:
-            title_filled = True
-            log(f"  [{slug}] 제목 입력 OK (evaluate)")
+        await page.locator("#post-title-inp").first.click()
+        await page.keyboard.type(title, delay=0)
+        log(f"  [{slug}] 제목 입력 OK (typing)")
     except Exception as e:
-        log(f"  [{slug}] 제목 evaluate 실패: {e}")
-
-    if not title_filled:
-        log(f"  [{slug}] 제목 입력 실패")
+        log(f"  [{slug}] 제목 타이핑 실패: {e}")
 
     await page.wait_for_timeout(500)
 
-    # ── 본문 입력 (블록 에디터 / iframe / textarea) ──
+    # ── 본문 입력 (tinymce setContent + 이벤트 발화 — HTML 렌더 + 상태 반영) ──
     content_filled = False
-
-    # 0) TinyMCE iframe#editor-tistory_ifr 직접 (티스토리 진짜 에디터)
     try:
-        # tinymce 전역 함수 사용 시도
-        tin_ok = await page.evaluate(f"""(html) => {{
-            try {{
-                if (window.tinymce && tinymce.activeEditor) {{
+        tin_ok = await page.evaluate(
+            """(html) => {
+                if (window.tinymce && tinymce.activeEditor) {
                     tinymce.activeEditor.setContent(html);
-                    return 'tinymce';
-                }}
-                const ifr = document.querySelector('iframe#editor-tistory_ifr');
-                if (ifr && ifr.contentDocument) {{
-                    const b = ifr.contentDocument.querySelector('body#tinymce, body');
-                    if (b) {{ b.innerHTML = html; return 'iframe-body'; }}
-                }}
+                    tinymce.activeEditor.fire('change');
+                    tinymce.activeEditor.fire('input');
+                    tinymce.activeEditor.fire('keyup');
+                    tinymce.activeEditor.fire('SetContent');
+                    return true;
+                }
                 return false;
-            }} catch(e) {{ return 'err:' + e.message; }}
-        }}""", content)
-        if tin_ok and tin_ok is not False and not str(tin_ok).startswith('err'):
+            }""",
+            content,
+        )
+        if tin_ok:
             content_filled = True
-            log(f"  [{slug}] 본문 입력 OK ({tin_ok})")
+            log(f"  [{slug}] 본문 입력 OK (tinymce+events)")
     except Exception as e:
-        log(f"  [{slug}] TinyMCE 직접 실패: {e}")
+        log(f"  [{slug}] tinymce setContent 실패: {e}")
 
-    # 1) 블록 에디터 (contenteditable)
-    for sel in [
-        ".ProseMirror",
-        "[contenteditable='true'].editor",
-        "#editor-content [contenteditable='true']",
-        ".editor_body [contenteditable='true']",
-    ]:
-        try:
-            el = page.locator(sel).first
-            if await el.is_visible(timeout=3000):
-                await el.click()
-                await page.keyboard.press("Control+a")
-                await el.evaluate(f"el => el.innerHTML = {json.dumps(content)}")
-                content_filled = True
-                log(f"  [{slug}] 블록 에디터 본문 입력 OK")
-                break
-        except:
-            pass
-
-    # 2) iframe 에디터 (구형)
+    # 폴백: iframe body 직접
     if not content_filled:
         try:
-            frame = page.frame_locator("iframe#editor-tistory_ifr, iframe[id*='editor']").first
-            body  = frame.locator("body#tinymce, body")
-            if await body.is_visible(timeout=3000):
-                await body.evaluate(f"el => el.innerHTML = {json.dumps(content)}")
-                content_filled = True
-                log(f"  [{slug}] iframe 에디터 본문 입력 OK")
+            body = page.frame_locator("iframe#editor-tistory_ifr").locator("body")
+            await body.evaluate(f"el => el.innerHTML = {json.dumps(content)}")
+            content_filled = True
+            log(f"  [{slug}] 본문 iframe 폴백 OK")
         except:
             pass
-
-    # 3) HTML 직접 모드 textarea
-    if not content_filled:
-        for sel in ["textarea#content", "textarea.editor_content", "textarea"]:
-            try:
-                ta = page.locator(sel).first
-                if await ta.is_visible(timeout=2000):
-                    await ta.fill(content)
-                    content_filled = True
-                    log(f"  [{slug}] textarea 본문 입력 OK")
-                    break
-            except:
-                pass
 
     if not content_filled:
         log(f"  [{slug}] 본문 입력 실패 — 스킵")
@@ -234,83 +183,43 @@ async def publish_post(page, post: dict):
 
     await page.wait_for_timeout(500)
 
-    # ── 태그 입력 ──
-    if tags:
-        for sel in [
-            "#tagText",
-            "input[name='tag']",
-            "input[placeholder*='태그']",
-            ".tag_area input",
-        ]:
-            try:
-                el = page.locator(sel).first
-                if await el.is_visible(timeout=5000):
-                    await el.click()
-                    for tag in tags:
-                        await el.fill(tag)
-                        await page.keyboard.press("Enter")
-                        await page.wait_for_timeout(300)
-                    log(f"  [{slug}] 태그 입력 OK: {tags}")
-                    break
-            except:
-                pass
+    # ── 발행 레이어 열기 (완료 버튼 = #publish-layer-btn) ──
+    try:
+        await page.locator("#publish-layer-btn").click()
+        await page.wait_for_timeout(2000)
+        log(f"  [{slug}] 발행 레이어 열림")
+    except Exception as e:
+        log(f"  [{slug}] 레이어 열기 실패: {e}")
 
-    # ── 카테고리 선택 ──
-    if cat:
-        try:
-            sel_el = page.locator("select#categoryId, select[name='categoryId']").first
-            if await sel_el.is_visible(timeout=2000):
-                await sel_el.select_option(label=cat)
-                log(f"  [{slug}] 카테고리 선택 OK: {cat}")
-        except:
-            pass
+    # ── 공개/비공개 선택 (진짜 클릭 — React state 반영, evaluate로는 안 먹힘) ──
+    # basicSet: 20=공개, 15=공개(보호), 0=비공개
+    vis_map = {"public": "20", "protected": "15", "private": "0"}
+    vis_val = vis_map.get(vis, "20")
+    try:
+        await page.locator(f"input[name='basicSet'][value='{vis_val}']").check()
+        log(f"  [{slug}] 공개 설정: {vis} (value={vis_val})")
+    except Exception as e:
+        log(f"  [{slug}] 공개 설정 실패: {e}")
 
-    # ── 공개/비공개 설정 ──
-    if vis == "private":
-        try:
-            priv = page.locator(
-                "input[value='3'], label:has-text('비공개'), button:has-text('비공개')"
-            ).first
-            if await priv.is_visible(timeout=2000):
-                await priv.click()
-                log(f"  [{slug}] 비공개 설정 OK")
-        except:
-            pass
+    await page.wait_for_timeout(800)
 
-    await page.wait_for_timeout(500)
-
-    # ── 발행 버튼 ──
+    # ── 발행 버튼 클릭 (공개 선택 시 텍스트 '공개 발행'으로 변경됨) ──
     published = False
-    for sel in [
-        "button:has-text('발행')",
-        "button:has-text('공개 발행')",
-        "button:has-text('저장')",
-        "#publish-btn",
-        "input[type='submit'][value*='발행']",
-    ]:
-        try:
-            btn = page.locator(sel).first
-            if await btn.is_visible(timeout=3000):
-                await btn.click()
-                await page.wait_for_timeout(3000)
-                # 최종 발행 확인 팝업이 뜰 수 있음
-                for confirm_sel in ["button:has-text('확인')", "button:has-text('발행')"]:
-                    try:
-                        cf = page.locator(confirm_sel).first
-                        if await cf.is_visible(timeout=2000):
-                            await cf.click()
-                            await page.wait_for_timeout(2000)
-                    except:
-                        pass
-                published = True
-                log(f"  [{slug}] ✅ 발행 완료: {title[:30]}")
-                RESULTS["success"].append(f"{slug}:{title[:20]}")
-                break
-        except:
-            pass
+    try:
+        await page.locator("#publish-btn").click()
+        await page.wait_for_timeout(5000)
+        # 성공 = 에디터(newpost)를 벗어나 목록/글보기로 이동
+        published = "newpost" not in page.url
+        if published:
+            log(f"  [{slug}] ✅ 발행 완료: {title[:30]}")
+            RESULTS["success"].append(f"{slug}:{title[:20]}")
+        else:
+            log(f"  [{slug}] 발행 후 에디터 유지 — 실패 가능")
+    except Exception as e:
+        log(f"  [{slug}] 발행 클릭 실패: {e}")
 
     if not published:
-        log(f"  [{slug}] 발행 버튼 없음")
+        log(f"  [{slug}] 발행 실패")
         RESULTS["fail"].append(f"{slug}:{title[:20]}")
 
     return published
