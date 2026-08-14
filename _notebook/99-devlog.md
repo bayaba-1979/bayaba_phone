@@ -5869,3 +5869,11 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **생존 실측 (결정적 발견):** `check_script_survival.py`로 발행 후 실측 → `<script>`·`<style>`·`<svg>`·`<details>`·복사버튼 **전부 살아남음**. 티스토리 tinymce가 JS/스타일/SVG를 안 자른다 → Boss 요구(아코디언·인포그래픽·JS 전부) 전부 구현 가능. 커밋 0793b03.
 - **설치가이드 파일럿 (Phase 1):** GUIDE.md + 01~05 챕터 16종 = 17포스트 → `galaxys21-pwuser.tistory.com`. 시크릿 스캔 통과(전부 플레이스홀더). **13/17 발행 성공**, 4개(termux-setup·termux-api·tistory-auto·youtube)는 "발행 후 에디터 유지" 실패 → 신규블로그 일일한도(~13/day) 추정, 내일 재시도.
 - **Phase 2 민감 키워드 스캔:** `_notebook` 115개 중 66개가 위치/배터리/건강/누나/간병/GPS 히트. 대부분 "모니터링한다"류 설명이지만 99-devlog·17-chronicle은 실제 수치 가능성 → 헌법 "돌봄 데이터 절대 공개 금지"에 걸림. 양산 전 리뷰 게이트 필요 (레포는 public이지만 Tistory는 검색노출 차원이 다름).
+
+### 🔧 티스토리 빵꾸 근본 원인 수리 + 블로그 메타 정비 (_Claude · 2026-08-14)
+
+- **빵꾸 근본 원인 (실측 확정):** `tinymce.setContent()`가 True여도 제출 소스는 **`textarea#editor-tistory`** → setContent는 내부 상태만 갱신하고 textarea는 비워둠. `/tmp/investigate_editor.py`로 확인(setContent 후 targetValue_len=0 → `editor.save()` 후 108). **`editor.save()`로 textarea 강제 동기화가 유일한 해법.**
+- **수리:** `post.py` `_verify_body`를 `getContent()` 기준 → **textarea 길이 기준**으로 교체 + 본문 입력·재시도 블록에 `save()` 추가. 커밋 1c62bd8.
+- **재주입:** 빵꾸 3개(/12 배터리·/18 네이버·/19 성능) `save()`로 재발행 → QA 게이트 3건 전부 통과(text 2649~2762자). 전량 스윕도 빵꾸 0건.
+- **QA 게이트 (`tistory-naver/qa_gate.py`):** 발행 후 fetch로 마커(s21-post/s21-acc/`<details>`) + 본문 텍스트 길이(≥2500) 판정. `<svg`는 티스토리 크롬에 항상 존재해 마커에서 제외. RSS 자동발견(최근 10개) or `--ids` 지정.
+- **블로그 메타 정비:** `galaxys21-pwuser` 블로그 설명이 오타·중복 공백("딥시크에이더와  공짜 LLM으로  출판방송") → "갤럭시 S21 한 대로 만드는 0원 풀스택 — Termux·proot·Claude Code·MCP 설치부터 AI 음성·출판·방송 파이프라인까지, PART 1~8 실전 교재 업무수첩"으로 교체. meta description·og:description·twitter:description 반영 확인. 제목/닉네임은 canonical "Helena-Phone" 유지.
