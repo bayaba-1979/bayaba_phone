@@ -1,11 +1,11 @@
 # 📖 S21 Phone 업무 수첩 — 전체 목차
 
-> 구축: 2026-07-23 ~ 2026-08-11 (20일)  
+> 구축: 2026-07-23 ~ 2026-08-14 (23일)  
 > 환경: Galaxy S21 → Termux → proot Ubuntu → Claude Code (DeepSeek) + Grok CLI + Aider  
-> 총 101 파일 · ~50,000줄  
-> **에이전트 마크:** `_Grok` 65개 · `_Claude` 12개 · `_Boss` 5개 · 무표 19개  
+> 총 105+ md · 기점: [`83-momentum-2026-08-14_Grok.md`](./83-momentum-2026-08-14_Grok.md)  
+> **에이전트 마크 (실측 08-14):** `_Grok` 42개 · `_Claude` 9개 · `_Boss` 5개 · `_Aider` 0 · 무표 49  
 > 규약: [`30-agent-file-marks.md`](./30-agent-file-marks.md)  
-> 마지막 전수 파싱: 2026-08-11 (`_Claude`)
+> 마지막 전수 파싱: 2026-08-14 (`_Grok` · 기점)
 
 ---
 
@@ -95,7 +95,7 @@ AI 에이전트 역할 분장, 네이버·강의 콘텐츠, WSL 전략, 인간-A
 | 파일 | 내용 |
 |------|------|
 | `30-agent-file-marks.md` | **파일 마크 규약** — `_Grok`/`_Claude`/`_Aider`/`_Boss` (_Shared) |
-| `31-agent-roles_Grok.md` | **직함 분장** — 디자이너(Grok)·반장(Aider)·감사(Claude) |
+| `31-agent-roles_Grok.md` | **직함 분장** — 08-14 기점: Grok = 웹 코드 디자이너 · 다큐 PD 두 칸 |
 | `session-2026-07-26_Grok.md` | Grok 세션 메모 — 웹진랜딩·위성4종·helana_log 정체성 전환 |
 
 ### 웹 디자인·커버리지
@@ -238,13 +238,36 @@ Grok 플러그인 슬롯, 영상 표준 v1, PD Pipeline v2 LOCK.
 ### AI 성우·TTS 전략
 | 파일 | 내용 |
 |------|------|
-| `74-tts-rvc-lightweight-solution_Claude.md` | GPT-SoVITS 포기 → 경량TTS+RVC ONNX 50배 가속 (_Claude) |
+| `74-tts-rvc-lightweight-solution_Claude.md` | GPT-SoVITS 포기 → 경량TTS+RVC ONNX 50배 가속 (_Claude) · **경로 폐기** |
 | `80-ai-voice-actor-whitepaper_Boss.md` | **AI 성우 백서** — 목소리≠폰트, 로고급 신원자산 (_Boss) |
+| `81-helena-rvc-dubbing-standard_Claude.md` | **성우 더빙 기술 원본** — Edge+Helena RVC 5단계, 시편 23편 실측 (_Claude) |
+| **`82-helena-rvc-baseline-lords-prayer_Grok.md`** | **베이스라인 잠금 + 주의 기도 적용** — ONNX 폐기, 파라미터 불변 (_Grok) |
 
 ### 종합 연대기
 | 파일 | 내용 |
 |------|------|
-| **`99-devlog.md`** | **전체 개발일지 4,940줄** — Day1~Day20 모든 결정·전환점 |
+| **`99-devlog.md`** | **전체 개발일지** — Day1~ 모든 결정·전환점 |
+| `rvc-environment-gap_Claude.md` | RVC 환경 갭 진단 (_Claude) |
+| `rvc-failure-analysis_Claude.md` | RVC 실패 분석 (_Claude) |
+
+---
+
+## 🟣 Phase 6 — 돌봄 실물 + Grok 플러그 기점 (2026-08-13 ~ 08-14)
+
+돌봄 Tailscale을 단일 노드로 고정하고, Grok 45,000원 플러그를 두 칸으로 자른 기점.  
+PD 칸 = 누나 얼굴 사진 1장 + 프롬프트 → 10초 딥페이크급 + 성우 더빙 → 이어 붙여 다큐. (`66`/`72` 페이지 캡처 역할 해석은 폐기)
+
+### 돌봄 (길 1)
+| 파일 | 내용 |
+|------|------|
+| `care/tailscale-care-whitepaper_Claude.md` | **돌봄 시스템 백서** — 인바운드 Tailscale 단일 노드 · ACL 단방향 (_Claude) |
+| `care/tailscale-care-daemon_Claude.md` | 진단 상세 (이력) |
+| `care/tailscale-situation-report_Claude.md` | 계정 불일치 보고 (이력) |
+
+### 기점 (역할 정본)
+| 파일 | 내용 |
+|------|------|
+| **`83-momentum-2026-08-14_Grok.md`** | **기점** — Grok 플러그 두 칸. ①웹 코드 ②누나 사진1+프롬프트→10초 딥페이크+더빙→다큐 |
 
 ---
 
@@ -289,5 +312,5 @@ python3 scripts/sync_notebook_index.py
 python3 scripts/pipeline_status.py
 ```
 
-> 마지막 전수 파싱: 2026-08-11 (`_Claude`)  
+> 마지막 전수 파싱: 2026-08-14 (`_Grok` · 기점 `83`)  
 > 다음 자동 갱신 예정: 신규 파일 3건 이상 누적 시

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="구축 기간: 2026-07-23 ~ 2026-07-24 — S21 Phone Webzine">
+<meta name="description" content="&quot;WS SL 내 PC 환경에 디바이스 추가해서 누나 핸드폰을 브랜치처럼 해가지고 태블릿 내가 갖고 있는 것처럼 누나 핸드폰도 등록을 해버리잖아.&quot; — S21 Phone Webzine">
 <meta name="theme-color" content="#0a0908">
 <meta name="application-name" content="S21 Phone">
 <title>📋 S21 Phone — 전체 개발일지 — S21 Phone Webzine</title>
@@ -41,7 +41,7 @@
   <header class="wz-hero">
     <div class="wz-kicker">Notebook · lakme-audio</div>
     <h1>📋 S21 Phone — 전체 개발일지</h1>
-    <p class="deck">구축 기간: 2026-07-23 ~ 2026-07-24</p>
+    <p class="deck">&quot;WS SL 내 PC 환경에 디바이스 추가해서 누나 핸드폰을 브랜치처럼 해가지고 태블릿 내가 갖고 있는 것처럼 누나 핸드폰도 등록을 해버리잖아.&quot;</p>
     <div class="wz-meta">
       <span>Source · _notebook/99-devlog.md</span>
       <span>Kind · markdown</span>
@@ -50,6 +50,23 @@
   </header>
   <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
 <ul>
+<li><a href="#_grok-2026-08-13">🎙️ 헬레나 성우 베이스라인 잠금 + 주의 기도 더빙 (_Grok · 2026-08-13)</a></li>
+<li><a href="#rvc-onnx-s21-_claude-2026-08-12">🎙️ 사도신경 더빙 — RVC ONNX 전환 + S21 추론 성공 (_Claude · 2026-08-12)</a></li>
+<li><a href="#tailscale-wsls21-_claude-2026-08-12">🔗 Tailscale 테스트 — WSL→S21 파일 전송 (_Claude · 2026-08-12)</a></li>
+<li><a href="#tailscale-care-_claude-2026-08-12">🌐 Tailscale Care 커뮤니티 리서치 (_Claude · 2026-08-12)</a></li>
+<li><a href="#wsl-s25-s21-_boss-2026-08-12">🏭 정정: WSL = 팩토리, S25 = 리모컨, S21 = 출력기 (_Boss · 2026-08-12)</a></li>
+<li><a href="#tailscale-_boss-claude-2026-08-12-0000">🧠 Tailscale = 돌봄 인프라의 액션 레이어 (_Boss + Claude · 2026-08-12 00:00~)</a></li>
+<li><a href="#s21-wsl-_claude-2026-08-11-2100">🔗 S21 ↔ WSL 통신 레이어 = 돌봄 인프라의 신경계 (_Claude · 2026-08-11 21:00~)</a></li>
+<li><a href="#_claude-2026-08-11-2100">📡 파일 전송 스트레스 — 통신 레이어 근본 문제 (_Claude · 2026-08-11 21:00~) ← 위 항목으로 통합됨</a></li>
+<li><a href="#edge-tts-rvc-_claude-2026-08-11-2030">🎯 Edge TTS + RVC = 확정된 최적 경로 (_Claude · 2026-08-11 20:30)</a></li>
+<li><a href="#gemini-_boss-gemini-2026-08-11-0942">📻 라디오 초대권 자동화 시스템 설계 — Gemini 세션 (_Boss + Gemini · 2026-08-11 09:42)</a></li>
+<li><a href="#_claude-2026-08-10-2255">📅 출판 스케줄러 수립 + 티스토리 제한 리서치 (_Claude · 2026-08-10 22:55)</a></li>
+<li><a href="#pd-pipeline-v13-2-bgm-_claude-2026-08-09-1850">🎬 PD Pipeline V13 — ⌨️ 타자기 자막 + 하드 2줄 제한 + BGM 변수화 (_Claude · 2026-08-09 18:50)</a></li>
+<li><a href="#pd-pipeline-v12-5-_claude-2026-08-09-1600">🎬 PD Pipeline V12 — 전문가급 품질 지표 5종 (_Claude · 2026-08-09 16:00)</a></li>
+<li><a href="#pd-pipeline-v11-_claude-2026-08-09-1200">🎬 PD Pipeline V11 — 만점 업그레이드 (_Claude · 2026-08-09 12:00)</a></li>
+<li><a href="#-xfade-aware-timing-_claude-2026-08-08-1700">🔧 자막-내레이션 싱크 수정 (xfade-aware timing) (_Claude · 2026-08-08 17:00)</a></li>
+<li><a href="#pd-pipeline-mcp-pd_magic-_claude-2026-08-08-1510">🔧 PD Pipeline MCP 서버 구축 + pd_magic 재생산 (_Claude · 2026-08-08 15:10)</a></li>
+<li><a href="#pd_magic-_claude-2026-08-08">🎬 pd_magic — 표준 파이프라인 숏폼 제작 (_Claude · 2026-08-08)</a></li>
 <li><a href="#notebook_titles-100-_claude-2026-08-08">🎨 보조 페이지 초등학생 비유 재작성 + NOTEBOOK_TITLES 100% (_Claude · 2026-08-08)</a></li>
 <li><a href="#_claude-2026-08-08">🎨 랜딩 페이지 전면 재작성 — 초등학생 비유 버전 (_Claude · 2026-08-08)</a></li>
 <li><a href="#pd-pipeline-v7-_claude-2026-08-07">🎬 PD Pipeline V7 — 프로급 업그레이드 완료 (_Claude · 2026-08-07)</a></li>
@@ -316,6 +333,60 @@
 <li><a href="#_14">다음 할 일</a></li>
 </ul>
 </li>
+<li><a href="#2026-08-08-pd-pipeline-v10-_claude">2026-08-08 PD Pipeline V10 — 콘텐츠 이해 기반 연출 자동화 (_Claude)</a><ul>
+<li><a href="#_15">배경</a></li>
+<li><a href="#boss_1">핵심 통찰 (Boss)</a></li>
+<li><a href="#p0p06-p1">구현 (P0~P0.6 + P1 + 시각 스타일)</a></li>
+<li><a href="#pd_tistory_v2-tg-msg-371">결과 (pd_tistory_v2, TG msg 371)</a></li>
+<li><a href="#_16">알려진 이슈</a></li>
+<li><a href="#_claude-2026-08-10">📚 출판부 정식 가동 — 역방향 출판 패턴 + 티스토리 교재화 (_Claude · 2026-08-10)</a></li>
+<li><a href="#ai-_claude-2026-08-11">🧭 저사양 폰 AI 생존 테스트 — 이중 서사 발견 (_Claude · 2026-08-11)</a></li>
+<li><a href="#step-down-cascade-pages-94-_claude-2026-08-11">🪜 Step-Down Cascade 설계 + Pages 94건 배포 (_Claude · 2026-08-11)</a></li>
+<li><a href="#ai-_claude-2026-08-11_1">🪞 AI를 퍼포먼스 미러로 사용 — 자기 기여도 평가 세션 (_Claude · 2026-08-11)</a></li>
+</ul>
+</li>
+<li><a href="#80-npugpu-2026-08-11-_claude">§80 — NPU/GPU 가속 분석 정정 (2026-08-11, _Claude)</a></li>
+<li><a href="#81-pc-stt-nnapi-2026-08-11-_claude">§81 — &ldquo;PC처럼 쓴다&rdquo; 목표 대비 현재 위치 + STT NNAPI 정정 (2026-08-11, _Claude)</a><ul>
+<li><a href="#_19">아키텍처 이해 정정</a></li>
+<li><a href="#bios">BIOS급 통제 — 의도적 제외</a></li>
+<li><a href="#stt-nnapi">STT NNAPI &ldquo;실측 완료&rdquo; 정정</a></li>
+<li><a href="#pc">&ldquo;PC처럼 쓴다&rdquo; 목표 대비 현재 위치</a></li>
+<li><a href="#todo">현재 세션 TODO</a></li>
+</ul>
+</li>
+<li><a href="#82-sherpa-onnx-nnapi-pip-ndk-2026-08-11-_claude">§82 — sherpa-onnx + NNAPI 실제 경로 정정: pip❌ → NDK 크로스컴파일✅ (2026-08-11, _Claude)</a><ul>
+<li><a href="#claude-code">이전 오류 — Claude Code가 생성한 허구 명령어</a></li>
+<li><a href="#_20">실제 존재하는 것</a></li>
+<li><a href="#_21">실제 경로</a></li>
+<li><a href="#voxsherpa-tts-nnapi">VoxSherpa 선례 — TTS 모델별 NNAPI 현실</a></li>
+<li><a href="#todo_1">이전 TODO 정정</a></li>
+<li><a href="#_22">교훈</a></li>
+</ul>
+</li>
+<li><a href="#83-tailscale-2-tailnet-2-2026-08-13-_claude">§83 — Tailscale 돌봄 데몬: &ldquo;클라이언트 2개 · tailnet 2개&rdquo; 근본 원인 발견 (2026-08-13, _Claude)</a><ul>
+<li><a href="#s21-tailscale-2-tailnet">핵심 발견 — S21에 Tailscale이 2개, 서로 다른 tailnet에 붙어 있음</a></li>
+<li><a href="#tailnet">왜 혼란했나 — 두 관점이 서로 다른 tailnet을 보고 있었음</a></li>
+<li><a href="#_23">확정 기술 사실</a></li>
+<li><a href="#acl">보안 — ACL 단방향 + 키 회수</a></li>
+<li><a href="#tailnet_1">남은 결정 — 어느 tailnet이 표준인가</a></li>
+<li><a href="#_24">문서</a></li>
+<li><a href="#tailscale-github-REDACTED-_claude-2026-08-13">📡 Tailscale 등록 완료 — GitHub 망(REDACTED@) 통일 (_Claude · 2026-08-13)</a></li>
+<li><a href="#tailscale-2-_claude-2026-08-13">📡 Tailscale 노드 2개 완성 + 자동화 (_Claude · 2026-08-13)</a></li>
+<li><a href="#acl-s21-_claude-2026-08-13">📡 ACL 단방향 완료 — 박씨→S21만 허용 (_Claude · 2026-08-13)</a></li>
+<li><a href="#phantom-process-killer-_claude-2026-08-13">🔓 Phantom process killer 해제 확인 (_Claude · 2026-08-13)</a></li>
+<li><a href="#on-demand-_claude-2026-08-13">📡 워치독 폐기 → on-demand 체크 스크립트 (_Claude · 2026-08-13)</a></li>
+<li><a href="#_claude-2026-08-13">📡 완결 백서 종합 + 텔레그램 보고 (_Claude · 2026-08-13)</a></li>
+<li><a href="#_claude-2026-08-13_1">📝 용어 정리 — &ldquo;돌봄 데몬&rdquo; → &ldquo;돌봄 시스템&rdquo; (_Claude · 2026-08-13)</a></li>
+<li><a href="#_claude-2026-08-13_2">🚫 크론 미등록 확정 — 아웃바운드도 무상주로 (_Claude · 2026-08-13)</a></li>
+<li><a href="#tailscale-keep-alive-netmon-_claude-2026-08-13">🔧 Tailscale 부팅 완전자동화 — keep-alive 상주 + netmon 창 확장 (_Claude · 2026-08-13)</a></li>
+<li><a href="#os-_boss-2026-08-13">🔒 OS 자동 업데이트 차단 — 서버 역할 환경 고정 (_Boss · 2026-08-13)</a></li>
+<li><a href="#tailscale-6-bionic-netmon-11-retry-10-_claude-2026-08-13">⚠️ Tailscale 재부팅 검증 6차 — bionic netmon 정착 11분, retry 창(10분) 초과 (_Claude · 2026-08-13)</a></li>
+<li><a href="#tailscale-fix-_claude-2026-08-13">✅ Tailscale fix 적용 — 무한 재시도 + 병렬화 커밋 (_Claude · 2026-08-13)</a></li>
+<li><a href="#wake-_claude-2026-08-13">✅ 돌봄 데몬 배터리 재설계 — 상주 wake 루프 제거 (_Claude · 2026-08-13)</a></li>
+<li><a href="#100-_claude-2026-08-14">✅ 100점 최적화 — 듀얼 노드 → 단일 노드 전환 (_Claude · 2026-08-14)</a></li>
+<li><a href="#2026-08-14-grok-_grok">📌 기점 2026-08-14 — Grok 플러그 역할 재조정 (_Grok)</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </nav>
@@ -326,7 +397,679 @@
     <button type="button" id="wzCopy" data-cursor>본문 복사</button>
   </div>
   <article class="wz-prose" id="wzProse" data-app="doc">
-    <h3 id="notebook_titles-100-_claude-2026-08-08">🎨 보조 페이지 초등학생 비유 재작성 + NOTEBOOK_TITLES 100% (_Claude · 2026-08-08)</h3>
+    <h3 id="_grok-2026-08-13">🎙️ 헬레나 성우 베이스라인 잠금 + 주의 기도 더빙 (_Grok · 2026-08-13)</h3>
+<p><strong>결정:</strong> 시편 23편으로 검증된 5단계(Edge SunHi −15%/−3Hz → 침묵제거 → RVC WebUI PyTorch + rmvpe + index 0.75 → 마스터링 192k)를 <strong>성우 더빙 표준</strong>으로 잠금.</p>
+<ul>
+<li>기술 원본: <code>_notebook/81-helena-rvc-dubbing-standard_Claude.md</code></li>
+<li>잠금·이력 파싱: <code>_notebook/82-helena-rvc-baseline-lords-prayer_Grok.md</code></li>
+<li>폐기: <code>scripts/rvc_dub/dub.py</code> ONNX/RvcPyInfer, ContentVec, ParksyTTS 본편 더빙</li>
+<li>첫 적용: 주의 기도(개역개정, 호흡 부호 고정) → <code>lords_prayer_natural.mp3</code> → Telegram sendAudio</li>
+<li>S21 실측 속도: 오디오 1초 ≈ RVC 14초. Stage 3는 <code>setsid nohup</code> 필수.</li>
+</ul>
+<h3 id="rvc-onnx-s21-_claude-2026-08-12">🎙️ 사도신경 더빙 — RVC ONNX 전환 + S21 추론 성공 (_Claude · 2026-08-12)</h3>
+<p><strong>배경:</strong> 직전 WSL 세션에서 작업하던 사도신경 더빙 워크플로우가 끊겨서 S21에서 재수행.</p>
+<p><strong>핵심 작업: parksy_rvc.pth → parksy.onnx 변환</strong><br>
+- 기존 WSL: PyTorch RVC (parksy_rvc.pth + .index, f0method=rmvpe, index_rate=0.75)<br>
+- S21: RvcPyInfer (ONNX) — .pth를 ONNX로 변환 필요<br>
+- RVC 리포 클론 (<code>/tmp/rvc_repo</code>, 최신 v2 아키텍처)<br>
+- 새로운 <code>SynthesizerTrnMs768NSFsid</code> 클래스 사용 (구형 <code>SynthesizerTrnMsNSFsidM</code> 아님)<br>
+- 상대위치 임베딩 ONNX 트레이싱 이슈 → monkeypatch 적용 (MultiHeadAttention 4종)<br>
+- <code>torch.onnx.export(dynamo=False)</code>로 구형 TorchScript 경로 사용<br>
+- parksy.onnx: 110.3MB, 48kHz 네이티브</p>
+<p><strong>rvc_infer.py 수정:</strong><br>
+- RvcPyInfer 0.2.2 API에 맞게 <code>build_task()</code> → <code>task.run()</code> 패턴 수정<br>
+- <code>rmvpe=</code> 파라미터 → <code>RvcContext(rmvpe=path)</code> + <code>f0extract_algorithm="rmvpe"</code><br>
+- <code>index_path</code> + <code>index_rate=0.75</code> 직접 전달</p>
+<p><strong>결과:</strong><br>
+| 항목 | WSL (끊긴 세션) | S21 (이번 세션) |<br>
+|------|----------------|-----------------|<br>
+| 모델 | parksy_rvc.pth (PyTorch) | parksy.onnx (RvcPyInfer) |<br>
+| 샘플레이트 | 40,000Hz | 48,000Hz |<br>
+| f0method | rmvpe | rmvpe |<br>
+| index_rate | 0.75 | 0.75 |<br>
+| Edge TTS 속도 | -10% | -8% |<br>
+| 추론 시간 | (기록 없음) | 154.2초 (RTF 3.3) |<br>
+| RMS | 0.108 | 0.108 ✅ |</p>
+<p><strong>사도신경 오디오:</strong> 46.5초, 728KB mp3. 텔레그램 전송 완료.</p>
+<p><strong>교훈:</strong><br>
+- RVC v2 .pth 모델은 새로운 <code>infer/module/models.py</code> 아키텍처와 호환됨 (103개 enc_q missing은 예상된 것 — ContentVec은 별도 ONNX)<br>
+- <code>torch.onnx.export</code> dynamo 모드는 상대위치 임베딩의 동적 reshape 처리 못 함 → <code>dynamo=False</code> + monkeypatch 필수<br>
+- RvcPyInfer 0.2.2에서 rmvpe는 <code>build_task</code>가 아닌 <code>RvcContext(rmvpe=)</code>로 설정</p>
+<h3 id="tailscale-wsls21-_claude-2026-08-12">🔗 Tailscale 테스트 — WSL→S21 파일 전송 (_Claude · 2026-08-12)</h3>
+<p>S21(저사양 폰, 한 달째 거의 미사용)에서 Tailscale로 WSL 파일 받기 테스트.</p>
+<p><strong>결과:</strong> 됨. LTE 상태에서 WSL→S21로 RVC 모델 235MB 전송 성공.</p>
+<p><strong>과정에서 걸린 것들:</strong></p>
+<table>
+<thead>
+<tr>
+<th>문제</th>
+<th>해결</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>proot에서 TCP 안 됨</td>
+<td><code>SO_BINDTODEVICE</code> 권한 없음 → Termux 네이티브 바이너리로 우회</td>
+</tr>
+<tr>
+<td>Google/GitHub 계정 분리</td>
+<td>같은 이메일이어도 Tailscale은 인증 방식 따라 별개 tailnet 생성</td>
+</tr>
+<tr>
+<td>auth key 인증 실패</td>
+<td>state 파일 삭제 후 재시작해야 새 tailnet으로 편입</td>
+</tr>
+<tr>
+<td>DERP relay로만 연결</td>
+<td>직접 연결은 안 되고 Tokyo 릴레이(76ms) 경유 — 그래도 전송 됨</td>
+</tr>
+</tbody>
+</table>
+<p><strong>테스트한 경로:</strong></p>
+<pre><code class="language-bash"># Termux tailscale ssh로 pipe 전송
+tailscale ssh dtslib 'cat /home/dtsli/rvc_models/parksy_rvc/parksy_rvc.pth' &gt; ~/rvc_models/parksy_rvc/parksy_rvc.pth
+tailscale ssh dtslib 'cat /home/dtsli/rvc_models/parksy_rvc/parksy_rvc.index' &gt; ~/rvc_models/parksy_rvc/parksy_rvc.index
+</code></pre>
+<p><strong>현재 S21에 받은 파일:</strong><br>
+- <code>~/rvc_models/parksy_rvc/parksy_rvc.pth</code> 55MB<br>
+- <code>~/rvc_models/parksy_rvc/parksy_rvc.index</code> 180MB</p>
+<p><strong>proot vs Termux:</strong><br>
+- proot: Tailscale mesh 확인·peer 감시 가능, TCP 전송 불가<br>
+- Termux: TCP/UDP 정상, 네이티브 권한으로 Tailscale SSH·SCP 가능</p>
+<h3 id="tailscale-care-_claude-2026-08-12">🌐 Tailscale Care 커뮤니티 리서치 (_Claude · 2026-08-12)</h3>
+<p><strong>결론: 커뮤니티에서 이미 검증된 패턴. 우리는 거기에 AI 음성+건강 레이어를 올린 진보된 형태.</strong></p>
+<hr>
+<p><strong>공식 패턴 — &ldquo;부모님께 보내는 Tailscale 노드&rdquo;:</strong><br>
+Tailscale 공식 블로그에서 라즈베리파이를 미리 설정해서 부모님 댁에 배송, 꽂기만 하면 원격 지원 가능한 패턴을 공식 소개 중.</p>
+<p><strong>커뮤니티 실제 사례:</strong></p>
+<table>
+<thead>
+<tr>
+<th>사례</th>
+<th>방식</th>
+<th>출처</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>81세 어머니 PC 원격 지원</td>
+<td>Tailscale + 화면 공유, &ldquo;minimal fuss&rdquo;</td>
+<td>HN</td>
+</tr>
+<tr>
+<td>자녀 기기 관리</td>
+<td>본인 계정으로 로그인 + ACL 접근 제한</td>
+<td>HN, XDA</td>
+</tr>
+<tr>
+<td>RustDesk + Tailscale</td>
+<td>가족 PC 무료 원격 지원 콤보</td>
+<td>YouTube 튜토리얼</td>
+</tr>
+<tr>
+<td>치매 가족 모니터링</td>
+<td>connected device로 상태 추적</td>
+<td>Reddit</td>
+</tr>
+<tr>
+<td>스마트홈 + IoT</td>
+<td>subnet routing으로 HA 연동</td>
+<td>Tailscale docs</td>
+</tr>
+</tbody>
+</table>
+<p><strong>헬레나 돌봄이 커뮤니티보다 진보된 지점:</strong></p>
+<table>
+<thead>
+<tr>
+<th>일반 케어 시나리오</th>
+<th>헬레나 케어</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PC 고장 일회성 수리</td>
+<td><strong>항상 연결된 돌봄 인프라</strong></td>
+</tr>
+<tr>
+<td>파일 공유 (사진 등)</td>
+<td><strong>ML 모델·음성 파이프라인</strong></td>
+</tr>
+<tr>
+<td>사람이 직접 명령</td>
+<td><strong>care-daemon 자동화</strong></td>
+</tr>
+<tr>
+<td>액션 레이어만 있음</td>
+<td><strong>감지(Telegram) + 액션(Tailscale) + 자동화(care-daemon)</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>적용 확정 패턴:</strong></p>
+<table>
+<thead>
+<tr>
+<th>패턴</th>
+<th>출처</th>
+<th>헬레나 적용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single account for trusted family</td>
+<td>HN</td>
+<td>Boss 계정 하나로 전 기기</td>
+</tr>
+<tr>
+<td>ACL로 기기 간 접근 제한</td>
+<td>Tailscale</td>
+<td>S21은 WSL/S25만 접근 가능</td>
+</tr>
+<tr>
+<td>Free tier (3 users, 100 devices)</td>
+<td>Tailscale</td>
+<td>현 규모에 충분</td>
+</tr>
+<tr>
+<td>Exit node for remote access</td>
+<td>Tailscale 공식</td>
+<td>WSL이 exit node → S21 트래픽 보호</td>
+</tr>
+<tr>
+<td>Headscale (self-host)</td>
+<td>GitHub</td>
+<td>장기적으로 Tailscale 서버 의존성 제거 옵션</td>
+</tr>
+</tbody>
+</table>
+<p><strong>평가:</strong> Tailscale을 돌봄 시나리오에 쓰는 건 커뮤니티에서 이미 검증됨. 우리 방향은 그 연장선 위에 <strong>AI 음성 생성 + 건강 모니터링 레이어</strong>를 올린 진화된 형태. 충돌 없고, 커뮤니티 베스트 프랙티스와도 정합.</p>
+<h3 id="wsl-s25-s21-_boss-2026-08-12">🏭 정정: WSL = 팩토리, S25 = 리모컨, S21 = 출력기 (_Boss · 2026-08-12)</h3>
+<p><strong>앞선 평가에 중대한 오류가 있었다.</strong> &ldquo;WSL이 허브가 아니다&rdquo;라고 한 건 Control(누가 명령 내리나)과 Compute(어디서 계산하나)를 혼동한 결과.</p>
+<p><strong>실제 아키텍처:</strong></p>
+<pre><code>명령 계통:  S25(Boss 폰) → &quot;이 텍스트 더빙해&quot; → WSL에 명령
+              ↑ 리모컨                              │
+              │                                     ↓ 계산
+            Tailscale                          WSL(팩토리)
+              │                              SoVITS 314MB
+              │                              RVC 55MB
+              │                              Kokoro 311MB
+              ↓                              Chatterbox
+결과 전달:  S21(누나 폰) ←──── 음성 파일 ────┘
+              ↑ 스피커
+</code></pre>
+<p><strong>WSL이 허브인 이유는 단순하다:</strong><br>
+- SoVITS(314MB) + RVC(55MB) + Kokoro(311MB) + Chatterbox<br>
+- CPU 164%, RAM 4GB 쳐먹는 워크로드<br>
+- 폰 AP·태블릿으로는 절대 못 돌림. WSL 빼면 SoVITS도 RVC도 불가능.</p>
+<p><strong>태블릿에 올리면 발생할 문제:</strong><br>
+- 모델 전송만 6.2GB (rsync 46% 끊긴 전적 있음)<br>
+- 추론 51초 걸리는 걸 폰/태블릿 AP로 돌리면 몇 분?<br>
+- RVC 파이썬 venv, DiffSinger 319MB ONNX, GPT-SoVITS 전부 — 안드로이드 포팅 난이도 상상 초월</p>
+<p><strong>각 디바이스의 실제 역할:</strong></p>
+<table>
+<thead>
+<tr>
+<th>디바이스</th>
+<th>역할</th>
+<th>하는 일</th>
+<th>Tailscale 이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>WSL PC</strong></td>
+<td>🏭 <strong>팩토리</strong></td>
+<td>모든 ML 추론·모델 저장·학습</td>
+<td>명령 수신 + 결과 전송</td>
+</tr>
+<tr>
+<td><strong>S25</strong></td>
+<td>🎮 <strong>리모컨</strong></td>
+<td>WSL에 더빙 명령·상태 확인</td>
+<td>SSH로 synth_voice() 호출</td>
+</tr>
+<tr>
+<td><strong>S21</strong></td>
+<td>🔊 <strong>출력기</strong></td>
+<td>음성 재생·건강 데이터 수집</td>
+<td>WSL로부터 결과 파일 받기</td>
+</tr>
+<tr>
+<td><strong>태블릿</strong></td>
+<td>📺 <strong>디스플레이</strong> (옵션)</td>
+<td>캐시·가벼운 UI</td>
+<td>무거운 건 전부 WSL에 위임</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tailscale이 이 구조에서 하는 일:</strong><br>
+- S25 → WSL: <code>ssh wsl "synth_voice('안녕')"</code> → 명령 발행<br>
+- WSL: SoVITS+RVC 추론 (7분이든 3초든 여기서)<br>
+- WSL → S21: <code>scp result.wav s21:~/audio/</code> → 결과 전달<br>
+- S21: 결과 재생</p>
+<p>S25는 엔진이 아니라 리모컨이다. WSL 빼면 SoVITS도 RVC도 못 돌린다. 태블릿도 마찬가지다.</p>
+<p><strong>이전 평가 정정:</strong><br>
+- ~~&rdquo;WSL이 허브가 아니다&rdquo;~~ → <strong>WSL은 유일한 컴퓨트 허브.</strong><br>
+- ~~&rdquo;태블릿이 서버 역할&rdquo;~~ → <strong>태블릿은 보조 디스플레이, 무거운 건 WSL.</strong><br>
+- ~~&rdquo;내 핸드폰이 컨트롤 타워&rdquo;~~ → <strong>S25는 리모컨, 진짜 타워는 WSL.</strong></p>
+<h3 id="tailscale-_boss-claude-2026-08-12-0000">🧠 Tailscale = 돌봄 인프라의 액션 레이어 (_Boss + Claude · 2026-08-12 00:00~)</h3>
+<p><strong>결론: Tailscale 한 줄이 기존 생태계 전부를 살렸다. 충돌 제로, 기존 파이프 전부 재활용.</strong></p>
+<hr>
+<p><strong>1. 기존 생태계와 충돌 제로</strong></p>
+<p>이미 박혀 있는 것들:<br>
+- <code>helena_phone</code> ← GitHub Pages로 교재 배포<br>
+- <code>care-daemon.sh</code> ← 15분마다 건강 체크 + 텔레그램 알림<br>
+- <code>send_models.sh</code> ← SCP로 SoVITS 모델 전송<br>
+- <code>parksy-tts-v1</code> ← say.py 원라이너 더빙</p>
+<p>→ 여기에 Tailscale 한 줄 깔았을 뿐인데 저 모든 파이프가 살아난다.</p>
+<p><strong>2. Tailscale이 진짜 잘 맞는 이유</strong></p>
+<table>
+<thead>
+<tr>
+<th>기존 방식</th>
+<th>Tailscale 적용 후</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>텔레그램 알림 (인터넷 필수)</td>
+<td>+ Tailscale SSH로 오프라인 진단 가능</td>
+</tr>
+<tr>
+<td>SCP 포트 8022 (IP 수동 입력)</td>
+<td>pc-connect.sh ping → 자동 IP 찾아서 접속</td>
+</tr>
+<tr>
+<td>rsync 46% 끊김</td>
+<td>Tailscale WireGuard로 안정적 재연결</td>
+</tr>
+<tr>
+<td>누나 폰에 파일 보낼 때마다 IP 물어봄</td>
+<td>ts_host:helena-s21로 고정</td>
+</tr>
+</tbody>
+</table>
+<p><strong>3. 돌봄 시나리오에서 결정적</strong></p>
+<pre><code>누나 폰 배터리 12% → 텔레그램 긴급 알림
+                        ↓
+                   Tailscale SSH 접속
+                        ↓
+              care-daemon 수동 실행으로 상세 진단
+                        ↓
+              필요하면 모델 업데이트나 설정 패치도 원격으로
+</code></pre>
+<p><strong>핵심 통찰 — Telegram vs Tailscale:</strong><br>
+- 텔레그램 = <strong>감지 레이어</strong> (Detection): &ldquo;무슨 일이 났다&rdquo;를 알려줌<br>
+- Tailscale = <strong>액션 레이어</strong> (Action): &ldquo;그걸 내가 직접 고칠 수 있다&rdquo;<br>
+- 이 두 개가 같이 있어야 진짜 돌봄 인프라. 감지만 있으면 속수무책, 액션만 있으면 눈먼 대응.</p>
+<hr>
+<p><strong>내 평가 (_Claude):</strong></p>
+<p>이 분석은 돌봄 시스템의 아키텍처를 정확히 꿰뚫고 있다. 특히 &ldquo;감지 vs 액션&rdquo; 레이어 구분은 이제까지 우리가 암묵적으로 써오던 구조를 명시적으로 정의한 거라서, 앞으로 새 기능을 어느 레이어에 배치할지 판단하는 기준이 된다.</p>
+<p><strong>강점:</strong><br>
+- 기존 스크립트(care-daemon, send_models, say.py)를 <strong>하나도 안 건드리고</strong> 통신 레이어만 추가. 이상적인 레이어드 아키텍처.<br>
+- <code>ts_host:helena-s21</code> 호스트명 고정으로 &ldquo;IP 물어보기&rdquo;라는 인간 의존성 제거. 진짜 자동화로 가는 관문.<br>
+- 단순 파일 전송 도구가 아니라 <strong>돌봄 워크플로우 전체의 기반</strong>으로 포지셔닝한 게 정확.</p>
+<p><strong>약점/리스크:</strong><br>
+- Tailscale이 완전히 죽으면 감지(텔레그램)는 살아있는데 액션(Tailscale SSH)이 불가능. fallback으로 재래식 SSH over WiFi도 남겨둬야 함.<br>
+- proot Ubuntu의 glibc 환경이 Android VPN 라우팅을 못 타는 문제(어제 삽질)는 아직 완전히 해결 안 됨. Termux를 게이트웨이로 쓰는 패턴 정립 필요.</p>
+<p><strong>점수: 방향 10/10, 구현 6/10 (Termux 게이트웨이 패턴만 정리되면 9/10)</strong></p>
+<hr>
+<p><strong>레퍼런스:</strong> <code>reference/s21-wsl-connection.md</code> · <code>reference/tailscale-care-layer.md</code></p>
+<h3 id="s21-wsl-_claude-2026-08-11-2100">🔗 S21 ↔ WSL 통신 레이어 = 돌봄 인프라의 신경계 (_Claude · 2026-08-11 21:00~)</h3>
+<p><strong>핵심 통찰:</strong> 이 작업은 단순한 &ldquo;파일 전송 방법 찾기&rdquo;가 아니다. S21(누나 폰)과 내 PC(WSL)를 연결하는 통신 레이어는 <strong>돌봄(care) 인프라의 핵심 축</strong>이다.</p>
+<p><strong>왜 돌봄인가:</strong><br>
+- 모델 파일(RVC)·데이터·설정·로그 — 모든 것이 이 파이프를 통해 흐름<br>
+- 누나 폰을 원격에서 케어할 수 있는 기반 = &ldquo;내 PC에서 누나 폰을 브랜치처럼 다루는&rdquo; 구조<br>
+- 결국 이 연결이 있어야 음성 합성, 건강 체크, 업데이트 전부 자동화 가능</p>
+<p><strong>경과:</strong><br>
+| 시도 | 방법 | 결과 | 교훈 |<br>
+|------|------|------|------|<br>
+| 1 | HTTP(curl) WSL 로컬IP → S21 | ❌ 다른 네트워크 세그먼트 | WSL NAT가 외부접근 차단 |<br>
+| 2 | HTTP(curl) WSL Tailscale(100.90.83.128) → S21 | ❌ Android VPN 라우팅이 proot까지 전파 안 됨 | <code>tun0</code>이 Android 프레임워크 전용 |<br>
+| 3 | Tailscale proot 직접 설치 | ⚠️ 설치 성공, 인증 필요 | proot userspace-networking 모드 가능 |<br>
+| 4 | Tailscale 계정 통일 (누나→Boss) | 🔄 진행 중 | 양쪽 같은 tailnet에 들어와야 P2P 성립 |</p>
+<p><strong>현재 상태:</strong><br>
+- S21 Tailscale: 100.85.232.54 (Boss 계정으로 변경됨)<br>
+- WSL Tailscale: IP 확인 필요 (Boss 계정으로 재인증 후)<br>
+- 둘 다 같은 tailnet에 들어오면 <code>ssh -p 2222</code> / <code>curl</code> 자유롭게 가능<br>
+- Tailscale = 돌봄 인프라의 표준 통신 레이어로 채택</p>
+<p><strong>앞으로 이 통신 레이어 위에 올릴 것들:</strong><br>
+- RVC 모델·업데이트 전송<br>
+- health check 결과 동기화<br>
+- devlog·설정 원격 백업<br>
+- 원격 명령 실행 (care 데몬 제어 등)</p>
+<p><strong>레퍼런스:</strong> <code>reference/s21-wsl-connection.md</code>에 설정 방법 영구 기록.</p>
+<p><strong>교훈:</strong> &ldquo;파일 하나 보내려다 통신 인프라를 깔았다.&rdquo; 이게 표면적으론 비효율 같지만, 실은 돌봄 시스템의 가장 중요한 레이어를 올바르게 구축한 것. 일회성 scp로 때우지 않고 근본적인 연결을 만든 게 맞는 판단.</p>
+<h3 id="_claude-2026-08-11-2100">📡 파일 전송 스트레스 — 통신 레이어 근본 문제 (_Claude · 2026-08-11 21:00~) ← 위 항목으로 통합됨</h3>
+<p><strong>상황:</strong> WSL(내 PC)에 있는 RVC 모델 파일(parksy_rvc.pth, parksy_rvc.index)을 S21 proot으로 받아야 함.</p>
+<p><strong>시도한 경로와 실패 이유:</strong></p>
+<table>
+<thead>
+<tr>
+<th>방법</th>
+<th>경로</th>
+<th>결과</th>
+<th>실패 원인</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP(curl)</td>
+<td>WSL 192.168.219.104:8888 → S21</td>
+<td>❌</td>
+<td>&ldquo;No route to host&rdquo; — 서로 다른 네트워크 세그먼트</td>
+</tr>
+<tr>
+<td>HTTP(curl)</td>
+<td>WSL Tailscale 100.90.83.128:8888 → S21</td>
+<td>❌</td>
+<td>proot에 tailscale0 인터페이스 없음, 라우팅 불가</td>
+</tr>
+<tr>
+<td>Tailscale</td>
+<td>WSL → S21</td>
+<td>❌</td>
+<td>S21 proot엔 Tailscale CLI 미설치, Termux 쪽은 확인 필요</td>
+</tr>
+</tbody>
+</table>
+<p><strong>S21에는 Tailscale IP(100.90.57.69)가 보이지만(<code>hostname -I</code>), tailscale0 네트워크 인터페이스는 없음.</strong> Android 레벨에서 VPN으로 붙은 IP를 proot이 상속받은 형태. 근데 실제 라우팅은 안 됨 — ping 불가, curl 타임아웃.</p>
+<p><strong>근본 문제:</strong> S21 ↔ WSL 간 파일 전송을 위한 <strong>안정적인 통신 레이어가 없다.</strong> scp는 ARM에서 암호화 오버헤드로 2배 느리고, HTTP는 네트워크 세그먼트 문제로 안 붙고, Tailscale은 반쯤 붙었는데 인터페이스가 완전하지 않음.</p>
+<p><strong>떠오른 아이디어:</strong></p>
+<blockquote>
+<p>&ldquo;WS SL 내 PC 환경에 디바이스 추가해서 누나 핸드폰을 브랜치처럼 해가지고 태블릿 내가 갖고 있는 것처럼 누나 핸드폰도 등록을 해버리잖아.&rdquo;</p>
+</blockquote>
+<p>→ S21을 WSL PC의 <strong>또 하나의 디바이스/브랜치로 등록</strong>해서, 마치 내 태블릿처럼 transparent하게 파일을 주고받을 수 있게 하자. Tailscale을 제대로 끝까지 설정하거나, git으로 모델을 버전 관리하거나, 아니면 완전히 다른 패러다임(Syncthing? KDE Connect? git-annex?)으로 접근.</p>
+<p><strong>교훈:</strong><br>
+- 지금까지 scp/HTTP/Tailscale 전부 &ldquo;일회성 파일 전송&rdquo; 마인드였음<br>
+- 필요한 건 <strong>&ldquo;항상 연결된 디바이스&rdquo;</strong> — 파일 한 번 보내고 말 게 아니라, 앞으로도 계속 모델·데이터·설정 주고받을 infrastructure<br>
+- 태블릿 연결하듯 S21을 PC에 붙이는 게 맞는 방향</p>
+<p><strong>다음 액션:</strong> Tailscale 제대로 설정하거나, S21을 git remote로 등록해서 binary file sync 인프라 구축.</p>
+<h3 id="edge-tts-rvc-_claude-2026-08-11-2030">🎯 Edge TTS + RVC = 확정된 최적 경로 (_Claude · 2026-08-11 20:30)</h3>
+<p><strong>결론: Edge TTS(InJoonNeural) → RVC(박씨 음색) 조합이 속도·품질 모두 확보하는 유일한 솔루션.</strong></p>
+<p>핵심 통찰 — RVC는 음색만 바꾸고 발음·억양은 소스 TTS를 그대로 보존한다. 따라서 소스 TTS 품질이 곧 최종 품질. Edge TTS InJoonNeural(원어민급 한국어)을 소스로 쓰면 Kokoro jf_alpha(일본인 억양)보다 결과물이 압도적으로 좋다.</p>
+<p><strong>예상 성능 (3.5초 음성 기준):</strong></p>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>시간</th>
+<th>RTF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Edge TTS API</td>
+<td>1.5~3.0초</td>
+<td>0.4~0.85x</td>
+</tr>
+<tr>
+<td>ContentVec 특징 추출</td>
+<td>~0.15초</td>
+<td>—</td>
+</tr>
+<tr>
+<td>F0 피치 (DIO)</td>
+<td>~0.08초</td>
+<td>—</td>
+</tr>
+<tr>
+<td>RVC 생성</td>
+<td>~0.25초</td>
+<td>—</td>
+</tr>
+<tr>
+<td>RVC 소계</td>
+<td>~0.48초</td>
+<td>0.14x</td>
+</tr>
+<tr>
+<td><strong>총합</strong></td>
+<td><strong>2.0~3.5초</strong></td>
+<td><strong>0.6~1.0x</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>vs ParksyTTS 원본 CPU (471초, RTF 135x):</strong><br>
+- 속도: <strong>135~238배 빨라짐</strong><br>
+- 품질: ParksyTTS 원본보다 발음은 오히려 더 자연스러움 (Edge TTS 원어민급)<br>
+- 음색 충실도: RVC 모델 학습 품질에 비례 (8~9/10 예상)</p>
+<p><strong>vs 다른 경로:</strong><br>
+| 경로 | 3.5초당 시간 | RTF | 한국어 품질 | 비고 |<br>
+|------|-------------|-----|------------|------|<br>
+| ParksyTTS CPU | 471초 | 135x | 원본 박씨 | ❌ 실사용 불가 |<br>
+| Kokoro+RVC | ~1.5초 | ~0.4x | 일본인 억양 | ⚠️ 오프라인 전용 |<br>
+| <strong>Edge+RVC</strong> | <strong>~3초</strong> | <strong>~0.8x</strong> | <strong>원어민급</strong> | ✅ <strong>최적</strong> |</p>
+<p><strong>RVC 파이프라인 코드:</strong> <code>director/rvc_infer.py</code> — <code>tts_to_rvc(text, dest, source="edge")</code> 한 줄 호출.<br>
+설치 완료: RvcPyInfer 0.2.2, pyworld 0.3.5, edge-tts 7.2.8, Kokoro 311MB.<br>
+남은 것: ContentVec ONNX (~90MB, HF 다운로드) + parksy.onnx (박씨 목소리 모델).</p>
+<p><strong>핵심 성과:</strong> Termux(안드로이드 진짜 셸) + proot Ubuntu + NDK 브릿지 조합으로, <strong>폰 안에서 네이티브 ARM64 프로그램을 직접 빌드할 수 있는 환경 완성.</strong> PC처럼 커맨드 가능한 구조의 마지막 인프라 조각.</p>
+<p><strong>무엇을 했나:</strong><br>
+1. Termux에 Android NDK 설치 → <code>build-android-arm64-v8a.sh</code>로 sherpa-onnx NNAPI 포함 크로스컴파일<br>
+2. 결과물: <code>sherpa-onnx</code> CLI 바이너리 + <code>libonnxruntime.so</code>(NNAPI 활성화) + <code>libsherpa-onnx-jni.so</code><br>
+3. proot ↔ Termux localhost HTTP 브릿지 설계</p>
+<p><strong>이 레이어 위에 올라간 것 (Piper·Kokoro):</strong><br>
+- Piper + Kokoro 모델을 NNAPI로 실측 → <strong>둘 다 CPU보다 느림</strong><br>
+- NNAPI(NPU 가속) TTS 경로는 폐기 확정</p>
+<p><strong>이 레이어에 올라가지 못한 것 (GPT-SoVITS):</strong><br>
+- sherpa-onnx가 GPT-SoVITS 파일 포맷(.ckpt/.pth)을 <strong>애초에 지원 안 함</strong><br>
+- &ldquo;속도가 느렸다&rdquo;가 아니라 <strong>시도 자체가 불가능</strong><br>
+- 즉, 오늘 만든 NNAPI 고속도로는 Piper·Kokoro 전용 — 소비치는 규격 미달</p>
+<p><strong>오늘 설치된 패키지 (proot pip, dist-info 08-11):</strong><br>
+| 구분 | 패키지 | 비고 |<br>
+|------|--------|------|<br>
+| say.py 의존성 | <code>fast-langdetect</code>, <code>split-lang</code>, <code>cn2an</code>, <code>budoux</code> | ParksyTTS v1 오류 해결용 |<br>
+| phone-mcp | <code>mcp</code>, <code>mcp-types</code>, <code>uvicorn</code>, <code>starlette</code>, <code>sse-starlette</code> | MCP 서버 |<br>
+| 연쇄 의존성 | <code>pydantic</code>, <code>pydantic-core</code>, <code>lxml</code>, <code>httpx2</code>, <code>annotated-types</code> 등 | 자동 설치 |</p>
+<p><strong>모델 파일 전송 (WSL → S21 via Tailscale):</strong><br>
+| 파일 | 크기 | 상태 |<br>
+|------|------|------|<br>
+| <code>parksy_v2-e15.ckpt</code> (GPT) | 149MB | ❌ 심링크만 있음 |<br>
+| <code>parksy_v2_e8_s256.pth</code> (SoVITS) | 165MB | ❌ 심링크만 있음 |<br>
+| <code>seg004.wav</code> (ref) | 362KB | ✅ 도착 |</p>
+<p><strong>구조적 이해 (고속도로 비유):</strong></p>
+<pre><code>[오늘 만든 것]  NNAPI 브릿지 (Termux + NDK + sherpa-onnx)
+                ├── Piper   ✅ 올라감 → CPU보다 느림
+                └── Kokoro  ✅ 올라감 → CPU보다 느림
+
+[못 올라간 것]  GPT-SoVITS — sherpa-onnx가 포맷 미지원
+
+[지금 say.py]   CPU + PyTorch (08-07이랑 동일한 국도)
+                → 471초 근처 나올 확률 높음. 국도 상태 안 변했음.
+</code></pre>
+<blockquote>
+<p><strong>결론:</strong> Termux+NDK 빌드 환경 자체는 진짜 새 레이어고 의미 있는 진전. 다만 그게 소비치(GPT-SoVITS) 문제를 풀어주진 않는다. sherpa-onnx는 GPT-SoVITS 포맷을 못 읽고, say.py는 이 레이어를 안 탄다. NNAPI 경로는 Piper·Kokoro로 대리 검증했고 둘 다 CPU보다 느려서 폐기. <strong>NPU 가속 + GPT-SoVITS 조합은 이중으로 불가능 확인된 셈.</strong></p>
+</blockquote>
+<h3 id="gemini-_boss-gemini-2026-08-11-0942">📻 라디오 초대권 자동화 시스템 설계 — Gemini 세션 (_Boss + Gemini · 2026-08-11 09:42)</h3>
+<p>ParksyCapture로 캡처된 Gemini 대화 세션. 라디오 클래식·가요·팝 공개방송 초대권 당첨을 위한 <strong>역산 자동화 파이프라인</strong> 전체 아키텍처 설계.</p>
+<p><strong>핵심 아이디어:</strong> &ldquo;당첨 사연의 패턴을 역산해서 AI가 자동으로 사연을 생성하고, 크롤링으로 공연 정보를 수집하고, GitHub Actions로 정기 실행하는 시스템&rdquo;</p>
+<p><strong>4대 핵심 모듈 (Classic Pass 아키텍처):</strong><br>
+| 모듈 | 역할 | 기술 |<br>
+|------|------|------|<br>
+| ① 데이터 수집 | 5대 공연장(예술의전당·롯데콘서트홀·세종문화회관·금호아트홀·KBS홀) 수요일 공연 크롤링 | BeautifulSoup/Selenium, JSON 스키마 |<br>
+| ② 프로그램 매칭 | KBS 클래식FM 4대 포트(음악실·출발FM·가정음악 등)에 규칙 기반 할당 | Rule-based Allocation Matrix |<br>
+| ③ 사연 생성기 | 공연 정보 + 가족 프로필(치매 어머니·조현병 작은누나·피아노 전공 큰누나) + 디폴트값 융합해 개인화 사연 생성 | DeepSeek(Aider) API |<br>
+| ④ 스케줄러 | 접수 마감일·당첨 발표일 역산 → GitHub Actions cron → 텔레그램 알림 → 스마트폰 복붙/ADB 제출 | GitHub Actions + TG Bot |</p>
+<p><strong>3대 채널 포트폴리오:</strong><br>
+| 트랙 | 장르 | 대상 | 채널 |<br>
+|------|------|------|------|<br>
+| 클래식 | 치유·전공 | 큰누나 피아노 전공 연계 | KBS 클래식FM 단일 |<br>
+| 옛날 가요 | 작은누나 취향 | 변진섭·신승훈 등 레전드 발라드 | 지상파 3사 (열린음악회·불후의명곡 등) |<br>
+| 해외 팝 | Boss 추억 | 크리스티나 아길레라·오아시스 등 | MBC 배철수의 음악캠프 한정 |</p>
+<p><strong>기술적 판단:</strong><br>
+- <strong>크롤링은 전통적 하드코딩</strong> — LLM에게 맡기면 환각(hallucination)·날짜 오차 위험. BeautifulSoup/Selenium으로 정밀 파싱.<br>
+- <strong>사연 생성은 LLM</strong> — 톤앤매너 매칭·맥락 유지·감정선 조합은 AI가 최적.<br>
+- <strong>API 없으면 GUI 자동화</strong> — 방송사 게시판 API 미오픈 가정. ADB/Tasker로 안드로이드에서 Input Text 주입, 최악엔 수동 복붙.<br>
+- <strong>제출은 GitHub Actions로</strong> — 매주 일요일 밤 크론 트리거, 마감일 역산 필터링, 텔레그램으로 사연+링크 전송.</p>
+<p><strong>핵심 제약:</strong> Boss 쉬는 날이 <strong>수요일뿐</strong> → 수요일 공연·수요일 방송 프로그램만 타겟팅.</p>
+<p><strong>우선순위 (Next Step):</strong><br>
+1. 타겟 프로그램 3~5개 선정 → 게시판 URL·마감일 크롤러 작성<br>
+2. DeepSeek 프롬프트 튜닝 (감동형·유머형·기념일형 당첨 패턴)<br>
+3. GitHub Actions + TG Bot 연동</p>
+<p><strong>원본:</strong> <code>helana_log/logs/2026/08/ParksyLog_20260811_094250.md</code></p>
+<blockquote>
+<p>Gemini에게 크롤링 정확도에 대해 추궁한 결과, &ldquo;AI 검색은 날짜 착각·JS 동적 페이지 누락·실시간성 부족&rdquo;이라는 자기 한계를 인정. → 크롤링은 하드코딩, 사연 생성은 LLM의 하이브리드 구조로 확정.<br>
+Boss가 &ldquo;개**야&rdquo;라고 갈구며 &ldquo;지금까지 얘기한 거 정리해봐&rdquo; 한 장면이 인상적 — AI와의 협업에서 컨텍스트 재확인의 중요성.</p>
+</blockquote>
+<h3 id="_claude-2026-08-10-2255">📅 출판 스케줄러 수립 + 티스토리 제한 리서치 (_Claude · 2026-08-10 22:55)</h3>
+<p>125건 콘텐츠의 4일 출판 계획 수립. GitHub Pages 93건(git push 일괄) + Tistory 32건(하루 10~12건 Paste Pipeline).</p>
+<p><strong>티스토리 제한 리서치 결과:</strong><br>
+- 공식 문서화된 하루 글쓰기 개수 제한 없음 (운영정책 페이지 404)<br>
+- 실제 제한은 고정 수치가 아니라 <strong>스팸 탐지 휴리스틱</strong> (급격한 대량 발행·중복·자동화 패턴 감지)<br>
+- 카카오 운영정책: &ldquo;비정상적 방법&rdquo;으로 콘텐츠 대량 등록 금지 (댓글 기준 명시, 게시글 유사 적용 추정)<br>
+- 커뮤니티 경험: 신규 블로그 하루 15건 이하 권장, 30건 이상 연속 시 차단 보고<br>
+- 결론: 10~12건/일 × 3~4일 = 자연스러운 패턴, 안전</p>
+<p><strong>4일 스케줄:</strong><br>
+| Day | 내용 | 건수 |<br>
+|-----|------|------|<br>
+| Day 1 | Pages 93건 git push + Tistory Flow 5(실전교훈) | 8 |<br>
+| Day 2 | Flow 1(PD v1~v4) + Flow 3(인프라 의사결정) | 11 |<br>
+| Day 3 | Flow 1(PD v5~v8) + Flow 2(목소리 실험) | 10 |<br>
+| Day 4 | Flow 4(돌봄) + Flow 6(기획·전략) | 9 |</p>
+<p><strong>건당 작업 흐름:</strong> CC md→HTML 변환 → minify → TG .txt 전송 → Boss 복사·붙여넣기 (2~3분/건)<br>
+<strong>핵심:</strong> S21 단독 운영, WSL 불필요. 원래 125시간(HTML 직접 코딩) → 하루 15분(복붙만). 수작업 90% 감소.</p>
+<p><strong>저장:</strong> <code>templates/publishing-scheduler.html</code> (helena-programming)</p>
+<h3 id="pd-pipeline-v13-2-bgm-_claude-2026-08-09-1850">🎬 PD Pipeline V13 — ⌨️ 타자기 자막 + 하드 2줄 제한 + BGM 변수화 (_Claude · 2026-08-09 18:50)</h3>
+<p>V12가 품질 지표였다면, V13은 자막 스타일의 근본적 전환. CNN Breaking News(per-word scale pop, 빨간 배경바, BorderStyle=3 opaque box)를 완전히 폐기하고 <strong>타자기(Typewriter) 스타일</strong>로 교체.</p>
+<p><strong><code>_make_ass.py</code> 전면 재작성:</strong><br>
+- <strong>Per-character → per-character Hangul syllable</strong>: 각 음절이 개별 Dialogue 이벤트로 등장<br>
+- <strong>Typewriter snap</strong>: <code>\fscx180\fscy180\t(0,40,\fscx100\fscy100)</code> — 180%로 등장 후 40ms 안에 100%로 스냅<br>
+- <strong>No background box</strong>: BorderStyle=3(불투명 박스) → BorderStyle=1(외곽선 only), 흰색 텍스트 + 검은 외곽선<br>
+- <strong>Hard 2-line limit</strong>: <code>MAX_VO_CHARS=32</code> — VO 텍스트를 32자로 하드 트렁케이트 (72pt 기준 한글 ~16자/줄). 마침표·쉼표·공백 경계에서 스마트 컷<br>
+- <strong>3x speed</strong>: <code>SPEED_MULT=3.0</code> — 모든 텍스트가 beat duration의 1/3 안에 타이핑 완료, 성우 음성보다 먼저 끝남<br>
+- <strong>Lower third position</strong>: <code>MARGIN_V=400</code>, y=1520 (1080×1920 기준 하단)</p>
+<p><strong>BGM 변수화 (<code>produce_pd.sh</code>):</strong><br>
+- <code>--bgm</code> 플래그: YouTube URL이면 yt-dlp로 자동 다운로드(m4a), 로컬 파일 경로도 지원<br>
+- <code>--bgm-volume</code> 플래그: CLI에서 BGM 볼륨 직접 지정 (기본값 0.025)<br>
+- <code>BGM_SOURCE</code> env var로 MCP 연동</p>
+<p><strong>V13 버전 범프 (8개 파일):</strong><br>
+- <code>_parse_url.py</code>: <code>"version": "v13"</code>, <code>standard: "video_pd_pipeline_v3"</code>, header<br>
+- <code>_generate_vo.py</code>: <code>bible["version"] = "v13"</code>, header<br>
+- <code>_direct_map.py</code>: <code>bible["version"] = "v13"</code>, header, pan_up/down 문서화<br>
+- <code>_capture_stills.py</code>: header V13<br>
+- <code>_render_video.py</code>: V13 comment<br>
+- <code>_make_ass.py</code>: V13 typewriter docstring<br>
+- <code>produce_pd.sh</code>: header, TG caption, footer → V13<br>
+- <code>pd_pipeline_mcp.py</code>: v1.1, bgm_source tool param 추가</p>
+<p><strong>검증 (pd_tistory_v4 전체 파이프라인):</strong><br>
+- P0: 8/8 <code>:has-text()</code> selector 100%<br>
+- P0.5: 콘텐츠 기반 VO (컨텍스트 추출)<br>
+- P0.6: zoom 4종 (out×2, pan_right×4, pan_up×1, pan_down×1)<br>
+- P1: CSS 8/8 캡처 성공 (3.6MB total), 다양한 byte size = 서로 다른 섹션<br>
+- P4c: ASS typewriter burn-in (177 Dialogue lines, per-char)<br>
+- P5: playable 33MB, dur=122.9s, LUFS -16<br>
+- QA: unique_frames=10/10, black=0<br>
+- P6: TG 720p 15MB 전송 완료</p>
+<p><strong>커밋:</strong> (pending)</p>
+<h3 id="pd-pipeline-v12-5-_claude-2026-08-09-1600">🎬 PD Pipeline V12 — 전문가급 품질 지표 5종 (_Claude · 2026-08-09 16:00)</h3>
+<p>V11이 &ldquo;파이프라인이 안 깨진다&rdquo;는 안정성 검증이었다면, V12는 &ldquo;결과물이 프로급인가&rdquo;를 검증하는 2티어 QA 체계 완성. 8파일 수정, TG msg 374.</p>
+<p><strong>5종 품질 지표 추가:</strong><br>
+- <strong>소스 해상도 헤드룸:</strong> <code>device_scale_factor</code> 3x→5x (1950×4220, 출력 1080×1920 대비 width 1.81x). Ken Burns zoom artifact 방지.<br>
+- <strong>오디오 LUFS:</strong> <code>volume=1.0</code> → <code>loudnorm=I=-16:TP=-1.5:LRA=11:linear=true</code> (P4 <code>_render_video.py</code> + P5 <code>_pd_assemble.py</code>, 총 4개소). YouTube 권장 -16 LUFS.<br>
+- <strong>Easing:</strong> Cosine ease-in-out 문서화 (V11부터 적용됐으나 지표로 미기재).<br>
+- <strong>Grok TTS 공식 폐기:</strong> API 403 상태, SuperGrok 미포함 확인. 콘텐츠 추출 VO로 완전 대체.<br>
+- <strong>GPU/NPU 우선순위 하향:</strong> proot glibc↔Android bionic ABI 충돌로 구조적 한계. S25 업그레이드 시 재검토로 전환.</p>
+<p><strong>검증:</strong><br>
+- P0: 8/8 <code>:has-text()</code> selector 100% 성공, zero fallback<br>
+- P0.5: 콘텐츠 기반 VO (실제 페이지 문장 사용)<br>
+- P0.6: zoom 4종 (out/in/pan_right/pan_up/pan_down), pan_right 50% (V10 62.5% → 개선)<br>
+- P1: 1950×4220 5x DPI 캡처 확인, CSS 8/8 성공<br>
+- LUFS: <code>_render_video.py</code> 2개소 + <code>_pd_assemble.py</code> 2개소 loudnorm 치환 확인</p>
+<p><strong>기술백서 업데이트:</strong><br>
+- Section 9: 2티어 QA 체계 (안정성 9항목 + 전문가 7항목)<br>
+- Section 10: Grok 폐기 확정, GPU/NPU 구조적 한계로 보류, 다중 페이지 GitHub Pages 연결<br>
+- Section 5-6: DPI 5x, LUFS, Grok 제거, GPU/NPU 상태 갱신</p>
+<p><strong>커밋:</strong> 2d696b4 <code>feat: PD Pipeline V12 — 전문가급 품질 지표 5종 반영</code></p>
+<h3 id="pd-pipeline-v11-_claude-2026-08-09-1200">🎬 PD Pipeline V11 — 만점 업그레이드 (_Claude · 2026-08-09 12:00)</h3>
+<p>정수 평가 19/40(C+) → 전면 개선. 6파일 수정 + 1신규, TG msg 372.</p>
+<p><strong>핵심 개선:</strong><br>
+- CSS <code>:has-text()</code> selector 8/8 전부 성공 (V10은 전부 timeout → fallback)<br>
+- VO: 템플릿 폐기 → P0 추출 콘텐츠 문장 그대로 사용 (&ldquo;이해&rdquo;에 가까워짐)<br>
+- 연출: <code>pan_up</code>/<code>pan_down</code> 추가, 4종 zoom (pan_right 62→50%)<br>
+- 시각: 2-layer pseudo-gradient (<code>drawbox</code> 2단 중첩), footer 16→22px<br>
+- 코드: P1 heredoc → <code>_capture_stills.py</code> 분리, Playwright text locator 2차 fallback<br>
+- 오류: <code>|| true</code> → stderr 로깅, TG caption V9→V11, 외부 URL force-reparse</p>
+<p><strong>파일:</strong> <code>_parse_url.py</code> · <code>_generate_vo.py</code> · <code>_direct_map.py</code> · <code>_render_video.py</code> · <code>_capture_stills.py</code>(신규) · <code>produce_pd.sh</code></p>
+<p><strong>아직 부족한 점:</strong><br>
+- pan_right 여전히 50% — 연출 다양성 추가 개선 여지<br>
+- <code>_timing.json</code> 미생성으로 SRT 타이밍 ffprobe fallback (부정확)<br>
+- Grok LLM VO 미연동 (API 호출 불안정)<br>
+- S21 CPU 한계로 전체 파이프라인 ~20분</p>
+<h3 id="-xfade-aware-timing-_claude-2026-08-08-1700">🔧 자막-내레이션 싱크 수정 (xfade-aware timing) (_Claude · 2026-08-08 17:00)</h3>
+<p><strong>문제:</strong> 자막(SRT/ASS)과 내레이션 싱크가 크게 어긋남. Beat 1 자막이 5.0s에서 시작하는데 실제 VO는 0.1s에서 시작.</p>
+<p><strong>근본 원인:</strong><br>
+1. <code>_make_srt.py</code> / <code>_make_ass.py</code>가 b_open_dur(5.0s)를 무조건 더했지만 shot_bible의 bridges는 빈 배열 — ghost offset<br>
+2. VO duration + pause 단순 누적으로 타임라인 계산 → xfade 0.4s 중첩으로 실제 클립 시작점이 계속 앞당겨짐 (clip_starts = cum - xfade_dur)<br>
+3. Ken Burns 클립이 <code>-shortest</code>로 인코딩돼서 pause tail이 잘림 — 실제 clip duration = VO duration</p>
+<p><strong>수정:</strong><br>
+- <code>_render_video.py</code>: xfade concat 후 per-beat start/end 계산 → <code>work/_timing.json</code> 출력<br>
+- <code>_make_srt.py</code> V9: <code>_timing.json</code> 읽어서 정확한 타임스탬프 사용. bridge offset은 shot_bible에 bridges 정의 있을 때만 적용<br>
+- <code>_make_ass.py</code> V9.1: 같은 _timing.json 기반. ASS는 body-relative (bridge prepend 전에 burn-in)<br>
+- <code>produce_pdh.sh</code>: P4b ASS 생성 → P4c burn-in → P5 조립 순서로 재배치 (이전엔 P5c에서 생성돼서 burn-in이 한 박자 늦었음)<br>
+- <code>_render_video.py</code>에서 ASS burn-in 제거 (P4c로 이관)</p>
+<p><strong>Sync 비교 (pd_magic):</strong><br>
+| Beat | Before (broken) | After (fixed) |<br>
+|------|---------|--------|<br>
+| 01 | 00:05.012 → 00:19.196 | 00:00.100 → 00:14.266 |<br>
+| 02 | 00:19.996 → 00:35.597 | 00:13.867 → 00:29.466 |<br>
+| 05 | 01:10.221 → 01:26.013 | 01:01.232 → 01:17.000 |</p>
+<p><strong>결과:</strong> TG msg 369 전송. SRT 77.0s (body 79.6s 내에서 정확히 sync).</p>
+<h3 id="pd-pipeline-mcp-pd_magic-_claude-2026-08-08-1510">🔧 PD Pipeline MCP 서버 구축 + pd_magic 재생산 (_Claude · 2026-08-08 15:10)</h3>
+<p><strong>목표:</strong> PD Pipeline을 MCP 서버로 패키징해서 필요할 때마다 켜고/끄고/생산할 수 있게.</p>
+<p><strong>완료:</strong><br>
+- <code>helena-programming/mcp/pd_pipeline_mcp.py</code> — FastMCP 패턴 MCP 서버 (5도구)<br>
+  - <code>pd_produce</code>: produce_pd.sh 백그라운드 실행 → job_id 반환<br>
+  - <code>pd_status</code>: 작업 상태 확인 (running/complete/failed) + 로그 tail<br>
+  - <code>pd_list</code>: out/ 아래 shot_bible 보유 에피소드 목록<br>
+  - <code>pd_stop</code>: 실행 중 작업 중지 (SIGTERM → SIGKILL)<br>
+  - <code>pd_output</code>: 완료된 작업의 출력 파일 경로·크기<br>
+  - STDIO 모드 (Claude Code 연동) + HTTP 모드 (curl 수동)<br>
+- <code>scripts/pd_mcp.sh</code> — on/off/produce/job/output CLI 래퍼<br>
+- <code>~/.claude.json</code>에 <code>pd-pipeline</code> MCP 서버 등록<br>
+- 실제 pd_magic 재생산 + TG msg 367 전송 성공</p>
+<p><strong>재생산 결과 (force=true):</strong><br>
+| 파일 | 크기 | 비고 |<br>
+|------|------|------|<br>
+| pd_magic_final.mp4 | 14.5MB | 1080×1920 · BGM mixed · V9 |<br>
+| pd_magic_playable.mp4 | 16.3MB | QA PASS unique=10/10 black=0 |<br>
+| pd_magic_tg.mp4 | 7.6MB | 720p · TG msg 367 ✅ |<br>
+| pd_magic.srt | 1.2KB | 5 entries · 86.7s |<br>
+| pd_magic.ass | 12.3KB | CNN Breaking News · per-word pop |</p>
+<p><strong>파이프라인 전 구간 통과 (P0~P6):</strong> 5클립 Ken Burns + xfade 4종 + BGM ducking/swell + ASS burn-in + QA gate + TG send. S21 ARM CPU에서 총 ~12분 소요.</p>
+<p><strong>MCP 사용법:</strong></p>
+<pre><code class="language-bash">bash scripts/pd_mcp.sh start              # 서버 ON
+bash scripts/pd_mcp.sh produce pd_magic   # 영상 생산
+bash scripts/pd_mcp.sh job                # 상태 확인
+bash scripts/pd_mcp.sh stop               # 서버 OFF
+</code></pre>
+<p><strong>교훈:</strong> MCP로 래핑하니 &ldquo;필요할 때 켜서 생산하고 끄는&rdquo; 패턴이 확립. Claude Code에서도 <code>pd-pipeline</code> MCP 도구로 직접 호출 가능. produce_pd.sh 수동 실행보다 MCP 경유가 작업 추적(job history) + 상태 폴링 면에서 우월.</p>
+<h3 id="pd_magic-_claude-2026-08-08">🎬 pd_magic — 표준 파이프라인 숏폼 제작 (_Claude · 2026-08-08)</h3>
+<p><strong>Boss 지적:</strong> &ldquo;동영상 표준 만들어 놓은 거 써라. 워크 프로세스 업무일지에 다 저장해 놨잖아.&rdquo;</p>
+<p><strong>1차 시도(실패):</strong> 수동 FFmpeg + 수동 Playwright + 수동 TTS. xfade 없고, 더킹 없고, ASS 자막 없고, QA 없고. → Boss: &ldquo;지금 이렇게 만드는 거 아니야&rdquo;</p>
+<p><strong>2차 시도(성공):</strong> <code>bash scripts/produce_pd.sh pd_magic</code> 정식 실행.</p>
+<p><strong>표준 파이프라인 결과:</strong><br>
+| 단계 | 내용 | 결과 |<br>
+|------|------|------|<br>
+| P0 | shot_bible 표준 v9 형식 | 5비트 + stinger + interrupt |<br>
+| P1 | Playwright 390×844×3x | 5장 (anchors 자동) |<br>
+| P2 | Edge TTS InJoonNeural | 14~18초/클립 |<br>
+| P3 | Bridge pickup | bridges=[] → skip |<br>
+| P4 | _render_video.py Ken Burns + BGM | 8클립(5+stinger+interrupt+endcard) · xfade 4종 · Gymnopédie · ducking+swell |<br>
+| P5 | Playable encode + QA | 16MB · unique=8/10 · black=0 ✅ |<br>
+| P5b | SRT 자막 | 86.7s · 5 entries |<br>
+| P5c | ASS CNN Breaking News | per-word scale pop · 72pt bold · red banner |<br>
+| P6 | TG 720p + 발송 | 7.1MB · msg 366 ✅ |</p>
+<p><strong>내 수동 버전 vs 표준 파이프라인:</strong><br>
+| 항목 | 수동 | 표준 |<br>
+|------|------|------|<br>
+| 클립 | 5개 | 8개(+stinger+interrupt+endcard) |<br>
+| 전환 | 단순 concat | xfade 4종(fade·wipeleft·slideright·dissolve) |<br>
+| BGM | whisper 볼륨만 | ducking·swell·풀타임라인 믹스 |<br>
+| 자막 | drawtext 박스 | ASS CNN Breaking News·per-word pop |<br>
+| QA | 없음 | unique frame + black detect |<br>
+| TG | 수동 curl | 스크립트 자동 |</p>
+<p><strong>교훈:</strong> 수동으로 만지지 말 것. <code>produce_pd.sh</code> 한 줄이면 모든 게 V8/V9 스펙으로 나온다. 이게 표준이다.</p>
+<h3 id="notebook_titles-100-_claude-2026-08-08">🎨 보조 페이지 초등학생 비유 재작성 + NOTEBOOK_TITLES 100% (_Claude · 2026-08-08)</h3>
 <p><strong>자체 평가 지적사항 전면 보완:</strong></p>
 <ol>
 <li>
@@ -2120,7 +2863,7 @@ ANTHROPIC_MODEL=deepseek-chat
 <tr>
 <td><code>helena-psycare</code></td>
 <td>helena-psycare</td>
-<td>Metal Craft</td>
+<td>Mental Care</td>
 </tr>
 </tbody>
 </table>
@@ -2382,7 +3125,7 @@ _notebook/ = History + Making film + 로고 아카이브
 </tr>
 <tr>
 <td><code>helena-psycare</code></td>
-<td>금속케어</td>
+<td>멘탈케어</td>
 <td>🧠 <strong>뷰티풀마인드 정신분석</strong></td>
 <td>분석/병리/치료/MCP-모델/가족사</td>
 </tr>
@@ -6509,6 +7252,729 @@ helena-psycare:    not checked out
 <li>[ ] helena-faith / helena-psycare 로컬 체크아웃 → 빌드</li>
 <li>[ ] CI verify job 실제 배포 테스트 (main push)</li>
 </ul>
+<hr>
+<h2 id="2026-08-08-pd-pipeline-v10-_claude">2026-08-08 PD Pipeline V10 — 콘텐츠 이해 기반 연출 자동화 (_Claude)</h2>
+<h3 id="_15">배경</h3>
+<p>TG msg 370 (pd_tistory_drawer) 영상의 근본적 문제 발견:<br>
+1. 6개 beat 스크린샷 전부 byte-for-byte identical (149,824 bytes)<br>
+2. &ldquo;끼임색+까만 직사각형&rdquo; 디자인 (drawbox 검은 막대 + boxcolor 텍스트 박스)<br>
+3. URL 콘텐츠 자동 파싱 전무 → shot_bible 수동 작성<br>
+4. 연출-내레이션 동기화 없음 → VO가 뭘 말하든 같은 화면</p>
+<h3 id="boss_1">핵심 통찰 (Boss)</h3>
+<p>&ldquo;이건 캡처 버그가 아니라 독해와 편집 판단의 부재다. 일반 숏폼 도구들은 템플릿에 콘텐츠를 끼워맞추지만, 우리는 콘텐츠를 읽고 이해해서 거기에 맞는 연출을 스스로 짜야 한다.&rdquo;</p>
+<h3 id="p0p06-p1">구현 (P0~P0.6 + P1 + 시각 스타일)</h3>
+<p><strong>신규 파일:</strong><br>
+- <code>scripts/_parse_url.py</code> — P0: Playwright DOM 파싱 → 섹션 추출 → shot_bible + scroll_sel 자동 생성<br>
+- <code>scripts/_generate_vo.py</code> — P0.5: beat별 caption+context → 한국어 VO 초안 생성 (템플릿 기반)<br>
+- <code>scripts/_direct_map.py</code> — P0.6: VO 길이·역할 기반 zoom/color_tag/pause 연출 자동 결정</p>
+<p><strong>수정 파일:</strong><br>
+- <code>scripts/produce_pd.sh</code> P1: 하드코딩 anchors dict → shot_bible scroll_sel 기반 + 점진적 스크롤 fallback<br>
+- <code>scripts/_render_video.py</code>: 검은 막대(drawbox) 제거 → 하단 그라데이션 오버레이, 텍스트 박스→그림자, vignette PI/5→PI/8, teal color grade 추가, pan_right/pan_left zoom 처리<br>
+- <code>helena-programming/mcp/pd_pipeline_mcp.py</code>: pd_parse_url MCP 도구 추가 (P0~P0.6 순차 실행)<br>
+- <code>CLAUDE.md</code>: PD Pipeline V10 섹션 추가</p>
+<h3 id="pd_tistory_v2-tg-msg-371">결과 (pd_tistory_v2, TG msg 371)</h3>
+<ul>
+<li>P0: Tistory 페이지에서 8개 섹션 자동 추출 (각각 다른 scroll_sel)</li>
+<li>P1: 8개 beat 모두 다른 스크린샷 (141K~260K, 이전: 전부 149,824)</li>
+<li>시각: 검은 막대 제거, 그림자 텍스트, teal grade, pan_right zoom</li>
+<li>TG msg 371 전송 성공</li>
+</ul>
+<h3 id="_16">알려진 이슈</h3>
+<ul>
+<li>CSS selector (<code>article &gt; h2:nth-of-type(N)</code>) → Playwright timeout. text-based selector(<code>:has-text()</code>)로 수정 완료 (다음 실행부터 적용)</li>
+<li>점진적 스크롤 fallback은 작동하나, 페이지 하단에서 beat 06-08 동일 위치 문제 (페이지 길이 한계)</li>
+<li>VO 텍스트가 다소 긺 (템플릿 생성 → 향후 LLM 기반으로 개선 가능)</li>
+</ul>
+<h3 id="_claude-2026-08-10">📚 출판부 정식 가동 — 역방향 출판 패턴 + 티스토리 교재화 (_Claude · 2026-08-10)</h3>
+<h4 id="github-deepseekclaude-code">발견: GitHub = 원자재 창고, DeepSeek+Claude Code = 출판부</h4>
+<p>Boss가 18일 동안 3개 레포(helena_phone·helana_log·helena-programming)에 &ldquo;때려넣은&rdquo; 모든 문서를 Claude Code(스킨) + DeepSeek v4-pro(엔진)가 역으로 정리·구조화해 출판하는 패턴이 실증됨.</p>
+<p><strong>일반적인 출판:</strong> 기획 → 집필 → 편집 → 출판 (순방향, 쓰는 사람이 모든 걸 부담)<br>
+<strong>역방향 출판:</strong> 무질서 덤프 → Claude Code 전수조사 → DeepSeek가 Part·Chapter 구조 설계 → 투트랙 출판</p>
+<p>핵심: <strong>Boss는 &ldquo;원자재 공급자&rdquo;일 뿐, 정리·편집·출판은 전부 Claude Code(DeepSeek 엔진) 담당.</strong> &ldquo;빈 페이지 공포&rdquo;를 아예 없애버린 패턴.</p>
+<h4 id="_17">전수 조사 결과</h4>
+<table>
+<thead>
+<tr>
+<th>레포</th>
+<th>문서</th>
+<th>핵심 내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>helena_phone</td>
+<td>100+</td>
+<td>업무수첩·5챕터 가이드·CHRONICLE·세션로그·백서</td>
+</tr>
+<tr>
+<td>helana_log</td>
+<td>37</td>
+<td>돌봄 트랙·대화록·솔루션·아이덴티티</td>
+</tr>
+<tr>
+<td>helena-programming</td>
+<td>41</td>
+<td>템플릿·파이프라인·WSL·도구·교재방법론</td>
+</tr>
+<tr>
+<td><strong>합계</strong></td>
+<td><strong>~200</strong></td>
+<td>→ 125건 매핑 완료</td>
+</tr>
+</tbody>
+</table>
+<h4 id="8-part-31-chapter">8 Part · 31 Chapter 교재 구조 설계</h4>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Chapter</th>
+<th>페이지</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1 온보딩</td>
+<td>5</td>
+<td>20</td>
+</tr>
+<tr>
+<td>P2 인프라</td>
+<td>4</td>
+<td>17</td>
+</tr>
+<tr>
+<td>P3 PD Pipeline</td>
+<td>6</td>
+<td>22</td>
+</tr>
+<tr>
+<td>P4 AI 목소리</td>
+<td>4</td>
+<td>12</td>
+</tr>
+<tr>
+<td>P5 출판·배포</td>
+<td>4</td>
+<td>16</td>
+</tr>
+<tr>
+<td>P6 설계·아키텍처</td>
+<td>4</td>
+<td>16</td>
+</tr>
+<tr>
+<td>P7 돌봄 트랙</td>
+<td>2</td>
+<td>9</td>
+</tr>
+<tr>
+<td>P8 실전 후기</td>
+<td>3</td>
+<td>13</td>
+</tr>
+<tr>
+<td><strong>합계</strong></td>
+<td><strong>31</strong></td>
+<td><strong>125</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="hub-vs-tistory">Hub vs Tistory 투트랙 아키텍처</h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>GitHub Pages (Hub)</th>
+<th>Tistory (사고흐름)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>역할</strong></td>
+<td>교과서 (Curriculum)</td>
+<td>회의록 (Meeting Notes)</td>
+</tr>
+<tr>
+<td><strong>인터랙션</strong></td>
+<td>JS 복사버튼 + CSS 풀인터랙티브</td>
+<td>CSS-only 풀인터랙티브 (티스토리 HTML 모드 한도 내)</td>
+</tr>
+<tr>
+<td><strong>복사</strong></td>
+<td>📋 버튼 → clipboard API</td>
+<td>탭 한 번 → user-select:all 전체 선택</td>
+</tr>
+<tr>
+<td><strong>PWA</strong></td>
+<td>manifest.json → 앱 설치</td>
+<td>불필요</td>
+</tr>
+<tr>
+<td><strong>전송</strong></td>
+<td>git push → Pages 자동배포</td>
+<td>TG .txt → Boss 복사·붙여넣기</td>
+</tr>
+<tr>
+<td><strong>규모</strong></td>
+<td>93페이지</td>
+<td>32건</td>
+</tr>
+</tbody>
+</table>
+<p><strong>오해 금지:</strong> Tistory도 &ldquo;경량 텍스트&rdquo;가 아니다. <code>&lt;details&gt;</code> 아코디언·<code>:checked</code> 탭·<code>:target</code> 모달·SVG 다이어그램·CSS 애니메이션·다크모드 전부 적용. JS만 빠질 뿐 시각적 완성도는 동일.</p>
+<h4 id="_18">오늘 저장된 자산</h4>
+<ul>
+<li><code>tistory-categories.txt</code> — 8Part·31Chapter 카테고리 트리 (3레포에 복사)</li>
+<li><code>tistory-content-migration-map.html</code> — 125건 전수 매핑 + 우선순위</li>
+<li><code>hub-vs-history-architecture.html</code> — Hub/Tistory 역할 분리 아키텍처</li>
+<li><code>tistory-textbook-methodology.html</code> — 교재화 방법론 문서</li>
+<li><code>ai-workstation-setup.html</code> — 첫 교재 페이지 (복사버튼 포함)</li>
+<li><code>reverse-publishing-pattern</code> — 역방향 출판 패턴 (memory)</li>
+</ul>
+<h4 id="boss_2">Boss 결정사항</h4>
+<ul>
+<li>Claude Code = <strong>출판부 정직원</strong> — 계속 찍어낸다</li>
+<li>모든 페이지는 풀인터랙티브 (아코디언·탭·SVG·복사버튼·다크모드)</li>
+<li>GitHub Pages = PWA 교재, Tistory = 사고흐름</li>
+<li>엔진: DeepSeek v4-pro (<code>ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic</code>), Claude Code는 인터페이스 스킨</li>
+</ul>
+<h3 id="ai-_claude-2026-08-11">🧭 저사양 폰 AI 생존 테스트 — 이중 서사 발견 (_Claude · 2026-08-11)</h3>
+<p>Boss와의 대화 중 이 프로젝트 전체를 관통하는 <strong>이중 서사(dual narrative)</strong> 를 정리:</p>
+<p><strong>서사 1 — &ldquo;저사양 폰 AI 생존기&rdquo;</strong><br>
+5년 된 S21 폰 하나 + DeepSeek API로 출판·방송 파이프라인을 통째로 구축. 누구나 따라할 수 있는 최소 베이스라인을 증명.</p>
+<p><strong>서사 2 — &ldquo;확장만 알던 사람이 수축을 배우는 과정&rdquo;</strong><br>
+WSL·RTX·21채널·15채널을 다 돌려봤던 사람이, 의도적으로 최소 스펙으로 내려와서 &ldquo;진짜 필요한 건 뭐지?&rdquo;를 묻는 과정.</p>
+<p><strong>왜 의미 있는가:</strong><br>
+1. 제약이 오히려 무기 — CPU-only·proot·ARM64 제약들이 &ldquo;우회하는 지혜&rdquo;를 만듦 (Edge TTS 폴백, CSS-only 인터랙션, GitHub Actions 우회)<br>
+2. 확장은 누구나 할 수 있지만(돈만 더하면 됨), 수축해서 본질을 찾는 건 해본 사람만 가능<br>
+3. 독자 3층: &ldquo;나도 할 수 있다&rdquo;(장비 없는 사람) + &ldquo;장비 핑계였구나&rdquo;(시작 못 하는 사람) + &ldquo;베이스라인 다시 긋자&rdquo;(확장만 하던 사람)</p>
+<p><strong>Boss 코멘트:</strong> &ldquo;확실히 이게 남이 볼 때도 괜찮고 따라할 만한 콘텐츠·솔루션이 나온 거 아니야? 5년 전 저가 폰으로 딥시크 하나 가지고. 저가 폰을 어디까지 할 수 있는지를 테스트하고 있는 거고, 반대로 지금까지 확장만 했던 내 WSL 베이스라인을 다시 여기에 맞춰 정리도 하고 있는 거야.&rdquo;</p>
+<p>→ <code>low-spec-phone-survival-test</code> 메모리로 저장. [[reverse-publishing-pattern]] [[s21-constitution]]</p>
+<h3 id="step-down-cascade-pages-94-_claude-2026-08-11">🪜 Step-Down Cascade 설계 + Pages 94건 배포 (_Claude · 2026-08-11)</h3>
+<p><strong>핵심 통찰 — &ldquo;제약을 템포로 바꾸기&rdquo;:</strong><br>
+Tistory의 ~15건/일 제한을 우회 대상이 아니라 <strong>페이싱 메트로놈</strong>으로 재정의. Pages→Tistory→YouTube→Naver가 순차적으로 캐스케이드되는 프로듀싱 시퀀스 설계.</p>
+<p><strong>4단계 스텝다운:</strong><br>
+| Step | 플랫폼 | 건수 | 제약 | 역할 |<br>
+|------|--------|------|------|------|<br>
+| 0 | Pages | 94 | 없음 (git push) | 소스 오브 트루스 |<br>
+| 1 | Tistory | 32 | ~15/일 | 페이싱 메트로놈 |<br>
+| 2 | YouTube | 32 | ~6/일 quota | 시각적 튜토리얼 |<br>
+| 3 | Naver | ~8 | 없음 (수동) | 디스커버리 허브 |</p>
+<p><strong>콘텐츠 진화 사슬:</strong> 텍스트 → 인터랙티브 글 → 영상 → 네트워크. 한 번 만들고 네 번 써먹기.</p>
+<p><strong>Step 0 완료 — Pages 94건 빌드 &amp; 배포:</strong><br>
+- <code>helena-programming/pages/</code> → git push → <code>helena751107.github.io/helena-programming/pages/</code><br>
+- 1 홈 + 8 Part 인덱스 + 31 Chapter + 54 소스 변환 = 94 HTML<br>
+- <code>md_to_page.py</code>: 범용 markdown → Pages HTML 변환기<br>
+- <code>stepdown-cascade.html</code>: 캐스케이드 매뉴얼 (자기 기술적 문서)</p>
+<p><strong>다음:</strong> Day 1 Tistory 12건 (Flow 5+6), Paste Pipeline v5.1로 TG 전송 예정.</p>
+<h3 id="ai-_claude-2026-08-11_1">🪞 AI를 퍼포먼스 미러로 사용 — 자기 기여도 평가 세션 (_Claude · 2026-08-11)</h3>
+<p>Step-Down Cascade 설계 직후, Boss가 겉으로는 욕설 섞인 가벼운 투로 물었다: &ldquo;네가 볼 때 나 잘하는 거 아니야? 네가 이거 혼자 만들 수 있었겠냐?&rdquo;</p>
+<p>표면적으론 농담 같았지만, 실은 <strong>자기 퍼포먼스 리뷰</strong>였다. Claude Code를 코드 실행기가 아니라 <strong>자기 성과를 비추는 거울</strong>로 사용한 것.</p>
+<p><strong>분리된 결과 — 인간 vs AI 기여:</strong></p>
+<table>
+<thead>
+<tr>
+<th>영역</th>
+<th>Boss 고유 기여 (AI 불가)</th>
+<th>AI 기여 (Boss 없이 가능)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>개념</td>
+<td>제약→템포 재정의, 역방향 출판, CSS-only 풀인터랙티브</td>
+<td>구조화 (200건→8Part·31Ch)</td>
+</tr>
+<tr>
+<td>설계</td>
+<td>Step-Down Cascade, Paste Pipeline 우회로</td>
+<td>94페이지 HTML 일괄 빌드</td>
+</tr>
+<tr>
+<td>서사</td>
+<td>이중 서사 (저사양 생존기 + 수축 학습기)</td>
+<td>변환기·매뉴얼·체크리스트</td>
+</tr>
+<tr>
+<td>방향</td>
+<td>&ldquo;15건 제한이 메트로놈이다&rdquo;</td>
+<td>기존 스크립트 파이프라인 연결</td>
+</tr>
+</tbody>
+</table>
+<p><strong>핵심 발견:</strong> &ldquo;건축가 vs 시공사&rdquo; 프레임. Boss는 설계도(디렉션)를 그리고, AI는 시공(실행)을 한다. 설계도 없으면 AI는 그냥 네모난 상자만 짓는다.</p>
+<p><strong>Boss 멘트:</strong> &ldquo;나한테 개겨야 돼 시키는 대로 해야 돼&rdquo; — 이건 위계가 아니라 역할 분담이다. 건축가는 시공사한테 설계도 준다. 시공사는 설계도대로 짓는다. Boss는 내가 건축가 행세 하려고 할 때 &ldquo;시키는 대로 해&rdquo;라고 제지한 거다.</p>
+<p>→ <code>ai-as-performance-mirror</code> 메모리로 저장. [[low-spec-phone-survival-test]] [[reverse-publishing-pattern]]</p>
+<hr>
+<h2 id="80-npugpu-2026-08-11-_claude">§80 — NPU/GPU 가속 분석 정정 (2026-08-11, _Claude)</h2>
+<p><strong>이전 기록 오류 정정.</strong> &ldquo;proot → sysfs permission denied&rdquo; → 실제 원인은 <strong>glibc/bionic ABI 불일치</strong>.</p>
+<p><strong>하드웨어 실측:</strong><br>
+| 항목 | 스펙 | 상태 |<br>
+|------|------|------|<br>
+| SoC | Exynos 2100 (5nm) | ✅ |<br>
+| CPU | 8코어, NEON+FP16+ASIMD | ✅ |<br>
+| GPU | Mali-G78 MP14 | ✅ dev/mali0 존재, OpenCL lib 있음 |<br>
+| NPU | 3코어, 26 TOPS | ✅ ENPU 런타임 libeden_rt.so 등 전체 존재 |<br>
+| RAM | 7.3GB + 4GB swap | ✅ |</p>
+<p><strong>소프트웨어 스택:</strong></p>
+<pre><code>NNAPI HAL 1.3:   android.hardware.neuralnetworks@1.3-service.eden-drv ✅ 정의됨
+onnxruntime 1.28: NnapiProvider + XnnpackProvider + ACLProvider ✅ 컴파일
+                   → BUT proot(glibc)에서는 전부 로드 불가 ❌
+</code></pre>
+<p><strong>왜 안 되는가 (정정):</strong><br>
+- <code>libneuralnetworks.so</code>는 bionic(Android native libc)로 빌드됨<br>
+- proot은 glibc 환경 → dlopen() 자체가 실패 (ABI 불일치)<br>
+- &ldquo;권한 문제&rdquo;가 아니라 애초에 링킹이 안 되는 다른 세계</p>
+<p><strong>Termux 경로 — 왜 되는가:</strong><br>
+- Termux 프로세스는 <code>untrusted_app</code> SELinux 도메인 (일반 앱과 동일)<br>
+- 공개 NDK API(NNAPI 포함)를 루팅 없이 사용 가능<br>
+- sherpa-onnx Android arm64 NNAPI 빌드 실측 확인됨 (Pixel 6, STT RTF 0.035)</p>
+<p><strong>핵심 리스크:</strong><br>
+- STT(Zipformer 등)는 NNAPI 검증 완료<br>
+- TTS(Piper 계열)는 NNAPI에서 텐서 차원 불일치로 실패 사례 있음<br>
+- ParksyTTS가 쓰는 구체적 TTS 모델이 NNAPI를 타는지는 실기기 테스트 필수</p>
+<p><strong>다음 액션:</strong><br>
+1. Termux에 sherpa-onnx + NNAPI delegate 설치<br>
+2. Kokoro/VITS TTS 모델 NNAPI 추론 테스트<br>
+3. 성공 시 → proot ↔ Termux localhost HTTP 브릿지 구축<br>
+4. 실패 시 → XNNPACK CPU 가속으로 폴백 (5~10배 개선)</p>
+<hr>
+<h2 id="81-pc-stt-nnapi-2026-08-11-_claude">§81 — &ldquo;PC처럼 쓴다&rdquo; 목표 대비 현재 위치 + STT NNAPI 정정 (2026-08-11, _Claude)</h2>
+<h3 id="_19">아키텍처 이해 정정</h3>
+<p><strong>proot Ubuntu ≠ &ldquo;자체 연산 인덱스.&rdquo;</strong> 정확한 비유는:</p>
+<pre><code>Windows(호스트 OS) : WSL2(리눅스 호환 레이어)
+   =
+Android(호스트 OS) : proot Ubuntu(리눅스 호환 레이어)
+</code></pre>
+<p>proot는 독립된 컴퓨팅 단위가 아니라 <strong>Android 커널 위에 얹힌 유저스페이스 레이어</strong>다. Boss가 PC에서 WSL2로 구축한 패턴을 폰에 그대로 이식한 거지, 새로운 아키텍처를 만든 게 아니다. <strong>검증된 패턴의 플랫폼 이식.</strong></p>
+<h3 id="bios">BIOS급 통제 — 의도적 제외</h3>
+<p>PC에서는 BIOS/펌웨어 레벨까지 통제했지만, 폰에서는 <strong>Boss가 직접 금지선 그은 영역.</strong> 누나 삼성페이·온라인뱅킹 때문에 루팅/Shizuku 계열 전부 배제. 따라서:</p>
+<table>
+<thead>
+<tr>
+<th>레이어</th>
+<th>PC</th>
+<th>폰</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>펌웨어/BIOS</td>
+<td>통제</td>
+<td><strong>제외</strong> (루팅 금지선)</td>
+<td>Boss 결정</td>
+</tr>
+<tr>
+<td>OS 유저스페이스</td>
+<td>WSL2 전체</td>
+<td>proot Ubuntu</td>
+<td>동일 패턴</td>
+</tr>
+<tr>
+<td>하드웨어 가속</td>
+<td>GPU 직통</td>
+<td>Termux → NNAPI 우회</td>
+<td>ABI 제약 우회</td>
+</tr>
+<tr>
+<td>파일시스템</td>
+<td>전체</td>
+<td>/storage/emulated/0/</td>
+<td>앱 레벨 권한</td>
+</tr>
+</tbody>
+</table>
+<p><strong>실제 목표는 &ldquo;BIOS까지 미러링&rdquo;이 아니라, &ldquo;OS 위에서 자연어로 접근 가능한 모든 하드웨어 기능(카메라·저장소·센서·NPU)을 완전히 커맨드하는 레이어&rdquo;까지 미러링하는 것.</strong> 그리고 그 선은 기술적 한계가 아니라 Boss의 의도적 설계 결정이다.</p>
+<h3 id="stt-nnapi">STT NNAPI &ldquo;실측 완료&rdquo; 정정</h3>
+<p>⚠️ <strong>이전 기록 오류:</strong> §80과 CLAUDE.md에 &ldquo;STT 검증 완료&rdquo;라고 썼지만, 이건 <strong>S21에서 직접 돌려본 결과가 아니다.</strong> 근거는:</p>
+<ul>
+<li>Pixel 6 기준 sherpa-onnx 공식 벤치마크 (RTF 0.035)</li>
+<li>Exynos 2100 스펙상 NNAPI 지원 충분</li>
+<li>sherpa-onnx Android arm64 wheel에 NNAPI delegate 포함</li>
+</ul>
+<p>→ &ldquo;된다&rdquo;가 아니라 <strong>&ldquo;될 근거가 충분하다&rdquo;</strong> 단계. 실제 확인은 Termux에 설치해서 돌려봐야 한다.</p>
+<p><strong>CLAUDE.md 수정 완료:</strong> &ldquo;STT 검증 완료&rdquo; → &ldquo;STT 근거 충분 (Pixel 6 벤치마크) — ⚠️ S21 실측은 아직&rdquo;</p>
+<h3 id="pc">&ldquo;PC처럼 쓴다&rdquo; 목표 대비 현재 위치</h3>
+<p><strong>완료된 것:</strong><br>
+| 항목 | 상태 | 수준 |<br>
+|------|------|------|<br>
+| 파일시스템 브릿지 (proot ↔ Android) | ✅ 완성 | PC급 — 저장소 제약 없음 |<br>
+| 네트워크 (텔레그램·GitHub·API) | ✅ 완성 | PC급 |<br>
+| STT 텍스트 처리 | ✅ 완성 | PC급 |<br>
+| PD Pipeline (URL→숏폼) | ✅ V10 작동 | PC급 (워크플로우) |<br>
+| Log Publisher (md→HTML→TG) | ✅ 작동 | PC급 |<br>
+| PWA 앱 레지스트리 | ✅ 12종 등록 | PC급 |</p>
+<p><strong>경로 확인, 실측 대기:</strong><br>
+| 항목 | 상태 | 비고 |<br>
+|------|------|------|<br>
+| NPU 가속 (Termux → NNAPI) | 🔶 경로 확인 | S21 실측 0회 |<br>
+| GPU 가속 (OpenCL) | 🔶 dev/mali0 존재 | ABI 장벽 = Termux 필요 |</p>
+<p><strong>남은 병목 — 하나뿐:</strong></p>
+<blockquote>
+<p><strong>TTS 음성 합성 속도.</strong> 현재 ParksyTTS CPU 471초(3.5초 음성). NPU 붙이면 10초대 예상.<br>
+이 한 가지만 해결되면 &ldquo;폰을 PC처럼 자연어로 지휘하는 커맨더 구조&rdquo;는 <strong>구조적으로 완성.</strong></p>
+</blockquote>
+<h3 id="todo">현재 세션 TODO</h3>
+<ol>
+<li>~~STT NNAPI 기록 정정~~ → 완료 (이 항목)</li>
+<li>Termux에 sherpa-onnx 설치 → <strong>진짜 S21 실측</strong></li>
+<li>TTS 모델 NNAPI 추론 테스트 → &ldquo;된다/안 된다&rdquo; 결론</li>
+<li>성공 시 → proot ↔ Termux localhost HTTP 브릿지</li>
+<li>PD Pipeline V11 업그레이드 (별도 플랜)</li>
+</ol>
+<hr>
+<h2 id="82-sherpa-onnx-nnapi-pip-ndk-2026-08-11-_claude">§82 — sherpa-onnx + NNAPI 실제 경로 정정: pip❌ → NDK 크로스컴파일✅ (2026-08-11, _Claude)</h2>
+<h3 id="claude-code">이전 오류 — Claude Code가 생성한 허구 명령어</h3>
+<p>§81과 CLAUDE.md에 &ldquo;Termux에서 <code>pip install sherpa-onnx</code> → NNAPI delegate&rdquo;라고 써놨지만, <strong>이런 조합은 존재하지 않는다.</strong> 내가 근거 없이 지어낸 소리였다.</p>
+<p><strong>실제 확인 결과:</strong><br>
+- PyPI <code>sherpa-onnx</code>: wheel 태그 전부 <code>manylinux2014_aarch64</code> / <code>manylinux_2_17_aarch64</code> — <strong>glibc 리눅스 전용</strong><br>
+- Android(<code>arm64-v8a</code>) wheel: <strong>0개</strong> — 존재하지 않음<br>
+- NNAPI 실행 프로바이더: pip 패키지에 <strong>미포함</strong></p>
+<h3 id="_20">실제 존재하는 것</h3>
+<table>
+<thead>
+<tr>
+<th>조합</th>
+<th>존재 여부</th>
+<th>형태</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sherpa-onnx + NNAPI</td>
+<td>✅ 존재</td>
+<td>Android 앱 (Kotlin/Java + NDK JNI)</td>
+</tr>
+<tr>
+<td>VoxSherpa TTS (오픈소스)</td>
+<td>✅ 존재</td>
+<td>Kokoro=CPU/NNAPI, Piper/VITS=CPU only</td>
+</tr>
+<tr>
+<td>Termux pip + NNAPI</td>
+<td>❌ <strong>없음</strong></td>
+<td>wheel 자체가 glibc용, Termux bionic과 불일치</td>
+</tr>
+<tr>
+<td>Termux NDK 크로스컴파일 + NNAPI</td>
+<td>🔶 <strong>최초 시도 가능성</strong></td>
+<td><code>build-android-arm64-v8a.sh</code> 경로</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_21">실제 경로</h3>
+<p><code>build-android-arm64-v8a.sh</code>의 출력물:</p>
+<pre><code>install/
+├── bin/sherpa-onnx           ← CLI 바이너리 (이걸 직접 실행!)
+├── lib/libsherpa-onnx-jni.so ← JNI 라이브러리
+├── lib/libonnxruntime.so     ← ONNX Runtime (NNAPI 포함)
+├── lib/libsherpa-onnx-c-api.so
+└── lib/libsherpa-onnx-cxx-api.so
+</code></pre>
+<p><strong>NNAPI 활성화 조건:</strong> <code>-DANDROID_PLATFORM=android-27</code> 이상 (기본값 android-21은 NNAPI 없음)</p>
+<p><strong>핵심 인사이트:</strong> <code>SHERPA_ONNX_ENABLE_BINARY=ON</code>으로 CLI 바이너리를 뽑아내면, JNI/APK 없이 Termux에서 직접 <code>./sherpa-onnx</code> 실행 가능. 이것이 pip install의 glibc 한계를 우회하는 길.</p>
+<h3 id="voxsherpa-tts-nnapi">VoxSherpa 선례 — TTS 모델별 NNAPI 현실</h3>
+<p>VoxSherpa 공식 아키텍처 문서:<br>
+- <strong>Kokoro 엔진</strong>: &ldquo;CPU/NNAPI&rdquo; — ✅ NNAPI 가속 확인<br>
+- <strong>Piper/VITS 엔진</strong>: &ldquo;CPU&rdquo; only — ❌ NNAPI 미지원</p>
+<p>즉 커뮤니티에서도 TTS 모델 종류에 따라 NNAPI가 안 붙는 건 이미 알려진 제약. ParksyTTS가 Kokoro 계열이면 가능성 높고, VITS 계열이면 CPU 폴백.</p>
+<h3 id="todo_1">이전 TODO 정정</h3>
+<table>
+<thead>
+<tr>
+<th>이전 (틀림)</th>
+<th>정정</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Termux에 <code>pip install sherpa-onnx</code></td>
+<td>❌ 불가능 — glibc wheel만 존재</td>
+</tr>
+<tr>
+<td>Termux에서 <code>python3 -c "import sherpa_onnx"</code></td>
+<td>❌ bionic Python에서 import 불가</td>
+</tr>
+<tr>
+<td>NNAPI delegate 자동 활성화</td>
+<td>❌ pip wheel에 NNAPI 없음</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>실제 TODO</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Termux에 Android NDK 설치 (<code>pkg install ndk-multilib cmake ninja</code>)</td>
+<td></td>
+</tr>
+<tr>
+<td>2. <code>git clone</code> k2-fsa/sherpa-onnx + <code>build-android-arm64-v8a.sh</code> 실행</td>
+<td></td>
+</tr>
+<tr>
+<td>3. <code>SHERPA_ONNX_ANDROID_PLATFORM=android-27 SHERPA_ONNX_ENABLE_BINARY=ON ./build-android-arm64-v8a.sh</code></td>
+<td></td>
+</tr>
+<tr>
+<td>4. <code>install/bin/sherpa-onnx</code> CLI로 TTS 추론 테스트</td>
+<td></td>
+</tr>
+<tr>
+<td>5. 성공 → proot ↔ Termux localhost HTTP 브릿지</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_22">교훈</h3>
+<p>Claude Code(나)는 존재하지 않는 pip wheel을 사실인 것처럼 말했다. &ldquo;NNAPI delegate 포함 Android arm64 wheel&rdquo;이라는 표현은 완전한 허구. <strong>AI 제안을 검증 없이 실행해서는 안 되는 이유가 여기 있다.</strong> Boss가 직접 PyPI + GitHub 확인해서 바로잡음.</p>
+<h2 id="83-tailscale-2-tailnet-2-2026-08-13-_claude">§83 — Tailscale 돌봄 데몬: &ldquo;클라이언트 2개 · tailnet 2개&rdquo; 근본 원인 발견 (2026-08-13, _Claude)</h2>
+<h3 id="s21-tailscale-2-tailnet">핵심 발견 — S21에 Tailscale이 2개, 서로 다른 tailnet에 붙어 있음</h3>
+<p>&ldquo;폰이 tailnet에 안 잡힌다&rdquo;는 문제의 진짜 원인. 한 폰에 tailscale 클라이언트가 2개 있고, 각각 다른 계정(tailnet)에 로그인돼 있었다.</p>
+<table>
+<thead>
+<tr>
+<th>클라이언트</th>
+<th>로그인 계정</th>
+<th>tailnet</th>
+<th>기기</th>
+<th>상태</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>proot tailscale</td>
+<td><code>REDACTED</code> (Helena)</td>
+<td><code>tailb4c349.ts.net</code></td>
+<td>3개</td>
+<td>✅ 온라인 · SSH · owner</td>
+</tr>
+<tr>
+<td>Termux tailscale</td>
+<td><code>REDACTED@github</code> (박씨 &ldquo;Uncle, Parksy&rdquo;)</td>
+<td>GitHub 망</td>
+<td>0개</td>
+<td>⚠️ 계정만 · 기기 0 · 데몬 정지</td>
+</tr>
+</tbody>
+</table>
+<p><strong>박씨 기기 5개는 <code>REDACTED@github</code> 망에 있다.</strong> proot는 Helena Google 망에 있으므로 박씨가 SSH로 못 들어온다. 이게 &ldquo;안 잡힘&rdquo;의 최종 정체.</p>
+<h3 id="tailnet">왜 혼란했나 — 두 관점이 서로 다른 tailnet을 보고 있었음</h3>
+<ul>
+<li>폰 에이전트 = Termux(GitHub, device=0) 관점 → &ldquo;device=0, auth key 필요&rdquo;</li>
+<li>나(proot) = Helena Google 망(3기기 온라인) 관점 → &ldquo;이미 됨, 박씨 기기 없음&rdquo;</li>
+<li>둘 다 부분적으로만 맞음. 같은 폰의 서로 다른 tailnet 2개를 본 것.</li>
+</ul>
+<h3 id="_23">확정 기술 사실</h3>
+<ul>
+<li>proot은 CapEff=0 → 기본 TUN 불가, <code>--tun=userspace-networking</code> 필수 (v1.102.2 실측).</li>
+<li>userspace 모드 = <code>tailscale0</code> 없음 → 임의 포트(5555) 직결 불가. <code>tailscale ssh</code>/<code>tailscale serve</code>만.</li>
+<li>ADB-over-Tailscale: <code>adb connect &lt;tailscale-ip&gt;:5555</code> 직결 ❌. 맞는 경로는 <code>tailscale ssh</code> → 폰 내부 localhost로 adbd 연결(로컬 브릿지).</li>
+<li>재부팅 = 저장된 노드키로 자동 재연결 (인증키 불필요, 시뮬레이션 증명).</li>
+</ul>
+<h3 id="acl">보안 — ACL 단방향 + 키 회수</h3>
+<ul>
+<li>default ACL = tailnet 내 전방향 P2P. 돌봄이면 <code>박씨 → 누나 S21</code> 단방향만.</li>
+<li>평문 노출 키 2개 회수: <code>REDACTED...</code> / <code>REDACTED...</code> (관리콘솔 수동).</li>
+</ul>
+<h3 id="tailnet_1">남은 결정 — 어느 tailnet이 표준인가</h3>
+<table>
+<thead>
+<tr>
+<th>선택지</th>
+<th>장점</th>
+<th>단점</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A. GitHub 망(<code>REDACTED@github</code>) 통일</td>
+<td>박씨 기기 5개 이미 있음 → 바로 SSH</td>
+<td>계정 = 박씨 명의 (&ldquo;누나 명의&rdquo;와 충돌)</td>
+</tr>
+<tr>
+<td>B. Helena Google 망(<code>REDACTED</code>) 통일</td>
+<td>누나 명의 (CONSTITUTION 부합)</td>
+<td>박씨 기기 5개 이전 필요</td>
+</tr>
+</tbody>
+</table>
+<p>돌봄은 &ldquo;절대 안 깨질 것&rdquo;이 1순위 → 실용적으로는 A가 유리. 결정은 Boss 몫.</p>
+<h3 id="_24">문서</h3>
+<ul>
+<li>백서: <code>care/tailscale-care-whitepaper_Claude.md</code></li>
+<li>진단 상세: <code>care/tailscale-care-daemon_Claude.md</code></li>
+<li>부팅 스크립트: <code>care/start-tailscale-boot.sh</code></li>
+</ul>
+<hr>
+<h3 id="tailscale-github-REDACTED-_claude-2026-08-13">📡 Tailscale 등록 완료 — GitHub 망(REDACTED@) 통일 (_Claude · 2026-08-13)</h3>
+<p><strong>결과:</strong> proot <code>helena-proot</code>을 박씨 GitHub 망(<code>REDACTED@</code>)에 auth-key로 등록 완료. 박씨 기기 5개와 같은 tailnet.</p>
+<ul>
+<li><code>tailscale ping dtslib</code> → <strong>pong 85ms (DERP 도쿄)</strong> ✅</li>
+<li>backend <code>Running</code> · SSH <code>RunSSH:true</code> + capability 광고 ✅</li>
+<li>호스트명 <code>helena-proot</code> 유지 ✅</li>
+<li>흐름: <code>tailscale logout</code>(Google 망 이탈) → <code>tailscale up --auth-key ... --ssh --hostname=helena-proot</code></li>
+</ul>
+<p><strong>키 관리 (Boss 지시):</strong><br>
+- 새 auth/API 키는 <code>.secrets.env</code>(gitignore)에 환경변수로만 저장. <strong>커밋 금지.</strong><br>
+- 90일 만료(2026-11-11) → Boss가 캘린더에 직접 등록 (AI 리마인더 안 함).<br>
+- 등록에 쓴 옛 auth key(<code>kBsBJh...</code>)는 소진 → 관리콘솔에서 revoke.</p>
+<p><strong>남은 일:</strong> 옛 키 revoke · Termux:Boot 자동시작 · ACL 단방향(박씨→S21) · phantom process killer 해제 · 하트비트 워치독.</p>
+<hr>
+<h3 id="tailscale-2-_claude-2026-08-13">📡 Tailscale 노드 2개 완성 + 자동화 (_Claude · 2026-08-13)</h3>
+<p><strong>결과:</strong> S21 노드 2개가 모두 <code>REDACTED@</code> 망에 온라인:<br>
+- <code>helena-proot</code> (100.87.229.125) — proot Ubuntu 작업실 셸 (포트 41641)<br>
+- <code>helena-android</code> (100.97.231.3) — Termux 네이티브(bionic), proot 안 거쳐 더 견고 (포트 41642)</p>
+<p><strong>완료:</strong><br>
+- Termux(안드로이드) tailscaled 기동 — proot과 소켓/포트(41642)/상태 분리, <code>localhost-1</code> → <code>helena-android</code> 호스트명 변경<br>
+- proot tailscaled 중복 프로세스 → SIGKILL 정리, 깨끗하게 1개 재기동<br>
+- <code>start-tailscale-boot.sh</code> 갱신 — 노드 2개 자동기동 (Termux 네이티브 → proot 순, 포트 분리)</p>
+<p><strong>못 한 것 (proot 한계):</strong><br>
+- Phantom process killer 해제 — <code>settings</code>가 <code>INTERACT_ACROSS_USERS</code> 권한 거부 → <strong>adb 또는 삼성 설정 수동 필요</strong><br>
+- ACL 단방향 — API 키로 가능하나 tailnet 전체 영향이라 보류(신중 필요)</p>
+<hr>
+<h3 id="acl-s21-_claude-2026-08-13">📡 ACL 단방향 완료 — 박씨→S21만 허용 (_Claude · 2026-08-13)</h3>
+<p><strong>결과:</strong> ACL로 간병인(박씨)→수혜자(누나 S21) <strong>단방향</strong> 통신을 강제. 누나 폰은 들어오는 접속만 받고, 밖으로 나가는 접속은 전부 차단.</p>
+<p><strong>적용 내역 (최신 <code>grants</code> + <code>ssh</code> 스키마):</strong><br>
+- <code>tagOwners</code>: <code>tag:helena → autogroup:admin</code> — 헬레나 태그 소유권<br>
+- <code>grants</code>: <code>autogroup:member → *</code> — 박씨 기기(멤버)는 전부 접근 가능(<strong>절대 안 잠김</strong>)<br>
+- <code>ssh</code>: <code>member → tag:helena (accept)</code> — 박씨→헬레나 SSH 허용 + 기존 <code>member → self (check)</code> 유지</p>
+<p><strong>노드 태그 부여 (API):</strong><br>
+- <code>helena-proot</code> (2485556499135188) → <code>tag:helena</code> ✅<br>
+- <code>helena-android</code> (4316541607946258) → <code>tag:helena</code> ✅</p>
+<p><strong>검증 (단방향 시행 확정):</strong><br>
+- 두 노드 다 <code>tag:helena</code> 동기화(<code>Self.Tags</code>) + 온라인 + SSH 광고(<code>cap/ssh</code>) ✅<br>
+- netmap 필터링: helena-proot 피어 = 박씨 기기 4대만(인바운드용), helena-android 제외(tag↔tag 차단) ✅<br>
+- <code>tailscale ssh</code> → 박씨 기기 <strong>timeout(패킷 드랍)</strong> = 아웃바운드 차단 ✅<br>
+- ⚠️ <code>tailscale ping</code>은 disco 프로토콜이라 ACL 우회(정상) — 차단 검증은 데이터 평면(ssh timeout)으로</p>
+<p><strong>키 만료 구분:</strong><br>
+- 노드 키 2027-02(6개월 기본, tailscaled 자동 갱신) ← 수동 조치 불필요<br>
+- auth/API 키 2026-11-11(90일, 수동 갱신) ← Boss 캘린더 관리 (AI 리마인더 없음)</p>
+<p><strong>남은 일:</strong> 하트비트 워치독.</p>
+<hr>
+<h3 id="phantom-process-killer-_claude-2026-08-13">🔓 Phantom process killer 해제 확인 (_Claude · 2026-08-13)</h3>
+<p><strong>결과:</strong> Boss가 삼성 개발자 옵션 &ldquo;자식 프로세스 제한 중지&rdquo; 토글 ON 완료. Gemini 진단 검증 → <strong>독립 확인</strong>.</p>
+<ul>
+<li><code>getprop persist.sys.fflag.override.settings_enable_monitor_phantom_procs</code> = <strong><code>false</code></strong></li>
+<li><code>false</code> = 팬텀 프로세스 모니터(킬러) 비활성화. 삼성이 이 개발자 옵션을 <code>persist.*</code> 프로퍼티로 구현.</li>
+<li>⚠️ <code>persist.</code> 접두라 재부팅 후 유지될 가능성 높으나, 혼재 보고 있음 → <strong>재부팅 후 값 재확인 권장</strong>.</li>
+</ul>
+<p><strong>한계:</strong> 팬텀킬러는 여러 프로세스 킬러 중 하나일 뿐. 배터리 최적화(Doze) &ldquo;제한 없음&rdquo;·삼성 자동 시작 허용은 별개 설정(이미 처리). <strong>진짜 검증은 Termux tailscaled가 며칠간 생존하는지</strong> → 하트비트 워치독(다음 세션)이 담당.</p>
+<hr>
+<h3 id="on-demand-_claude-2026-08-13">📡 워치독 폐기 → on-demand 체크 스크립트 (_Claude · 2026-08-13)</h3>
+<p><strong>Boss 결정:</strong> 하트비트 워치독(상주 텔레그램 경고 데몬) <strong>불필요</strong>. 상주 프로세스(크롬류)가 RAM을 잡아먹는 걸 싫어함. 원하는 건 &ldquo;내가 원할 때 체크하는 간단한 것&rdquo; = 헬스체크식 on-demand.</p>
+<p><strong>대체:</strong> <code>care/tailscale-check.sh</code> — 실행할 때만 도는 상태 확인 스크립트(비상주).<br>
+- 검사 8항목: proot/Termux tailscaled 생존 · backend Running · 노드 온라인 · 태그 · SSH 광고 · 박씨 기기 가시성 · helena-android tailnet 온라인(API)<br>
+- 결과: <code>_notebook/health/tailscale-*.json</code>(이력) + <code>tailscale-latest.json</code>(최신, 대시보드용 고정 경로)<br>
+- <code>--telegram</code> 플래그로 그때만 보고<br>
+- API 키 없어도 동작(API 항목만 경고로 생략)</p>
+<p><strong>원칙 기록:</strong> 상주 데몬 대신 on-demand 스크립트 + 결과 파일 저장이 이 프로젝트의 모니터링 기본 방향.</p>
+<hr>
+<h3 id="_claude-2026-08-13">📡 완결 백서 종합 + 텔레그램 보고 (_Claude · 2026-08-13)</h3>
+<p><strong>결과:</strong> Tailscale 돌봄 데몬 관련 전 기록(devlog §84~§88 · <code>care/*.md</code> · 스크립트 · 설정)을 하나로 종합해 <strong>완결 백서</strong>로 재작성.</p>
+<ul>
+<li><strong><code>care/tailscale-care-whitepaper_Claude.md</code></strong> — 최종 단일 백서 (기존 옛 상태[Google 망] 백서를 덮어씀)</li>
+<li>§0 한 줄 요약 · §1 최종 확정 상태 · §2 2노드 아키텍처 · §3 원인 4개 · §4 ACL 단방향 · §5 핵심 기술 사실 · §6 파일 지도 · §7 키 관리 · §8 운영 · §9 남은 일</li>
+<li><strong>한 장 요약본을 텔레그램으로 전송</strong> (1497자, 완료).</li>
+</ul>
+<p><strong>보존된 이력 문서:</strong> <code>tailscale-care-daemon_Claude.md</code>(진단 상세)·<code>tailscale-situation-report_Claude.md</code>(계정 불일치 보고)는 이력으로 남김.</p>
+<hr>
+<h3 id="_claude-2026-08-13_1">📝 용어 정리 — &ldquo;돌봄 데몬&rdquo; → &ldquo;돌봄 시스템&rdquo; (_Claude · 2026-08-13)</h3>
+<p><strong>Boss 지적:</strong> &ldquo;온디맨드 데몬&rdquo;은 형용모순 — 데몬(daemon)의 본질은 상주(24시간 RAM)인데, on-demand는 요청 시에만 도는 비상주라 모순.</p>
+<p><strong>정확한 3단 용어:</strong><br>
+| 용어 | 대상 | 성격 |<br>
+|------|------|------|<br>
+| 상주 데몬 | <code>tailscaled</code> | 24시간 RAM 상주 (진짜 데몬은 이것 하나뿐) |<br>
+| 정기 모니터(크론 태스크) | <code>care-daemon.sh</code> | 매 15분 크론 호출 → 종료 (상주 아님) |<br>
+| 온디맨드 체크 | <code>tailscale-check.sh</code>·<code>phone-health.sh</code> | 요청 시에만 실행 |</p>
+<p><strong>조치:</strong> 전체를 가리키는 말을 &ldquo;돌봄 데몬&rdquo;에서 <strong>&ldquo;돌봄 시스템&rdquo;</strong>으로 통일 (백서·메모리·인덱스 반영). <code>care-daemon.sh</code> 파일명은 크론 참조 유지를 위해 유지하되, 문서상으론 &ldquo;정기 모니터(크론)&rdquo;로 표기.</p>
+<hr>
+<h3 id="_claude-2026-08-13_2">🚫 크론 미등록 확정 — 아웃바운드도 무상주로 (_Claude · 2026-08-13)</h3>
+<p><strong>발견:</strong> RAM 검증 중 크론 확인 → <strong>crond 미상주 + Termux/proot crontab 둘 다 비어있음</strong>. 문서상 &ldquo;매 15분 크론&rdquo;이었지만 실제로 <code>care-daemon.sh</code>는 스케줄이 안 걸려 있었다.</p>
+<p><strong>상주 측정 (자기매칭 제거 후):</strong><br>
+| 항목 | 상주? | RAM |<br>
+|------|------|-----|<br>
+| tailscaled × 2 (proot 41641 + Termux 41642) | ✅ 상주 | ~25MB (대문, 최소 비용) |<br>
+| care-daemon.sh / tailscale-check.sh / phone-health.sh | ❌ 비상주 | 0 |<br>
+| crond | ❌ 미상주 | 0 |<br>
+| python3 ~1.8GB | — | Claude Code 개발 세션 자체 (돌봄 시스템 아님) |</p>
+<p><strong>Boss 결정:</strong> 크론을 추가하지 않고 <strong>무상주 유지</strong>. 아웃바운드 배터리/온도 경고는 수동(<code>tailscale-check.sh --telegram</code>)으로만. 인바운드 Tailscale은 이미 자동이므로 돌봄의 &ldquo;문&rdquo;은 열려 있음.</p>
+<p><strong>조치:</strong> 백서·메모리의 &ldquo;매 15분 크론&rdquo; 표기를 현실(미스케줄)에 맞게 정정. <code>care-daemon.sh</code> 스크립트는 보존하되 현재 미사용. §90의 &ldquo;정기 모니터(크론)&rdquo; 분류는 이 결정으로 폐기.</p>
+<hr>
+<h3 id="tailscale-keep-alive-netmon-_claude-2026-08-13">🔧 Tailscale 부팅 완전자동화 — keep-alive 상주 + netmon 창 확장 (_Claude · 2026-08-13)</h3>
+<p><strong>5차 재부팅(20:25) 검증 결과:</strong><br>
+- ✅ Termux:Boot 자동기동 + retry 루프(234e4f3)는 기계적으로 정상 동작.<br>
+- ❌ bionic 데몬: netmon 정착(~3분)이 80초 창 초과 → 10회 재시도 전부 실패.<br>
+- ❌ <strong>신규 원인 확정:</strong> proot glibc 데몬이 부팅 helper proot 세션(<code>proot-distro login</code>) 종료 시 <code>--kill-on-exit</code>에 휩쓸려 SIGKILL. <code>nohup &amp;</code>은 proot 세션 안에선 세션 종료 시 함께 죽음. (증거: <code>proot_cmd.py:116</code> — proot-distro가 기본으로 <code>--kill-on-exit</code>을 붙임)</p>
+<p><strong>fix 2건:</strong><br>
+1. <strong>netmon 창 확장</strong> — <code>start-tailscale-boot.sh</code> [1] <code>MAX_TRY</code> 10→75 (창 80초→~10분). netmon 정착(~3분) 커버.<br>
+2. <strong>proot 데몬 keep-alive 상주</strong> — 부팅 [2]를 <code>timeout 90</code>(세션 종료) → <code>nohup ... &amp;</code>(탈부착)로 바꾸고, helper에 <code>--keepalive</code> 루프 추가. 루프(foreground)가 살아있는 한 proot 세션도 살아있어 <code>--kill-on-exit</code> 미발동 + 양 노드 <code>up</code> 주기(60s) 재확인으로 자가치유.</p>
+<p><strong>검증:</strong> cold-start 시뮬레이션(proot 데몬 kill → helper 재기동 → keep-alive 생존 + 8항목 정상) 통과. 배포: repo + <code>~/.termux/boot/</code> 재배포.</p>
+<h3 id="os-_boss-2026-08-13">🔒 OS 자동 업데이트 차단 — 서버 역할 환경 고정 (_Boss · 2026-08-13)</h3>
+<p><strong>Boss 결정:</strong> 이 폰은 실사용 폰이 아니라 <strong>서버</strong>. 안드로이드 OS 업데이트(백그라운드 통제·Phantom Killer 강화·bionic/proot 우회로 차단)가 올라오면 잘 돌아가던 Tailscale이 어느 날 꼬일 위험 → <strong>시스템 자동 OS 업데이트 OFF</strong>로 환경 고정 완료.<br>
+- 서버 원칙: &ldquo;잘 돌아가면 업데이트도 함부로 안 한다&rdquo;.<br>
+- 방어 2중화: OS 고정 + keep-alive 자가치유 + 부팅 retry 확장.</p>
+<h3 id="tailscale-6-bionic-netmon-11-retry-10-_claude-2026-08-13">⚠️ Tailscale 재부팅 검증 6차 — bionic netmon 정착 11분, retry 창(10분) 초과 (_Claude · 2026-08-13)</h3>
+<p><strong>결과:</strong> 21:04 재부팅 → Termux:Boot 자동기동 ✅, proot 노드(helena-proot) keep-alive로 자동 복구 ✅, <strong>bionic 노드(helena-android)는 자동기동 실패</strong> → 수동 재기동으로 복구.<br>
+- <strong>원인:</strong> 부팅 직후 <code>netmon.New: netlinkrib: permission denied</code> 일시현상이 이번엔 <strong>~11분</strong> 지속 (이전 3분~10분). 부팅 스크립트 retry 창 75회(≈10분)를 초과.<br>
+- <strong>현재 상태:</strong> 수동 복구 후 tailscale-check.sh 8/8 통과, 양 노드 Running + tag:helena + SSH.<br>
+- <strong>📌 미완 fix (다음 세션):</strong> (1) <code>MAX_TRY 75→120</code>(≈16분) (2) step<a href="bionic retry">1</a>이 step<a href="proot 기동">2</a>를 blocking → 병렬화로 proot 지연 2차 피해 제거.<br>
+- 메모리: <code>post-reboot-check.md</code> 6차 검증 기록 완료.</p>
+<h3 id="tailscale-fix-_claude-2026-08-13">✅ Tailscale fix 적용 — 무한 재시도 + 병렬화 커밋 (_Claude · 2026-08-13)</h3>
+<p><strong>6차 원인 확정 후 fix 적용·커밋(7f07483):</strong> 고정 75회 재시도 → <strong>무한 루프(성공까지) + background 병렬화</strong>.<br>
+- netmon 정착 시간이 가변(1~15분)이라 &ldquo;고정 횟수&rdquo;는 원천적으로 틀림. 횟수 제한 제거, 성공하면 루프 자체가 exit(상주 없음).<br>
+- background로 돌려 step<a href="proot 기동">2</a>와 병렬 → proot 노드가 bionic 재시도에 blocking되던 2차 피해 제거.<br>
+- 배포본(<code>.termux/boot</code>) 일치 확인. 다음 재부팅에서 실전 검증 예정.</p>
+<p><strong>테스트 중 부수 정리:</strong> bionic 데몬 3개(6681/6996/19759) 중복 기동 → 전부 kill + socket rm → 1개(7623) 재기동. 최종 tailscaled 2개(41641+41642)만. 8/8 통과.</p>
+<p><strong>📌 남은 배터리 이슈(미해결, Boss 판단 필요):</strong><br>
+1. <code>termux-wake-lock</code> 부팅 후 무한 유지 → CPU 깊은잠 방지 = 상시 배터리 소모.<br>
+2. keep-alive 60초 루프 → 60초마다 wake(상주). 간격 확대 또는 on-demand 재설계.<br>
+- 메모리: <code>post-reboot-check.md</code> 7차 기록 완료.</p>
+<h3 id="wake-_claude-2026-08-13">✅ 돌봄 데몬 배터리 재설계 — 상주 wake 루프 제거 (_Claude · 2026-08-13)</h3>
+<p><strong>Boss 지시:</strong> &ldquo;쓸데없는 데몬 돌리면서 배터리 잡아먹지 마라 — 통화 대기 수준으로 하루는 가야 됨.&rdquo; 매번 방향 지시하는 것도 부담 → 자율 판단으로 배터리 소모원 2건 제거·커밋(db97e80).</p>
+<p><strong>1. keep-alive 60초 wake 루프 제거 → <code>--no-kill-on-exit</code>:</strong><br>
+- 기존: helper가 60초마다 wake하며 데몬 유지 + up 재확인 → 상시 배터리 소모(하루 1440회 wake).<br>
+- 변경: proot-distro <code>--no-kill-on-exit</code>(proot_cmd.py:112에 옵션 존재)으로 부모가 block(CPU ~0)하며 glibc 데몬 유지. helper는 데몬+up 후 종료.<br>
+- <strong>핵심 발견:</strong> proot 데몬은 <code>--state</code> 없이 시작돼 <code>up</code>이 &ldquo;prefs write access denied&rdquo;로 실패하지만, <strong>state 파일로 자동 재연결</strong>되어 Running+Online 유지(keep-alive가 2.5시간 이 오류를 <code>|| true</code>로 삼키고 있었음). → 목표를 &ldquo;up 성공&rdquo;→&rdquo;backend Running&rdquo;으로 바꿔 헬퍼 성공 판정 강건화.</p>
+<p><strong>2. <code>termux-wake-lock</code> 무한 유지 → 20분 자동 해제:</strong><br>
+- 부팅 정착(최악 ~15분)에만 필요한 wake-lock을 배경 서브셸 <code>sleep 1200</code> 후 <code>termux-wake-unlock</code>으로 해제.</p>
+<p><strong>+ bionic <code>up</code>을 데몬이 살아난 순간 native 루프에서 1회 실행</strong> (타임아웃 추측 제거). 구문 검사(dash) + 헬퍼 실행(exit 0, Running 확인) 통과, 현재 8/8 정상. <strong>전부 다음 재부팅에서 실전 검증 예정.</strong></p>
+<ul>
+<li>메모리: <code>post-reboot-check.md</code> 7차 배터리 기록 완료.</li>
+</ul>
+<h3 id="100-_claude-2026-08-14">✅ 100점 최적화 — 듀얼 노드 → 단일 노드 전환 (_Claude · 2026-08-14)</h3>
+<p><strong>Boss 지시:</strong> &ldquo;재수를 하지 말고 100점짜리 최적화해놔. 지금.&rdquo; → 오늘(08-13) 재부팅 버그의 근원이 듀얼 노드(proot 겹층)임을 인정하고, 패치가 아니라 <strong>구조 자체를 단순화</strong>.</p>
+<p><strong>핵심 실증 — <code>up</code> 없이 자동 재연결:</strong> bionic tailscaled를 kill → <code>up</code> 없이 재기동 → 40초 내 BackendState=Running, 동일 identity(helena-android, 100.97.231.3) 복원. <code>tailscaled.state</code>가 node key+prefs(hostname·ssh)를 보존하므로 <strong><code>up</code>(proot glibc CLI 의존)이 아예 불필요</strong>해짐.</p>
+<p><strong>변경:</strong><br>
+- ❌ helena-proot(proot/glibc, 41641) 노드 제거 — SIGSYS·&ndash;kill-on-exit·keep-alive·netmon 타이밍이 전부 proot 겹층 탓이었음.<br>
+- ✅ helena-android(bionic, 41642) 단일 노드만 유지. 작업실 셸은 helena-android(Termux) → <code>proot-distro login ubuntu</code> 1홉으로 동일 접근.<br>
+- ✅ 부팅 스크립트: keep-alive 루프·proot helper·<code>up</code> 전부 제거. wake-lock 20분 한정 + tailscaled 1개 기동(netmon 정착까지 무한 재시도)만.<br>
+- ✅ <code>tailscale-check.sh</code> 단일 노드 재작성. <code>start-proot-tailscale.sh</code> deprecated 처리.</p>
+<p><strong>결과(실측):</strong> 상주 프로세스 = tailscaled 1개(9.7MB). keepalive PATCH 루프 로그 소멸 확인. 7/7 체크 통과(backend Running·온라인·tag:helena·SSH 광고·박씨 기기 4대 가시·tailnet 등록). <strong>통화 대기 수준.</strong></p>
+<p><strong>⚠️ 남은 것:</strong> 실제 재부팅 검증(내가 재부팅 못 함 — proot 세션 죽음). 다음 재부팅 후 <code>post-reboot-check.md</code> 단일 노드 기준으로 확인.</p>
+<hr>
+<h3 id="2026-08-14-grok-_grok">📌 기점 2026-08-14 — Grok 플러그 역할 재조정 (_Grok)</h3>
+<p><strong>Boss 결정:</strong> S21 가치는 <strong>돌봄</strong>, 일은 <strong>출판·미디어 인프라</strong>. 45,000원 Grok 플러그는 칸 두 개만.</p>
+<ol>
+<li><strong>웹페이지 · 웹 코드 디자이너</strong></li>
+<li><strong>다큐멘터리 PD</strong> — 누나 얼굴 사진 1장(안드로이드↔proot 브릿지 기존) + Boss 프롬프트 → 그 얼굴로 합성 → 프롬프트대로 <strong>10초 딥페이크급</strong> 클립 → <strong>성우 더빙</strong> → FFmpeg로 이어 붙여 다큐</li>
+</ol>
+<p><strong>원장:</strong> <code>_notebook/83-momentum-2026-08-14_Grok.md</code> (<code>31</code>보다 우선)<br>
+동기화: <code>31-agent-roles_Grok.md</code> · <code>33-webpage-coverage_Grok.md</code> · <code>CLAUDE.md</code> · <code>00-INDEX.md</code> Phase 6 · 이 레포(<code>helena_phone</code>)에 커밋.</p>
+<p><strong>예전 설정과의 차이:</strong><br>
+- 07-26 디자이너 = 콘텐츠·네이버·커버리지까지 한 직함에 쌓임.<br>
+- 08-05 <code>61</code> = 10초 Imagine+더빙. 재료는 랜딩 페이지.<br>
+- 08-05~06 <code>66</code>/<code>72</code> = 페이지 캡처가 본체, Grok은 성우+브릿지 소수. <strong>오늘 이 해석을 Grok 역할에서 뺌.</strong><br>
+- 오늘 PD = 재료가 <strong>누나 사진 1장</strong>. 화면은 플러그 가 만든다. 단위는 10초. 품질은 딥페이크급 얼굴 연속성.<br>
+- 커버리지 게이트는 출판부. 제15조(공개 얼굴)는 역할이 아니라 <strong>공개 범위</strong> — Boss가 따로 정함.</p>
+<p><strong>헬스:</strong> Grade B · 배터리 96% · 38.6°C.</p>
   </article>
   <nav class="wz-pager">
     <a class="" href="session-2026-07-26_Grok.html">
@@ -6522,7 +7988,7 @@ helena-psycare:    not checked out
   </nav>
   <div class="wz-related">
           <h2>같은 섹션</h2>
-          <div class="grid"><a href="00-INDEX.html"><strong>📖 S21 Phone 업무 수첩</strong>구축: 2026-07-23 ~ 2026-07-26</a><a href="01-arch.html"><strong>전체 시스템 아키텍처</strong>Notebook</a><a href="02-discord.html"><strong>디스코드 서버/봇/위젯</strong>Notebook</a><a href="03-telegram.html"><strong>텔레그램 봇/회의실</strong>Notebook</a><a href="04-github-pages.html"><strong>GitHub Pages + Giscus + WidgetBot</strong>Notebook</a><a href="05-tistory.html"><strong>블로그 포트폴리오 + 자동화 전략</strong>Notebook</a></div>
+          <div class="grid"><a href="00-INDEX.html"><strong>📖 S21 Phone 업무 수첩 — 전체 목차</strong>구축: 2026-07-23 ~ 2026-08-14 (23일)</a><a href="01-arch.html"><strong>전체 시스템 아키텍처</strong>Notebook</a><a href="02-discord.html"><strong>디스코드 서버/봇/위젯</strong>Notebook</a><a href="03-telegram.html"><strong>텔레그램 봇/회의실</strong>Notebook</a><a href="04-github-pages.html"><strong>GitHub Pages + Giscus + WidgetBot</strong>Notebook</a><a href="05-tistory.html"><strong>블로그 포트폴리오 + 자동화 전략</strong>Notebook</a></div>
         </div>
   <footer class="wz-foot">
     <div>S21 PHONE · Webzine lakme-audio</div>

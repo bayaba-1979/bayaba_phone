@@ -1967,7 +1967,7 @@ ANTHROPIC_MODEL=deepseek-chat
 |------|-------------|---------|
 | `helana-faith` | helana-christianity | Helana Faith |
 | `helena-piano` | helena-piano | Helena Piano |
-| `helena-psycare` | helena-psycare | Metal Craft |
+| `helena-psycare` | helena-psycare | Mental Care |
 
 - 각 레포: index.html + Pages + Discussions + Giscus + WidgetBot 전부 활성
 - 현재 총 5개 레포: `helena_phone`, `helana_log`, `helana-faith`, `helena-piano`, `helena-psycare`
@@ -2108,7 +2108,7 @@ _notebook/ = History + Making film + 로고 아카이브
 | `helana_log` | 기술노트 | 🗃️ **박식캡처 리버싱 저장소** | apk/schema/logs/mcp-server/scripts |
 | `helana-faith` | 신앙 | ✝️ **가족 신앙사 + 비교 종교학** | theology/comparative/family/liturgy |
 | `helena-piano` | 피아노 | 🎹 **피아노 종합 + 음원 생성** | MIDI/REAPER/AI/GAN/PC-Actions |
-| `helena-psycare` | 금속케어 | 🧠 **뷰티풀마인드 정신분석** | 분석/병리/치료/MCP-모델/가족사 |
+| `helena-psycare` | 멘탈케어 | 🧠 **뷰티풀마인드 정신분석** | 분석/병리/치료/MCP-모델/가족사 |
 
 - 총 50개 이상의 디렉토리/README 생성
 - 각 레포 Pages 유지
@@ -5790,3 +5790,24 @@ Claude Code(나)는 존재하지 않는 pip wheel을 사실인 것처럼 말했�
 **결과(실측):** 상주 프로세스 = tailscaled 1개(9.7MB). keepalive PATCH 루프 로그 소멸 확인. 7/7 체크 통과(backend Running·온라인·tag:helena·SSH 광고·박씨 기기 4대 가시·tailnet 등록). **통화 대기 수준.**
 
 **⚠️ 남은 것:** 실제 재부팅 검증(내가 재부팅 못 함 — proot 세션 죽음). 다음 재부팅 후 `post-reboot-check.md` 단일 노드 기준으로 확인.
+
+---
+
+### 📌 기점 2026-08-14 — Grok 플러그 역할 재조정 (_Grok)
+
+**Boss 결정:** S21 가치는 **돌봄**, 일은 **출판·미디어 인프라**. 45,000원 Grok 플러그는 칸 두 개만.
+
+1. **웹페이지 · 웹 코드 디자이너**
+2. **다큐멘터리 PD** — 누나 얼굴 사진 1장(안드로이드↔proot 브릿지 기존) + Boss 프롬프트 → 그 얼굴로 합성 → 프롬프트대로 **10초 딥페이크급** 클립 → **성우 더빙** → FFmpeg로 이어 붙여 다큐
+
+**원장:** `_notebook/83-momentum-2026-08-14_Grok.md` (`31`보다 우선)  
+동기화: `31-agent-roles_Grok.md` · `33-webpage-coverage_Grok.md` · `CLAUDE.md` · `00-INDEX.md` Phase 6 · 이 레포(`helena_phone`)에 커밋.
+
+**예전 설정과의 차이:**
+- 07-26 디자이너 = 콘텐츠·네이버·커버리지까지 한 직함에 쌓임.
+- 08-05 `61` = 10초 Imagine+더빙. 재료는 랜딩 페이지.
+- 08-05~06 `66`/`72` = 페이지 캡처가 본체, Grok은 성우+브릿지 소수. **오늘 이 해석을 Grok 역할에서 뺌.**
+- 오늘 PD = 재료가 **누나 사진 1장**. 화면은 플러그 가 만든다. 단위는 10초. 품질은 딥페이크급 얼굴 연속성.
+- 커버리지 게이트는 출판부. 제15조(공개 얼굴)는 역할이 아니라 **공개 범위** — Boss가 따로 정함.
+
+**헬스:** Grade B · 배터리 96% · 38.6°C.

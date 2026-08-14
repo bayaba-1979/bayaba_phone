@@ -52,22 +52,23 @@
 <ul>
 <li><a href="#parksytts-on-s21-2026-08-07">🚨 ParksyTTS on S21 — 일 시작할 때 꼭 읽기! (2026-08-07~)</a><ul>
 <li><a href="#_1">우리 컴퓨터(환경)</a></li>
-<li><a href="#npugpu-2026-08-07">지금 하고 있는 일 — NPU/GPU 가속 (2026-08-07)</a></li>
+<li><a href="#npugpu-2026-08-11">지금 하고 있는 일 — NPU/GPU 가속 (2026-08-11 갱신)</a></li>
 <li><a href="#_2">이미 해결된 것 — 다시 건드리지 말 것</a></li>
 <li><a href="#2026-08-07">오늘 세션 이슈 (2026-08-07)</a></li>
 </ul>
 </li>
 <li><a href="#_3">작업 원칙 — 우리가 일하는 방법</a></li>
 <li><a href="#git-github">Git 작업 — 무료 전시장(GitHub)에 작품 올리는 법</a></li>
-<li><a href="#ai-4-boss-2026-07-26-2026-08-08">AI 에이전트 4종 — 우리 팀 로봇 친구들! (Boss 2026-07-26, 확장 2026-08-08)</a></li>
+<li><a href="#ai-4-boss-2026-07-26-2026-08-08-2026-08-14">AI 에이전트 4종 — 우리 팀 로봇 친구들! (Boss 2026-07-26, 확장 2026-08-08, 기점 2026-08-14)</a></li>
 <li><a href="#ai">AI 에이전트 규칙 — 로봇 친구들 지키기 약속</a></li>
 <li><a href="#_4">텔레그램 보고 의무 — 무전기로 상황 알리기</a></li>
 <li><a href="#_5">건강 검진 의무 — 우리 폰 건강 검사</a></li>
 <li><a href="#_6">업무일지 — 오늘 있었던 일 기록</a></li>
 <li><a href="#2026-07-26">에이전트 파일 마크 (필수 · 2026-07-26~) — 누가 쓴 글인지 표시하기</a></li>
-<li><a href="#grok-2026-07-26">웹페이지 커버리지 (Grok 상시 · 2026-07-26~) — 수첩을 전시장에 걸기</a></li>
+<li><a href="#2026-08-14">웹페이지 커버리지 (출판부 게이트 · 디자이너는 자기 페이지 · 2026-08-14~)</a></li>
 <li><a href="#publishing-department-2026-08-08">출판부 (Publishing Department) — 번역 수호자 (2026-08-08~)</a></li>
 <li><a href="#paste-pipeline">Paste Pipeline (네이버·티스토리 수동 발행) — 사람 손으로 옮겨 붙이기</a></li>
+<li><a href="#pd-pipeline-v10-2026-08-08">PD Pipeline (웹페이지 → 숏폼 영상) — V10 공짜 공장 (2026-08-08~)</a></li>
 <li><a href="#_7">파일 구조 — 우리 집 지도</a></li>
 <li><a href="#_8">현재 인프라 — 우리가 가진 도구들</a></li>
 </ul>
@@ -98,16 +99,31 @@
 <blockquote>
 <p>쉽게 말하면: 우리 폰에서 목소리 만드는 작업은 엄청 느려. 3.5초짜리 목소리 하나 만드는 데 7분 51초나 걸려!</p>
 </blockquote>
-<h3 id="npugpu-2026-08-07">지금 하고 있는 일 — NPU/GPU 가속 (2026-08-07)</h3>
+<h3 id="npugpu-2026-08-11">지금 하고 있는 일 — NPU/GPU 가속 (2026-08-11 갱신)</h3>
 <ul>
 <li><strong>CPU-only 한계 확인됨.</strong> ParksyTTS 추론 471초는 실사용 불가.</li>
-<li><strong>GPU (Mali-G78):</strong> <code>/dev/mali0</code> 존재, <code>/vendor/lib64/libOpenCL.so</code> 있음. proot glibc → bionic ABI 충돌로 직통 불가.</li>
-<li><strong>NPU (Exynos NPU):</strong> NCP v24 커널 확인. <code>/sys/class/drm</code> permission 문제.</li>
-<li><strong>핵심 발견 — Termux가 열쇠:</strong> Termux(bionic) → DRM + NPU sysfs 접근 가능. proot ↔ Termux localhost 브릿지 구상.</li>
-<li><strong>단기 전략:</strong> Sherpa-ONNX Kokoro/VITS로 CPU 추론 가속 (GPT-SoVITS보다 10~100배 빠름). NNAPI delegate 포함 Android prebuilt binary 탐색 중.</li>
+<li><strong>GPU (Mali-G78 MP14):</strong> <code>/dev/mali0</code> 존재, OpenCL lib 있음. proot(glibc) → bionic ABI 불일치로 직통 불가.</li>
+<li><strong>NPU (Exynos 2100, 26 TOPS):</strong> ENPU 런타임 전체 존재. NNAPI HAL 1.3 + EDEN 드라이버 정의됨.</li>
+<li><strong>핵심 발견 — Termux가 열쇠 (2026-08-11 정정):</strong></li>
+<li>이전 기록 &ldquo;sysfs permission 문제&rdquo; → <strong>틀림</strong>. 실제 원인은 <strong>glibc/bionic ABI 불일치</strong>.</li>
+<li>proot(glibc)에서는 <code>libneuralnetworks.so</code>(bionic)를 dlopen할 수 없음. 권한이 아니라 링킹 문제.</li>
+<li>Termux는 <code>untrusted_app</code> SELinux 도메인으로 실행 → 일반 앱과 동일한 NDK API(NNAPI 포함) 접근 가능. <strong>루팅 불필요.</strong></li>
+<li>sherpa-onnx NNAPI: <strong>STT 근거 충분</strong> (Pixel 6 벤치마크 RTF 0.035, sherpa-onnx 공식) — ⚠️ <strong>S21 실측은 아직 안 함</strong>. <strong>TTS는 모델별 실패 사례</strong> 있음 (Piper 텐서 차원 불일치 이슈).</li>
+<li><strong>단기 전략 (2026-08-11 재정정):</strong></li>
+<li>❌ ~~<code>pip install sherpa-onnx</code> → NNAPI~~ — <strong>불가능</strong>. PyPI wheel은 <code>manylinux2014_aarch64</code>(glibc) 전용, NNAPI 프로바이더 미포함.</li>
+<li>✅ <strong>실제 경로:</strong> Termux에 Android NDK 설치 → <code>build-android-arm64-v8a.sh</code>로 크로스컴파일 (<code>-DANDROID_PLATFORM=android-27</code> → NNAPI 활성화)</li>
+<li>결과물: <code>install/bin/sherpa-onnx</code> CLI 바이너리 + <code>libonnxruntime.so</code>(NNAPI 포함) + <code>libsherpa-onnx-jni.so</code></li>
+<li>VoxSherpa(TTS 앱) 선례: Kokoro=CPU/NNAPI, Piper/VITS=CPU only — TTS 모델별 NNAPI 호환성 차이 확인됨</li>
+<li>proot → localhost HTTP 브릿지로 CLI 바이너리 호출</li>
+<li><strong>TTS 리스크:</strong> ParksyTTS가 쓰는 구체적 TTS 아키텍처가 NNAPI에서 실제로 돌아가는지는 실기기 테스트로만 확인 가능. <strong>STT도 S21 실측은 아직 — Pixel 6 벤치마크 근거만 있음.</strong> TTS는 미확정.</li>
 </ul>
 <blockquote>
-<p>우리 폰 안에는 그림 그리는 부품(GPU)과 AI 계산하는 부품(NPU)이 따로 있어. 근데 이 부품들을 직접 쓰지 못하고 있어. Termux라는 다른 통로로 우회해서 쓰는 방법을 찾는 중!</p>
+<p>우리 폰 안에는 AI 계산기(NPU, 26 TOPS)와 그림 그리는 부품(GPU, Mali-G78)이 모두 있어!<br>
+근데 proot은 glibc 언어를 쓰고 안드로이드는 bionic 언어를 써서 서로 말이 안 통해.<br>
+Termux는 bionic 언어를 네이티브로 쓰니까 안드로이드랑 바로 대화할 수 있어.<br>
+그래서 &ldquo;Termux에서 NDK로 AI 두뇌(sherpa-onnx)를 직접 컴파일하고, NNAPI 가속 넣어서 CLI로 실행&rdquo; 전략!<br>
+pip install로는 안 돼 — PyPI에 올라온 건 glibc용이라 Termux(bionic)랑 안 맞고 NNAPI도 없어.<br>
+NDK로 직접 빌드해야 진짜 NNAPI가 붙은 바이너리가 나와.</p>
 </blockquote>
 <h3 id="_2">이미 해결된 것 — 다시 건드리지 말 것</h3>
 <ul>
@@ -156,7 +172,11 @@
 - 커밋 메시지는 짧고 명확하게. 한국말+영어 섞어도 OK.<br>
 - <code>git push --force</code>는 <strong>벽돌로 내리치는 거랑 똑같아!</strong> 정말 내 작업이 최신인 게 확실할 때만 써.</p>
 </blockquote>
-<h2 id="ai-4-boss-2026-07-26-2026-08-08">AI 에이전트 4종 — 우리 팀 로봇 친구들! (Boss 2026-07-26, 확장 2026-08-08)</h2>
+<h2 id="ai-4-boss-2026-07-26-2026-08-08-2026-08-14">AI 에이전트 4종 — 우리 팀 로봇 친구들! (Boss 2026-07-26, 확장 2026-08-08, 기점 2026-08-14)</h2>
+<blockquote>
+<p><strong>가치 = 돌봄 (누나 S21).</strong> <strong>일 = 출판·미디어 인프라.</strong><br>
+Grok은 플러그 두 칸만 — 기점 <code>_notebook/83-momentum-2026-08-14_Grok.md</code>.</p>
+</blockquote>
 <table>
 <thead>
 <tr>
@@ -172,8 +192,8 @@
 <tr>
 <td><code>grok</code> / <code>gr</code></td>
 <td><strong><code>_Grok</code></strong></td>
-<td><strong>디자이너</strong></td>
-<td>콘텐츠·비주얼·톤·랜딩·웹진·아이콘·카피·Naver 드래프트</td>
+<td><strong>웹 코드 디자이너 · 다큐 PD</strong></td>
+<td>① 웹페이지·웹 코드 ② 누나 사진 1장+프롬프트→10초 딥페이크+더빙→다큐</td>
 <td>45,000원/월</td>
 <td>✅</td>
 </tr>
@@ -203,23 +223,23 @@
 </tr>
 </tbody>
 </table>
-<p><strong>파이프:</strong> Boss 방향 → <code>_Grok</code> 시안 → <code>_Aider</code> 시공 → <code>_Claude</code>(출판부) 변환·게이트 → <code>_Claude</code>(감사) 검증(있을 때) → Boss 최종.<br>
-<strong>상세:</strong> <code>_notebook/31-agent-roles_Grok.md</code> · 출판부: <code>_notebook/75-translation-logic-management_Claude.md</code> · 마크 규약: <code>30-agent-file-marks.md</code></p>
+<p><strong>파이프:</strong> Boss 방향 → <code>_Grok</code> 칸① 웹 / 칸② 다큐 → <code>_Aider</code> 시공 → <code>_Claude</code>(출판부) 변환·게이트 → <code>_Claude</code>(감사) 검증(있을 때) → Boss 최종.<br>
+<strong>상세:</strong> <code>_notebook/83-momentum-2026-08-14_Grok.md</code> · <code>_notebook/31-agent-roles_Grok.md</code> · 출판부: <code>_notebook/75-translation-logic-management_Claude.md</code> · 마크 규약: <code>30-agent-file-marks.md</code></p>
 <blockquote>
 <p>Termux: <code>grok</code> / <code>groklogin</code> / <code>grokc</code> / <code>agent</code> · <code>ds</code>는 <code>scripts/ds.sh</code> 래퍼.<br>
 예전 <code>gr</code>/<code>grlogin</code>/<code>grc</code> 호환 유지.</p>
 <p>우리 팀엔 네 명의 로봇 친구가 있어! 마치 축구팀 같아:<br>
-- <strong>그림 로봇 (Grok, <code>gr</code>):</strong> 상상력 대장! 그림 그리고, 예쁘게 꾸미고, 글도 멋지게 써줘. 월 구독료 45,000원.<br>
+- <strong>그림·PD 로봇 (Grok, <code>gr</code>):</strong> 플러그는 두 칸만! 웹페이지를 그리고 코드를 짜거나, 누나 사진 한 장과 프롬프트로 10초 딥페이크 클립을 만들어 더빙하고 다큐로 이어 붙여. 월 구독료 45,000원.<br>
 - <strong>고치기 로봇 (Aider, <code>ds</code>):</strong> 고장 수리 전문가! 코드 깨진 거 고치고, 반복 작업 척척 해내.<br>
 - <strong>글짓기 로봇 (Claude Code, <code>cc</code> 출판부):</strong> 번역 지킴이! 우리가 쓴 글을 웹페이지(HTML)로 예쁘게 바꿔줘. 검사도 하고.<br>
 - <strong>심판 로봇 (Claude Code, <code>cc</code> 감사):</strong> 규칙 잘 지켰는지 확인하는 심판! 아직 오진 않았어(⏳).</p>
-<p><strong>일하는 순서:</strong> Boss가 방향 정하기 → 그림 로봇이 초안 → 고치기 로봇이 뚝딱 → 글짓기 로봇이 예쁘게 변환·검사 → (심판 로봇 확인) → Boss 최종!</p>
+<p><strong>일하는 순서:</strong> Boss가 방향 정하기 → 그림·PD 로봇이 칸에 맞는 일만 → 고치기 로봇이 뚝딱 → 글짓기 로봇이 예쁘게 변환·검사 → (심판 로봇 확인) → Boss 최종!</p>
 </blockquote>
 <h2 id="ai">AI 에이전트 규칙 — 로봇 친구들 지키기 약속</h2>
 <ul>
-<li>세션 시작 시 CONSTITUTION.md → CLAUDE.md → (역할) <code>31-agent-roles_Grok.md</code> 순</li>
+<li>세션 시작 시 CONSTITUTION.md → CLAUDE.md → 기점 <code>83-momentum-2026-08-14_Grok.md</code> → (역할) <code>31-agent-roles_Grok.md</code> 순</li>
 <li>AI 출력은 전부 1차 가설 — 검증 없이 수용하지 말 것</li>
-<li><strong>디자이너는 톤·구조, 반장은 패치, 감사는 「아니다」</strong> — 직함 침범 최소화</li>
+<li><strong>Grok은 웹 코드·다큐 PD 두 칸만, 반장은 패치, 출판부는 전시장 게이트, 감사는 「아니다」</strong> — 직함 침범 최소화</li>
 <li>Claude가 아직 없으면 감사 간이 게이트는 <strong>Boss</strong></li>
 <li>모든 설정 변경 전후로 기록을 남길 것 (<code>*_Grok</code> / <code>*_Aider</code> / <code>*_Claude</code>)</li>
 </ul>
@@ -227,7 +247,7 @@
 <p>로봇 친구들과 일할 때 지킬 약속:<br>
 - 일 시작할 땐 <strong>규칙책(CONSTITUTION.md) 먼저!</strong> 그다음 이 설명서, 그다음 각자 맡은 역할 설명서.<br>
 - 로봇이 하는 말은 <strong>100% 정답이 아니야.</strong> 꼭 내가 다시 확인하기!<br>
-- <strong>그림 로봇은 그림+분위기, 고치기 로봇은 수리, 심판은 &ldquo;안 돼!&rdquo;</strong> — 서로 자기 일만 하기.<br>
+- <strong>그림·PD 로봇은 웹 코드와 다큐 두 칸만, 고치기 로봇은 수리, 심판은 &ldquo;안 돼!&rdquo;</strong> — 서로 자기 일만 하기.<br>
 - 심판 로봇이 아직 없으면 <strong>Boss가 대신 심판 본다.</strong><br>
 - 설정 바꾸면 <strong>꼭 메모 남기기!</strong> 누가 했는지 파일 이름에 표시 (<code>_Grok</code> / <code>_Aider</code> / <code>_Claude</code>).</p>
 </blockquote>
@@ -279,21 +299,22 @@
 - 보스가 쓴 글 → <code>_Boss</code></p>
 <p><strong>절대 남의 파일에 낙서하지 마!</strong> 이어서 쓰고 싶으면 내 이름으로 새 파일 만들어.</p>
 </blockquote>
-<h2 id="grok-2026-07-26">웹페이지 커버리지 (Grok 상시 · 2026-07-26~) — 수첩을 전시장에 걸기</h2>
+<h2 id="2026-08-14">웹페이지 커버리지 (출판부 게이트 · 디자이너는 자기 페이지 · 2026-08-14~)</h2>
 <ul>
 <li><strong><code>_notebook/*.md</code> 는 반드시 <code>notebook/*.html</code> 웹페이지</strong>가 있어야 한다.</li>
-<li><code>_Grok</code> 는 세션마다 갭을 검사하고, 없으면 빌드한다:<br>
+<li><strong>게이트 소유는 출판부 <code>_Claude</code>.</strong> Grok은 칸 ①에서 손댄 페이지를 빌드한다. 세션에서 수첩을 새로 쓰면:<br>
 <code>bash
   python3 scripts/check_webpages_Grok.py   # gap_count
   python3 scripts/build_webzine.py         # 전체 생성 + coverage JSON</code></li>
 <li>인터랙티브 앱: <code>notebook/webpage-coverage.html</code></li>
-<li>역할 문서: <code>_notebook/33-webpage-coverage_Grok.md</code></li>
+<li>역할 문서: <code>_notebook/33-webpage-coverage_Grok.md</code> · 기점: <code>_notebook/83-momentum-2026-08-14_Grok.md</code></li>
 <li>문서 페이지는 공통 <strong>웹앱 UI</strong>(검색·접기·펼치기·본문 복사) — <code>assets/webzine.js</code></li>
 </ul>
 <blockquote>
 <p>우리가 수첩(<code>_notebook/</code>)에 쓴 글은 모두 <strong>무료 전시장(GitHub)에도 걸려야</strong> 해!<br>
-그림 로봇(Grok)이 수첩에 글이 있는데 전시장에 안 걸린 건 없는지 매번 확인하고, 빠진 거 있으면 척척 만들어 줘.<br>
-명령어는 위 두 줄만 따라 치면 끝. 전시된 페이지는 검색도 되고 접고 펼 수도 있어!</p>
+전시장 문은 출판부가 잠근다(<code>gap_count &gt; 0</code>이면 배포 금지).<br>
+그림·PD 로봇이 새 수첩을 쓰면 그 페이지만 직접 만들어. 명령어는 위 두 줄.<br>
+전시된 페이지는 검색도 되고 접고 펼 수도 있어!</p>
 </blockquote>
 <h2 id="publishing-department-2026-08-08">출판부 (Publishing Department) — 번역 수호자 (2026-08-08~)</h2>
 <ul>
@@ -320,6 +341,50 @@
 <blockquote>
 <p>어떤 전시장(네이버, 티스토리)은 로봇이 직접 못 올려. 그래서 우리는 <strong>복사해서 붙여넣기</strong> 작전을 써!<br>
 1. 글짓기 로봇이 글 완성 → 2. 무전기(Telegram)로 보내줌 → 3. 사람이 복사+붙여넣기 → 4. 끝! (5분이면 돼)</p>
+</blockquote>
+<h2 id="pd-pipeline-v10-2026-08-08">PD Pipeline (웹페이지 → 숏폼 영상) — V10 공짜 공장 (2026-08-08~)</h2>
+<blockquote>
+<p><strong>2026-08-14 기점:</strong> 이 공장은 <strong>페이지 소개 레인</strong>이다. Grok 플러그 칸 ②(누나 사진 1장 → 10초 딥페이크+더빙 → 다큐)와 <strong>다른 일</strong>이다.<br>
+플러그 역할 원장: <code>_notebook/83-momentum-2026-08-14_Grok.md</code></p>
+</blockquote>
+<p><strong>목적:</strong> URL 하나로 웹페이지를 &ldquo;이해하고 소개하는&rdquo; 숏폼 영상 자동 제작.<br>
+일반 숏폼 도구(템플릿 끼워맞추기)와 달리, <strong>실제 페이지를 읽고 섹션별로 다른 화면을 캡처</strong>한다.</p>
+<p><strong>파이프라인 단계:</strong><br>
+| 단계 | 스크립트 | 하는 일 |<br>
+|------|----------|---------|<br>
+| <strong>P0</strong> | <code>_parse_url.py</code> | URL 로드 → DOM 파싱 → 제목/섹션/본문 추출 → beat 생성 + scroll_sel 부여 |<br>
+| <strong>P0.5</strong> | <code>_generate_vo.py</code> | beat별 caption+context → 한국어 내레이션 VO 초안 생성 |<br>
+| <strong>P0.6</strong> | <code>_direct_map.py</code> | VO 길이·역할 기반 zoom/color_tag/pause 연출 자동 결정 |<br>
+| <strong>P1</strong> | <code>produce_pd.sh</code> P1 | Playwright로 페이지 로드 → beat별 <code>scroll_sel</code>로 다른 섹션 스크롤 → viewport 캡처 |<br>
+| <strong>P2</strong> | <code>produce_pd.sh</code> P2 | Edge TTS (YuJinNeural)로 VO 음성 합성 |<br>
+| <strong>P3</strong> | <code>_bridge_pickup.sh</code> | Android 갤러리에서 bridge 영상 감지 |<br>
+| <strong>P4</strong> | <code>_render_video.py</code> | Ken Burns (zoom/pan) + color grade + soft overlay → xfade concat |<br>
+| <strong>P4b</strong> | <code>_make_ass.py</code> | CNN Breaking News 스타일 ASS 자막 (per-word scale pop) |<br>
+| <strong>P4c</strong> | ffmpeg | ASS 자막을 VO body에 burn-in |<br>
+| <strong>P5</strong> | <code>_pd_assemble.py</code> | Bridge 연결 + full-timeline BGM (sidechain ducking) |<br>
+| <strong>P5b</strong> | <code>_make_srt.py</code> | YouTube caption용 SRT 생성 (xfade timing 보정) |<br>
+| <strong>P6</strong> | ffmpeg + curl | 720p TG 인코딩 + @S21Phone_Bot 전송 |</p>
+<p><strong>V10 시각 스타일:</strong><br>
+- 검은 막대(drawbox) 제거 → 하단 그라데이션 오버레이 (텍스트 가독성)<br>
+- 텍스트 박스 제거 → 그림자(shadow) + 테두리(border)로 교체<br>
+- 비네트 PI/5 → PI/8 (더 가볍게)<br>
+- color_tag <code>teal</code> 추가 (warm/gold/cool/cinematic/natural과 함께 6종)</p>
+<p><strong>사용법:</strong></p>
+<pre><code class="language-bash"># MCP (권장):
+# pd_parse_url(url=&quot;https://...&quot;) → pd_produce(ep_id=&quot;pd_xxx&quot;)
+
+# CLI:
+URL=&quot;https://페이지주소&quot; EP=에피소드ID bash scripts/produce_pd.sh &quot;$EP&quot; &quot;$URL&quot;
+
+# shot_bible 수동 작성 후 캡처만:
+# shot_bible에 scroll_sel 필드 포함 → P1이 각 beat마다 다른 섹션 캡처
+</code></pre>
+<p><strong>핵심 차별점:</strong><br>
+- 일반 숏폼 도구 = 템플릿에 콘텐츠 끼워맞추기<br>
+- PD Pipeline V10 = <strong>콘텐츠를 읽고 이해해서, 그 이해에 맞는 연출을 스스로 결정</strong><br>
+- P0가 채워지기 전까지는 &ldquo;이해 없는 소개&rdquo;였음 → V10부터 진짜 &ldquo;독해와 편집 판단&rdquo; 기반</p>
+<blockquote>
+<p>URL 하나만 주면 로봇이 알아서 페이지를 &ldquo;읽고&rdquo; 섹션별로 다른 화면을 찍어서 멋진 숏폼 영상을 만들어줘! P0 → P0.5 → P0.6 단계가 페이지 내용을 이해하고 연출을 결정하는 똑똑한 부분이야.</p>
 </blockquote>
 <h2 id="_7">파일 구조 — 우리 집 지도</h2>
 <pre><code>helena_phone/

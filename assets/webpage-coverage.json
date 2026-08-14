@@ -1,14 +1,20 @@
 {
-  "generated": "2026-08-08T04:41:35Z",
-  "notebook_md_count": 99,
-  "notebook_html_count": 102,
-  "catalog_count": 142,
+  "generated": "2026-08-14T01:41:38Z",
+  "agent": "_Grok",
+  "notebook_md_count": 107,
+  "notebook_html_count": 111,
+  "catalog_count": 150,
+  "manual_titles": 99,
+  "auto_titled": 8,
   "missing_html": [],
   "orphan_html": [
     "notebook/40-lecture-chalkboard-vol0.html",
-    "notebook/53-self-eval.html"
+    "notebook/53-self-eval.html",
+    "notebook/83-grok-two-role-momentum_Boss.html"
   ],
   "catalog_missing_on_disk": [],
   "gap_count": 0,
-  "policy": "Every _notebook/*.md must have notebook/*.html. Build via scripts/build_webzine.py. Agent: _Grok checks every session."
+  "ok": true,
+  "policy": "Every _notebook/*.md must have notebook/<same-stem>.html. Run: python3 scripts/build_webzine.py",
+  "live_app": "https://helena751107.github.io/helena_phone/notebook/webpage-coverage.html"
 }
