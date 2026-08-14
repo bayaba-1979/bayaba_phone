@@ -1,0 +1,19 @@
+{
+  "done": [
+    "00-INDEX.md",
+    "01-arch.md",
+    "02-discord.md",
+    "03-telegram.md",
+    "04-github-pages.md",
+    "05-tistory.md",
+    "06-youtube.md",
+    "07-cli-reference.md",
+    "08-secrets.md",
+    "10-phone-mcp.md",
+    "11-health.md",
+    "12-dtslib-gift.md"
+  ],
+  "total": 12,
+  "last_run": "2026-08-15 01:14",
+  "note": "첫 12개 배치 완료(12/12 발행). 04-github-pages는 첫 시도에서 오판 → 재검증으로 done. 00-INDEX/05/06은 재시도로 성공."
+}
