@@ -1,0 +1,761 @@
+{
+  "generated": "2026-08-14",
+  "source": [
+    "_notebook/*.md"
+  ],
+  "logic": "분모 → GitHub Pages(전량) + Tistory(여집합 = 분모 − pages-only)",
+  "분모_total": 115,
+  "counts": {
+    "pages_only": 5,
+    "tistory": 110
+  },
+  "rules": {
+    "priority": [
+      "channel 태그",
+      "키워드 점수",
+      "여집합 기본"
+    ],
+    "pages_only_keywords": [
+      "인포그래픽",
+      "대시보드",
+      "웹앱",
+      "랜딩",
+      "포털",
+      "워크패드",
+      "커버리지",
+      "생태계맵",
+      "생태계 지도",
+      "생태계",
+      "infographic",
+      "dashboard",
+      "webapp",
+      "landing",
+      "portal",
+      "workpad",
+      "coverage",
+      "ecosystem"
+    ],
+    "tistory_keywords": [
+      "설치",
+      "가이드",
+      "업무일지",
+      "주의",
+      "규칙",
+      "전략",
+      "기록",
+      "교재",
+      "튜토리얼",
+      "회고",
+      "랩업",
+      "기점",
+      "방법론",
+      "패턴",
+      "설명서",
+      "백서",
+      "보고",
+      "표준",
+      "install",
+      "guide",
+      "tutorial",
+      "howto",
+      "how-to",
+      "whitepaper",
+      "report",
+      "standard"
+    ]
+  },
+  "pages_only": [
+    {
+      "file": "09-ecosystem.md",
+      "title": "전체 생태계 브릿지 테이블",
+      "channel": "pages-only",
+      "reason": "시각·인터랙티브 형태 신호 (pages 2 > tistory 0)"
+    },
+    {
+      "file": "33-webpage-coverage_Grok.md",
+      "title": "웹페이지 커버리지 체크 — 칸 ①의 공구 (게이트는 출판부)",
+      "channel": "pages-only",
+      "reason": "시각·인터랙티브 형태 신호 (pages 2 > tistory 1)"
+    },
+    {
+      "file": "38-web-designer-workpad_Grok.md",
+      "title": "웹 디자이너 업무 수첩 · `_Grok`",
+      "channel": "pages-only",
+      "reason": "시각·인터랙티브 형태 신호 (pages 1 > tistory 0)"
+    },
+    {
+      "file": "41-github-free-maxout_Boss.md",
+      "title": "🆓 GitHub 공짜 생태계 끝까지 쥐어짜기 — Boss 2026-08-05",
+      "channel": "pages-only",
+      "reason": "시각·인터랙티브 형태 신호 (pages 1 > tistory 0)"
+    },
+    {
+      "file": "61-landing-6clip-bgm-plan_Grok.md",
+      "title": "61 · 랜딩 6샷 디렉터 파이프 — 개발 계획서 (_Grok) **v2 정정**",
+      "channel": "pages-only",
+      "reason": "시각·인터랙티브 형태 신호 (pages 2 > tistory 0)"
+    }
+  ],
+  "tistory": [
+    {
+      "file": "00-INDEX.md",
+      "title": "📖 S21 Phone 업무 수첩 — 전체 목차",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "01-arch.md",
+      "title": "전체 시스템 아키텍처",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "02-discord.md",
+      "title": "디스코드 서버/봇/위젯",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "03-telegram.md",
+      "title": "텔레그램 봇/회의실",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "04-github-pages.md",
+      "title": "GitHub Pages + Giscus + WidgetBot",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "05-tistory.md",
+      "title": "블로그 포트폴리오 + 자동화 전략",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 1 ≥ pages 0)"
+    },
+    {
+      "file": "06-youtube.md",
+      "title": "YouTube 채널 아키텍처",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "07-cli-reference.md",
+      "title": "자주 쓰는 명령어 모음",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "08-secrets.md",
+      "title": "비밀 관리 정책",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "10-phone-mcp.md",
+      "title": "phone-mcp-server — 핸드폰 통제 MCP",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "11-health.md",
+      "title": "S21 Phone 건강 검진 시스템",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "12-dtslib-gift.md",
+      "title": "🎁 REDACTED 선물 패키지 분석서",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "13-midterm-eval-v2.md",
+      "title": "📊 S21 Phone — 중간평가 보고서 (v2 재평가)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 1 ≥ pages 0)"
+    },
+    {
+      "file": "13-midterm-eval.md",
+      "title": "📊 S21 Phone — 중간평가 보고서 (v1 원본)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 1 ≥ pages 0)"
+    },
+    {
+      "file": "14-daemon-design.md",
+      "title": "🛡️ 트랙 1 — 돌봄 데몬 설계서",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "15-proot-report.md",
+      "title": "📋 S21 Phone — proot Ubuntu 개발일지 종합 보고서",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 0)"
+    },
+    {
+      "file": "16-textbook-methodology.md",
+      "title": "교재 합성 지침 (Textbook Synthesis Instruction)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 1 ≥ pages 0)"
+    },
+    {
+      "file": "17-merged-chronicle.md",
+      "title": "📖 S21 Phone — 판단층+실행층 병합 연대기",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "18-workcenters.md",
+      "title": "🏭 S21 Phone — 워크센터 정의",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "19-final-strategy.md",
+      "title": "🏭 S21 Phone — 최종 전략 (2026-07-25)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 1 ≥ pages 0)"
+    },
+    {
+      "file": "20-workcenters-final.md",
+      "title": "🏭 S21 Phone — 워크센터 최종 (2026-07-25)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "21-integrated-dev-plan.md",
+      "title": "🏭 S21 Phone — 통합 개발 계획서 v1",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "22-s21-benchmark.md",
+      "title": "📱 S21 디바이스 분석 — 최신폰 대비 성능 비교",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "23-naver-webzine-solution.md",
+      "title": "🎨 네이버 웹진 — 최종 솔루션 (2026-07-25)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "24-paste-pipeline.md",
+      "title": "📋 Paste Pipeline — \"사람+기계 협업 발행\" 방법론",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 1 ≥ pages 0)"
+    },
+    {
+      "file": "25-multi-ai-strategy.md",
+      "title": "🤖 멀티 AI 전략 — 플랫폼별 최적 LLM 매칭",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 1 ≥ pages 0)"
+    },
+    {
+      "file": "26-naver-parsing-solution.md",
+      "title": "🔍 네이버 블로그 파싱 — 직접 해결",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "27-claude-grok-pipeline.md",
+      "title": "🔄 Claude-Grok 협업 파이프라인",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "28-grok-github-bridge.md",
+      "title": "🌉 Grok — GitHub↔Naver 인터프리터",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "29-grok-cli-installed.md",
+      "title": "🤖 Grok CLI — Termux + proot Ubuntu 설치 완료",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 0)"
+    },
+    {
+      "file": "30-agent-file-marks.md",
+      "title": "에이전트 파일 마크 규약 — `_Grok` · `_Claude` · `_Aider`",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "31-agent-roles_Grok.md",
+      "title": "에이전트 역할 분장 — 잡지 구도 디자이너 · 다큐 PD · 반장 · 출판부 · 감사",
+      "channel": "tistory",
+      "reason": "type:org-decision 은 읽는 글 형식"
+    },
+    {
+      "file": "32-ecosystem-whitepaper.md",
+      "title": "S21 Phone 생태계 백서 v1.0",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 2)"
+    },
+    {
+      "file": "33-hybrid-image-video-whitepaper.md",
+      "title": "솔루션 백서: 1인 창작자를 위한 이미지·영상 생성 하이브리드 워크플로우",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 3 ≥ pages 0)"
+    },
+    {
+      "file": "34-stt-zero-cost-justification.md",
+      "title": "말 하나로 미디어 플랫폼을 짓다",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "35-ecosystem-whitepaper-v1.1.md",
+      "title": "S21 Phone 생태계 백서 v1.1",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 2)"
+    },
+    {
+      "file": "36-project-planning-vs-helena_Grok.md",
+      "title": "일반 프로젝트 플래닝 vs 헬레나 생태계 플래닝",
+      "channel": "tistory",
+      "reason": "type:summary-comparison 은 읽는 글 형식"
+    },
+    {
+      "file": "37-free-runtime-planner-whitepaper_Grok.md",
+      "title": "백서 · 공짜 런타임 플랫폼 생태계로 돌리는 「풀스택 플래너」",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 1)"
+    },
+    {
+      "file": "38-s21-voice-driven-analysis.md",
+      "title": "📱 S21 Voice-Driven 분석 — 하드웨어 + 보이스 OS 적합성",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "39-naver-lecture-s21-voice-intro_Grok.md",
+      "title": "[강의 시리즈 예고] 5년 된 갤럭시로 AI 플랫폼을 돌린다 — S21 Voice-Driven 입문",
+      "channel": "tistory",
+      "reason": "type:naver-lecture-intro 은 읽는 글 형식"
+    },
+    {
+      "file": "39-self-platform-justification.md",
+      "title": "39-self-platform-justification",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "40-definitive-dev-whitepaper.md",
+      "title": "S21 Phone — 개발 백서 (완결판)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 0)"
+    },
+    {
+      "file": "40-lecture-draft-s21-voice-vol0_Grok.md",
+      "title": "강의 초안 전문 · Vol.0",
+      "channel": "tistory",
+      "reason": "type:lecture-draft 은 읽는 글 형식"
+    },
+    {
+      "file": "40-pc-wsl-setup_Boss.md",
+      "title": "🏠 누나 PC — 최종 (WSL 없음, Windows Native) — Boss 2026-08-05",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "41-beginner-install-manual_Grok.md",
+      "title": "초심자 설치 — 딱 3화면",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 0)"
+    },
+    {
+      "file": "41-naver-blog-intro-final.md",
+      "title": "Naver 블로그 소개글 — 최종",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "42-hq-affiliate-architecture.md",
+      "title": "🏢 본사-어필리에이트 아키텍처 — 1인 지주회사 구조",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "42-marine-quilt-naver-design_Grok.md",
+      "title": "Marine Quilt — 네이버 디자인 패키지 (리서치→템플릿)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "42-pc-sapjil-postmortem_Boss.md",
+      "title": "🔥 PC 삽질 포스트모템 — 왜 폰 하나로 다 하는가",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 1 ≥ pages 0)"
+    },
+    {
+      "file": "43-ui-less-architect.md",
+      "title": "🎯 메뉴를 몰라도 되는 이유 — AI 시대의 진정한 사용자",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "44-naver-admin-automation-review_Grok.md",
+      "title": "Naver Admin 자동화 — Claude 지시 리뷰 + 방법 지도 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "45-naver-admin-playwright-feasibility_Grok.md",
+      "title": "Naver Admin 자동화 가능 여부 — 폰 Playwright 1회 시드 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "46-first-install-case-study-meeting-prep_Boss.md",
+      "title": "첫 설치 케이스 스터디 — 형 폰에 직접 설치 (_Boss)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 0)"
+    },
+    {
+      "file": "46-fridge-architecture_Claude.md",
+      "title": "냉장고(Fridge) 아키텍처 — REDACTED ⇄ helena751107 자산 공유 체계",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "46-node-protocol-architecture.md",
+      "title": "46 — 노드 프로토콜 아키텍처",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "47-human-ai-dialogue-crisis.md",
+      "title": "47 — 인간-AI 대화 위기 (Crisis)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "48-director-video-recurrence_Grok.md",
+      "title": "재발일지 — Director 소개 영상 품질 사고 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "49-director-community-research_Grok.md",
+      "title": "Director 수준 상향 — 커뮤니티·프로 제품 리서치 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 1 ≥ pages 0)"
+    },
+    {
+      "file": "50-director-pro-v3-visual-proof_Grok.md",
+      "title": "Director PRO v3 — Visual Proof 강제 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "51-scout-v2-community-research_Grok.md",
+      "title": "Scout v2 — 커뮤니티 리서치 → ARIA Planner급 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "52-director-vision-qa-loop_Grok.md",
+      "title": "Director Vision QA 루프 — 만점까지 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 0)"
+    },
+    {
+      "file": "53-director-plan-settings_Grok.md",
+      "title": "연출 설정 — Director Plan First (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "54-director-pro-v5-five-act_Grok.md",
+      "title": "Director PRO v5 — 연출 5막 shoot 연주 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "55-director-pro-v6-perfect_Grok.md",
+      "title": "Director PRO v6 — 만점 솔루션 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "56-director-perfect-ship-process_Grok.md",
+      "title": "Director Perfect Ship — 만점 프로세스 코드화 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "57-director-community-a-bar_Grok.md",
+      "title": "Director Community A-bar — 구현 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "58-video-three-tracks_Grok.md",
+      "title": "영상 3트랙 — PPT → Grok 파이프 → ComfyUI 프로 마감 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "59-grok-video-process-whitepaper_Grok.md",
+      "title": "백서: Grok으로 제품 투어 영상 만들기",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 0)"
+    },
+    {
+      "file": "60-director-pro-v8-wish_Grok.md",
+      "title": "Director PRO v8 — 프로급 소원 풀이 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "61-session-deepseek-cc-2026-08-02_Grok.md",
+      "title": "61 — Claude Code(DeepSeek) 세션 복구 · 2026-08-02 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "62-grok-plugin-video-pipe_Grok.md",
+      "title": "62 · Grok 플러그인 영상 파이프 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "63-video-plugin-standard-v1_Grok.md",
+      "title": "63 · Video Plugin Standard v1 — 커뮤니티 A-bar 코드 고정 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 1 ≥ pages 0)"
+    },
+    {
+      "file": "64-process-80-squeeze_Grok.md",
+      "title": "64 · 프로세스 80% 쥐어짜기 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "65-video-playable-encode-fix_Grok.md",
+      "title": "65 · 재생 안 됨 인코딩 버그 수정 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "66-grok-pd-voice-bridge-not-page-raster_Grok.md",
+      "title": "66 · Grok 역할 정정 — PD · 성우 · 브릿지 (페이지 재래스터 금지) (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "67-grok-subscribe-voice-bgm-hurdle_Grok.md",
+      "title": "67 · 소개 영상 허들: 성우 · BGM — Super Grok 구독 이유 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "68-imagine-prompt-standard-v1_Grok.md",
+      "title": "68 · Imagine 프롬프트 표준 v1 — 초A 브릿지 스틸 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 0)"
+    },
+    {
+      "file": "69-session-resume-pd-bridge-v1_Grok.md",
+      "title": "69 · 세션 리줌 — PD 브릿지 v1 재조립 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "69-voice-engine-plugin-final_Grok.md",
+      "title": "69 · 성우 플러그인 최종 — Grok 정식 vs Edge 함정 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "70-ai-voice-core-gift-local-train_Grok.md",
+      "title": "70 · AI 성우 코어 — 선물 모델 + 폰 로컬 학습 로드맵 (_Claude)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "70-font-bgm-fix_Grok.md",
+      "title": "70 · 자막 폰트 깨짐 + BGM whisper 전구간 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "71-pd-intro-v2-slide-black-fix_Grok.md",
+      "title": "71 · pd_intro v2 — 슬라이드 블랙 꼬리 수정 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "72-pd-pipeline-standard-v2-lock_Grok.md",
+      "title": "72 · PD 영상 표준 v2 확정 (LOCK) (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 0)"
+    },
+    {
+      "file": "73-pd-grok-notebook-report_Grok.md",
+      "title": "📋 PD Grok · 업무 수첩 종합 리포트 (1장)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 1 ≥ pages 0)"
+    },
+    {
+      "file": "74-tts-rvc-lightweight-solution_Claude.md",
+      "title": "🎤 경량 TTS + RVC 성우 더빙 솔루션 (2026-08-07, _Claude)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "75-translation-logic-management_Claude.md",
+      "title": "출판부 (Publishing Department) — 번역 수호자 (Translation Guardian)",
+      "channel": "tistory",
+      "reason": "type:org-decision 은 읽는 글 형식"
+    },
+    {
+      "file": "76-page-writing-standard_Claude.md",
+      "title": "페이지 작법 표준 — md 원고 → 웹페이지 품질 규칙",
+      "channel": "tistory",
+      "reason": "type:standard 은 읽는 글 형식"
+    },
+    {
+      "file": "78-pd-pipeline-whitepaper_Claude.md",
+      "title": "🎬 PD Pipeline 기술 백서 — URL 하나로 숏폼 자동 제작",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 0)"
+    },
+    {
+      "file": "80-ai-voice-actor-whitepaper_Boss.md",
+      "title": "AI 성우 백서",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 0)"
+    },
+    {
+      "file": "81-helena-rvc-dubbing-standard_Claude.md",
+      "title": "헬레나 성우 더빙 — 기술명세서 (자연스러운 연출 버전)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 0)"
+    },
+    {
+      "file": "82-helena-rvc-baseline-lords-prayer_Grok.md",
+      "title": "헬레나 성우 더빙 — 베이스라인 잠금 + 주의 기도 적용 (_Grok)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 1 ≥ pages 0)"
+    },
+    {
+      "file": "83-momentum-2026-08-14_Grok.md",
+      "title": "기점 2026-08-14 — Grok 플러그 역할 재조정",
+      "channel": "tistory",
+      "reason": "type:org-decision 은 읽는 글 형식"
+    },
+    {
+      "file": "84-youtube-two-channel-momentum_Boss.md",
+      "title": "YouTube 2채널 확정 — 콜드 스타트 수렴",
+      "channel": "tistory",
+      "reason": "type:org-decision 은 읽는 글 형식"
+    },
+    {
+      "file": "85-grok-plugin-where-saved_Grok.md",
+      "title": "Grok 플러그 역할 — 어디에 저장돼 있는가 (듀얼)",
+      "channel": "tistory",
+      "reason": "type:org-index 은 읽는 글 형식"
+    },
+    {
+      "file": "86-pd-two-lanes-free-vs-grok_Claude.md",
+      "title": "PD 파이프 두 레인 — 공짜 공장 vs 구독 다큐",
+      "channel": "tistory",
+      "reason": "type:standard 은 읽는 글 형식"
+    },
+    {
+      "file": "87-ai-core-utilization-map_Boss.md",
+      "title": "AI 코어 활용 백서 (v4 · 최종 완전판)",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 0)"
+    },
+    {
+      "file": "88-coding-agent-options-free-lane_Boss.md",
+      "title": "코딩 에이전트 신규 옵션 검토 — 결론: 5종 폐기, 기존 로스터 확정",
+      "channel": "tistory",
+      "reason": "type:reference 은 읽는 글 형식"
+    },
+    {
+      "file": "89-wrapup-2026-08-14_Boss.md",
+      "title": "S21 프로젝트 랩업 — 22일 요약 (2026-07-23 → 08-14)",
+      "channel": "tistory",
+      "reason": "type:report 은 읽는 글 형식"
+    },
+    {
+      "file": "90-midpoint-consolidation-2026-08-14_Boss.md",
+      "title": "중간점 랩업 — 5년차 폰, 확장기 종료 → 다듬기·양산기 전환 (2026-08-14)",
+      "channel": "tistory",
+      "reason": "type:report 은 읽는 글 형식"
+    },
+    {
+      "file": "91-automation-caution_Claude.md",
+      "title": "GUI 자동화 주의사항 — \"사람 손가락\"처럼 보인다는 착각 (2026-08-14)",
+      "channel": "tistory",
+      "reason": "type:standard 은 읽는 글 형식"
+    },
+    {
+      "file": "92-automation-line-boss-to-publish_Claude.md",
+      "title": "자동화 라인 — Boss 던짐 → 문서화 → 형태별 분기 발행 (2026-08-14)",
+      "channel": "tistory",
+      "reason": "type:standard 은 읽는 글 형식"
+    },
+    {
+      "file": "99-devlog.md",
+      "title": "📋 S21 Phone — 전체 개발일지",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "ai-agents-cc-ds-grok-comparison-2026-07-25.md",
+      "title": "Comparative Note on Three Terminal Agents",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "allocation-rate-2026-07-28.md",
+      "title": "Allocation Rate — 2026-07-28",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "naver-intro-article.md",
+      "title": "갤럭시 S21, AI 워크스테이션이 되다",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "rvc-environment-gap_Claude.md",
+      "title": "RVC 환경 차이 진단 — WSL vs S21",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "rvc-failure-analysis_Claude.md",
+      "title": "RVC 합성 실패 분석 — WSL vs S21 proot 환경 차이",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "session-2026-07-26_Grok.md",
+      "title": "세션 메모 _Grok — 2026-07-26",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "supergrok-community-research-2026-07-25.md",
+      "title": "SuperGrok 커뮤니티 리서치 리포트",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 0 ≥ pages 0)"
+    },
+    {
+      "file": "tistory-master-guide_Claude.md",
+      "title": "📝 티스토리 완전 정복 — 5채널 전략·자동화·파이프 총정리",
+      "channel": "tistory",
+      "reason": "여집합 기본 (tistory 2 ≥ pages 0)"
+    }
+  ]
+}
