@@ -5886,3 +5886,14 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **적용 메커니즘 유실:** `/manage/design/skin/current.json` + 스킨 등록/업로드 API — 이전 세션이 발견했으나 레포에 코드 미저장. 재발견 필요.
 - **블로커:** 로그인 세션 만료 (`from_login` 18:45 만료 → 22시대 302→`auth/login` 확인). S21 proot은 디스플레이 없어 headless=False 불가 → 재로그인은 PC 헤드풀 or Boss 수동.
 - **보존 조치:** skin-premium.css 커밋 + `.gitignore`에 `tistory-naver/.cookies/`(로그인 세션 데이터) 추가 차단 + 메모리 `tistory-orbital-skin.md` 저장.
+
+### 🎨 티스토리 '오비탈' 스킨 — API 주입 자동화로 적용 완료 (_Claude · 2026-08-14)
+
+- **결과:** `galaxys21-pwuser.tistory.com` 스킨을 "오비탈" 프리미엄 다크 에디토리얼(틸 #2dd4bf + 골드 #f0b429, bg #08090a)로 **라이브 적용 완료·검증**. 팔레트는 Boss 확정대로 **틸+골드 유지** (OrbitPrompt 퍼플/시안 아님).
+- **핵심 발견 — 스킨 저장 API (역설계 종결):** 스킨 편집기가 Next.js + Monaco/CodeMirror로 바뀌어 DOM 스크래핑 불가. 실제 경로는 **API 직접 주입**:
+  - `GET  /manage/design/skin/html.json` → `{html, css, files, skinname}` (css 필드 = style.css 내용, 102,687자)
+  - `POST /manage/design/skin/html.json` body JSON `{html, css, isPreview:false}` → 저장. 성공 응답 `/preview/skin?skin=customize/8935375`
+- **자동화 (`tistory-naver/apply_skin.py` v2):** post.py 검증된 헤드리스 카카오 로그인 → GET css → skin-premium.css append → POST → 재조회로 마커 검증. 마커 `/* HELENA-ORBITAL-SKIN-START */`로 멱등. `--account <id>`로 다른 계정 확장. (옛 v1은 CodeMirror DOM 스크래핑이었고 "CodeMirror 없음"으로 실패했던 것 → v2가 대체)
+- **라이브 검증:** 커스텀 CSS 서빙 확인 `tistory1.daumcdn.net/tistory/8935375/skin/style.css` (마커 2 · 틸 14 · 배경 4). body bg=#08090a, 카드 bg=#101216 + radius 14px.
+- **오탐 정정:** "`.article-type-thumbnail` 미스타일 갭"은 **오탐**. 썸네일 카드도 `<article class="article-type-common article-type-thumbnail">` 이중 클래스라 `.article-type-common` 다크 스타일이 이미 적용. 홈 썸네일은 빈 이미지(`<img src="">`)라 `.thumbnail`이 display:none — 텍스트만 다크 카드로 정상 렌더링.
+- **주의:** 세션 짧음 — 로그인→GET→POST 한 브라우저 세션 안에서 완료해야 함 (relaunch 시 로그인 리다이렉트).
