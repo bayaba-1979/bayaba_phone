@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="헬레나 성우 더빙 — 베이스라인 잠금 + 주의 기도 적용 (_Grok) — S21 Phone Webzine">
+<meta name="theme-color" content="#0a0908">
+<meta name="application-name" content="S21 Phone">
+<title>헬레나 성우 더빙 — 베이스라인 잠금 + 주의 기도 적용 (_Grok) — S21 Phone Webzine</title>
+<link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/webzine.css">
+</head>
+<body>
+<div class="spine" aria-hidden="true"><div class="spine-fill" id="spineFill"></div></div>
+<header class="wz-mast">
+  <a class="brand" href="../index.html">S21 <em>Phone</em></a>
+  <div class="wz-mast-actions">
+    <button type="button" class="wz-burger" data-nav-toggle aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav class="wz-nav">
+      <a href="../index.html">Home</a>
+      <a href="../archive.html">Archive</a>
+      <a href="../index.html#library">Library</a>
+      <a href="../index.html#agents">Agents</a>
+      <button type="button" data-theme-toggle>Theme</button>
+      <a class="pill gold" href="../index.html#install">Install</a>
+    </nav>
+  </div>
+</header>
+<main class="wz-shell">
+  <div class="wz-crumb">
+    <a href="../index.html">Webzine</a><span class="sep">/</span>
+    <span>Notebook</span><span class="sep">/</span>
+    <span>헬레나 성우 더빙 — 베이스라인 잠금 + 주의 기도 적용 (_Grok)</span>
+  </div>
+  <header class="wz-hero">
+    <div class="wz-kicker">Notebook · lakme-audio</div>
+    <h1>헬레나 성우 더빙 — 베이스라인 잠금 + 주의 기도 적용 (_Grok)</h1>
+    
+    <div class="wz-meta">
+      <span>Source · _notebook/82-helena-rvc-baseline-lords-prayer_Grok.md</span>
+      <span>Kind · markdown</span>
+      <span>S21 Phone Editorial</span>
+    </div>
+  </header>
+  <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
+<ul>
+<li><a href="#0">0. 한 줄 결론</a></li>
+<li><a href="#1">1. 수첩에서 파싱한 성우 이력 (실패 → 정답)</a><ul>
+<li><a href="#_1">절대 다시 타지 말 길</a></li>
+<li><a href="#80">역할 분리 (백서 80 + 오늘 스펙이 같은 말을 함)</a></li>
+</ul>
+</li>
+<li><a href="#2-23">2. 베이스라인 잠금 — 시편 23편 파라미터를 불변값으로</a><ul>
+<li><a href="#_2">파일 배치 (이미 이 머신에 존재)</a></li>
+<li><a href="#5">5단계</a></li>
+<li><a href="#_3">불변 파라미터</a></li>
+<li><a href="#23">시편 23편 검증 기준 (레퍼런스 클립)</a></li>
+<li><a href="#_4">실행 원라이너</a></li>
+</ul>
+</li>
+<li><a href="#3">3. 첫 적용 — 주의 기도 (개역개정, 호흡 고정)</a></li>
+<li><a href="#4">4. 관련 문서 (읽기 순서)</a></li>
+</ul>
+</div>
+</nav>
+  <div class="wz-appbar" role="toolbar" aria-label="Document tools">
+    <input type="search" id="wzSearch" class="wz-search" placeholder="페이지 내 검색…" autocomplete="off">
+    <button type="button" id="wzFoldAll" data-cursor>접기</button>
+    <button type="button" id="wzExpandAll" data-cursor>펼치기</button>
+    <button type="button" id="wzCopy" data-cursor>본문 복사</button>
+  </div>
+  <article class="wz-prose" id="wzProse" data-app="doc">
+    <p><strong>날짜:</strong> 2026-08-13<br>
+<strong>작성:</strong> Grok (디자이너 · 파싱/잠금)<br>
+<strong>상태:</strong> CURRENT 표준 잠금. 기술 원본은 <code>_notebook/81-helena-rvc-dubbing-standard_Claude.md</code><br>
+<strong>검증 원칙:</strong> WSL · S25 · S21 어느 환경이든 <strong>동일 파라미터면 동일 결과</strong></p>
+<hr>
+<h2 id="0">0. 한 줄 결론</h2>
+<p>누나 성우 더빙의 정답은 <strong>운율은 Edge TTS, 음색은 Helena RVC(PyTorch 네이티브)</strong> 다.<br>
+오늘 시편 23편으로 검증된 5단계 파이프라인을 <strong>성우 더빙 베이스라인</strong>으로 잠근다.<br>
+이 문서의 첫 적용작은 <strong>주의 기도(주기도문, 개역개정)</strong>.</p>
+<hr>
+<h2 id="1">1. 수첩에서 파싱한 성우 이력 (실패 → 정답)</h2>
+<p>수첩·번들·홈 디렉터리를 전부 훑어 시간순으로 정리하면, 경로는 한 방향으로만 수렴한다.</p>
+<table>
+<thead>
+<tr>
+<th>시기</th>
+<th>시도</th>
+<th>결과</th>
+<th>지금 쓸 수 있나</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>08-06</td>
+<td><code>voice_engine</code> 로컬 프로바이더, Grok/Ara 6비트 더빙</td>
+<td>PD 인트로용. 신원(누나) 아님</td>
+<td>PD 전용</td>
+</tr>
+<tr>
+<td>08-07</td>
+<td><strong>ParksyTTS (GPT-SoVITS)</strong></td>
+<td>3.5초 음성에 471초. 실사용 불가</td>
+<td>❌ 생산 금지</td>
+</tr>
+<tr>
+<td>08-07</td>
+<td>Kokoro-82M FP32 + <code>jf_alpha</code></td>
+<td>한국어에 일본인 억양. 임시 폴백</td>
+<td>❌ 신원 더빙 금지</td>
+</tr>
+<tr>
+<td>08-07</td>
+<td>경량 TTS + <strong>RVC ONNX INT8</strong> (<code>74</code>)</td>
+<td>속도 가설만. 귀로 검증 전</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>08-08</td>
+<td>성우 우선순위 grok→openai→edge (<code>69</code>)</td>
+<td>PD/쇼츠용 정책. 누나 신원과 별개</td>
+<td>PD 전용</td>
+</tr>
+<tr>
+<td>08-11</td>
+<td>Edge TTS InJoon + parksy_rvc (속도 계산)</td>
+<td>“RVC는 음색만 바꾼다” 통찰은 맞음</td>
+<td>통찰만 유지</td>
+</tr>
+<tr>
+<td>08-12</td>
+<td>S21에서 <code>.pth</code>→ONNX + RvcPyInfer (사도신경)</td>
+<td>숫자는 정상, <strong>금속성/로봇 소리</strong></td>
+<td>❌ 폐기</td>
+</tr>
+<tr>
+<td>08-12</td>
+<td>실패 분석 (<code>rvc-failure-analysis_Claude</code>)</td>
+<td>아키텍처 버전 불일치 + ContentVec≠HuBERT</td>
+<td>근거 문서</td>
+</tr>
+<tr>
+<td>08-12</td>
+<td>환경 갭 (<code>rvc-environment-gap_Claude</code>)</td>
+<td>Python 3.14 → <code>rvc-python</code> 설치 불가</td>
+<td>pip 우회가 정답</td>
+</tr>
+<tr>
+<td>08-13</td>
+<td><strong>RVC WebUI PyTorch + HuBERT + rmvpe.pt</strong></td>
+<td>시편 23편 43.87초 / RMS 0.1425 / −12.7dB</td>
+<td>✅ <strong>베이스라인</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_1">절대 다시 타지 말 길</h3>
+<ul>
+<li><code>scripts/rvc_dub/dub.py</code> 의 RvcPyInfer/ONNX 경로 — 조용히 실패한다. 파형 숫자는 맞아도 귀가 거부한다.</li>
+<li>ContentVec ONNX로 Helena <code>.pth</code>를 돌리는 것 — 768차원이 같아도 분포가 다르다.</li>
+<li>ParksyTTS/GPT-SoVITS를 폰 CPU에서 본편 더빙에 쓰는 것.</li>
+<li>호흡 부호(쉼표·마침표·말줄임표)를 “예쁘게” 고치는 것 — 고치는 순간 AI 티가 남는다.</li>
+</ul>
+<h3 id="80">역할 분리 (백서 <code>80</code> + 오늘 스펙이 같은 말을 함)</h3>
+<ul>
+<li><strong>Edge TTS (<code>ko-KR-SunHiNeural</code>)</strong> = 딕션·악센트·호흡. 운율 담당.</li>
+<li><strong>Helena RVC (<code>.pth</code> + <code>.index</code>)</strong> = 음색. 신원 담당.</li>
+<li>목소리는 폰트가 아니라 <strong>로고급 신원 자산</strong>이다 (<code>80-ai-voice-actor-whitepaper_Boss.md</code>).</li>
+</ul>
+<hr>
+<h2 id="2-23">2. 베이스라인 잠금 — 시편 23편 파라미터를 불변값으로</h2>
+<p>기술 명세의 원본은 Claude가 시공·실측한 <code>81</code>.<br>
+Grok은 그 값을 <strong>콘텐츠 표준으로 잠근다.</strong> 값 변경은 Boss 승인 없이 금지.</p>
+<h3 id="_2">파일 배치 (이미 이 머신에 존재)</h3>
+<pre><code>~/rvc_models/helena_rvc/helena_rvc.pth          57.6MB
+~/rvc_models/helena_rvc/helena_rvc.index        116.6MB
+~/rvc_models/synth_voice_pro.sh
+~/rvc_models/rvc_convert.py                     Stage 3 단독
+~/rvc-webui-local/                              엔진 전체
+~/rvc-webui-local/assets/hubert_base/pytorch_model.bin   377MB
+~/rvc-webui-local/assets/rmvpe/rmvpe.pt                  181MB
+</code></pre>
+<p>symlink는 이미 연결됨 (<code>assets/weights</code>, <code>logs/helena_rvc</code>).</p>
+<h3 id="5">5단계</h3>
+<pre><code>[1/5] Edge TTS            → tts_raw.mp3
+[2/5] 침묵제거+정규화      → tts_clean.wav (16kHz mono)
+[3/5] RVC 변환             → rvc_raw.wav
+[4/5] 노이즈게이트+마스터링 → 출력.mp3 (192k)
+[5/5] 품질 리포트
+</code></pre>
+<h3 id="_3">불변 파라미터</h3>
+<table>
+<thead>
+<tr>
+<th>층</th>
+<th>키</th>
+<th>값</th>
+<th>왜 고정인가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TTS</td>
+<td>Voice</td>
+<td><code>ko-KR-SunHiNeural</code></td>
+<td>한국어 여성, 낭독 톤</td>
+</tr>
+<tr>
+<td>TTS</td>
+<td>Rate</td>
+<td><code>-15%</code> (<code>--rate=-15%</code>)</td>
+<td>기도/낭독 호흡. 음수는 <code>=</code> 필수</td>
+</tr>
+<tr>
+<td>TTS</td>
+<td>Pitch</td>
+<td><code>-3Hz</code> (<code>--pitch=-3Hz</code>)</td>
+<td>살짝 낮춰 안정감</td>
+</tr>
+<tr>
+<td>RVC</td>
+<td><code>f0_method</code></td>
+<td><code>rmvpe</code></td>
+<td><code>rmvpe.pt</code> 없으면 즉시 실패</td>
+</tr>
+<tr>
+<td>RVC</td>
+<td><code>f0_up_key</code></td>
+<td><code>0</code></td>
+<td>키 변조 금지</td>
+</tr>
+<tr>
+<td>RVC</td>
+<td><code>index_rate</code></td>
+<td><code>0.75</code></td>
+<td>목소리 유사도</td>
+</tr>
+<tr>
+<td>RVC</td>
+<td><code>resample_sr</code></td>
+<td><code>40000</code></td>
+<td>모델 네이티브</td>
+</tr>
+<tr>
+<td>RVC</td>
+<td><code>rms_mix_rate</code></td>
+<td><code>0.25</code></td>
+<td>원본 엔벨로프 일부 보존</td>
+</tr>
+<tr>
+<td>RVC</td>
+<td><code>protect</code></td>
+<td><code>0.33</code></td>
+<td>무성음 보호</td>
+</tr>
+<tr>
+<td>Master</td>
+<td>HPF / LPF</td>
+<td>80 / 15000</td>
+<td>저역 잡음·치찰 제거</td>
+</tr>
+<tr>
+<td>Master</td>
+<td>loudnorm</td>
+<td><code>I=-14:LRA=11:TP=-1.0</code></td>
+<td>방송 라우드니스</td>
+</tr>
+<tr>
+<td>Master</td>
+<td>volume</td>
+<td><code>1.2</code></td>
+<td>최종 게인</td>
+</tr>
+<tr>
+<td>Master</td>
+<td>bitrate</td>
+<td><code>192k</code> mp3</td>
+<td>고정</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23">시편 23편 검증 기준 (레퍼런스 클립)</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>목표</th>
+<th>허용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>길이</td>
+<td>43.87초</td>
+<td>±0.5초</td>
+</tr>
+<tr>
+<td>RMS</td>
+<td>0.1425</td>
+<td>±0.01</td>
+</tr>
+<tr>
+<td>평균볼륨</td>
+<td>−12.7dB</td>
+<td>±0.5dB</td>
+</tr>
+<tr>
+<td>비트레이트</td>
+<td>192k mp3</td>
+<td>고정</td>
+</tr>
+</tbody>
+</table>
+<p>주의 기도는 텍스트 길이가 다르므로 <strong>길이 목표만 시편과 다르다.</strong><br>
+RMS·평균볼륨·192k는 같은 마스터링이므로 같은 창에 들어와야 한다.</p>
+<h3 id="_4">실행 원라이너</h3>
+<pre><code class="language-bash">cd ~/rvc_models
+bash synth_voice_pro.sh helena_rvc ko-KR-SunHiNeural &quot;TEXT&quot; OUTPUT_NAME &quot;-15%&quot; &quot;-3Hz&quot;
+</code></pre>
+<p>S21 CPU는 오디오 1초당 약 14초. 30초 클립이면 Stage 3만 7~10분.<br>
+<strong>포그라운드에서 돌리지 말 것.</strong> <code>setsid nohup</code> + 로그 폴링 (81 §11).</p>
+<hr>
+<h2 id="3">3. 첫 적용 — 주의 기도 (개역개정, 호흡 고정)</h2>
+<p>시편 23편과 같은 부호 규약:</p>
+<ul>
+<li><code>,</code> = 짧은 호흡</li>
+<li><code>.</code> = 문장 끝 쉼</li>
+<li><code>...</code> = 극적 쉼 (시험 → 구원의 전환)</li>
+</ul>
+<pre><code>하늘에 계신 우리 아버지여, 이름이 거룩히 여김을 받으시오며, 나라가 임하시오며, 뜻이 하늘에서 이루어진 것 같이, 땅에서도 이루어지이다. 오늘날 우리에게 일용할 양식을 주시옵고, 우리가 우리에게 죄 지은 자를 사하여 준 것 같이, 우리 죄를 사하여 주시옵고, 우리를 시험에 들게 하지 마시옵고... 다만 악에서 구하시옵소서. 나라와 권세와 영광이, 아버지께 영원히 있사옵나이다. 아멘.
+</code></pre>
+<p>원문 파일: <code>~/rvc_models/lords_prayer.txt</code><br>
+출력명: <code>lords_prayer_natural.mp3</code></p>
+<p>이 텍스트의 쉼표/마침표/말줄임표는 <strong>시편 23편과 동일하게 임의 변경 금지.</strong></p>
+<hr>
+<h2 id="4">4. 관련 문서 (읽기 순서)</h2>
+<ol>
+<li><code>CONSTITUTION.md</code> — 왜 누나 목소리인가 (대필작가·신원)</li>
+<li><code>80-ai-voice-actor-whitepaper_Boss.md</code> — 목소리 ≠ 폰트</li>
+<li><code>81-helena-rvc-dubbing-standard_Claude.md</code> — 기술 원본·실측</li>
+<li><code>rvc-failure-analysis_Claude.md</code> — ONNX가 왜 폐기됐는가</li>
+<li>이 문서 — 잠금 + 주의 기도 적용</li>
+</ol>
+<p>구 경로: <code>scripts/rvc_dub/dub.py</code> 는 더 이상 표준이 아니다.</p>
+  </article>
+  <nav class="wz-pager">
+    <a class="" href="81-helena-rvc-dubbing-standard_Claude.html">
+          <span class="dir">Previous</span>
+          <span class="title">헬레나 성우 더빙 — 기술명세서 (자연스러운 연출 버전)</span>
+        </a>
+    <a class="next" href="83-momentum-2026-08-14_Grok.html">
+          <span class="dir">Next</span>
+          <span class="title">83 momentum 2026 08 14 Grok</span>
+        </a>
+  </nav>
+  <div class="wz-related">
+          <h2>같은 섹션</h2>
+          <div class="grid"><a href="00-INDEX.html"><strong>📖 S21 Phone 업무 수첩 — 전체 목차</strong>구축: 2026-07-23 ~ 2026-08-14 (23일)</a><a href="01-arch.html"><strong>전체 시스템 아키텍처</strong>Notebook</a><a href="02-discord.html"><strong>디스코드 서버/봇/위젯</strong>Notebook</a><a href="03-telegram.html"><strong>텔레그램 봇/회의실</strong>Notebook</a><a href="04-github-pages.html"><strong>GitHub Pages + Giscus + WidgetBot</strong>Notebook</a><a href="05-tistory.html"><strong>블로그 포트폴리오 + 자동화 전략</strong>Notebook</a></div>
+        </div>
+  <footer class="wz-foot">
+    <div>S21 PHONE · Webzine lakme-audio</div>
+    <div class="gold">모든 계정은 누나 명의입니다.</div>
+    <p style="margin-top:12px"><a href="../index.html">← Back to landing</a></p>
+  </footer>
+</main>
+<div class="wz-float">
+  <button type="button" id="wzTop" aria-label="Top">↑</button>
+  <button type="button" data-theme-toggle aria-label="Theme">◐</button>
+</div>
+<script src="../assets/webzine.js"></script>
+</body>
+</html>

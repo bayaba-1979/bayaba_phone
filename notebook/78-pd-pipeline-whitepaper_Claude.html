@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="**V11→V12 변경사항:** ① device_scale_factor 3x→5x (소스 해상도 260% 헤드룸) ② `volume=1.0` → `loudnorm=I=-16:TP=-1.5:LRA=11` (P4+P5, 4개소) ③ Grok TTS 공식 폐기 ④ GPU/NPU 구조적 한계로 보류 — S21 Phone Webzine">
+<meta name="theme-color" content="#0a0908">
+<meta name="application-name" content="S21 Phone">
+<title>🎬 PD Pipeline 기술 백서 — URL 하나로 숏폼 자동 제작 — S21 Phone Webzine</title>
+<link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/webzine.css">
+</head>
+<body>
+<div class="spine" aria-hidden="true"><div class="spine-fill" id="spineFill"></div></div>
+<header class="wz-mast">
+  <a class="brand" href="../index.html">S21 <em>Phone</em></a>
+  <div class="wz-mast-actions">
+    <button type="button" class="wz-burger" data-nav-toggle aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav class="wz-nav">
+      <a href="../index.html">Home</a>
+      <a href="../archive.html">Archive</a>
+      <a href="../index.html#library">Library</a>
+      <a href="../index.html#agents">Agents</a>
+      <button type="button" data-theme-toggle>Theme</button>
+      <a class="pill gold" href="../index.html#install">Install</a>
+    </nav>
+  </div>
+</header>
+<main class="wz-shell">
+  <div class="wz-crumb">
+    <a href="../index.html">Webzine</a><span class="sep">/</span>
+    <span>Notebook</span><span class="sep">/</span>
+    <span>🎬 PD Pipeline 기술 백서 — URL 하나로 숏폼 자동 제작</span>
+  </div>
+  <header class="wz-hero">
+    <div class="wz-kicker">Notebook · lakme-audio</div>
+    <h1>🎬 PD Pipeline 기술 백서 — URL 하나로 숏폼 자동 제작</h1>
+    <p class="deck">**V11→V12 변경사항:** ① device_scale_factor 3x→5x (소스 해상도 260% 헤드룸) ② `volume=1.0` → `loudnorm=I=-16:TP=-1.5:LRA=11` (P4+P5, 4개소) ③ Grok TTS 공식 폐기 ④ GPU/NPU 구조적 한계로 보류</p>
+    <div class="wz-meta">
+      <span>Source · _notebook/78-pd-pipeline-whitepaper_Claude.md</span>
+      <span>Kind · markdown</span>
+      <span>S21 Phone Editorial</span>
+    </div>
+  </header>
+  <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
+<ul>
+<li><a href="#1">1. 개요 — 이게 뭐냐</a></li>
+<li><a href="#2-p0-p6">2. 아키텍처 — P0 → P6 파이프라인</a></li>
+<li><a href="#3">3. 저장소 구조 — 어디에 뭐가 있나</a><ul>
+<li><a href="#helena751107helena_phone-rootwork">주 저장소: helena751107/helena_phone (/root/work/)</a></li>
+<li><a href="#mcp-helena751107helena-programming-rootworkhelena-programming">MCP 저장소: helena751107/helena-programming (/root/work/helena-programming/)</a></li>
+</ul>
+</li>
+<li><a href="#4">4. 실행 방법 — 에이전트가 이걸 어떻게 부르나</a><ul>
+<li><a href="#a-cli">방법 A: CLI (직접 호출)</a></li>
+<li><a href="#b-mcp-claude-code">방법 B: MCP (Claude Code가 호출)</a></li>
+<li><a href="#c-http-curl">방법 C: HTTP (curl로 직접)</a></li>
+</ul>
+</li>
+<li><a href="#5">5. 핵심 기술 스택</a></li>
+<li><a href="#6">6. 환경 — 어디서 돌아가나</a></li>
+<li><a href="#7-configsvideo_pd_pipeline_v2json">7. 설정 파일 — configs/video_pd_pipeline_v2.json</a></li>
+<li><a href="#8-shot_biblejson">8. shot_bible.json 구조 — 파이프라인의 두뇌</a></li>
+<li><a href="#9-v12-2026-08-09">9. 현재 상태 (V12, 2026-08-09)</a><ul>
+<li><a href="#91">9.1 안정성 지표 (파이프라인이 깨지지 않는가)</a></li>
+<li><a href="#92">9.2 전문가 품질 지표 (결과물이 프로급인가)</a></li>
+</ul>
+</li>
+<li><a href="#10">10. 한계와 다음 과제</a></li>
+</ul>
+</div>
+</nav>
+  <div class="wz-appbar" role="toolbar" aria-label="Document tools">
+    <input type="search" id="wzSearch" class="wz-search" placeholder="페이지 내 검색…" autocomplete="off">
+    <button type="button" id="wzFoldAll" data-cursor>접기</button>
+    <button type="button" id="wzExpandAll" data-cursor>펼치기</button>
+    <button type="button" id="wzCopy" data-cursor>본문 복사</button>
+  </div>
+  <article class="wz-prose" id="wzProse" data-app="doc">
+    <p><strong>버전:</strong> V12 · <strong>일자:</strong> 2026-08-09 · <strong>위치:</strong> S21 Phone (aarch64 proot Ubuntu)<br>
+<strong>저자:</strong> Boss + Claude Code · <strong>라이선스:</strong> MIT · <strong>TG:</strong> @S21Phone_Bot</p>
+<hr>
+<h2 id="1">1. 개요 — 이게 뭐냐</h2>
+<p>웹페이지 URL 하나만 주면 AI가 <strong>페이지를 읽고, 이해하고, 스크린샷 찍고, 한국어 내레이션을 입혀서 9:16 숏폼 영상(1080×1920, ~2분)을 자동 제작</strong>하는 파이프라인이다.</p>
+<p>일반 숏폼 도구(템플릿 끼워맞추기)와 근본적으로 다르다:<br>
+→ <strong>실제 페이지를 Playwright로 열어서 섹션별로 다른 위치를 스크롤·캡처</strong>하고,<br>
+→ <strong>추출된 콘텐츠 문장을 그대로 내레이션(VO)으로 사용</strong>하며,<br>
+→ <strong>FFmpeg Ken Burns(줌/팬) + CNN Breaking News 자막 + BGM 더킹</strong>까지 전자동.</p>
+<p><strong>차별점:</strong> &ldquo;같은 그림 6번 우려먹기&rdquo;가 아니라, 진짜 다른 8장면을 캡처하고 진짜 페이지 내용을 읽는다.</p>
+<hr>
+<h2 id="2-p0-p6">2. 아키텍처 — P0 → P6 파이프라인</h2>
+<pre><code>P0 (_parse_url.py)          Playwright로 URL 열기 → DOM 파싱 → 섹션 추출
+  │                           제목·heading·본문 추출, :has-text() CSS selector 생성
+  ▼
+P0.5 (_generate_vo.py)      추출된 콘텐츠 문장 → 한국어 내레이션(VO) 초안
+  │                           템플릿 NO. 실제 페이지 문장을 그대로 VO로 사용
+  ▼
+P0.6 (_direct_map.py)       VO 길이·역할 기반 zoom/color_tag/pause 자동 결정
+  │                           zoom: out, in, pan_right, pan_left, pan_up, pan_down (6종)
+  │                           color: gold, warm, teal, cool, cinematic, natural (6종)
+  ▼
+P1 (_capture_stills.py)     Playwright로 beat마다 scroll_sel 요소로 스크롤 → viewport 캡처
+  │                           Fallback chain: :has-text() → text locator → progressive scroll
+  ▼
+P2 (voice_engine.py)        Edge TTS (YuJinNeural) / Sherpa-ONNX → MP3 음성 합성
+  │                           우선순위: local → edge (Grok TTS 폐기 — API 403, SuperGrok 미포함)
+  ▼
+P3 (_bridge_pickup.sh)      Android 갤러리에서 bridge 영상(오프닝/클로징) 자동 감지
+  │
+  ▼
+P4 (_render_video.py)       755줄 FFmpeg 제작 엔진:
+  │                           • Ken Burns zoom/pan (코사인 easing, 6방향)
+  │                           • LUFS -16 오디오 정규화 (loudnorm 필터)
+  │                           • 6종 color grade (FFmpeg eq+colorbalance)
+  │                           • xfade multi-transition (fade/wipe/slide/dissolve)
+  │                           • channel stinger (0.5s 로고 비프)
+  │                           • pattern interrupt (0.4s 화이트 플래시)
+  │                           • BGM sidechain ducking (sidechaincompress)
+  │                           • 하단 pseudo-gradient 오버레이 (2-layer drawbox)
+  │                           • end card (loop_match color + fade-in 텍스트)
+  │                           • 소스 해상도 5x DPI (390×844@5x → 1950×4220, width 1.81x 출력)
+  │
+  ▼
+P4b (_make_ass.py)          CNN Breaking News 스타일 ASS 자막
+  │                           72pt Bold · per-word scale pop (200%→100%) · 레드 배경바
+  ▼
+P4c (ffmpeg)                ASS 자막을 VO body에 burn-in
+  │
+  ▼
+P5 (_pd_assemble.py)        Bridge(오프닝/클로징) 연결 + full-timeline BGM mix + QA gate
+  │                           LUFS -16 VO 정규화 → sidechain ducking → slide diversity check
+  ▼
+P5b (_make_srt.py)          YouTube caption용 SRT 생성
+  │
+  ▼
+P6 (ffmpeg + curl)          720p TG 인코딩 → @S21Phone_Bot 전송
+</code></pre>
+<hr>
+<h2 id="3">3. 저장소 구조 — 어디에 뭐가 있나</h2>
+<h3 id="helena751107helena_phone-rootwork">주 저장소: <code>helena751107/helena_phone</code> (<code>/root/work/</code>)</h3>
+<pre><code>scripts/
+  produce_pd.sh          ← 메인 진입점 (CLI)
+  _parse_url.py          ← P0: URL → shot_bible
+  _generate_vo.py        ← P0.5: 콘텐츠 → VO
+  _direct_map.py         ← P0.6: VO → 연출 결정
+  _capture_stills.py     ← P1: scroll_sel → 스크린샷
+  _render_video.py       ← P4: FFmpeg Ken Burns 렌더러
+  _make_ass.py           ← P4b: CNN 자막
+  _make_srt.py           ← P5b: YouTube SRT
+  _pd_assemble.py        ← P5: 최종 조립 + BGM
+  _bridge_pickup.sh      ← P3: Android bridge 감지
+  _qa_video_slides.py    ← QA: 슬라이드 다양성 검증
+
+configs/
+  video_pd_pipeline_v2.json  ← 표준 설정 (1080×1920, BGM vol=0.025, role_pacing)
+
+out/
+  pd_intro/              ← helena_phone 소개 (기본, 6 beats)
+  pd_magic/              ← 마술·매직 숏폼 시험
+  pd_tistory_v3/         ← 티스토리 활용법 (V11 최신, 8 beats)
+  ...                    ← pd_&lt;domain&gt;_&lt;path&gt; 자동 생성
+
+helena-piano/bgm/output/ ← Boss 자작 BGM (Satie Gymnopédie, Clair de Lune 등)
+</code></pre>
+<h3 id="mcp-helena751107helena-programming-rootworkhelena-programming">MCP 저장소: <code>helena751107/helena-programming</code> (<code>/root/work/helena-programming/</code>)</h3>
+<pre><code>mcp/
+  pd_pipeline_mcp.py     ← PD Pipeline MCP 서버 v1.0 (STDIO + HTTP)
+  mcp_server.py          ← Helena Studio MCP 서버 (기존)
+  pyproject.toml
+
+tools/voice/
+  voice_engine.py        ← TTS 멀티프로바이더 (local Sherpa-ONNX / Grok / Edge)
+
+director/
+  run_director.py        ← 헬레나 스튜디오 연출 엔진
+  voice_engine.py
+  subtitles.py           ← 자막 렌더링
+</code></pre>
+<hr>
+<h2 id="4">4. 실행 방법 — 에이전트가 이걸 어떻게 부르나</h2>
+<h3 id="a-cli">방법 A: CLI (직접 호출)</h3>
+<pre><code class="language-bash"># URL 하나로 끝까지
+bash /root/work/scripts/produce_pd.sh &lt;ep_id&gt; &lt;url&gt;
+
+# 예시
+bash /root/work/scripts/produce_pd.sh pd_my_blog &quot;https://mynote11605.tistory.com/m/2&quot;
+
+# 환경변수 오버라이드
+BGM_VOLUME=0.03 VOICE=ko-KR-SunHiNeural bash scripts/produce_pd.sh ...
+</code></pre>
+<h3 id="b-mcp-claude-code">방법 B: MCP (Claude Code가 호출)</h3>
+<pre><code class="language-json">// ~/.claude.json → mcpServers
+&quot;pd-pipeline&quot;: {
+  &quot;command&quot;: &quot;python3&quot;,
+  &quot;args&quot;: [&quot;/root/work/helena-programming/mcp/pd_pipeline_mcp.py&quot;]
+}
+</code></pre>
+<p><strong>MCP 6도구:</strong><br>
+| 도구 | 인자 | 설명 |<br>
+|------|------|------|<br>
+| <code>pd_parse_url</code> | <code>url</code>, <code>ep?</code>, <code>generate_vo?</code> | URL → shot_bible 자동 생성 (P0~P0.6) |<br>
+| <code>pd_produce</code> | <code>ep_id</code>, <code>url?</code>, <code>bgm_volume?</code>, <code>voice?</code>, <code>force?</code> | 풀파이프라인 실행 (P1~P6) |<br>
+| <code>pd_status</code> | <code>job_id?</code> | 작업 상태 확인 + 로그 tail |<br>
+| <code>pd_list</code> | — | 완료된 에피소드 목록 |<br>
+| <code>pd_stop</code> | <code>job_id?</code> | 실행 중인 작업 중지 |<br>
+| <code>pd_output</code> | <code>job_id?</code> | 출력 파일 경로·크기 확인 |</p>
+<p><strong>에이전트 워크플로 예시:</strong></p>
+<pre><code>1. pd_parse_url(url=&quot;https://타겟페이지주소&quot;)
+   → shot_bible.json 자동 생성 (섹션·VO·연출 포함)
+2. (선택) shot_bible 수동 편집
+3. pd_produce(ep_id=&quot;pd_타겟&quot;)
+   → 백그라운드 실행, job_id 반환
+4. pd_status(job_id) → 완료 확인
+5. pd_output(job_id) → TG 링크 확인
+</code></pre>
+<h3 id="c-http-curl">방법 C: HTTP (curl로 직접)</h3>
+<pre><code class="language-bash"># pd-pipeline MCP 서버 HTTP 모드 기동
+python3 /root/work/helena-programming/mcp/pd_pipeline_mcp.py --http --port 8765 &amp;
+
+# URL 파싱
+curl -s -X POST http://localhost:8765/ \
+  -d '{&quot;method&quot;:&quot;tools/call&quot;,&quot;params&quot;:{&quot;name&quot;:&quot;pd_parse_url&quot;,&quot;arguments&quot;:{&quot;url&quot;:&quot;https://...&quot;}}}'
+
+# 파이프라인 실행
+curl -s -X POST http://localhost:8765/ \
+  -d '{&quot;method&quot;:&quot;tools/call&quot;,&quot;params&quot;:{&quot;name&quot;:&quot;pd_produce&quot;,&quot;arguments&quot;:{&quot;ep_id&quot;:&quot;pd_xxx&quot;}}}'
+</code></pre>
+<hr>
+<h2 id="5">5. 핵심 기술 스택</h2>
+<table>
+<thead>
+<tr>
+<th>계층</th>
+<th>기술</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>브라우저 자동화</td>
+<td><strong>Playwright</strong> (Chromium)</td>
+<td>페이지 로드·DOM 파싱·스크롤 캡처, viewport=390×844@5x (1950×4220 소스)</td>
+</tr>
+<tr>
+<td>음성 합성</td>
+<td><strong>Edge TTS</strong> (YuJinNeural), Sherpa-ONNX (Kokoro)</td>
+<td>local 우선, Grok TTS 폐기 (API 403)</td>
+</tr>
+<tr>
+<td>영상 인코딩</td>
+<td><strong>FFmpeg</strong> (libx264 High@L4.0, 30fps)</td>
+<td>Ken Burns zoompan · xfade · sidechaincompress · loudnorm · drawtext · vignette</td>
+</tr>
+<tr>
+<td>자막</td>
+<td><strong>ASS</strong> (Advanced SubStation Alpha)</td>
+<td>CNN Breaking News 스타일, per-word <code>\t()</code> scale pop</td>
+</tr>
+<tr>
+<td>BGM</td>
+<td>FluidSynth → 헬레나 피아노 렌더</td>
+<td>Satie Gymnopédie №1, Clair de Lune 등 (Boss 자작, Content ID 회피)</td>
+</tr>
+<tr>
+<td>MCP 프로토콜</td>
+<td><strong>JSON-RPC 2.0</strong> (STDIO/HTTP)</td>
+<td>Python 3 stdlib only, 외부 의존성 0</td>
+</tr>
+<tr>
+<td>Job 관리</td>
+<td><code>/tmp/pd_mcp_jobs.json</code></td>
+<td>PID·상태·로그 경로 저장</td>
+</tr>
+<tr>
+<td>메신저</td>
+<td><strong>Telegram Bot API</strong> (<code>sendVideo</code>)</td>
+<td>720p H.264 + 128k AAC, <code>supports_streaming=true</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="6">6. 환경 — 어디서 돌아가나</h2>
+<pre><code>하드웨어:   Galaxy S21 (SM-G991N) · Exynos 2100 · Mali-G78 GPU · NPU
+OS:         Android 14 → Termux → proot Ubuntu (aarch64 glibc)
+런타임:     Python 3.14 · FFmpeg 6.x · Playwright 1.x
+저장소:     /root/work/ (helena_phone) + /root/work/helena-programming/
+
+⚠️ CPU-only. Ken Burns 인코딩 beat당 1~3분, 총 15~20분.
+   GPU(Mali-G78)/NPU(Exynos) 가속은 proot glibc↔Android bionic ABI 충돌로 구조적 한계.
+   Termux bionic 브릿지 실험 보류 → S25 업그레이드 시 재검토 (2026-08-09).
+</code></pre>
+<hr>
+<h2 id="7-configsvideo_pd_pipeline_v2json">7. 설정 파일 — <code>configs/video_pd_pipeline_v2.json</code></h2>
+<pre><code class="language-json">{
+  &quot;standard&quot;: &quot;video_pd_pipeline_v2&quot;,
+  &quot;bgm_volume&quot;: 0.025,
+  &quot;resolution&quot;: &quot;1080:1920&quot;,
+  &quot;version&quot;: &quot;v12&quot;,
+  &quot;channel_stinger&quot;: {&quot;enabled&quot;: true, &quot;duration&quot;: 0.5, &quot;text&quot;: &quot;S21 Phone&quot;},
+  &quot;pattern_interrupt&quot;: {&quot;enabled&quot;: true, &quot;duration&quot;: 0.4},
+  &quot;loop_match&quot;: {&quot;enabled&quot;: true, &quot;open_color&quot;: &quot;gold&quot;, &quot;close_color&quot;: &quot;gold&quot;},
+  &quot;role_pacing&quot;: {&quot;hook&quot;: 2.5, &quot;build&quot;: 3.5, &quot;climax&quot;: 4.5, &quot;resolve&quot;: 3.0}
+}
+</code></pre>
+<hr>
+<h2 id="8-shot_biblejson">8. shot_bible.json 구조 — 파이프라인의 두뇌</h2>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;pd_mynote11605_m-2&quot;,
+  &quot;url&quot;: &quot;https://mynote11605.tistory.com/m/2&quot;,
+  &quot;title&quot;: &quot;티스토리 활용법&quot;,
+  &quot;standard&quot;: &quot;video_pd_pipeline_v2&quot;,
+  &quot;bgm_volume&quot;: 0.025,
+  &quot;resolution&quot;: &quot;1080:1920&quot;,
+  &quot;version&quot;: &quot;v12&quot;,
+  &quot;page_bg_color&quot;: &quot;rgb(244, 229, 201)&quot;,
+  &quot;beats&quot;: [
+    {
+      &quot;id&quot;: &quot;01_티스토리활용법&quot;,
+      &quot;kind&quot;: &quot;page&quot;,
+      &quot;role&quot;: &quot;hook&quot;,
+      &quot;emotion&quot;: &quot;hook&quot;,
+      &quot;zoom&quot;: {&quot;type&quot;: &quot;out&quot;, &quot;pan&quot;: &quot;none&quot;},
+      &quot;color_tag&quot;: &quot;gold&quot;,
+      &quot;pause&quot;: 0.8,
+      &quot;caption&quot;: &quot;티스토리 활용법&quot;,
+      &quot;vo&quot;: &quot;티스토리 활용법&quot;,                    // ← P0.5가 채움 (실제 콘텐츠 문장)
+      &quot;scroll_sel&quot;: &quot;h3:has-text(\&quot;티스토리 활용법\&quot;)&quot;  // ← P0가 생성 (:has-text() 포맷)
+    }
+    // ... 6~10 beats
+  ],
+  &quot;bridges&quot;: [
+    {&quot;id&quot;: &quot;b_open&quot;,  &quot;file&quot;: &quot;bridge/b_open.mp4&quot;},
+    {&quot;id&quot;: &quot;b_close&quot;, &quot;file&quot;: &quot;bridge/b_close.mp4&quot;}
+  ]
+}
+</code></pre>
+<hr>
+<h2 id="9-v12-2026-08-09">9. 현재 상태 (V12, 2026-08-09)</h2>
+<h3 id="91">9.1 안정성 지표 (파이프라인이 깨지지 않는가)</h3>
+<table>
+<thead>
+<tr>
+<th>지표</th>
+<th>값</th>
+<th>검증 방법</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CSS selector 성공률</td>
+<td><strong>100%</strong> (8/8)</td>
+<td><code>:has-text()</code> 포맷, zero fallback</td>
+</tr>
+<tr>
+<td>Fallback chain</td>
+<td>CSS → Playwright text locator → progressive scroll</td>
+<td>3단계, 단계별 성공 카운트 리포트</td>
+</tr>
+<tr>
+<td>VO 품질</td>
+<td>콘텐츠 추출 문장 직접 사용</td>
+<td>템플릿 NO, context 기반 1~2문장 자동 추출</td>
+</tr>
+<tr>
+<td>Zoom 다양성</td>
+<td>6종 (out/in/pan_right/pan_left/pan_up/pan_down)</td>
+<td><code>_direct_map.py</code> diversity report</td>
+</tr>
+<tr>
+<td>Color grade</td>
+<td>6종 (gold/warm/teal/cool/cinematic/natural)</td>
+<td>position-based cycle</td>
+</tr>
+<tr>
+<td>에러 처리</td>
+<td><code>|| echo "⚠️ [step] failed" &gt;&amp;2</code></td>
+<td>모든 단계 실패 원인 stderr 기록</td>
+</tr>
+<tr>
+<td>Code modularity</td>
+<td>P1 heredoc → <code>_capture_stills.py</code> 독립 파일</td>
+<td>Bash 인라인 Python 제거</td>
+</tr>
+<tr>
+<td>QA gate</td>
+<td>Slide diversity ≥ 10 unique frames, black frames = 0</td>
+<td><code>_qa_video_slides.py</code> + P5 gate</td>
+</tr>
+<tr>
+<td>전체 소요시간</td>
+<td>~20분</td>
+<td>S21 CPU-only, 8-beat 123초 영상 기준</td>
+</tr>
+</tbody>
+</table>
+<h3 id="92">9.2 전문가 품질 지표 (결과물이 프로급인가)</h3>
+<table>
+<thead>
+<tr>
+<th>지표</th>
+<th>V12 값</th>
+<th>기준</th>
+<th>적용 위치</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Easing</strong></td>
+<td>✅ Cosine ease-in-out</td>
+<td><code>zoom_expr = base + amount*(1-cos(PI*on/nframes))/2</code></td>
+<td><code>_render_video.py</code> P4</td>
+</tr>
+<tr>
+<td><strong>소스 해상도 헤드룸</strong></td>
+<td><strong>1.81x width</strong> (1950×4220 소스, 1080×1920 출력)</td>
+<td>Ken Burns zoom 최대 1.8x까지 무손실 (통상 1.2x 사용, 여유 충분)</td>
+<td><code>_capture_stills.py</code> P1, <code>_parse_url.py</code> P0</td>
+</tr>
+<tr>
+<td><strong>오디오 LUFS</strong></td>
+<td>✅ <strong>-16 LUFS</strong> (TP=-1.5, LRA=11)</td>
+<td>YouTube 권장 -14~-16 LUFS, <code>ffmpeg loudnorm</code> 필터</td>
+<td><code>_render_video.py</code> P4, <code>_pd_assemble.py</code> P5</td>
+</tr>
+<tr>
+<td><strong>Frame rate</strong></td>
+<td><strong>30fps</strong></td>
+<td>숏폼 표준 30fps, FFmpeg <code>fps=30</code> + <code>-r 30</code></td>
+<td><code>_render_video.py</code>, <code>_pd_assemble.py</code> normalize_av</td>
+</tr>
+<tr>
+<td><strong>BGM 저작권</strong></td>
+<td>✅ Boss 자작 피아노 (Content ID 회피)</td>
+<td>FluidSynth → Satie Gymnopédie, Clair de Lune</td>
+<td><code>helena-piano/bgm/output/</code></td>
+</tr>
+<tr>
+<td><strong>자막 가독성</strong></td>
+<td>72pt Bold + per-word scale pop + 레드 배경바</td>
+<td>CNN Breaking News 스타일, <code>\t()</code> 애니메이션</td>
+<td><code>_make_ass.py</code> P4b</td>
+</tr>
+<tr>
+<td><strong>Transition</strong></td>
+<td>4종 xfade cycle (fade/wipeleft/slideright/dissolve)</td>
+<td>0.4s duration, <code>_timing.json</code> 보정</td>
+<td><code>_render_video.py</code> P4</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>V11→V12 변경사항:</strong> ① device_scale_factor 3x→5x (소스 해상도 260% 헤드룸) ② <code>volume=1.0</code> → <code>loudnorm=I=-16:TP=-1.5:LRA=11</code> (P4+P5, 4개소) ③ Grok TTS 공식 폐기 ④ GPU/NPU 구조적 한계로 보류</p>
+</blockquote>
+<hr>
+<h2 id="10">10. 한계와 다음 과제</h2>
+<table>
+<thead>
+<tr>
+<th>과제</th>
+<th>상태</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LLM 기반 VO (Grok)</td>
+<td><strong>폐기 확정.</strong> Grok TTS API 403, SuperGrok 구독에 TTS 미포함. 콘텐츠 추출 VO로 대체 완료</td>
+</tr>
+<tr>
+<td>GPU/NPU 가속</td>
+<td><strong>구조적 한계로 보류.</strong> proot glibc↔Android bionic ABI 충돌. S25 업그레이드 시 재검토</td>
+</tr>
+<tr>
+<td><code>_timing.json</code> 생성</td>
+<td>xfade 정확 타이밍 데이터 누락 시 SRT 부정확 → 버그 수정 필요</td>
+</tr>
+<tr>
+<td>다중 페이지 지원</td>
+<td>현재 단일 URL만. &ldquo;시리즈&rdquo; 모드 (목차 → 각 글) 구상. GitHub Pages linked-repos 아이디어 연결</td>
+</tr>
+<tr>
+<td>YouTube Shorts 직접 업로드</td>
+<td>OAuth 완료. API 연동 대기 중</td>
+</tr>
+<tr>
+<td>에이전트 자동 발행</td>
+<td>Boss가 URL만 던지면 → 파싱 → 제작 → TG 검수 → 발행 승인</td>
+</tr>
+<tr>
+<td>NPU 추론 (장기)</td>
+<td>Exynos NPU NCP v24 커널 확인, Termux에서 DRM/NPU sysfs 접근 가능. ParksyTTS 471초→실시간 목표</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  <nav class="wz-pager">
+    <a class="" href="45-naver-admin-playwright-feasibility_Grok.html">
+          <span class="dir">Previous</span>
+          <span class="title">Naver Admin 자동화 가능 여부 — 폰 Playwright 1회 시드 (_Grok)</span>
+        </a>
+    <a class="next" href="80-ai-voice-actor-whitepaper_Boss.html">
+          <span class="dir">Next</span>
+          <span class="title">80 ai voice actor whitepaper Boss</span>
+        </a>
+  </nav>
+  <div class="wz-related">
+          <h2>같은 섹션</h2>
+          <div class="grid"><a href="00-INDEX.html"><strong>📖 S21 Phone 업무 수첩 — 전체 목차</strong>구축: 2026-07-23 ~ 2026-08-14 (23일)</a><a href="01-arch.html"><strong>전체 시스템 아키텍처</strong>Notebook</a><a href="02-discord.html"><strong>디스코드 서버/봇/위젯</strong>Notebook</a><a href="03-telegram.html"><strong>텔레그램 봇/회의실</strong>Notebook</a><a href="04-github-pages.html"><strong>GitHub Pages + Giscus + WidgetBot</strong>Notebook</a><a href="05-tistory.html"><strong>블로그 포트폴리오 + 자동화 전략</strong>Notebook</a></div>
+        </div>
+  <footer class="wz-foot">
+    <div>S21 PHONE · Webzine lakme-audio</div>
+    <div class="gold">모든 계정은 누나 명의입니다.</div>
+    <p style="margin-top:12px"><a href="../index.html">← Back to landing</a></p>
+  </footer>
+</main>
+<div class="wz-float">
+  <button type="button" id="wzTop" aria-label="Top">↑</button>
+  <button type="button" data-theme-toggle aria-label="Theme">◐</button>
+</div>
+<script src="../assets/webzine.js"></script>
+</body>
+</html>

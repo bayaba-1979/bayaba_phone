@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="여호와는 나의 목자시니, 내게 부족함이 없으리로다. 그가 나를 푸른 풀밭에 누이시며, 쉴 만한 물가로 인도하시는도다. 내 영혼을 소생시키시고, 자기 이름을 위하여, 의의 길로 인도하시는도다. 내가 사망의 음침한 골짜기로 다닐지라도, 해를 받지 않을 것은... 주께서 나와 함께 하심이라. 주의 지팡이와 막대기가, 나를 안위하시나이다. 주께서 내 원수 앞에서, 내게 상을 차려 주시고, 기름을 내 머리에 부으셨으니, 내 잔이 넘치나이다. 내 평생에, 선하심과 인자하심이, 반드시 나를 따르리니, 내가 여호와의 집에, 영원히 살리로다. — S21 Phone Webzine">
+<meta name="theme-color" content="#0a0908">
+<meta name="application-name" content="S21 Phone">
+<title>헬레나 성우 더빙 — 기술명세서 (자연스러운 연출 버전) — S21 Phone Webzine</title>
+<link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/webzine.css">
+</head>
+<body>
+<div class="spine" aria-hidden="true"><div class="spine-fill" id="spineFill"></div></div>
+<header class="wz-mast">
+  <a class="brand" href="../index.html">S21 <em>Phone</em></a>
+  <div class="wz-mast-actions">
+    <button type="button" class="wz-burger" data-nav-toggle aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav class="wz-nav">
+      <a href="../index.html">Home</a>
+      <a href="../archive.html">Archive</a>
+      <a href="../index.html#library">Library</a>
+      <a href="../index.html#agents">Agents</a>
+      <button type="button" data-theme-toggle>Theme</button>
+      <a class="pill gold" href="../index.html#install">Install</a>
+    </nav>
+  </div>
+</header>
+<main class="wz-shell">
+  <div class="wz-crumb">
+    <a href="../index.html">Webzine</a><span class="sep">/</span>
+    <span>Notebook</span><span class="sep">/</span>
+    <span>헬레나 성우 더빙 — 기술명세서 (자연스러운 연출 버전)</span>
+  </div>
+  <header class="wz-hero">
+    <div class="wz-kicker">Notebook · lakme-audio</div>
+    <h1>헬레나 성우 더빙 — 기술명세서 (자연스러운 연출 버전)</h1>
+    <p class="deck">여호와는 나의 목자시니, 내게 부족함이 없으리로다. 그가 나를 푸른 풀밭에 누이시며, 쉴 만한 물가로 인도하시는도다. 내 영혼을 소생시키시고, 자기 이름을 위하여, 의의 길로 인도하시는도다. 내가 사망의 음침한 골짜기로 다닐지라도, 해를 받지 않을 것은... 주께서 나와 함께 하심이라. 주의 지팡이와 막대기가, 나를 안위하시나이다. 주께서 내 원수 앞에서, 내게 상을 차려 주시고, 기름을 내 머리에 부으셨으니, 내 잔이 넘치나이다. 내 평생에, 선하심과 인자하심이, 반드시 나를 따르리니, 내가 여호와의 집에, 영원히 살리로다.</p>
+    <div class="wz-meta">
+      <span>Source · _notebook/81-helena-rvc-dubbing-standard_Claude.md</span>
+      <span>Kind · markdown</span>
+      <span>S21 Phone Editorial</span>
+    </div>
+  </header>
+  <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
+<ul>
+<li><a href="#0">0. 왜 이 문서가 필요한가 (요약)</a></li>
+<li><a href="#1">1. 사전 준비 (파일 배치)</a></li>
+<li><a href="#2-5">2. 파이프라인 5단계 (전체 흐름)</a></li>
+<li><a href="#3-15-edge-tts">3. [1/5] Edge TTS — 운율(딕션·악센트·호흡) 담당</a></li>
+<li><a href="#4-15">4. [1/5] 입력 텍스트 (호흡 포인트 포함 — 그대로 복사)</a></li>
+<li><a href="#5-25">5. [2/5] 침묵 제거 + 정규화</a></li>
+<li><a href="#6-35-rvc">6. [3/5] RVC 변환 — 음색 담당 (핵심 파라미터)</a></li>
+<li><a href="#7-45">7. [4/5] 노이즈 게이트 + 마스터링</a></li>
+<li><a href="#8-55">8. [5/5] 최종 결과 스펙 (검증 기준)</a></li>
+<li><a href="#9-1">9. 전체 실행 명령 (1커맨드)</a></li>
+<li><a href="#10-3">10. 주의사항 (기존 3건)</a></li>
+<li><a href="#11-2026-08-13">11. 신규 추가 — 세션 드롭 회피 &amp; 코드 함정 (2026-08-13 실측)</a><ul>
+<li><a href="#1-cpu">(1) 세션 드롭 원인: CPU 장시간 추론 타임아웃</a></li>
+<li><a href="#2-2">(2) 코드 함정 2건 (발견·수정)</a></li>
+<li><a href="#3-final_projweightbias-missing">(3) &ldquo;final_proj.weight/bias MISSING&rdquo; 경고는 무해</a></li>
+<li><a href="#4-s21-aarch64-torch-2130-cpu">(4) 실측 처리속도 참고 (S21 aarch64, torch 2.13.0 CPU)</a></li>
+</ul>
+</li>
+<li><a href="#12">12. 관련 문서</a></li>
+</ul>
+</div>
+</nav>
+  <div class="wz-appbar" role="toolbar" aria-label="Document tools">
+    <input type="search" id="wzSearch" class="wz-search" placeholder="페이지 내 검색…" autocomplete="off">
+    <button type="button" id="wzFoldAll" data-cursor>접기</button>
+    <button type="button" id="wzExpandAll" data-cursor>펼치기</button>
+    <button type="button" id="wzCopy" data-cursor>본문 복사</button>
+  </div>
+  <article class="wz-prose" id="wzProse" data-app="doc">
+    <p><strong>날짜:</strong> 2026-08-13<br>
+<strong>작성:</strong> Claude Code (출판부·시공)<br>
+<strong>상태:</strong> 표준 (supersedes <code>scripts/rvc_dub/dub.py</code> 의 RvcPyInfer/ONNX 경로)<br>
+<strong>검증:</strong> S21 proot Ubuntu (aarch64) 실측 완료</p>
+<hr>
+<h2 id="0">0. 왜 이 문서가 필요한가 (요약)</h2>
+<ul>
+<li>예전 <code>scripts/rvc_dub/dub.py</code> 는 <strong>RvcPyInfer(ONNX) + ContentVec</strong> 경로 → &ldquo;못 들어줄 정도로 망가짐&rdquo; (금속성/로봇소리). 근거: <code>_notebook/rvc-failure-analysis_Claude.md</code>.</li>
+<li>정답 경로는 <strong>RVC WebUI PyTorch 네이티브 코드 + HuBERT + rmvpe.pt</strong>.</li>
+<li>이 문서는 그 정답 경로를 5단계 파이프라인으로 고정하고, S21 CPU 실측 파라미터·검증 기준을 표준화한다.</li>
+<li><strong>검증 기준:</strong> WSL·S25·S21 어느 환경이든 동일 파라미터면 동일 결과.</li>
+</ul>
+<hr>
+<h2 id="1">1. 사전 준비 (파일 배치)</h2>
+<pre><code>~/rvc_models/helena_rvc/helena_rvc.pth        (57.6MB)
+~/rvc_models/helena_rvc/helena_rvc.index      (116.6MB)
+~/rvc_models/synth_voice_pro.sh               (아래 스크립트)
+~/rvc_models/rvc_convert.py                   (Stage 3 단독 변환 — 이 문서에서 신설)
+~/rvc-webui-local/                            (엔진 코드 전체)
+~/rvc-webui-local/assets/hubert_base/pytorch_model.bin  (377MB)
+~/rvc-webui-local/assets/rmvpe/rmvpe.pt       (181MB)
+</code></pre>
+<p>symlink (필수):</p>
+<pre><code class="language-bash">mkdir -p ~/rvc-webui-local/assets/weights ~/rvc-webui-local/logs/helena_rvc
+ln -sf ~/rvc_models/helena_rvc/helena_rvc.pth   ~/rvc-webui-local/assets/weights/helena_rvc.pth
+ln -sf ~/rvc_models/helena_rvc/helena_rvc.index ~/rvc-webui-local/logs/helena_rvc/helena_rvc.index
+</code></pre>
+<hr>
+<h2 id="2-5">2. 파이프라인 5단계 (전체 흐름)</h2>
+<pre><code>[1/5] Edge TTS          → tts_raw.mp3
+[2/5] 침묵제거+정규화    → tts_clean.wav (16kHz mono)
+[3/5] RVC 변환          → rvc_raw.wav
+[4/5] 노이즈게이트+마스터링 → 출력.mp3 (192k)
+[5/5] 품질 리포트
+</code></pre>
+<hr>
+<h2 id="3-15-edge-tts">3. [1/5] Edge TTS — 운율(딕션·악센트·호흡) 담당</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Voice</td>
+<td>ko-KR-SunHiNeural</td>
+</tr>
+<tr>
+<td>Rate</td>
+<td>-15%</td>
+</tr>
+<tr>
+<td>Pitch</td>
+<td>-3Hz</td>
+</tr>
+<tr>
+<td>출력</td>
+<td>tts_raw.mp3</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-bash">edge-tts --voice ko-KR-SunHiNeural --rate=-15% --pitch=-3Hz \
+  --text &quot;TEXT&quot; --write-media tts_raw.mp3
+</code></pre>
+<p>⚠️ rate/pitch 값이 음수(-)면 <code>=</code> 로 붙여야 함 (예: <code>--rate=-15%</code>)</p>
+<hr>
+<h2 id="4-15">4. [1/5] 입력 텍스트 (호흡 포인트 포함 — 그대로 복사)</h2>
+<blockquote>
+<p>여호와는 나의 목자시니, 내게 부족함이 없으리로다. 그가 나를 푸른 풀밭에 누이시며, 쉴 만한 물가로 인도하시는도다. 내 영혼을 소생시키시고, 자기 이름을 위하여, 의의 길로 인도하시는도다. 내가 사망의 음침한 골짜기로 다닐지라도, 해를 받지 않을 것은&hellip; 주께서 나와 함께 하심이라. 주의 지팡이와 막대기가, 나를 안위하시나이다. 주께서 내 원수 앞에서, 내게 상을 차려 주시고, 기름을 내 머리에 부으셨으니, 내 잔이 넘치나이다. 내 평생에, 선하심과 인자하심이, 반드시 나를 따르리니, 내가 여호와의 집에, 영원히 살리로다.</p>
+</blockquote>
+<ul>
+<li>쉼표(,) = 짧은 호흡 / 마침표(.) = 문장 끝 쉼 / &hellip; = 극적 쉼</li>
+<li>이 부호가 운율을 만들므로 <strong>임의로 바꾸지 말 것</strong></li>
+</ul>
+<hr>
+<h2 id="5-25">5. [2/5] 침묵 제거 + 정규화</h2>
+<pre><code class="language-bash">ffmpeg -y -i tts_raw.mp3 \
+  -af &quot;silenceremove=stop_periods=-1:stop_duration=0.3:stop_threshold=-50dB, loudnorm=I=-16:LRA=11:TP=-1.5&quot; \
+  -ar 16000 -ac 1 tts_clean.wav
+</code></pre>
+<hr>
+<h2 id="6-35-rvc">6. [3/5] RVC 변환 — 음색 담당 (핵심 파라미터)</h2>
+<pre><code class="language-python">vc.vc_single(
+    sid=0,
+    input_audio_path='tts_clean.wav',
+    f0_up_key=0,          # 키 그대로
+    f0_method='rmvpe',    # 피치 추출 방식 (필수: rmvpe)
+    file_index='~/rvc-webui-local/logs/helena_rvc/helena_rvc.index',
+    index_rate=0.75,      # 목소리 유사도 (0.75 고정)
+    resample_sr=40000,    # 출력 샘플레이트
+    rms_mix_rate=0.25,    # 볼륨 엔벨로프 보존율
+    protect=0.33,         # 무성음 보호
+)
+</code></pre>
+<p>환경변수 (RVC 엔진이 참조):</p>
+<pre><code class="language-python">os.environ['weight_root']        = '~/rvc-webui-local/assets/weights'
+os.environ['index_root']         = '~/rvc-webui-local/logs'
+os.environ['outside_index_root'] = '~/rvc-webui-local/logs'
+os.environ['rmvpe_root']         = '~/rvc-webui-local/assets/rmvpe'
+</code></pre>
+<p>출력은 int16 → float32로 변환해 <code>rvc_raw.wav</code>로 저장.</p>
+<blockquote>
+<p><strong>재사용:</strong> <code>~/rvc_models/rvc_convert.py &lt;in.wav&gt; &lt;out.wav&gt; [model] [index_rate]</code> 로 Stage 3 단독 실행 가능 (아래 §11 참조).</p>
+</blockquote>
+<hr>
+<h2 id="7-45">7. [4/5] 노이즈 게이트 + 마스터링</h2>
+<pre><code class="language-bash">ffmpeg -y -i rvc_raw.wav \
+  -af &quot;highpass=f=80, lowpass=f=15000, silenceremove=stop_periods=-1:stop_duration=0.2:stop_threshold=-45dB, loudnorm=I=-14:LRA=11:TP=-1.0, volume=1.2&quot; \
+  -b:a 192k psalm23_natural.mp3
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>필터</th>
+<th>값</th>
+<th>목적</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>highpass</td>
+<td>80Hz</td>
+<td>저역 잡음 제거</td>
+</tr>
+<tr>
+<td>lowpass</td>
+<td>15000Hz</td>
+<td>치찰·고역 자극 제거</td>
+</tr>
+<tr>
+<td>silenceremove</td>
+<td>-45dB / 0.2s</td>
+<td>라인 사이 삑삑·무음 제거</td>
+</tr>
+<tr>
+<td>loudnorm</td>
+<td>I=-14 LUFS</td>
+<td>방송 표준 라우드니스</td>
+</tr>
+<tr>
+<td>volume</td>
+<td>1.2</td>
+<td>최종 게인 보정</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="8-55">8. [5/5] 최종 결과 스펙 (검증 기준)</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>목표값</th>
+<th>허용범위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>길이</td>
+<td>43.87초</td>
+<td>±0.5초</td>
+</tr>
+<tr>
+<td>RMS</td>
+<td>0.1425</td>
+<td>±0.01</td>
+</tr>
+<tr>
+<td>평균볼륨</td>
+<td>-12.7dB</td>
+<td>±0.5dB</td>
+</tr>
+<tr>
+<td>비트레이트</td>
+<td>192k mp3</td>
+<td>고정</td>
+</tr>
+</tbody>
+</table>
+<p>검증 명령:</p>
+<pre><code class="language-bash">ffmpeg -i psalm23_natural.mp3 -af volumedetect -f null /dev/null 2&gt;&amp;1 | grep mean_volume
+</code></pre>
+<hr>
+<h2 id="9-1">9. 전체 실행 명령 (1커맨드)</h2>
+<pre><code class="language-bash">cd ~/rvc_models
+bash synth_voice_pro.sh helena_rvc ko-KR-SunHiNeural &quot;TEXT&quot; psalm23_natural &quot;-15%&quot; &quot;-3Hz&quot;
+</code></pre>
+<ul>
+<li>4번째 인자: 출력명 / 5번째: rate / 6번째: pitch</li>
+<li>TEXT 자리에 §4의 텍스트 전체를 그대로 넣으면 됨</li>
+</ul>
+<hr>
+<h2 id="10-3">10. 주의사항 (기존 3건)</h2>
+<ol>
+<li><code>rmvpe.pt</code> 없으면 [3/5]에서 피치 추출 실패 (에이전트가 누락했던 파일)</li>
+<li><code>parselmouth</code>는 <code>f0_method='pm'</code>에서만 필요 → rmvpe에선 불필요, import 주석처리해도 무방</li>
+<li>rate/pitch 음수값은 <code>--rate=-15%</code> 형태로 <code>=</code> 필수</li>
+<li>텍스트의 쉼표/마침표/말줄임표를 지우면 호흡이 사라져 &ldquo;AI 티&rdquo;가 남 → <strong>절대 변경 금지</strong></li>
+</ol>
+<hr>
+<h2 id="11-2026-08-13">11. 신규 추가 — 세션 드롭 회피 &amp; 코드 함정 (2026-08-13 실측)</h2>
+<p>이 작업이 <strong>왜 자꾸 세션이 끊겼는가</strong> + 그 해법.</p>
+<h3 id="1-cpu">(1) 세션 드롭 원인: CPU 장시간 추론 타임아웃</h3>
+<ul>
+<li>S21 CPU 실측: <strong>오디오 1초당 약 14초</strong> 소요 (rmvpe 피치 추출 + HuBERT 특징 추출 + RVC forward).</li>
+<li>45초 음성 → <strong>약 10~11분</strong> 추론 + 모델 로드 ~1분 = 총 ~12분.</li>
+<li>이는 Claude Code Bash 도구의 포그라운드 타임아웃(최대 10분)을 초과 → <strong>중간에 세션 종료</strong>.</li>
+<li>(CLAUDE.md 에 이미 기록된 &ldquo;ParksyTTS 7분+ 타임아웃&rdquo; 과 동일 계열 문제)</li>
+</ul>
+<p><strong>해법:</strong> Stage 3(RVC)를 <code>setsid nohup</code> 으로 <strong>detach 실행</strong> → 세션 드롭과 무관하게 진행 + 로그 파일로 진행 상황 모니터링.</p>
+<pre><code class="language-bash">setsid nohup bash run_stage345.sh &gt; synth_out/run_full2.log 2&gt;&amp;1 &lt; /dev/null &amp;
+# 이후: grep -qE &quot;DONE|FAILED|Traceback&quot; 로 종료 상태 폴링
+</code></pre>
+<h3 id="2-2">(2) 코드 함정 2건 (발견·수정)</h3>
+<table>
+<thead>
+<tr>
+<th>함정</th>
+<th>증상</th>
+<th>수정</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>os.chdir(RVC_WEBUI)</code> 후 <strong>상대경로</strong> 입력</td>
+<td><code>load_audio</code> ffmpeg error (파일 못 찾음)</td>
+<td>입력/출력을 <code>os.path.abspath()</code> 로 변환</td>
+</tr>
+<tr>
+<td><code>config.py</code> 가 <strong>모듈 레벨 argparse</strong> 호출</td>
+<td>스탠드얼론 스크립트 argv와 충돌 (<code>unrecognized arguments</code>)</td>
+<td><code>sys.argv = [sys.argv[0]]</code> 로 비우고 import</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><code>synth_voice_pro.sh</code> 는 heredoc(<code>python3 -</code>) + 절대경로를 써서 두 함정을 이미 회피하고 있었음. 하지만 재사용 가능한 <strong>Stage 3 단독 스크립트 <code>rvc_convert.py</code></strong> 를 분리하면서 이 함정들이 드러남 → 위 표대로 수정.</p>
+</blockquote>
+<h3 id="3-final_projweightbias-missing">(3) &ldquo;final_proj.weight/bias MISSING&rdquo; 경고는 무해</h3>
+<ul>
+<li>HuBERT base checkpoint에는 최종 projection 레이어가 없어서 transformers가 출력하는 <strong>정상 경고</strong>.</li>
+<li>RVC Generator는 base HuBERT 특징(768차원)을 쓰므로 무시해도 됨. <strong>실패 원인이 아님.</strong></li>
+</ul>
+<h3 id="4-s21-aarch64-torch-2130-cpu">(4) 실측 처리속도 참고 (S21 aarch64, torch 2.13.0 CPU)</h3>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>시간</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>torch import + VC init</td>
+<td>~55s</td>
+</tr>
+<tr>
+<td>가중치 로드 (211 tensors)</td>
+<td>~2s</td>
+</tr>
+<tr>
+<td>RVC 추론 (45s 음성)</td>
+<td>~10~11분</td>
+</tr>
+<tr>
+<td>마스터링 (ffmpeg)</td>
+<td>수 초</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="12">12. 관련 문서</h2>
+<ul>
+<li><code>_notebook/rvc-failure-analysis_Claude.md</code> — ONNX/RvcPyInfer 경로 실패 원인</li>
+<li><code>_notebook/rvc-environment-gap_Claude.md</code> — Python 3.14 vs rvc-python 차단 분석</li>
+<li><code>scripts/rvc_dub/dub.py</code> — ~~구 표준 (RvcPyInfer ONNX)~~ → 본 문서로 대체됨</li>
+</ul>
+  </article>
+  <nav class="wz-pager">
+    <a class="" href="80-ai-voice-actor-whitepaper_Boss.html">
+          <span class="dir">Previous</span>
+          <span class="title">AI 성우 백서</span>
+        </a>
+    <a class="next" href="82-helena-rvc-baseline-lords-prayer_Grok.html">
+          <span class="dir">Next</span>
+          <span class="title">82 helena rvc baseline lords prayer Grok</span>
+        </a>
+  </nav>
+  <div class="wz-related">
+          <h2>같은 섹션</h2>
+          <div class="grid"><a href="00-INDEX.html"><strong>📖 S21 Phone 업무 수첩 — 전체 목차</strong>구축: 2026-07-23 ~ 2026-08-14 (23일)</a><a href="01-arch.html"><strong>전체 시스템 아키텍처</strong>Notebook</a><a href="02-discord.html"><strong>디스코드 서버/봇/위젯</strong>Notebook</a><a href="03-telegram.html"><strong>텔레그램 봇/회의실</strong>Notebook</a><a href="04-github-pages.html"><strong>GitHub Pages + Giscus + WidgetBot</strong>Notebook</a><a href="05-tistory.html"><strong>블로그 포트폴리오 + 자동화 전략</strong>Notebook</a></div>
+        </div>
+  <footer class="wz-foot">
+    <div>S21 PHONE · Webzine lakme-audio</div>
+    <div class="gold">모든 계정은 누나 명의입니다.</div>
+    <p style="margin-top:12px"><a href="../index.html">← Back to landing</a></p>
+  </footer>
+</main>
+<div class="wz-float">
+  <button type="button" id="wzTop" aria-label="Top">↑</button>
+  <button type="button" data-theme-toggle aria-label="Theme">◐</button>
+</div>
+<script src="../assets/webzine.js"></script>
+</body>
+</html>

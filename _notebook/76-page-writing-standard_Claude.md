@@ -69,7 +69,7 @@ status: active
 | 항목 | Before | After | 절감 |
 |------|--------|-------|------|
 | GitHub Actions | 0원 | 0원 | - |
-| Grok API | 45,000원 | 45,000원 | - |
+| Grok API | $30 | $30 | - |
 ```
 
 ### 코드블록 (```)

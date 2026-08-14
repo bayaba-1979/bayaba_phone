@@ -36,7 +36,7 @@ Related: `groklogin` (device auth), `grokc` (continue session), `agent` (headles
 | **Best when…** | Multi-step project work, repo navigation, automation, reporting | Small-to-medium code changes, iterative refactors, low ceremony | Prototypes, UI/media drafts (~80% mock quality), web crawl/research + act |
 | **Weaker when…** | You only need a few file edits; permission flags feel heavy | You need deep multi-tool orchestration or non-code deliverables | Ultra-deep single-repo reasoning vs top Claude Max; weekly pool burns fast |
 | **UX model** | Full agent TUI (“engineering teammate”) | Pair-programmer CLI | Full product suite in CLI/TUI (chat, build, imagine) |
-| **Cost shape** | Often $0 if routed to DeepSeek API keys | Same DeepSeek cost profile; usually thrifty | ~₩45,000/mo SuperGrok; weekly shared usage pool |
+| **Cost shape** | Often $0 if routed to DeepSeek API keys | Same DeepSeek cost profile; usually thrifty | ~$30/mo SuperGrok; weekly shared usage pool |
 | **Multimodal** | Limited vs Grok Imagine | Not the point | Strong: image/UI, video (check watermark policy) |
 | **Research / crawl** | Good with tools/MCP if wired | Minimal by design | Strong community claim for speed + agentic web use; Perplexity still wins pure citation UX for many |
 | **Autonomy / agents** | Subagents, hooks, skills, MCP ecosystem | Session-focused coding agent | Parallel agents, Build workflows, headless `agent` |

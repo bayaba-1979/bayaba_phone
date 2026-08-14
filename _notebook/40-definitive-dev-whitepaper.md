@@ -51,7 +51,7 @@ STT 음성 → Claude Code(코드) + Grok(시각) + Aider(보조)
 Galaxy S21 5G (SM-G991N·Android 15)
 ├── Termux + proot Ubuntu 26.04
 ├── Claude Code (DeepSeek·$0)
-├── Grok CLI (xAI SuperGrok·45,000원/월)
+├── Grok CLI (xAI SuperGrok·$30/월)
 ├── Aider (DeepSeek·$0)
 ├── phone-mcp-server (18도구·루트 없음)
 ├── phone-health.sh (27항목 건강검진)
@@ -106,7 +106,7 @@ Galaxy S21 5G (SM-G991N·Android 15)
 | YouTube 채널 | 2개 |
 | 텔레그램 봇 | 6개 |
 | 총 플랫폼 계정 | 25개 |
-| 월 운영비 | ~55,000원 (프로모 ~15,000원) |
+| 월 운영비 | ~$40 (프로모 ~15,000원) |
 | 입력 방식 | 100% STT 음성 |
 | 개발일지 | 81섹션 |
 | 업무수첩 | 40종 |

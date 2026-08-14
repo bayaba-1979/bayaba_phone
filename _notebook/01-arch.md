@@ -110,5 +110,5 @@ YouTube (5채널) ← 1:1 → Tistory (5블로그) ← 1:1 → GitHub (5레포)
 | 도구 | 엔진 | 비용 | 용도 |
 |------|------|------|------|
 | Claude Code | DeepSeek | $0 | 코드·문서·자동화 |
-| Grok CLI | xAI SuperGrok | 45,000원/월 | 시각·Naver·이미지 |
+| Grok CLI | xAI SuperGrok | $30/월 | 시각·Naver·이미지 |
 | Aider | DeepSeek | $0 | 보조 코딩 |

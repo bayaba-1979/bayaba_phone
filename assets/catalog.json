@@ -194,10 +194,10 @@
   {
     "src": "_notebook/00-INDEX.md",
     "out": "notebook/00-INDEX.html",
-    "title": "📖 S21 Phone 업무 수첩",
+    "title": "📖 S21 Phone 업무 수첩 — 전체 목차",
     "section": "Notebook",
     "kind": "md",
-    "deck": "구축: 2026-07-23 ~ 2026-07-26"
+    "deck": "구축: 2026-07-23 ~ 2026-08-14 (23일)"
   },
   {
     "src": "_notebook/01-arch.md",
@@ -450,10 +450,10 @@
   {
     "src": "_notebook/31-agent-roles_Grok.md",
     "out": "notebook/31-agent-roles_Grok.html",
-    "title": "에이전트 역할 분장 — 디자이너 · 작업 반장 · 감사",
+    "title": "에이전트 역할 분장 — 잡지 구도 디자이너 · 다큐 PD · 반장 · 출판부 · 감사",
     "section": "Notebook",
     "kind": "md",
-    "deck": "**Boss 결정 (2026-07-26)**"
+    "deck": "**Boss 결정 (2026-07-26)** · **기점 개정 (2026-08-14)**"
   },
   {
     "src": "_notebook/32-ecosystem-whitepaper.md",
@@ -466,10 +466,10 @@
   {
     "src": "_notebook/33-webpage-coverage_Grok.md",
     "out": "notebook/33-webpage-coverage_Grok.html",
-    "title": "웹페이지 커버리지 체크 — `_Grok` 상시 역할",
+    "title": "웹페이지 커버리지 체크 — 칸 ①의 공구 (게이트는 출판부)",
     "section": "Notebook",
     "kind": "md",
-    "deck": "**Boss 지시 (2026-07-26)**"
+    "deck": "**Boss 지시 (2026-07-26)** · **기점 정정 (2026-08-14)**"
   },
   {
     "src": "_notebook/33-hybrid-image-video-whitepaper.md",
@@ -509,7 +509,7 @@
     "title": "📋 S21 Phone — 전체 개발일지",
     "section": "Notebook",
     "kind": "md",
-    "deck": "구축 기간: 2026-07-23 ~ 2026-07-24"
+    "deck": "\"WS SL 내 PC 환경에 디바이스 추가해서 누나 핸드폰을 브랜치처럼 해가지고 태블릿 내가 갖고 있는 것처럼 누나 핸드폰도 등록을 해버리잖아.\""
   },
   {
     "src": "_notebook/ai-agents-cc-ds-grok-comparison-2026-07-25.md",
@@ -982,6 +982,78 @@
     "section": "Notebook",
     "kind": "md",
     "deck": "저장일: 2026-07-27 · agent _Grok"
+  },
+  {
+    "src": "_notebook/78-pd-pipeline-whitepaper_Claude.md",
+    "out": "notebook/78-pd-pipeline-whitepaper_Claude.html",
+    "title": "🎬 PD Pipeline 기술 백서 — URL 하나로 숏폼 자동 제작",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "**V11→V12 변경사항:** ① device_scale_factor 3x→5x (소스 해상도 260% 헤드룸) ② `volume=1.0` → `loudnorm=I=-16:TP=-1.5:LRA=11` (P4+P5, 4개소) ③ Grok TTS 공식 폐기 ④ GPU/NPU 구조적 한계로 보류"
+  },
+  {
+    "src": "_notebook/80-ai-voice-actor-whitepaper_Boss.md",
+    "out": "notebook/80-ai-voice-actor-whitepaper_Boss.html",
+    "title": "AI 성우 백서",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": ""
+  },
+  {
+    "src": "_notebook/81-helena-rvc-dubbing-standard_Claude.md",
+    "out": "notebook/81-helena-rvc-dubbing-standard_Claude.html",
+    "title": "헬레나 성우 더빙 — 기술명세서 (자연스러운 연출 버전)",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "여호와는 나의 목자시니, 내게 부족함이 없으리로다. 그가 나를 푸른 풀밭에 누이시며, 쉴 만한 물가로 인도하시는도다. 내 영혼을 소생시키시고, 자기 이름을 위하여, 의의 길로 인도하시는도다. 내가 사망의 음침한 골짜기로 다닐지라도, 해를 받지 않을 것은... 주께서 나와 함께 하심이라. 주의 지팡이와 막대기가, 나를 안위하시나이다. 주께서 내 원수 앞에서, 내게 상을 차려 주시고, 기름을 내 머리에 부으셨으니, 내 잔이 넘치나이다. 내 평생에, 선하심과 인자하심이, 반드시 나를 따르리니, 내가 여호와의 집에, 영원히 살리로다."
+  },
+  {
+    "src": "_notebook/82-helena-rvc-baseline-lords-prayer_Grok.md",
+    "out": "notebook/82-helena-rvc-baseline-lords-prayer_Grok.html",
+    "title": "헬레나 성우 더빙 — 베이스라인 잠금 + 주의 기도 적용 (_Grok)",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": ""
+  },
+  {
+    "src": "_notebook/83-momentum-2026-08-14_Grok.md",
+    "out": "notebook/83-momentum-2026-08-14_Grok.html",
+    "title": "기점 2026-08-14 — Grok 플러그 역할 재조정",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "**Boss 결정 (2026-08-14)**"
+  },
+  {
+    "src": "_notebook/84-youtube-two-channel-momentum_Boss.md",
+    "out": "notebook/84-youtube-two-channel-momentum_Boss.html",
+    "title": "YouTube 2채널 확정 — 콜드 스타트 수렴",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "**Boss 결정 (2026-08-14)** — 5채널 → 2채널 축소."
+  },
+  {
+    "src": "_notebook/85-grok-plugin-where-saved_Grok.md",
+    "out": "notebook/85-grok-plugin-where-saved_Grok.html",
+    "title": "Grok 플러그 역할 — 어디에 저장돼 있는가 (듀얼)",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": ""
+  },
+  {
+    "src": "_notebook/rvc-environment-gap_Claude.md",
+    "out": "notebook/rvc-environment-gap_Claude.html",
+    "title": "RVC 환경 차이 진단 — WSL vs S21",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": ""
+  },
+  {
+    "src": "_notebook/rvc-failure-analysis_Claude.md",
+    "out": "notebook/rvc-failure-analysis_Claude.html",
+    "title": "RVC 합성 실패 분석 — WSL vs S21 proot 환경 차이",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": ""
   },
   {
     "src": "g/install.sh",
