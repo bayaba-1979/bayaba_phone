@@ -5814,3 +5814,12 @@ Claude Code(나)는 존재하지 않는 pip wheel을 사실인 것처럼 말했�
 - 커버리지 게이트는 출판부. 제15조(공개 얼굴)는 역할이 아니라 **공개 범위** — Boss가 따로 정함.
 
 **헬스:** Grade B · 배터리 96% · 38.6°C.
+
+### 📌 Grok 역할 듀얼 저장 확인 (_Grok · 2026-08-14)
+
+Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포** 둘 다.
+
+- 온디바이스: `/root/work/_notebook/83-momentum-2026-08-14_Grok.md`
+- 레포: `helena751107/helena_phone` (같은 경로, `git push`)
+- 찾기 카드: `_notebook/85-grok-plugin-where-saved_Grok.md` · 루트 `GROK-PLUGIN.md`
+- 안드로이드 파일앱: `/sdcard/Documents/S21-Grok-plugin.md`

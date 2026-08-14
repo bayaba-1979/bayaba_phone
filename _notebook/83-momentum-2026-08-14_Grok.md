@@ -22,7 +22,12 @@ supersedes:
 > 기록 agent: **_Grok** (플러그)  
 > 건강: Grade B · 배터리 96% · 38.6°C  
 > 이 파일이 **Grok 역할의 기점**이다.  
-> `31-agent-roles_Grok.md`와 어긋나면 **이 문서가 이긴다.**
+> `31-agent-roles_Grok.md`와 어긋나면 **이 문서가 이긴다.**  
+>
+> **듀얼 저장 (같은 원장, 두 곳)**  
+> 온디바이스 수첩: `/root/work/_notebook/83-momentum-2026-08-14_Grok.md`  
+> S21 레포: `helena751107/helena_phone` · 전시장 `notebook/83-momentum-2026-08-14_Grok.html`  
+> 찾기 카드: `_notebook/85-grok-plugin-where-saved_Grok.md` · 레포 루트 `GROK-PLUGIN.md`
 
 ---
 
