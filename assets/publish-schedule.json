@@ -1,0 +1,178 @@
+{
+  "phase": "1-install-guides",
+  "account": "galaxys21",
+  "blog": "galaxys21-pwuser",
+  "total": 17,
+  "schedule": [
+    {
+      "file": "GUIDE.md",
+      "title": "📖 S21 Phone 마법 공방 — 설치 설명서",
+      "tags": [
+        "S21",
+        "설치법",
+        "가이드"
+      ],
+      "size": 4926
+    },
+    {
+      "file": "01-foundation/termux-setup.md",
+      "title": "1.1 Termux 설치",
+      "tags": [
+        "S21",
+        "설치법",
+        "기반설치"
+      ],
+      "size": 788
+    },
+    {
+      "file": "01-foundation/proot-ubuntu.md",
+      "title": "1.2 proot Ubuntu 설치",
+      "tags": [
+        "S21",
+        "설치법",
+        "기반설치"
+      ],
+      "size": 967
+    },
+    {
+      "file": "01-foundation/claude-code.md",
+      "title": "1.3 Claude Code + DeepSeek",
+      "tags": [
+        "S21",
+        "설치법",
+        "기반설치"
+      ],
+      "size": 1445
+    },
+    {
+      "file": "01-foundation/git-github.md",
+      "title": "1.4 Git/GitHub 연결",
+      "tags": [
+        "S21",
+        "설치법",
+        "기반설치"
+      ],
+      "size": 726
+    },
+    {
+      "file": "02-network/github-pages.md",
+      "title": "2.1 GitHub Pages + Giscus 댓글",
+      "tags": [
+        "S21",
+        "설치법",
+        "통신망"
+      ],
+      "size": 1058
+    },
+    {
+      "file": "02-network/discord.md",
+      "title": "2.2 Discord 서버 구축",
+      "tags": [
+        "S21",
+        "설치법",
+        "통신망"
+      ],
+      "size": 963
+    },
+    {
+      "file": "02-network/telegram.md",
+      "title": "2.3 Telegram 봇 구축",
+      "tags": [
+        "S21",
+        "설치법",
+        "통신망"
+      ],
+      "size": 960
+    },
+    {
+      "file": "03-broadcast/naver-auto.md",
+      "title": "네이버 블로그 — Marine Quilt (손바느질 발행)",
+      "tags": [
+        "S21",
+        "설치법",
+        "방송발행"
+      ],
+      "size": 862
+    },
+    {
+      "file": "03-broadcast/tistory-auto.md",
+      "title": "티스토리 자동 포스팅 전략",
+      "tags": [
+        "S21",
+        "설치법",
+        "방송발행"
+      ],
+      "size": 317
+    },
+    {
+      "file": "03-broadcast/youtube.md",
+      "title": "YouTube 채널 아키텍처",
+      "tags": [
+        "S21",
+        "설치법",
+        "방송발행"
+      ],
+      "size": 445
+    },
+    {
+      "file": "04-phone-control/health-check.md",
+      "title": "건강 검진 시스템",
+      "tags": [
+        "S21",
+        "설치법",
+        "원격제어"
+      ],
+      "size": 210
+    },
+    {
+      "file": "04-phone-control/phone-mcp.md",
+      "title": "phone-mcp-server",
+      "tags": [
+        "S21",
+        "설치법",
+        "원격제어"
+      ],
+      "size": 320
+    },
+    {
+      "file": "04-phone-control/termux-api.md",
+      "title": "Termux:API",
+      "tags": [
+        "S21",
+        "설치법",
+        "원격제어"
+      ],
+      "size": 267
+    },
+    {
+      "file": "05-optimization/battery-saving.md",
+      "title": "배터리 최적화",
+      "tags": [
+        "S21",
+        "설치법",
+        "최적화"
+      ],
+      "size": 213
+    },
+    {
+      "file": "05-optimization/performance.md",
+      "title": "성능 튜닝",
+      "tags": [
+        "S21",
+        "설치법",
+        "최적화"
+      ],
+      "size": 212
+    },
+    {
+      "file": "05-optimization/storage.md",
+      "title": "저장공간 관리",
+      "tags": [
+        "S21",
+        "설치법",
+        "최적화"
+      ],
+      "size": 111
+    }
+  ]
+}

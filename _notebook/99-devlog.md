@@ -5861,3 +5861,11 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **실행:** GitHub 레포 `helena751107/helena-psycare` → `helena-metalcare` 재개명(구 이름 자동 리다이렉트) + 전 레포 psycare→metalcare 일괄 치환(~87파일, 0 잔존).
 - **결과:** 티스토리(helena-metalcare) · GitHub(helena-metalcare) · YouTube(@HelenaMetalcare) 3채널 이름 정합.
 - **브랜드 의미:** "Metal Care" = 금속처럼 단단한 돌봄 + 멘탈(정신) 케어의 중의. 폐쇄/재생성 없이 이름 정합으로 마무리.
+
+### 🚀 출판 생태계 매스 프로덕션 — 편집장 라우터 + 티스토리 템플릿 + 설치가이드 발행 (_Claude · 2026-08-14)
+
+- **편집장 라우터 (`scripts/publish_route.py`):** 분모 = `_notebook/*.md` 115개 → GitHub Pages 전량(115, build_webzine 아카이브) + Tistory 여집합(110). 판별 우선순위 channel태그 > type(읽는글) > 제목·덱·파일명 키워드 > 여집합 기본. pages-only 5개(09-ecosystem·33-coverage·38-workpad·41-maxout·61-landing). 본문 키워드는 오분류 유발(브릿지·매트릭스·인터랙티브 등)이라 제외. 커밋 bcb4296.
+- **티스토리 템플릿 (`tistory-naver/template.py`):** 아코디언(`<details>`) + 인라인 SVG 인포그래픽(제목+섹션 플로우 자동생성) + 코드블록 복사버튼 + 전체 펼치기/접기 JS. 아코디언 분할 수준 동적(H3≥H2면 스텝단위). markdown → posts/*.json.
+- **생존 실측 (결정적 발견):** `check_script_survival.py`로 발행 후 실측 → `<script>`·`<style>`·`<svg>`·`<details>`·복사버튼 **전부 살아남음**. 티스토리 tinymce가 JS/스타일/SVG를 안 자른다 → Boss 요구(아코디언·인포그래픽·JS 전부) 전부 구현 가능. 커밋 0793b03.
+- **설치가이드 파일럿 (Phase 1):** GUIDE.md + 01~05 챕터 16종 = 17포스트 → `galaxys21-pwuser.tistory.com`. 시크릿 스캔 통과(전부 플레이스홀더). **13/17 발행 성공**, 4개(termux-setup·termux-api·tistory-auto·youtube)는 "발행 후 에디터 유지" 실패 → 신규블로그 일일한도(~13/day) 추정, 내일 재시도.
+- **Phase 2 민감 키워드 스캔:** `_notebook` 115개 중 66개가 위치/배터리/건강/누나/간병/GPS 히트. 대부분 "모니터링한다"류 설명이지만 99-devlog·17-chronicle은 실제 수치 가능성 → 헌법 "돌봄 데이터 절대 공개 금지"에 걸림. 양산 전 리뷰 게이트 필요 (레포는 public이지만 Tistory는 검색노출 차원이 다름).
