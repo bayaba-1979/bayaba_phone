@@ -136,15 +136,36 @@ def _h2_accordion(html: str) -> str:
 
 
 def _render_md_to_accordion(md_text: str) -> tuple[str, list[str]]:
-    """markdown → (intro_html, section_titles, accordion_html)."""
+    """markdown → (intro_html, section_titles, accordion_html).
+    아코디언 분할 수준을 동적 선택:
+      - H2 가 2개 이상이면 H2 단위
+      - H2 가 1개 이하이고 H3 가 2개 이상이면 H3 단위 (설치법 스텝)
+      - 둘 다 없으면 분할 없이 전체를 intro 로
+    본문 앞의 H1 제목 줄은 인포그래픽·포스트 제목과 중복이므로 intro 에서 제거한다."""
     lines = md_text.splitlines()
-    # h2 기준 분할
-    sections: list[tuple[str, list[str]]] = []  # (title, [lines])
+    # H1 제목 줄 제거 (제목은 별도로 추출됨)
+    body_lines: list[str] = []
+    for ln in lines:
+        if not body_lines and ln.startswith("# "):
+            continue
+        body_lines.append(ln)
+
+    h2 = sum(1 for ln in body_lines if re.match(r"^##\s+", ln))
+    h3 = sum(1 for ln in body_lines if re.match(r"^###\s+", ln))
+    # 스텝형 문서(설치법)는 H3 단위로 접는 게 더 세밀 — H3 가 H2 보다 많으면 H3 기준
+    if h3 >= 2 and h3 >= h2:
+        split_re = r"^###\s+(.+?)\s*$"
+    elif h2 >= 1:
+        split_re = r"^##\s+(.+?)\s*$"
+    else:
+        split_re = None
+
+    sections: list[tuple[str, list[str]]] = []
     intro: list[str] = []
     cur_title = None
     cur_buf: list[str] = []
-    for ln in lines:
-        m = re.match(r"^##\s+(.+?)\s*$", ln)
+    for ln in body_lines:
+        m = re.match(split_re, ln) if split_re else None
         if m:
             if cur_title is not None:
                 sections.append((cur_title, cur_buf))
