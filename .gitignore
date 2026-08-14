@@ -33,3 +33,10 @@ helena_rvc_bundle.tar.gz
 # 돌봄 체크 생성 파일 (최신 스냅샷·워치독 상태는 이력 불필요)
 _notebook/health/*latest*.json
 _notebook/watchdog-state.json
+
+# 🔐 브라우저 세션 쿠키 · 계정 시크릿 (티스토리/네이버 자동발행 — 절대 커밋 금지)
+.tistory_session_*.json
+.naver_session*.json
+tistory-naver/cookies/
+tistory-naver/accounts.json
+tistory-naver/output/

@@ -324,11 +324,10 @@ async def process_account(playwright, acc_id: str, acc_info: dict, posts: list):
 
     state_path = COOKIES_DIR / f"{acc_id}_state.json"
     ctx_kwargs = dict(
-        channel   = "chrome",
-        headless  = False,
+        headless  = True,
         viewport  = {"width": 1280, "height": 900},
         locale    = "ko-KR",
-        args      = ["--no-first-run", "--no-default-browser-check"],
+        args      = ["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"],
     )
 
     if state_path.exists():
@@ -372,6 +371,9 @@ async def process_account(playwright, acc_id: str, acc_info: dict, posts: list):
 async def main():
     parser = argparse.ArgumentParser(description="티스토리 자동 포스팅")
     parser.add_argument("--post", type=str, help="단일 포스트 JSON 파일 경로")
+    parser.add_argument("--account", type=str, help="직접 발행: 계정 id (예: galaxys21)")
+    parser.add_argument("--title", type=str, help="직접 발행: 제목")
+    parser.add_argument("--content", type=str, help="직접 발행: 본문 HTML")
     args = parser.parse_args()
 
     log("=== 티스토리 자동 포스팅 v1.0 ===")
@@ -379,6 +381,28 @@ async def main():
     data     = json.loads(ACCOUNTS_FILE.read_text(encoding="utf-8"))
     pw       = data["password"]
     acc_map  = {a["id"]: {**a, "password": pw} for a in data["accounts"]}
+
+    # ── 직접 발행 모드 (--account --title) ──
+    if args.account:
+        if args.account not in acc_map:
+            log(f"❌ 알 수 없는 계정: {args.account}. 가능: {list(acc_map.keys())}")
+            sys.exit(1)
+        acc = acc_map[args.account]
+        blog = acc.get("blog") or args.account
+        post = {
+            "account": args.account,
+            "blog": blog,
+            "title": args.title or f"무제 {time.strftime('%Y-%m-%d')}",
+            "content": args.content or f"<p>{args.title or '내용 없음'}</p>",
+            "tags": [], "category": "", "visibility": "public",
+        }
+        async with async_playwright() as pw_:
+            await process_account(pw_, args.account, acc, [post])
+        log(f"\n{'='*50}")
+        log(f"성공: {len(RESULTS['success'])}개 → {RESULTS['success']}")
+        log(f"실패: {len(RESULTS['fail'])}개 → {RESULTS['fail']}")
+        save_log()
+        sys.exit(0 if RESULTS["success"] else 1)
 
     # 포스트 파일 수집
     if args.post:
