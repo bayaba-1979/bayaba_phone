@@ -111,17 +111,19 @@ async def kakao_login(page, email, pw):
 
 # ── 로그인 상태 확인 ────────────────────────────────────────
 async def _verify_body(page, content: str) -> bool:
-    """에디터에 본문이 실제로 커밋됐는지 read-back 검증 (빵꾸 방지).
+    """본문이 제출 소스(textarea#editor-tistory)에 실제로 커밋됐는지 검증 (빵꾸 방지).
 
-    실측: tinymce.setContent()가 True여도 일부 글은 본문이 비어있는 채 발행됨
-    (에디터 초기화·폼 동기화 레이스). 발행 전에 getContent 길이를 확인한다."""
+    실측: Tistory 는 tinymce.getContent() 가 아니라 textarea#editor-tistory 값을
+    제출한다. setContent()는 tinymce 내부 상태만 바꾸고 textarea는 비워둠 →
+    editor.save()로 동기화해야 한다. 여기선 textarea 길이를 기준으로 판정."""
     want = len(re.sub(r"<[^>]+>", "", content).strip())
     try:
         got = await page.evaluate("""() => {
-            if (window.tinymce && tinymce.activeEditor) {
-                return (tinymce.activeEditor.getContent({format: 'text'}) || '').trim().length;
-            }
-            return 0;
+            const ed = window.tinymce && tinymce.activeEditor;
+            if (!ed) return 0;
+            const ta = ed.targetElm || ed.getElement();
+            const v = (ta && ta.value) ? ta.value : ed.getContent({format: 'text'}) || '';
+            return v.trim().length;
         }""")
     except Exception:
         return False
@@ -168,6 +170,7 @@ async def publish_post(page, post: dict):
             """(html) => {
                 if (window.tinymce && tinymce.activeEditor) {
                     tinymce.activeEditor.setContent(html);
+                    tinymce.activeEditor.save();      // ← textarea#editor-tistory 로 강제 동기화 (빵꾸 핵심)
                     tinymce.activeEditor.fire('change');
                     tinymce.activeEditor.fire('input');
                     tinymce.activeEditor.fire('keyup');
@@ -207,6 +210,7 @@ async def publish_post(page, post: dict):
             await page.evaluate("""(html) => {
                 if (window.tinymce && tinymce.activeEditor) {
                     tinymce.activeEditor.setContent(html);
+                    tinymce.activeEditor.save();      // ← textarea 동기화
                     tinymce.activeEditor.fire('change'); tinymce.activeEditor.fire('input');
                 }
             }""", content)
