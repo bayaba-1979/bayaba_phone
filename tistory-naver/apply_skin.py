@@ -116,13 +116,16 @@ async def main():
         files = j.get("files")
         log(f"  skinname={skinname} | html={len(html)}자 | css={len(css)}자 | files={files}")
 
-        if MARKER_START in css:
-            log("  ⏭ 이미 주입됨 — 스킵")
-            sys.exit(0)
-
-        inject = f"\n{MARKER_START}\n{css_add}\n{MARKER_END}\n"
-        new_css = css + inject
-        log(f"  CSS 주입: {len(css)} → {len(new_css)}자 (+{len(inject)})")
+        block = f"{MARKER_START}\n{css_add}\n{MARKER_END}"
+        if MARKER_START in css and MARKER_END in css:
+            # 기존 주입 블록 교체 (재적용)
+            start = css.index(MARKER_START)
+            end = css.index(MARKER_END, start) + len(MARKER_END)
+            new_css = css[:start] + block + css[end:]
+            log(f"  기존 블록 교체: {len(css)} → {len(new_css)}자")
+        else:
+            new_css = css + "\n" + block
+            log(f"  신규 주입: {len(css)} → {len(new_css)}자")
 
         if args.dry_run:
             log("  [dry-run] 저장 생략")

@@ -352,3 +352,41 @@ body {
     position: static;
   }
 }
+
+/* ── 14. 실기 보정 — 헤더 히어로·검색·툴바·푸터 사이트링크 (2026-08-14) ── */
+
+/* 14-1. 빈 히어로(400px) 숨김 — 헤더 컴팩트화 (배너 이미지 있으면 자동 재표시) */
+.area-promotion:not(:has(img)) { display: none !important; }
+
+/* 14-2. 헤더 검색창 다크 */
+.header .util .search {
+  background: #14161c !important;
+  border: 1px solid #1e2128 !important;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.header .util .search .searchInput {
+  background: transparent !important;
+  color: #f7f8f8 !important;
+  border: none !important;
+  outline: none !important;
+  padding: 6px 12px;
+}
+.header .util .search .searchInput::placeholder { color: #8a8f98 !important; }
+
+/* 14-3. 프로필 툴바 버튼(구독하기·관리메뉴) 다크 */
+.btn_menu_toolbar {
+  background: #14161c !important;
+  border: 1px solid #1e2128 !important;
+  color: #f7f8f8 !important;
+}
+.btn_menu_toolbar:hover { border-color: rgba(45,212,191,0.45) !important; }
+
+/* 14-4. 푸터 사이트 링크(Naver blog 등) 다크 */
+#footer .box-site ul,
+#footer .box-site li,
+#footer .box-site a { background: transparent !important; }
+#footer .box-site a {
+  color: #2dd4bf !important;
+  text-decoration: none;
+}
