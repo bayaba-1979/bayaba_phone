@@ -220,6 +220,7 @@ NOTEBOOK_TITLES = {
     "40-pc-wsl-setup_Boss.md": "PC WSL 셋업",
     "44-naver-admin-automation-review_Grok.md": "네이버 관리자 자동화 검토",
     "45-naver-admin-playwright-feasibility_Grok.md": "네이버 Playwright 타당성",
+    "86-pd-two-lanes-free-vs-grok_Claude.md": "PD 파이프 두 레인 (공짜 vs 구독)",
 }
 
 # Auto-discover every _notebook/*.md (overrides in NOTEBOOK_TITLES)

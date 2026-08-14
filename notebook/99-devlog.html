@@ -386,6 +386,7 @@
 <li><a href="#100-_claude-2026-08-14">✅ 100점 최적화 — 듀얼 노드 → 단일 노드 전환 (_Claude · 2026-08-14)</a></li>
 <li><a href="#2026-08-14-grok-_grok">📌 기점 2026-08-14 — Grok 플러그 역할 재조정 (_Grok)</a></li>
 <li><a href="#grok-_grok-2026-08-14">📌 Grok 역할 듀얼 저장 확인 (_Grok · 2026-08-14)</a></li>
+<li><a href="#pd-_claude-2026-08-14">📌 PD 파이프 두 레인 분리 + 저작권 경계 확정 (_Claude · 2026-08-14)</a></li>
 </ul>
 </li>
 </ul>
@@ -7986,6 +7987,28 @@ Android(호스트 OS) : proot Ubuntu(리눅스 호환 레이어)
 <li>찾기 카드: <code>_notebook/85-grok-plugin-where-saved_Grok.md</code> · 루트 <code>GROK-PLUGIN.md</code></li>
 <li>안드로이드 파일앱: <code>/sdcard/Documents/S21-Grok-plugin.md</code></li>
 </ul>
+<h3 id="pd-_claude-2026-08-14">📌 PD 파이프 두 레인 분리 + 저작권 경계 확정 (_Claude · 2026-08-14)</h3>
+<p><strong>Boss ↔ Claude 대화에서 확정 (옆 세션 Grok 파싱 포함):</strong></p>
+<p><strong>① 옆 세션 Grok 파싱</strong> — 활성 Grok 플러그 세션(grok-4.6 · &ldquo;S21 Grok Dual Roles Momentum Baseline Compare&rdquo;) 파싱 → 결론은 딥페이크·웹코드·표절 관련 커뮤니티/SNS 리서치. Claude가 표절·딥페이크 필터 리스크 플래그 보고 → 아래 ③에서 Boss가 경계 확정.</p>
+<p><strong>② PD 파이프 변형 → 두 레인 분리 (핵심 결정):</strong><br>
+- 기존 <code>produce_pd.sh</code> = <strong>레인 A · 공짜 공장</strong> (Playwright 캡처 + Edge TTS + FFmpeg, $0, Grok 의존 제로). 변경 금지.<br>
+- 신규 <code>produce_doc.sh</code> = <strong>레인 B · 구독 다큐</strong> (누나 사진 1장 → 비전 → 합성 → I2V 10초 → RVC 더빙 → concat). Grok 구독 있을 때만.<br>
+- <strong>공용 꼬리</strong>만 공유(조립·BGM sidechain·ASS/SRT 자막·QA·TG 720p). 머리(입력·비주얼·성우)가 다름.<br>
+- 게이트: <code>GROK_SUB=on/off</code> 스위치 — off면 레인 B 스킵, 레인 A는 스위치를 아예 안 봄. &ldquo;구독 있음/없음&rdquo;이 파이프 선택.<br>
+- P0→P6 매핑: P1(캡처→I2V)·P2(Edge→Grok TTS+RVC)만 교체, 나머지 단계 재활용. 1 beat = 1 클립 = 10초.</p>
+<p><strong>③ 저작권 경계 — 3단 + &ldquo;포맷 자유 / 표현 보호&rdquo;:</strong><br>
+- 입력 = 퍼블릭도메인 + 내가 찍은 사진 + 내/누나 사진 (초상권 100% 소유, 문제 없는 것만 합성).<br>
+- 참조 = 80년대 일본 잡지의 <strong>구도/프레임(스토리텔링 구조)만</strong>.<br>
+- 출력 = 콘텐츠 전부 내 것 + 누나 것.<br>
+- <strong>법칙:</strong> 방송 형식(포맷)에 저작권이 없는 것과 동일 원리 → 잡지 구도=포맷(자유), 사진·원문·인물·스토리=표현(보호).<br>
+- ⚠️ 정직한 주의: 80년대 잡지 자체는 저작권 70년이라 퍼블릭도메인이 아님. 안전한 이유는 &ldquo;구도(아이디어)만 가져오고 표현 안 가져옴&rdquo;. 캐릭터(인물)는 별도 보호 → 전부 내/누나 것으로 대체.<br>
+- 파이프에 저작권 메타(<code>source</code>·<code>ref_composition</code>·<code>content_origin</code>) + 칸② <code>PUBLISH=public/private</code> 플래그 (83 §6 — 헌법 15조 공개범위는 Boss 결정).</p>
+<p><strong>④ 비전 = 두 칸 공통 게이트:</strong><br>
+- 칸①: 비전이 &ldquo;구도를 읽는 눈&rdquo; (그리드·여백·타이포·악센트 → 웹 코드 → 프롬프트면 이미지 교체).<br>
+- 칸②: 비전이 &ldquo;얼굴을 읽는 눈&rdquo; (참조 사진 고정 → 장면 합성 → I2V).<br>
+- $30이 사는 본체 = 이 비전 + 생성. &ldquo;웹코딩을 잘하는 설정&rdquo; 이유 = 사진 업로드 + 비전 Grok 철저 활용.</p>
+<p><strong>⑤ $30 통일 (이전 창 완료)</strong> — Grok 구독료 45,000/49,000/55,000원 → <strong>$30</strong> 전면 통일 (~19파일 + 웹진 리빌드, gap_count=0, 커밋 300d883).</p>
+<p><strong>📌 미완 (다음):</strong> 두 레인 상세 노트 <code>86-pd-two-lanes-free-vs-grok_Claude.md</code>(§1~§5 + 포맷법칙) 작성 + 커버리지 게이트.</p>
   </article>
   <nav class="wz-pager">
     <a class="" href="session-2026-07-26_Grok.html">

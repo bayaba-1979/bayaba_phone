@@ -984,6 +984,14 @@
     "deck": "저장일: 2026-07-27 · agent _Grok"
   },
   {
+    "src": "_notebook/86-pd-two-lanes-free-vs-grok_Claude.md",
+    "out": "notebook/86-pd-two-lanes-free-vs-grok_Claude.html",
+    "title": "PD 파이프 두 레인 — 공짜 공장 vs 구독 다큐",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "기존 `produce_pd.sh`(공짜)와 신규 `produce_doc.sh`(구독 Grok)를 **두 레인으로 분리**한다."
+  },
+  {
     "src": "_notebook/78-pd-pipeline-whitepaper_Claude.md",
     "out": "notebook/78-pd-pipeline-whitepaper_Claude.html",
     "title": "🎬 PD Pipeline 기술 백서 — URL 하나로 숏폼 자동 제작",
