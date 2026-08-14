@@ -1000,6 +1000,14 @@
     "deck": "**기록 메타 (Claude Code, 2026-08-14):** 이 백서는 작성일 2026-08-13 기준."
   },
   {
+    "src": "_notebook/88-coding-agent-options-free-lane_Boss.md",
+    "out": "notebook/88-coding-agent-options-free-lane_Boss.html",
+    "title": "코딩 에이전트 신규 옵션 검토 — 결론: 5종 폐기, 기존 로스터 확정",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "**결론부터:**"
+  },
+  {
     "src": "_notebook/78-pd-pipeline-whitepaper_Claude.md",
     "out": "notebook/78-pd-pipeline-whitepaper_Claude.html",
     "title": "🎬 PD Pipeline 기술 백서 — URL 하나로 숏폼 자동 제작",

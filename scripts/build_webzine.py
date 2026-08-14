@@ -222,6 +222,7 @@ NOTEBOOK_TITLES = {
     "45-naver-admin-playwright-feasibility_Grok.md": "네이버 Playwright 타당성",
     "86-pd-two-lanes-free-vs-grok_Claude.md": "PD 파이프 두 레인 (공짜 vs 구독)",
     "87-ai-core-utilization-map_Boss.md": "AI 코어 활용 백서 v4 (성우·가창 맵)",
+    "88-coding-agent-options-free-lane_Boss.md": "코딩 에이전트 옵션 검토 (5종 폐기·로스터 확정)",
 }
 
 # Auto-discover every _notebook/*.md (overrides in NOTEBOOK_TITLES)
