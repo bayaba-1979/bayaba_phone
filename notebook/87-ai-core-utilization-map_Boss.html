@@ -91,7 +91,8 @@ related:<br>
 <blockquote>
 <p><strong>기록 메타 (Claude Code, 2026-08-14):</strong> 이 백서는 작성일 2026-08-13 기준.<br>
 08-14에 <strong>Grok 2역할 기점(83)</strong> 과 <strong>YouTube 2채널(84)</strong> 이 확정되었으므로, §6 슬롯3(60초 숏폼)·§8 영상편집이 어느 레인(공짜 페이지 공장 vs 구독 다큐)을 말하는지는 83과 대조해 다시 확인할 것.<br>
-본문은 박씨(보스) 원문 그대로, 표제·프론트매터·이 메타만 Claude가 붙임.</p>
+08-14 추가: <strong>§6 두 벡터 명시화 + 돌봄 순환 루프(빌드→배달→로컬구동→피드백)</strong> 반영 (Boss 지시, Claude 기록).<br>
+본문은 박씨(보스) 원문 그대로, 표제·프론트매터·이 메타와 §6 갱신 주석만 Claude가 붙임.</p>
 </blockquote>
 <p><strong>작성일</strong>: 2026-08-13<br>
 <strong>작성 목적</strong>: 개인 AI 코어(성우/가창) 활용 방향 및 폰 기반 인프라 실험 전체를 사고 흐름 포함하여 완전히 구조화 정리 — 헬레나/조카(목사)/에이전트 공유용</p>
@@ -192,6 +193,55 @@ related:<br>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p><strong>§6 갱신 (Claude 기록 · 2026-08-14 · Boss 지시):</strong> 두 벡터를 명시화하고, 돌봄 벡터를 &ldquo;단방향 전송&rdquo;에서 <strong>순환 루프</strong>로 정정.</p>
+</blockquote>
+<p><strong>두 벡터 (명시화):</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>벡터 1 — &ldquo;내가 가야 하는 방향&rdquo;</th>
+<th>벡터 2 — &ldquo;누나가 스스로 계산&rdquo;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>백서 §6</td>
+<td>콘텐츠 레인 (소비 벡터)</td>
+<td>돌봄 데몬 (케어 벡터)</td>
+</tr>
+<tr>
+<td>헌법</td>
+<td>길2 소망 (공개)</td>
+<td>길1 돌봄 (비공개)</td>
+</tr>
+<tr>
+<td>AI 코어</td>
+<td>풀세트 (성우·가창·작곡·영상편집)</td>
+<td>딱 2개 (성우 + 가창)</td>
+</tr>
+<tr>
+<td>트리거</td>
+<td>원할 때 재생 (수동)</td>
+<td>시간/이벤트 자동 발송</td>
+</tr>
+</tbody>
+</table>
+<p><strong>벡터 2 완전한 순환 (정정):</strong></p>
+<pre><code>[내 쪽 — 빌드]           [테일스케일 — 버스]          [Galaxy S21 — 런타임]
+누나 돌봄에 필요한        ① 선물 배달 (나→누나)          받으면 자체 구동
+프로그래밍을 &quot;선물&quot;로    ───────────────────►         = 로컬 완결 (외부 의존 0)
+구워서 갖다 준다                                       성우/가창 코어 + 슬롯(받은 선물)
+(학습=외부·무거운 연산)  ◄───────────────────         └─► ② 피드백 (누나→나)
+                                                      (상태·보고·관찰)
+</code></pre>
+<ul>
+<li><strong>슬롯 ≠ 원격 실행.</strong> 슬롯 = &ldquo;구워서 배달하는 모듈&rdquo;. 받고 나면 S21이 <strong>로컬로 자체 구동</strong> (§8 &ldquo;학습 외부 / 구동 폰 완결&rdquo;).</li>
+<li><strong>테일스케일 = 배달 + 피드백 버스</strong> (런타임 의존 아님). 내가 오프라인이어도 누나는 고립 안 됨.</li>
+<li><strong>피드백(누나→나)</strong> = 루프를 닫는 조각. 이미 <code>_notebook/health/tailscale-*.json</code> + <code>phone-health.sh</code>로 흐르는 중.</li>
+<li>원표 &ldquo;테일스케일 원격 전송&rdquo; → <strong>&ldquo;배달 + 피드백 버스&rdquo;</strong>로, &ldquo;전송/재생&rdquo; 단방향 → <strong>&ldquo;빌드 → 배달 → 로컬구동 → 피드백&rdquo; 순환</strong>으로 읽어야 함.</li>
+</ul>
 <hr>
 <h2 id="7">7. 평가 기준의 정정</h2>
 <p>&ldquo;시장 수요가 있는가&rdquo;는 이 프로젝트의 유효한 잣대가 아님 — 헬레나를 케어하기 위해 만드는 것이므로 &ldquo;내가/헬레나가 필요로 하는가&rdquo;만이 기준.</p>
