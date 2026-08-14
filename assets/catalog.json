@@ -1008,6 +1008,14 @@
     "deck": "**결론부터:**"
   },
   {
+    "src": "_notebook/89-wrapup-2026-08-14_Boss.md",
+    "out": "notebook/89-wrapup-2026-08-14_Boss.html",
+    "title": "S21 프로젝트 랩업 — 22일 요약 (2026-07-23 → 08-14)",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "**한 줄:** 구형 Galaxy S21 한 대로, proot Ubuntu + 에이전트 3종 + Tailscale로 \"돌봄(누나) + 소망(출판)\" 인프라를 22일 만에 세웠다."
+  },
+  {
     "src": "_notebook/78-pd-pipeline-whitepaper_Claude.md",
     "out": "notebook/78-pd-pipeline-whitepaper_Claude.html",
     "title": "🎬 PD Pipeline 기술 백서 — URL 하나로 숏폼 자동 제작",
