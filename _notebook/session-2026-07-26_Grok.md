@@ -12,7 +12,7 @@ ssot_devlog: _notebook/99-devlog.md §50–61
 
 > **agent:** _Grok  
 > 환경: Galaxy S21 → Termux → proot Ubuntu → `/root/work` (helena_phone)  
-> 위성 작업 클론: `/tmp/sites/{helana_log,helana-faith,helena-piano,helena-psycare}`
+> 위성 작업 클론: `/tmp/sites/{helana_log,helana-faith,helena-piano,helena-metalcare}`
 
 ## 폴더 확인 (이 세션)
 
@@ -61,5 +61,5 @@ ssot_devlog: _notebook/99-devlog.md §50–61
 - https://helena751107.github.io/helana_log/
 - https://helena751107.github.io/helana-faith/
 - https://helena751107.github.io/helena-piano/
-- https://helena751107.github.io/helena-psycare/
+- https://helena751107.github.io/helena-metalcare/
 - https://helena751107.github.io/helena_phone/notebook/99-devlog.html

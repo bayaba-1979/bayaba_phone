@@ -52,7 +52,7 @@ jobs:
             --exclude='.git/' --exclude='.github/' --exclude='node_modules/' \
             --exclude='.secrets.env' --exclude='.env' --exclude='_site/' \
             --exclude='helana_log/' --exclude='helena-piano/' \
-            --exclude='helena-faith/' --exclude='helena-psycare/' \
+            --exclude='helena-faith/' --exclude='helena-metalcare/' \
             --exclude='helena-programming/' \
             --exclude='browser-env/' --exclude='.aider*' \
             --exclude='**/__pycache__/' --exclude='*.pyc' \

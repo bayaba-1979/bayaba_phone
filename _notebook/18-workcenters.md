@@ -59,7 +59,7 @@
 | `helana_log` | 🗃️ 기술 연구소 | APK 리버싱·MCP 코드·로그·튜토리얼 |
 | `helena-faith` | ✝️ 신앙 아카이브 | 신학 문서·가족사·비교종교학 |
 | `helena-piano` | 🎹 음악 작업실 | MIDI·REAPER·AI음원·악보 |
-| `helena-psycare` | 🧠 분석 연구소 | MCP모델·문헌·케이스스터디 |
+| `helena-metalcare` | 🧠 분석 연구소 | MCP모델·문헌·케이스스터디 |
 
 **워크플로우:**
 ```
@@ -89,7 +89,7 @@
 | `helena751107.github.io/helana_log` | 기술 문서 + 로그 |
 | `helena751107.github.io/helena-faith` | 신앙 콘텐츠 |
 | `helena751107.github.io/helena-piano` | 음원·악보 |
-| `helena751107.github.io/helena-psycare` | 분석·연구 |
+| `helena751107.github.io/helena-metalcare` | 분석·연구 |
 
 ---
 
@@ -113,7 +113,7 @@
 | mynote11605 | @HelenaTechLog | 🗃️ 기술·리버싱·튜토리얼 |
 | helana-christianity | @HelenaFaith | ✝️ 신앙·말씀·묵상 |
 | helena-piano | @HelenaPiano | 🎹 피아노·음악·레슨 |
-| helena-psycare | @HelenaPsycare | 🧠 정신분석·치료 |
+| helena-metalcare | @HelenaMetalcare | 🧠 정신분석·치료 |
 
 ---
 
@@ -137,7 +137,7 @@
 | 2 (8월) | @HelenaTechLog 🟡 | 예정 | — | — |
 | 3 (9월) | @HelenaFaith 🟡 | 예정 | — | — |
 | 4 (10월) | @HelenaPiano 🟡 | 예정 | — | — |
-| 5 (11월) | @HelenaPsycare 🟡 | 예정 | — | — |
+| 5 (11월) | @HelenaMetalcare 🟡 | 예정 | — | — |
 
 ---
 

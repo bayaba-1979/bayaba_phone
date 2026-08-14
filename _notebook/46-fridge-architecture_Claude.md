@@ -76,7 +76,7 @@ helena751107(수혜자·누나·대필작가)에게 **GitHub 콜라보레이터 
 | `helana_log` | 기술 로그 — APK 리버싱·MCP·LLM |
 | `helena-faith` | 가족 신앙사 — 신학·묵상·찬양 아카이브 |
 | `helena-piano` | 피아노 종합 — MIDI·REAPER·AI 음원·BGM Studio |
-| `helena-psycare` | 멘탈케어 — 정신분석·MCP 모델·치료 기록 |
+| `helena-metalcare` | 멘탈케어 — 정신분석·MCP 모델·치료 기록 |
 | `helana-faith` | (중복 가능성 — ecosystem-map 미등록) |
 
 ---

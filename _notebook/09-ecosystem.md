@@ -13,7 +13,7 @@
 | 🗃️ **helana_log** | 박식캡처 리버싱 저장소 | APK→로그수집→파인튜닝→MCP 도구화 | ✅ | `@helena_phone` | mynote11605 |
 | ✝️ **helana-faith** | 가족 신앙사 + 비교 종교학 | 카톨릭→개신교 가족 신앙 여정 + 학문적 분석 | ✅ | `@HelenaPark-e7c` | helana-christianity |
 | 🎹 **helena-piano** | 피아노 종합 + 음원 생성 | MIDI/악보/REAPER/AI/GAN + GitHub Actions + PC 연동 | ✅ | `@HelenaPark-e7c` | helena-piano |
-| 🧠 **helena-psycare** | 뷰티풀 마인드 정신분석 | 정신의학/정신치료/정신분석 + MCP 자체 모델 개발 | ✅ | `@HelenaPark-e7c` | helena-psycare |
+| 🧠 **helena-metalcare** | 뷰티풀 마인드 정신분석 | 정신의학/정신치료/정신분석 + MCP 자체 모델 개발 | ✅ | `@HelenaPark-e7c` | helena-metalcare |
 
 ## 특수 플랫폼
 
@@ -30,7 +30,7 @@ helena_phone        ✅ S21 폰 최적화 바이블
 helana_log          ✅ 박식캡처 리버싱
 helana-faith        ✅ 가족 신앙사/비교종교학
 helena-piano        ✅ 피아노 종합 + 음원 생성
-helena-psycare      ✅ 정신분석/뷰티풀마인드 (구 metalcare)
+helena-metalcare      ✅ 정신분석/뷰티풀마인드 (구 metalcare)
 합계:  5개 (티스토리 5종과 1:1 매칭)
 ```
 
@@ -63,7 +63,7 @@ helena-psycare      ✅ 정신분석/뷰티풀마인드 (구 metalcare)
 | `mynote11605` | **Helena Tech Log** | `helana_log` | 개발 / 기술 튜토리얼 |
 | `helana-christianity` | **Helana Faith** | _(helana-faith)_ | 말씀 / 신앙 / 묵상 |
 | `helena-piano` | **Helena Piano** | _(helena-piano)_ | 연주 커버 / 피아노 레슨 / 음악 |
-| `helena-psycare` | **Helena Mental Care** | _(helena-psycare)_ | 멘탈 케어 / 정신건강 |
+| `helena-metalcare` | **Helena Mental Care** | _(helena-metalcare)_ | 멘탈 케어 / 정신건강 |
 
 ## 플랫폼별 성격 요약
 
@@ -86,6 +86,6 @@ helena-psycare      ✅ 정신분석/뷰티풀마인드 (구 metalcare)
 | helana_log | mynote11605 | @HelenaTechLog 🟡 | Phase 2 (8월) |
 | helena-faith | helana-christianity | @HelenaFaith 🟡 | Phase 3 (9월) |
 | helena-piano | helena-piano | @HelenaPiano 🟡 | Phase 4 (10월) |
-| helena-psycare | helena-psycare | @HelenaPsycare 🟡 | Phase 5 (11월) |
+| helena-metalcare | helena-metalcare | @HelenaMetalcare 🟡 | Phase 5 (11월) |
 
 **네이버 helena1975** = 전체 교차홍보 웹진 (주간 발행)

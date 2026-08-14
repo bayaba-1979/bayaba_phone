@@ -647,7 +647,7 @@ bash scripts/pd_mcp.sh stop               # 서버 OFF
 
 4. **깨진 링크 수정:** 76-page-writing-standard의 `./file.md` → `다른문서.md` (문서 예제로 변경)
 
-5. **helena-faith·psycare:** GitHub에 아직 레포 없음 → 추후 생성 시 빌드
+5. **helena-faith·metalcare:** GitHub에 아직 레포 없음 → 추후 생성 시 빌드
 
 **결과:**
 - gap=0, coverage=111.8%, manual_titles=100%
@@ -1967,10 +1967,10 @@ ANTHROPIC_MODEL=deepseek-chat
 |------|-------------|---------|
 | `helana-faith` | helana-christianity | Helana Faith |
 | `helena-piano` | helena-piano | Helena Piano |
-| `helena-psycare` | helena-psycare | Mental Care |
+| `helena-metalcare` | helena-metalcare | Mental Care |
 
 - 각 레포: index.html + Pages + Discussions + Giscus + WidgetBot 전부 활성
-- 현재 총 5개 레포: `helena_phone`, `helana_log`, `helana-faith`, `helena-piano`, `helena-psycare`
+- 현재 총 5개 레포: `helena_phone`, `helana_log`, `helana-faith`, `helena-piano`, `helena-metalcare`
 
 ### 10. 포털 사이트 전면 개편 (`helena_phone` index.html)
 - 레포지토리 생태계 5종 테이블
@@ -2068,7 +2068,7 @@ _notebook/ = History + Making film + 로고 아카이브
 │   ├── helana_log       🗃️ 박식캡처 리버싱 → MCP      ✅
 │   ├── helana-faith     ✝️ 가족 신앙사/비교종교학      ✅
 │   ├── helena-piano     🎹 피아노 종합 + 음원 생성     ✅
-│   └── helena-psycare   🧠 뷰티풀마인드 정신분석       ✅
+│   └── helena-metalcare   🧠 뷰티풀마인드 정신분석       ✅
 │
 ├── 💬 Discord (S21 Phone 서버)
 │   ├── #로비 (채팅, 위젯 활성)
@@ -2082,7 +2082,7 @@ _notebook/ = History + Making film + 로고 아카이브
 │   ├── mynote11605
 │   ├── helana-christianity
 │   ├── helena-piano
-│   └── helena-psycare
+│   └── helena-metalcare
 │
 ├── 🌐 네이버 (helena1975) — 관저탑/그림첩
 ├── 📺 YouTube (@HelenaPark-e7c) — 5채널 설계 완료
@@ -2108,7 +2108,7 @@ _notebook/ = History + Making film + 로고 아카이브
 | `helana_log` | 기술노트 | 🗃️ **박식캡처 리버싱 저장소** | apk/schema/logs/mcp-server/scripts |
 | `helana-faith` | 신앙 | ✝️ **가족 신앙사 + 비교 종교학** | theology/comparative/family/liturgy |
 | `helena-piano` | 피아노 | 🎹 **피아노 종합 + 음원 생성** | MIDI/REAPER/AI/GAN/PC-Actions |
-| `helena-psycare` | 멘탈케어 | 🧠 **뷰티풀마인드 정신분석** | 분석/병리/치료/MCP-모델/가족사 |
+| `helena-metalcare` | 멘탈케어 | 🧠 **뷰티풀마인드 정신분석** | 분석/병리/치료/MCP-모델/가족사 |
 
 - 총 50개 이상의 디렉토리/README 생성
 - 각 레포 Pages 유지
@@ -2125,7 +2125,7 @@ _notebook/ = History + Making film + 로고 아카이브
 | 🗃️ helana_log | ✅ HTTP 200 README 표시 | ✅ | 7/7 ✅ | **완벽** |
 | ✝️ helana-faith | ✅ HTTP 200 README 표시 | ✅ | 7/7 ✅ | **완벽** |
 | 🎹 helena-piano | ✅ HTTP 200 README 표시 | ✅ | 11/11 ✅ | **완벽** |
-| 🧠 helena-psycare | ✅ HTTP 200 README 표시 | ✅ | 11/11 ✅ | **✅ (구 이름 발견→수정)** |
+| 🧠 helena-metalcare | ✅ HTTP 200 README 표시 | ✅ | 11/11 ✅ | **✅ (구 이름 발견→수정)** |
 
 **발견 및 조치:**
 - `helena-psycare` Pages 타이틀에 `helena-metalcare` 구 이름 잔재 → README.md 수정 + push
@@ -2771,7 +2771,7 @@ YouTube 강의(Claude Code 완성본)로 들어와서 수익이 된다.
 | helana_log | https://helena751107.github.io/helana_log/ |
 | helana-faith | https://helena751107.github.io/helana-faith/ |
 | helena-piano | https://helena751107.github.io/helena-piano/ |
-| helena-psycare | https://helena751107.github.io/helena-psycare/ |
+| helena-metalcare | https://helena751107.github.io/helena-metalcare/ |
 
 - 공통: sticky mast, accordion, theme toggle, hub 링크
 - 작업 클론 경로: `/tmp/sites/{repo}` → `main` push
@@ -2783,7 +2783,7 @@ YouTube 강의(Claude Code 완성본)로 들어와서 수익이 된다.
 
 **아이콘 생성**
 - Playwright로 SVG 모노그램 → PNG 일괄
-  - Log **L** 청록 · Faith **F** 금 · Piano **P** 라일락 · PsyCare **C** 코랄
+  - Log **L** 청록 · Faith **F** 금 · Piano **P** 라일락 · MetalCare **C** 코랄
 - 파일: `icons/favicon-16|32.png`, `apple-touch-icon.png`, `icon-192|512.png`, `icon-maskable-512.png`, `icon.svg`
 
 **연결**
@@ -2864,7 +2864,7 @@ helana_log  (행정 대화록)
   docs/IDENTITY|METHOD|tracks|dialogue|solutions
   logs/ (날것) + 본 일지 복사본 logs/2026/07/DevLog_Grok_20260726.md
 
-helana-faith / helena-piano / helena-psycare
+helana-faith / helena-piano / helena-metalcare
   index.html, site.webmanifest, icons/ (각 모노그램)
 ```
 
@@ -2873,7 +2873,7 @@ helana-faith / helena-piano / helena-psycare
 - https://helena751107.github.io/helana_log/
 - https://helena751107.github.io/helana-faith/
 - https://helena751107.github.io/helena-piano/
-- https://helena751107.github.io/helena-psycare/
+- https://helena751107.github.io/helena-metalcare/
 
 ### 60. 다음 액션 (일지 기준 백로그)
 
@@ -2988,14 +2988,14 @@ helana-faith / helena-piano / helena-psycare
 | 2 | helana_log | @helana_logbot | `REDACTED:...` | 🟢 |
 | 3 | helena-faith | @helana_faithbot | `8819591168:...` | 🟢 |
 | 4 | helena-piano | @helena_pianobot | `8918184400:...` | 🟢 |
-| 5 | helena-psycare | @helena_psycarebot | `8705721129:...` | 🟢 |
+| 5 | helena-metalcare | @helena_metalcarebot | `8705721129:...` | 🟢 |
 
 **소개글 전송:**
 - 각 레포 파싱 → 소개글 + 이미지·영상 생성 프롬프트 포함
 - helana_log: 행정대화록 (DW/BL/DC 3트랙 · Fact→Feel→Gap→Fix→Next)
 - helena-faith: 가족신앙사·비교종교학 (카톨릭→개신교·3축)
 - helena-piano: 피아노·MIDI·AI음원·GitHub Actions (4분할)
-- helena-psycare: 정신의학·분석·MCP모델·돌봄기록 (3렌즈·4분면)
+- helena-metalcare: 정신의학·분석·MCP모델·돌봄기록 (3렌즈·4분면)
 
 **인프라:**
 - 모든 토큰 `.secrets.env`에 저장 (gitignore 보호)
@@ -3666,7 +3666,7 @@ Boss 폰 (helena751107)          누나 폰 (REDACTED)
      │    helana_log                   │
      │    helena-faith                 │
      │    helena-piano                 │
-     │    helena-psycare               │
+     │    helena-metalcare               │
      │                                │
      └── 5레포 전부 admin 콜라보 ─────┘
 ```
@@ -3890,7 +3890,7 @@ KOE006·북마크릿·Playwright삽질·API종료·HTML모드제거 —
 | 🗃️ helana_log | 대한민국 행정·복지·장애·기초생활·치매 | **행정 체계** |
 | ✝️ helena-faith | 한국 기독교사·종교 문화·가족 신앙 | **문화·종교** |
 | 🎹 helena-piano | 한국 음악 교육·찬송가·클래식 문화 | **예술·문화** |
-| 🧠 helena-psycare | 한국 정신건강 체계·돌봄 문화 | **사회 복지** |
+| 🧠 helena-metalcare | 한국 정신건강 체계·돌봄 문화 | **사회 복지** |
 
 **왜 교재보다 나은가:**
 
@@ -4474,7 +4474,7 @@ REDACTED (창작자)                    helena751107 (수혜자·대필작가)
   │   · parksy-image (썸네일·AI시드)       │   · helana_log (기술로그)
   │   · parksy-logs (캡처 아카이브)        │   · helena-piano (피아노)
   │   · termux-bridge (PC↔Termux)         │   · helena-faith (신앙)
-  │   · dtslib-papyrus (선물 원산지)       │   · helena-psycare (멘탈케어)
+  │   · dtslib-papyrus (선물 원산지)       │   · helena-metalcare (멘탈케어)
   │   · dtslib-cloud-appstore (배포)      │
   │   · dtslib-localpc (로컬 실행)         │
   │   · gohsy-* (방송 스튜디오 3종)       │   ←── 상호 콜라보 ──→
@@ -4792,7 +4792,7 @@ Grok은 시각 피드백이 가능해 디버깅이 빠르고, Claude는 자동�
 │  ✝️ helana-faith    → 신앙 콘텐츠            │
 │  📝 helana_log      → 학습·대화록           │
 │  🎹 helena-piano    → 연주·음악             │
-│  🛡️ helena-psycare  → 돌봄·복지 정보        │
+│  🛡️ helena-metalcare  → 돌봄·복지 정보        │
 └─────────────────────────────────────────────┘
         │
         ▼
@@ -4920,7 +4920,7 @@ Boss + 외부 LLM(Grok/ChatGPT)이 대화 → 요약 → HTML 코딩 → 티스�
 | # | 티스토리 | 주제 | 매핑 레포 |
 |---|---------|------|----------|
 | 1 | galaxys21-pwuser | 업무일지·개발 | helena_phone |
-| 2 | helena-metalcare | 돌봄·복지 | helena-psycare |
+| 2 | helena-metalcare | 돌봄·복지 | helena-metalcare |
 | 3 | helena-piano | 피아노·연주 | helena-piano |
 | 4 | helana-christianity | 신앙 | helana-faith |
 | 5 | mynote11605 | 자유 노트 | helana_log |
@@ -5180,13 +5180,13 @@ helana_log:        15 md → 18 html  (120%) ✅
 helena-piano:      10 md → 12 html  (120%) ✅ — fridge/ 6문서 최초 HTML화
 helena-programming: 46 md → 58 html (126%) ✅ — 최초 번역 브릿지 구축
 helena-faith:      not checked out
-helena-psycare:    not checked out
+helena-metalcare:    not checked out
 ```
 
 ### 다음 할 일
 - [ ] manual registration rate 48% → 95% (52개 auto-titled 문서에 NOTEBOOK_TITLES 등록)
 - [ ] minimal quality 34개 → standard 승격 (주간 1개 이상)
-- [ ] helena-faith / helena-psycare 로컬 체크아웃 → 빌드
+- [ ] helena-faith / helena-metalcare 로컬 체크아웃 → 빌드
 - [ ] CI verify job 실제 배포 테스트 (main push)
 
 ---
@@ -5853,3 +5853,11 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 **⑤ $30 통일 (이전 창 완료)** — Grok 구독료 45,000/49,000/55,000원 → **$30** 전면 통일 (~19파일 + 웹진 리빌드, gap_count=0, 커밋 300d883).
 
 **📌 미완 (다음):** 두 레인 상세 노트 `86-pd-two-lanes-free-vs-grok_Claude.md`(§1~§5 + 포맷법칙) 작성 + 커버리지 게이트.
+
+### 🔄 psycare→metalcare 재개명 — 오타를 브랜드(Metal Care)로 승화 (_Claude · 2026-08-14)
+
+- **배경:** 티스토리 URL이 `helena-metalcare`(오타)인데 GitHub 레포는 §19에서 `metalcare→psycare` 개명 → URL↔레포 이름 불일치 발생.
+- **Boss 판단:** "오타가 오히려 중의적 표현이 된다" → `psycare`(싸이케어)보다 **`metalcare`(메탈 케어)**가 더 강력한 브랜드. 오타를 수정하지 않고 **브랜드로 승화**.
+- **실행:** GitHub 레포 `helena751107/helena-psycare` → `helena-metalcare` 재개명(구 이름 자동 리다이렉트) + 전 레포 psycare→metalcare 일괄 치환(~87파일, 0 잔존).
+- **결과:** 티스토리(helena-metalcare) · GitHub(helena-metalcare) · YouTube(@HelenaMetalcare) 3채널 이름 정합.
+- **브랜드 의미:** "Metal Care" = 금속처럼 단단한 돌봄 + 멘탈(정신) 케어의 중의. 폐쇄/재생성 없이 이름 정합으로 마무리.

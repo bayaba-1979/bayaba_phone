@@ -23,7 +23,7 @@ STT 음성 → Claude Code(코드) + Grok(시각) + Aider(보조)
 | 2 | helana_log | mynote11605 | 추후 | 🗃️ 행정 대화록 | **행정·복지** |
 | 3 | helena-faith | helana-christianity | 추후 | ✝️ 가족 신앙사 | **문화·종교** |
 | 4 | helena-piano | helena-piano | 추후 | 🎹 피아노·AI음원 | **음악·예술** |
-| 5 | helena-psycare | helena-psycare | 추후 | 🧠 정신의학·분석 | **정신건강·돌봄** |
+| 5 | helena-metalcare | helena-metalcare | 추후 | 🧠 정신의학·분석 | **정신건강·돌봄** |
 
 **모든 콘텐츠는 Naver helena1975 웹진으로 수렴.**
 한국어 귀화 시험 준비생에게 5개 축의 진짜 한국을 보여주는 교재.

@@ -51,7 +51,7 @@ python3 scripts/build_satellite_docs_Grok.py  # 위성 4종 md→html
 | Pages bridge | ✅ `pages/index.html` |
 | CLAUDE / logs | ✅ html 브릿지 |
 
-### helana-faith / helena-piano / helena-psycare
+### helana-faith / helena-piano / helena-metalcare
 | 항목 | 상태 |
 |------|------|
 | 랜딩 | ✅ 각 브랜드 초A |
@@ -65,7 +65,7 @@ python3 scripts/build_satellite_docs_Grok.py  # 위성 4종 md→html
 
 1. **md가 생기면 같은 stem의 html** (phone: `build_webzine` / 위성: `build_satellite_docs_Grok`)  
 2. 문서 HTML 공통: dark/light · spine · 검색 · h2 접기 · 모바일 gutter 22px · 허브 링크  
-3. 액센트: Log teal · Faith gold · Piano lilac · PsyCare coral · Phone gold  
+3. 액센트: Log teal · Faith gold · Piano lilac · MetalCare coral · Phone gold  
 4. 랜딩 nav에 **Docs / pages** 링크  
 5. 보고: 갭 있으면 빌드 후 `tg.sh`
 
@@ -79,7 +79,7 @@ python3 scripts/build_satellite_docs_Grok.py  # 위성 4종 md→html
 | log | [/helana_log/](https://helena751107.github.io/helana_log/) | [docs/](https://helena751107.github.io/helana_log/docs/) · [pages/](https://helena751107.github.io/helana_log/pages/) |
 | faith | [/helana-faith/](https://helena751107.github.io/helana-faith/) | [pages/](https://helena751107.github.io/helana-faith/pages/) |
 | piano | [/helena-piano/](https://helena751107.github.io/helena-piano/) | [pages/](https://helena751107.github.io/helena-piano/pages/) |
-| psycare | [/helena-psycare/](https://helena751107.github.io/helena-psycare/) | [pages/](https://helena751107.github.io/helena-psycare/pages/) |
+| metalcare | [/helena-metalcare/](https://helena751107.github.io/helena-metalcare/) | [pages/](https://helena751107.github.io/helena-metalcare/pages/) |
 
 ---
 
@@ -88,7 +88,7 @@ python3 scripts/build_satellite_docs_Grok.py  # 위성 4종 md→html
 - [x] 5레포 md 인벤토리  
 - [x] phone gap 0 유지  
 - [x] log docs 전부 html  
-- [x] faith/piano/psycare README·CLAUDE html  
+- [x] faith/piano/metalcare README·CLAUDE html  
 - [x] 통일 템플릿 빌더 스크립트  
 - [x] 디자이너 workpad 문서화  
 - [ ] 텔레그램 보고 (전송)  

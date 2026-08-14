@@ -34,9 +34,9 @@ SATELLITES = {
         "pages_url": "https://helena751107.github.io/helena-faith/",
         "accent": "#d4a84b",
     },
-    "helena-psycare": {
-        "dir": ROOT / "helena-psycare",
-        "pages_url": "https://helena751107.github.io/helena-psycare/",
+    "helena-metalcare": {
+        "dir": ROOT / "helena-metalcare",
+        "pages_url": "https://helena751107.github.io/helena-metalcare/",
         "accent": "#e85d4c",
     },
     "helena-programming": {

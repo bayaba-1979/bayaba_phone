@@ -84,7 +84,7 @@ helena_phone/                  ← 📱 메인 레포 (SSOT)
 |---|------|------|
 | 8 | @HelenaFaith 브랜드 채널 | `phase-3` |
 | 9 | @HelenaPiano 브랜드 채널 | `phase-4` |
-| 10 | @HelenaPsycare 브랜드 채널 | `phase-5` |
+| 10 | @HelenaMetalcare 브랜드 채널 | `phase-5` |
 
 ### ⬜ 유지보수
 

@@ -23,7 +23,7 @@ ACCOUNTS = {
     "mynote":     {"blog": "mynote11605",         "domain": "기술노트"},
     "faith":      {"blog": "helana-christianity", "domain": "신앙사"},
     "piano":      {"blog": "helena-piano",        "domain": "피아노"},
-    "psycare":    {"blog": "helena-psycare",      "domain": "정신분석"},
+    "metalcare":    {"blog": "helena-metalcare",    "domain": "정신분석"},
 }
 
 def notify_tg(msg):

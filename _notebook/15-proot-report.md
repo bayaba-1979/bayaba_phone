@@ -13,7 +13,7 @@
 ### GitHub 생태계
 - helena_phone 레포 생성 → Pages 활성화 (`helena751107.github.io/helena_phone/`)
 - 레포 개명: s21-work → helena_phone
-- 3개 신규 레포: helana-faith, helena-piano, helena-psycare
+- 3개 신규 레포: helana-faith, helena-piano, helena-metalcare
 - 총 5개 레포, 전부 Pages + Discussions + Giscus + WidgetBot 활성화
 - Collaborator: REDACTED (5개 레포 admin)
 

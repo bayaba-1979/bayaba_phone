@@ -45,10 +45,10 @@ BRANDS = {
         "hub": "https://helena751107.github.io/helena_phone/",
         "kicker": "Studio · Docs",
     },
-    "helena-psycare": {
-        "name": "Helena PsyCare",
+    "helena-metalcare": {
+        "name": "Helena MetalCare",
         "accent": "#e85d4c",
-        "home": "https://helena751107.github.io/helena-psycare/",
+        "home": "https://helena751107.github.io/helena-metalcare/",
         "hub": "https://helena751107.github.io/helena_phone/",
         "kicker": "Care · Docs",
     },
@@ -312,7 +312,7 @@ def main() -> int:
         "helana_log": base / "helana_log",
         "helana-faith": base / "helena-faith",
         "helena-piano": base / "helena-piano",
-        "helena-psycare": base / "helena-psycare",
+        "helena-metalcare": base / "helena-metalcare",
         "helena-programming": base / "helena-programming",
     }
     total = 0

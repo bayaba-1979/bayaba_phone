@@ -155,7 +155,7 @@ print(f'Quality: {d[\"repos\"][\"helena_phone\"][\"quality\"]}')
 | 2 | helana_log | `build_satellite_docs_Grok.py` | `/root/work/helana_log/` | `helena751107.github.io/helana_log/` |
 | 3 | helena-piano | `build_satellite_docs_Grok.py` | `/root/work/helena-piano/` | `helena751107.github.io/helena-piano/` |
 | 4 | helena-faith | `build_satellite_docs_Grok.py` | 별도 체크아웃 | `helena751107.github.io/helena-faith/` |
-| 5 | helena-psycare | `build_satellite_docs_Grok.py` | 별도 체크아웃 | `helena751107.github.io/helena-psycare/` |
+| 5 | helena-metalcare | `build_satellite_docs_Grok.py` | 별도 체크아웃 | `helena751107.github.io/helena-metalcare/` |
 | 6 | helena-programming | `build_satellite_docs_Grok.py` | `/root/work/helena-programming/` | `helena751107.github.io/helena-programming/` |
 
 ---

@@ -108,7 +108,7 @@ Pages 활성화 명령을 aider 대화창에 붙여넣어 스크래핑으로 헛
 
 ### [9~10] 레포 3개 추가 → 5레포 생태계
 
-helana-faith(✝️ 가족 신앙사), helena-piano(🎹 피아노), helena-psycare(🧠 멘탈케어) — 각 레포 동일 구조(index.html+Pages+Discussions+Giscus+WidgetBot). 포털 index.html 전면 개편 — 5레포 테이블·개발일지 타임라인·통신망 현황·업무 수첩 링크.
+helana-faith(✝️ 가족 신앙사), helena-piano(🎹 피아노), helena-metalcare(🧠 멘탈케어) — 각 레포 동일 구조(index.html+Pages+Discussions+Giscus+WidgetBot). 포털 index.html 전면 개편 — 5레포 테이블·개발일지 타임라인·통신망 현황·업무 수첩 링크.
 
 ### [11~12] 업무 수첩 + 5x5 생태계 브릿지
 
@@ -161,13 +161,13 @@ YouTube OAuth를 **"컨디션 좋은 날"로 의도적 보류**. 스캐폴드 �
 | helana_log | 🗃️ 박씨캡처 리버싱 | REDACTED admin |
 | helana-faith | ✝️ 가족 신앙사 + 비교종교학 | REDACTED admin |
 | helena-piano | 🎹 피아노 종합 + 음원 생성 | REDACTED admin |
-| helena-psycare | 🧠 멘탈케어 | REDACTED admin |
+| helena-metalcare | 🧠 멘탈케어 | REDACTED admin |
 
 50개 이상의 디렉토리/README 생성. REDACTED(누나의 또 다른 GitHub 계정)를 5개 레포 전부 admin으로 등록·수락 완료 — 버스 팩터 확보.
 
 ### [20] Playwright 전수 검사
 
-5개 레포 Pages + 디렉토리 구조를 Playwright headless Chromium으로 자동 스크린샷 검증. 전부 통과(48개 디렉토리/README 실존 확인), helena-psycare만 옛 이름(metalcare) 잔재 발견 후 즉시 수정.
+5개 레포 Pages + 디렉토리 구조를 Playwright headless Chromium으로 자동 스크린샷 검증. 전부 통과(48개 디렉토리/README 실존 확인), helena-metalcare만 옛 이름(metalcare) 잔재 발견 후 즉시 수정.
 
 ### [21] REDACTED 선물 패키지 도착
 
@@ -383,7 +383,7 @@ Termux (겉, ~ $)
 | mynote11605 | Tech Log | helana_log | 🗃️ 박씨캡처 리버싱 |
 | helana-christianity | Helena Faith | helena-faith | ✝️ 가족 신앙사 |
 | helena-piano | Helena Piano | helena-piano | 🎹 피아노+음원생성 |
-| helena-psycare | Metal Craft | helena-psycare | 🧠 멘탈케어 |
+| helena-metalcare | Metal Craft | helena-metalcare | 🧠 멘탈케어 |
 
 네이버(helena1975) = 전체 세트 교차홍보 관제탑·그림첩.
 

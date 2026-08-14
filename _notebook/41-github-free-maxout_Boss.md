@@ -39,7 +39,7 @@
 이미 쓰는 것:
   ✓ helena_phone 메인 (webzine)
   ✓ helana_log (학습 로그)
-  ✓ helena-psycare (돌봄 허브)
+  ✓ helena-metalcare (돌봄 허브)
   ✓ helana-faith (신앙 허브)
   ✓ helena-piano (연주 스튜디오)
 

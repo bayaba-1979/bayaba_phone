@@ -17,7 +17,7 @@ status: active
 | YouTube | 이름 | 흡수하는 티스토리/GitHub |
 |---------|------|--------------------------|
 | `@helena_phone` | **도구 (인프라)** | galaxys21-pwuser · mynote11605 (S21·기술) |
-| `@HelenaPark-e7c` | **돌봄 (누나)** | helana-christianity · helena-piano · helena-psycare (플레이리스트 3개) |
+| `@HelenaPark-e7c` | **돌봄 (누나)** | helana-christianity · helena-piano · helena-metalcare (플레이리스트 3개) |
 
 ---
 

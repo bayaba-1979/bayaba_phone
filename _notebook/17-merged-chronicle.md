@@ -277,7 +277,7 @@ push로 도착. 우리 커밋이 덮어써지는 사고가 발생했지만, cher
 |--------|------|---------|
 | §9 | `23aad5a`~`00f1f32` | GitHub 레포 5개 + Pages + Giscus 전부 활성화 |
 | §12 | `79c4974` | 5x5 생태계 브릿지 테이블 |
-| §19 | `10dd701`, `6c85bf7` | 레포 정체성 확립 + metalcare→psycare 개명 |
+| §19 | `10dd701`, `6c85bf7` | 레포 정체성 확립 + metalcare→psycare 개명 (08-14 psycare→metalcare 재개명) |
 | §20 | `f913664` | Playwright 전수 검사 (5레포 Pages, 48개 디렉토리 OK) |
 | §21 | `a5abae7`, `2a6a78e` | dtslib 선물 분석 — MCP 치트시트 + 채널 매핑 |
 | §25 | `282acac` | 강박사(CS PhD) 합류 — 첫 인간 협력자 |
@@ -289,7 +289,7 @@ push로 도착. 우리 커밋이 덮어써지는 사고가 발생했지만, cher
 | helana_log | mynote11605 | Tech Log | 🗃️ 박식캡처 리버싱 |
 | helana-faith | helana-christianity | Helena Faith | ✝️ 가족 신앙사 |
 | helena-piano | helena-piano | Helena Piano | 🎹 피아노+음원 |
-| helena-psycare | helena-psycare | Mental Care | 🧠 정신분석 |
+| helena-metalcare | helena-metalcare | Mental Care | 🧠 정신분석 |
 
 네이버(helena1975) = 전체 교차홍보 관제탑.
 

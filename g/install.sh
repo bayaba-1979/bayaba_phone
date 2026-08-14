@@ -306,7 +306,7 @@ show_satellites() {
     https://github.com/${OWNER_GITHUB}/helana_log
     https://github.com/${OWNER_GITHUB}/helana-faith
     https://github.com/${OWNER_GITHUB}/helena-piano
-    https://github.com/${OWNER_GITHUB}/helena-psycare
+    https://github.com/${OWNER_GITHUB}/helena-metalcare
 
   Pages:
     https://${OWNER_GITHUB}.github.io/helena_phone/
@@ -316,7 +316,7 @@ EOF
   if [ "$CLONE_SATELLITES" = "1" ]; then
     info "CLONE_SATELLITES=1 — /root/sites 에 클론 시도"
     mkdir -p /root/sites
-    for r in helana_log helana-faith helena-piano helena-psycare; do
+    for r in helana_log helana-faith helena-piano helena-metalcare; do
       [ -d "/root/sites/$r/.git" ] && continue
       git clone "https://github.com/${OWNER_GITHUB}/${r}.git" "/root/sites/$r" 2>/dev/null \
         && ok "$r" || warn "$r 클론 실패"

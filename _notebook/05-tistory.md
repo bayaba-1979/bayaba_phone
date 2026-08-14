@@ -10,7 +10,7 @@
 | 2 | Helana Christianity | `helana-christianity.tistory.com` | 기독교/신앙 |
 | 3 | Helena Piano | `helena-piano.tistory.com` | 피아노/음악 |
 | 4 | Galaxy S21 PWUser | `galaxys21-pwuser.tistory.com` | S21 폰 활용/사용자 가이드 |
-| 5 | Helena Mental Care | `helena-psycare.tistory.com` | 멘탈 케어/정신건강 |
+| 5 | Helena Mental Care | `helena-metalcare.tistory.com` | 멘탈 케어/정신건강 |
 
 ### 네이버 블로그
 

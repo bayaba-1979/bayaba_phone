@@ -13,7 +13,7 @@
 | 2 | My Note | `mynote11605.tistory.com` | 개인 메모·기술 노트 | `helana_log` | `@helena_phone` |
 | 3 | Helana Christianity | `helana-christianity.tistory.com` | 기독교·신앙 | `helana-faith` | `@HelenaPark-e7c` |
 | 4 | Helena Piano | `helena-piano.tistory.com` | 피아노·음악 | `helena-piano` | `@HelenaPark-e7c` |
-| 5 | Helena Mental Care | `helena-psycare.tistory.com` | 멘탈 케어·정신건강 | `helena-psycare` | `@HelenaPark-e7c` |
+| 5 | Helena Mental Care | `helena-metalcare.tistory.com` | 멘탈 케어·정신건강 | `helena-metalcare` | `@HelenaPark-e7c` |
 
 **생태계 법칙:** 5개 GitHub = 5개 티스토리 = **2개 YouTube** = **5:5:2 매칭** (YouTube만 콜드 스타트로 2채널 — `@helena_phone`=인프라 · `@HelenaPark-e7c`=돌봄)
 

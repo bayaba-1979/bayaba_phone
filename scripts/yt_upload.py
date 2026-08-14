@@ -31,7 +31,7 @@ CHANNELS = {
     "tech":     {"id": "", "handle": "@HelenaTechLog",      "topic": "기술 튜토리얼"},
     "faith":    {"id": "", "handle": "@HelanaFaith",        "topic": "신앙 콘텐츠"},
     "piano":    {"id": "", "handle": "@HelenaPiano",        "topic": "피아노 연주"},
-    "psycare":  {"id": "", "handle": "@HelenaPsycare",      "topic": "정신분석"},
+    "metalcare":  {"id": "", "handle": "@HelenaMetalcare",      "topic": "정신분석"},
 }
 
 SCOPES = [

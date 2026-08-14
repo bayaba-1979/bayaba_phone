@@ -201,7 +201,7 @@ $30 이유 = 디자이너 잡일 전부     $30 이유 = **구도 이미지 + �
 | **helena_phone** | `/root/work` | **저장 위치.** 헌법·수첩·플러그 역할 |
 | helena-programming | 로컬 있음 | 스튜디오 뼈대. 채널 아님 |
 | helana_log · helena-piano | 로컬 있음 | 위성 Pages |
-| helana-faith · helena-psycare | GitHub only | 위성. 로컬 클론 없음 |
+| helana-faith · helena-metalcare | GitHub only | 위성. 로컬 클론 없음 |
 | OrbitPrompt (REDACTED) | 클론만 | 선물 냉장고. 이 역할과 섞지 않음 |
 
 ```

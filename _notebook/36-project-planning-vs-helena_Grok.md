@@ -39,11 +39,11 @@ status: active
 
 | 콘텐츠 설계 | 비즈니스 대응 |
 |-------------|---------------|
-| 5레포 = Phone · Log · Faith · Piano · PsyCare | 브랜드 라인업 · 포트폴리오 |
+| 5레포 = Phone · Log · Faith · Piano · MetalCare | 브랜드 라인업 · 포트폴리오 |
 | 네이버 칠판 · 웹진 티저 | 퍼널 입구 (인지·유입) |
 | YouTube 강의·연주·기록 | 수익·권위 레이어 |
 | GitHub Pages / 수첩 SSOT | IP·운영 매뉴얼·자산 |
-| 행정 대화록 · PsyCare 트랙1 | 문제 공간·신뢰 자본 |
+| 행정 대화록 · MetalCare 트랙1 | 문제 공간·신뢰 자본 |
 | Grok 80% + Aider 시공 | 생산 원가 구조 |
 | Paste Pipeline | 발행 SOP (API 없는 채널) |
 | 듀얼 폰 · 누나 명의 | 지속성·핸드오프·거버넌스 |

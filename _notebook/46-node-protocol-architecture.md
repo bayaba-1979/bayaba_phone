@@ -33,7 +33,7 @@ HELENA PARK 노드
 │   ├── helena-piano — 피아노 스튜디오 웹진
 │   ├── helana_log — 시간축 기록
 │   ├── helana-faith — 신앙사·비교종교
-│   ├── helena-psycare — 심리 케어
+│   ├── helena-metalcare — 심리 케어
 │   └── parksy-audio (private) — 오디오 엔진
 │
 ├── 🎬 출력 채널

@@ -222,7 +222,7 @@
 | `helena1975` | **누나의 분신** | 네이버 블로그, 관저탑/그림첩 |
 | `REDACTED` | 누나 (선물 보낸 사람) | 콜라보레이터(협력자), 코드 기증, 5개 레포 admin(관리자) |
 | YouTube 2종 (`@helena_phone` · `@HelenaPark-e7c`) | **누나의 분신** | 2개 채널 운영 — `@helena_phone`=인프라(도구) · `@HelenaPark-e7c`=돌봄(누나) |
-| 티스토리 5종 | **누나의 분신** | galaxys21-pwuser, mynote11605, helana-christianity, helena-piano, helena-psycare |
+| 티스토리 5종 | **누나의 분신** | galaxys21-pwuser, mynote11605, helana-christianity, helena-piano, helena-metalcare |
 | 사용자 본인 | **헬레나 (대필작가 + 간병인)** | 콘텐츠 기획·집필·발행, 마법 작업실 설계·운영, 모든 결정의 주체 |
 
 ### 제10조: 협력자(콜라보레이터 — Collaborator) 구조

@@ -5,7 +5,7 @@
 | YouTube 채널 | 이름 | 흡수하는 티스토리 | 콘텐츠 |
 |-------------|------|------------------|--------|
 | `@helena_phone` | **도구 (인프라)** | `galaxys21-pwuser` · `mynote11605` | S21 폰 셋업/코딩 + 기술 튜토리얼 |
-| `@HelenaPark-e7c` | **돌봄 (누나)** | `helana-christianity` · `helena-piano` · `helena-psycare` | 신앙·피아노·멘탈케어 (플레이리스트 3개) |
+| `@HelenaPark-e7c` | **돌봄 (누나)** | `helana-christianity` · `helena-piano` · `helena-metalcare` | 신앙·피아노·멘탈케어 (플레이리스트 3개) |
 
 ## 채널 구조
 

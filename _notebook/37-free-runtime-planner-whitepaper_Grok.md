@@ -110,7 +110,7 @@ version: 1.0
 
 | 콘텐츠 기능 | 구현 |
 |-------------|------|
-| 브랜드 라인 | Phone · Log · Faith · Piano · PsyCare |
+| 브랜드 라인 | Phone · Log · Faith · Piano · MetalCare |
 | 톤·경계 | 각 랜딩 헌장 · 대화록 템플릿 |
 | 제작 파이프 | 받음→초안(_Grok)→시공(_Aider)→감사(_Claude)→발행 |
 | 유통 | Naver 드래프트 · YT 깊이 · Pages 원본 |
@@ -140,7 +140,7 @@ helena_phone          ← 플래너 SSOT · 헌법 · 수첩 · 웹진 공장
  helana_log           ← 행정·현장 문제 공간 (신뢰·니즈)
  helana-faith         ← 소망·신앙 콘텐츠 라인
  helena-piano         ← 연습·방송 라인
- helena-psycare       ← 트랙1 안전망 라인
+ helena-metalcare       ← 트랙1 안전망 라인
 ```
 
 | 플래너 UI (일반) | 여기 대체물 |

@@ -117,7 +117,7 @@ REDACTED/parksy-audio/ (외부, 콜라보 접근)
 | `helana_log` | 🟢 | 업무일지 — 시간축 기록 |
 | `helana-faith` | 🟢 | 신앙사 — 가족·비교종교 |
 | `helena-piano` | 🟢 | 피아노 스튜디오 — 웹진·BGM |
-| `helena-psycare` | 🟢 | 심리 케어 |
+| `helena-metalcare` | 🟢 | 심리 케어 |
 | `parksy-audio` | 🔒 | 오디오 엔진 — 외부(private) |
 
 ---
