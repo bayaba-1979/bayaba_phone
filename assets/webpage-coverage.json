@@ -1,16 +1,15 @@
 {
-  "generated": "2026-08-14T01:41:38Z",
+  "generated": "2026-08-14T02:09:51Z",
   "agent": "_Grok",
   "notebook_md_count": 107,
-  "notebook_html_count": 111,
+  "notebook_html_count": 110,
   "catalog_count": 150,
   "manual_titles": 99,
   "auto_titled": 8,
   "missing_html": [],
   "orphan_html": [
     "notebook/40-lecture-chalkboard-vol0.html",
-    "notebook/53-self-eval.html",
-    "notebook/83-grok-two-role-momentum_Boss.html"
+    "notebook/53-self-eval.html"
   ],
   "catalog_missing_on_disk": [],
   "gap_count": 0,

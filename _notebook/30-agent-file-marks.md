@@ -10,7 +10,7 @@
 
 | 에이전트 | CLI | 직함 | 파일명 마크 | 예 |
 |----------|-----|-------------------|-------------|-----|
-| Grok Build / SuperGrok | `grok` · `gr` | **웹 코드 디자이너 · 다큐 PD** (2026-08-14 기점) | **`_Grok`** | `session-2026-07-26_Grok.md` |
+| Grok Build / SuperGrok | `grok` · `gr` | **잡지 구도 디자이너 · 다큐 PD** (2026-08-14 기점) | **`_Grok`** | `session-2026-07-26_Grok.md` |
 | Aider + DeepSeek | `ds` · `dsflash` | **작업 반장** | **`_Aider`** | `queue-fix_Aider.md` |
 | Claude (추후 진입) | `cc` | **감사** | **`_Claude`** | `audit-20260726_Claude.md` |
 | 사람(Boss) 직접 | — | 최종 판단 | **`_Boss`** 또는 마크 없음 | `decision-2026-07-26_Boss.md` |
