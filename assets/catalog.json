@@ -1016,6 +1016,14 @@
     "deck": "**한 줄:** 구형 Galaxy S21 한 대로, proot Ubuntu + 에이전트 3종 + Tailscale로 \"돌봄(누나) + 소망(출판)\" 인프라를 22일 만에 세웠다."
   },
   {
+    "src": "_notebook/90-midpoint-consolidation-2026-08-14_Boss.md",
+    "out": "notebook/90-midpoint-consolidation-2026-08-14_Boss.html",
+    "title": "중간점 랩업 — 5년차 폰, 확장기 종료 → 다듬기·양산기 전환 (2026-08-14)",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "**한 줄:** 22일 확장기(357커밋)로 뼈대를 세웠다. 오늘부턴 더 넓히지 않고 **다듬고**, 실제 콘텐츠를 **찍어낸다**."
+  },
+  {
     "src": "_notebook/78-pd-pipeline-whitepaper_Claude.md",
     "out": "notebook/78-pd-pipeline-whitepaper_Claude.html",
     "title": "🎬 PD Pipeline 기술 백서 — URL 하나로 숏폼 자동 제작",
