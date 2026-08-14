@@ -230,4 +230,43 @@ Grok이 새 일을 받으면: **칸 ①인가, 칸 ②인가.** 둘 다 아니�
 
 ---
 
-*Boss 결정 기록 · agent mark `_Grok` · 기점 2026-08-14*
+---
+
+## 8. 브릿지 실측 (2026-08-14 · 이 세션에서 확인)
+
+proot Ubuntu와 안드로이드는 **이미 같은 디스크**다. 복사 앱이 필요 없다.
+
+| 연결 | 실측 |
+|------|------|
+| `/sdcard` = `/storage/emulated/0` | bind mount. DCIM·Pictures·Download·Movies 보임 |
+| Termux `~/storage/{dcim,pictures,downloads,movies,shared}` | 심볼릭 링크 존재 |
+| 갤러리 **읽기** | `/sdcard/DCIM/Camera` 등 열림 |
+| 갤러리 **쓰기** | `/sdcard/Pictures/` 기록 성공 (프로브 후 삭제) |
+| 갤러리 갱신 | `termux-media-scan` 존재 — 뽑은 파일을 앨범에 띄울 때 |
+| Termux:API from proot | `termux-battery-status` 성공 (이 세션 97%) |
+| 사진 받는 함 | `~/inbox` 있음 · **지금 비어 있음** |
+| 옛 자동 파이프 | `scripts/auto_image_pipe.sh` (inbox→ffmpeg→TG), `scripts/_bridge_pickup.sh` (갤러리 mp4→PD) |
+| 편집실 | `ffmpeg` 8.0.1 · `grok` 1.0.3 · RVC `scripts/rvc_dub/` |
+| Git | `helena_phone` · `helana_log` · `helena-piano` 원격 연결 |
+| 꺼져 있음 | phone-mcp `:3456` · pd_mcp `:8765` · proot 안 tailscaled (돌봄은 Termux 쪽 단일 노드) |
+
+**거꾸로 본 플러그 배관**
+
+```
+[카메라/앨범]  --bind-->  [이 proot 셸이 그대로 읽음]
+                              │
+                    칸① image_edit/gen     칸② I2V 10초 + 더빙
+                              │
+                    ffmpeg 이어붙이기 (로컬)
+                              │
+         /sdcard/Pictures 또는 Movies  +  termux-media-scan
+                              │
+                    (선택) git push · tg.sh
+```
+
+입력만 오면 된다. 칸 ①은 **사진 + 잡지 구도**. 칸 ②는 **사진 + 프롬프트**.  
+함은 `~/inbox` 또는 `/sdcard/DCIM/Camera` 둘 다 이 셸에서 보인다.
+
+---
+
+*Boss 결정 기록 · agent mark `_Grok` · 기점 2026-08-14 · §8 브릿지 실측*
