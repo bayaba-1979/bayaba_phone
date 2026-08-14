@@ -225,6 +225,7 @@ NOTEBOOK_TITLES = {
     "88-coding-agent-options-free-lane_Boss.md": "코딩 에이전트 옵션 검토 (5종 폐기·로스터 확정)",
     "89-wrapup-2026-08-14_Boss.md": "S21 프로젝트 랩업 (22일 요약)",
     "90-midpoint-consolidation-2026-08-14_Boss.md": "중간점 랩업 (5년차 폰 · 확장→다듬기 전환)",
+    "91-automation-caution_Claude.md": "GUI 자동화 주의사항 (사람 손가락 착각)",
 }
 
 # Auto-discover every _notebook/*.md (overrides in NOTEBOOK_TITLES)

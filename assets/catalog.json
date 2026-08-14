@@ -1024,6 +1024,14 @@
     "deck": "**한 줄:** 22일 확장기(357커밋)로 뼈대를 세웠다. 오늘부턴 더 넓히지 않고 **다듬고**, 실제 콘텐츠를 **찍어낸다**."
   },
   {
+    "src": "_notebook/91-automation-caution_Claude.md",
+    "out": "notebook/91-automation-caution_Claude.html",
+    "title": "GUI 자동화 주의사항 — \"사람 손가락\"처럼 보인다는 착각 (2026-08-14)",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "**한 줄:** 티스토리 자동발행은 **된다**. 단, 그건 \"안 들켜서\"가 아니라 **티스토리가 관대해서**다. 같은 코드를 네이버·인스타로 옮기면 바로 걸린다."
+  },
+  {
     "src": "_notebook/78-pd-pipeline-whitepaper_Claude.md",
     "out": "notebook/78-pd-pipeline-whitepaper_Claude.html",
     "title": "🎬 PD Pipeline 기술 백서 — URL 하나로 숏폼 자동 제작",
