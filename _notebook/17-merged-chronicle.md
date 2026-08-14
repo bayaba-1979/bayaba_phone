@@ -289,7 +289,7 @@ push로 도착. 우리 커밋이 덮어써지는 사고가 발생했지만, cher
 | helana_log | mynote11605 | Tech Log | 🗃️ 박식캡처 리버싱 |
 | helana-faith | helana-christianity | Helena Faith | ✝️ 가족 신앙사 |
 | helena-piano | helena-piano | Helena Piano | 🎹 피아노+음원 |
-| helena-psycare | helena-psycare | Metal Craft | 🧠 정신분석 |
+| helena-psycare | helena-psycare | Mental Care | 🧠 정신분석 |
 
 네이버(helena1975) = 전체 교차홍보 관제탑.
 
