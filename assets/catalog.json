@@ -1032,6 +1032,14 @@
     "deck": "**한 줄:** 티스토리 자동발행은 **된다**. 단, 그건 \"안 들켜서\"가 아니라 **티스토리가 관대해서**다. 같은 코드를 네이버·인스타로 옮기면 바로 걸린다."
   },
   {
+    "src": "_notebook/92-automation-line-boss-to-publish_Claude.md",
+    "out": "notebook/92-automation-line-boss-to-publish_Claude.html",
+    "title": "자동화 라인 — Boss 던짐 → 문서화 → 형태별 분기 발행 (2026-08-14)",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "**한 줄:** Boss가 던진 생각·글·대화 로그를 Claude Code가 리버스엔지니어링/정리해 문서화하고, **형태로 나눠** JS 풀 웹앱은 GitHub Pages, 웹진형 문서는 티스토리로 보낸다."
+  },
+  {
     "src": "_notebook/78-pd-pipeline-whitepaper_Claude.md",
     "out": "notebook/78-pd-pipeline-whitepaper_Claude.html",
     "title": "🎬 PD Pipeline 기술 백서 — URL 하나로 숏폼 자동 제작",

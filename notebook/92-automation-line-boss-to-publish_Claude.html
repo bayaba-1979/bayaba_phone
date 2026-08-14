@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="**한 줄:** Boss가 던진 생각·글·대화 로그를 Claude Code가 리버스엔지니어링/정리해 문서화하고, **형태로 나눠** JS 풀 웹앱은 GitHub Pages, 웹진형 문서는 티스토리로 보낸다. — S21 Phone Webzine">
+<meta name="theme-color" content="#0a0908">
+<meta name="application-name" content="S21 Phone">
+<title>자동화 라인 — Boss 던짐 → 문서화 → 형태별 분기 발행 (2026-08-14) — S21 Phone Webzine</title>
+<link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/webzine.css">
+</head>
+<body>
+<div class="spine" aria-hidden="true"><div class="spine-fill" id="spineFill"></div></div>
+<header class="wz-mast">
+  <a class="brand" href="../index.html">S21 <em>Phone</em></a>
+  <div class="wz-mast-actions">
+    <button type="button" class="wz-burger" data-nav-toggle aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav class="wz-nav">
+      <a href="../index.html">Home</a>
+      <a href="../archive.html">Archive</a>
+      <a href="../index.html#library">Library</a>
+      <a href="../index.html#agents">Agents</a>
+      <button type="button" data-theme-toggle>Theme</button>
+      <a class="pill gold" href="../index.html#install">Install</a>
+    </nav>
+  </div>
+</header>
+<main class="wz-shell">
+  <div class="wz-crumb">
+    <a href="../index.html">Webzine</a><span class="sep">/</span>
+    <span>Notebook</span><span class="sep">/</span>
+    <span>자동화 라인 — Boss 던짐 → 문서화 → 형태별 분기 발행 (2026-08-14)</span>
+  </div>
+  <header class="wz-hero">
+    <div class="wz-kicker">Notebook · lakme-audio</div>
+    <h1>자동화 라인 — Boss 던짐 → 문서화 → 형태별 분기 발행 (2026-08-14)</h1>
+    <p class="deck">**한 줄:** Boss가 던진 생각·글·대화 로그를 Claude Code가 리버스엔지니어링/정리해 문서화하고, **형태로 나눠** JS 풀 웹앱은 GitHub Pages, 웹진형 문서는 티스토리로 보낸다.</p>
+    <div class="wz-meta">
+      <span>Source · _notebook/92-automation-line-boss-to-publish_Claude.md</span>
+      <span>Kind · markdown</span>
+      <span>S21 Phone Editorial</span>
+    </div>
+  </header>
+  <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
+<ul>
+<li><a href="#1">1. 한 장 그림</a></li>
+<li><a href="#2">2. 분기 기준 — &ldquo;형태&rdquo;가 플랫폼을 정한다</a></li>
+<li><a href="#3">3. 왜 이렇게 나누나</a></li>
+<li><a href="#4-vs-91">4. 자동화 vs 수동의 경계 (91과 연결)</a></li>
+<li><a href="#5">5. 정리</a></li>
+</ul>
+</div>
+</nav>
+  <div class="wz-appbar" role="toolbar" aria-label="Document tools">
+    <input type="search" id="wzSearch" class="wz-search" placeholder="페이지 내 검색…" autocomplete="off">
+    <button type="button" id="wzFoldAll" data-cursor>접기</button>
+    <button type="button" id="wzExpandAll" data-cursor>펼치기</button>
+    <button type="button" id="wzCopy" data-cursor>본문 복사</button>
+  </div>
+  <article class="wz-prose" id="wzProse" data-app="doc">
+    <hr>
+<p>date: 2026-08-14<br>
+agent: Claude<br>
+mark: _Claude<br>
+type: standard<br>
+status: active<br>
+related:<br>
+  - 91-automation-caution_Claude.md<br>
+  - tistory-master-guide_Claude.md<br>
+  - 24-paste-pipeline.md</p>
+<hr>
+<h1 id="boss-2026-08-14">자동화 라인 — Boss 던짐 → 문서화 → 형태별 분기 발행 (2026-08-14)</h1>
+<blockquote>
+<p><strong>한 줄:</strong> Boss가 던진 생각·글·대화 로그를 Claude Code가 리버스엔지니어링/정리해 문서화하고, <strong>형태로 나눠</strong> JS 풀 웹앱은 GitHub Pages, 웹진형 문서는 티스토리로 보낸다.</p>
+</blockquote>
+<h2 id="1">1. 한 장 그림</h2>
+<pre><code>[입력] Boss 생각·글 (대화로 던짐) + 대화 로그·히스토리
+                │
+                ▼
+[정제] Claude Code — 리버스 엔지니어링 / 구조화
+       (무질서 덤프 → 역구조화)
+                │
+                ▼
+[문서화] GitHub 레포 (_notebook/*.md = 원자재 창고)
+                │
+                ▼
+[형태 판별] — 어떤 꼴인가?
+      ┌─────────┴─────────┐
+      ▼                   ▼
+ [앱형]              [문서형]
+ JS 풀 인터랙티브      웹진·아티클·교재
+ (검색·접기·복사·앱)     (잡지 구도·글)
+      │                   │
+      ▼                   ▼
+ GitHub Pages         Tistory (Paste Pipeline)
+ (정적 호스팅,          (CMS, 수동 발행)
+  JS 자유)
+</code></pre>
+<h2 id="2">2. 분기 기준 — &ldquo;형태&rdquo;가 플랫폼을 정한다</h2>
+<table>
+<thead>
+<tr>
+<th>형태</th>
+<th>특징</th>
+<th>목적지</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>앱형</strong></td>
+<td>JS 풀, 상태·검색·인터랙션</td>
+<td>GitHub Pages</td>
+<td>정적 호스팅 + JS 무제한</td>
+</tr>
+<tr>
+<td><strong>문서형</strong></td>
+<td>웹진·교재·아티클 (읽는 글)</td>
+<td>Tistory</td>
+<td>CMS + RSS + 잡지 구도</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3">3. 왜 이렇게 나누나</h2>
+<ul>
+<li><strong>GitHub Pages</strong> = 코드·데이터·JS 앱의 무료 영구 CDN. 검색·접기·복사·앱 UI 같은 인터랙션은 JS 없이는 못 만들고, 티스토리는 JS 제한 → Pages.</li>
+<li><strong>Tistory</strong> = 글을 &ldquo;읽히는&rdquo; 채널. RSS 피드, 잡지 구도, 검색 노출. 사람이 읽는 웹진·교재는 CMS가 맞다.</li>
+</ul>
+<h2 id="4-vs-91">4. 자동화 vs 수동의 경계 (91과 연결)</h2>
+<ul>
+<li><strong>Pages(앱형)</strong> = 자동화 가능 (md→html 빌드, CI, 커버리지 게이트) — 봇 탐지 없음.</li>
+<li><strong>Tistory(문서형)</strong> = 수동 발행 (Paste Pipeline) — GUI 자동화는 91의 선을 지킨다.</li>
+</ul>
+<h2 id="5">5. 정리</h2>
+<ul>
+<li>입력은 <strong>무질서</strong>(생각·글·로그) → Claude Code가 <strong>역구조화</strong> → <strong>형태별로 목적지 배정</strong>.</li>
+<li>자동화할 수 있는 곳(Pages)은 풀오토, 자동화하면 안 되는 곳(Tistory)은 사람 손.</li>
+</ul>
+<hr>
+<p><em>agent _Claude · 2026-08-14 · Boss가 던진 자동화 라인 구조 정리</em></p>
+  </article>
+  <nav class="wz-pager">
+    <a class="" href="91-automation-caution_Claude.html">
+          <span class="dir">Previous</span>
+          <span class="title">GUI 자동화 주의사항 — &quot;사람 손가락&quot;처럼 보인다는 착각 (2026-08-14)</span>
+        </a>
+    <a class="next" href="78-pd-pipeline-whitepaper_Claude.html">
+          <span class="dir">Next</span>
+          <span class="title">78 pd pipeline whitepaper Claude</span>
+        </a>
+  </nav>
+  <div class="wz-related">
+          <h2>같은 섹션</h2>
+          <div class="grid"><a href="00-INDEX.html"><strong>📖 S21 Phone 업무 수첩 — 전체 목차</strong>구축: 2026-07-23 ~ 2026-08-14 (23일)</a><a href="01-arch.html"><strong>전체 시스템 아키텍처</strong>Notebook</a><a href="02-discord.html"><strong>디스코드 서버/봇/위젯</strong>Notebook</a><a href="03-telegram.html"><strong>텔레그램 봇/회의실</strong>Notebook</a><a href="04-github-pages.html"><strong>GitHub Pages + Giscus + WidgetBot</strong>Notebook</a><a href="05-tistory.html"><strong>블로그 포트폴리오 + 자동화 전략</strong>Notebook</a></div>
+        </div>
+  <footer class="wz-foot">
+    <div>S21 PHONE · Webzine lakme-audio</div>
+    <div class="gold">모든 계정은 누나 명의입니다.</div>
+    <p style="margin-top:12px"><a href="../index.html">← Back to landing</a></p>
+  </footer>
+</main>
+<div class="wz-float">
+  <button type="button" id="wzTop" aria-label="Top">↑</button>
+  <button type="button" data-theme-toggle aria-label="Theme">◐</button>
+</div>
+<script src="../assets/webzine.js"></script>
+</body>
+</html>
