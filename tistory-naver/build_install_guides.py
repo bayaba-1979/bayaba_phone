@@ -34,6 +34,16 @@ GUIDES = [
     ("05-optimization", "최적화", ["battery-saving.md", "performance.md", "storage.md"]),
 ]
 
+# 챕터 태그 → 기존 티스토리 카테고리(PART N) 매핑. 새 카테고리 생성 없이 기존 교재 트리에 편입.
+CATEGORY = {
+    "개요": "PART 1: 온보딩",       # GUIDE.md 마스터
+    "기반설치": "PART 1: 온보딩",    # 01-foundation
+    "통신망": "PART 2: 인프라",      # 02-network
+    "방송발행": "PART 5: 출판·배포",  # 03-broadcast
+    "원격제어": "PART 2: 인프라",    # 04-phone-control
+    "최적화": "PART 2: 인프라",      # 05-optimization
+}
+
 
 def doc_size(md_path: Path) -> int:
     return len(strip_frontmatter(md_path.read_text(encoding="utf-8")))
@@ -44,37 +54,39 @@ def main() -> int:
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
-    plan = []          # (경로, 제목, 태그, 분량)
+    plan = []          # (경로, 제목, 태그, 카테고리, 분량)
     manifest = {"account": ACCOUNT, "blog": BLOG, "posts": []}
 
-    # 1) 마스터 GUIDE.md
+    # 1) 마스터 GUIDE.md → 카테고리 '개요'
     for p in [ROOT / "GUIDE.md"]:
         if p.exists():
             t, _ = extract_title_deck(strip_frontmatter(p.read_text(encoding="utf-8")))
-            plan.append((p, t or p.stem, ["S21", "설치법", "가이드"]))
+            plan.append((p, t or p.stem, ["S21", "설치법", "가이드"], CATEGORY["개요"]))
 
-    # 2) 챕터 설치 가이드
+    # 2) 챕터 설치 가이드 → 카테고리 = 기존 PART 매핑
     for chap, ctag, files in GUIDES:
         for f in files:
             p = ROOT / chap / f
             if not p.exists():
                 continue
             t, _ = extract_title_deck(strip_frontmatter(p.read_text(encoding="utf-8")))
-            plan.append((p, t or p.stem, ["S21", "설치법", ctag]))
+            plan.append((p, t or p.stem, ["S21", "설치법", ctag], CATEGORY.get(ctag, "PART 2: 인프라")))
 
     total_chars = 0
-    for p, title, tags in plan:
+    for p, title, tags, cat in plan:
         size = doc_size(p)
         total_chars += size
         manifest["posts"].append({
             "file": str(p.relative_to(ROOT)),
             "title": title,
             "tags": tags,
+            "category": cat,
             "size": size,
         })
         if not args.dry_run:
-            out = build_post_json(p, ACCOUNT, BLOG, title, tags, visibility="public")
-            print(f"  ✅ {out.name}  ← {title}")
+            out = build_post_json(p, ACCOUNT, BLOG, title, tags,
+                                  visibility="public", category=cat)
+            print(f"  ✅ {out.name}  ← {title}  [{cat}]")
 
     n = len(plan)
     print(f"\n설치법 파일럿: {n}개  /  원문 합계 {total_chars:,}자")

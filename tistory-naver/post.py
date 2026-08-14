@@ -110,6 +110,24 @@ async def kakao_login(page, email, pw):
 
 
 # ── 로그인 상태 확인 ────────────────────────────────────────
+async def _verify_body(page, content: str) -> bool:
+    """에디터에 본문이 실제로 커밋됐는지 read-back 검증 (빵꾸 방지).
+
+    실측: tinymce.setContent()가 True여도 일부 글은 본문이 비어있는 채 발행됨
+    (에디터 초기화·폼 동기화 레이스). 발행 전에 getContent 길이를 확인한다."""
+    want = len(re.sub(r"<[^>]+>", "", content).strip())
+    try:
+        got = await page.evaluate("""() => {
+            if (window.tinymce && tinymce.activeEditor) {
+                return (tinymce.activeEditor.getContent({format: 'text'}) || '').trim().length;
+            }
+            return 0;
+        }""")
+    except Exception:
+        return False
+    return isinstance(got, int) and got >= max(120, int(want * 0.4))
+
+
 async def ensure_logged_in(page, email, pw):
     # 로그인 여부: TSSESSION(티스토리 세션 쿠키) 존재 확인
     # (tistory.com/manage 는 로그아웃 시 "페이지 없음"만 띄워 URL 로그인 감지가 불가)
@@ -180,6 +198,37 @@ async def publish_post(page, post: dict):
         log(f"  [{slug}] 본문 입력 실패 — 스킵")
         RESULTS["fail"].append(f"{slug}:{title[:20]}")
         return False
+
+    # ── 본문 검증 (빵꾸 방지: setContent가 True여도 미커밋되는 레이스 실측) ──
+    await page.wait_for_timeout(1500)
+    if not await _verify_body(page, content):
+        log(f"  [{slug}] 본문 검증 실패 — 재시도")
+        try:
+            await page.evaluate("""(html) => {
+                if (window.tinymce && tinymce.activeEditor) {
+                    tinymce.activeEditor.setContent(html);
+                    tinymce.activeEditor.fire('change'); tinymce.activeEditor.fire('input');
+                }
+            }""", content)
+            await page.wait_for_timeout(2000)
+        except Exception as e:
+            log(f"  [{slug}] 재시도 오류: {e}")
+    if not await _verify_body(page, content):
+        log(f"  [{slug}] 본문 검증 최종 실패 — 스킵 (빵꾸 방지)")
+        RESULTS["fail"].append(f"{slug}:{title[:20]}")
+        return False
+
+    # ── 카테고리 선택 (에디터 툴바 #category-btn → 메뉴 아이템) ──
+    if cat:
+        try:
+            await page.locator("#category-btn").click()
+            await page.wait_for_timeout(1000)
+            item = page.locator(f".mce-menu-item:has(.mce-text:text-is('{cat}'))").first
+            await item.click()
+            await page.wait_for_timeout(600)
+            log(f"  [{slug}] 카테고리 설정: {cat}")
+        except Exception as e:
+            log(f"  [{slug}] 카테고리 설정 실패: {e}")
 
     await page.wait_for_timeout(500)
 

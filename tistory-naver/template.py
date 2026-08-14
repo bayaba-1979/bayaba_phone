@@ -291,7 +291,8 @@ def strip_frontmatter(md_text: str) -> str:
 
 # ── posts/*.json 생성 ───────────────────────────────────────
 def build_post_json(md_path: Path, account: str, blog: str, title: str | None,
-                    tags: list[str], visibility: str = "public") -> Path:
+                    tags: list[str], visibility: str = "public",
+                    category: str = "") -> Path:
     raw = md_path.read_text(encoding="utf-8")
     body = strip_frontmatter(raw)
     t, deck = extract_title_deck(body)
@@ -306,7 +307,7 @@ def build_post_json(md_path: Path, account: str, blog: str, title: str | None,
         "title": title or t,
         "content": html,
         "tags": tags or ["S21", "업무수첩"],
-        "category": "",
+        "category": category,
         "visibility": visibility,
     }
     out = POSTS_DIR / f"{slug}.json"
