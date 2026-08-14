@@ -130,6 +130,23 @@ async def _verify_body(page, content: str) -> bool:
     return isinstance(got, int) and got >= max(120, int(want * 0.4))
 
 
+async def _set_category(page, cat: str) -> bool:
+    """에디터에서 카테고리 선택.
+
+    메뉴 표시: PART = 'PART N: X' / Ch = '- ChN.M X' (트리 들여쓰기 '- ' 접두어).
+    Ch 항목까지 정밀 배치하려면 이 '- ' 접두어를 같이 매칭해야 한다."""
+    try:
+        await page.locator("#category-btn").click()
+        await page.wait_for_timeout(1000)
+        sel = (f".mce-menu-item:has(.mce-text:text-is('{cat}')), "
+               f".mce-menu-item:has(.mce-text:text-is('- {cat}'))")
+        await page.locator(sel).first.click()
+        await page.wait_for_timeout(600)
+        return True
+    except Exception:
+        return False
+
+
 async def ensure_logged_in(page, email, pw):
     # 로그인 여부: TSSESSION(티스토리 세션 쿠키) 존재 확인
     # (tistory.com/manage 는 로그아웃 시 "페이지 없음"만 띄워 URL 로그인 감지가 불가)
@@ -222,17 +239,11 @@ async def publish_post(page, post: dict):
         RESULTS["fail"].append(f"{slug}:{title[:20]}")
         return False
 
-    # ── 카테고리 선택 (에디터 툴바 #category-btn → 메뉴 아이템) ──
+    # ── 카테고리 선택 (PART/Ch 정밀 배치 — category_map SSOT) ──
     if cat:
-        try:
-            await page.locator("#category-btn").click()
-            await page.wait_for_timeout(1000)
-            item = page.locator(f".mce-menu-item:has(.mce-text:text-is('{cat}'))").first
-            await item.click()
-            await page.wait_for_timeout(600)
-            log(f"  [{slug}] 카테고리 설정: {cat}")
-        except Exception as e:
-            log(f"  [{slug}] 카테고리 설정 실패: {e}")
+        ok = await _set_category(page, cat)
+        log(f"  [{slug}] 카테고리 설정: {cat}" if ok
+            else f"  [{slug}] 카테고리 설정 실패: {cat}")
 
     await page.wait_for_timeout(500)
 

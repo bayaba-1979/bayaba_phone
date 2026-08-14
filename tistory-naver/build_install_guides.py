@@ -21,6 +21,7 @@ BASE = Path(__file__).parent
 ROOT = BASE.parent
 sys.path.insert(0, str(BASE))
 from template import build_post_json, strip_frontmatter, extract_title_deck
+from category_map import category_for  # SSOT: 원고 → Ch 카테고리
 
 ACCOUNT = "galaxys21"
 BLOG = "galaxys21-pwuser"
@@ -33,16 +34,6 @@ GUIDES = [
     ("04-phone-control", "원격제어", ["health-check.md", "phone-mcp.md", "termux-api.md"]),
     ("05-optimization", "최적화", ["battery-saving.md", "performance.md", "storage.md"]),
 ]
-
-# 챕터 태그 → 기존 티스토리 카테고리(PART N) 매핑. 새 카테고리 생성 없이 기존 교재 트리에 편입.
-CATEGORY = {
-    "개요": "PART 1: 온보딩",       # GUIDE.md 마스터
-    "기반설치": "PART 1: 온보딩",    # 01-foundation
-    "통신망": "PART 2: 인프라",      # 02-network
-    "방송발행": "PART 5: 출판·배포",  # 03-broadcast
-    "원격제어": "PART 2: 인프라",    # 04-phone-control
-    "최적화": "PART 2: 인프라",      # 05-optimization
-}
 
 
 def doc_size(md_path: Path) -> int:
@@ -57,20 +48,20 @@ def main() -> int:
     plan = []          # (경로, 제목, 태그, 카테고리, 분량)
     manifest = {"account": ACCOUNT, "blog": BLOG, "posts": []}
 
-    # 1) 마스터 GUIDE.md → 카테고리 '개요'
+    # 1) 마스터 GUIDE.md → Ch1.1 (SSOT)
     for p in [ROOT / "GUIDE.md"]:
         if p.exists():
             t, _ = extract_title_deck(strip_frontmatter(p.read_text(encoding="utf-8")))
-            plan.append((p, t or p.stem, ["S21", "설치법", "가이드"], CATEGORY["개요"]))
+            plan.append((p, t or p.stem, ["S21", "설치법", "가이드"], category_for(p)))
 
-    # 2) 챕터 설치 가이드 → 카테고리 = 기존 PART 매핑
+    # 2) 챕터 설치 가이드 → 트리 Ch 카테고리 (SSOT 기준)
     for chap, ctag, files in GUIDES:
         for f in files:
             p = ROOT / chap / f
             if not p.exists():
                 continue
             t, _ = extract_title_deck(strip_frontmatter(p.read_text(encoding="utf-8")))
-            plan.append((p, t or p.stem, ["S21", "설치법", ctag], CATEGORY.get(ctag, "PART 2: 인프라")))
+            plan.append((p, t or p.stem, ["S21", "설치법", ctag], category_for(p)))
 
     total_chars = 0
     for p, title, tags, cat in plan:
