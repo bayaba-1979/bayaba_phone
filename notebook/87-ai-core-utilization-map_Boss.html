@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="**기록 메타 (Claude Code, 2026-08-14):** 이 백서는 작성일 2026-08-13 기준. — S21 Phone Webzine">
+<meta name="theme-color" content="#0a0908">
+<meta name="application-name" content="S21 Phone">
+<title>AI 코어 활용 백서 (v4 · 최종 완전판) — S21 Phone Webzine</title>
+<link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/webzine.css">
+</head>
+<body>
+<div class="spine" aria-hidden="true"><div class="spine-fill" id="spineFill"></div></div>
+<header class="wz-mast">
+  <a class="brand" href="../index.html">S21 <em>Phone</em></a>
+  <div class="wz-mast-actions">
+    <button type="button" class="wz-burger" data-nav-toggle aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav class="wz-nav">
+      <a href="../index.html">Home</a>
+      <a href="../archive.html">Archive</a>
+      <a href="../index.html#library">Library</a>
+      <a href="../index.html#agents">Agents</a>
+      <button type="button" data-theme-toggle>Theme</button>
+      <a class="pill gold" href="../index.html#install">Install</a>
+    </nav>
+  </div>
+</header>
+<main class="wz-shell">
+  <div class="wz-crumb">
+    <a href="../index.html">Webzine</a><span class="sep">/</span>
+    <span>Notebook</span><span class="sep">/</span>
+    <span>AI 코어 활용 백서 (v4 · 최종 완전판)</span>
+  </div>
+  <header class="wz-hero">
+    <div class="wz-kicker">Notebook · lakme-audio</div>
+    <h1>AI 코어 활용 백서 (v4 · 최종 완전판)</h1>
+    <p class="deck">**기록 메타 (Claude Code, 2026-08-14):** 이 백서는 작성일 2026-08-13 기준.</p>
+    <div class="wz-meta">
+      <span>Source · _notebook/87-ai-core-utilization-map_Boss.md</span>
+      <span>Kind · markdown</span>
+      <span>S21 Phone Editorial</span>
+    </div>
+  </header>
+  <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
+<ul>
+<li><a href="#1">1. 배경 — 성우 코어의 출발점</a></li>
+<li><a href="#2">2. 성우 코어 사양</a></li>
+<li><a href="#3">3. 뇌과학적 근거 검토</a></li>
+<li><a href="#4">4. 저작권 구분 정정</a></li>
+<li><a href="#5">5. 상업화 전략 정정</a></li>
+<li><a href="#6">6. 콘텐츠 레인과 벡터</a></li>
+<li><a href="#7">7. 평가 기준의 정정</a></li>
+<li><a href="#8-ai">8. AI 코어 맵 — 정적/동적 좌표계</a></li>
+<li><a href="#9">9. 테일스케일 비즈니스 모델 리서치</a></li>
+<li><a href="#10">10. 커뮤니티 검증 — 케어기빙 사례</a></li>
+<li><a href="#11">11. 종합 실험 정의 — 세 겹의 동시 실험</a></li>
+<li><a href="#12">12. 목회 훈련용 슬롯 (조카 목사 확장)</a></li>
+<li><a href="#13">13. 자체 평가</a></li>
+<li><a href="#14">14. 사고 흐름 요약</a></li>
+<li><a href="#15">15. 미결 사항</a></li>
+</ul>
+</div>
+</nav>
+  <div class="wz-appbar" role="toolbar" aria-label="Document tools">
+    <input type="search" id="wzSearch" class="wz-search" placeholder="페이지 내 검색…" autocomplete="off">
+    <button type="button" id="wzFoldAll" data-cursor>접기</button>
+    <button type="button" id="wzExpandAll" data-cursor>펼치기</button>
+    <button type="button" id="wzCopy" data-cursor>본문 복사</button>
+  </div>
+  <article class="wz-prose" id="wzProse" data-app="doc">
+    <hr>
+<p>date: 2026-08-13<br>
+agent: Boss (작성) · Claude Code (기록)<br>
+mark: _Boss<br>
+type: whitepaper<br>
+status: active<br>
+related:<br>
+  - 80-ai-voice-actor-whitepaper_Boss.md<br>
+  - 81-helena-rvc-dubbing-standard_Claude.md<br>
+  - 82-helena-rvc-baseline-lords-prayer_Grok.md<br>
+  - 84-youtube-two-channel-momentum_Boss.md</p>
+<hr>
+<h1 id="ai-v4">AI 코어 활용 백서 (v4 · 최종 완전판)</h1>
+<blockquote>
+<p><strong>기록 메타 (Claude Code, 2026-08-14):</strong> 이 백서는 작성일 2026-08-13 기준.<br>
+08-14에 <strong>Grok 2역할 기점(83)</strong> 과 <strong>YouTube 2채널(84)</strong> 이 확정되었으므로, §6 슬롯3(60초 숏폼)·§8 영상편집이 어느 레인(공짜 페이지 공장 vs 구독 다큐)을 말하는지는 83과 대조해 다시 확인할 것.<br>
+본문은 박씨(보스) 원문 그대로, 표제·프론트매터·이 메타만 Claude가 붙임.</p>
+</blockquote>
+<p><strong>작성일</strong>: 2026-08-13<br>
+<strong>작성 목적</strong>: 개인 AI 코어(성우/가창) 활용 방향 및 폰 기반 인프라 실험 전체를 사고 흐름 포함하여 완전히 구조화 정리 — 헬레나/조카(목사)/에이전트 공유용</p>
+<hr>
+<h2 id="1">1. 배경 — 성우 코어의 출발점</h2>
+<p>폰 하나(구형 Galaxy S21, 헬레나 실사용 기기)로 PC 없이 지식 생태계·1인 미디어 파이프라인을 만드는 프로젝트를 먼저 진행했다. Termux → proot Ubuntu 가상 환경 위에 에이전트(Claude Code 스킨 + DeepSeek 엔진)를 심어, 음성 입력(STT)만으로 깃허브·블로그·유튜브 숏폼 자동화까지 구축했다.</p>
+<p>이 파이프라인의 숏폼 성우 슬롯에는 원래 Edge TTS만 꽂혀 있었는데, 기계음 티가 나서 설득력이 떨어졌다. 그래서 그 자리를 갈아엎어 <strong>박씨/헬레나 본인 목소리로 RVC를 구워 넣은 것</strong>이 이 성우 코어의 출발점이다.</p>
+<p><strong>1-1. &ldquo;폰 안에서 안 되는 것&rdquo;의 첫 사례</strong><br>
+지금까지 인프라(Termux, proot Ubuntu, 에이전트, STT)는 전부 &ldquo;폰 하나로 완결&rdquo;되는 것들이었다. 그런데 목소리 학습(RVC 트레이닝)만은 폰이 못 한다 — GPU 연산이 필요하기 때문이다.</p>
+<p><strong>1-2. 해결 구조: 베스트AI = PC방, 그리고 돌봄 데몬</strong><br>
+- 돈 없는 사람 입장에서 GPU 클라우드(Vast.ai, &ldquo;베스트AI&rdquo;)를 PC방처럼 시간당 빌려 쓰는 개념으로 접근<br>
+- 헬레나 집 PC로는 연산이 안 되어, 본인 PC에서 대신 연산을 짊어짐<br>
+- 이 과정을 &ldquo;돌봄 데몬(daemon)&rdquo;으로 개념화 — 보호자/동생이 GPU 연산을 대신 짊어지고 결과물만 구워서 선물하는 역할</p>
+<p><strong>해결 3단계 원칙</strong>: ① 폰 안에서 안 되는 것 발생 → ② 돈 있으면 PC방처럼 렌탈 → ③ 돈 없으면 돌봄 데몬(보호자)이 대신 구워서 선물</p>
+<hr>
+<h2 id="2">2. 성우 코어 사양</h2>
+<ul>
+<li>구조: 전 세계 언어 딕션·악센트 정확한 Edge TTS(발음) + 박씨/헬레나 음색 RVC(음색)</li>
+<li>구동: S21 폰에서 즉시 생산 (모바일 로컬 구동)</li>
+<li>장점: 즉시성, 이동성, 확장성 / 체감 품질: 약 80%</li>
+<li>상업용 트랙: 저작권 클린 필요 시 오픈소스 TTS(Piper/VITS)로 발음 소스 대체 + RVC 음색</li>
+</ul>
+<hr>
+<h2 id="3">3. 뇌과학적 근거 검토</h2>
+<table>
+<thead>
+<tr>
+<th>근거</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Self-Reference Effect</td>
+<td>자기 관련 정보 인코딩이 기억에 유리 (내측 전전두엽·해마 활동 증가)</td>
+</tr>
+<tr>
+<td>자기 목소리 신경 반응</td>
+<td>우측 측두엽(해마곁피질 포함) 활동 증가 — 일화기억 인코딩·인출에 중요</td>
+</tr>
+<tr>
+<td>Generation Effect</td>
+<td>능동적 참여(생성)가 수동적 관찰보다 기억에 유리</td>
+</tr>
+<tr>
+<td><strong>Production Effect</strong></td>
+<td>소리내어 읽기(발화+청취 이중작용)가 묵독보다 10~20% 이상 기억 우위 — 독백/연극 직관과 일치하는 확립된 현상(워털루대 MacLeod)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>결론</strong>: 직접 증명한 단일 논문은 없으나 세 근거를 종합하면 탄탄함. 효과가 가장 큰 지점은 &ldquo;그 순간 직접 발화&rdquo; — 녹음 반복 청취는 2차 강화.</p>
+<hr>
+<h2 id="4">4. 저작권 구분 정정</h2>
+<ul>
+<li>타인 저작물(책, 경전 번역본, 가사, 시) 낭독 판매 → 품질과 무관하게 저작권 문제로 원천 불가</li>
+<li>본인 오리지널 콘텐츠(박씨 로그) → 저작권 문제 없음, 상업 활용 가능</li>
+</ul>
+<hr>
+<h2 id="5">5. 상업화 전략 정정</h2>
+<p>오디오북 판매(저작권 문제로 폐기) → <strong>시스템을 만들고 활용하는 과정을 유튜브 강의로 판매</strong>하는 방향으로 전환. 콘텐츠(원본 대화)와 노하우(지식 상품) 모두 저작권 문제 없음.</p>
+<hr>
+<h2 id="6">6. 콘텐츠 레인과 벡터</h2>
+<p><strong>콘텐츠 레인 (실증됨, 소비 벡터)</strong></p>
+<ul>
+<li><strong>슬롯 1 암기 매트릭스</strong>: 콘텐츠(경전/가사/시, 고정)×언어(확장)×목소리(고정). 콘텐츠 행 고정, 언어 열만 확장.</li>
+<li><strong>슬롯 2 만담쇼</strong>: 박씨 로그(실제 즉흥 대화)에 목소리 매칭. AI가 대화를 지어내는 게 아니라 진짜 즉흥 대화에 목소리만 입히는 역발상 구조. 저작권 문제 없음.</li>
+<li><strong>슬롯 3 60초 숏폼</strong>: 유튜브 소개용 파이프라인이 목소리 결합으로 카톡 음성편지·경조사·프레젠테이션까지 확장되는 개인화 영상 메시지 포맷으로 전용됨.</li>
+</ul>
+<p><strong>돌봄 데몬 (케어 벡터)</strong><br>
+- 헬레나 계정을 텔레그램/테일스케일 네트워크에 편입 중<br>
+- 파이프라인: 트리거 → 텍스트 → 성우 변환(RVC) → 테일스케일 전송/재생(헬레나 폰)<br>
+- 직접 개발해야 하는 유일한 부분은 성우 코어 하나뿐, 나머지(트리거 앱 등)는 쇼핑+배선<br>
+- 미실증 후보: 리마인더, 접근성, 안부체크인, 교육낭독</p>
+<p><strong>레인 vs 벡터</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>콘텐츠 레인</th>
+<th>돌봄 데몬</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>벡터 방향</td>
+<td>소비 벡터(→나에게)</td>
+<td>케어 벡터(나→헬레나)</td>
+</tr>
+<tr>
+<td>트리거</td>
+<td>원할 때 재생</td>
+<td>시간/이벤트 자동 발송</td>
+</tr>
+<tr>
+<td>인프라</td>
+<td>로컬 재생</td>
+<td>테일스케일 원격 전송</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="7">7. 평가 기준의 정정</h2>
+<p>&ldquo;시장 수요가 있는가&rdquo;는 이 프로젝트의 유효한 잣대가 아님 — 헬레나를 케어하기 위해 만드는 것이므로 &ldquo;내가/헬레나가 필요로 하는가&rdquo;만이 기준.</p>
+<hr>
+<h2 id="8-ai">8. AI 코어 맵 — 정적/동적 좌표계</h2>
+<pre><code>        정적(static)          동적(dynamic)
+S21     ├─────────────────────────────────
+로컬    │ 성우 (완료)         가창 (다음 타깃)
+구동    │ 작곡/배경음악 (완료)  영상편집 (완료)
+가능    │
+────────┼─────────────────────────────────
+PC/GPU  │ 이미지생성 (포기)    LLM 로컬구동 (포기)
+필요    │
+</code></pre>
+<p>판별 기준: 학습은 외부에서 빌려도 되지만, 구동은 반드시 S21 폰 안에서 완결돼야 함. 남은 마지막 하나는 가창 AI 코어.</p>
+<hr>
+<h2 id="9">9. 테일스케일 비즈니스 모델 리서치</h2>
+<ul>
+<li>약 80% 오픈소스(WireGuard 기반), 코디네이션 서버는 Headscale로 별도 공개, 완전 셀프호스팅 가능</li>
+<li>수익모델: 프리미엄 — 개인 무료(전도사 역할), 기업은 시트 기반 유료(매출원)</li>
+<li>공짜 유지 이유: P2P 메쉬 구조라 트래픽이 회사 서버를 안 거침 → 스케일링 비용 낮음</li>
+</ul>
+<hr>
+<h2 id="10">10. 커뮤니티 검증 — 케어기빙 사례</h2>
+<ul>
+<li>레딧: 치매 어머니 케어에 테일스케일 활용한 실사용자 후기 존재</li>
+<li>학술 논문: 보호자/의료진이 테일스케일 P2P로 원격 음성 스트림을 고령자에게 보내는 단방향 오디오 파이프라인 사례 존재(음악 스트리밍·오디오북 내레이션 가능성도 언급)</li>
+<li>상업 시장(envoyatHome 등)은 센서 기반의 훨씬 무거운 시스템</li>
+</ul>
+<p><strong>차별점</strong>: &ldquo;AI로 구운 본인 목소리를 실어 보낸다&rdquo;는 지점은 학술 논문에서도 확인되지 않음.</p>
+<hr>
+<h2 id="11">11. 종합 실험 정의 — 세 겹의 동시 실험</h2>
+<ol>
+<li><strong>AI = 조립 부품 공급자</strong>: 완성된 오픈소스/AI 부품을 조립 — 발명이 아니라 정확한 조합 탐색이 핵심</li>
+<li><strong>핸드폰 = PC의 대체</strong>: Termux+proot Ubuntu로 S21을 워크스테이션화</li>
+<li><strong>테일스케일 = 서버 없는 네트워킹</strong>: 중앙 서버 없이 폰끼리 직접 연결</li>
+</ol>
+<p><strong>핵심 실험 대상</strong>: &ldquo;연산을 폰 안에서 완결시킬 수 있는가&rdquo; — 돈 없어도 폰 두 대로 기존 무거운 케어기빙 인프라와 동등한 걸 할 수 있는가.</p>
+<hr>
+<h2 id="12">12. 목회 훈련용 슬롯 (조카 목사 확장)</h2>
+<p>목사 지망생 출신 배경에서 &ldquo;IT와 종교를 섞고 있는 것 아니냐&rdquo;는 문제의식에서 출발.</p>
+<p><strong>슬롯 8 — 목회 훈련용 암기 매트릭스</strong><br>
+- 구조: 콘텐츠(성경 구절/설교문)×언어(원어 히브리어·헬라어 포함)×목소리(조카 본인 RVC)<br>
+- 용도: 성경 구절 암송, 원어 발음 연습, 설교문 사전 청취<br>
+- 부가 활용: 60초 숏폼과 연결해 교인 위로 메시지 육성 발송<br>
+- 종교 전통과의 접점: production effect가 하브루타·독경·낭송 전통의 발화 기반 학습과 겹침<br>
+- <strong>경계선</strong>: 신학적 해석/설교 내용은 AI가 만들지 않음 — 순수 암기·발화 보조 도구로 한정<br>
+- 전제조건: 조카 본인 목소리 RVC 신규 학습</p>
+<hr>
+<h2 id="13">13. 자체 평가</h2>
+<p>개별 아이디어의 독창성보다, 진짜 차별점은 <strong>분모(실행 인프라)</strong>에 있음 — 구형 폰 하나 + Termux/proot Ubuntu + 에이전트 + STT만으로 GPU 연산 외 전 과정을 완결시킨 것.</p>
+<hr>
+<h2 id="14">14. 사고 흐름 요약</h2>
+<p>이 스레드에서 방향 전환(성우 코어 제작, 슬롯 아이디어, 돌봄 데몬 개념, 저작권 정정, 잣대 정정, S21 원칙, 리서치 요청, 목회 슬롯 제안)은 전부 박씨님이 주도. Claude는 리서치·구조화·정리 역할에 한정.</p>
+<hr>
+<h2 id="15">15. 미결 사항</h2>
+<ol>
+<li>가창 AI 코어 기술 스택 확정 (DiffSinger vs So-VITS-SVC)</li>
+<li>콘텐츠 슬롯 실제 프로토타입 우선순위</li>
+<li>돌봄 데몬 트리거 앱 쇼핑 및 배선 실증</li>
+<li>돌봄 레인 미실증 슬롯 우선순위</li>
+<li>조카 목사 RVC 학습 착수 여부/시기</li>
+<li>강의 목차 설계</li>
+</ol>
+  </article>
+  <nav class="wz-pager">
+    <a class="" href="86-pd-two-lanes-free-vs-grok_Claude.html">
+          <span class="dir">Previous</span>
+          <span class="title">PD 파이프 두 레인 — 공짜 공장 vs 구독 다큐</span>
+        </a>
+    <a class="next" href="78-pd-pipeline-whitepaper_Claude.html">
+          <span class="dir">Next</span>
+          <span class="title">78 pd pipeline whitepaper Claude</span>
+        </a>
+  </nav>
+  <div class="wz-related">
+          <h2>같은 섹션</h2>
+          <div class="grid"><a href="00-INDEX.html"><strong>📖 S21 Phone 업무 수첩 — 전체 목차</strong>구축: 2026-07-23 ~ 2026-08-14 (23일)</a><a href="01-arch.html"><strong>전체 시스템 아키텍처</strong>Notebook</a><a href="02-discord.html"><strong>디스코드 서버/봇/위젯</strong>Notebook</a><a href="03-telegram.html"><strong>텔레그램 봇/회의실</strong>Notebook</a><a href="04-github-pages.html"><strong>GitHub Pages + Giscus + WidgetBot</strong>Notebook</a><a href="05-tistory.html"><strong>블로그 포트폴리오 + 자동화 전략</strong>Notebook</a></div>
+        </div>
+  <footer class="wz-foot">
+    <div>S21 PHONE · Webzine lakme-audio</div>
+    <div class="gold">모든 계정은 누나 명의입니다.</div>
+    <p style="margin-top:12px"><a href="../index.html">← Back to landing</a></p>
+  </footer>
+</main>
+<div class="wz-float">
+  <button type="button" id="wzTop" aria-label="Top">↑</button>
+  <button type="button" data-theme-toggle aria-label="Theme">◐</button>
+</div>
+<script src="../assets/webzine.js"></script>
+</body>
+</html>

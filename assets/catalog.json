@@ -992,6 +992,14 @@
     "deck": "기존 `produce_pd.sh`(공짜)와 신규 `produce_doc.sh`(구독 Grok)를 **두 레인으로 분리**한다."
   },
   {
+    "src": "_notebook/87-ai-core-utilization-map_Boss.md",
+    "out": "notebook/87-ai-core-utilization-map_Boss.html",
+    "title": "AI 코어 활용 백서 (v4 · 최종 완전판)",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "**기록 메타 (Claude Code, 2026-08-14):** 이 백서는 작성일 2026-08-13 기준."
+  },
+  {
     "src": "_notebook/78-pd-pipeline-whitepaper_Claude.md",
     "out": "notebook/78-pd-pipeline-whitepaper_Claude.html",
     "title": "🎬 PD Pipeline 기술 백서 — URL 하나로 숏폼 자동 제작",
