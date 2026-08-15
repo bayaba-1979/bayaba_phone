@@ -11,9 +11,10 @@
     "08-secrets.md",
     "10-phone-mcp.md",
     "11-health.md",
-    "12-dtslib-gift.md"
+    "12-dtslib-gift.md",
+    "13-midterm-eval-v2.md"
   ],
-  "total": 12,
-  "last_run": "2026-08-15 01:14",
-  "note": "첫 12개 배치 완료(12/12 발행). 04-github-pages는 첫 시도에서 오판 → 재검증으로 done. 00-INDEX/05/06은 재시도로 성공."
+  "total": 13,
+  "last_run": "2026-08-15 19:53",
+  "note": "일일 한도 15개/일 확인(403: 하루 공개 발행 최대 15개). 08-15는 13개 발행(12배치+중간평가). 남은 ~80개는 내일부터 12개/일 연속 배치."
 }
