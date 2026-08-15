@@ -32,6 +32,7 @@ ACCOUNT = "galaxys21"
 BLOG = "galaxys21-pwuser"
 ROUTE = ROOT / "assets" / "publish-route.json"
 STATE = ROOT / "assets" / "history-upload-state.json"
+OVERRIDES = ROOT / "assets" / "director-overrides.json"
 POSTS_DIR = BASE / "posts"
 BATCH_SIZE = 12
 DEFAULT_TAGS = ["S21", "업무수첩", "히스토리"]
@@ -62,28 +63,50 @@ def save_state(state: dict) -> None:
     STATE.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def load_overrides() -> dict:
+    """디렉터 게이트 산출물(assets/director-overrides.json)의 posts 맵."""
+    if OVERRIDES.exists():
+        return json.loads(OVERRIDES.read_text(encoding="utf-8")).get("posts", {})
+    return {}
+
+
+def is_blocked(fname: str, overrides: dict) -> bool:
+    """디렉터 판정 HOLD/REVISE → 발행 보류."""
+    return overrides.get(fname, {}).get("verdict") in ("HOLD", "REVISE")
+
+
 def next_batch() -> list[dict]:
     route = json.loads(ROUTE.read_text(encoding="utf-8"))
     tistory = route["tistory"]
     state = load_state()
     done = set(state.get("done", []))
+    overrides = load_overrides()
     pending = [e for e in tistory
-               if e["file"] not in done and not is_sensitive(e["file"])]
+               if e["file"] not in done and not is_sensitive(e["file"])
+               and not is_blocked(e["file"], overrides)]
     return pending[:BATCH_SIZE]
 
 
 def build(batch: list[dict]) -> list[Path]:
-    """기존 posts/*.json 비우고 새 12개 생성."""
+    """기존 posts/*.json 비우고 새 12개 생성 (디렉터 게이트 반영)."""
     for old in POSTS_DIR.glob("*.json"):
         old.unlink()
+    overrides = load_overrides()
     outs = []
     for e in batch:
         md = ROOT / "_notebook" / e["file"]
         if not md.exists():
             print(f"  ⚠ 없음: {e['file']}")
             continue
-        out = build_post_json(md, ACCOUNT, BLOG, None, DEFAULT_TAGS,
-                              visibility="public", category="")
+        ov = overrides.get(e["file"], {})
+        verdict = ov.get("verdict", "")
+        if verdict in ("HOLD", "REVISE"):
+            print(f"  ⛔ {e['file']} — 디렉터 보류({verdict})")
+            continue
+        title = ov.get("title") or None
+        tags = ov.get("tags") or DEFAULT_TAGS
+        out = build_post_json(md, ACCOUNT, BLOG, title, tags,
+                              visibility="public", category=ov.get("category", ""))
         outs.append(out)
     return outs
 
