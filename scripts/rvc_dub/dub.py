@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 """
-RVC 성우 더빙 — Edge TTS (여성 베이스) → RVC 음색 변환 → MP3
+DEPRECATED (2026-08-13) — 이 파일의 RvcPyInfer/ONNX 경로는 폐기.
 
-표준 파이프라인:
-  Edge TTS (ko-KR-SunHiNeural, -8%)
-  → RVC (rmvpe, index_rate=0.75)
-  → MP3 128kbps
+정답 표준: ~/rvc_models/synth_voice_pro.sh
+기술 원본: _notebook/81-helena-rvc-dubbing-standard_Claude.md
+잠금 문서: _notebook/82-helena-rvc-baseline-lords-prayer_Grok.md
 
-RVC 모델 교체만으로 새 성우 음색 적용 가능.
+이 스크립트를 새 더빙에 쓰지 말 것. 숫자는 맞아도 귀가 거부한다.
 """
 from __future__ import annotations
 
