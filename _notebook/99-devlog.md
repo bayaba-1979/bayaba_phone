@@ -5924,3 +5924,12 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **다음 배치(day2) 실측:** 12개 전부 정상 PASS/CLEAN (13-midterm-eval-v2 → "갤럭시 S21 AI 워크스테이션 중간평가", 16-textbook → "개발 일지를 교재로 바꾸는 방법" 등). 태그도 `["S21","업무수첩","히스토리"]` 고정 → 주제별(데몬/교재/proot/회고)로.
 - **미해결(후속):** 카테고리 배정 — history 110개는 `category_map.py`(설치가이드 전용 Ch1~5) 밖이라 여전히 `category=""`(미분류). PART/Ch 정밀 taxonomy 별도 작업 필요.
 - **커밋:** `aa26c41` (director_gate.py + history_batch.py + overrides/report).
+
+### 🗂️ 카테고리 taxonomy 배선 — 110개 history → 8Part·31Ch 매핑 (_Claude · 2026-08-15)
+
+- **전제 확인:** 권위 트리는 `tistory-categories.txt`(8 Part · 31 Chapter · 125 콘텐츠) — 이미 3레포에 복사돼 있었다. `category_map.py`는 설치가이드 전용(PART 1/2/5 일부)만 커버.
+- **구현:** `history_category_map.py` 신설 — `PART_TREE`(31 Ch 참조) + `HISTORY_CATEGORY`(110개 원고→Ch 1:1). `director_gate.py`가 `category = history_category_for(fname)`로 배선 → overrides → history_batch.
+- **커버리지:** 110/110 매핑, 미분류 0. Ch 분포: Ch3.5 Director·연출 13개(Grok 시리즈) / Ch6.4 4로봇 10개 / Ch3.6 BGM·브릿지 8개 / Ch8.3 하이라이트 8개 등.
+- **⚠️ 블로커(전제):** PART 3/4/6/7/8 + Ch1.5·5.2·5.4 은 블로그에 **카테고리 미생성** (설치가이드가 PART 1/2/5 일부만 생성). 해당 버킷 발행 전에 `tistory-categories.txt`로 생성 필요. 없으면 `_set_category`가 **조용히 미분류로 강등**(크래시 아님, 로그만 "카테고리 설정 실패").
+- **다음 배치(day2) 실측 카테고리:** 13-midterm→Ch8.3 / 14-daemon→Ch7.1 / 15-proot→Ch1.2 / 16-textbook→Ch7.2 / 20-workcenters→Ch6.2 / 22-benchmark→Ch8.2 / 24-paste→Ch5.1 등.
+- **커밋:** `30e83e6` (history_category_map.py + director_gate.py + overrides).
