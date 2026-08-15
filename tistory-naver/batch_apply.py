@@ -80,13 +80,24 @@ async def kakao_login(page, email, pw):
     if not (filled and filled["id"] and filled["pw"]):
         log(f"  폼 채움 실패: {filled}")
         return False
-    # 제출 (비밀번호 필드에서 Enter)
-    await page.locator("#password--2, input[name=password]").first.press("Enter")
-    # 리다이렉트 대기
+    # 제출 — submit 버튼 클릭이 확실 (Enter-only는 계정선택 화면에 막힘 실측)
+    try:
+        await page.locator("button[type='submit'], button.submit, .btn_g").first.click(timeout=3000)
+    except Exception:
+        await page.locator("#password--2, input[name=password]").first.press("Enter")
+    # 리다이렉트 대기 (계정선택 '계속' 버튼 처리 포함)
     for _ in range(45):
         u = page.url
         if "tistory.com" in u and "login" not in u and "accounts.kakao" not in u:
             return True
+        for sel in ["button:has-text('계속')", "a:has-text('계속')", "button:has-text('동의하고 계속')"]:
+            try:
+                el = page.locator(sel).first
+                if await el.is_visible(timeout=400):
+                    await el.click()
+                    await page.wait_for_timeout(2000)
+            except Exception:
+                pass
         await page.wait_for_timeout(1000)
     # CAPTCHA 감지
     cap = await page.evaluate("() => document.body ? document.body.innerText.includes('답해 주세요') : false")
@@ -172,11 +183,37 @@ async def main():
             args=["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"])
         page = ctx.pages[0] if ctx.pages else await ctx.new_page()
 
+        # 저장된 state 파일 쿠키 복원 — TSSESSION(세션쿠키)은 프로파일에 영속 안 되므로 재실행 시 유실됨.
+        st_path = COOKIES_DIR / "galaxys21_state.json"
+        if st_path.exists():
+            st = json.loads(st_path.read_text())
+            now = int(time.time())
+            cks = []
+            for c in st.get("cookies", []):
+                if c.get("domain") in (".tistory.com", ".www.tistory.com", "www.tistory.com", ".daum.net"):
+                    if c.get("expires", -1) == -1:
+                        c["expires"] = now + 86400 * 7
+                    cks.append(c)
+            if cks:
+                await ctx.add_cookies(cks)
+                log(f"state 쿠키 {len(cks)}개 복원")
+
         email = targets[0]["email"]
         if not any(c["name"] == "TSSESSION" for c in await page.context.cookies("https://www.tistory.com")):
             if not await kakao_login(page, email, pw):
                 log("❌ 로그인 실패 — 종료")
                 sys.exit(1)
+            # TSSESSION은 세션쿠키(expires=-1) → 재실행 시 유실됨. 만료 보정으로 영속화.
+            now = int(time.time())
+            fixed = []
+            for c in await ctx.cookies("https://www.tistory.com"):
+                if c["name"] == "TSSESSION" and c.get("expires", -1) == -1:
+                    c["expires"] = now + 86400 * 7
+                fixed.append(c)
+            if fixed:
+                await ctx.add_cookies(fixed)
+            await ctx.storage_state(path=str(COOKIES_DIR / "galaxys21_state.json"))
+            log("✅ 로그인 성공 — 세션 영속화")
         else:
             log("✅ 기존 세션 유효")
 
