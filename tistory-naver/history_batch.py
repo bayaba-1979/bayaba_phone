@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 """
-히스토리(업무수첩) → 티스토리 일일 배치 업로드 (12개/일)
+히스토리(업무수첩) → 티스토리 일일 배치 업로드 (계정토탈 15개/일 한도 준수)
 
 Boss 2026-08-15: "히스토리 하루 12개씩, 자정 지나면 다음 배치".
-- 분모: assets/publish-route.json 의 tistory 목록 (110개, 순서 고정)
-- 민감 원천파일(실데이터 가능)은 스킵: 99-devlog · 17-chronicle · 세션 로그
-- 상태: assets/history-upload-state.json (done 목록) — 내일 이어받기
-- posts/*.json 생성 → post.py 가 실제 발행
+2026-08-16 스케줄러 확실성 패치: 일일 한도는 "계정 단위 15개"이며 5개 블로그가
+공유한다(실측 08-15: 13+2=15, 16번째 403). 그래서 배치 크기를 12개로 고정하지
+않고, RSS로 5개 블로그의 오늘 발행수를 세서 "남은 한도"만큼만 배치한다.
+  - 분모: assets/publish-route.json 의 tistory 목록 (110개, 순서 고정)
+  - 민감 원천파일(실데이터 가능)은 스킵: 99-devlog · 17-chronicle · 세션 로그
+  - 상태: assets/history-upload-state.json (done 목록) — 내일 이어받기
+  - posts/*.json 생성 → post.py 가 실제 발행
 
 실행:
-  python3 history_batch.py --dry-run   # 다음 12개 목록만
-  python3 history_batch.py --build     # 12개 posts/*.json 생성 (기존 posts/ 비움)
+  python3 history_batch.py --dry-run   # 오늘 남은 한도 안에서 다음 배치 목록
+  python3 history_batch.py --build     # 배치 posts/*.json 생성 (기존 posts/ 비움)
   python3 history_batch.py --run       # build + post.py 발행 (권장)
 """
 from __future__ import annotations
@@ -21,6 +24,8 @@ import re
 import subprocess
 import sys
 import time
+import urllib.request
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 BASE = Path(__file__).parent
@@ -36,6 +41,20 @@ OVERRIDES = ROOT / "assets" / "director-overrides.json"
 POSTS_DIR = BASE / "posts"
 BATCH_SIZE = 12
 DEFAULT_TAGS = ["S21", "업무수첩", "히스토리"]
+
+# ── 일일 한도 (계정 토탈) ──────────────────────────────────────────────────
+# 티스토리 하루 신규 발행 한도는 "계정 단위 15개"이며 5개 블로그가 공유한다
+# (실측 2026-08-15: galaxys21 13 + mynote 2 = 15, 16번째 403).
+# 그래서 히스토리(galaxys21) 배치만 보면 안 되고, 5개 블로그의 오늘 발행수를
+# 전부 세서 "남은 한도"만큼만 배치해야 한다. ← 스케줄러 확실성의 핵심.
+DAILY_LIMIT = 15
+ALL_BLOGS = [
+    "galaxys21-pwuser",
+    "mynote11605",
+    "helana-christianity",
+    "helena-piano",
+    "helena-metalcare",
+]
 
 # 실데이터 가능한 원천파일(헌법: 돌봄 데이터 절대 공개 금지) — 스킵
 SKIP_FILES = {
@@ -70,6 +89,36 @@ def load_overrides() -> dict:
     return {}
 
 
+def today_published_count() -> int:
+    """오늘(KST) 5개 블로그에서 실제 발행된 신규 글 수를 RSS로 센다.
+
+    티스토리 일일 한도(15개)는 "계정 토탈"이므로, galaxys21 히스토리 배치가
+    mynote 돌봄 데몬·기타 블로그 글과 한도를 공유한다. 이 함수가 그 공유 분모를
+    실제 서버(RSS pubDate)에서 읽어 남은 한도를 계산한다. 상태 파일이 아니라
+    RSS를 쓰는 이유: 발행 실패·수동 발행·타 블로그 발행까지 전부 반영되기 때문.
+
+    pubDate 포맷: "Sun, 16 Aug 2026 04:51:05 +0900" → 날짜 부분 "16 Aug 2026".
+    """
+    today = time.strftime("%d %b %Y")  # KST 기준 (호스트 TZ=Asia/Seoul)
+    total = 0
+    for b in ALL_BLOGS:
+        try:
+            raw = urllib.request.urlopen(f"https://{b}.tistory.com/rss", timeout=20).read()
+            root = ET.fromstring(raw.decode("utf-8", "ignore"))
+            for item in root.findall(".//item"):
+                pub = item.findtext("pubDate") or ""
+                if today in pub:
+                    total += 1
+        except Exception as e:
+            print(f"  ⚠ 오늘 발행수 집계 실패({b}): {e}")
+    return total
+
+
+def remaining_budget() -> int:
+    """오늘 남은 신규 발행 한도 (계정 토탈). 0 이하면 발행 중단."""
+    return max(0, DAILY_LIMIT - today_published_count())
+
+
 def is_blocked(fname: str, overrides: dict) -> bool:
     """디렉터 판정 HOLD/REVISE → 발행 보류."""
     return overrides.get(fname, {}).get("verdict") in ("HOLD", "REVISE")
@@ -84,7 +133,14 @@ def next_batch() -> list[dict]:
     pending = [e for e in tistory
                if e["file"] not in done and not is_sensitive(e["file"])
                and not is_blocked(e["file"], overrides)]
-    return pending[:BATCH_SIZE]
+    # 계정 토탈 일일 한도(15개) 반영 — 남은 한도만큼만 배치.
+    budget = remaining_budget()
+    cap = min(BATCH_SIZE, budget)
+    print(f"  [한도] 오늘 계정토탈 발행 {today_published_count()}개 / 남은 한도 {budget}개 → 배치 {min(len(pending), cap)}개")
+    if cap <= 0:
+        print(f"  ⛔ 오늘 신규 발행 한도({DAILY_LIMIT}개) 소진 — 내일(KST 자정 이후) 다시 실행")
+        return []
+    return pending[:cap]
 
 
 def build(batch: list[dict]) -> list[Path]:
