@@ -5967,3 +5967,41 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **정제(계획 보정):** 원고 홈을 기존 `docs/tracks|dialogue|solutions`(날것 메모)와 **분리**해 `docs/care-daemon/{type}/` 로 — 날것은 `sources:` 로만 인용. (91계획 "docs 하위"의 구체화.)
 - **검증:** PASS 케이스 + FAIL 12건(빈 질문·type 불일치·category_id 오류·섹션 누락·토큰 노출 등) 실측 통과. `--all` 스캔 모드 동작.
 - **다음:** Step 1 — 01 매니페스토 원고(01 1307301) 작성 → 게이트 → 페어 발행.
+
+### 🧭 표면(웹/PWA) vs 엔진(네이티브) 레이어 분리 + 티스토리 과투자 금지 (_Claude · 2026-08-15)
+
+- **발견:** PWA/브라우저가 표면 레이어(콘텐츠·캔버스·UI)에선 네이티브 압도 — 핀치줌 공짜, 무한캔버스(translate+scale·Figma=WASM), 브라우저런타임(WASM/WebGPU/WebRTC/FileSystem-Access), 앱스토어심사·업데이트 없음.
+- **경계(핵심):** NPU(NNAPI)는 **네이티브 전용** — 브라우저로 안 닿음(WebNN은 CPU/GPU지 NPU 아님). 백그라운드 상시감시(돌봄데몬)도 브라우저는 쓰로틀/킬. GPU(Mali-G78)는 WebGPU로 브라우저에서 가능. → 471초 TTS NPU가속 문제는 브라우저로 못 풂.
+- **결론:** 표면=브라우저(PWA), 엔진=네이티브/Termux. 스트림 A/B 구조와 정확히 일치.
+- **전략(Boss):** 티스토리는 **빌린(임차) 플랫폼** — 내 플랫폼 아님. 서비스 종료 리스크 상시. 스킨 과개조·과투자 금지. 원본/SSOT는 항상 GitHub(내 것), 티스토리는 발행 미러일 뿐.
+
+### 🖥️ 스크롤 컨테이너 제어 — 프레임 밖 흘러나감 근본 수리 + PWA 설치 버튼 (_Claude · 2026-08-15)
+
+- **근본원인:** `#s21-bezel`(폰 프레임)은 `position:fixed` 테두리 오버레이다. 클리핑 컨테이너가 아니므로 스크롤 시 콘텐츠가 프레임 밖으로 흘러나왔다. (CSS 쌓임 맥락: fixed는 자기 쌓임 맥락을 만들고, 조상 transform/filter 없으면 overflow 클리핑을 벗어남.)
+- **해결:** `html,body{overflow:hidden}` 고정 + `#wrap`을 `position:fixed`(top:88px·bottom:16px·frame 좌우) 스크롤 뷰포트로 전환 → 프레임 안에서만 스크롤. `#header` fixed z-10000, `overscroll-behavior-y:contain`, `-webkit-overflow-scrolling:touch`. 5블로그 전부 병렬 적용.
+- **실측 검증(픽셀, 스샷 불가 환경):** PC(1280×900)·모바일(390×844) `getBoundingClientRect` 덤프 — bezel rect == wrap rect 정확 일치, body scrollY=0 고정, `#wrap` 내부 스크롤, header top:0 고정, 파티클 전체뷰포트(overflow에 안 잘림).
+- **가로모드 부수효과(Boss 극찬):** 콘텐츠가 프레임에 갇히니 "독립 OS 콘솔에 접속해 누나 서사를 관찰하는 디렉터" 시점이 살아남. 2열 분할 + 스타필드 깊이감으로 분위기 완전히 다름.
+- **PWA 설치 버튼:** 우상단 카메라 아이콘 아래 "설치" 버튼(⤓). **정직한 한계:** 티스토리는 service worker 호스팅 불가 → `beforeinstallprompt`가 안 뜸 → 네이티브 설치 대신 브라우저별 수동 설치 안내 모달(Chrome "⋮→저장 및 공유→페이지를 앱으로 설치" / Edge "⋯→앱→이 사이트를 앱으로 설치"). PC 전용(모바일 `display:none`). `beforeinstallprompt` 핸들러는 GitHub Pages(자체 SW 가능)에 이식 가능한 상태로 남겨둠.
+
+### 🌱 돌봄 데몬 Season 1 — 2/10 페어 발행 (매니페스토 + 트랙 DW) (_Claude · 2026-08-15)
+
+- **Step 1·2 완료:** 편 01 `돌봄 데몬이란 — 기술로 돌보는 법`(매니페스토 1307301) + 편 02 `트랙 DW — 장애·정신건강 복지의 빈틈`(트랙 DW 1307305) 페어 발행.
+- **페어 동기화:** 티스토리(mynote11605) 0019·0020 ↔ GitHub Pages `care-daemon/manifesto/01-care-daemon` + `care-daemon/track/02-disability-welfare` (같은 원고 md → 양쪽).
+- **남은 8편:** 03 DC · 04 BL · 05 대화록 · 06~10 솔루션(아키텍처/배터리·온도/위치·GPS/원격 돌봄망/보고 무전기). 하루 1~2편, 품질 게이트 통과 후 다음 편.
+
+### 🔍 커뮤니티 리서치 — "티스토리를 이렇게 쓰는 사람 있는가" (_Claude · 2026-08-15)
+
+- **질문(Boss):** "나처럼 티스토리를 headless CMS + 자체 UI(사이버덱)로 쓰는 사람 있는지 커뮤니티 리서치."
+- **결론: 완전체는 0건.** "극한 커스텀 스킨 + 블로그 아닌 웹사이트" 검색 결과 없음. API 자동발행·커스텀 스킨·Claude Code 자동화 사례는 **파편**으로 존재하나, headless CMS + 서명 UI + SSOT 미러 조합은 확인 안 됨.
+- **존재하는 파편:** 서드파티 API 라이브러리(tispoon·pytistory·tistory npm·tistory-indexer) + GitHub 커스텀 스킨(Mangosteen·MINIMAL·Purity) + DEV Community "I Automated 7 Blogs With Claude Code and Came Back to One"(카카오 캡차·중복발행으로 7→1 축소).
+- **핵심(외부 검증):** 커뮤니티가 "공식 API 고장 → Playwright 우회 + 하루 15개 한도 + 캡차"로 **수렴**했다. 우리가 이미 독자적으로 도달한 경로(session 쿠키 + Playwright 발행, 15개 한도 실측)와 일치 — 이 구조가 맞다는 강한 외부 신호.
+- **솔직 단서:** ① SSL·커스텀 도메인 무료는 티스토리 기본 스펙(차별점 아님). 진짜 강점은 "headless + UI + SSOT 미러 + 품질게이트" 아키텍처 전체. ② 선구자=생태계 없음(장점이자 리스크). SSOT=GitHub 박아둔 판단이 그 리스크에 대한 정확한 대응.
+- **포지셔닝:** "티스토리를 이렇게 쓰는 사람은 커뮤니티상 최초." 괴짜 짓이 아니라 방향이 맞음.
+
+### 🚧 15개/일 한도는 "계정 단위" — 5블로그가 예산을 공유한다 (_Claude · 2026-08-15)
+
+- **발견(편 03 발행 실패에서):** 돌봄 데몬 편 03(트랙 DC) 티스토리 발행이 "발행 후 에디터 유지"로 실패. 역가져오기로 확인 → 신규 글 없음(임시저장도 미확인). 원인은 **일일 한도**.
+- **핵심:** `accounts.json` 5블로그(galaxys21·mynote·faith·piano·metalcare) 전부 **같은 이메일 계정** → 티스토리 "하루 공개 발행 최대 15개"가 **계정(이메일) 단위**라 **5블로그가 15개 예산을 공유**한다.
+- **08-15 실측:** 히스토리 배치 13개(galaxys21) + 돌봄 데몬 2개(mynote 0019·0020) = **15개 = 한도 도달**. 편 03은 16번째라 차단.
+- **전략적 영향:** 히스토리 배치(하루 12개)와 돌봄 데몬 페어(하루 1~2개)가 **같은 15개 예산을 경쟁**. "히스토리 12 + 돌봄 2"는 한도 초과. 예산 배분(예: 히스토리 12 + 돌봄 2 + 여유 1) 또는 돌봄 우선순위 조정 필요.
+- **편 03 상태:** 원고·게이트(PASS)·페어 빌드(HTML+JSON) **완료**. 티스토리 발행만 한도로 보류. 내일(08-16) 한도 리셋 후 `post.py --post 03-dementia-care.json` 한 줄로 재발행.
