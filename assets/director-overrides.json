@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-15 13:19",
+  "generated": "2026-08-15 13:40",
   "phase": 2,
   "stats": {
     "PASS": 56,
@@ -18,7 +18,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch1.1 워크스테이션 백서",
       "deck": "구축: 2026-07-23 ~ 2026-08-14 (23일)",
       "body_lines": 216,
       "issues": [
@@ -33,7 +33,7 @@
         "업무수첩",
         "아키텍처"
       ],
-      "category": "",
+      "category": "Ch1.1 워크스테이션 백서",
       "deck": "",
       "body_lines": 91,
       "issues": []
@@ -46,7 +46,7 @@
         "업무수첩",
         "디스코드"
       ],
-      "category": "",
+      "category": "Ch2.2 Discord·커뮤니티",
       "deck": "",
       "body_lines": 39,
       "issues": []
@@ -59,7 +59,7 @@
         "업무수첩",
         "텔레그램"
       ],
-      "category": "",
+      "category": "Ch2.1 텔레그램·보고회의실",
       "deck": "",
       "body_lines": 25,
       "issues": []
@@ -73,7 +73,7 @@
         "깃허브",
         "GitHub Pages"
       ],
-      "category": "",
+      "category": "Ch1.4 GitHub·Pages·무료전시장",
       "deck": "",
       "body_lines": 41,
       "issues": [
@@ -89,7 +89,7 @@
         "티스토리",
         "블로그"
       ],
-      "category": "",
+      "category": "Ch5.1 Paste Pipeline",
       "deck": "",
       "body_lines": 57,
       "issues": []
@@ -102,7 +102,7 @@
         "업무수첩",
         "유튜브"
       ],
-      "category": "",
+      "category": "Ch5.3 YouTube·네이버 연동",
       "deck": "",
       "body_lines": 46,
       "issues": []
@@ -117,7 +117,7 @@
         "GitHub Pages",
         "명령어"
       ],
-      "category": "",
+      "category": "Ch1.3 Claude Code·DeepSeek 배선",
       "deck": "",
       "body_lines": 51,
       "issues": []
@@ -131,7 +131,7 @@
         "보안",
         "비밀관리"
       ],
-      "category": "",
+      "category": "Ch6.2 슬롯 아키텍처·환경 독립",
       "deck": "",
       "body_lines": 28,
       "issues": []
@@ -145,7 +145,7 @@
         "MCP",
         "자동화"
       ],
-      "category": "",
+      "category": "Ch2.3 Phone MCP·하드웨어 제어",
       "deck": "순수 Termux:API 기반. 루트/ADB/Shizuku 불필요.",
       "body_lines": 113,
       "issues": []
@@ -159,7 +159,7 @@
         "건강검진",
         "돌봄"
       ],
-      "category": "",
+      "category": "Ch2.4 건강체크·돌봄 데몬",
       "deck": "역할: 주기적인 하드웨어/소프트웨어 헬스체크",
       "body_lines": 87,
       "issues": []
@@ -173,7 +173,7 @@
         "MCP",
         "자동화"
       ],
-      "category": "",
+      "category": "Ch6.1 2계층·5×5×5 생태계",
       "deck": "수령: 2026-07-24 15:42 UTC",
       "body_lines": 92,
       "issues": [
@@ -189,7 +189,7 @@
         "회고",
         "평가"
       ],
-      "category": "",
+      "category": "Ch8.3 업무일지 하이라이트",
       "deck": "평가일: 2026-07-24 | 평가자: Claude Code",
       "body_lines": 66,
       "issues": [
@@ -200,7 +200,7 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch8.3 업무일지 하이라이트",
       "deck": "평가일: 2026-07-24",
       "body_lines": 68,
       "issues": [
@@ -216,7 +216,7 @@
         "데몬",
         "자동화"
       ],
-      "category": "",
+      "category": "Ch7.1 기초생계·치매·장애 솔루션",
       "deck": "작성: 2026-07-24",
       "body_lines": 115,
       "issues": []
@@ -231,7 +231,7 @@
         "proot",
         "리눅스"
       ],
-      "category": "",
+      "category": "Ch1.2 Termux·proot·Ubuntu",
       "deck": "일시: 2026-07-23 ~ 2026-07-25",
       "body_lines": 111,
       "issues": []
@@ -245,7 +245,7 @@
         "교재",
         "문서화"
       ],
-      "category": "",
+      "category": "Ch7.2 대화록·방법론·아이덴티티",
       "deck": "버전: 1.0 | 제정: 2026-07-25",
       "body_lines": 45,
       "issues": [
@@ -256,7 +256,7 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch8.3 업무일지 하이라이트",
       "deck": "**버전:** 1.0 | **병합일:** 2026-07-25",
       "body_lines": 343,
       "issues": [
@@ -267,7 +267,7 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch6.2 슬롯 아키텍처·환경 독립",
       "deck": "작성: 2026-07-25 | Phase 1",
       "body_lines": 191,
       "issues": [
@@ -278,7 +278,7 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch6.2 슬롯 아키텍처·환경 독립",
       "deck": "Boss 판단: \"기를 쓰고 뚫을 필요 없다. 자동화할 건 자동화하고, 사람 손 탈 건 사람 손 탄다.\"",
       "body_lines": 56,
       "issues": [
@@ -292,7 +292,7 @@
         "S21",
         "업무수첩"
       ],
-      "category": "",
+      "category": "Ch6.2 슬롯 아키텍처·환경 독립",
       "deck": "Boss + Gemini + Claude 3자 통합 결론:",
       "body_lines": 126,
       "issues": []
@@ -307,7 +307,7 @@
         "GitHub Pages",
         "유튜브"
       ],
-      "category": "",
+      "category": "Ch6.3 ROI·공짜 클라우드 정당화",
       "deck": "2026-07-25 | Phase 1",
       "body_lines": 166,
       "issues": []
@@ -321,7 +321,7 @@
         "성능",
         "벤치마크"
       ],
-      "category": "",
+      "category": "Ch8.2 케이스스터디·벤치마크",
       "deck": "측정일: 2026-07-25 | 실측 기기: Galaxy S21 5G (SM-G991N, 한국판)",
       "body_lines": 72,
       "issues": []
@@ -335,7 +335,7 @@
         "네이버",
         "블로그"
       ],
-      "category": "",
+      "category": "Ch5.3 YouTube·네이버 연동",
       "deck": "리서치 결론: 스마트에디터 ONE은 HTML 모드 미지원.",
       "body_lines": 82,
       "issues": []
@@ -347,7 +347,7 @@
         "S21",
         "업무수첩"
       ],
-      "category": "",
+      "category": "Ch5.1 Paste Pipeline",
       "deck": "발견: 2026-07-25 | Boss + Claude Code 협업",
       "body_lines": 55,
       "issues": []
@@ -361,7 +361,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch6.4 4로봇·에이전트 방법론",
       "deck": "발견: 2026-07-25 | Boss 리서치",
       "body_lines": 112,
       "issues": []
@@ -376,7 +376,7 @@
         "이미지 생성",
         "네이버"
       ],
-      "category": "",
+      "category": "Ch5.1 Paste Pipeline",
       "deck": "발견: 2026-07-25 | Grok만 된다는 건 틀렸다",
       "body_lines": 57,
       "issues": []
@@ -390,7 +390,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch6.4 4로봇·에이전트 방법론",
       "deck": "발견: 2026-07-25 | Boss 제안",
       "body_lines": 89,
       "issues": []
@@ -405,7 +405,7 @@
         "GitHub Pages",
         "AI"
       ],
-      "category": "",
+      "category": "Ch6.4 4로봇·에이전트 방법론",
       "deck": "발견: 2026-07-25 | Grok이 GitHub Pages도 완벽 파싱",
       "body_lines": 57,
       "issues": [
@@ -422,7 +422,7 @@
         "터미널",
         "AI"
       ],
-      "category": "",
+      "category": "Ch1.2 Termux·proot·Ubuntu",
       "deck": "설치: 2026-07-25 | 버전: 0.2.112 | 아키텍처: linux-aarch64",
       "body_lines": 54,
       "issues": [
@@ -438,7 +438,7 @@
         "명령어",
         "터미널"
       ],
-      "category": "",
+      "category": "Ch6.4 4로봇·에이전트 방법론",
       "deck": "제정: 2026-07-26",
       "body_lines": 59,
       "issues": [
@@ -455,7 +455,7 @@
         "이미지 생성",
         "영상"
       ],
-      "category": "",
+      "category": "Ch6.4 4로봇·에이전트 방법론",
       "deck": "**Boss 결정 (2026-07-26)** · **기점 개정 (2026-08-14)**",
       "body_lines": 119,
       "issues": [
@@ -466,7 +466,7 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch6.1 2계층·5×5×5 생태계",
       "deck": "2026-07-26 | @S21Phone_Bot 전송 완료",
       "body_lines": 12,
       "issues": [
@@ -483,7 +483,7 @@
         "숏폼",
         "백서"
       ],
-      "category": "",
+      "category": "Ch3.1 파이프라인 개요·백서",
       "deck": "Grok Imagine (드래프트) + ComfyUI GPU (프로 마감) 운영 가이드",
       "body_lines": 38,
       "issues": []
@@ -495,7 +495,7 @@
         "S21",
         "업무수첩"
       ],
-      "category": "",
+      "category": "Ch6.3 ROI·공짜 클라우드 정당화",
       "deck": "",
       "body_lines": 79,
       "issues": []
@@ -508,7 +508,7 @@
         "업무수첩",
         "백서"
       ],
-      "category": "",
+      "category": "Ch6.1 2계층·5×5×5 생태계",
       "deck": "2026-07-26 | @S21Phone_Bot 전송 완료",
       "body_lines": 2,
       "issues": []
@@ -522,7 +522,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch6.1 2계층·5×5×5 생태계",
       "deck": "한 줄: 콘텐츠 플래닝으로 시작했지만, **비즈니스 플랜 + PM + 핸드오프 설계**가 같은 레포 구조 안에 이미 겹쳐 있다.",
       "body_lines": 76,
       "issues": []
@@ -537,7 +537,7 @@
         "이미지 생성",
         "백서"
       ],
-      "category": "",
+      "category": "Ch6.3 ROI·공짜 클라우드 정당화",
       "deck": "**명제**",
       "body_lines": 186,
       "issues": []
@@ -551,7 +551,7 @@
         "음성",
         "성우"
       ],
-      "category": "",
+      "category": "Ch7.1 기초생계·치매·장애 솔루션",
       "deck": "분석: 2026-07-27 | 실측 기기: SM-G991N (Galaxy S21 5G)",
       "body_lines": 78,
       "issues": []
@@ -566,7 +566,7 @@
         "성우",
         "AI"
       ],
-      "category": "",
+      "category": "Ch1.1 워크스테이션 백서",
       "deck": "네이버 블로그용 **강의 소개글 + 강의 스크립트 골격**",
       "body_lines": 233,
       "issues": []
@@ -575,7 +575,7 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch6.3 ROI·공짜 클라우드 정당화",
       "deck": "",
       "body_lines": 68,
       "issues": [
@@ -592,7 +592,7 @@
         "네이버",
         "블로그"
       ],
-      "category": "",
+      "category": "Ch6.1 2계층·5×5×5 생태계",
       "deck": "© 2026 Helena Park · 대필작가-간병인",
       "body_lines": 112,
       "issues": []
@@ -601,7 +601,7 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch8.3 업무일지 하이라이트",
       "deck": "**용도:** 화면 공유 / 칠판(웹·슬라이드) 보면서 **화면 녹화**",
       "body_lines": 297,
       "issues": [
@@ -615,7 +615,7 @@
         "S21",
         "업무수첩"
       ],
-      "category": "",
+      "category": "Ch5.4 WSL 슬롯·확장 로드맵",
       "deck": "",
       "body_lines": 55,
       "issues": []
@@ -629,7 +629,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch1.5 실전 설치 사례",
       "deck": "**리버스 엔지니어링 결론:**",
       "body_lines": 99,
       "issues": []
@@ -643,7 +643,7 @@
         "네이버",
         "블로그"
       ],
-      "category": "",
+      "category": "Ch5.3 YouTube·네이버 연동",
       "deck": "최종 확정: 2026-07-27 | Boss 직전 수작업",
       "body_lines": 16,
       "issues": []
@@ -656,7 +656,7 @@
         "업무수첩",
         "아키텍처"
       ],
-      "category": "",
+      "category": "Ch6.2 슬롯 아키텍처·환경 독립",
       "deck": "Gemini 분석 + Boss 검증 | 2026-07-27",
       "body_lines": 35,
       "issues": []
@@ -671,7 +671,7 @@
         "이미지 생성",
         "네이버"
       ],
-      "category": "",
+      "category": "Ch5.3 YouTube·네이버 연동",
       "deck": "agent _Grok · 2026-07-27",
       "body_lines": 59,
       "issues": []
@@ -683,7 +683,7 @@
         "S21",
         "업무수첩"
       ],
-      "category": "",
+      "category": "Ch8.1 설치 삽질 포스트모템",
       "deck": "2026-08-05. Boss + Claude Code 4시간 논쟁의 기록.",
       "body_lines": 70,
       "issues": []
@@ -696,7 +696,7 @@
         "업무수첩",
         "아키텍처"
       ],
-      "category": "",
+      "category": "Ch6.4 4로봇·에이전트 방법론",
       "deck": "Gemini 분석 | 2026-07-27",
       "body_lines": 23,
       "issues": [
@@ -713,7 +713,7 @@
         "이미지 생성",
         "네이버"
       ],
-      "category": "",
+      "category": "Ch5.2 루프백·사이버네틱 검증",
       "deck": "2026-07-27 · Claude pts/0 마지막 지시 재검토",
       "body_lines": 126,
       "issues": []
@@ -728,7 +728,7 @@
         "이미지 생성",
         "네이버"
       ],
-      "category": "",
+      "category": "Ch5.2 루프백·사이버네틱 검증",
       "deck": "저장일: 2026-07-27 · agent _Grok",
       "body_lines": 78,
       "issues": []
@@ -740,7 +740,7 @@
         "S21",
         "업무수첩"
       ],
-      "category": "",
+      "category": "Ch1.5 실전 설치 사례",
       "deck": "2026-07-28 · 내일 미팅 · 형(CS 박사) 폰에 helena_phone 수동 설치",
       "body_lines": 87,
       "issues": []
@@ -755,7 +755,7 @@
         "깃허브",
         "GitHub Pages"
       ],
-      "category": "",
+      "category": "Ch6.2 슬롯 아키텍처·환경 독립",
       "deck": "선언: 2026-07-31 (_Claude, Boss 승인)",
       "body_lines": 104,
       "issues": [
@@ -770,7 +770,7 @@
         "업무수첩",
         "아키텍처"
       ],
-      "category": "",
+      "category": "Ch6.2 슬롯 아키텍처·환경 독립",
       "deck": "작성: 2026-07-28 · _Boss + _Claude",
       "body_lines": 106,
       "issues": [
@@ -781,7 +781,7 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch7.2 대화록·방법론·아이덴티티",
       "deck": "2026-07-28 · Helena Park + Claude Code (DeepSeek)",
       "body_lines": 59,
       "issues": [
@@ -798,7 +798,7 @@
         "숏폼",
         "AI"
       ],
-      "category": "",
+      "category": "Ch3.5 Director·연출 시스템",
       "deck": "작성: 2026-07-31 · 에이전트: Grok 디자이너",
       "body_lines": 67,
       "issues": [
@@ -815,7 +815,7 @@
         "MCP",
         "자동화"
       ],
-      "category": "",
+      "category": "Ch3.5 Director·연출 시스템",
       "deck": "2026-07-31 · 목적: 하이테크 제품 튜토리얼 / 에이전트급 데모 영상 기준 정립",
       "body_lines": 52,
       "issues": []
@@ -829,7 +829,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch3.5 Director·연출 시스템",
       "deck": "2026-08-01 · 목적: **가짜 SHIP PASS 종식** — 클릭 카운트만 통과하는 산출 차단",
       "body_lines": 88,
       "issues": [
@@ -846,7 +846,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch3.5 Director·연출 시스템",
       "deck": "2026-08-01 · Boss: “Claude Chrome보다 스카우트가 더 나을 수 있다. 커뮤니티 방법 있다.”",
       "body_lines": 107,
       "issues": [
@@ -862,7 +862,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch3.5 Director·연출 시스템",
       "deck": "2026-08-01 · Boss: 비전 셀프 QA 넣고 클로드급 튜토리얼 바까지 올려라. 중간 TG 보고.",
       "body_lines": 56,
       "issues": [
@@ -878,7 +878,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch3.5 Director·연출 시스템",
       "deck": "2026-08-01 · Boss: “빛이 따로 놀아. 플랜 자체가 없어. 연출 설정부터 만들어.”",
       "body_lines": 69,
       "issues": [
@@ -894,7 +894,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch3.5 Director·연출 시스템",
       "deck": "2026-08-02 · URL: https://helena751107.github.io/helena_phone/",
       "body_lines": 47,
       "issues": [
@@ -910,7 +910,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch3.5 Director·연출 시스템",
       "deck": "2026-08-02 · Boss: 초A급 올려라. 솔루션.",
       "body_lines": 38,
       "issues": [
@@ -926,7 +926,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch3.5 Director·연출 시스템",
       "deck": "2026-08-02 · Boss: 만점 올릴 때 쓰던 프로세스 자체를 솔루션·코드로 고정. 매번 마음대로 하지 마라.",
       "body_lines": 36,
       "issues": [
@@ -942,7 +942,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch3.5 Director·연출 시스템",
       "deck": "2026-08-02 · 커뮤니티 리서치(recast / Purple Owl / Screencast) → 코드 고정",
       "body_lines": 45,
       "issues": [
@@ -959,7 +959,7 @@
         "숏폼",
         "AI"
       ],
-      "category": "",
+      "category": "Ch3.1 파이프라인 개요·백서",
       "deck": "선언: Boss 2026-07-31 (§103) · 정리·현행화: 2026-08-02 (_Grok)",
       "body_lines": 99,
       "issues": []
@@ -974,7 +974,7 @@
         "숏폼",
         "AI"
       ],
-      "category": "",
+      "category": "Ch3.1 파이프라인 개요·백서",
       "deck": "**S21 Phone · Helena Director / Perfect Ship**",
       "body_lines": 211,
       "issues": [
@@ -990,7 +990,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch3.5 Director·연출 시스템",
       "deck": "2026-08-02 · Boss: 진짜 프로급, 이전 TG보다 훨씬 잘",
       "body_lines": 19,
       "issues": [
@@ -1001,7 +1001,7 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch1.3 Claude Code·DeepSeek 배선",
       "deck": "**상황:** 폰에서 DeepSeek 백엔드 Claude Code 세션이 먹통.",
       "body_lines": 110,
       "issues": [
@@ -1018,7 +1018,7 @@
         "숏폼",
         "AI"
       ],
-      "category": "",
+      "category": "Ch3.6 BGM·브릿지·인코딩",
       "deck": "2026-08-05 · Boss 지시: **이미 돌아가는 솔루션 위에** Grok 예쁜 이미지 + Grok 성우만 꽂아라.",
       "body_lines": 28,
       "issues": [
@@ -1035,7 +1035,7 @@
         "숏폼",
         "AI"
       ],
-      "category": "",
+      "category": "Ch3.6 BGM·브릿지·인코딩",
       "deck": "2026-08-05 · Boss: 파이프 스탠다드 맞냐? 품질 더 올려. 커뮤니티 리서치.",
       "body_lines": 50,
       "issues": [
@@ -1051,7 +1051,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch3.5 Director·연출 시스템",
       "deck": "Boss: 80점까지. 구독 풀가동. 아이디어·프로세스 올려.",
       "body_lines": 24,
       "issues": [
@@ -1068,7 +1068,7 @@
         "숏폼",
         "AI"
       ],
-      "category": "",
+      "category": "Ch3.6 BGM·브릿지·인코딩",
       "deck": "2026-08-05 · 증상: 스크럽 미리보기는 보이는데 **재생 시 화면 검정** / 다운로드 후도 동일",
       "body_lines": 26,
       "issues": [
@@ -1085,7 +1085,7 @@
         "성우",
         "AI"
       ],
-      "category": "",
+      "category": "Ch3.6 BGM·브릿지·인코딩",
       "deck": "Boss 2026-08-05",
       "body_lines": 43,
       "issues": [
@@ -1102,7 +1102,7 @@
         "음성",
         "성우"
       ],
-      "category": "",
+      "category": "Ch3.6 BGM·브릿지·인코딩",
       "deck": "저장: 2026-08-06 · 에이전트: _Grok",
       "body_lines": 84,
       "issues": [
@@ -1118,7 +1118,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch3.6 BGM·브릿지·인코딩",
       "deck": "2026-08-06 · Boss: 대충 프롬프트 금지. 포토그래퍼·예술 작품 수준. 버전 올리며 실험.",
       "body_lines": 29,
       "issues": [
@@ -1129,7 +1129,7 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch3.6 BGM·브릿지·인코딩",
       "deck": "2026-08-06 · 끊긴 세션 이어서 완료",
       "body_lines": 30,
       "issues": [
@@ -1146,7 +1146,7 @@
         "성우",
         "AI"
       ],
-      "category": "",
+      "category": "Ch4.3 Edge TTS·Piper",
       "deck": "2026-08-06 · Boss 판단: 비수익화여도 Edge 쓰지 않는다. 채널이 날아가면 억울하다.",
       "body_lines": 44,
       "issues": [
@@ -1163,7 +1163,7 @@
         "성우",
         "AI"
       ],
-      "category": "",
+      "category": "Ch4.1 3트랙 목소리 전략",
       "deck": "2026-08-06 · Boss: 누나 레포에 선물로 AI 코어 올릴 거다.",
       "body_lines": 131,
       "issues": [
@@ -1179,7 +1179,7 @@
         "AI",
         "이미지 생성"
       ],
-      "category": "",
+      "category": "Ch3.6 BGM·브릿지·인코딩",
       "deck": "",
       "body_lines": 11,
       "issues": [
@@ -1196,7 +1196,7 @@
         "이미지 생성",
         "영상"
       ],
-      "category": "",
+      "category": "Ch3.4 P3·P4 영상·자막",
       "deck": "2026-08-06 · Boss: 화면 안 바뀜 / 중간부터 안 나옴 → 검증 후 재전송",
       "body_lines": 27,
       "issues": [
@@ -1213,7 +1213,7 @@
         "이미지 생성",
         "영상"
       ],
-      "category": "",
+      "category": "Ch3.1 파이프라인 개요·백서",
       "deck": "Boss 2026-08-06: 「여기로 버전 확정. 이게 표준. 매번 동일하게 작업되게 저장.」",
       "body_lines": 44,
       "issues": [
@@ -1230,7 +1230,7 @@
         "이미지 생성",
         "영상"
       ],
-      "category": "",
+      "category": "Ch3.1 파이프라인 개요·백서",
       "deck": "**일시:** 2026-08-06 · 에이전트: **_Grok (PD · GPU 대용 · 80% 프로 마감)**",
       "body_lines": 123,
       "issues": [
@@ -1247,7 +1247,7 @@
         "음성",
         "RVC"
       ],
-      "category": "",
+      "category": "Ch4.2 ParksyTTS·온디바이스 추론",
       "deck": "**결론:** SoVITS는 포기. TTS(NeuTTS Nano 또는 Sherpa-ONNX Kokoro) + RVC ONNX = S21에서 실사용 가능한 성우 더빙 파이프.",
       "body_lines": 102,
       "issues": []
@@ -1259,7 +1259,7 @@
         "S21",
         "업무수첩"
       ],
-      "category": "",
+      "category": "Ch5.2 루프백·사이버네틱 검증",
       "deck": "**Boss 결정 (2026-08-08)**",
       "body_lines": 103,
       "issues": []
@@ -1271,7 +1271,7 @@
         "S21",
         "업무수첩"
       ],
-      "category": "",
+      "category": "Ch5.2 루프백·사이버네틱 검증",
       "deck": "모든 `_notebook/*.md`가 통일된 웹 UI로 번역되기 위해 지켜야 할 최소·권장·프리미엄 규칙.",
       "body_lines": 135,
       "issues": []
@@ -1286,7 +1286,7 @@
         "숏폼",
         "자동화"
       ],
-      "category": "",
+      "category": "Ch3.1 파이프라인 개요·백서",
       "deck": "**V11→V12 변경사항:** ① device_scale_factor 3x→5x (소스 해상도 260% 헤드룸) ② `volume=1.0` → `loudnorm=I=-16:TP=-1.5:LRA=11` (P4+P5, 4개소) ③ Grok TTS 공식 폐기 ④ GPU/NPU 구조적 한계로 보류",
       "body_lines": 229,
       "issues": []
@@ -1301,7 +1301,7 @@
         "성우",
         "백서"
       ],
-      "category": "",
+      "category": "Ch4.1 3트랙 목소리 전략",
       "deck": "",
       "body_lines": 38,
       "issues": []
@@ -1316,7 +1316,7 @@
         "음성",
         "RVC"
       ],
-      "category": "",
+      "category": "Ch4.4 RVC·학습·녹음",
       "deck": "여호와는 나의 목자시니, 내게 부족함이 없으리로다. 그가 나를 푸른 풀밭에 누이시며, 쉴 만한 물가로 인도하시는도다. 내 영혼을 소생시키시고, 자기 이름을 위하여, 의의 길로 인도하시는도다. 내가 사망의 음침한 골짜기로 다닐지라도, 해를 받지 않을 것은... 주께서 나와 함께 하심이라. 주의 지팡이와 막대기가, 나를 안위하시나이다. 주께서 내 원수 앞에서, 내게 상을 차려 주시고, 기름을 내 머리에 부으셨으니, 내 잔이 넘치나이다. 내 평생에, 선하심과 인자하심이, 반드시 나를 따르리니, 내가 여호와의 집에, 영원히 살리로다.",
       "body_lines": 141,
       "issues": []
@@ -1331,7 +1331,7 @@
         "성우",
         "AI"
       ],
-      "category": "",
+      "category": "Ch4.4 RVC·학습·녹음",
       "deck": "",
       "body_lines": 96,
       "issues": []
@@ -1346,7 +1346,7 @@
         "이미지 생성",
         "영상"
       ],
-      "category": "",
+      "category": "Ch6.4 4로봇·에이전트 방법론",
       "deck": "**Boss 결정 (2026-08-14)**",
       "body_lines": 198,
       "issues": [
@@ -1361,7 +1361,7 @@
         "업무수첩",
         "유튜브"
       ],
-      "category": "",
+      "category": "Ch5.3 YouTube·네이버 연동",
       "deck": "**Boss 결정 (2026-08-14)** — 5채널 → 2채널 축소.",
       "body_lines": 30,
       "issues": []
@@ -1376,7 +1376,7 @@
         "이미지 생성",
         "proot"
       ],
-      "category": "",
+      "category": "Ch6.4 4로봇·에이전트 방법론",
       "deck": "",
       "body_lines": 34,
       "issues": []
@@ -1391,7 +1391,7 @@
         "이미지 생성",
         "영상"
       ],
-      "category": "",
+      "category": "Ch3.1 파이프라인 개요·백서",
       "deck": "기존 `produce_pd.sh`(공짜)와 신규 `produce_doc.sh`(구독 Grok)를 **두 레인으로 분리**한다.",
       "body_lines": 117,
       "issues": []
@@ -1403,7 +1403,7 @@
         "S21",
         "업무수첩"
       ],
-      "category": "",
+      "category": "Ch6.3 ROI·공짜 클라우드 정당화",
       "deck": "**기록 메타 (Claude Code, 2026-08-14):** 이 백서는 작성일 2026-08-13 기준.",
       "body_lines": 131,
       "issues": []
@@ -1415,7 +1415,7 @@
         "S21",
         "업무수첩"
       ],
-      "category": "",
+      "category": "Ch6.4 4로봇·에이전트 방법론",
       "deck": "**결론부터:**",
       "body_lines": 39,
       "issues": []
@@ -1427,7 +1427,7 @@
         "S21",
         "업무수첩"
       ],
-      "category": "",
+      "category": "Ch8.3 업무일지 하이라이트",
       "deck": "**한 줄:** 구형 Galaxy S21 한 대로, proot Ubuntu + 에이전트 3종 + Tailscale로 \"돌봄(누나) + 소망(출판)\" 인프라를 22일 만에 세웠다.",
       "body_lines": 36,
       "issues": []
@@ -1439,7 +1439,7 @@
         "S21",
         "업무수첩"
       ],
-      "category": "",
+      "category": "Ch8.3 업무일지 하이라이트",
       "deck": "**한 줄:** 22일 확장기(357커밋)로 뼈대를 세웠다. 오늘부턴 더 넓히지 않고 **다듬고**, 실제 콘텐츠를 **찍어낸다**.",
       "body_lines": 33,
       "issues": []
@@ -1451,7 +1451,7 @@
         "S21",
         "업무수첩"
       ],
-      "category": "",
+      "category": "Ch5.2 루프백·사이버네틱 검증",
       "deck": "**한 줄:** 티스토리 자동발행은 **된다**. 단, 그건 \"안 들켜서\"가 아니라 **티스토리가 관대해서**다. 같은 코드를 네이버·인스타로 옮기면 바로 걸린다.",
       "body_lines": 48,
       "issues": []
@@ -1463,7 +1463,7 @@
         "S21",
         "업무수첩"
       ],
-      "category": "",
+      "category": "Ch5.2 루프백·사이버네틱 검증",
       "deck": "**한 줄:** Boss가 던진 생각·글·대화 로그를 Claude Code가 리버스엔지니어링/정리해 문서화하고, **형태로 나눠** JS 풀 웹앱은 GitHub Pages, 웹진형 문서는 티스토리로 보낸다.",
       "body_lines": 47,
       "issues": []
@@ -1472,9 +1472,9 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch8.3 업무일지 하이라이트",
       "deck": "\"WS SL 내 PC 환경에 디바이스 추가해서 누나 핸드폰을 브랜치처럼 해가지고 태블릿 내가 갖고 있는 것처럼 누나 핸드폰도 등록을 해버리잖아.\"",
-      "body_lines": 4092,
+      "body_lines": 4099,
       "issues": [
         "발행 보류: 원시 세션 devlog"
       ]
@@ -1483,7 +1483,7 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch6.4 4로봇·에이전트 방법론",
       "deck": "",
       "body_lines": 89,
       "issues": [
@@ -1494,7 +1494,7 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch6.3 ROI·공짜 클라우드 정당화",
       "deck": "S21 Phone 전체 자산 배분율 + 저장소 메커니즘 분석",
       "body_lines": 106,
       "issues": [
@@ -1510,7 +1510,7 @@
         "네이버",
         "블로그"
       ],
-      "category": "",
+      "category": "Ch5.3 YouTube·네이버 연동",
       "deck": "",
       "body_lines": 4,
       "issues": []
@@ -1519,7 +1519,7 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch4.4 RVC·학습·녹음",
       "deck": "",
       "body_lines": 40,
       "issues": [
@@ -1530,7 +1530,7 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch4.4 RVC·학습·녹음",
       "deck": "",
       "body_lines": 60,
       "issues": [
@@ -1541,7 +1541,7 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch8.3 업무일지 하이라이트",
       "deck": "**agent:** _Grok",
       "body_lines": 46,
       "issues": [
@@ -1552,7 +1552,7 @@
       "verdict": "HOLD",
       "title": "",
       "tags": [],
-      "category": "",
+      "category": "Ch3.5 Director·연출 시스템",
       "deck": "",
       "body_lines": 100,
       "issues": [
@@ -1568,7 +1568,7 @@
         "티스토리",
         "블로그"
       ],
-      "category": "",
+      "category": "Ch5.1 Paste Pipeline",
       "deck": "2026-08-08 · Claude Code 종합 정리",
       "body_lines": 160,
       "issues": []

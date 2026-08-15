@@ -37,6 +37,9 @@ ROUTE = ROOT / "assets" / "publish-route.json"
 OVERRIDES = ROOT / "assets" / "director-overrides.json"
 REPORT = ROOT / "assets" / "director-gate-report.md"
 
+sys.path.insert(0, str(BASE))
+from history_category_map import history_category_for  # noqa: E402
+
 # ── 판정 규칙 (디렉터의 편집 기준) ──────────────────────────────────────────
 # 내부 전용어 — 교재 제목에 있으면 외부 검색 의도와 불일치 → 제목 재작성(REVISE)
 INTERNAL_JARGON = [
@@ -263,7 +266,7 @@ def run() -> dict:
             "verdict": verdict,
             "title": final_title,
             "tags": tags,
-            "category": "",           # Phase 2 후속: PART/Ch 정밀 배정 (별도 taxonomy)
+            "category": history_category_for(fname),  # history_category_map SSOT
             "deck": deck,
             "body_lines": body_len,
             "issues": issues,

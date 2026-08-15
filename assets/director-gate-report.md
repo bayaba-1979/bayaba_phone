@@ -1,6 +1,6 @@
 # 디렉터 게이트 심사표 (Phase 2 품질)
 
-생성: 2026-08-15 13:19 · PASS 56 / CLEAN 37 / REVISE 0 / HOLD 17 / 누락 0
+생성: 2026-08-15 13:40 · PASS 56 / CLEAN 37 / REVISE 0 / HOLD 17 / 누락 0
 
 | verdict | file | 최종 제목 | issues |
 |---|---|---|---|
