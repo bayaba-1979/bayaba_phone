@@ -561,8 +561,9 @@ section.container {
 #zoom-ctrl button:hover { background: rgba(var(--s21-accent-rgb), 0.12); color: var(--s21-accent); border-color: rgba(var(--s21-accent-rgb), 0.45); }
 
 @media (max-width: 900px) {
-  section.container { flex-direction: column; }
+  section.container { flex-direction: column; align-items: stretch; }
   #category-nav { flex: none; width: 100%; position: static; max-height: none; }
+  #content { width: 100%; max-width: 100%; }
 }
 
 /* ── 12. Galaxy S21 시그니처 디자인 (Boss 2026-08-15) ───────────────────────
