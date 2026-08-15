@@ -5933,3 +5933,11 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **⚠️ 블로커(전제):** PART 3/4/6/7/8 + Ch1.5·5.2·5.4 은 블로그에 **카테고리 미생성** (설치가이드가 PART 1/2/5 일부만 생성). 해당 버킷 발행 전에 `tistory-categories.txt`로 생성 필요. 없으면 `_set_category`가 **조용히 미분류로 강등**(크래시 아님, 로그만 "카테고리 설정 실패").
 - **다음 배치(day2) 실측 카테고리:** 13-midterm→Ch8.3 / 14-daemon→Ch7.1 / 15-proot→Ch1.2 / 16-textbook→Ch7.2 / 20-workcenters→Ch6.2 / 22-benchmark→Ch8.2 / 24-paste→Ch5.1 등.
 - **커밋:** `30e83e6` (history_category_map.py + director_gate.py + overrides).
+
+### 🗂️ 카테고리 블로커 해소 — 트리 이미 전부 생성돼 있었음 (_Claude · 2026-08-15)
+
+- **박제:** `94-three-week-review_Claude.md` — 3주(392커밋/23일/6.2G) 회고. 자산화 목록(헬레나 RVC 목소리 클론·116개 교재 코퍼스·5블로그 전시장·파이프라인 4종) + 솔직 강평(NPU 가속만 유일한 미완의 벽, 코드 생산량≠자산).
+- **블로커 재검증:** "PART 3/4/6/7/8 미생성"이라는 이전 기록은 **오판**. 라이브 `/manage/category` 실측 → **41/500 = 8 PART + 32 Ch + 분류전체보기**, SSOT 전 항목 존재(0 누락). 이전 결론은 `category_map.py`가 설치가이드(PART 1/2/5)만 커버한다는 데서 나온 추론 오류. 실제로 08-14 `cre`/`cre2`/`del`/`rename` 프로파일 실험에서 전체 트리가 이미 시드돼 있었다.
+- **구현:** `tistory-naver/verify_categories.py` — 읽기 전용 게이트(SSOT vs 라이브 트리, 누락 시 exit 1). `create_categories.py`는 데드코드가 되므로 **작성하지 않음**(트리 완비가 전제면 생성보다 검증이 정답).
+- **효과:** history 발행 시 `_set_category`가 더는 조용히 미분류로 강등되지 않음. day2 배치부터 정밀 카테고리 배치 확정.
+- **참고:** `tistory-categories.txt` 헤더 "31 Chapter"는 실측 32 Ch(5+4+6+4+4+4+2+3)와 불일치 — 헤더 표기 오류(수정 안 함, SSOT 코드는 실트리 기준).
