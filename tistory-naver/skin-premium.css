@@ -4,9 +4,27 @@
    팔레트
      배경    #08090a   표면 #0f1115 / #14161c   테두리 #1e2128
      본문    #f7f8f8   보조 #d8dbe0   뮤트 #8a8f98
-     액센트  틸 #2dd4bf · 골드 #f0b429
+     액센트  틸/골드 — 아래 :root 테마 토큰으로 블로그별 변경
    구조 = 평범(원래 Whatever 레이아웃 유지) + 디자인 = 프리미엄 다크
    ========================================================================== */
+
+/* ── 테마 토큰 (블로그별 override 는 HTML 의 <style id="s21-theme"> 로) ── */
+:root {
+  --s21-accent: #2dd4bf;
+  --s21-accent-rgb: 45, 212, 191;
+  --s21-accent2: #f0b429;
+  --s21-accent2-rgb: 240, 180, 41;
+  --s21-nebula-a: rgba(96, 70, 180, 0.16);
+  --s21-nebula-b: rgba(45, 212, 191, 0.12);
+  --s21-nebula-c: rgba(240, 180, 41, 0.07);
+  --s21-star1: #ffffff;
+  --s21-star2: #7fe7ff;
+  --s21-star3: #ffd98a;
+  --s21-meteor: #ffffff;
+  --s21-meteor-ang: -30deg;
+  --s21-meteor-dx: -190px;
+  --s21-meteor-dy: 110px;
+}
 
 /* ── 0. 글로벌 다크 베이스 ─────────────────────────────────────────────── */
 html { background: #08090a; }
@@ -35,8 +53,8 @@ body {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(1100px 560px at 14% -8%, rgba(45,212,191,0.08), transparent 60%),
-    radial-gradient(900px 480px at 90% 108%, rgba(240,180,41,0.05), transparent 55%);
+    radial-gradient(1100px 560px at 14% -8%, rgba(var(--s21-accent-rgb), 0.08), transparent 60%),
+    radial-gradient(900px 480px at 90% 108%, rgba(var(--s21-accent2-rgb), 0.05), transparent 55%);
   z-index: 0;
 }
 
@@ -72,11 +90,11 @@ body {
 }
 #header h1 a::before {
   content: "›_ ";
-  color: #2dd4bf;
+  color: var(--s21-accent);
   font-family: 'SFMono-Regular', 'JetBrains Mono', Consolas, monospace;
   font-weight: 700;
 }
-#header h1 a:hover { color: #2dd4bf; transition: color .2s ease; }
+#header h1 a:hover { color: var(--s21-accent); transition: color .2s ease; }
 #header hr { display: none; }
 
 /* 네비게이션 */
@@ -91,7 +109,7 @@ body {
   text-decoration: none;
   transition: background .16s ease, color .16s ease;
 }
-#gnb li a:hover { background: rgba(45,212,191,0.10); color: #2dd4bf; }
+#gnb li a:hover { background: rgba(var(--s21-accent-rgb), 0.10); color: var(--s21-accent); }
 #header .mobile-menu {
   background: #14161c;
   border: 1px solid #1e2128;
@@ -121,8 +139,8 @@ body {
 }
 .post-item:hover {
   transform: translateY(-3px);
-  border-color: rgba(45,212,191,0.32);
-  box-shadow: 0 16px 40px -18px rgba(0,0,0,0.75), 0 0 0 1px rgba(45,212,191,0.10);
+  border-color: rgba(var(--s21-accent-rgb), 0.32);
+  box-shadow: 0 16px 40px -18px rgba(0,0,0,0.75), 0 0 0 1px rgba(var(--s21-accent-rgb), 0.10);
 }
 .post-item > a { text-decoration: none; display: block; }
 .post-item .thum { display: none !important; }
@@ -142,7 +160,7 @@ body {
   color: #f7f8f8;
   margin-bottom: 8px;
 }
-.post-item:hover .title { color: #2dd4bf; transition: color .18s ease; }
+.post-item:hover .title { color: var(--s21-accent); transition: color .18s ease; }
 .post-item .excerpt {
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -157,7 +175,7 @@ body {
   margin-top: 12px;
   font-size: 13px;
   font-weight: 600;
-  color: #2dd4bf;
+  color: var(--s21-accent);
 }
 .post-item .more::after { content: " →"; transition: transform .15s ease; display: inline-block; }
 .post-item:hover .more::after { transform: translateX(4px); }
@@ -180,8 +198,8 @@ body {
   font-size: 14px;
   font-weight: 600;
 }
-.pagination a:hover { border-color: rgba(45,212,191,0.38); color: #2dd4bf; }
-.pagination .selected, .pagination .selected a { background: #2dd4bf; color: #04110e; border-color: #2dd4bf; font-weight: 700; }
+.pagination a:hover { border-color: rgba(var(--s21-accent-rgb), 0.38); color: var(--s21-accent); }
+.pagination .selected, .pagination .selected a { background: var(--s21-accent); color: #04110e; border-color: var(--s21-accent); font-weight: 700; }
 
 /* ── 4. 사이드바 (3열 위젯) ───────────────────────────────────────────── */
 .sidebar-1, .sidebar-2, .sidebar-3 {
@@ -204,7 +222,7 @@ body {
   color: #f7f8f8;
   margin: 0 0 14px;
   padding-left: 12px;
-  border-left: 3px solid #2dd4bf;
+  border-left: 3px solid var(--s21-accent);
 }
 .sidebar-1 .posts ul, .sidebar-2 .tags ul { list-style: none; margin: 0; padding: 0; }
 .sidebar-1 .posts li a {
@@ -216,9 +234,9 @@ body {
   text-decoration: none;
   transition: color .15s ease, padding .15s ease;
 }
-.sidebar-1 .posts li a::before { content: "▸ "; color: #2dd4bf; font-size: 12px; }
+.sidebar-1 .posts li a::before { content: "▸ "; color: var(--s21-accent); font-size: 12px; }
 .sidebar-1 .posts li a:hover { color: #f7f8f8; padding-left: 6px; }
-.sidebar-2 .tags .items a { color: #2dd4bf; text-decoration: none; font-size: 13px; }
+.sidebar-2 .tags .items a { color: var(--s21-accent); text-decoration: none; font-size: 13px; }
 .sidebar-3 .search input {
   width: 100%;
   background: #14161c;
@@ -246,7 +264,7 @@ body {
 
 /* 본문 .s21-post 인라인 라이트 스타일 → 강제 다크 (인라인 <style>이 body에 있어 우선순위 높음) */
 #article-view .s21-post { color: #d8dbe0 !important; }
-#article-view .s21-post a { color: #2dd4bf !important; border-bottom: 1px solid rgba(45,212,191,0.35) !important; }
+#article-view .s21-post a { color: var(--s21-accent) !important; border-bottom: 1px solid rgba(var(--s21-accent-rgb), 0.35) !important; }
 #article-view .s21-acc,
 #article-view .s21-btn,
 #article-view .s21-acc > summary {
@@ -256,8 +274,8 @@ body {
 }
 #article-view .s21-acc > summary { background: #14161c !important; }
 #article-view .s21-acc > summary:hover { background: #1a1e26 !important; }
-#article-view .s21-btn { color: #2dd4bf !important; }
-#article-view .s21-btn:hover { background: #2dd4bf !important; color: #04110e !important; }
+#article-view .s21-btn { color: var(--s21-accent) !important; }
+#article-view .s21-btn:hover { background: var(--s21-accent) !important; color: #04110e !important; }
 #article-view .s21-code pre { background: #0d0f13 !important; color: #a5f3e6 !important; border: 1px solid #1e2128 !important; }
 #article-view .s21-code code { color: inherit !important; }
 #article-view .s21-copy { background: #1e293b !important; border-color: #334155 !important; color: #cbd5e1 !important; }
@@ -266,7 +284,7 @@ body {
 .entry-content p { line-height: 1.95; color: #d8dbe0; font-size: 15.5px; }
 .entry-content strong { color: #ffffff; }
 .entry-content blockquote {
-  border-left: 3px solid #2dd4bf;
+  border-left: 3px solid var(--s21-accent);
   margin: 1.4em 0;
   padding: 8px 0 8px 18px;
   color: #aab1bb;
@@ -289,7 +307,7 @@ body {
 }
 .entry-content :not(pre) > code {
   background: #14161c;
-  color: #2dd4bf;
+  color: var(--s21-accent);
   padding: 2px 7px;
   border-radius: 6px;
   font-size: 0.9em;
@@ -337,7 +355,7 @@ body {
   position: relative;
   z-index: 1;
 }
-#footer a { color: #2dd4bf; text-decoration: none; }
+#footer a { color: var(--s21-accent); text-decoration: none; }
 /* "DESIGN BY TISTORY 관리자" 크레딧 블록 제거 (Boss 2026-08-15) */
 #footer { display: none !important; }
 
@@ -347,13 +365,13 @@ body {
   border: 1px solid #1e2128 !important;
   color: #f7f8f8 !important;
 }
-.btn_menu_toolbar:hover { border-color: rgba(45,212,191,0.45) !important; }
+.btn_menu_toolbar:hover { border-color: rgba(var(--s21-accent-rgb), 0.45) !important; }
 
 /* ── 8. 스크롤바 ──────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: #0a0b0d; }
 ::-webkit-scrollbar-thumb { background: #2a2e37; border-radius: 6px; border: 2px solid #0a0b0d; }
-::-webkit-scrollbar-thumb:hover { background: #2dd4bf; }
+::-webkit-scrollbar-thumb:hover { background: var(--s21-accent); }
 
 /* ── 9. 반응형 ────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
@@ -364,8 +382,8 @@ body {
 }
 
 /* ── 10. 아티클 타이틀·카테고리 + 댓글/네임카드 다크 보정 ───────────────── */
-.hgroup .category { color: #2dd4bf; font-size: 13px; font-weight: 600; margin-bottom: 10px; }
-.hgroup .category a { color: #2dd4bf; text-decoration: none; }
+.hgroup .category { color: var(--s21-accent); font-size: 13px; font-weight: 600; margin-bottom: 10px; }
+.hgroup .category a { color: var(--s21-accent); text-decoration: none; }
 .hgroup h1 {
   font-size: 30px;
   font-weight: 800;
@@ -388,7 +406,7 @@ body {
   border: 1px solid #1e2128 !important;
 }
 .tt-btn_register, #wrap .comments button {
-  background: #2dd4bf !important;
+  background: var(--s21-accent) !important;
   color: #04110e !important;
   border: none !important;
   font-weight: 700;
@@ -418,7 +436,7 @@ section.container {
   position: sticky;
   top: 84px;
   background: linear-gradient(170deg, #14171d, #0a0c10);
-  border: 2px solid rgba(45, 212, 191, 0.28);
+  border: 2px solid rgba(var(--s21-accent-rgb), 0.28);
   border-radius: 26px;
   padding: 20px;
   max-height: calc(100vh - 108px);
@@ -426,9 +444,9 @@ section.container {
   box-shadow:
     inset 0 0 0 2px #050608,
     inset 0 0 24px rgba(0,0,0,0.55),
-    0 0 0 1px rgba(240,180,41,0.20),
+    0 0 0 1px rgba(var(--s21-accent2-rgb), 0.20),
     0 22px 55px -24px rgba(0,0,0,0.9),
-    0 0 30px -8px rgba(45,212,191,0.30);
+    0 0 30px -8px rgba(var(--s21-accent-rgb), 0.30);
 }
 /* 갤럭시21 펀치홀 카메라 (카테고리 폰 상단 중앙) */
 #category-nav::before {
@@ -441,7 +459,7 @@ section.container {
   height: 10px;
   border-radius: 50%;
   background: radial-gradient(circle at 40% 35%, rgba(120,200,255,0.5), #000 72%);
-  box-shadow: inset 0 0 2px rgba(255,255,255,0.35), 0 0 0 2px rgba(255,255,255,0.12), 0 0 10px rgba(45,212,191,0.4);
+  box-shadow: inset 0 0 2px rgba(255,255,255,0.35), 0 0 0 2px rgba(255,255,255,0.12), 0 0 10px rgba(var(--s21-accent-rgb), 0.4);
 }
 #category-nav .cat-title {
   font-size: 13px;
@@ -451,7 +469,7 @@ section.container {
   color: #f7f8f8;
   margin: 0 0 14px;
   padding-left: 12px;
-  border-left: 3px solid #2dd4bf;
+  border-left: 3px solid var(--s21-accent);
 }
 #category-nav ul { list-style: none; margin: 0; padding: 0; }
 #category-nav li { margin: 0; }
@@ -464,7 +482,7 @@ section.container {
   text-decoration: none;
   transition: color .15s ease, padding .15s ease;
 }
-#category-nav li a::before { content: "▸ "; color: #2dd4bf; font-size: 12px; }
+#category-nav li a::before { content: "▸ "; color: var(--s21-accent); font-size: 12px; }
 #category-nav li a:hover { color: #f7f8f8; padding-left: 6px; }
 #category-nav .link_tit, #category-nav .link_tit a {
   font-weight: 700;
@@ -494,14 +512,14 @@ section.container {
   border-radius: 8px;
   transition: color .15s ease, background .15s ease;
 }
-#category-nav div[id^="text_"]:hover { color: #2dd4bf !important; background: rgba(45,212,191,0.08) !important; }
+#category-nav div[id^="text_"]:hover { color: var(--s21-accent) !important; background: rgba(var(--s21-accent-rgb), 0.08) !important; }
 #category-nav .c_cnt {
-  color: #2dd4bf !important;
+  color: var(--s21-accent) !important;
   font-size: 11px;
   font-weight: 600;
   margin-left: auto;
-  background: rgba(45,212,191,0.10) !important;
-  border: 1px solid rgba(45,212,191,0.22);
+  background: rgba(var(--s21-accent-rgb), 0.10) !important;
+  border: 1px solid rgba(var(--s21-accent-rgb), 0.22);
   border-radius: 999px;
   padding: 1px 8px;
   white-space: nowrap;
@@ -540,7 +558,7 @@ section.container {
   cursor: pointer;
   transition: background .15s ease, color .15s ease, border-color .15s ease;
 }
-#zoom-ctrl button:hover { background: rgba(45,212,191,0.12); color: #2dd4bf; border-color: rgba(45,212,191,0.45); }
+#zoom-ctrl button:hover { background: rgba(var(--s21-accent-rgb), 0.12); color: var(--s21-accent); border-color: rgba(var(--s21-accent-rgb), 0.45); }
 
 @media (max-width: 900px) {
   section.container { flex-direction: column; }
@@ -557,14 +575,14 @@ section.container {
   inset: 88px 16px 16px 16px;
   z-index: 9990;
   pointer-events: none;
-  border: 1.5px solid rgba(45, 212, 191, 0.42);
+  border: 1.5px solid rgba(var(--s21-accent-rgb), 0.42);
   border-radius: 26px;
-  background: radial-gradient(120% 120% at 50% 0%, rgba(45,212,191,0.04), transparent 55%);
+  background: radial-gradient(120% 120% at 50% 0%, rgba(var(--s21-accent-rgb), 0.04), transparent 55%);
   animation: s21-breathe 6s ease-in-out infinite;
 }
 @keyframes s21-breathe {
-  0%, 100% { box-shadow: 0 0 0 1px rgba(240,180,41,0.12), 0 0 30px -6px rgba(45,212,191,0.26); }
-  50%      { box-shadow: 0 0 0 1px rgba(240,180,41,0.28), 0 0 54px -4px rgba(45,212,191,0.42); }
+  0%, 100% { box-shadow: 0 0 0 1px rgba(var(--s21-accent2-rgb), 0.12), 0 0 30px -6px rgba(var(--s21-accent-rgb), 0.26); }
+  50%      { box-shadow: 0 0 0 1px rgba(var(--s21-accent2-rgb), 0.28), 0 0 54px -4px rgba(var(--s21-accent-rgb), 0.42); }
 }
 
 /* 12-2. 컨투어컷 카메라 모듈 (우상단 = 동쪽) */
@@ -582,7 +600,7 @@ section.container {
   height: 48px;
   border-radius: 17px 17px 24px 24px;
   background: linear-gradient(145deg, #181b22, #0a0c10);
-  border: 1px solid rgba(240, 180, 41, 0.20);
+  border: 1px solid rgba(var(--s21-accent2-rgb), 0.20);
   box-shadow: 0 10px 24px -8px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.04);
 }
 #s21-camera .lens {
@@ -591,14 +609,14 @@ section.container {
   height: 17px;
   border-radius: 50%;
   background: radial-gradient(circle at 32% 30%, rgba(120,200,255,0.85), #0a0d12 72%);
-  box-shadow: inset 0 0 3px rgba(0,0,0,0.9), 0 0 6px rgba(45,212,191,0.20);
+  box-shadow: inset 0 0 3px rgba(0,0,0,0.9), 0 0 6px rgba(var(--s21-accent-rgb), 0.20);
 }
 #s21-camera .l1:before {
   content: "";
   position: absolute;
   inset: -3px;
   border-radius: 50%;
-  background: conic-gradient(from 0deg, #2dd4bf, #f0b429, #2dd4bf);
+  background: conic-gradient(from 0deg, var(--s21-accent), var(--s21-accent2), var(--s21-accent));
   -webkit-mask: radial-gradient(circle, transparent 55%, #000 56%);
           mask: radial-gradient(circle, transparent 55%, #000 56%);
   animation: s21-spin 4s linear infinite;
@@ -609,8 +627,8 @@ section.container {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #fff7d6, #f0b429 70%);
-  box-shadow: 0 0 8px rgba(240,180,41,0.8);
+  background: radial-gradient(circle at 35% 30%, #fff7d6, var(--s21-accent2) 70%);
+  box-shadow: 0 0 8px rgba(var(--s21-accent2-rgb), 0.8);
   animation: s21-flash 3s ease-in-out infinite;
 }
 @keyframes s21-spin { to { transform: rotate(360deg); } }
@@ -631,10 +649,10 @@ section.container {
   height: 11px;
   border-radius: 50%;
   background: radial-gradient(circle at 40% 35%, rgba(120,200,255,0.5), #000 72%);
-  box-shadow: inset 0 0 2px rgba(255,255,255,0.35), 0 0 0 2px rgba(255,255,255,0.12), 0 0 12px rgba(45,212,191,0.4);
+  box-shadow: inset 0 0 2px rgba(255,255,255,0.35), 0 0 0 2px rgba(255,255,255,0.12), 0 0 12px rgba(var(--s21-accent-rgb), 0.4);
 }
 
-/* 12-4. 갤럭시(은하수/우주) 스타필드 — 별 반짝임 + 성운 + 유성 */
+/* 12-4. 갤럭시(은하수/우주) 스타필드 — 별 반짝임 + 성운 + 유성 (테마 토큰 var 기반) */
 #s21-particles {
   position: fixed;
   inset: 0;
@@ -642,9 +660,9 @@ section.container {
   pointer-events: none;
   overflow: hidden;
   background:
-    radial-gradient(1100px 550px at 80% 10%, rgba(96, 70, 180, 0.16), transparent 62%),
-    radial-gradient(900px 480px at 15% 85%, rgba(45, 212, 191, 0.12), transparent 60%),
-    radial-gradient(760px 420px at 55% 50%, rgba(240, 180, 41, 0.07), transparent 60%);
+    radial-gradient(1100px 550px at 80% 10%, var(--s21-nebula-a), transparent 62%),
+    radial-gradient(900px 480px at 15% 85%, var(--s21-nebula-b), transparent 60%),
+    radial-gradient(760px 420px at 55% 50%, var(--s21-nebula-c), transparent 60%);
   animation: s21-nebula 24s ease-in-out infinite alternate;
 }
 @keyframes s21-nebula {
@@ -659,25 +677,25 @@ section.container {
   width: var(--s);
   height: var(--s);
   border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 6px rgba(255,255,255,0.9), 0 0 14px rgba(45,212,191,0.6);
+  background: var(--s21-star1);
+  box-shadow: 0 0 6px rgba(255,255,255,0.9), 0 0 14px rgba(var(--s21-accent-rgb), 0.6);
   opacity: 0;
   animation: s21-twinkle var(--d) ease-in-out infinite;
   animation-delay: var(--dl, 0s);
 }
 #s21-particles i:nth-child(3n) {
-  background: #7fe7ff;
-  box-shadow: 0 0 6px rgba(127,231,255,0.9), 0 0 16px rgba(45,212,191,0.7);
+  background: var(--s21-star2);
+  box-shadow: 0 0 6px rgba(255,255,255,0.7), 0 0 16px rgba(var(--s21-accent-rgb), 0.7);
 }
 #s21-particles i:nth-child(3n+1) {
-  background: #ffd98a;
-  box-shadow: 0 0 6px rgba(255,217,138,0.9), 0 0 16px rgba(240,180,41,0.6);
+  background: var(--s21-star3);
+  box-shadow: 0 0 6px rgba(255,255,255,0.7), 0 0 16px rgba(var(--s21-accent2-rgb), 0.6);
 }
 @keyframes s21-twinkle {
   0%, 100% { opacity: 0; transform: scale(0.35); }
   50%      { opacity: 1; transform: scale(1); }
 }
-/* 유성(shooting star) — 가끔 가로지름 */
+/* 유성(shooting star) — 가끔 가로지름 (색·방향·거리 = 테마 토큰) */
 #s21-particles b {
   position: absolute;
   left: var(--x);
@@ -685,17 +703,17 @@ section.container {
   width: 92px;
   height: 2px;
   border-radius: 2px;
-  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.95));
-  transform: rotate(-30deg);
+  background: linear-gradient(90deg, transparent, var(--s21-meteor));
+  transform: rotate(var(--s21-meteor-ang, -30deg));
   opacity: 0;
   animation: s21-shoot var(--d) linear infinite;
   animation-delay: var(--dl, 0s);
 }
 @keyframes s21-shoot {
-  0%   { opacity: 0; transform: translate(0,0) rotate(-30deg); }
+  0%   { opacity: 0; transform: translate(0,0) rotate(var(--s21-meteor-ang, -30deg)); }
   5%   { opacity: 1; }
-  13%  { opacity: 0; transform: translate(-190px, 110px) rotate(-30deg); }
-  100% { opacity: 0; transform: translate(-190px, 110px) rotate(-30deg); }
+  13%  { opacity: 0; transform: translate(var(--s21-meteor-dx, -190px), var(--s21-meteor-dy, 110px)) rotate(var(--s21-meteor-ang, -30deg)); }
+  100% { opacity: 0; transform: translate(var(--s21-meteor-dx, -190px), var(--s21-meteor-dy, 110px)) rotate(var(--s21-meteor-ang, -30deg)); }
 }
 
 /* 모바일: 장식 축소 */

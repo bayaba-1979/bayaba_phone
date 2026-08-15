@@ -5897,3 +5897,12 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **라이브 검증:** 커스텀 CSS 서빙 확인 `tistory1.daumcdn.net/tistory/8935375/skin/style.css` (마커 2 · 틸 14 · 배경 4). body bg=#08090a, 카드 bg=#101216 + radius 14px.
 - **오탐 정정:** "`.article-type-thumbnail` 미스타일 갭"은 **오탐**. 썸네일 카드도 `<article class="article-type-common article-type-thumbnail">` 이중 클래스라 `.article-type-common` 다크 스타일이 이미 적용. 홈 썸네일은 빈 이미지(`<img src="">`)라 `.thumbnail`이 display:none — 텍스트만 다크 카드로 정상 렌더링.
 - **주의:** 세션 짧음 — 로그인→GET→POST 한 브라우저 세션 안에서 완료해야 함 (relaunch 시 로그인 리다이렉트).
+
+### 🎨 티스토리 5블로그 테마 변수화 — 색+스타필드 개별 적용 + 리버스엔지니어링 문서화 (_Claude · 2026-08-15)
+
+- **배경:** 스킨 일괄 적용의 단점(모든 블로그가 똑같음)을 "색깔 + 스타필드" 두 변수로 보강. Boss 제안 → "그대로 적용해".
+- **색 변수화:** `skin-premium.css`의 하드코딩 틸(#2dd4bf)/골드(#f0b429)를 전부 `:root` CSS 토큰(`--s21-accent`, `--s21-accent-rgb`, `--s21-nebula-*`, `--s21-star*`, `--s21-meteor*`)으로 치환. rgba 알파색은 `rgba(var(--s21-accent-rgb), α)` 트릭으로 RGB 트리플릿 분리.
+- **블로그별 override:** `apply_layout.py`에 `THEME_MAP`(계정 id 키) 추가 + `render_layout()`이 `<style id="s21-theme">`로 `:root`를 덮어씀(body에 주입되어 head CSS보다 늦게 → 이김). `batch_apply.py`도 테마를 넘기도록 수정.
+- **스타필드 개별화:** 별/유성 개수·속도·방향을 블로그별로. `_starfield()`가 `random.Random(seed)` 결정적 생성(같은 seed→같은 좌표, 재적용 멱등). faith=별24·수직유성, piano=수평, metalcare=별12·매우느림, mynote=펜스트로크.
+- **적용:** 5개 블로그 전부 재적용(galaxys21 메인 `apply_layout.py` + 4개 `batch_apply.py`). 전부 `html_marker=True css_marker=True`. faith 렌더 라이브 검증 `--s21-accent:#e9d9a8` 확인.
+- **문서화:** `_notebook/93-tistory-skin-reverse-engineering_Claude.md`(리버스엔지니어링 연대기 + 스킨 아키텍처 + 테마 시스템 + 재현 레시피 + 함정 모음) + `tistory-naver/README.md`(코드 옆 기술 레퍼런스) 작성. "다른 사람도 가르칠 수 있게" 저장.

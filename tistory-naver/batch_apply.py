@@ -1,7 +1,7 @@
 """
 티스토리 스킨 표준설정 일괄 적용 — galaxys21 외 나머지 4개 블로그
 - 각 블로그: ① Whatever 스킨 전환(set.json) ② skin-premium.css + S21 레이아웃 주입(html.json)
-- 로그인 1회(동일 Daum 계정 REDACTED, TSSESSION 공유) 후 4개 블로그 순회
+- 로그인 1회(동일 Daum 계정, TSSESSION 공유) 후 4개 블로그 순회
 실행: python3 tistory-naver/batch_apply.py [--only mynote,faith] [--dry-run]
 """
 
@@ -17,7 +17,7 @@ SKIN_CSS      = BASE / "skin-premium.css"
 # apply_layout.py 재사용
 sys.path.insert(0, str(BASE))
 from apply_layout import (CSS_START, CSS_END, HTML_START, HTML_END,
-                          LAYOUT_HTML, replace_block)  # noqa: E402
+                          THEME_MAP, render_layout, replace_block)  # noqa: E402
 
 TARGET_SKIN = "pg_Whatever"
 SKIP = {"galaxys21"}  # 이미 적용된 메인 블로그
@@ -121,8 +121,9 @@ async def switch_skin(page, slug):
         return False
 
 
-async def apply_layout(page, slug, css_add, dry_run):
+async def apply_layout(page, aid, slug, css_add, dry_run):
     html_url = f"https://{slug}.tistory.com/manage/design/skin/html.json"
+    layout_html = render_layout(THEME_MAP.get(aid, THEME_MAP["galaxys21"]))
     r = await page.request.get(html_url)
     if r.status != 200:
         log(f"    ❌ html.json GET {r.status}")
@@ -133,11 +134,11 @@ async def apply_layout(page, slug, css_add, dry_run):
     log(f"    skinname={j.get('skinname')} | html={len(html)}자 css={len(css)}자")
 
     if HTML_START in html:
-        new_html = replace_block(html, HTML_START, HTML_END, LAYOUT_HTML)
+        new_html = replace_block(html, HTML_START, HTML_END, layout_html)
     else:
         anchor = "<section class=\"container\">"
-        new_html = (html + "\n" + LAYOUT_HTML) if anchor not in html \
-            else html.replace(anchor, anchor + "\n" + LAYOUT_HTML, 1)
+        new_html = (html + "\n" + layout_html) if anchor not in html \
+            else html.replace(anchor, anchor + "\n" + layout_html, 1)
 
     css_block = f"{CSS_START}\n{css_add}\n{CSS_END}"
     new_css = replace_block(css, CSS_START, CSS_END, css_block)
@@ -222,7 +223,7 @@ async def main():
             slug = a["blog"]
             log(f"\n▶ [{a['id']}] {slug}")
             ok_skin = await switch_skin(page, slug)
-            ok_layout = await apply_layout(page, slug, css_add, args.dry_run)
+            ok_layout = await apply_layout(page, a["id"], slug, css_add, args.dry_run)
             results.append((a["id"], slug, ok_skin, ok_layout))
             log(f"  → {a['id']}: 스킨={ok_skin} 레이아웃={ok_layout}")
 
