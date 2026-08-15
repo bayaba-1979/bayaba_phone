@@ -776,30 +776,49 @@ section.container {
 /* ── 13. 앱 설치/바로가기 버튼 + 안내 모달 (Boss 2026-08-15) ─────────────
    PC 크롬/엣지에서 "앱으로 설치 / 바로가기" 기능. 카메라 모듈 바로 밑에 배치.
    beforeinstallprompt(PWA 설치) 있으면 즉시 설치, 없으면 브라우저별 안내 모달. */
-#s21-install {
-  position: fixed;
-  top: 152px;
-  right: calc(var(--s21-frame-x) + 26px);
-  z-index: 10001;
-  width: 92px;
-  height: 34px;
-  display: flex;
+/* 12-5. 상단 액션(모바일 보기 · 설치) — 헤더 블로그 이름 옆 (Boss 2026-08-16) */
+#s21-brand {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 5px;
+  gap: 14px;
+  min-width: 0;
+}
+#s21-top-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+#s21-top-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 13px;
   border-radius: 999px;
   border: 1px solid rgba(var(--s21-accent-rgb), 0.40);
   background: linear-gradient(145deg, #181b22, #0a0c10);
   color: var(--s21-accent);
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
+  white-space: nowrap;
   box-shadow: 0 6px 16px -6px rgba(0,0,0,0.8), 0 0 12px -4px rgba(var(--s21-accent-rgb), 0.40);
-  transition: transform .16s ease, border-color .16s ease;
+  transition: transform .16s ease, border-color .16s ease, color .16s ease, background .16s ease;
 }
-#s21-install:hover { transform: translateY(-2px); border-color: rgba(var(--s21-accent-rgb), 0.85); }
-#s21-install:before { content: "⤓"; font-size: 14px; line-height: 1; }
+#s21-top-actions button:hover { transform: translateY(-2px); border-color: rgba(var(--s21-accent-rgb), 0.85); }
+#s21-top-actions button.on { color: #0a0c10; background: var(--s21-accent); border-color: var(--s21-accent); }
+#s21-install:before { content: "⤓"; font-size: 13px; line-height: 1; }
+
+/* ── 모바일로 보기 — 본문을 모바일 폭(≤560px) 단일 컬럼으로 좁힘 ── */
+body.s21-mobile section.container {
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 560px;
+  padding: 32px 20px 64px;
+}
+body.s21-mobile #category-nav { flex: none; width: 100%; position: static; max-height: none; margin-bottom: 20px; }
+body.s21-mobile #content { width: 100%; max-width: 100%; }
 
 #s21-install-modal {
   position: fixed;
@@ -848,5 +867,5 @@ section.container {
   #s21-camera .l3 { width: 8px; height: 8px; }
   #s21-punch { display: none; }
   #s21-bezel { inset: 70px 10px 10px 10px; border-radius: 20px; }
-  #s21-install { display: none; }  /* PC 전용 (Boss: 안드로이드 앱 말고 PC 화면) */
+  #s21-top-actions { display: none; }  /* 상단 액션 = PC 전용 (Boss: 안드로이드 앱 말고 PC 화면) */
 }

@@ -44,7 +44,10 @@ _LAYOUT_BODY = """<aside id="category-nav">
 <script>
 (function(){var s=1,step=0.1,min=0.7,max=1.6;function ap(){var c=document.getElementById('content');if(c)c.style.fontSize=(100*s)+'%';}var zi=document.getElementById('zoom-in'),zo=document.getElementById('zoom-out'),zr=document.getElementById('zoom-reset');if(zi)zi.addEventListener('click',function(){s=Math.min(max,s+step);ap();});if(zo)zo.addEventListener('click',function(){s=Math.max(min,s-step);ap();});if(zr)zr.addEventListener('click',function(){s=1;ap();});})();
 </script>
-<button type="button" id="s21-install" aria-label="앱 설치 / 바로가기">설치</button>
+<div id="s21-top-actions" aria-label="보기 모드 · 앱 설치">
+  <button type="button" id="s21-mobile-view" aria-pressed="false" aria-label="모바일로 보기">📱 모바일</button>
+  <button type="button" id="s21-install" aria-label="앱 설치 / 바로가기">설치</button>
+</div>
 <div id="s21-install-modal" role="dialog" aria-modal="true" hidden>
   <div class="s21-install-card">
     <button type="button" class="s21-install-close" aria-label="닫기">×</button>
@@ -56,6 +59,9 @@ _LAYOUT_BODY = """<aside id="category-nav">
 </div>
 <script>
 (function(){var btn=document.getElementById('s21-install'),modal=document.getElementById('s21-install-modal'),close=modal&&modal.querySelector('.s21-install-close'),steps=document.getElementById('s21-install-steps'),deferred=null;window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;if(btn){btn.textContent='앱 설치';}});function browser(){var u=navigator.userAgent;if(/Edg\\//.test(u))return'edge';if(/Chrome\\//.test(u))return'chrome';if(/Firefox\\//.test(u))return'firefox';return'other';}function html(){var b=browser();if(b==='chrome')return'<ol><li>주소창 오른쪽 ⋮ 메뉴 클릭</li><li>저장 및 공유 → 페이지를 앱으로 설치</li><li>(없으면) 도구 더보기 → 바로가기 만들기</li></ol>';if(b==='edge')return'<ol><li>주소창 오른쪽 ⋯ 메뉴 클릭</li><li>앱 → 이 사이트를 앱으로 설치</li></ol>';return'<ol><li>브라우저 메뉴에서 "앱으로 설치" 또는 "바로가기 만들기" 선택</li></ol>';}if(btn)btn.addEventListener('click',function(){if(deferred){deferred.prompt();deferred.userChoice.then(function(){deferred=null;});return;}if(steps)steps.innerHTML=html();modal.hidden=false;});if(close)close.addEventListener('click',function(){modal.hidden=true;});if(modal)modal.addEventListener('click',function(e){if(e.target===modal)modal.hidden=true;});document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal)modal.hidden=true;});})();
+</script>
+<script>
+(function(){var a=document.getElementById('s21-top-actions'),h=document.querySelector('#header h1');if(a&&h){var b=document.createElement('div');b.id='s21-brand';h.parentNode.insertBefore(b,h);b.appendChild(h);b.appendChild(a);}var m=document.getElementById('s21-mobile-view');if(m){var K='s21-mobile';function set(o){document.body.classList.toggle('s21-mobile',o);m.setAttribute('aria-pressed',o?'true':'false');m.classList.toggle('on',o);m.textContent=o?'🖥 PC':'📱 모바일';try{localStorage.setItem(K,o?'1':'0');}catch(e){}}var s=false;try{s=localStorage.getItem(K)==='1';}catch(e){}set(s);m.addEventListener('click',function(){set(!document.body.classList.contains('s21-mobile'));});}})();
 </script>"""
 
 # ── 블로그별 테마 (색 + 스타필드) — Boss 2026-08-15 ─────────────────────────
