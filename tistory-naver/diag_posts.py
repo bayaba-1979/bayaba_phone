@@ -28,7 +28,7 @@ async def main():
         ok = await ensure_logged_in(page, email, pw2)
         print("login ok:", ok)
         await page.goto("https://galaxys21-pwuser.tistory.com/manage/posts",
-                        wait_until="networkidle", timeout=40000)
+                        wait_until="domcontentloaded", timeout=40000)
         await page.wait_for_timeout(3000)
         print("URL:", page.url)
         rows = await page.evaluate("""() => {

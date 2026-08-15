@@ -182,7 +182,10 @@ async def _fill_and_save(page, slug: str, post_id: int | None, title: str,
     write_url = (f"https://{slug}.tistory.com/manage/newpost/{post_id}?type=post"
                  if post_id else f"https://{slug}.tistory.com/manage/newpost/?type=post")
     log(f"  [{slug}] 에디터 접근{' (수정)' if post_id else ''}: {write_url}")
-    await page.goto(write_url, wait_until="networkidle", timeout=30000)
+    # networkidle/load 모두 불발: 티스토리 편집기는 상시 폴링 + 일부 서브리소스가
+    # 영영 안 끝나 load 이벤트가 안 뜬다. DOM 파싱 완료만 기다리는 domcontentloaded
+    # 로 대체(서버는 200 정상). 이후 8초 대기 + 타이틀 click()이 액션가능 대기까지 처리.
+    await page.goto(write_url, wait_until="domcontentloaded", timeout=45000)
     await page.wait_for_timeout(8000)
 
     # ── 제목 입력 (실제 타이핑 — React controlled input은 evaluate로 상태 미반영) ──

@@ -25,7 +25,7 @@ async def main():
         body = "<p>발행 진단용 본문입니다. 이 글은 진단 후 삭제됩니다.</p>"
 
         await page.goto("https://galaxys21-pwuser.tistory.com/manage/newpost/?type=post",
-                        wait_until="networkidle", timeout=30000)
+                        wait_until="domcontentloaded", timeout=30000)
         await page.wait_for_timeout(8000)
         print("STEP1 editor url:", page.url)
 

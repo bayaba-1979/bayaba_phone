@@ -68,7 +68,7 @@ async def main():
         for pid in ids:
             url = f"https://{slug}.tistory.com/manage/newpost/{pid}?type=post"
             log(f"#{pid} 에디터 접근")
-            await page.goto(url, wait_until="networkidle", timeout=40000)
+            await page.goto(url, wait_until="domcontentloaded", timeout=40000)
             await page.wait_for_timeout(8000)
 
             # 빵꾸 가드: 본문이 비어있으면 건드리지 않음
