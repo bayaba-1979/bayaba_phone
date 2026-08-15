@@ -51,21 +51,21 @@ _LAYOUT_BODY = """<aside id="category-nav">
 THEME_MAP = {
     "galaxys21": {  # 개발·도구(원본) — 틸-퍼플 은하수
         "accent": "#2dd4bf", "accent_rgb": "45, 212, 191",
-        "accent2": "#f0b429", "accent2_rgb": "240, 180, 41",
-        "nebula_a": "rgba(96, 70, 180, 0.37)",
-        "nebula_b": "rgba(45, 212, 191, 0.28)",
-        "nebula_c": "rgba(240, 180, 41, 0.16)",
+        "accent2": "#e8b45a", "accent2_rgb": "232, 180, 90",
+        "nebula_a": "rgba(96, 70, 180, 0.52)",
+        "nebula_b": "rgba(45, 212, 191, 0.44)",
+        "nebula_c": "rgba(240, 180, 41, 0.30)",
         "star1": "#ffffff", "star2": "#7fe7ff", "star3": "#ffd98a",
-        "meteor": "#ffffff",
+        "meteor": "#ffd98a",
         "stars": 18, "meteors": 3, "pace": 1.0, "seed": 21,
         "meteor_ang": "-30deg", "meteor_dx": "-190px", "meteor_dy": "110px",
     },
     "faith": {  # 신앙=영혼 — 금빛 확산, 느리고 은은
-        "accent": "#e9d9a8", "accent_rgb": "233, 217, 168",
-        "accent2": "#f3e6c8", "accent2_rgb": "243, 230, 200",
-        "nebula_a": "rgba(243, 230, 200, 0.37)",
-        "nebula_b": "rgba(232, 196, 120, 0.28)",
-        "nebula_c": "rgba(255, 255, 255, 0.14)",
+        "accent": "#f3e6c8", "accent_rgb": "243, 230, 200",
+        "accent2": "#1c2a4a", "accent2_rgb": "28, 42, 74",
+        "nebula_a": "rgba(243, 230, 200, 0.52)",
+        "nebula_b": "rgba(232, 196, 120, 0.44)",
+        "nebula_c": "rgba(255, 255, 255, 0.26)",
         "star1": "#fffdf4", "star2": "#ffe9b0", "star3": "#ffffff",
         "meteor": "#ffe9b0",
         "stars": 24, "meteors": 3, "pace": 1.4, "seed": 7,
@@ -74,9 +74,9 @@ THEME_MAP = {
     "piano": {  # 연주=표현 — 블루-바이올렛, 리듬감
         "accent": "#6b8cff", "accent_rgb": "107, 140, 255",
         "accent2": "#c9d4e8", "accent2_rgb": "201, 212, 232",
-        "nebula_a": "rgba(107, 140, 255, 0.37)",
-        "nebula_b": "rgba(120, 90, 200, 0.32)",
-        "nebula_c": "rgba(201, 212, 232, 0.14)",
+        "nebula_a": "rgba(107, 140, 255, 0.54)",
+        "nebula_b": "rgba(120, 90, 200, 0.48)",
+        "nebula_c": "rgba(201, 212, 232, 0.26)",
         "star1": "#eaf0ff", "star2": "#8fb0ff", "star3": "#d6dff5",
         "meteor": "#c9d4e8",
         "stars": 18, "meteors": 3, "pace": 1.0, "seed": 88,
@@ -85,9 +85,9 @@ THEME_MAP = {
     "metalcare": {  # 멘탈케어=마음 — 세이지-소프트블루, 숨결처럼 느림
         "accent": "#8fd6b3", "accent_rgb": "143, 214, 179",
         "accent2": "#eef3ea", "accent2_rgb": "238, 243, 234",
-        "nebula_a": "rgba(143, 214, 179, 0.32)",
-        "nebula_b": "rgba(120, 170, 190, 0.28)",
-        "nebula_c": "rgba(238, 243, 234, 0.11)",
+        "nebula_a": "rgba(143, 214, 179, 0.48)",
+        "nebula_b": "rgba(120, 170, 190, 0.42)",
+        "nebula_c": "rgba(238, 243, 234, 0.24)",
         "star1": "#f2f8f4", "star2": "#b9e6cf", "star3": "#e6efe9",
         "meteor": "#cdeedc",
         "stars": 12, "meteors": 2, "pace": 2.0, "seed": 3,
@@ -96,9 +96,9 @@ THEME_MAP = {
     "mynote": {  # 노트·기록 — 웜그레이-세피아(종이), 짧은 펜 스트로크
         "accent": "#e8a35a", "accent_rgb": "232, 163, 90",
         "accent2": "#c8c2b8", "accent2_rgb": "200, 194, 184",
-        "nebula_a": "rgba(232, 163, 90, 0.32)",
-        "nebula_b": "rgba(200, 194, 184, 0.28)",
-        "nebula_c": "rgba(120, 110, 96, 0.18)",
+        "nebula_a": "rgba(232, 163, 90, 0.48)",
+        "nebula_b": "rgba(200, 194, 184, 0.42)",
+        "nebula_c": "rgba(120, 110, 96, 0.30)",
         "star1": "#f5efe6", "star2": "#ffc98a", "star3": "#d8d0c4",
         "meteor": "#f0c898",
         "stars": 18, "meteors": 3, "pace": 1.15, "seed": 42,
@@ -118,7 +118,7 @@ def _starfield(theme):
     for _ in range(n_stars):
         x = round(rng.uniform(4, 96))
         y = round(rng.uniform(4, 96))
-        s = rng.choice([3, 3, 4, 4, 5, 6, 7])
+        s = rng.choice([4, 5, 5, 6, 7, 8, 9])
         d = round(rng.uniform(3.0, 5.2) * pace, 2)
         dl = round(rng.uniform(0, 2.8), 1)
         stars.append(f'<i style="--x:{x}%;--y:{y}%;--s:{s}px;--d:{d}s;--dl:{dl}s"></i>')

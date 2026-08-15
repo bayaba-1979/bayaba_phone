@@ -12,15 +12,15 @@
 :root {
   --s21-accent: #2dd4bf;
   --s21-accent-rgb: 45, 212, 191;
-  --s21-accent2: #f0b429;
-  --s21-accent2-rgb: 240, 180, 41;
-  --s21-nebula-a: rgba(96, 70, 180, 0.38);
-  --s21-nebula-b: rgba(45, 212, 191, 0.28);
-  --s21-nebula-c: rgba(240, 180, 41, 0.16);
+  --s21-accent2: #e8b45a;
+  --s21-accent2-rgb: 232, 180, 90;
+  --s21-nebula-a: rgba(96, 70, 180, 0.52);
+  --s21-nebula-b: rgba(45, 212, 191, 0.44);
+  --s21-nebula-c: rgba(240, 180, 41, 0.30);
   --s21-star1: #ffffff;
   --s21-star2: #7fe7ff;
   --s21-star3: #ffd98a;
-  --s21-meteor: #ffffff;
+  --s21-meteor: #ffd98a;
   --s21-meteor-ang: -30deg;
   --s21-meteor-dx: -190px;
   --s21-meteor-dy: 110px;
@@ -33,7 +33,12 @@ body {
   color: #f7f8f8;
 }
 #wrap {
-  background: #08090a !important;
+  background:
+    radial-gradient(1200px 720px at 16% -8%, var(--s21-nebula-a), transparent 58%),
+    radial-gradient(1000px 620px at 96% 10%, var(--s21-nebula-b), transparent 55%),
+    radial-gradient(880px 560px at 6% 102%, var(--s21-nebula-c), transparent 55%),
+    radial-gradient(820px 520px at 60% 108%, rgba(var(--s21-accent2-rgb), 0.16), transparent 55%),
+    #08090a !important;
   color: #f7f8f8;
   font-family: 'Pretendard', -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic',
                'Noto Sans KR', sans-serif;
@@ -53,8 +58,8 @@ body {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(1100px 560px at 14% -8%, rgba(var(--s21-accent-rgb), 0.08), transparent 60%),
-    radial-gradient(900px 480px at 90% 108%, rgba(var(--s21-accent2-rgb), 0.05), transparent 55%);
+    radial-gradient(1100px 560px at 14% -8%, rgba(var(--s21-accent-rgb), 0.30), transparent 62%),
+    radial-gradient(900px 480px at 90% 108%, rgba(var(--s21-accent2-rgb), 0.22), transparent 55%);
   z-index: 0;
 }
 
@@ -661,9 +666,10 @@ section.container {
   pointer-events: none;
   overflow: hidden;
   background:
-    radial-gradient(1100px 550px at 80% 10%, var(--s21-nebula-a), transparent 62%),
-    radial-gradient(900px 480px at 15% 85%, var(--s21-nebula-b), transparent 60%),
-    radial-gradient(760px 420px at 55% 50%, var(--s21-nebula-c), transparent 60%);
+    radial-gradient(1000px 520px at 82% 6%, var(--s21-nebula-a), transparent 60%),
+    radial-gradient(900px 480px at 12% 88%, var(--s21-nebula-b), transparent 60%),
+    radial-gradient(760px 420px at 30% 12%, var(--s21-nebula-c), transparent 60%),
+    radial-gradient(700px 400px at 88% 92%, rgba(var(--s21-accent-rgb), 0.18), transparent 60%);
   animation: s21-nebula 24s ease-in-out infinite alternate;
 }
 @keyframes s21-nebula {
@@ -679,32 +685,33 @@ section.container {
   height: var(--s);
   border-radius: 50%;
   background: var(--s21-star1);
-  box-shadow: 0 0 6px rgba(255,255,255,0.9), 0 0 14px rgba(var(--s21-accent-rgb), 0.6);
+  box-shadow: 0 0 8px rgba(255,255,255,1), 0 0 20px rgba(var(--s21-accent-rgb), 0.85), 0 0 34px rgba(var(--s21-accent-rgb), 0.5);
   opacity: 0;
   animation: s21-twinkle var(--d) ease-in-out infinite;
   animation-delay: var(--dl, 0s);
 }
 #s21-particles i:nth-child(3n) {
   background: var(--s21-star2);
-  box-shadow: 0 0 6px rgba(255,255,255,0.7), 0 0 16px rgba(var(--s21-accent-rgb), 0.7);
+  box-shadow: 0 0 8px rgba(255,255,255,1), 0 0 20px rgba(var(--s21-accent-rgb), 0.9);
 }
 #s21-particles i:nth-child(3n+1) {
   background: var(--s21-star3);
-  box-shadow: 0 0 6px rgba(255,255,255,0.7), 0 0 16px rgba(var(--s21-accent2-rgb), 0.6);
+  box-shadow: 0 0 8px rgba(255,255,255,1), 0 0 20px rgba(var(--s21-accent2-rgb), 0.8);
 }
 @keyframes s21-twinkle {
-  0%, 100% { opacity: 0.25; transform: scale(0.55); }
-  50%      { opacity: 1; transform: scale(1.15); }
+  0%, 100% { opacity: 0.55; transform: scale(0.7); }
+  50%      { opacity: 1; transform: scale(1.3); }
 }
 /* 유성(shooting star) — 가끔 가로지름 (색·방향·거리 = 테마 토큰) */
 #s21-particles b {
   position: absolute;
   left: var(--x);
   top: var(--y);
-  width: 92px;
+  width: 110px;
   height: 2px;
   border-radius: 2px;
   background: linear-gradient(90deg, transparent, var(--s21-meteor));
+  box-shadow: 0 0 6px var(--s21-meteor), 0 0 16px rgba(var(--s21-accent-rgb), 0.7);
   transform: rotate(var(--s21-meteor-ang, -30deg));
   opacity: 0;
   animation: s21-shoot var(--d) linear infinite;

@@ -37,8 +37,8 @@
 
 | id | 블로그 | 액센트 | 별 | 유성 |
 |----|--------|--------|----|----|
-| galaxys21 | galaxys21-pwuser | 틸 `#2dd4bf` + 골드 | 18 | 3 |
-| faith | helana-christianity | 아이보리골드 `#e9d9a8` | 24 | 3 |
+| galaxys21 | galaxys21-pwuser | 틸 `#2dd4bf` + 골드 `#e8b45a` | 18 | 3 |
+| faith | helana-christianity | 아이보리골드 `#f3e6c8` + 딥네이비 `#1c2a4a` | 24 | 3 |
 | piano | helena-piano | 딥블루 `#6b8cff` | 18 | 3 |
 | metalcare | helena-metalcare | 세이지 `#8fd6b3` | 12 | 2 |
 | mynote | mynote11605 | 앰버 `#e8a35a` | 18 | 3 |
