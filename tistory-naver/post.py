@@ -147,6 +147,21 @@ async def _set_category(page, cat: str) -> bool:
         return False
 
 
+async def _disable_comments(page) -> bool:
+    """발행 레이어에서 댓글을 '비허용'으로 강제 설정 (Boss 지시: 매 업로드 댓글 금지).
+
+    댓글 설정은 체크박스가 아니라 TinyMCE select-menu(드롭다운)다.
+    '댓글 허용' 버튼 → '댓글 비허용' 메뉴 클릭. _set_category 와 동일 패턴."""
+    try:
+        await page.locator(".select-menu button.select_btn").filter(has_text="댓글").first.click()
+        await page.wait_for_timeout(800)
+        await page.locator(".mce-menu-item:has(.mce-text:text-is('댓글 비허용'))").first.click()
+        await page.wait_for_timeout(600)
+        return True
+    except Exception:
+        return False
+
+
 async def ensure_logged_in(page, email, pw):
     # 로그인 여부: TSSESSION(티스토리 세션 쿠키) 존재 확인
     # (tistory.com/manage 는 로그아웃 시 "페이지 없음"만 띄워 URL 로그인 감지가 불가)
@@ -266,6 +281,15 @@ async def publish_post(page, post: dict):
         log(f"  [{slug}] 공개 설정 실패: {e}")
 
     await page.wait_for_timeout(800)
+
+    # ── 댓글 비허용 강제 (Boss 지시: 매 업로드 댓글 금지 — 반드시 적용) ──
+    ok_cmt = await _disable_comments(page)
+    if ok_cmt:
+        log(f"  [{slug}] 댓글 비허용 적용 OK")
+    else:
+        log(f"  [{slug}] ⚠️ 댓글 비허용 실패 — selector 변경 여부 확인 필요 (발행은 진행)")
+
+    await page.wait_for_timeout(500)
 
     # ── 발행 버튼 클릭 (공개 선택 시 텍스트 '공개 발행'으로 변경됨) ──
     published = False
