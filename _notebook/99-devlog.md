@@ -5914,3 +5914,13 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **"하나도 반영 안 됨" 근본 원인:** 성운 α 0.32~0.37 + 별 3~7px·twinkle 0.25α는 폰 실화면에서 실질 무시 수준(순흑 8,9,10과 거의 구분 안 됨). → 성운 α ~0.5, 별 4~9px+글로우, twinkle base 0.55α, 유성 110px+글로우. **#wrap 배경(콘텐츠 뒤)에 성운 이식**해서 본문 안 씻기고 중심은 어둡게.
 - **실측 픽셀 증거(배경 톤):** faith `(125,120,107)` 금빛 / piano `(67,82,131)` 블루바이올렛 / metalcare `(79,109,95)` 세이지 / mynote `(85,65,41)` 앰버 / galaxys21 `(52,70,66)` 틸퍼플 — 순흑에서 명확한 톤으로. 별 18/24/18/12/18·유성 3/3/3/2/3 (제안표 수 그대로 유지).
 - **커밋:** `af3c7a1` (skin-premium.css + apply_layout.py + README). 5블로그 전부 재적용 완료.
+
+### 🎬 디렉터 게이트(Phase 2 품질) — 업로드 전 원고 심사 자동화 (_Claude · 2026-08-15)
+
+- **전환점:** Boss "지금까지 배선 인프라 공사였어, 이제 페이즈² 품질 올리자". 중간점검에서 드러난 구조적 결함 4종을 **업로드 이전에 디렉터(출판부)가 심사하는 게이트**로 공정화했다.
+- **결함 4종 (업로드 전 심사로 해결):** ① 내부 전용어 제목(REDACTED·Director PRO·Scout·A-bar·세션) → 외부 검색 의도와 불일치 ② 영문 전용 제목 ③ 번호 프리픽스(`46 —`, `47 —`) ④ 중복 구버전·세션·초안·진단로그 자동 발행.
+- **구현:** `tistory-naver/director_gate.py` — 판정(PASS/CLEAN/REVISE/HOLD) + 제목 재작성 + 태그 생성. 산출물 `assets/director-overrides.json`(SSOT) + `assets/director-gate-report.md`(심사표). `history_batch.py`가 오버라이드를 읽어 HOLD/REVISE는 건너뛰고 PASS/CLEAN만 디렉터 제목·태그로 발행.
+- **결과:** 110개 중 17개 보류(세션 4 · 중복 구버전 4 · 영문 내부노트 5 · 초안/진단 4) + 15개 제목 재작성(전부 Grok director-pro 영상제작 시리즈 내부 코드네임 → 검색 가능 한글 제목). PASS 56 / CLEAN 37 / REVISE 0 / HOLD 17.
+- **다음 배치(day2) 실측:** 12개 전부 정상 PASS/CLEAN (13-midterm-eval-v2 → "갤럭시 S21 AI 워크스테이션 중간평가", 16-textbook → "개발 일지를 교재로 바꾸는 방법" 등). 태그도 `["S21","업무수첩","히스토리"]` 고정 → 주제별(데몬/교재/proot/회고)로.
+- **미해결(후속):** 카테고리 배정 — history 110개는 `category_map.py`(설치가이드 전용 Ch1~5) 밖이라 여전히 `category=""`(미분류). PART/Ch 정밀 taxonomy 별도 작업 필요.
+- **커밋:** `aa26c41` (director_gate.py + history_batch.py + overrides/report).
