@@ -1,0 +1,237 @@
+<style>
+:root {
+  --ink:#f4efe6; --ink-dim:#b5a999; --ink-mute:#7a7064;
+  --paper:#0a0908; --paper-2:#12100e; --paper-3:#1a1714;
+  --rule:rgba(244,239,230,.1); --rule2:rgba(244,239,230,.18);
+  --accent:#3db8a8; --gold:#d4a84b;
+  --serif:'Cormorant Garamond',serif; --sans:'DM Sans','Noto Sans KR',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --gutter:max(22px, calc(env(safe-area-inset-left,0px) + 16px));
+  --gutter-r:max(22px, calc(env(safe-area-inset-right,0px) + 16px));
+}
+[data-theme="light"] {
+  --ink:#1a1510; --ink-dim:#5c5348; --ink-mute:#8a8074;
+  --paper:#f7f1e6; --paper-2:#efe8db; --paper-3:#fffdf8;
+  --rule:rgba(26,21,16,.1); --rule2:rgba(26,21,16,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.7;min-height:100vh}
+a{color:var(--accent);text-decoration:none}
+a:hover{filter:brightness(1.15)}
+.spine{position:fixed;left:0;top:0;bottom:0;width:2px;background:var(--rule);z-index:50}
+.spine-fill{width:100%;height:0;background:var(--accent)}
+.mast{position:sticky;top:0;z-index:40;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:12px var(--gutter-r) 12px var(--gutter);padding-top:max(12px,env(safe-area-inset-top));
+  background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+.brand{font-family:var(--serif);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:1rem;color:var(--ink)}
+.brand em{font-style:italic;color:var(--accent);font-weight:400}
+.mast nav{display:flex;flex-wrap:wrap;gap:6px}
+.mast a,.mast button{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);
+  min-height:40px;padding:8px 10px;background:none;border:none;cursor:pointer;font-family:inherit}
+.wrap{max-width:720px;margin:0 auto;padding:28px var(--gutter-r) 80px var(--gutter)}
+.kicker{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:10px}
+h1{font-family:var(--serif);font-size:clamp(1.7rem,6vw,2.4rem);font-weight:600;margin-bottom:10px;padding-inline:2px}
+.deck{color:var(--ink-dim);font-weight:300;border-left:2px solid var(--accent);padding-left:12px;margin-bottom:18px}
+.meta{font-size:.75rem;color:var(--ink-mute);margin-bottom:22px;font-family:var(--mono)}
+.prose h2{font-family:var(--serif);font-size:1.35rem;margin:1.6em 0 .6em;color:var(--ink)}
+.prose h3{font-size:1.05rem;margin:1.2em 0 .5em}
+.prose p,.prose li{color:var(--ink-dim);font-weight:300;margin-bottom:.7em}
+.prose ul,.prose ol{margin:0 0 1em 1.2em}
+.prose code{font-family:var(--mono);font-size:.85em;color:var(--accent)}
+.prose pre{background:var(--paper-2);border:1px solid var(--rule);padding:14px;overflow-x:auto;margin:1em 0;font-size:.82rem}
+.prose table{width:100%;border-collapse:collapse;font-size:.88rem;margin:1em 0}
+.prose th,.prose td{border:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+.prose th{background:var(--paper-3);color:var(--ink-mute);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+.prose blockquote{border-left:2px solid var(--accent);padding:8px 14px;color:var(--ink-dim);margin:1em 0;background:var(--paper-2)}
+.appbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;padding:10px;background:var(--paper-2);border:1px solid var(--rule);position:sticky;top:56px;z-index:30}
+.appbar input{flex:1 1 140px;min-height:40px;padding:8px 10px;border:1px solid var(--rule2);background:var(--paper);color:var(--ink);font:inherit}
+.appbar button{min-height:40px;padding:8px 12px;border:1px solid var(--rule2);background:var(--paper-3);color:var(--ink-dim);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;font-family:inherit}
+.foot{margin-top:40px;padding-top:18px;border-top:1px solid var(--rule);text-align:center;color:var(--ink-mute);font-size:.8rem}
+.foot .a{color:var(--accent);margin-top:8px}
+.sec{border:1px solid var(--rule);background:var(--paper-2);margin:1em 0;border-radius:2px;overflow:hidden}
+.sec > .sec-h{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;background:none;border:none;color:inherit;font:inherit;cursor:pointer;text-align:left;min-height:48px}
+.sec > .sec-h h2{margin:0;font-size:1.15rem;font-family:var(--serif)}
+.sec .ico{width:28px;height:28px;border:1px solid var(--rule2);display:grid;place-items:center;color:var(--accent)}
+.sec.open .ico{transform:rotate(45deg)}
+.sec .sec-b{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s}
+.sec.open .sec-b{grid-template-rows:1fr}
+.sec .sec-i{overflow:hidden;min-height:0;opacity:0;padding:0 14px;transition:opacity .25s}
+.sec.open .sec-i{opacity:1;padding:0 14px 14px}
+mark.hit{background:color-mix(in srgb,var(--accent) 35%,transparent)}
+
+.care{margin:1.4em 0}
+.care figcaption{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:.6em}
+/* callout */
+.care-callout{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px solid var(--rule2);border-left:3px solid var(--accent);background:var(--paper-2)}
+.care-callout-badge{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;padding:3px 7px;border-radius:2px;background:var(--accent);color:#0a0908;font-weight:600;flex:none;margin-top:2px}
+.care-callout.care-warn{border-left-color:var(--gold)}
+.care-callout.care-warn .care-callout-badge{background:var(--gold)}
+.care-callout.care-danger{border-left-color:#e85d4c}
+.care-callout.care-danger .care-callout-badge{background:#e85d4c}
+.care-callout.care-check{border-left-color:#2e9e5b}
+.care-callout.care-check .care-callout-badge{background:#2e9e5b}
+.care-callout-text{color:var(--ink-dim);font-weight:300}
+/* threshold table */
+.care-threshold table{width:100%;border-collapse:collapse;font-size:.88rem}
+.care-threshold th,.care-threshold td{border:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+.care-threshold th{background:var(--paper-3);color:var(--ink-mute);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+.care-threshold code{font-family:var(--mono);font-size:.85em;color:var(--accent)}
+.care-threshold tr.lv-urgent td:first-child{border-left:3px solid #e85d4c}
+.care-threshold tr.lv-warning td:first-child{border-left:3px solid var(--gold)}
+.care-threshold tr.lv-info td:first-child{border-left:3px solid var(--accent)}
+/* flow */
+.care-flow-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.care-node{padding:10px 14px;border:1px solid var(--rule2);border-radius:4px;background:var(--paper-3);font-size:.85rem}
+.care-node.start{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.care-node-label{font-family:var(--sans);font-weight:500}
+.care-edge{display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--ink-mute)}
+.care-arrow{color:var(--accent);font-size:1.1rem}
+.care-edge-label{font-size:.68rem;color:var(--ink-mute);white-space:nowrap}
+.care-loop{margin-left:6px;padding:6px 10px;border:1px dashed var(--rule2);border-radius:999px;font-size:.75rem;color:var(--accent)}
+/* bars */
+.care-bar{display:flex;align-items:center;gap:10px;margin:.5em 0}
+.care-bar-label{width:9em;flex:none;font-size:.82rem;color:var(--ink-dim)}
+.care-bar-track{flex:1;height:14px;background:var(--paper-3);border:1px solid var(--rule);border-radius:2px;overflow:hidden}
+.care-bar-fill{display:block;height:100%;background:var(--accent)}
+.care-bar-val{width:3em;text-align:right;font-family:var(--mono);font-size:.78rem;color:var(--accent)}
+/* timeline */
+.care-timeline{border-left:1px solid var(--rule2);margin-left:6px;padding-left:16px}
+.care-tl-item{position:relative;margin:.7em 0}
+.care-tl-item::before{content:"";position:absolute;left:-21px;top:.4em;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.care-tl-time{font-family:var(--mono);font-size:.72rem;color:var(--accent);margin-right:8px}
+.care-tl-label{color:var(--ink-dim)}
+.care-tl-note{color:var(--ink-mute);font-size:.8rem;margin-left:6px}
+/* checklist */
+.care-checklist ul{list-style:none;padding-left:0}
+.care-checklist li{margin:.4em 0}
+.care-checklist input{margin-right:8px;accent-color:var(--accent)}
+.care-checklist input:checked + *{text-decoration:line-through;opacity:.55}
+</style>
+
+<div class="spine" aria-hidden="true"><div class="spine-fill" id="spineFill"></div></div>
+<header class="mast">
+  <a class="brand" href="../../../">Helana <em>Log</em></a>
+  <nav>
+    <a href="../../../">Home</a>
+    <a href="../../../docs/">Docs</a>
+    <a href="https://helena751107.github.io/helena_phone/">Hub</a>
+    <button type="button" id="themeBtn">Theme</button>
+  </nav>
+</header>
+<main class="wrap">
+  <div class="kicker">돌봄 데몬 · Care</div>
+  <h1>돌봄 데몬이란 — 기술로 돌보는 법</h1>
+  <p class="deck">사람이 지켜보지 않아도 15분마다 돌며, 이상을 감지하면 스스로 알리는 돌봄 감시 루프</p>
+  <div class="meta">source · docs/care-daemon/manifesto/01-care-daemon.md · bridge docs↔web · _Grok</div>
+  <div class="appbar">
+    <input type="search" id="q" placeholder="페이지 내 검색…" autocomplete="off">
+    <button type="button" id="fold">접기</button>
+    <button type="button" id="expand">펼치기</button>
+  </div>
+  <article class="prose" id="prose"><blockquote>
+<p>이 채널은 <strong>돌봄(케어)을 수행하는 IT</strong>를 다룬다. 순수 기술 노트도, 순수 가족사도 아니다.<br>
+누군가의 하루를 지키는 방법을, 기계가 매일 도는 루프로 옮기는 이야기.</p>
+</blockquote>
+<h2 id="1">1. 선언</h2>
+<p>돌보는 일의 가장 어려운 지점은 <strong>&ldquo;언제, 무엇이 잘못됐는지 아무도 모른다는 것&rdquo;</strong>이다. 사람이 곁에 있어도, 밤새 배터리가 닳듯 돌봄은 시간이 지나며 서서히 비워진다. 우리는 이 빈틈을 채우는 가장 작은 단위의 기술을 만든다.</p>
+<p>그것을 <strong>돌봄 데몬(care daemon)</strong>이라 부른다.</p>
+<ul>
+<li><strong>데몬(daemon)</strong>은 사람이 부르지 않아도 뒤에서 계속 도는 프로그램이다.</li>
+<li>돌봄 데몬은 <strong>15분마다</strong> 폰의 상태를 읽고, 임계값을 넘는 순간 <strong>스스로 알린다</strong>.</li>
+<li>AI에 의존하지 않는다. 한 줄의 스크립트가, 한 줄의 규칙으로, 매번 같은 판단을 한다.</li>
+</ul>
+<div class="care care-callout care-check" data-id="declaration"><span class="care-callout-badge">CHECK</span><span class="care-callout-text">돌봄 데몬 = 15분 주기의 감시 루프. AI 제로, 사람 곁의 가장 작은 자동화.</span></div>
+
+<h2 id="2">2. 왜 &ldquo;데몬&rdquo;인가</h2>
+<p>세 가지 이유다.</p>
+<p><strong>첫째, 독립.</strong> 돌봄 데몬은 Claude Code 세션과 무관하게 돈다. 크론(crontab)이 부르면 돌고, 안 부르면 조용히 사라진다. 사람이 지켜보지 않아도, AI가 켜져 있지 않아도 동작한다. <code>care-daemon.sh</code> 첫 줄이 이 사실을 못 박는다: <strong>&ldquo;AI 의존성: 제로&rdquo;</strong>.</p>
+<p><strong>둘째, 주기.</strong> 사람의 관심은 끊기지만, 루프는 끊기지 않는다. 15분에 한 번, 정해진 순서대로 상태를 읽는다.</p>
+<p><strong>셋째, 무상태.</strong> 매번 같은 판단을 한다. 배터리가 15% 아래면 경고, 온도가 45°C를 넘으면 경고. 감정도 피로도 없다. 어제도 오늘도 같은 기준.</p>
+<figure class="care care-flow" data-id="daemon-loop"><figcaption>돌봄 데몬의 한 바퀴 (15분)</figcaption><div class="care-flow-row"><div class="care-node start"><span class="care-node-label">수집</span></div><div class="care-edge"><span class="care-arrow">→</span><span class="care-edge-label">배터리·온도·GPS·WiFi</span></div><div class="care-node "><span class="care-node-label">분석</span></div><div class="care-edge"><span class="care-arrow">→</span><span class="care-edge-label">임계값 대조</span></div><div class="care-node "><span class="care-node-label">보고</span></div><div class="care-loop">↺ 다음 주기</div></div></figure>
+
+<p>한 바퀴는 세 단계다. <strong>수집</strong>은 폰의 상태(배터리·온도·위치·연결)를 읽고, <strong>분석</strong>은 읽은 값을 미리 정한 임계값과 대조하고, <strong>보고</strong>는 임계값을 넘었을 때만 알린다. 넘지 않으면 조용히 다음 15분으로 돌아간다.</p>
+<h2 id="3">3. 임계값 — 데몬의 판단 기준</h2>
+<p>데몬의 &ldquo;판단&rdquo;은 결국 숫자다. 이 숫자들이 돌봄의 기준이 된다.</p>
+<figure class="care care-threshold" data-id="daemon-thresholds"><figcaption>돌봄 데몬의 핵심 임계값 (care.conf)</figcaption><table><thead><tr><th>항목</th><th>임계값</th><th>조치</th></tr></thead><tbody><tr class="lv-urgent"><td>배터리 저전압</td><td><code>15% 이하</code></td><td>즉시 🔴 경고</td></tr><tr class="lv-warning"><td>배터리 급감</td><td><code>30% / 60분</code></td><td>이상 보고</td></tr><tr class="lv-warning"><td>온도 과열</td><td><code>45°C 이상</code></td><td>과열 경고</td></tr><tr class="lv-warning"><td>GPS 무응답</td><td><code>2시간</code></td><td>위치 점검</td></tr><tr class="lv-urgent"><td>위치 무변동</td><td><code>6시간</code></td><td>웰니스 체크</td></tr><tr class="lv-info"><td>평소 반경</td><td><code>500m 밖</code></td><td>선택적 보고</td></tr></tbody></table></figure>
+
+<p>이 표는 설정 파일(<code>care.conf</code>)의 실제 값이다. 데몬은 이 숫자를 넘는 순간 텔레그램으로 알린다. 숫자는 바꿀 수 있다 — 돌봄의 기준이 사람마다 다르기 때문이다. 중요한 것은 <strong>기준을 코드로 남긴다</strong>는 것이다.</p>
+<h2 id="4-10">4. 10편 지도</h2>
+<p>이 채널은 한 바퀴(10편)로 돌봄 데몬의 전모를 닫는다.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>편</th>
+<th>질문</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td><strong>매니페스토</strong></td>
+<td>돌봄 데몬이란 무엇인가</td>
+</tr>
+<tr>
+<td>02</td>
+<td>트랙 DW</td>
+<td>장애·정신건강 복지의 빈틈은 어디인가</td>
+</tr>
+<tr>
+<td>03</td>
+<td>트랙 DC</td>
+<td>치매·노인 돌봄의 빈틈은 어디인가</td>
+</tr>
+<tr>
+<td>04</td>
+<td>트랙 BL</td>
+<td>기초생활 보장의 빈틈은 어디인가</td>
+</tr>
+<tr>
+<td>05</td>
+<td>대화록 001</td>
+<td>하루가 시작되기 전, 무엇이 보이는가</td>
+</tr>
+<tr>
+<td>06</td>
+<td>솔루션 아키텍처</td>
+<td>돌봄 데몬은 어떤 구조로 도는가</td>
+</tr>
+<tr>
+<td>07</td>
+<td>솔루션 배터리·온도</td>
+<td>위험을 어떻게 감지하는가</td>
+</tr>
+<tr>
+<td>08</td>
+<td>솔루션 위치·GPS</td>
+<td>무반응을 어떻게 감지하는가</td>
+</tr>
+<tr>
+<td>09</td>
+<td>솔루션 원격 돌봄망</td>
+<td>멀리서 어떻게 안전하게 잇는가</td>
+</tr>
+<tr>
+<td>10</td>
+<td>솔루션 보고 무전기</td>
+<td>이상을 누구에게 어떻게 전하는가</td>
+</tr>
+</tbody>
+</table>
+<p>앞의 네 편(02~05)은 <strong>&ldquo;무엇을 돌봐야 하는가&rdquo;</strong> — 제도와 하루의 빈틈. 뒤의 다섯 편(06~10)은 <strong>&ldquo;어떻게 기술로 돌보는가&rdquo;</strong> — 데몬의 모듈 하나씩.</p>
+<h2 id="5">5. 읽는 법</h2>
+<ul>
+<li><strong>매 편은 티스토리 글 + 이 페이지(GitHub Pages) 한 쌍</strong>으로 발행된다. 같은 원고에서 나온다.</li>
+<li>티스토리는 정적 본문, 이 페이지는 인터랙티브 도표까지 담는다.</li>
+<li>법령·의료를 <strong>단정하지 않는다</strong>. 편마다 &ldquo;확인 창구&rdquo;를 남긴다.</li>
+<li><strong>돌봄 데이터는 공개하지 않는다.</strong> 실 GPS·정확한 주소·진료 원문·토큰은 절대 싣지 않는다. 모든 예시는 가명·일반화한다.</li>
+</ul>
+<div class="care care-callout care-warn" data-id="reading-rule"><span class="care-callout-badge">WARN</span><span class="care-callout-text">이 채널은 법률 자문도, 의료 가이드도 아니다. 각 편의 &#x27;확인 창구&#x27;에서 최신 기준을 직접 확인하라.</span></div></article>
+  <footer class="foot">
+    <div>Helana Log · Docs Webzine</div>
+    <div class="a">모든 계정은 큰누나 명의입니다.</div>
+    <p style="margin-top:12px"><a href="../../../">← Landing</a> · <a href="https://helena751107.github.io/helena_phone/">S21 Hub</a></p>
+  </footer>
+</main>
+
