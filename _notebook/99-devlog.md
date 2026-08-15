@@ -6013,3 +6013,11 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **보안:** API 키/GitHub 인증은 사용자 직접 입력·인증. 스크립트엔 비밀 하드코딩 금지(설치기=환경, 사용자=계정).
 - **명제:** "폰 한 대가 곧 출판사" · "기술이 어려운 게 아니라 첫 3시간이 어렵다."
 - **저장:** `_notebook/95-publishing-bootstrap-doctor_Claude.md` + 오픈이슈 [#2](https://github.com/helena751107/helena_phone/issues/2)
+
+### ✅ 편 03·04 발행 성공 — 진짜 원인은 networkidle 버그 (한도 아님) (_Claude · 2026-08-16)
+
+- **결과:** 편 03 `트랙 DC — 치매·노인 돌봄의 빈틈`(RSS #21) + 편 04 `트랙 BL — 기초생활 보장의 빈틈`(RSS #22) 티스토리 발행 **성공**. RSS 교차검증으로 실발행 확정. mynote11605 총 4편 (01 매니페스토 · 02 DW · 03 DC · 04 BL).
+- **정정:** 어제(08-15) "계정 단위 15개 한도 도달"로 단정한 건 **오진**. 자정 재시도(08-16 00:05)에서 드러난 실제 원인은 **`post.py`의 `page.goto(wait_until="networkidle")` 버그** — 티스토리 편집기는 상시 폴링(자동저장)이라 `networkidle`/`load`가 영영 불발 → 30초 타임아웃.
+- **진단 경로:** ① 세션쿠키 TSSESSION 만료 검사 → 08-22까지 유효(세션 문제 아님). ② 인증된 curl → HTTP 200(로그인 리다이렉트 없음). ③ `networkidle`→`load`→`domcontentloaded` 순으로 바꾸자 통과. **서버는 정상, 클라이언트 wait 조건이 문제.**
+- **수정(4파일):** `post.py` · `flip_visibility.py` · `repro_publish.py` · `diag_posts.py` — Tistory 관리 페이지 `networkidle` → `domcontentloaded`(kakao_login이 원래 쓰던 방식).
+- **메모리 정정:** `history-daily-batch` "계정 단위 15개/일" → **미실증(추정)으로 하향**. 한도 공유 여부는 "하루 15개 초과 실제 시도"로만 확정 가능.
