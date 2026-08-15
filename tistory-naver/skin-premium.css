@@ -10,6 +10,9 @@
 
 /* ── 테마 토큰 (블로그별 override 는 HTML 의 <style id="s21-theme"> 로) ── */
 :root {
+  /* PC에서 폰 베젤·카메라가 화면 전체가 아니라 콘텐츠(1160px) 한도에 맞게 — 스크롤시 페이지 밖으로 넘치지 않게 */
+  --s21-frame-w: min(100vw - 32px, 1160px);
+  --s21-frame-x: calc((100vw - var(--s21-frame-w)) / 2);
   --s21-accent: #2dd4bf;
   --s21-accent-rgb: 45, 212, 191;
   --s21-accent2: #e8b45a;
@@ -578,7 +581,10 @@ section.container {
 /* 12-1. 폰 베젤 프레임 — 블로그 제목 바로 밑부터 시작 (상단에서 짤리지 않게) + 호흡 글로우 */
 #s21-bezel {
   position: fixed;
-  inset: 88px 16px 16px 16px;
+  top: 88px;
+  bottom: 16px;
+  left: var(--s21-frame-x);
+  right: var(--s21-frame-x);
   z-index: 9990;
   pointer-events: none;
   border: 1.5px solid rgba(var(--s21-accent-rgb), 0.42);
@@ -595,7 +601,7 @@ section.container {
 #s21-camera {
   position: fixed;
   top: 96px;
-  right: 26px;
+  right: calc(var(--s21-frame-x) + 26px);
   z-index: 9991;
   pointer-events: none;
   display: flex;
