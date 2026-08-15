@@ -523,7 +523,7 @@ TISTORY_STYLE = """
   word-break:keep-all; overflow-wrap:break-word;
 }
 .care-post *{box-sizing:border-box}
-.care-kicker{font-size:.74rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:12px}
+.care-kicker{font-size:.74rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; display:inline-block; margin:0 10px 0 0; vertical-align:2px}
 .care-deck{color:var(--ink-dim); font-weight:300; font-size:1.05rem; line-height:1.8; border-left:3px solid var(--accent); padding-left:14px; margin:0 0 22px}
 .care-post h2{font-family:var(--serif); font-size:1.5rem; font-weight:600; color:var(--ink); letter-spacing:-.01em; margin:2em 0 .7em; padding-top:.5em; border-top:1px solid var(--rule)}
 .care-post h3{font-size:1.08rem; font-weight:600; color:var(--ink); margin:1.5em 0 .5em}
@@ -607,17 +607,30 @@ def render_tistory_article(fm: dict, intro_text: str, sections: list[tuple[str, 
     deck = fm.get("answer", "")
     infographic = build_infographic(title, deck, titles)
 
-    lead = '<div class="care-kicker">돌봄 데몬 · Care Daemon</div>'
-    if deck:
-        lead += f'<p class="care-deck">{esc(deck)}</p>'
+    # 요약(summary)은 티스토리가 본문 텍스트 앞 400자를 자동 생성(설정 필드 없음).
+    # 블록 요소끼리 공백이 없으면 "Care Daemon정신건강"처럼 붙어 나오므로,
+    # kicker+answer를 한 <p> 안에서 공백으로 연결해 요약 앞부분을 깨끗하게 만든다.
+    # answer가 문장종결 부호 없이 끝나면 다음 블록(intro)과 "이어진다이 편은"으로 붙으므로,
+    # deck 표시에만 마침표를 보강해 끊어준다(원고 answer 필드는 건드리지 않음).
+    deck_end = deck.strip()
+    if deck_end and deck_end[-1] not in ".!?。！？":
+        deck_end = deck_end + "."
+    lead = '<p class="care-deck"><span class="care-kicker">돌봄 데몬 · Care Daemon</span>'
+    if deck_end:
+        lead += f' {esc(deck_end)}'
+    lead += '</p>'
     toolbar = ('<div class="care-toolbar">'
                '<button class="care-btn" type="button" data-care="expand">전체 펼치기</button>'
                '<button class="care-btn" type="button" data-care="collapse">전체 접기</button>'
                '</div>')
 
-    parts = ['<div class="care-post">', TISTORY_STYLE, lead, infographic, toolbar]
+    # 인포그래픽·툴바는 요약 오염원(제목·섹션목록·버튼 라벨 재탕) → intro 뒤로 밀어
+    # 요약 앞 160자(카드 4줄)에서 제외. 읽는 흐름도 lead→intro→구조도→툴바→본문이 자연스럽다.
+    parts = ['<div class="care-post">', TISTORY_STYLE, lead]
     if intro_html.strip():
         parts.append(f'<div class="care-intro">{intro_html}</div>')
+    parts.append(infographic)
+    parts.append(toolbar)
     parts.append("".join(acc))
     parts.append(TISTORY_SCRIPT)
     parts.append("</div>")

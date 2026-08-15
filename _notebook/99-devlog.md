@@ -6021,3 +6021,11 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **진단 경로:** ① 세션쿠키 TSSESSION 만료 검사 → 08-22까지 유효(세션 문제 아님). ② 인증된 curl → HTTP 200(로그인 리다이렉트 없음). ③ `networkidle`→`load`→`domcontentloaded` 순으로 바꾸자 통과. **서버는 정상, 클라이언트 wait 조건이 문제.**
 - **수정(4파일):** `post.py` · `flip_visibility.py` · `repro_publish.py` · `diag_posts.py` — Tistory 관리 페이지 `networkidle` → `domcontentloaded`(kakao_login이 원래 쓰던 방식).
 - **메모리 정정:** `history-daily-batch` "계정 단위 15개/일" → **미실증(추정)으로 하향**. 한도 공유 여부는 "하루 15개 초과 실제 시도"로만 확정 가능.
+
+### ✅ 카드 발췌(요약) 패치 — summary는 설정 불가, 본문 재배치로 해결 (_Claude · 2026-08-16)
+
+- **요청:** mynote 카드 발췌(요약)가 "본문 덤프"라서, `answer`(frontmatter 한 줄 요약)가 카드에 깨끗하게 뜨도록 패치.
+- **조사 결론(핵심):** 티스토리 요약(summary)은 **본문 텍스트 앞 400자를 서버가 자동 생성**하는 값. ① 에디터 UI에 "요약" 입력란 없음 ② 에디터 임베디드 post 객체·`post-editor.min.js` 저장 payload(`{id,title,content,slogan,visibility,category,tag}`)에 summary 필드 없음(렌더에서 `e.summary` 읽기만) ③ 공식 OpenAPI에도 summary 없음. → **클라이언트 API로는 설정 불가.**
+- **해법:** `scripts/care_pair_build.py`의 `render_tistory_article` 본문 순서 재배치 — ① kicker+answer를 한 `<p>`로 합쳐 공백 연결(블록 경계에 공백이 없어 "Care Daemon정신건강"으로 붙던 것 제거) ② 인포그래픽·툴바(제목/섹션목록/버튼 라벨 재탕 오염원)를 intro 뒤로 밀어 요약 앞 160자에서 제외 ③ answer에 문장종결 부호 보강(다음 블록과 붙는 것 방지).
+- **결과·검증:** 기존 5편(#19~23) 재발행 후 라이브 summary 확인 → "돌봄 데몬 · Care Daemon 정신건강·치매·생계… 이어진다." 로 깨끗해짐. 재발행은 수정(edit)이라 일일 15개 새 글 한도와 무관.
+- **적용:** `scripts/care_pair_build.py` — 이후 발행될 편 06~10에도 자동 적용.
