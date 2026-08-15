@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="2026-08-15 · Boss 지시: &quot;품질 좋은 거 한 켠씩 한 편씩 업로드 / 티스토리 + GitHub Pages 페어로 / — S21 Phone Webzine">
+<meta name="theme-color" content="#0a0908">
+<meta name="application-name" content="S21 Phone">
+<title>mynote11605 돌봄 데몬 채널 — 개발 계획서 (Season 1) (_Claude) — S21 Phone Webzine</title>
+<link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/webzine.css">
+</head>
+<body>
+<div class="spine" aria-hidden="true"><div class="spine-fill" id="spineFill"></div></div>
+<header class="wz-mast">
+  <a class="brand" href="../index.html">S21 <em>Phone</em></a>
+  <div class="wz-mast-actions">
+    <button type="button" class="wz-burger" data-nav-toggle aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav class="wz-nav">
+      <a href="../index.html">Home</a>
+      <a href="../archive.html">Archive</a>
+      <a href="../index.html#library">Library</a>
+      <a href="../index.html#agents">Agents</a>
+      <button type="button" data-theme-toggle>Theme</button>
+      <a class="pill gold" href="../index.html#install">Install</a>
+    </nav>
+  </div>
+</header>
+<main class="wz-shell">
+  <div class="wz-crumb">
+    <a href="../index.html">Webzine</a><span class="sep">/</span>
+    <span>Notebook</span><span class="sep">/</span>
+    <span>mynote11605 돌봄 데몬 채널 — 개발 계획서 (Season 1) (_Claude)</span>
+  </div>
+  <header class="wz-hero">
+    <div class="wz-kicker">Notebook · lakme-audio</div>
+    <h1>mynote11605 돌봄 데몬 채널 — 개발 계획서 (Season 1) (_Claude)</h1>
+    <p class="deck">2026-08-15 · Boss 지시: &quot;품질 좋은 거 한 켠씩 한 편씩 업로드 / 티스토리 + GitHub Pages 페어로 /</p>
+    <div class="wz-meta">
+      <span>Source · _notebook/91-mynote-care-daemon-dev-plan_Claude.md</span>
+      <span>Kind · markdown</span>
+      <span>S21 Phone Editorial</span>
+    </div>
+  </header>
+  <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
+<ul>
+<li><a href="#1">1. 목표 · 원칙</a></li>
+<li><a href="#2-10-season-1">2. 총 편수: 10편 (Season 1)</a></li>
+<li><a href="#3-10">3. 편별 상세 (10편)</a></li>
+<li><a href="#4">4. 품질 기준 (편마다 통과해야 할 게이트)</a></li>
+<li><a href="#5">5. 페어 발행 파이프라인</a></li>
+<li><a href="#6">6. 실행 순서 (한 편씩)</a></li>
+<li><a href="#7">7. 일정 (한 편 = 하루 내외)</a></li>
+</ul>
+</div>
+</nav>
+  <div class="wz-appbar" role="toolbar" aria-label="Document tools">
+    <input type="search" id="wzSearch" class="wz-search" placeholder="페이지 내 검색…" autocomplete="off">
+    <button type="button" id="wzFoldAll" data-cursor>접기</button>
+    <button type="button" id="wzExpandAll" data-cursor>펼치기</button>
+    <button type="button" id="wzCopy" data-cursor>본문 복사</button>
+  </div>
+  <article class="wz-prose" id="wzProse" data-app="doc">
+    <blockquote>
+<p>2026-08-15 · Boss 지시: &ldquo;품질 좋은 거 한 켠씩 한 편씩 업로드 / 티스토리 + GitHub Pages 페어로 /<br>
+품질 아주 좋게 / 총 몇 편? 개발 계획서부터.&rdquo;<br>
+전제: [[90-mynote-care-daemon-plan_Claude]] — 채널 정체성·카테고리(5트랙 생성 완료)·콘텐츠 처분.</p>
+</blockquote>
+<hr>
+<h2 id="1">1. 목표 · 원칙</h2>
+<ul>
+<li><strong>품질 아주 좋게</strong> — &ldquo;돌봄 데몬&rdquo; 채널의 기준작이 될 수준. 양보다 밀도.</li>
+<li><strong>한 편씩</strong> — 한 편마다 완결. 게이트 통과해야 다음 편으로.</li>
+<li><strong>페어 발행</strong> — 모든 편 = <strong>티스토리 글 + GitHub Pages 페이지</strong> 한 쌍. 단일 원고(md) → 두 곳.</li>
+<li><strong>돌봄 ≠ 소망 구분</strong> — 여기엔 돌봄(길 1)만. 라디오·노래 AI 등 소망(길 2)은 S21.</li>
+</ul>
+<h2 id="2-10-season-1">2. 총 편수: <strong>10편</strong> (Season 1)</h2>
+<blockquote>
+<p>한 켠(카테고리)씩, 총 다섯 켠을 한 바퀴 도는 구성. 10편이면 &ldquo;돌봄 데몬이 무엇인지&rdquo;가<br>
+완결된 하나의 서사(매니페스토 → 제도 → 스토리 → 기술)로 닫힌다.</p>
+</blockquote>
+<p><strong>아크 구조:</strong></p>
+<pre><code>[토대] 매니페스토 (1편)
+   ↓
+[제도] 트랙 DW·DC·BL (3편)  ← &quot;무엇을 돌봐야 하는가&quot;
+   ↓
+[스토리] 대화록 (1편)        ← &quot;누구의 하루인가&quot;
+   ↓
+[기술] 솔루션 (5편)          ← &quot;어떻게 기술로 돌보는가&quot; = 돌봄 데몬 본체
+</code></pre>
+<h2 id="3-10">3. 편별 상세 (10편)</h2>
+<blockquote>
+<p>✅ <strong>확정 카테고리 구조 (계층형, 2026-08-15 재구축 완료)</strong> — 아래 표의 &ldquo;카테고리&rdquo;는 이 트리를 따른다.</p>
+<p><code>매니페스토 — 기술로 돌보는 법        (1307301)
+트랙 — 제도                          (1307302)
+  ├ DW — 장애·정신건강 복지          (1307305)
+  ├ DC — 치매·노인 돌봄              (1307306)
+  └ BL — 기초생활 보장               (1307307)
+대화록 — 하루 스토리                 (1307303)
+솔루션 — 돌봄 데몬                   (1307304)
+  ├ 아키텍처                         (1307308)
+  ├ 배터리·온도                      (1307309)
+  ├ 위치·GPS                         (1307310)
+  ├ 원격 돌봄망                      (1307311)
+  └ 보고 무전기                      (1307312)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>제목(가제)</th>
+<th>카테고리</th>
+<th>원천</th>
+<th>핵심</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td>돌봄 데몬이란 — 기술로 돌보는 법</td>
+<td>(매니페스토, 최상위)</td>
+<td>care/care.conf + 정체성</td>
+<td>왜 &ldquo;데몬&rdquo;인가. AI 제로 독립, 15분 주기. 전체 지도</td>
+</tr>
+<tr>
+<td>02</td>
+<td>트랙 DW — 장애·정신건강 복지의 빈틈</td>
+<td>트랙 DW</td>
+<td>tracks/disability-welfare.md</td>
+<td>조현병 누나. 행정 창구 빈틈 + 원페이지 연계맵</td>
+</tr>
+<tr>
+<td>03</td>
+<td>트랙 DC — 치매·노인 돌봄의 빈틈</td>
+<td>트랙 DC</td>
+<td>tracks/dementia-care.md</td>
+<td>치매 어머니. 하루 타임라인 + 확인 창구</td>
+</tr>
+<tr>
+<td>04</td>
+<td>트랙 BL — 기초생활 보장의 빈틈</td>
+<td>트랙 BL</td>
+<td>tracks/basic-livelihood.md</td>
+<td>기초생활 가구. 갱신·신고 체크리스트</td>
+</tr>
+<tr>
+<td>05</td>
+<td>대화록 001 — 하루가 시작되기 전</td>
+<td>대화록</td>
+<td>dialogue/2026-07-26-opening.md</td>
+<td>오프닝. Scene/Feel/Gap/Fix/Next 구조 첫 사례</td>
+</tr>
+<tr>
+<td>06</td>
+<td>솔루션 01 — 돌봄 데몬 아키텍처</td>
+<td>솔루션</td>
+<td>care/care-daemon.sh</td>
+<td>crontab */15. state.json. 모듈 분해도</td>
+</tr>
+<tr>
+<td>07</td>
+<td>솔루션 02 — 배터리·온도 감시</td>
+<td>솔루션</td>
+<td>care-daemon.sh (배터리/온도)</td>
+<td>급감 30%/60분, 저전압 15%, 과열 45°C</td>
+</tr>
+<tr>
+<td>08</td>
+<td>솔루션 03 — 위치·GPS 돌봄</td>
+<td>솔루션</td>
+<td>care-daemon.sh (GPS)</td>
+<td>무응답 2h, 무변동 6h, 반경 500m 이탈</td>
+</tr>
+<tr>
+<td>09</td>
+<td>솔루션 04 — 원격 돌봄망 (Tailscale)</td>
+<td>솔루션</td>
+<td>care/tailscale-<em> + start-</em>.sh</td>
+<td>원격 접속·상태 재연결. 방화벽 없이 안전망</td>
+</tr>
+<tr>
+<td>10</td>
+<td>솔루션 05 — 보고 무전기 (텔레그램)</td>
+<td>솔루션</td>
+<td>care/tg.sh</td>
+<td>1차(헬레나)→2차(목사님) 에스컬레이션</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4">4. 품질 기준 (편마다 통과해야 할 게이트)</h2>
+<ol>
+<li><strong>한 편 = 하나의 질문 + 하나의 답</strong> — 제목이 곧 그 편의 질문.</li>
+<li><strong>실물 원천 인용</strong> — 스크립트/설정 실제 값을 인용(임계값 15%/45°C/500m 등). 추상 금지.</li>
+<li><strong>비단정 표현</strong> — 법령·의료는 &ldquo;확인 창구 / 확인일&rdquo;로. (helana_log 규칙 계승)</li>
+<li><strong>민감정보 차단</strong> — 실 GPS·주소·진료 원문·토큰 절대 금지. (헌법: 돌봄 데이터 공개 금지)</li>
+<li><strong>페어 동기화</strong> — 티스토리 본문과 GitHub Pages 페이지가 같은 원고에서 나온다.</li>
+</ol>
+<h2 id="5">5. 페어 발행 파이프라인</h2>
+<pre><code>원고(md, 단일 원천)
+   ├─→ [티스토리] post.py → mynote11605 카테고리 발행   (URL 불변)
+   └─→ [GitHub Pages] helana_log docs/*.html 빌드       (coverage 게이트)
+</code></pre>
+<ul>
+<li>티스토리 = 업무일지/발행처, GitHub Pages = 원자재 창고+웹 전시 ([[reverse-publishing-pattern]]).</li>
+<li>원고 위치: 돌봄 데몬 콘텐츠는 <code>helana_log/docs/</code> 하위(트랙/대화록/솔루션)에 두고, 티스토리 발행은 helena_phone 파이프라인이 가져간다.</li>
+</ul>
+<h2 id="6">6. 실행 순서 (한 편씩)</h2>
+<ul>
+<li>[ ] <strong>Step 0 — 원고 규격 확정</strong>: 템플릿 1개(트랙/솔루션/대화록 각각) + 품질 게이트 스크립트.</li>
+<li>[ ] <strong>Step 1 — 01 매니페스토</strong>: 채널 선언 + 10편 지도. 이게 나머지 9편의 목차.</li>
+<li>[ ] <strong>Step 2 — 02~04 트랙 3종</strong>: 기존 tracks md를 &ldquo;품질 게이트&rdquo; 수준으로 재작성.</li>
+<li>[ ] <strong>Step 3 — 05 대화록</strong>: 오프닝 스토리 한 편.</li>
+<li>[ ] <strong>Step 4 — 06~10 솔루션 5종</strong>: 돌봄 데몬을 모듈별로 해설.</li>
+<li>[ ] <strong>Step 5 — 페어 검증</strong>: 매 편 티스토리 + Pages 동시 확인 후 커밋.</li>
+</ul>
+<h2 id="7">7. 일정 (한 편 = 하루 내외)</h2>
+<table>
+<thead>
+<tr>
+<th>배치</th>
+<th>편</th>
+<th>누적</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1일</td>
+<td>01 매니페스토</td>
+<td>1/10</td>
+</tr>
+<tr>
+<td>2일</td>
+<td>02 DW · 03 DC</td>
+<td>3/10</td>
+</tr>
+<tr>
+<td>3일</td>
+<td>04 BL · 05 대화록</td>
+<td>5/10</td>
+</tr>
+<tr>
+<td>4일</td>
+<td>06 아키텍처 · 07 배터리</td>
+<td>7/10</td>
+</tr>
+<tr>
+<td>5일</td>
+<td>08 GPS · 09 Tailscale</td>
+<td>9/10</td>
+</tr>
+<tr>
+<td>6일</td>
+<td>10 무전기 + 전체 회고</td>
+<td>10/10</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>빵꾸 7편 삭제·IT 4편 S21 이동은 이 개발 계획의 <strong>전처리</strong>로 먼저 끝낸다 ([[90-mynote-care-daemon-plan_Claude]]).</p>
+</blockquote>
+  </article>
+  <nav class="wz-pager">
+    <a class="" href="90-mynote-care-daemon-plan_Claude.html">
+          <span class="dir">Previous</span>
+          <span class="title">mynote11605 = 돌봄 데몬 채널 — 개편 업데이트 플랜 (_Claude)</span>
+        </a>
+    <a class="next" href="93-tistory-skin-reverse-engineering_Claude.html">
+          <span class="dir">Next</span>
+          <span class="title">티스토리 스킨 적용 — 리버스 엔지니어링 완전 해부</span>
+        </a>
+  </nav>
+  <div class="wz-related">
+          <h2>같은 섹션</h2>
+          <div class="grid"><a href="00-INDEX.html"><strong>📖 S21 Phone 업무 수첩 — 전체 목차</strong>구축: 2026-07-23 ~ 2026-08-14 (23일)</a><a href="01-arch.html"><strong>전체 시스템 아키텍처</strong>Notebook</a><a href="02-discord.html"><strong>디스코드 서버/봇/위젯</strong>Notebook</a><a href="03-telegram.html"><strong>텔레그램 봇/회의실</strong>Notebook</a><a href="04-github-pages.html"><strong>GitHub Pages + Giscus + WidgetBot</strong>Notebook</a><a href="05-tistory.html"><strong>블로그 포트폴리오 + 자동화 전략</strong>Notebook</a></div>
+        </div>
+  <footer class="wz-foot">
+    <div>S21 PHONE · Webzine lakme-audio</div>
+    <div class="gold">모든 계정은 누나 명의입니다.</div>
+    <p style="margin-top:12px"><a href="../index.html">← Back to landing</a></p>
+  </footer>
+</main>
+<div class="wz-float">
+  <button type="button" id="wzTop" aria-label="Top">↑</button>
+  <button type="button" data-theme-toggle aria-label="Theme">◐</button>
+</div>
+<script src="../assets/webzine.js"></script>
+</body>
+</html>

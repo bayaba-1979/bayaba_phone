@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="2026-08-15 · Claude Code (출판부) 정리 · Boss 지시: &quot;히스토리 스킨 어떻게 적용하는지, 리버스 엔지니어링부터 전부 기록&quot; — S21 Phone Webzine">
+<meta name="theme-color" content="#0a0908">
+<meta name="application-name" content="S21 Phone">
+<title>🔬 티스토리 스킨 적용 — 리버스 엔지니어링 완전 해부 — S21 Phone Webzine</title>
+<link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/webzine.css">
+</head>
+<body>
+<div class="spine" aria-hidden="true"><div class="spine-fill" id="spineFill"></div></div>
+<header class="wz-mast">
+  <a class="brand" href="../index.html">S21 <em>Phone</em></a>
+  <div class="wz-mast-actions">
+    <button type="button" class="wz-burger" data-nav-toggle aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav class="wz-nav">
+      <a href="../index.html">Home</a>
+      <a href="../archive.html">Archive</a>
+      <a href="../index.html#library">Library</a>
+      <a href="../index.html#agents">Agents</a>
+      <button type="button" data-theme-toggle>Theme</button>
+      <a class="pill gold" href="../index.html#install">Install</a>
+    </nav>
+  </div>
+</header>
+<main class="wz-shell">
+  <div class="wz-crumb">
+    <a href="../index.html">Webzine</a><span class="sep">/</span>
+    <span>Notebook</span><span class="sep">/</span>
+    <span>🔬 티스토리 스킨 적용 — 리버스 엔지니어링 완전 해부</span>
+  </div>
+  <header class="wz-hero">
+    <div class="wz-kicker">Notebook · lakme-audio</div>
+    <h1>🔬 티스토리 스킨 적용 — 리버스 엔지니어링 완전 해부</h1>
+    <p class="deck">2026-08-15 · Claude Code (출판부) 정리 · Boss 지시: &quot;히스토리 스킨 어떻게 적용하는지, 리버스 엔지니어링부터 전부 기록&quot;</p>
+    <div class="wz-meta">
+      <span>Source · _notebook/93-tistory-skin-reverse-engineering_Claude.md</span>
+      <span>Kind · markdown</span>
+      <span>S21 Phone Editorial</span>
+    </div>
+  </header>
+  <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
+<ul>
+<li><a href="#1-api">1. 결론부터 — 스킨은 &ldquo;숨겨진 관리 API&rdquo;로 찍어낸다</a></li>
+<li><a href="#2">2. 리버스 엔지니어링 연대기 — 어떻게 찾아냈나</a><ul>
+<li><a href="#21-api-htmljson-setjson">2.1 스킨 관리 API (html.json / set.json)</a></li>
+<li><a href="#22-enter">2.2 카카오 로그인 — &ldquo;Enter는 실패한다&rdquo;</a></li>
+<li><a href="#23-tssession">2.3 세션 쿠키 (TSSESSION) — 재실행하면 사라진다</a></li>
+<li><a href="#24">2.4 댓글 설정 — &ldquo;마스터 끄기 토글은 없다&rdquo;</a></li>
+<li><a href="#25-textarea">2.5 발행 레이어 — textarea 동기화 (&ldquo;빵꾸&rdquo;의 근본 원인)</a></li>
+</ul>
+</li>
+<li><a href="#3">3. 스킨 아키텍처 — 뭘 얹었나</a><ul>
+<li><a href="#31-whatever">3.1 베이스 = Whatever 스킨 + 프리미엄 다크 오버레이</a></li>
+<li><a href="#32-galaxy-s21">3.2 Galaxy S21 시그니처 — 고정 오버레이 장식</a></li>
+<li><a href="#33">3.3 마커 기반 멱등 주입 (핵심 설계)</a></li>
+</ul>
+</li>
+<li><a href="#4-2026-08-15">4. 테마 시스템 — 블로그별 색 + 스타필드 (2026-08-15 신규)</a><ul>
+<li><a href="#41-css-root">4.1 색 → CSS 커스텀 프로퍼티(:root 토큰)</a></li>
+<li><a href="#42-override-html-style-ids21-theme">4.2 블로그별 override — HTML의 &lt;style id="s21-theme"&gt;</a></li>
+<li><a href="#43-theme_map-5">4.3 THEME_MAP — 5개 블로그 정체성</a></li>
+<li><a href="#44">4.4 스타필드 → 개수·속도·방향 (결정적 생성)</a></li>
+</ul>
+</li>
+<li><a href="#5">5. 코드 자산 — 뭘 돌리면 되나</a></li>
+<li><a href="#6-step-by-step">6. 재현 레시피 — 다른 사람 가르칠 때 (step-by-step)</a></li>
+<li><a href="#7">7. 함정 모음 (재삽질 금지)</a></li>
+<li><a href="#8">8. 관련 문서</a></li>
+</ul>
+</div>
+</nav>
+  <div class="wz-appbar" role="toolbar" aria-label="Document tools">
+    <input type="search" id="wzSearch" class="wz-search" placeholder="페이지 내 검색…" autocomplete="off">
+    <button type="button" id="wzFoldAll" data-cursor>접기</button>
+    <button type="button" id="wzExpandAll" data-cursor>펼치기</button>
+    <button type="button" id="wzCopy" data-cursor>본문 복사</button>
+  </div>
+  <article class="wz-prose" id="wzProse" data-app="doc">
+    <blockquote>
+<p>2026-08-15 · Claude Code (출판부) 정리 · Boss 지시: &ldquo;히스토리 스킨 어떻게 적용하는지, 리버스 엔지니어링부터 전부 기록&rdquo;<br>
+대상: 갤럭시 S21 컨셉 블랙 스킨을 5개 티스토리 블로그에 일괄 적용하는 방법<br>
+코드: <code>tistory-naver/</code> (<code>apply_layout.py</code> · <code>batch_apply.py</code> · <code>switch_skin.py</code> · <code>skin-premium.css</code> · <code>post.py</code>)</p>
+</blockquote>
+<hr>
+<h2 id="1-api">1. 결론부터 — 스킨은 &ldquo;숨겨진 관리 API&rdquo;로 찍어낸다</h2>
+<p>티스토리는 스킨을 고치는 <strong>공식 REST API가 없다</strong> (Open API는 2024년 2월 종료). 하지만 관리자 화면(스킨 편집기)의 <strong>네트워크 요청을 관찰</strong>하면, 브라우저가 실제로 호출하는 내부 API가 그대로 드러난다.</p>
+<p><strong>핵심 3줄:</strong></p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>메서드</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/manage/design/skin/html.json</code></td>
+<td><code>GET</code></td>
+<td>현재 스킨의 <strong>HTML + CSS 전체</strong>를 JSON으로 받음</td>
+</tr>
+<tr>
+<td><code>/manage/design/skin/html.json</code></td>
+<td><code>POST</code></td>
+<td><code>{html, css, isPreview:false}</code> 로 <strong>HTML+CSS 저장</strong></td>
+</tr>
+<tr>
+<td><code>/manage/design/skin/set.json</code></td>
+<td><code>POST</code></td>
+<td><code>{name:"pg_Whatever"}</code> 로 <strong>스킨 종류 전환</strong></td>
+</tr>
+</tbody>
+</table>
+<p>즉, <strong>&ldquo;스킨 편집기의 저장 버튼&rdquo; = <code>POST html.json</code></strong> 이고, <strong>&ldquo;스킨 선택기&rdquo; = <code>POST set.json</code></strong> 이다. 로그인 세션 쿠키(<code>TSSESSION</code>)만 있으면 Playwright로 이걸 직접 때리면 된다.</p>
+<blockquote>
+<p>쉽게 말하면: 티스토리 관리 화면의 &ldquo;저장&rdquo; 버튼 뒤에 숨은 주소를 찾아내서, 로봇이 그 주소로 직접 편지를 보내는 거야. 화면을 클릭할 필요 없이.</p>
+</blockquote>
+<hr>
+<h2 id="2">2. 리버스 엔지니어링 연대기 — 어떻게 찾아냈나</h2>
+<h3 id="21-api-htmljson-setjson">2.1 스킨 관리 API (<code>html.json</code> / <code>set.json</code>)</h3>
+<p><strong>관찰 방법:</strong> 티스토리 관리 → 꾸미기 → 스킨 편집 화면에서 DevTools Network 탭을 열고 저장 버튼을 누른다. 실제로 오가는 XHR/fetch 요청 두 개가 잡힌다.</p>
+<p><strong>GET 응답 구조</strong> (예: galaxys21):</p>
+<pre><code class="language-json">{
+  &quot;html&quot;: &quot;&lt;!DOCTYPE html&gt;... 전체 스킨 HTML ...&quot;,
+  &quot;css&quot;: &quot;/* ... */ 전체 스킨 CSS ...&quot;,
+  &quot;files&quot;: [ &quot;style.css&quot;, ... ],
+  &quot;skinname&quot;: &quot;customize/8935375&quot;
+}
+</code></pre>
+<ul>
+<li><code>html</code> = 스킨 전체 HTML (티스토리 치환자 <code>[##_..._##]</code> 포함)</li>
+<li><code>css</code> = 스킨 전체 CSS</li>
+<li><code>skinname</code> = 현재 적용된 스킨 ID (galaxys21은 <code>customize/8935375</code>, 나머지는 <code>pg_Whatever</code>)</li>
+</ul>
+<p><strong>POST 저장</strong> (<code>html.json</code>): <code>data={html, css, isPreview:false}</code> → 성공 시 <code>200</code> + <code>/preview/skin?skin=...</code> 리다이렉트.</p>
+<p><strong>스킨 전환</strong> (<code>set.json</code>): <code>multipart={name:"pg_Whatever"}</code> → <code>200</code>.</p>
+<p><strong>CSS 서빙 URL (캐시 무력화):</strong> 저장하면 CSS가 다음 주소로 서빙된다.</p>
+<pre><code>https://tistory1.daumcdn.net/tistory/&lt;skinId&gt;/skin/style.css?_version_=&lt;epoch&gt;
+</code></pre>
+<p><code>_version_</code> 이 epoch 타임스탬프라 <strong>저장할 때마다 갱신 → CDN 캐시가 자동 무효화</strong>된다. (curl로 검증 가능)</p>
+<h3 id="22-enter">2.2 카카오 로그인 — &ldquo;Enter는 실패한다&rdquo;</h3>
+<p><strong>관찰:</strong> 티스토리 로그인은 카카오 계정으로만 가능. <code>https://www.tistory.com/auth/login</code> → <code>a.btn_login.link_kakao_id</code> 클릭 → <code>accounts.kakao.com/login</code> 으로 이동.</p>
+<p><strong>함정 3개:</strong><br>
+1. <strong>폼이 JS SPA라 렌더 ~15-22초</strong> (느린 폰 네트워크). <code>fill()</code>을 일찍 호출하면 빈 페이지 race로 크래시. → <code>#loginId--1</code>/<code>#password--2</code> 렌더를 폴링(최대 60s)한 뒤 채운다.<br>
+2. <strong><code>fill()</code> 대신 <code>evaluate()</code>로 채운다.</strong> Playwright <code>fill()</code>이 직렬화 버그로 &ldquo;Object is not JSON serializable&rdquo; 크래시. 네이티브 setter + input/change 이벤트로 채움.<br>
+3. <strong>제출은 <code>press("Enter")</code>가 아니라 submit 버튼 클릭.</strong> Enter는 <code>prompt=select_account</code> 계정선택 화면에 막혀 실패. <code>button[type='submit']</code> 클릭 + 이후 &ldquo;계속&rdquo;/&rdquo;동의하고 계속&rdquo; 버튼 처리해야 성공.</p>
+<pre><code class="language-python">await page.locator(&quot;button[type='submit'], button.submit, .btn_g&quot;).first.click(timeout=3000)
+</code></pre>
+<p><strong>성공 판정:</strong> URL에 <code>tistory.com</code> 포함 + <code>login</code>/<code>accounts.kakao</code> 미포함.</p>
+<p><strong>⚠️ CAPTCHA:</strong> 헤드리스 브라우저로 단시간 반복 로그인하면 카카오 봇감지 CAPTCHA(&ldquo;안전한 서비스 이용을 위해&hellip;&rdquo;)가 뜬다. <strong>쿨다운 필요(~15-30분)</strong> 또는 사람 수동 로그인. 하루 첫 시도는 보통 성공.</p>
+<h3 id="23-tssession">2.3 세션 쿠키 (<code>TSSESSION</code>) — 재실행하면 사라진다</h3>
+<p><strong>관찰:</strong> 로그인 후 <code>TSSESSION</code> 쿠키가 생기는데, 이게 <strong>세션 쿠키(<code>expires=-1</code>)</strong> 라 Playwright <code>launch_persistent_context</code> 프로파일 디렉토리에 <strong>영속되지 않는다</strong>. → 매번 재실행 시 재로그인 → CAPTCHA 유발.</p>
+<p><strong>해결:</strong> <br>
+1. 로그인 성공 후 <code>ctx.storage_state(path="galaxys21_state.json")</code> 로 저장.<br>
+2. 재실행 시 <code>ctx.add_cookies()</code>로 복원하되, <code>expires=-1</code> 인 쿠키는 <code>now + 7일</code> 로 보정해서 영속화.</p>
+<pre><code class="language-python">if c.get(&quot;expires&quot;, -1) == -1:
+    c[&quot;expires&quot;] = now + 86400 * 7
+</code></pre>
+<p><code>batch_apply.py</code> · <code>apply_layout.py</code> · <code>post.py</code> 모두 이 패턴을 쓴다.</p>
+<h3 id="24">2.4 댓글 설정 — &ldquo;마스터 끄기 토글은 없다&rdquo;</h3>
+<p><strong>관찰:</strong> <code>GET/PUT /manage/setting/comments.json</code> 의 설정 구조:<br>
+- <code>selected.allowGuestComment = "0"</code> → 비허용/deny<br>
+- <code>selected.commentWritePermission = "0"</code> → 로그인한 사용자만</p>
+<p><strong>핵심 발견:</strong> 티스토리는 <strong>&ldquo;아무도 댓글 못 씀&rdquo; 마스터 토글이 없다.</strong> 옵션이 <code>로그인한 사용자만(0)</code> / <code>비로그인도(1)</code> 둘뿐. → <strong>댓글 완전 차단의 실효 수단은 CSS 숨김</strong> <code>[data-tistory-react-app="Comment"] {display:none}</code>.</p>
+<p><strong>개별 글 댓글 (발행 레이어):</strong> 댓글 설정은 체크박스가 아니라 <strong>TinyMCE select-menu(드롭다운)</strong>. <code>button.select_btn</code>(텍스트 &ldquo;댓글 허용&rdquo;) 클릭 → <code>.mce-menu-item:has(.mce-text:text-is('댓글 비허용'))</code> 클릭. <code>post.py _disable_comments()</code>에 반영 — 매 업로드 강제 적용.</p>
+<h3 id="25-textarea">2.5 발행 레이어 — textarea 동기화 (&ldquo;빵꾸&rdquo;의 근본 원인)</h3>
+<p><strong>관찰:</strong> 티스토리 에디터는 실제로 <strong><code>textarea#editor-tistory</code> 값을 제출</strong>한다. <code>tinymce.setContent()</code>는 내부 상태만 바꾸고 textarea는 비워둠 → 제출하면 본문이 빈 &ldquo;빵꾸&rdquo; 발생.</p>
+<p><strong>해결:</strong> <code>setContent()</code> 후 <strong><code>tinymce.activeEditor.save()</code></strong> 로 textarea에 강제 동기화. + 본문 길이 검증(<code>_verify_body</code>)으로 빵꾸 방지 QA 게이트.</p>
+<pre><code class="language-javascript">tinymce.activeEditor.setContent(html);
+tinymce.activeEditor.save();   // ← 이게 핵심. textarea 동기화
+</code></pre>
+<hr>
+<h2 id="3">3. 스킨 아키텍처 — 뭘 얹었나</h2>
+<h3 id="31-whatever">3.1 베이스 = Whatever 스킨 + 프리미엄 다크 오버레이</h3>
+<ul>
+<li><strong>베이스:</strong> 티스토리 <code>pg_Whatever</code> 스킨 (구조는 그대로).</li>
+<li><strong>오버레이:</strong> <code>skin-premium.css</code> (710줄) — 배경 <code>#08090a</code>, 표면 <code>#0f1115</code>, 본문 <code>#f7f8f8</code>, 액센트 틸/골드. 글래스 헤더·카드·사이드바·코드블록 전부 다크로.</li>
+</ul>
+<h3 id="32-galaxy-s21">3.2 Galaxy S21 시그니처 — 고정 오버레이 장식</h3>
+<p>전부 <code>position:fixed</code> + <code>pointer-events:none</code> (클릭 안 막음), z-index 9980~9992:</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>위치</th>
+<th>움직임</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#s21-bezel</code></td>
+<td>화면 전체 inset 14px 테두리</td>
+<td><code>s21-breathe</code> 글로우 호흡</td>
+</tr>
+<tr>
+<td><code>#s21-camera</code></td>
+<td>우상단(동쪽) 컨투어컷 모듈</td>
+<td>렌즈3+플래시, <code>s21-spin</code>/<code>s21-flash</code></td>
+</tr>
+<tr>
+<td><code>#s21-punch</code></td>
+<td>상단 중앙 펀치홀</td>
+<td>정적</td>
+</tr>
+<tr>
+<td><code>#s21-particles</code></td>
+<td>전체 <code>inset:0</code></td>
+<td><code>s21-nebula</code> 성운 + <code>&lt;i&gt;</code>별 + <code>&lt;b&gt;</code>유성</td>
+</tr>
+<tr>
+<td><code>#s21-home</code></td>
+<td>하단 중앙 제스처 필</td>
+<td><code>s21-breathe</code></td>
+</tr>
+<tr>
+<td><code>#s21-mic</code></td>
+<td>하단 필 우측 삼성 STT 마이크</td>
+<td><code>s21-micpulse</code></td>
+</tr>
+<tr>
+<td><code>#category-nav</code></td>
+<td>좌측 스티키 카테고리 패널</td>
+<td>줌컨트롤 내장</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33">3.3 마커 기반 멱등 주입 (핵심 설계)</h3>
+<p>스킨 HTML/CSS에 반복 적용해도 안 꼬이게, <strong>마커로 감싼 블록을 교체</strong>한다.</p>
+<pre><code>HTML 마커: &lt;!-- HELENA-LAYOUT-START --&gt; ... &lt;!-- HELENA-LAYOUT-END --&gt;
+CSS  마커: /* HELENA-ORBITAL-SKIN-START */ ... /* HELENA-ORBITAL-SKIN-END */
+</code></pre>
+<p><code>replace_block()</code> 함수: 마커가 이미 있으면 <strong>그 사이만 교체</strong>, 없으면 append. → 몇 번을 돌려도 같은 결과(멱등).</p>
+<p>HTML 주입 위치: <code>&lt;section class="container"&gt;</code> 바로 뒤.</p>
+<hr>
+<h2 id="4-2026-08-15">4. 테마 시스템 — 블로그별 색 + 스타필드 (2026-08-15 신규)</h2>
+<p>일괄 적용의 단점 = <strong>모든 블로그가 똑같아 보인다</strong>. 이를 <strong>두 변수(색 + 스타필드)</strong> 로 보강.</p>
+<h3 id="41-css-root">4.1 색 → CSS 커스텀 프로퍼티(<code>:root</code> 토큰)</h3>
+<p><code>skin-premium.css</code> 맨 위 <code>:root</code> 에 기본값(틸/골드)을 두고, 모든 색 규칙이 <code>var()</code>를 참조한다:</p>
+<pre><code class="language-css">:root {
+  --s21-accent: #2dd4bf;        /* 주 액센트 */
+  --s21-accent-rgb: 45, 212, 191;  /* rgba() 알파용 RGB 트리플릿 */
+  --s21-accent2: #f0b429;       /* 보조(골드) */
+  --s21-nebula-a/b/c: ...;      /* 성운 3색 */
+  --s21-star1/2/3: ...;         /* 별 3색 */
+  --s21-meteor: ...;            /* 유성색 */
+  --s21-meteor-ang/dx/dy: ...;  /* 유성 방향·거리 */
+}
+</code></pre>
+<p><strong>트릭:</strong> <code>rgba(45,212,191,0.08)</code> 같은 알파 색은 <code>rgba(var(--s21-accent-rgb), 0.08)</code> 로 바꾼다. hex는 알파를 못 담으니 <strong>RGB 트리플릿을 변수로</strong> 분리한 것.</p>
+<h3 id="42-override-html-style-ids21-theme">4.2 블로그별 override — HTML의 <code>&lt;style id="s21-theme"&gt;</code></h3>
+<p><code>apply_layout.py</code> 가 블로그 테마에 맞춰 <code>:root</code> 를 <strong>덮어쓰는 <code>&lt;style&gt;</code> 태그</strong>를 HTML에 같이 주입한다. (body에 들어가 head의 CSS보다 늦게 로드 → 동일 specificity에서 <strong>나중 선언이 이김</strong>)</p>
+<pre><code class="language-html">&lt;style id=&quot;s21-theme&quot;&gt;
+:root {
+  --s21-accent:#e9d9a8;
+  --s21-accent-rgb:233, 217, 168;
+  ...
+}
+&lt;/style&gt;
+</code></pre>
+<h3 id="43-theme_map-5">4.3 THEME_MAP — 5개 블로그 정체성</h3>
+<table>
+<thead>
+<tr>
+<th>계정 id</th>
+<th>블로그</th>
+<th>정체성</th>
+<th>액센트</th>
+<th>성운</th>
+<th>별</th>
+<th>유성</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>galaxys21</code></td>
+<td>galaxys21-pwuser</td>
+<td>개발·도구(원본)</td>
+<td>틸 <code>#2dd4bf</code> + 골드</td>
+<td>틸-퍼플 은하수</td>
+<td>18</td>
+<td>3 (대각)</td>
+</tr>
+<tr>
+<td><code>faith</code></td>
+<td>helana-christianity</td>
+<td>신앙=영혼</td>
+<td>아이보리골드 <code>#e9d9a8</code></td>
+<td>금빛 확산</td>
+<td>24 (느림)</td>
+<td>3 (수직 빛기둥)</td>
+</tr>
+<tr>
+<td><code>piano</code></td>
+<td>helena-piano</td>
+<td>연주=표현</td>
+<td>딥블루 <code>#6b8cff</code></td>
+<td>블루-바이올렛</td>
+<td>18</td>
+<td>3 (수평)</td>
+</tr>
+<tr>
+<td><code>metalcare</code></td>
+<td>helena-metalcare</td>
+<td>멘탈케어=마음</td>
+<td>세이지 <code>#8fd6b3</code></td>
+<td>세이지-소프트블루</td>
+<td>12 (매우 느림)</td>
+<td>2 (은은)</td>
+</tr>
+<tr>
+<td><code>mynote</code></td>
+<td>mynote11605</td>
+<td>노트·기록</td>
+<td>앰버 <code>#e8a35a</code></td>
+<td>웜그레이-세피아</td>
+<td>18</td>
+<td>3 (펜스트로크)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="44">4.4 스타필드 → 개수·속도·방향 (결정적 생성)</h3>
+<p>별/유성 개수·속도·방향은 블로그별로 다르다. <code>_starfield(theme)</code>가 <code>random.Random(seed)</code> 로 <strong>결정적으로</strong> 생성 (같은 seed → 같은 좌표, 재적용해도 동일 결과):</p>
+<pre><code class="language-python">def _starfield(theme):
+    rng = random.Random(theme[&quot;seed&quot;])     # 고정 seed → 결정적
+    stars = []
+    for _ in range(theme[&quot;stars&quot;]):        # 별 개수 (12/18/24)
+        x, y = rng.uniform(4,96), rng.uniform(4,96)
+        s = rng.choice([2,2,3,3,4,5])      # 별 크기
+        d = rng.uniform(3.0,5.2) * theme[&quot;pace&quot;]  # 반짝임 속도(pace=느림 배수)
+        stars.append(f'&lt;i style=&quot;--x:{x}%;--y:{y}%;--s:{s}px;--d:{d}s;...&quot;&gt;')
+    ...
+</code></pre>
+<p>유성 방향은 <code>--s21-meteor-ang/dx/dy</code> 로: faith=수직(<code>-90deg</code>), piano=수평(<code>0deg</code>), mynote=짧은 펜(<code>-45deg</code>, 짧은 거리), metalcare=은은(짧은 거리+느림).</p>
+<hr>
+<h2 id="5">5. 코드 자산 — 뭘 돌리면 되나</h2>
+<table>
+<thead>
+<tr>
+<th>파일</th>
+<th>역할</th>
+<th>실행</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>apply_layout.py</code></td>
+<td>단일 블로그 HTML+CSS 주입 (메인 galaxys21용)</td>
+<td><code>python3 apply_layout.py --account galaxys21</code></td>
+</tr>
+<tr>
+<td><code>batch_apply.py</code></td>
+<td>4개 블로그 스킨전환+주입 일괄</td>
+<td><code>python3 batch_apply.py</code></td>
+</tr>
+<tr>
+<td><code>switch_skin.py</code> / <code>apply_skin.py</code></td>
+<td>스킨 전환 / CSS 전용(구식)</td>
+<td>보조</td>
+</tr>
+<tr>
+<td><code>skin-premium.css</code></td>
+<td>다크 스킨 + S21 시그니처 + 테마 토큰</td>
+<td>(주입되는 CSS 본체)</td>
+</tr>
+<tr>
+<td><code>post.py</code></td>
+<td>글 발행 (댓글 비허용 강제)</td>
+<td><code>python3 post.py</code></td>
+</tr>
+<tr>
+<td><code>accounts.json.template</code></td>
+<td>계정 양식 (secret 제외 — 실제 secret은 gitignored <code>accounts.json</code>)</td>
+<td>참고</td>
+</tr>
+</tbody>
+</table>
+<p><strong>secret 주의:</strong> <code>accounts.json</code>(계정 이메일·비밀번호)과 <code>cookies/</code> 디렉토리는 <strong>gitignore 대상 — 절대 커밋 금지</strong>. <code>accounts.json.template</code> 이 양식 참고용으로만 존재.</p>
+<hr>
+<h2 id="6-step-by-step">6. 재현 레시피 — 다른 사람 가르칠 때 (step-by-step)</h2>
+<blockquote>
+<p>새 티스토리 블로그에 이 스킨을 얹는 절차.</p>
+</blockquote>
+<ol>
+<li><strong>계정 준비:</strong> <code>accounts.json.template</code> → <code>accounts.json</code> 복사 후 계정 id/blog/이메일/비밀번호 채움.</li>
+<li><strong>로그인 1회:</strong> <code>batch_apply.py</code> 또는 <code>apply_layout.py</code> 최초 실행 → 카카오 로그인 → <code>galaxys21_state.json</code> 자동 저장 (TSSESSION 영속화).</li>
+<li><strong>스킨 전환:</strong> <code>POST /manage/design/skin/set.json {name:"pg_Whatever"}</code>.</li>
+<li><strong>CSS+HTML 주입:</strong> <code>apply_layout.py --account &lt;id&gt;</code> → <code>GET html.json</code> → 마커 블록 교체 → <code>POST html.json {html, css}</code>.</li>
+<li><strong>테마 커스터마이즈:</strong> <code>apply_layout.py</code> 의 <code>THEME_MAP</code> 에 블로그 계정 id + 색/스타필드 파라미터 추가 → 재실행.</li>
+<li><strong>검증:</strong> <code>POST</code> 응답 <code>200</code> + <code>GET</code> 재조회로 <code>html_marker=True</code>/<code>css_marker=True</code> 확인. 렌더는 <code>curl</code> 로 <code>&lt;style id="s21-theme"&gt;</code> 와 <code>--s21-accent</code> 확인.</li>
+</ol>
+<p><strong>재적용 흐름 (테마 변경 시):</strong></p>
+<pre><code class="language-bash">python3 apply_layout.py --account galaxys21   # 메인
+python3 batch_apply.py                         # 나머지 4개
+</code></pre>
+<hr>
+<h2 id="7">7. 함정 모음 (재삽질 금지)</h2>
+<table>
+<thead>
+<tr>
+<th>함정</th>
+<th>증상</th>
+<th>해결</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enter로 로그인 제출</td>
+<td>계정선택 화면에 막힘</td>
+<td>submit 버튼 클릭</td>
+</tr>
+<tr>
+<td><code>fill()</code> 이른 호출</td>
+<td>&ldquo;Object not JSON serializable&rdquo; 크래시</td>
+<td>폼 렌더 폴링 + <code>evaluate()</code> 채움</td>
+</tr>
+<tr>
+<td>TSSESSION 유실</td>
+<td>재실행마다 재로그인(CAPTCHA)</td>
+<td>state.json 복원 + expires 보정</td>
+</tr>
+<tr>
+<td>헤드리스 반복 로그인</td>
+<td>CAPTCHA</td>
+<td>쿨다운 15-30분</td>
+</tr>
+<tr>
+<td><code>setContent</code>만 호출</td>
+<td>본문 빵꾸</td>
+<td><code>editor.save()</code> 동기화 + 길이 검증</td>
+</tr>
+<tr>
+<td><code>.thum:empty</code></td>
+<td>썸네일 안 사라짐</td>
+<td><code>.thum {display:none!important}</code></td>
+</tr>
+<tr>
+<td>테이블 가로 넘침</td>
+<td>모바일 짤림</td>
+<td><code>overflow-wrap:anywhere</code> + <code>overflow-x:auto</code></td>
+</tr>
+<tr>
+<td><code>networkidle</code> 타임아웃</td>
+<td>느린 폰 네트워크</td>
+<td><code>domcontentloaded</code> + sleep</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="8">8. 관련 문서</h2>
+<pre><code>코드
+├── tistory-naver/apply_layout.py     → 주입 + 테마 생성 (본문 4장)
+├── tistory-naver/batch_apply.py      → 일괄 적용 + 로그인
+├── tistory-naver/skin-premium.css    → 다크 스킨 + S21 시그니처 + :root 토큰
+└── tistory-naver/post.py             → 발행 (댓글 비허용 강제)
+
+수첩
+├── 75-translation-logic-management_Claude.md  → 출판부 규칙
+├── tistory-master-guide_Claude.md             → 5채널 전략·Paste Pipeline
+└── 99-devlog.md                                → 전체 타임라인
+
+메모리
+├── tistory-skin-switch          → Whatever 스킨 전환
+├── tistory-orbital-skin         → 다크 스킨 API 주입
+├── tistory-s21-signature-design → S21 시그니처
+└── tistory-comments-disabled    → 댓글 금지
+</code></pre>
+<hr>
+<p><em>agent _Claude · 2026-08-15 · 리버스 엔지니어링 연대기 + 스킨 아키텍처 + 테마 시스템 종합</em></p>
+  </article>
+  <nav class="wz-pager">
+    <a class="" href="91-mynote-care-daemon-dev-plan_Claude.html">
+          <span class="dir">Previous</span>
+          <span class="title">mynote11605 돌봄 데몬 채널 — 개발 계획서 (Season 1) (_Claude)</span>
+        </a>
+    <a class="next" href="94-three-week-review_Claude.html">
+          <span class="dir">Next</span>
+          <span class="title">3주 만에 1인 미디어 스튜디오 — 회고</span>
+        </a>
+  </nav>
+  <div class="wz-related">
+          <h2>같은 섹션</h2>
+          <div class="grid"><a href="00-INDEX.html"><strong>📖 S21 Phone 업무 수첩 — 전체 목차</strong>구축: 2026-07-23 ~ 2026-08-14 (23일)</a><a href="01-arch.html"><strong>전체 시스템 아키텍처</strong>Notebook</a><a href="02-discord.html"><strong>디스코드 서버/봇/위젯</strong>Notebook</a><a href="03-telegram.html"><strong>텔레그램 봇/회의실</strong>Notebook</a><a href="04-github-pages.html"><strong>GitHub Pages + Giscus + WidgetBot</strong>Notebook</a><a href="05-tistory.html"><strong>블로그 포트폴리오 + 자동화 전략</strong>Notebook</a></div>
+        </div>
+  <footer class="wz-foot">
+    <div>S21 PHONE · Webzine lakme-audio</div>
+    <div class="gold">모든 계정은 누나 명의입니다.</div>
+    <p style="margin-top:12px"><a href="../index.html">← Back to landing</a></p>
+  </footer>
+</main>
+<div class="wz-float">
+  <button type="button" id="wzTop" aria-label="Top">↑</button>
+  <button type="button" data-theme-toggle aria-label="Theme">◐</button>
+</div>
+<script src="../assets/webzine.js"></script>
+</body>
+</html>

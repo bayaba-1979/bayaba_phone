@@ -227,6 +227,12 @@ NOTEBOOK_TITLES = {
     "90-midpoint-consolidation-2026-08-14_Boss.md": "중간점 랩업 (5년차 폰 · 확장→다듬기 전환)",
     "91-automation-caution_Claude.md": "GUI 자동화 주의사항 (사람 손가락 착각)",
     "92-automation-line-boss-to-publish_Claude.md": "자동화 라인 (Boss 던짐 → 형태별 분기 발행)",
+    "90-mynote-care-daemon-plan_Claude.md": "돌봄 데몬 채널 개편 플랜 (mynote11605)",
+    "91-mynote-care-daemon-dev-plan_Claude.md": "돌봄 데몬 채널 개발 계획서 (Season 1)",
+    "93-tistory-skin-reverse-engineering_Claude.md": "티스토리 스킨 적용 — 리버스 엔지니어링 완전 해부",
+    "94-three-week-review_Claude.md": "3주 만에 1인 미디어 스튜디오 — 회고",
+    "95-publishing-bootstrap-doctor_Claude.md": "출판 파이프라인 부트스트랩 + 출판 doctor 설계",
+    "96-brand-theses_Claude.md": "명제 인벤토리 — 폰 한 대가 곧 ___",
 }
 
 # Auto-discover every _notebook/*.md (overrides in NOTEBOOK_TITLES)

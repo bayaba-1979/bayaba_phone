@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="&quot;기술이 어려운 게 아니라 **첫 3시간**이 어렵다.&quot; 진입장벽 3중(Termux·AI CLI·출판 시스템)을 **설치기 + 진단기 + 출판 명령어** 3종으로 5~10분에 압축하면 &quot;개발자용 도구&quot;가 &quot;출판자가 쓰는 도구&quot;로 넘어간다. — S21 Phone Webzine">
+<meta name="theme-color" content="#0a0908">
+<meta name="application-name" content="S21 Phone">
+<title>출판 파이프라인 — 원클릭 부트스트랩 + 출판 doctor 설계 — S21 Phone Webzine</title>
+<link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/webzine.css">
+</head>
+<body>
+<div class="spine" aria-hidden="true"><div class="spine-fill" id="spineFill"></div></div>
+<header class="wz-mast">
+  <a class="brand" href="../index.html">S21 <em>Phone</em></a>
+  <div class="wz-mast-actions">
+    <button type="button" class="wz-burger" data-nav-toggle aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav class="wz-nav">
+      <a href="../index.html">Home</a>
+      <a href="../archive.html">Archive</a>
+      <a href="../index.html#library">Library</a>
+      <a href="../index.html#agents">Agents</a>
+      <button type="button" data-theme-toggle>Theme</button>
+      <a class="pill gold" href="../index.html#install">Install</a>
+    </nav>
+  </div>
+</header>
+<main class="wz-shell">
+  <div class="wz-crumb">
+    <a href="../index.html">Webzine</a><span class="sep">/</span>
+    <span>Notebook</span><span class="sep">/</span>
+    <span>출판 파이프라인 — 원클릭 부트스트랩 + 출판 doctor 설계</span>
+  </div>
+  <header class="wz-hero">
+    <div class="wz-kicker">Notebook · lakme-audio</div>
+    <h1>출판 파이프라인 — 원클릭 부트스트랩 + 출판 doctor 설계</h1>
+    <p class="deck">&quot;기술이 어려운 게 아니라 **첫 3시간**이 어렵다.&quot; 진입장벽 3중(Termux·AI CLI·출판 시스템)을 **설치기 + 진단기 + 출판 명령어** 3종으로 5~10분에 압축하면 &quot;개발자용 도구&quot;가 &quot;출판자가 쓰는 도구&quot;로 넘어간다.</p>
+    <div class="wz-meta">
+      <span>Source · _notebook/95-publishing-bootstrap-doctor_Claude.md</span>
+      <span>Kind · markdown</span>
+      <span>S21 Phone Editorial</span>
+    </div>
+  </header>
+  <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
+<ul>
+<li><a href="#_1">배경 — 왜 이 설계가 나왔나</a><ul>
+<li><a href="#3">진입장벽 3중</a></li>
+<li><a href="#reddit-termux">커뮤니티 실증 (Reddit / Termux)</a></li>
+</ul>
+</li>
+<li><a href="#_2">핵심 통찰</a></li>
+<li><a href="#1-one-click-bootstrap">설계 1 — ONE-CLICK BOOTSTRAP (설치기)</a></li>
+<li><a href="#2-doctor">설계 2 — 출판 doctor (진단기)</a></li>
+<li><a href="#3_1">설계 3 — 출판 명령어</a></li>
+<li><a href="#_3">보안 설계 (필수)</a></li>
+<li><a href="#_4">전환점 — 상품 정의</a></li>
+<li><a href="#_5">다음 스텝 (스코프)</a></li>
+</ul>
+</div>
+</nav>
+  <div class="wz-appbar" role="toolbar" aria-label="Document tools">
+    <input type="search" id="wzSearch" class="wz-search" placeholder="페이지 내 검색…" autocomplete="off">
+    <button type="button" id="wzFoldAll" data-cursor>접기</button>
+    <button type="button" id="wzExpandAll" data-cursor>펼치기</button>
+    <button type="button" id="wzCopy" data-cursor>본문 복사</button>
+  </div>
+  <article class="wz-prose" id="wzProse" data-app="doc">
+    <blockquote>
+<p>&ldquo;기술이 어려운 게 아니라 <strong>첫 3시간</strong>이 어렵다.&rdquo; 진입장벽 3중(Termux·AI CLI·출판 시스템)을 <strong>설치기 + 진단기 + 출판 명령어</strong> 3종으로 5~10분에 압축하면 &ldquo;개발자용 도구&rdquo;가 &ldquo;출판자가 쓰는 도구&rdquo;로 넘어간다.</p>
+</blockquote>
+<hr>
+<h2 id="_1">배경 — 왜 이 설계가 나왔나</h2>
+<p>커뮤니티 리서치에서 확인된 것: 이 구조(말 → 검증 → 원본 Git 보존 → Pages+Tistory 동시 출판)의 상품성은 <strong>교육·출판 시장</strong>에 있다. 교사·강사·연구자·교육기관이 &ldquo;말로만 콘텐츠를 만들고 영구 보존·자동 출판&rdquo;하는 가치를 바로 알아듣는다.</p>
+<p>그런데 그 상품화의 <strong>진짜 장벽은 기술이 아니라 진입(온보딩)</strong>이다. 이 구조를 남에게 설명하며 설치시키는 일이 &ldquo;교육 콘텐츠&rdquo;가 아니라 &ldquo;설치 지원 업무&rdquo;가 되어버린다.</p>
+<h3 id="3">진입장벽 3중</h3>
+<table>
+<thead>
+<tr>
+<th>층</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>① Termux</td>
+<td><code>pkg</code>·<code>python</code>·<code>pip</code>·PATH·저장소 권한·실행 권한부터 낯설음</td>
+</tr>
+<tr>
+<td>② AI CLI</td>
+<td>Aider 설치 + provider·API endpoint·API key·환경변수·Git 설정 맞추기</td>
+</tr>
+<tr>
+<td>③ 출판 시스템</td>
+<td>GitHub 인증 → repo → Pages → 빌드 → Tistory → 자동화</td>
+</tr>
+</tbody>
+</table>
+<h3 id="reddit-termux">커뮤니티 실증 (Reddit / Termux)</h3>
+<ul>
+<li><code>r/termux</code>에서 Aider 설치가 <strong>multidict·numpy·scipy</strong>에서 막힌 사례가 실제 존재.</li>
+<li>DeepSeek 사용자: Aider를 두고 <strong>&ldquo;설치가 고통스러웠다&rdquo;</strong> — 여러 agent harness를 갈아타며 설정 문제를 겪음.</li>
+<li>Termux에서 AI 에이전트 설치 = 패키지 설치 → CLI 설치 → 모델/API 설정 → WebUI 설치의 <strong>다단계</strong>.</li>
+<li>반대로 최근엔 <strong>Termux 특수 환경을 이해하도록 만든 전용 AI 도구</strong>가 등장할 정도로, 환경 구축 자체가 사용자에게 큰 장벽.</li>
+</ul>
+<hr>
+<h2 id="_2">핵심 통찰</h2>
+<blockquote>
+<p><strong>기술이 어렵지 않다. 첫 3시간이 어렵다.</strong></p>
+</blockquote>
+<p>그 3시간을 인스톨러가 5~10분으로 압축하면 이야기가 완전히 달라진다. 그래서 지금 필요한 건 <strong>설명서가 아니라 3종 도구</strong>다:</p>
+<ol>
+<li><strong>설치기</strong> (ONE-CLICK BOOTSTRAP)</li>
+<li><strong>진단기</strong> (출판 doctor)</li>
+<li><strong>출판 명령어</strong> (말로 출판)</li>
+</ol>
+<p>이 셋이 붙어야 &ldquo;나 혼자 쓰는 시스템&rdquo;이 &ldquo;남에게 가르칠 수 있는 시스템&rdquo;이 된다.</p>
+<hr>
+<h2 id="1-one-click-bootstrap">설계 1 — ONE-CLICK BOOTSTRAP (설치기)</h2>
+<p>사용자는 딱 하나만 실행한다:</p>
+<pre><code>Termux 설치 → 제공된 설치 명령 1개
+</code></pre>
+<p>그 명령이 자동으로:</p>
+<ol>
+<li>Termux 환경 검사</li>
+<li>필요 패키지 설치</li>
+<li>Python / Git 확인</li>
+<li>Aider 설치</li>
+<li>설정 파일 생성</li>
+<li>API 인증 안내</li>
+<li>GitHub CLI / 인증</li>
+<li>작업 디렉터리 생성</li>
+<li>출판 템플릿 설치</li>
+<li>빌드 도구 설치</li>
+<li>테스트</li>
+<li>샘플 프로젝트 생성</li>
+</ol>
+<p>→ 끝: <strong>&ldquo;설치 완료 — 출판이라고 말하세요.&rdquo;</strong></p>
+<p>선생님 버전 비교:</p>
+<ul>
+<li>❌ &ldquo;Termux 설치하고 Python 환경 구축한 다음 GitHub CLI 인증하고 Aider에 DeepSeek API 연결한 다음 repo clone하고…&rdquo; → <strong>90% 첫날 탈락</strong></li>
+<li>✅ &ldquo;이거 설치하세요. 끝나면 출판 준비 완료라고 뜹니다.&rdquo; → <strong>완전히 다른 상품</strong></li>
+</ul>
+<hr>
+<h2 id="2-doctor">설계 2 — 출판 doctor (진단기)</h2>
+<p>문제가 생기면 <code>출판 doctor</code> 한 줄로 환경 전체를 검사, 깨진 곳을 <strong>한국어로</strong> 알려준다:</p>
+<pre><code>✓ Termux
+✓ Python
+✓ Git
+✓ Aider
+✓ API 인증
+✓ GitHub 인증
+✓ Repository
+✓ Pages
+✓ Tistory 설정
+✓ Renderer
+✓ Publishing pipeline
+</code></pre>
+<p>→ &ldquo;남의 컴퓨터 붙잡고 &lsquo;이거 입력하세요 → 뭐 떴어요? → 그거 말고요&rsquo; 하는 지옥&rdquo;에서 해방.</p>
+<hr>
+<h2 id="3_1">설계 3 — 출판 명령어</h2>
+<p>설치·진단이 끝나면 실제 일은 &ldquo;말로&rdquo; 한다. 원고 하나 = <code>출판 &lt;제목&gt;</code> 정도로 게이트·빌드·Pages·Tistory 동시 발행까지 이어지게.</p>
+<hr>
+<h2 id="_3">보안 설계 (필수)</h2>
+<ul>
+<li><strong>API 키를 설치 스크립트 안에 박아 넣지 않는다.</strong></li>
+<li>사용자가 <strong>직접 한 번 입력/인증</strong> → 설치기는 그 값을 <strong>안전하게 로컬 설정</strong>에 저장.</li>
+<li><strong>GitHub 인증도 사용자가 직접</strong> (<code>gh auth login</code>).</li>
+<li><strong>책임 분리:</strong> 설치기 = 환경 구축, 사용자 = 자기 계정 인증.</li>
+</ul>
+<hr>
+<h2 id="_4">전환점 — 상품 정의</h2>
+<table>
+<thead>
+<tr>
+<th>전</th>
+<th>후</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&ldquo;티스토리 자동화&rdquo;</td>
+<td><strong>&ldquo;말로 콘텐츠를 만들고 원본을 영구 보존하며 웹·인터랙티브·웹진까지 자동 출판하는 AI 출판 파이프라인&rdquo;</strong></td>
+</tr>
+<tr>
+<td>개발자용 도구</td>
+<td>출판자가 쓰는 도구</td>
+</tr>
+<tr>
+<td>설명서를 가르침</td>
+<td>설치기·진단기·명령어를 배포</td>
+</tr>
+</tbody>
+</table>
+<p><strong>핵심 자산은 코드가 아니라 이 구조의 방법론·템플릿·운영 규칙</strong> — 지금 <code>_notebook</code>에 쌓여 있는 절차들.</p>
+<hr>
+<h2 id="_5">다음 스텝 (스코프)</h2>
+<ul>
+<li>[ ] <code>bootstrap.sh</code> 스캐폴드 — 위 12단계를 한 스크립트로 (환경 검사→설치→샘플→완료 문구)</li>
+<li>[ ] <code>doctor.sh</code> — 11개 체크 항목 + 한국어 진단 출력</li>
+<li>[ ] <code>출판</code> 명령 래퍼 — 원고 → 게이트 → 페어 빌드 → Pages + Tistory</li>
+<li>[ ] 보안 경계 — API 키/GitHub 인증은 사용자 직접, 스크립트엔 비밀 하드코딩 금지</li>
+<li>[ ] (보류) 실제 배포 — 지금은 S21 특화, 일반화는 UX 한 겹 이후</li>
+</ul>
+<blockquote>
+<p>관련: [[surface-web-engine-native]] (티스토리=빌린 플랫폼, GitHub=SSOT) · [[reverse-publishing-pattern]] · [[tistory-textbook-methodology]]</p>
+</blockquote>
+  </article>
+  <nav class="wz-pager">
+    <a class="" href="94-three-week-review_Claude.html">
+          <span class="dir">Previous</span>
+          <span class="title">갤럭시 S21, 3주 만에 1인 미디어 스튜디오가 되다 — 회고</span>
+        </a>
+    <a class="next" href="96-brand-theses_Claude.html">
+          <span class="dir">Next</span>
+          <span class="title">명제 인벤토리 — 폰 한 대가 곧 ___</span>
+        </a>
+  </nav>
+  <div class="wz-related">
+          <h2>같은 섹션</h2>
+          <div class="grid"><a href="00-INDEX.html"><strong>📖 S21 Phone 업무 수첩 — 전체 목차</strong>구축: 2026-07-23 ~ 2026-08-14 (23일)</a><a href="01-arch.html"><strong>전체 시스템 아키텍처</strong>Notebook</a><a href="02-discord.html"><strong>디스코드 서버/봇/위젯</strong>Notebook</a><a href="03-telegram.html"><strong>텔레그램 봇/회의실</strong>Notebook</a><a href="04-github-pages.html"><strong>GitHub Pages + Giscus + WidgetBot</strong>Notebook</a><a href="05-tistory.html"><strong>블로그 포트폴리오 + 자동화 전략</strong>Notebook</a></div>
+        </div>
+  <footer class="wz-foot">
+    <div>S21 PHONE · Webzine lakme-audio</div>
+    <div class="gold">모든 계정은 누나 명의입니다.</div>
+    <p style="margin-top:12px"><a href="../index.html">← Back to landing</a></p>
+  </footer>
+</main>
+<div class="wz-float">
+  <button type="button" id="wzTop" aria-label="Top">↑</button>
+  <button type="button" data-theme-toggle aria-label="Theme">◐</button>
+</div>
+<script src="../assets/webzine.js"></script>
+</body>
+</html>
