@@ -1,0 +1,217 @@
+{
+  "generated": "2026-08-15 14:39",
+  "matched": 12,
+  "total_posts": 26,
+  "posts": {
+    "06-youtube.md": {
+      "id": "35",
+      "permalink": "https://galaxys21-pwuser.tistory.com/35",
+      "title": "YouTube 채널 아키텍처",
+      "published": "2026-08-15 01:14",
+      "categoryId": "0",
+      "category": "카테고리 없음"
+    },
+    "05-tistory.md": {
+      "id": "34",
+      "permalink": "https://galaxys21-pwuser.tistory.com/34",
+      "title": "블로그 포트폴리오 + 자동화 전략",
+      "published": "2026-08-15 01:13",
+      "categoryId": "0",
+      "category": "카테고리 없음"
+    },
+    "00-INDEX.md": {
+      "id": "33",
+      "permalink": "https://galaxys21-pwuser.tistory.com/33",
+      "title": "📖 S21 Phone 업무 수첩 — 전체 목차",
+      "published": "2026-08-15 01:13",
+      "categoryId": "0",
+      "category": "카테고리 없음"
+    },
+    "12-dtslib-gift.md": {
+      "id": "32",
+      "permalink": "https://galaxys21-pwuser.tistory.com/32",
+      "title": "🎁 REDACTED 선물 패키지 분석서",
+      "published": "2026-08-15 01:00",
+      "categoryId": "0",
+      "category": "카테고리 없음"
+    },
+    "11-health.md": {
+      "id": "31",
+      "permalink": "https://galaxys21-pwuser.tistory.com/31",
+      "title": "S21 Phone 건강 검진 시스템",
+      "published": "2026-08-15 01:00",
+      "categoryId": "0",
+      "category": "카테고리 없음"
+    },
+    "10-phone-mcp.md": {
+      "id": "30",
+      "permalink": "https://galaxys21-pwuser.tistory.com/30",
+      "title": "phone-mcp-server — 핸드폰 통제 MCP",
+      "published": "2026-08-15 00:59",
+      "categoryId": "0",
+      "category": "카테고리 없음"
+    },
+    "08-secrets.md": {
+      "id": "29",
+      "permalink": "https://galaxys21-pwuser.tistory.com/29",
+      "title": "비밀 관리 정책",
+      "published": "2026-08-15 00:59",
+      "categoryId": "0",
+      "category": "카테고리 없음"
+    },
+    "07-cli-reference.md": {
+      "id": "28",
+      "permalink": "https://galaxys21-pwuser.tistory.com/28",
+      "title": "자주 쓰는 명령어 모음",
+      "published": "2026-08-15 00:59",
+      "categoryId": "0",
+      "category": "카테고리 없음"
+    },
+    "04-github-pages.md": {
+      "id": "27",
+      "permalink": "https://galaxys21-pwuser.tistory.com/27",
+      "title": "GitHub Pages + Giscus + WidgetBot",
+      "published": "2026-08-15 00:56",
+      "categoryId": "0",
+      "category": "카테고리 없음"
+    },
+    "03-telegram.md": {
+      "id": "26",
+      "permalink": "https://galaxys21-pwuser.tistory.com/26",
+      "title": "텔레그램 봇/회의실",
+      "published": "2026-08-15 00:56",
+      "categoryId": "0",
+      "category": "카테고리 없음"
+    },
+    "02-discord.md": {
+      "id": "25",
+      "permalink": "https://galaxys21-pwuser.tistory.com/25",
+      "title": "디스코드 서버/봇/위젯",
+      "published": "2026-08-15 00:55",
+      "categoryId": "0",
+      "category": "카테고리 없음"
+    },
+    "01-arch.md": {
+      "id": "24",
+      "permalink": "https://galaxys21-pwuser.tistory.com/24",
+      "title": "전체 시스템 아키텍처",
+      "published": "2026-08-15 00:55",
+      "categoryId": "0",
+      "category": "카테고리 없음"
+    }
+  },
+  "unmatched_posts": [
+    {
+      "id": "23",
+      "permalink": "https://galaxys21-pwuser.tistory.com/23",
+      "title": "2.3 Telegram 봇 구축",
+      "published": "2026-08-14 18:32",
+      "categoryId": "1320810",
+      "category": "PART 2: 인프라/Ch2.1 텔레그램·보고회의실"
+    },
+    {
+      "id": "22",
+      "permalink": "https://galaxys21-pwuser.tistory.com/22",
+      "title": "저장공간 관리",
+      "published": "2026-08-14 18:31",
+      "categoryId": "1320813",
+      "category": "PART 2: 인프라/Ch2.4 건강체크·돌봄 데몬"
+    },
+    {
+      "id": "21",
+      "permalink": "https://galaxys21-pwuser.tistory.com/21",
+      "title": "1.2 proot Ubuntu 설치",
+      "published": "2026-08-14 18:31",
+      "categoryId": "1320806",
+      "category": "PART 1: 온보딩/Ch1.2 Termux·proot·Ubuntu"
+    },
+    {
+      "id": "20",
+      "permalink": "https://galaxys21-pwuser.tistory.com/20",
+      "title": "phone-mcp-server",
+      "published": "2026-08-14 18:31",
+      "categoryId": "1320812",
+      "category": "PART 2: 인프라/Ch2.3 Phone MCP·하드웨어 제어"
+    },
+    {
+      "id": "19",
+      "permalink": "https://galaxys21-pwuser.tistory.com/19",
+      "title": "성능 튜닝",
+      "published": "2026-08-14 18:30",
+      "categoryId": "1320813",
+      "category": "PART 2: 인프라/Ch2.4 건강체크·돌봄 데몬"
+    },
+    {
+      "id": "18",
+      "permalink": "https://galaxys21-pwuser.tistory.com/18",
+      "title": "네이버 블로그 — Marine Quilt (손바느질 발행)",
+      "published": "2026-08-14 18:30",
+      "categoryId": "1320830",
+      "category": "PART 5: 출판·배포/Ch5.3 YouTube·네이버 연동"
+    },
+    {
+      "id": "17",
+      "permalink": "https://galaxys21-pwuser.tistory.com/17",
+      "title": "건강 검진 시스템",
+      "published": "2026-08-14 18:30",
+      "categoryId": "1320813",
+      "category": "PART 2: 인프라/Ch2.4 건강체크·돌봄 데몬"
+    },
+    {
+      "id": "16",
+      "permalink": "https://galaxys21-pwuser.tistory.com/16",
+      "title": "2.1 GitHub Pages + Giscus 댓글",
+      "published": "2026-08-14 18:29",
+      "categoryId": "1320808",
+      "category": "PART 1: 온보딩/Ch1.4 GitHub·Pages·무료전시장"
+    },
+    {
+      "id": "15",
+      "permalink": "https://galaxys21-pwuser.tistory.com/15",
+      "title": "1.4 Git/GitHub 연결",
+      "published": "2026-08-14 18:29",
+      "categoryId": "1320808",
+      "category": "PART 1: 온보딩/Ch1.4 GitHub·Pages·무료전시장"
+    },
+    {
+      "id": "14",
+      "permalink": "https://galaxys21-pwuser.tistory.com/14",
+      "title": "2.2 Discord 서버 구축",
+      "published": "2026-08-14 18:28",
+      "categoryId": "1320811",
+      "category": "PART 2: 인프라/Ch2.2 Discord·커뮤니티"
+    },
+    {
+      "id": "13",
+      "permalink": "https://galaxys21-pwuser.tistory.com/13",
+      "title": "1.3 Claude Code + DeepSeek",
+      "published": "2026-08-14 18:28",
+      "categoryId": "1320807",
+      "category": "PART 1: 온보딩/Ch1.3 Claude Code·DeepSeek 배선"
+    },
+    {
+      "id": "12",
+      "permalink": "https://galaxys21-pwuser.tistory.com/12",
+      "title": "배터리 최적화",
+      "published": "2026-08-14 18:28",
+      "categoryId": "1320813",
+      "category": "PART 2: 인프라/Ch2.4 건강체크·돌봄 데몬"
+    },
+    {
+      "id": "11",
+      "permalink": "https://galaxys21-pwuser.tistory.com/11",
+      "title": "📖 S21 Phone 마법 공방 — 설치 설명서",
+      "published": "2026-08-14 18:25",
+      "categoryId": "1320805",
+      "category": "PART 1: 온보딩/Ch1.1 워크스테이션 백서"
+    },
+    {
+      "id": "10",
+      "permalink": "https://galaxys21-pwuser.tistory.com/10",
+      "title": "포스팅 맵",
+      "published": "2026-08-10 21:35",
+      "categoryId": "1319541",
+      "category": "설정"
+    }
+  ]
+}

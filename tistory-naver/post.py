@@ -172,24 +172,28 @@ async def ensure_logged_in(page, email, pw):
 
 
 # ── 포스트 발행 ─────────────────────────────────────────────
-async def publish_post(page, post: dict):
-    slug    = post["blog"]
-    title   = post.get("title", "")
-    content = post.get("content", "")
-    tags    = post.get("tags", [])
-    cat     = post.get("category", "")
-    vis     = post.get("visibility", "public")
+async def _fill_and_save(page, slug: str, post_id: int | None, title: str,
+                         content: str, tags: list, cat: str, vis: str) -> bool:
+    """신규(post_id=None) 또는 기존 글 수정(post_id 지정) — 에디터 채우고 발행.
 
-    write_url = f"https://{slug}.tistory.com/manage/newpost/?type=post"
-    log(f"  [{slug}] 에디터 접근: {write_url}")
+    기존 글 수정은 같은 에디터(/manage/newpost/{id}?type=post)를 쓰므로
+    제목/본문/카테고리/발행 흐름이 신규와 동일하다. 수정 모드일 땐 기존 제목을
+    지우고 다시 타이핑한다. republish.py 가 이 함수를 재사용한다."""
+    write_url = (f"https://{slug}.tistory.com/manage/newpost/{post_id}?type=post"
+                 if post_id else f"https://{slug}.tistory.com/manage/newpost/?type=post")
+    log(f"  [{slug}] 에디터 접근{' (수정)' if post_id else ''}: {write_url}")
     await page.goto(write_url, wait_until="networkidle", timeout=30000)
     await page.wait_for_timeout(8000)
 
     # ── 제목 입력 (실제 타이핑 — React controlled input은 evaluate로 상태 미반영) ──
     try:
-        await page.locator("#post-title-inp").first.click()
+        tbox = page.locator("#post-title-inp").first
+        await tbox.click()
+        if post_id:
+            await page.keyboard.press("Control+A")
+            await page.wait_for_timeout(150)
         await page.keyboard.type(title, delay=0)
-        log(f"  [{slug}] 제목 입력 OK (typing)")
+        log(f"  [{slug}] 제목 입력 OK (typing{'/수정' if post_id else ''})")
     except Exception as e:
         log(f"  [{slug}] 제목 타이핑 실패: {e}")
 
@@ -311,6 +315,20 @@ async def publish_post(page, post: dict):
         RESULTS["fail"].append(f"{slug}:{title[:20]}")
 
     return published
+
+
+async def publish_post(page, post: dict) -> bool:
+    """posts/*.json 한 건을 신규 발행한다 (기존 _fill_and_save 의 얇은 래퍼)."""
+    return await _fill_and_save(
+        page,
+        post["blog"],
+        None,
+        post.get("title", ""),
+        post.get("content", ""),
+        post.get("tags", []),
+        post.get("category", ""),
+        post.get("visibility", "public"),
+    )
 
 
 # ── 계정별 처리 ─────────────────────────────────────────────
