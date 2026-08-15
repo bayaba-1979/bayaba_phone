@@ -106,12 +106,13 @@ THEME_MAP = {
         "stars": 12, "meteors": 2, "pace": 2.0, "seed": 3,
         "meteor_ang": "-30deg", "meteor_dx": "-120px", "meteor_dy": "70px",
     },
-    "mynote": {  # 노트·기록 — 웜그레이-세피아(종이), 짧은 펜 스트로크
+    "mynote": {  # 돌봄 데몬 교재 — 웜 앰버 '모니터 대시보드' (장식 저강도, 콘텐츠 우선)
+        "variant": "dashboard",
         "accent": "#e8a35a", "accent_rgb": "232, 163, 90",
         "accent2": "#c8c2b8", "accent2_rgb": "200, 194, 184",
-        "nebula_a": "rgba(232, 163, 90, 0.48)",
-        "nebula_b": "rgba(200, 194, 184, 0.42)",
-        "nebula_c": "rgba(120, 110, 96, 0.30)",
+        "nebula_a": "rgba(232, 163, 90, 0.16)",
+        "nebula_b": "rgba(200, 194, 184, 0.14)",
+        "nebula_c": "rgba(120, 110, 96, 0.10)",
         "star1": "#f5efe6", "star2": "#ffc98a", "star3": "#d8d0c4",
         "meteor": "#f0c898",
         "stars": 18, "meteors": 3, "pace": 1.15, "seed": 42,
@@ -168,11 +169,74 @@ def _theme_override(theme):
     return '<style id="s21-theme">\n:root {\n  ' + "\n  ".join(lines) + "\n}\n</style>"
 
 
+def _dashboard_style():
+    """mynote 전용 '돌봄 데몬 대시보드' 변형 — 별/유성/성운/베젤 알파 ≤0.2, 콘텐츠 우선."""
+    return '''<style id="s21-dashboard">
+/* ── 돌봄 데몬 대시보드 (mynote 전용) — 장식 저강도 + 시스템 라벨 + 모바일 IA ── */
+/* 1) 파티클 저강도 */
+#s21-particles i {
+  box-shadow: 0 0 5px rgba(var(--s21-accent-rgb), 0.30), 0 0 11px rgba(var(--s21-accent-rgb), 0.14);
+}
+#s21-particles b {
+  opacity: 0.55;
+  box-shadow: 0 0 3px var(--s21-meteor), 0 0 8px rgba(var(--s21-accent-rgb), 0.28);
+}
+@keyframes s21-twinkle {
+  0%, 100% { opacity: 0.14; transform: scale(0.8); }
+  50%      { opacity: 0.30; transform: scale(1.12); }
+}
+#s21-bezel { border-color: rgba(var(--s21-accent-rgb), 0.20); }
+@keyframes s21-breathe {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(var(--s21-accent2-rgb), 0.06), 0 0 16px -6px rgba(var(--s21-accent-rgb), 0.15); }
+  50%      { box-shadow: 0 0 0 1px rgba(var(--s21-accent2-rgb), 0.14), 0 0 28px -4px rgba(var(--s21-accent-rgb), 0.24); }
+}
+
+/* 2) 시스템 라벨 톤 (모니터링 대시보드) */
+#category-nav .cat-title,
+.hgroup .category, .hgroup .category a {
+  font-family: 'SFMono-Regular', 'JetBrains Mono', Consolas, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+#category-nav .cat-title { color: var(--s21-accent); border-left-color: rgba(var(--s21-accent-rgb), 0.6); }
+#category-nav div[id^="text_"] { font-size: 13px; }
+#category-nav .c_cnt { font-family: 'SFMono-Regular', 'JetBrains Mono', Consolas, monospace; }
+.hgroup .category { font-size: 12px; }
+
+/* 3) 모바일 IA — 카테고리 접기 + 44px 터치 타깃 */
+@media (max-width: 900px) {
+  #category-nav { padding: 14px 16px; border-radius: 16px; }
+  #category-nav .cat-title {
+    cursor: pointer; margin: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 0;
+  }
+  #category-nav .cat-title::after { content: "▾"; font-size: 12px; opacity: 0.7; }
+  #category-nav.open .cat-title::after { content: "▴"; }
+  #category-nav .cat-tree { max-height: 0; overflow: hidden; transition: max-height .22s ease; }
+  #category-nav.open .cat-tree { max-height: 48vh; overflow-y: auto; }
+  #zoom-ctrl button { height: 44px; }
+  #category-nav div[id^="text_"] { min-height: 40px; }
+  #category-nav li a { padding: 10px 0; }
+}
+</style>'''
+
+
+def _dashboard_script():
+    """mynote 모바일 카테고리 접기 토글 (≤900px 에서만 활성)."""
+    return '''<script>
+(function(){var n=document.getElementById('category-nav'),t=n&&n.querySelector('.cat-title');if(n&&t&&window.matchMedia('(max-width:900px)').matches){t.addEventListener('click',function(){n.classList.toggle('open');});}})();
+</script>'''
+
+
 def render_layout(theme):
     """블로그 테마 → 마커 감싼 최종 레이아웃 HTML (카테고리+줌+스타필드+테마 override)."""
     stars, meteors = _starfield(theme)
     body = _LAYOUT_BODY.replace("<!--STARS-->", stars).replace("<!--METEORS-->", meteors)
     body += "\n" + _theme_override(theme)
+    if theme.get("variant") == "dashboard":
+        body += "\n" + _dashboard_style()
+        body += "\n" + _dashboard_script()
     return HTML_START + "\n" + body + "\n" + HTML_END
 
 
