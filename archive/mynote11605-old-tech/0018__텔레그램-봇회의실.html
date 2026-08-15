@@ -1,0 +1,134 @@
+<div class="s21-post">
+<style>
+.s21-post{max-width:760px;margin:0 auto;font-family:-apple-system,'Apple SD Gothic Neo',Malgun Gothic,'Noto Sans KR',sans-serif;color:#1f2937;line-height:1.7;font-size:15px;word-break:keep-all}
+.s21-post a{color:#0f766e;text-decoration:none;border-bottom:1px solid #99f6e4}
+.s21-toolbar{display:flex;gap:8px;margin:14px 0 6px}
+.s21-btn{appearance:none;border:1px solid #14b8a6;background:#fff;color:#0f766e;font-size:13px;font-weight:600;padding:7px 14px;border-radius:999px;cursor:pointer;transition:all .15s}
+.s21-btn:hover{background:#14b8a6;color:#fff}
+.s21-acc{border:1px solid #e5e7eb;border-radius:10px;margin:10px 0;background:#fff;overflow:hidden}
+.s21-acc>summary{cursor:pointer;padding:13px 16px;font-weight:700;font-size:16px;background:#f8fafc;list-style:none;display:flex;align-items:center;gap:8px}
+.s21-acc>summary::before{content:"▸";color:#14b8a6;font-size:14px;transition:transform .15s}
+.s21-acc[open]>summary::before{transform:rotate(90deg)}
+.s21-acc>summary:hover{background:#f0fdfa}
+.s21-acc-body{padding:6px 16px 14px}
+.s21-acc-body h3{margin:18px 0 6px;font-size:16px}
+.s21-code{position:relative;margin:12px 0}
+.s21-code pre{background:#0f172a;color:#e2e8f0;padding:16px;border-radius:8px;overflow-x:auto;margin:0;font-size:13px;line-height:1.55}
+.s21-code code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:transparent;color:inherit}
+.s21-copy{position:absolute;top:8px;right:8px;appearance:none;border:1px solid #334155;background:#1e293b;color:#cbd5e1;font-size:11px;padding:4px 10px;border-radius:6px;cursor:pointer}
+.s21-copy:hover{background:#334155;color:#fff}
+@media (prefers-color-scheme:dark){
+.s21-post{color:#e5e7eb}
+.s21-acc,.s21-btn,.s21-acc>summary{background:#111827;border-color:#374151;color:#e5e7eb}
+.s21-acc>summary:hover{background:#1f2937}
+.s21-btn:hover{background:#14b8a6;color:#fff}
+}
+</style>
+텔레그램 봇/회의실 5 SECTION 1 봇 정보 2 보고 스크립트 (`~/work/tg.sh`) 3 환경변수 4 텔레그램 API 자동화 키포인트 5 현재 상태 (2026-07-25)
+<div class="s21-toolbar"><button class="s21-btn" type="button" data-s21="expand">전체 펼치기</button><button class="s21-btn" type="button" data-s21="collapse">전체 접기</button></div>
+<div class="s21-intro">
+<h1>텔레그램 봇/회의실</h1>
+</div>
+<details class="s21-acc" open="">
+<summary class="s21-acc">봇 정보</summary>
+<div class="s21-acc-body">
+<table data-ke-align="alignLeft">
+<thead>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>봇 이름</td>
+<td>S21 Phone Bot</td>
+</tr>
+<tr>
+<td>봇 유저네임</td>
+<td>@S21Phone_Bot</td>
+</tr>
+<tr>
+<td>봇 토큰</td>
+<td><code>REDACTED:AAH...</code> (.secrets.env 참조)</td>
+</tr>
+<tr>
+<td>채팅방 ID</td>
+<td><code>REDACTED</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</details><details class="s21-acc">
+<summary class="s21-acc">보고 스크립트 (`~/work/tg.sh`)</summary>
+<div class="s21-acc-body">
+<div class="s21-code"><button class="s21-copy" title="코드 복사" type="button">복사</button>
+<pre class="bash"><code>#!/bin/bash
+# 사용법: bash ~/work/tg.sh "메시지 내용"
+TOKEN="${TG_TOKEN:-}"
+CHAT="${TG_CHAT:-}"
+curl -s -X POST "https://api.telegram.org/bot${TOKEN}/sendMessage" \
+  -d chat_id="$CHAT" -d text="$1"
+</code></pre>
+</div>
+</div>
+</details><details class="s21-acc">
+<summary class="s21-acc">환경변수</summary>
+<div class="s21-acc-body">
+<div class="s21-code"><button class="s21-copy" title="코드 복사" type="button">복사</button>
+<pre class="routeros"><code># .secrets.env 에서 로드
+source /root/work/.secrets.env
+# 또는 직접 export (토큰은 .secrets.env 참조)
+export TG_TOKEN="${TG_TOKEN:-}"
+export TG_CHAT="${TG_CHAT:-}"
+</code></pre>
+</div>
+</div>
+</details><details class="s21-acc">
+<summary class="s21-acc">텔레그램 API 자동화 키포인트</summary>
+<div class="s21-acc-body">
+<ul style="list-style-type: disc;" data-ke-list-type="disc">
+<li>봇 생성: <code>@BotFather</code> &rarr; <code>/newbot</code> (수동, 텔레그램 앱)</li>
+<li>메시지 수신 확인: <code>GET /bot{token}/getUpdates</code></li>
+<li>메시지 발송: <code>POST /bot{token}/sendMessage</code></li>
+<li>봇은 먼저 말을 못 검 &rarr; 사용자가 먼저 메시지 보내야 chat_id 생성됨</li>
+</ul>
+<hr data-ke-style="style1" /></div>
+</details><details class="s21-acc">
+<summary class="s21-acc">현재 상태 (2026-07-25)</summary>
+<div class="s21-acc-body">
+<ul style="list-style-type: disc;" data-ke-list-type="disc">
+<li>봇: @S21Phone_Bot ✅</li>
+<li>스크립트: tg.sh (36줄)</li>
+<li>용도: git push 보고&middot;건강검진&middot;돌봄 알림&middot;Paste Pipeline 배달</li>
+</ul>
+</div>
+</details>
+<script>
+(function(){
+  function qs(sel){return Array.prototype.slice.call(document.querySelectorAll(sel))}
+  // 전체 펼치기/접기
+  qs('[data-s21="expand"]').forEach(function(b){
+    b.addEventListener('click',function(){qs('details.s21-acc').forEach(function(d){d.open=true})})
+  });
+  qs('[data-s21="collapse"]').forEach(function(b){
+    b.addEventListener('click',function(){qs('details.s21-acc').forEach(function(d){d.open=false})})
+  });
+  // 코드 복사
+  qs('.s21-copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var code=b.parentNode.querySelector('code');
+      if(!code)return;
+      var txt=code.innerText;
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(function(){b.textContent='복사됨';setTimeout(function(){b.textContent='복사'},1500)});
+      }else{
+        var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();
+        try{document.execCommand('copy');b.textContent='복사됨'}catch(e){}
+        document.body.removeChild(ta);setTimeout(function(){b.textContent='복사'},1500);
+      }
+    })
+  });
+})();
+</script>
+</div>

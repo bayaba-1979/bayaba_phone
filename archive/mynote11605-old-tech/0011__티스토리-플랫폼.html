@@ -1,0 +1,618 @@
+<div>
+<style>
+:root{--bg:#f6f4f1;--s:#fefefe;--s2:#f0ede6;--t:#1e1b16;--t2:#4a443a;--t3:#7a7264;--bdr:#d9d2c2;--bdr2:#e8e3d8;--a:#2d5f7e;--a2:#3e7ca8;--al:#e6f0f7;--g:#3d6b4f;--gbg:#e8f0e8;--rd:#b8453c;--rbg:#faeaea;--p:#6e4f8c;--pbg:#f0e8f6;--y:#b8860b;--ybg:#fdf3e0;--bl:#3b6e8f;--bbg:#e6f0f7;--cbg:#f5f3ef;--sh:0 1px 3px rgba(30,27,22,0.05);--r:7px;--rs:4px;--ff:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;--ffm:"JetBrains Mono","D2Coding","Consolas",monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#181612;--s:#211e18;--s2:#29261f;--t:#e6e0d4;--t2:#a89e8c;--t3:#6e6456;--bdr:#3d3628;--bdr2:#332e22;--a:#5a9cc0;--a2:#6db8dc;--al:#1a2832;--g:#5a9a6e;--gbg:#1a2a1e;--rd:#d47068;--rbg:#2a1818;--p:#9b7ec8;--pbg:#221a2e;--y:#d4a840;--ybg:#2a2418;--bl:#5a9cc0;--bbg:#18242e;--cbg:#26231c}}
+:root[data-theme="dark"]{--bg:#181612;--s:#211e18;--s2:#29261f;--t:#e6e0d4;--t2:#a89e8c;--t3:#6e6456;--bdr:#3d3628;--bdr2:#332e22;--a:#5a9cc0;--a2:#6db8dc;--al:#1a2832;--g:#5a9a6e;--gbg:#1a2a1e;--rd:#d47068;--rbg:#2a1818;--p:#9b7ec8;--pbg:#221a2e;--y:#d4a840;--ybg:#2a2418;--bl:#5a9cc0;--bbg:#18242e;--cbg:#26231c}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);font-size:15px;line-height:1.78;color:var(--t);background:var(--bg);max-width:880px;margin:0 auto;padding:0 20px 80px}
+.hero{text-align:center;padding:32px 0 20px;border-bottom:2px solid var(--bdr);margin-bottom:24px}
+.hero .eyebrow{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;margin-bottom:6px;font-weight:700}
+.hero h1{font-size:1.7rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
+.hero .subtitle{font-size:.92rem;color:var(--t2)}
+section{margin-bottom:28px}
+h2{font-size:1.12rem;font-weight:800;border-bottom:1px solid var(--bdr);padding-bottom:7px;margin-bottom:12px;display:flex;align-items:center;gap:7px}
+h2 .ico{font-size:1.12rem}
+p{margin-bottom:8px;color:var(--t2)}
+p strong{color:var(--t)}
+pre{background:var(--cbg);padding:9px 12px;border-radius:var(--r);font-family:var(--ffm);font-size:.78rem;line-height:1.5;overflow-x:auto;margin-bottom:10px;border:1px solid var(--bdr2)}
+code{background:var(--cbg);padding:1px 5px;border-radius:var(--rs);font-family:var(--ffm);font-size:.85em}
+.card{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;box-shadow:var(--sh)}
+.card-hd{font-weight:800;font-size:.92rem;margin-bottom:3px;display:flex;align-items:center;gap:6px}
+.card-dsc{color:var(--t2);font-size:.85rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}}
+.tbl-wrap{overflow-x:auto;margin-bottom:10px;-webkit-overflow-scrolling:touch}
+.tbl-wrap table{min-width:600px}
+.eco-table{width:100%;border-collapse:collapse;margin-bottom:2px;font-size:.84rem;line-height:1.45}
+.eco-table th,.eco-table td{padding:6px 8px;border:1px solid var(--bdr2);text-align:left;vertical-align:top}
+.eco-table th{background:var(--s2);font-weight:700;font-size:.76rem;letter-spacing:.04em;color:var(--t);white-space:nowrap}
+.eco-table td{color:var(--t2)}
+.eco-table td a{color:var(--a);text-decoration:none;font-weight:600}
+.eco-table td a:hover{text-decoration:underline}
+.eco-table .ch-name{font-weight:800;color:var(--t);white-space:nowrap}
+.eco-table tr:hover td{background:var(--al)}
+.chip{display:inline-block;padding:2px 7px;border-radius:9px;font-size:.73rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.chip-ph{background:#d8e8f6;color:#1a4a6e}.chip-tch{background:#d4e8d8;color:#1a4a2e}.chip-fth{background:#fdf0d0;color:#6e5000}.chip-pno{background:#fcd8e6;color:#6e1840}.chip-psy{background:#e6d6f2;color:#3e1860}
+@media(prefers-color-scheme:dark){.chip-ph{background:#1a3048;color:#8cc8f0}.chip-tch{background:#1a3828;color:#8cd8a8}.chip-fth{background:#382a10;color:#e8c850}.chip-pno{background:#381a28;color:#f080a8}.chip-psy{background:#281a38;color:#b890e0}}
+details.acc{background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;box-shadow:var(--sh);overflow:hidden}
+details.acc>summary{padding:11px 14px;font-weight:700;font-size:.9rem;cursor:pointer;list-style:none;user-select:none;display:flex;align-items:center;gap:7px;color:var(--t);transition:background .15s}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"▸";font-size:.65rem;color:var(--a);transition:transform .2s;display:inline-block;min-width:10px;font-weight:900}
+details.acc[open]>summary::before{transform:rotate(90deg)}
+details.acc>summary:hover{background:var(--s2)}
+details.acc>.acc-body{padding:0 14px 14px}
+.tab-wrap{margin-bottom:10px}
+.tab-inputs{display:flex;gap:0;margin-bottom:-1px;flex-wrap:wrap}
+.tab-inputs label{padding:7px 12px;font-size:.8rem;font-weight:700;cursor:pointer;border:1px solid var(--bdr);border-radius:var(--r) var(--r) 0 0;background:var(--s2);color:var(--t3);margin-right:-1px;position:relative;z-index:1;user-select:none;transition:all .15s}
+.tab-inputs label:hover{color:var(--t);background:var(--s)}
+.tab-inputs input{display:none}
+.tab-inputs input:checked+label{background:var(--s);color:var(--a);border-bottom-color:var(--s);z-index:2}
+.tab-panels{background:var(--s);border:1px solid var(--bdr);border-radius:0 var(--r) var(--r) var(--r);padding:12px}
+.tab-panel{display:none}
+.tab-inputs input:nth-of-type(1):checked~.tab-panels .tab-panel:nth-of-type(1),.tab-inputs input:nth-of-type(2):checked~.tab-panels .tab-panel:nth-of-type(2),.tab-inputs input:nth-of-type(3):checked~.tab-panels .tab-panel:nth-of-type(3),.tab-inputs input:nth-of-type(4):checked~.tab-panels .tab-panel:nth-of-type(4){display:block}
+.status-ok{color:var(--g);font-weight:700}.status-warn{color:var(--y);font-weight:700}.status-manual{color:var(--a);font-weight:700}
+.badge{display:inline-block;padding:2px 7px;border-radius:8px;font-size:.7rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.badge-auto{background:var(--gbg);color:var(--g)}.badge-manual{background:var(--ybg);color:var(--y)}.badge-ai{background:var(--pbg);color:var(--p)}
+.counter-bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.counter{flex:1;min-width:80px;text-align:center;background:var(--s);border:1px solid var(--bdr);border-radius:var(--r);padding:10px 6px}
+.counter .num{font-size:1.5rem;font-weight:800;color:var(--a)}
+.counter .label{font-size:.72rem;color:var(--t3);margin-top:1px}
+.steps{counter-reset:step;list-style:none;margin-bottom:10px}
+.steps li{counter-increment:step;padding:8px 8px 8px 38px;position:relative;border-left:2px solid var(--bdr2);margin-left:14px;margin-bottom:3px}
+.steps li::before{content:counter(step);position:absolute;left:-14px;top:8px;width:26px;height:26px;border-radius:50%;background:var(--a);color:#fff;font-weight:800;font-size:.74rem;line-height:26px;text-align:center}
+.steps li:last-child{border-left-color:transparent}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px;font-size:.78rem}
+.legend span{display:flex;align-items:center;gap:3px}
+.legend .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.info-box{background:var(--bbg);border-left:3px solid var(--bl);padding:9px 12px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:10px;font-size:.85rem;color:var(--t)}
+.info-box strong{color:var(--bl)}.info-box.green{background:var(--gbg);border-left-color:var(--g)}.info-box.green strong{color:var(--g)}
+.footer{text-align:center;padding:20px 0 6px;border-top:1px solid var(--bdr);color:var(--t3);font-size:.78rem;margin-top:32px}
+/* ── 버튼 시스템 ── */
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.btn{display:inline-flex;align-items:center;gap:4px;padding:7px 14px;border-radius:20px;font-size:.8rem;font-weight:700;text-decoration:none;border:1.5px solid var(--a);color:var(--a);background:var(--s);cursor:pointer;transition:all .15s;user-select:none;white-space:nowrap}
+.btn:hover,.btn:active{background:var(--a);color:#fff}
+.btn.active{background:var(--a);color:#fff}
+.btn-outline{border-color:var(--bdr);color:var(--t2)}
+.btn-outline:hover,.btn-outline:active{background:var(--s2);color:var(--t);border-color:var(--a)}
+.btn-sm{padding:4px 10px;font-size:.72rem;border-radius:14px}
+.btn-accent{background:var(--a);color:#fff;border-color:var(--a)}
+.btn-accent:hover{background:var(--a2);border-color:var(--a2)}
+.btn-green{border-color:var(--g);color:var(--g)}.btn-green:hover{background:var(--g);color:#fff}
+.btn-gold{border-color:var(--y);color:var(--y)}.btn-gold:hover{background:var(--y);color:#fff}
+.btn-purple{border-color:var(--p);color:var(--p)}.btn-purple:hover{background:var(--p);color:#fff}
+/* ── 전체 펼치기/접기 체크박스 핵 ── */
+#toggle-all{display:none}
+#toggle-all:checked~section details.acc{display:none}
+#toggle-all:checked~section details.acc.open-always{display:block}
+.toggle-label{cursor:pointer;user-select:none}
+/* ── 섹션별 필터 버튼 (라디오 핵) ── */
+.filter-radio{display:none}
+.filter-radio:checked+.btn-outline{background:var(--a);color:#fff;border-color:var(--a)}
+/* ── 다이어그램 ── */
+.diagram{border:1px dashed var(--bdr);border-radius:var(--r);padding:12px;margin-bottom:10px;background:var(--s);overflow-x:auto}
+.diagram .layer{border:1px dashed var(--bdr2);border-radius:5px;padding:7px 9px;margin-bottom:7px}
+.diagram .layer .ltitle{font-size:.7rem;font-weight:700;color:var(--t3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em}
+.diagram .r{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:3px}
+.diagram .node{padding:5px 9px;border-radius:4px;font-size:.76rem;font-weight:700;white-space:nowrap;border:1.5px solid}
+.diagram .arr{font-size:.82rem;color:var(--t3);margin:0 1px}
+.diagram .n-p{background:var(--pbg);border-color:var(--p);color:var(--p)}
+.diagram .n-bl{background:var(--bbg);border-color:var(--bl);color:var(--bl)}
+.diagram .n-a{background:var(--al);border-color:var(--a);color:var(--a)}
+.diagram .n-y{background:var(--ybg);border-color:var(--y);color:var(--y)}
+.diagram .n-g{background:var(--gbg);border-color:var(--g);color:var(--g)}
+.diagram .n-rd{background:var(--rbg);border-color:var(--rd);color:var(--rd)}
+.diagram .pipe{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin:5px 0;font-size:.78rem}
+.diagram figcaption{text-align:center;font-size:.74rem;color:var(--t3);margin-top:6px;font-style:italic}
+/* ── 모바일 테이블 카드 폴백 ── */
+@media(max-width:600px){
+.tbl-wrap table{font-size:.74rem}
+.tbl-wrap th,.tbl-wrap td{padding:4px 5px}
+}
+</style>
+</div>
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+<div class="eyebrow">Knowledge Management Ecosystem v2</div>
+<h1>🧠 S21 지식관리 생태계</h1>
+<div class="subtitle">5 Tistory &times; 5 GitHub &times; 5 Pages &mdash; Paste Pipeline + RSS Sync 전체 워크플로우</div>
+</div>
+<!-- ═══ 빠른 네비게이션 버튼바 ═══ -->
+<div class="btn-row"><a class="btn btn-sm" href="#s1">🗺️ 개요</a> <a class="btn btn-sm" href="#s2">🔄 순환루프</a> <a class="btn btn-sm btn-accent" href="#s3">📋 Paste</a> <a class="btn btn-sm btn-green" href="#s4">📡 RSS</a> <a class="btn btn-sm" href="#s5">📨 전송표준</a> <a class="btn btn-sm" href="#s6">🏗️ 2계층</a> <a class="btn btn-sm" href="#s7">⚡ 트리거</a> <a class="btn btn-sm btn-purple" href="#s8">🛠️ 명령어</a> <a class="btn btn-sm" href="#s9">🔮 갭</a></div>
+<!-- ═══ 전체 펼치기/접기 토글 ═══ -->
+<p><input id="toggle-all" checked="checked" type="checkbox" /></p>
+<div class="btn-row" style="margin-bottom: 20px;"><label class="btn btn-sm btn-outline toggle-label" for="toggle-all">📂 전체 펼치기/접기</label> <span style="font-size: .72rem; color: var(--t3); align-self: center;">토글하면 모든 아코디언이 접힙니다</span></div>
+<!-- ═══ §1 ═══ -->
+<section id="s1">
+<h2 data-ke-size="size26"><span class="ico">🗺️</span> 1. 생태계 개요 &mdash; 5&times;5&times;5 매트릭스</h2>
+<div class="counter-bar">
+<div class="counter">
+<div class="num">5</div>
+<div class="label">티스토리</div>
+</div>
+<div class="counter">
+<div class="num">5</div>
+<div class="label">GitHub 레포</div>
+</div>
+<div class="counter">
+<div class="num">5</div>
+<div class="label">GitHub Pages</div>
+</div>
+<div class="counter">
+<div class="num">2</div>
+<div class="label">파이프라인</div>
+</div>
+<div class="counter">
+<div class="num">1</div>
+<div class="label">순환 루프</div>
+</div>
+</div>
+<p data-ke-size="size16">하나의 콘텐츠가 <b>LLM 대화 &rarr; 로그 &rarr; HTML &rarr; 텔레그램 &rarr; 티스토리 &rarr; RSS &rarr; GitHub 기자/ &rarr; Pages</b>로 순환.</p>
+<div class="info-box"><b>🔑 핵심 원리:</b> 외부(LLM+티스토리) = 사람 공간. 내부(GitHub+Pages) = 기계 공간. Paste Pipeline과 RSS Sync가 <b>양방향 브릿지</b>.</div>
+<div class="tbl-wrap">
+<table class="eco-table" data-ke-align="alignLeft">
+<thead>
+<tr>
+<th>채널</th>
+<th>테마</th>
+<th>티스토리</th>
+<th>GitHub Repo</th>
+<th>GitHub Pages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ch-name"><span class="chip chip-ph">📱 Phone</span></td>
+<td>S21 최적화 바이블</td>
+<td><a href="https://galaxys21-pwuser.tistory.com">galaxys21-pwuser</a></td>
+<td><a href="https://github.com/helena751107/helena_phone">helena_phone</a></td>
+<td><a href="https://helena751107.github.io/helena_phone/">helena_phone</a></td>
+</tr>
+<tr>
+<td class="ch-name"><span class="chip chip-tch">🗃️ Tech</span></td>
+<td>박씨캡처 리버싱</td>
+<td><a href="https://mynote11605.tistory.com">mynote11605</a></td>
+<td><a href="https://github.com/helena751107/helana_log">helana_log</a></td>
+<td><a href="https://helena751107.github.io/helana_log/">helana_log</a></td>
+</tr>
+<tr>
+<td class="ch-name"><span class="chip chip-fth">✝️ Faith</span></td>
+<td>가족 신앙사</td>
+<td><a href="https://helana-christianity.tistory.com">helana-christianity</a></td>
+<td><a href="https://github.com/helena751107/helana-faith">helena-faith</a></td>
+<td><a href="https://helena751107.github.io/helena-faith/">helena-faith</a></td>
+</tr>
+<tr>
+<td class="ch-name"><span class="chip chip-pno">🎹 Piano</span></td>
+<td>피아노 종합</td>
+<td><a href="https://helena-piano.tistory.com">helena-piano</a></td>
+<td><a href="https://github.com/helena751107/helena-piano">helena-piano</a></td>
+<td><a href="https://helena751107.github.io/helena-piano/">helena-piano</a></td>
+</tr>
+<tr>
+<td class="ch-name"><span class="chip chip-psy">🧠 Psycare</span></td>
+<td>멘탈케어</td>
+<td><a href="https://helena-psycare.tistory.com">helena-psycare</a></td>
+<td><a href="https://github.com/helena751107/helena-psycare">helena-psycare</a></td>
+<td><a href="https://helena751107.github.io/helena-psycare/">helena-psycare</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="legend"><span><span style="background: var(--p);" class="dot"></span> Paste Pipeline</span> <span><span style="background: var(--g);" class="dot"></span> RSS Auto-Sync</span> <span><span style="background: var(--y);" class="dot"></span> 👤 수동 발행</span> <span><span style="background: var(--a);" class="dot"></span> 자동 배포</span></div>
+</section>
+<!-- ═══ §2 ═══ -->
+<section id="s2">
+<h2 data-ke-size="size26"><span class="ico">🔄</span> 2. 콘텐츠 순환 루프</h2>
+<figure class="diagram">
+<div class="layer" style="border-color: var(--p); border-style: dashed;">
+<div class="ltitle">🌐 외부 생태계 &mdash; 인간이 읽는 공간</div>
+<div class="pipe"><span class="node n-p">💬 LLM 대화</span><span class="arr">&rarr;</span> <span class="node n-bl">📸 ParksyCapture</span><span class="arr">&rarr;</span> <span class="node n-a">📝 .md 로그</span><span class="arr">&rarr;</span> <span class="node n-a">🔧 HTML 변환</span><span class="arr">&rarr;</span> <span class="node n-bl">📨 Telegram</span><span class="arr">&rarr;</span> <span class="node n-y">👤 티스토리 5곳</span><span class="arr">&rarr;</span> <span class="node n-g">📡 RSS</span></div>
+</div>
+<div class="layer" style="border-color: var(--g); border-style: dashed;">
+<div class="ltitle">⚙️ 내부 생태계 &mdash; 기계 파싱&middot;버전관리&middot;배포</div>
+<div class="pipe"><span class="node n-g">📡 RSS 수신</span><span class="arr">&rarr;</span> <span class="node n-g">📂 GitHub 기자/ (5레포)</span><span class="arr">&rarr;</span> <span class="node n-a">🌐 Pages 자동배포</span><span class="arr">↻</span> <span style="font-size: .7rem; color: var(--t3);">검색&middot;재발견</span></div>
+</div>
+<div class="pipe" style="justify-content: center; margin-top: 5px;"><span style="font-size: .68rem; color: var(--t3);">① AI대화 &rarr; ② Capture &rarr; ③ .md &rarr; ④ HTML &rarr; ⑤ Telegram &rarr; ⑥ 👤 5-Click &rarr; ⑦ RSS &rarr; ⑧ 기자/ &rarr; ⑨ Pages</span></div>
+<figcaption>LLM &rarr; Pages &rarr; 검색으로 다시 순환되는 콘텐츠 선순환 구조</figcaption>
+</figure>
+</section>
+<!-- ═══ §3 ═══ -->
+<section id="s3">
+<h2 data-ke-size="size26"><span class="ico">📋</span> 3. Paste Pipeline &mdash; Claude Code &rarr; 티스토리</h2>
+<div class="info-box green"><b>🟢 가동 중.</b> Tistory API 없음 &rarr; Paste Pipeline으로 대응. 자동화 ROI 음수 &rarr; 사람 5-Click.</div>
+<details class="acc" open="">
+<summary>Step 1 &mdash; LLM 대화 &rarr; .md 로그 (ParksyCapture)</summary>
+<div class="acc-body">
+<p data-ke-size="size16">Claude Code&middot;Grok 대화 종료 시 <b>ParksyCapture</b>가 자동 캡처 &rarr; <code>logs/YYYY/MM/topic.md</code>.</p>
+<pre class="angelscript"><code>LLM 세션 &rarr; ParksyCapture (자동) &rarr; logs/2026/08/topic.md</code></pre>
+<p data-ke-size="size16"><span class="badge badge-ai">AI</span> <span class="badge badge-auto">자동</span></p>
+</div>
+</details><details class="acc">
+<summary>Step 2 &mdash; .md &rarr; HTML 변환 (출판부)</summary>
+<div class="acc-body">
+<p data-ke-size="size16"><b>parksy_to_html.py</b>가 마크다운을 Tistory 호환 HTML로 변환. 아코디언&middot;CSS-only 인터랙션&middot;다크모드.</p>
+<pre class="angelscript"><code>logs/2026/08/topic.md &rarr; parksy_to_html.py &rarr; /tmp/topic.html</code></pre>
+</div>
+</details><details class="acc">
+<summary>Step 3 &mdash; Telegram sendDocument 전송 (v5.0)</summary>
+<div class="acc-body">
+<p data-ke-size="size16"><code>log_to_telegram.sh</code> &mdash; 두 가지 모드:</p>
+<div class="tab-wrap">
+<div class="tab-inputs"><input id="t-md" checked="checked" name="mode" type="radio" /><label for="t-md">📝 MD 모드</label> <input id="t-html" name="mode" type="radio" /><label for="t-html">🔧 HTML 모드</label></div>
+<div class="tab-panels">
+<div class="tab-panel">
+<pre class="angelscript"><code>bash log_to_telegram.sh logs/2026/08/topic.md
+# &rarr; sendDocument .md 첨부 &rarr; Tistory 마크다운 모드</code></pre>
+</div>
+<div class="tab-panel">
+<pre class="angelscript"><code>bash log_to_telegram.sh --html logs/2026/08/topic.md
+# &rarr; 변환 &rarr; sendDocument .html 첨부 &rarr; Tistory HTML 모드</code></pre>
+</div>
+</div>
+</div>
+<p data-ke-size="size16"><span class="badge badge-auto">자동</span> GitHub Actions push 트리거</p>
+</div>
+</details><details class="acc">
+<summary>Step 4 &mdash; 👤 사람 5-Click 수동 발행</summary>
+<div class="acc-body">
+<p data-ke-size="size16">Tistory <b>API 미제공</b>. Playwright 자동화도 세션 쿠키 만료 등 유지비용 때문에 ROI 음수.</p>
+<ol class="steps" style="list-style-type: decimal;" data-ke-list-type="decimal">
+<li><b>다운로드</b> &mdash; Telegram 첨부파일(.md/.html) 다운로드</li>
+<li><b>복사</b> &mdash; 파일 열어 전체 복사 (Ctrl+A&rarr;Ctrl+C)</li>
+<li><b>글쓰기</b> &mdash; 해당 티스토리 &rarr; 마크다운/HTML 모드</li>
+<li><b>붙여넣기</b> &mdash; Ctrl+V</li>
+<li><b>발행</b> &mdash; 카테고리 선택 &rarr; 발행</li>
+</ol>
+<div class="card">
+<div class="card-hd">⏱️ 2~3분/파일 &rarr; 5채널 10~15분</div>
+<div class="card-dsc">개발 20h+유지보수 대비 Paste Pipeline ROI 우수.</div>
+</div>
+</div>
+</details><details class="acc">
+<summary>대안 분석 &mdash; 왜 자동화를 안 쓰는가</summary>
+<div class="acc-body">
+<div class="tbl-wrap">
+<table class="eco-table" data-ke-align="alignLeft">
+<tbody>
+<tr>
+<th>방식</th>
+<th>개발</th>
+<th>유지</th>
+<th>판정</th>
+</tr>
+<tr>
+<td>티스토리 API</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+<td class="status-warn">❌ 없음 (2024 종료)</td>
+</tr>
+<tr>
+<td>Playwright GUI</td>
+<td>20h+</td>
+<td>월2h</td>
+<td class="status-warn">❌ ROI 음수</td>
+</tr>
+<tr>
+<td><b>Paste Pipeline</b></td>
+<td><b>2h</b></td>
+<td><b>0</b></td>
+<td class="status-ok">✅ 최적해</td>
+</tr>
+<tr>
+<td>네이버 API</td>
+<td>4h</td>
+<td>월0.5h</td>
+<td class="status-manual">⏳ 보류</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</details></section>
+<!-- ═══ §4 ═══ -->
+<section id="s4">
+<h2 data-ke-size="size26"><span class="ico">📡</span> 4. RSS Auto-Sync &mdash; 티스토리 &rarr; GitHub <span style="font-size: .65rem;" class="badge badge-auto">2026-08-09 완성</span></h2>
+<div class="info-box green"><b>🟢 완료:</b> 5레포 각각 <code>tistory-sync.yml</code> 배포. 매시간 7분마다 자기 티스토리 RSS &rarr; 자기 레포 <code>기자/</code>.</div>
+<figure class="diagram">
+<div class="ltitle" style="margin-bottom: 6px; font-weight: bold; color: var(--t);">📡 5 Tistory &rarr; RSS &rarr; GitHub 기자/ &rarr; Pages (1:1:1)</div>
+<div class="r" style="gap: 3px; font-size: .73rem; margin-bottom: 5px;"><span class="node n-bl">galaxys21-pwuser</span><span class="arr">&rarr;</span><span class="node n-a">helena_phone/기자/</span> <span style="margin: 0 4px; color: var(--bdr);">│</span> <span class="node n-g">mynote11605</span><span class="arr">&rarr;</span><span class="node n-a">helana_log/기자/</span></div>
+<div class="r" style="gap: 3px; font-size: .73rem; margin-bottom: 5px;"><span class="node n-y">helana-christianity</span><span class="arr">&rarr;</span><span class="node n-a">helana-faith/기자/</span> <span style="margin: 0 4px; color: var(--bdr);">│</span> <span class="node n-rd">helena-piano</span><span class="arr">&rarr;</span><span class="node n-a">helena-piano/기자/</span></div>
+<div class="r" style="gap: 3px; font-size: .73rem;"><span class="node n-p">helena-psycare</span><span class="arr">&rarr;</span><span class="node n-a">helena-psycare/기자/</span> <span style="margin-left: 10px;" class="arr">&rarr;</span><span class="node n-g">🌐 Pages 배포</span></div>
+<div class="pipe" style="justify-content: center; margin-top: 3px;"><span style="font-size: .68rem; color: var(--t3);">cron: 7 * * * * &middot; {blog}_{md5}.md 파일명 &middot; 중복 방지</span></div>
+<figcaption>5레포 각각 자기 블로그만 1:1 수집 &rarr; Pages 자동 배포</figcaption>
+</figure>
+<details class="acc">
+<summary>workflow 구조 &amp; 배포 방법</summary>
+<div class="acc-body">
+<pre class="routeros"><code>.github/workflows/tistory-sync.yml (레포당 1개)
+📱 helena_phone &rarr; blog="galaxys21-pwuser"
+🗃️ helana_log &rarr; blog="mynote11605"
+✝️ helana-faith &rarr; blog="helana-christianity"
+🎹 helena-piano &rarr; blog="helena-piano"
+🧠 helena-psycare &rarr; blog="helena-psycare"
+# checkout 안 된 레포는 gh api로 원격 생성:
+gh api repos/helena751107/{repo}/contents/.github/workflows/tistory-sync.yml \
+-X PUT -f message="📰 RSS sync" -f content="$(base64 -w0 wf.yml)"</code></pre>
+</div>
+</details></section>
+<!-- ═══ §5 ═══ -->
+<section id="s5">
+<h2 data-ke-size="size26"><span class="ico">📨</span> 5. Telegram 전송 표준 v5.0</h2>
+<div class="info-box"><b>📌 핵심:</b> 전부 1장 sendDocument. MD=.md, HTML=.html 원본 그대로. 코드블록 감싸기 없음. 청크 분할 없음.</div>
+<div class="grid2">
+<div class="card">
+<div class="card-hd">📝 마크다운 모드 (기본)</div>
+<div class="card-dsc"><code>.md</code> sendDocument &rarr; 다운로드 &rarr; 복사 &rarr; Tistory <b>마크다운 모드</b>.</div>
+</div>
+<div class="card">
+<div class="card-hd">🔧 HTML 모드 (--html)</div>
+<div class="card-dsc">MD&rarr;HTML 변환 &rarr; <code>.html</code> sendDocument &rarr; 다운로드 &rarr; 복사 &rarr; Tistory <b>HTML 모드</b>.</div>
+</div>
+</div>
+<details class="acc">
+<summary>v1 &rarr; v5 진화 과정</summary>
+<div class="acc-body">
+<div class="tbl-wrap">
+<table class="eco-table" data-ke-align="alignLeft">
+<tbody>
+<tr>
+<th>버전</th>
+<th>방식</th>
+<th>문제</th>
+<th>Boss 결정</th>
+</tr>
+<tr>
+<td>v1</td>
+<td>HTML 청크</td>
+<td>메시지 분할</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td>v2</td>
+<td>MD 청크</td>
+<td>여전히 분할</td>
+<td>"나눠 보내지 말고 첨부"</td>
+</tr>
+<tr>
+<td>v3</td>
+<td>MD sendDocument</td>
+<td>HTML 모드 없음</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td>v4</td>
+<td>HTML&rarr;MD코드블록</td>
+<td>복붙 번거로움</td>
+<td>"원형 그대로 보내"</td>
+</tr>
+<tr>
+<td><b>v5.0</b></td>
+<td><b>MD/HTML 원본 sendDocument</b></td>
+<td>&mdash;</td>
+<td><b>✅ 확정</b></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</details></section>
+<!-- ═══ §6 ═══ -->
+<section id="s6">
+<h2 data-ke-size="size26"><span class="ico">🏗️</span> 6. 외부 vs 내부 &mdash; 2계층 생태계</h2>
+<div class="grid2">
+<div class="card">
+<div class="card-hd">🌐 외부 생태계</div>
+<div class="card-dsc"><b>인간이 읽는 공간</b><br />&bull; LLM 대화 (Claude&middot;Grok)<br />&bull; 티스토리 5곳<br />&bull; 텔레그램 (전송)<br />&bull; 네이버 (관제탑)<br /><br />🔑 소비&middot;검색&middot;공유&middot;댓글</div>
+</div>
+<div class="card">
+<div class="card-hd">⚙️ 내부 생태계</div>
+<div class="card-dsc"><b>기계 파싱&middot;관리 공간</b><br />&bull; GitHub 5레포 (버전관리)<br />&bull; Pages 5곳 (자동배포)<br />&bull; 기자/ (RSS 아카이브)<br />&bull; Actions (자동화)<br /><br />🔑 파싱&middot;버전추적&middot;영구보존</div>
+</div>
+</div>
+<div class="info-box green"><b>🔗 브릿지:</b> Paste Pipeline=내부&rarr;외부(발행). RSS Sync=외부&rarr;내부(백업). 두 브릿지가 순환 루프 완성.</div>
+<figure class="diagram">
+<div class="r" style="justify-content: center; gap: 16px; align-items: center;">
+<div style="text-align: center; padding: 8px 14px; border: 2px solid var(--p); border-radius: 8px; background: var(--s);">
+<div style="font-weight: 800; font-size: .85rem; color: var(--p);">🌐 외부</div>
+<div style="font-size: .68rem; color: var(--t3);">LLM&middot;티스토리&middot;TG&middot;네이버</div>
+</div>
+<div style="text-align: center; font-size: .76rem;">
+<div style="color: var(--a); font-weight: bold;">📋 Paste &rarr;</div>
+<div style="color: var(--t3); font-size: .64rem;">내부&rarr;외부</div>
+<div style="margin: 4px 0; color: var(--bdr);">│</div>
+<div style="color: var(--g); font-weight: bold;">&larr; 📡 RSS</div>
+<div style="color: var(--t3); font-size: .64rem;">외부&rarr;내부</div>
+</div>
+<div style="text-align: center; padding: 8px 14px; border: 2px solid var(--g); border-radius: 8px; background: var(--s2);">
+<div style="font-weight: 800; font-size: .85rem; color: var(--g);">⚙️ 내부</div>
+<div style="font-size: .68rem; color: var(--t3);">GitHub&middot;Pages&middot;기자/&middot;CI</div>
+</div>
+</div>
+<figcaption>Paste Pipeline(&rarr;) + RSS Sync(&larr;) = 양방향 브릿지</figcaption>
+</figure>
+</section>
+<!-- ═══ §7 ═══ -->
+<section id="s7">
+<h2 data-ke-size="size26"><span class="ico">⚡</span> 7. 자동화 트리거 요약</h2>
+<div class="tbl-wrap">
+<table class="eco-table" data-ke-align="alignLeft">
+<thead>
+<tr>
+<th>트리거</th>
+<th>이벤트</th>
+<th>결과</th>
+<th>레포</th>
+<th>상태</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>ParksyCapture</b></td>
+<td>대화 종료</td>
+<td>.md 로그 &rarr; <code>logs/</code></td>
+<td>helana_log</td>
+<td class="status-warn">⚠️ 수동</td>
+</tr>
+<tr>
+<td><b>log-to-telegram</b></td>
+<td>push logs/**</td>
+<td>TG sendDocument</td>
+<td>helana_log</td>
+<td class="status-ok">✅ 자동</td>
+</tr>
+<tr>
+<td><b>tistory-sync</b></td>
+<td>cron 매시간7분</td>
+<td>RSS &rarr; 기자/</td>
+<td>5레포</td>
+<td class="status-ok">✅ 자동</td>
+</tr>
+<tr>
+<td><b>deploy-pages</b></td>
+<td>push main</td>
+<td>Pages 배포</td>
+<td>5레포</td>
+<td class="status-ok">✅ 자동</td>
+</tr>
+<tr>
+<td><b>👤 Tistory 발행</b></td>
+<td>사람 5-Click</td>
+<td>티스토리 발행</td>
+<td>&mdash;</td>
+<td class="status-manual">👤 수동</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- ═══ §8 ═══ -->
+<section id="s8">
+<h2 data-ke-size="size26"><span class="ico">🛠️</span> 8. 운영 명령어</h2>
+<div class="tab-wrap">
+<div class="tab-inputs"><input id="c-deliver" checked="checked" name="cmd" type="radio" /><label for="c-deliver">📨 전송</label> <input id="c-sync" name="cmd" type="radio" /><label for="c-sync">📡 동기화</label> <input id="c-health" name="cmd" type="radio" /><label for="c-health">🏥 점검</label> <input id="c-publish" name="cmd" type="radio" /><label for="c-publish">📚 출판</label></div>
+<div class="tab-panels">
+<div class="tab-panel">
+<pre class="properties"><code># MD &rarr; Telegram
+bash log_to_telegram.sh logs/2026/08/topic.md
+# HTML 변환 &rarr; Telegram
+bash log_to_telegram.sh --html logs/2026/08/topic.md
+# git diff 변경분 전체
+bash log_to_telegram.sh --diff</code></pre>
+</div>
+<div class="tab-panel">
+<pre class="dockerfile"><code># 수동 RSS sync (5레포)
+gh workflow run tistory-sync.yml -R helena751107/helena_phone
+gh workflow run tistory-sync.yml -R helena751107/helana_log
+gh workflow run tistory-sync.yml -R helena751107/helana-faith
+gh workflow run tistory-sync.yml -R helena751107/helena-piano
+gh workflow run tistory-sync.yml -R helena751107/helena-psycare</code></pre>
+</div>
+<div class="tab-panel">
+<pre class="jboss-cli"><code># 폰 건강 검진
+bash ~/work/phone-health.sh
+bash ~/work/phone-health.sh --telegram</code></pre>
+</div>
+<div class="tab-panel">
+<pre class="properties"><code># 웹페이지 커버리지
+python3 scripts/check_webpages_Grok.py
+# 전체 웹진 빌드
+python3 scripts/build_webzine.py
+# 출판 지표
+python3 scripts/publishing_metrics.py</code></pre>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══ §9 ═══ -->
+<section id="s9">
+<h2 data-ke-size="size26"><span class="ico">🔮</span> 9. 현재 갭 &amp; 다음 단계</h2>
+<details class="acc">
+<summary>✅ 완료된 것 (Done)</summary>
+<div class="acc-body">
+<div class="tbl-wrap">
+<table class="eco-table" data-ke-align="alignLeft">
+<tbody>
+<tr>
+<td class="status-ok">✅</td>
+<td>5&times;5&times;5 생태계 매핑</td>
+<td>configs/ecosystem-map.json</td>
+</tr>
+<tr>
+<td class="status-ok">✅</td>
+<td>Paste Pipeline</td>
+<td>log_to_telegram.sh v5.0</td>
+</tr>
+<tr>
+<td class="status-ok">✅</td>
+<td>전송 표준 v5.0</td>
+<td>MD/HTML sendDocument</td>
+</tr>
+<tr>
+<td class="status-ok">✅</td>
+<td>RSS Sync 5레포 1:1</td>
+<td>tistory-sync.yml &times;5</td>
+</tr>
+<tr>
+<td class="status-ok">✅</td>
+<td>Pages 자동 배포</td>
+<td>deploy-pages.yml &times;5</td>
+</tr>
+<tr>
+<td class="status-ok">✅</td>
+<td>출판부 md&rarr;HTML</td>
+<td>parksy_to_html.py</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</details><details class="acc">
+<summary>⏳ 보류 / 예정 (Pending)</summary>
+<div class="acc-body">
+<div class="tbl-wrap">
+<table class="eco-table" data-ke-align="alignLeft">
+<tbody>
+<tr>
+<td class="status-warn">⏳</td>
+<td>ParksyCapture 자동화</td>
+<td>inotifywait 필요</td>
+</tr>
+<tr>
+<td class="status-warn">⏳</td>
+<td>YouTube 브랜드채널 &times;4</td>
+<td>매월25일&middot;4개월</td>
+</tr>
+<tr>
+<td class="status-warn">⏳</td>
+<td>네이버 Paste Pipeline</td>
+<td>우선순위 낮음</td>
+</tr>
+<tr>
+<td class="status-warn">⏳</td>
+<td>Discord 웹훅</td>
+<td>dc.sh 예정</td>
+</tr>
+<tr>
+<td class="status-manual">👤</td>
+<td>Tistory 5-Click 발행</td>
+<td>API 없음 &mdash; 영구</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</details><details class="acc">
+<summary>📅 오늘 세션 (2026-08-10)</summary>
+<div class="acc-body">
+<ul style="padding-left: 20px; color: var(--t2); margin-bottom: 6px;" data-ke-list-type="disc">
+<li>📰 RSS sync 5레포 1:1 분리 완료</li>
+<li>📋 Paste Pipeline 인터랙티브 매뉴얼</li>
+<li>📡 생태계 워크플로우 전체 매뉴얼 (이 문서 v2)</li>
+<li>🔄 콘텐츠 순환 루프 개념 확립</li>
+</ul>
+</div>
+</details></section>
+<!-- ═══ FOOTER ═══ -->
+<div class="footer">
+<p data-ke-size="size16">S21 Phone &mdash; Helena Knowledge Management Ecosystem v2<br />🌐 <a style="color: var(--a);" href="https://github.com/helena751107">github.com/helena751107</a> &middot; 📱 @S21Phone_Bot<br />생성: 2026-08-10 (_Claude) &middot; Tistory HTML 모드 호환</p>
+</div>
