@@ -82,7 +82,7 @@ body {
   font-size: 21px;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: #f7f8f8;
+  color: var(--s21-accent);
   text-decoration: none;
   display: inline-flex;
   align-items: baseline;
@@ -486,7 +486,7 @@ section.container {
 #category-nav li a:hover { color: #f7f8f8; padding-left: 6px; }
 #category-nav .link_tit, #category-nav .link_tit a {
   font-weight: 700;
-  color: #f7f8f8;
+  color: var(--s21-accent);
   border-bottom: 1px solid #1e2128;
 }
 #category-nav .cnt { color: #6b7280; font-size: 12px; }
