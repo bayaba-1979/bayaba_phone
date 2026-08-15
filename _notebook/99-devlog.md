@@ -5941,3 +5941,29 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **구현:** `tistory-naver/verify_categories.py` — 읽기 전용 게이트(SSOT vs 라이브 트리, 누락 시 exit 1). `create_categories.py`는 데드코드가 되므로 **작성하지 않음**(트리 완비가 전제면 생성보다 검증이 정답).
 - **효과:** history 발행 시 `_set_category`가 더는 조용히 미분류로 강등되지 않음. day2 배치부터 정밀 카테고리 배치 확정.
 - **참고:** `tistory-categories.txt` 헤더 "31 Chapter"는 실측 32 Ch(5+4+6+4+4+4+2+3)와 불일치 — 헤더 표기 오류(수정 안 함, SSOT 코드는 실트리 기준).
+
+### 🌱 mynote11605 = 돌봄 데몬 채널 — 카테고리 계층형 재구축 (_Claude · 2026-08-15)
+
+- **정체성 확정:** mynote11605 = 돌봄(케어) 하이테크 IT 인프라 채널. "스토리를 기술적으로 케어하는 프로그래밍 영역" — 가족사(헬레나) 미러링 → 돌봄 데몬 솔루션. 순수 기술노트도 순수 스토리도 아닌 교집합. 기존 `ecosystem-map.json` "tech/박씨캡처 리버싱"은 폐기(Boss 정정).
+- **리버스엔지니어링:** 티스토리 카테고리 생성 API = `PUT /manage/category.json {rootLabel, delete, append, update}`. 새 노드 = 음수 temp id + parent(0=루트, 자식은 실 parent id) + depth(1최상위/2자식) + visibility 20. 갈라: `create_categories.py`(평면) → `setup_care_categories.py`(계층형 2단계).
+- **구조 (Boss 확정, 계층형):** 매니페스토(01) · 트랙—제도[DW/DC/BL](02~04) · 대화록(05) · 솔루션—돌봄 데몬[아키텍처/배터리·온도/위치·GPS/원격 돌봄망/보고 무전기](06~10). 평면 5개 삭제 → 4최상위+8자식 재구축 완료.
+- **콘텐츠 처분 3버킷:** 빵꾸 7편 삭제 · IT/기술 4편 → S21 · 돌봄 콘텐츠(DW/DC/BL·대화록·솔루션) 유입. ⚠️ 소망(라디오 초대권·노래 AI)은 돌봄 아님 → S21.
+- **계획서:** `90-mynote-care-daemon-plan_Claude.md`(처분) · `91-mynote-care-daemon-dev-plan_Claude.md`(10편 개발계획서).
+- **산출:** 매니페스토1307301 / 트랙1307302 / 대화록1307303 / 솔루션1307304 / 자식 1307305~1312. (기존 IT·사고흐름은 전처리 후 정리 예정)
+
+### 🧹 mynote11605 전처리 완료 — 글 11편 삭제 + IT·사고흐름 카테고리 정리 (_Claude · 2026-08-15)
+
+- **아카이브:** IT/기술 4편 원고 HTML → `archive/mynote11605-old-tech/` (0004 박씨캡쳐 · 0011 티스토리플랫폼 · 0013 지식공장 · 0018 텔레그램봇회의실). S21 재편용 보존.
+- **글 삭제:** `delete_posts.py` 신설 — `GET /manage/posts.json`(items 키, visibility=all) + `DELETE /manage/post/{id}.json`. #17 포함 11편 전부 삭제(잔여 0).
+- **카테고리 정리:** legacy `IT`(1306638+자식 1304528~32) + `사고흐름`(1306639) 삭제 → `PUT category.json {delete:[...]}`.
+- **결과 트리:** 매니페스토 / 트랙[DW·DC·BL] / 대화록 / 솔루션[아키텍처·배터리·위치·원격·무전기] — 4최상위+8자식, entries 전부 0. **빈 캔버스 상태.**
+- **다음:** Step 0 원고 규격 확정(템플릿 3종 + 품질 게이트) → Step 1 `01 매니페스토` 페어 발행.
+
+### 📐 Step 0 — 원고 규격 확정 (SPEC + 템플릿 4종 + 품질 게이트) (_Claude · 2026-08-15)
+
+- **산출:** `helana_log/docs/care-daemon/_templates/SPEC.md`(규격 SSOT) + `00-manifesto/track/dialogue/solution.md`(템플릿 4종) + `scripts/manuscript_gate.py`(게이트, yaml 기반).
+- **규격 핵심:** 편 = 질문 1 + 답 1. frontmatter 12필드 + category_id 고정맵(실측 1307301~1312). **care 블록** 7종(callout/threshold-table/bar-chart/timeline/flow/checklist/demo) — fenced `care type= id=` + YAML 페이로드로 인터랙티브·인포그래픽 선언, Pages=JS·티스토리=정적 fallback 렌더 계약.
+- **게이트 검사(5규칙→기계):** 질문/답 단문 · sources 경로 존재(레포:경로 해석) · 필수섹션+확인창구 · 민감정보(주민·토큰·API키 FAIL, 전화·계좌·GPS WARN) · care블록 id↔interactive 일치. exit 1 = 발행 차단.
+- **정제(계획 보정):** 원고 홈을 기존 `docs/tracks|dialogue|solutions`(날것 메모)와 **분리**해 `docs/care-daemon/{type}/` 로 — 날것은 `sources:` 로만 인용. (91계획 "docs 하위"의 구체화.)
+- **검증:** PASS 케이스 + FAIL 12건(빈 질문·type 불일치·category_id 오류·섹션 누락·토큰 노출 등) 실측 통과. `--all` 스캔 모드 동작.
+- **다음:** Step 1 — 01 매니페스토 원고(01 1307301) 작성 → 게이트 → 페어 발행.
