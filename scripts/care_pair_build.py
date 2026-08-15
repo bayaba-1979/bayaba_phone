@@ -293,6 +293,50 @@ CARE_JS = """
 """
 
 
+# ── 티스토리용 자체완결 다크 셸 ────────────────────────────────────────────────
+# Pages 와 같은 .care 컴포넌트를 쓰되, 스킨의 :root 토큰에 의존하지 않도록
+# .care-post 스코프에 디자인 토큰(다크 골드/틸)을 직접 선언한다.
+# @import 는 실패해도 시스템 폰트 폴백으로 우아하게 깨진다.
+TISTORY_STYLE = """
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400&display=swap');
+.care-post{
+  --ink:#f4efe6; --ink-dim:#c9bdac; --ink-mute:#8d8376;
+  --paper:#0a0908; --paper-2:#14120f; --paper-3:#1d1a16;
+  --rule:rgba(244,239,230,.10); --rule2:rgba(244,239,230,.20);
+  --accent:#3db8a8; --gold:#d4a84b; --gold2:#f0c75e; --coral:#e85d4c;
+  --serif:'Cormorant Garamond',Georgia,'Noto Serif KR',serif;
+  --sans:'Noto Sans KR',-apple-system,'Apple SD Gothic Neo',Malgun Gothic,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  display:block; max-width:720px; margin:0 auto; padding:30px 22px 44px;
+  background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:15px; line-height:1.85; font-weight:300;
+  border-radius:16px; box-shadow:0 12px 44px rgba(0,0,0,.4);
+  word-break:keep-all; overflow-wrap:break-word;
+}
+.care-post *{box-sizing:border-box}
+.care-kicker{font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:12px}
+.care-deck{color:var(--ink-dim); font-weight:300; font-size:1.02rem; border-left:2px solid var(--accent); padding-left:14px; margin:0 0 24px}
+.care-post h2{font-family:var(--serif); font-size:1.45rem; font-weight:600; color:var(--ink); letter-spacing:-.01em; margin:2.2em 0 .7em; padding-top:.55em; border-top:1px solid var(--rule)}
+.care-post h3{font-size:1.05rem; font-weight:500; color:var(--ink); margin:1.4em 0 .5em}
+.care-post p{margin:0 0 1em; color:var(--ink-dim)}
+.care-post strong{color:var(--ink); font-weight:600}
+.care-post em{font-style:normal; color:var(--ink-mute)}
+.care-post a{color:var(--gold2); text-decoration:none}
+.care-post ul,.care-post ol{margin:0 0 1.2em 1.4em; padding:0}
+.care-post li{margin:.35em 0; color:var(--ink-dim)}
+.care-post code{font-family:var(--mono); font-size:.86em; color:var(--gold2); background:var(--paper-3); padding:2px 6px; border-radius:4px}
+.care-post pre{background:var(--paper-2); border:1px solid var(--rule); padding:14px 16px; overflow-x:auto; margin:1.2em 0; border-radius:8px; font-size:.84rem}
+.care-post pre code{background:none; padding:0; color:var(--ink-dim)}
+.care-post blockquote{border-left:2px solid var(--accent); padding:10px 16px; color:var(--ink-dim); margin:1.4em 0; background:var(--paper-2)}
+.care-post table{width:100%; border-collapse:collapse; font-size:.9rem; margin:1.2em 0}
+.care-post th,.care-post td{border:1px solid var(--rule); padding:9px 12px; text-align:left; vertical-align:top}
+.care-post th{background:var(--paper-3); color:var(--ink-mute); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; font-weight:500}
+""" + CARE_CSS + """
+</style>
+"""
+
+
 def render_blocks(body: str, target: str) -> tuple[str, list[str]]:
     """care 블록을 컴포넌트 HTML로 치환. (변환된 본문, 사용된 블록 id 목록) 반환."""
     blocks: list[dict] = []
@@ -362,8 +406,15 @@ def build_one(md_path: Path, *, pages: bool = True, tistory: bool = True) -> Non
         print(f"  [pages]   {out.relative_to(HELANA_LOG)}")
 
     if tistory:
-        tbody, _ = render_blocks(body, "tistory")
-        post = tistory_post_json(fm, tbody, slug)
+        # Pages 와 동일한 풀 .care 컴포넌트(배지/색상행/플로우/타임라인/체크)를 렌더하고,
+        # 자체완결 다크 셸(.care-post + <style>)로 감싼다. kicker + deck(answer) 로 헤드 구성.
+        tbody, _ = render_blocks(body, "pages")
+        deck = esc(fm.get("answer", ""))
+        lead = '<div class="care-kicker">돌봄 데몬 · Care</div>'
+        if deck:
+            lead += f'<p class="care-deck">{deck}</p>'
+        article = f'<div class="care-post">\n{TISTORY_STYLE}\n{lead}\n{tbody}\n</div>'
+        post = tistory_post_json(fm, article, slug)
         POSTS_DIR.mkdir(parents=True, exist_ok=True)
         post_path = POSTS_DIR / f"{slug}.json"
         post_path.write_text(json.dumps(post, ensure_ascii=False, indent=2), encoding="utf-8")
