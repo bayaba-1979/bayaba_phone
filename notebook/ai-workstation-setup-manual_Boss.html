@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="이 문서는 여러 대의 폰(S21, 호야당 아저씨, 친구)에 실제로 설치하면서 — S21 Phone Webzine">
+<meta name="theme-color" content="#0a0908">
+<meta name="application-name" content="S21 Phone">
+<title>백서: 폰 하나로 AI 워크스테이션 짓기 (완결판) — S21 Phone Webzine</title>
+<link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/webzine.css">
+</head>
+<body>
+<div class="spine" aria-hidden="true"><div class="spine-fill" id="spineFill"></div></div>
+<header class="wz-mast">
+  <a class="brand" href="../index.html">S21 <em>Phone</em></a>
+  <div class="wz-mast-actions">
+    <button type="button" class="wz-burger" data-nav-toggle aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav class="wz-nav">
+      <a href="../index.html">Home</a>
+      <a href="../archive.html">Archive</a>
+      <a href="../index.html#library">Library</a>
+      <a href="../index.html#agents">Agents</a>
+      <button type="button" data-theme-toggle>Theme</button>
+      <a class="pill gold" href="../index.html#install">Install</a>
+    </nav>
+  </div>
+</header>
+<main class="wz-shell">
+  <div class="wz-crumb">
+    <a href="../index.html">Webzine</a><span class="sep">/</span>
+    <span>Notebook</span><span class="sep">/</span>
+    <span>백서: 폰 하나로 AI 워크스테이션 짓기 (완결판)</span>
+  </div>
+  <header class="wz-hero">
+    <div class="wz-kicker">Notebook · lakme-audio</div>
+    <h1>백서: 폰 하나로 AI 워크스테이션 짓기 (완결판)</h1>
+    <p class="deck">이 문서는 여러 대의 폰(S21, 호야당 아저씨, 친구)에 실제로 설치하면서</p>
+    <div class="wz-meta">
+      <span>Source · _notebook/ai-workstation-setup-manual_Boss.md</span>
+      <span>Kind · markdown</span>
+      <span>S21 Phone Editorial</span>
+    </div>
+  </header>
+  <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
+<ul>
+<li><a href="#termux-proot-ubuntu-claude-code-deepseek">Termux → proot Ubuntu → Claude Code + DeepSeek — 처음부터 끝까지, 에러 없는 순서</a></li>
+<li><a href="#_1">준비물 — 미리 발급받아둘 것</a></li>
+<li><a href="#1-termux">1단계 — 우분투 설치 (겉, Termux ~ $)</a></li>
+<li><a href="#2-claude-code-root">2단계 — 기본 도구 + Claude Code (속, root@)</a></li>
+<li><a href="#3-deepseek">3단계 — DeepSeek 엔진 배선 (대화형)</a></li>
+<li><a href="#4">4단계 — 과금 안전장치 (⚠️ 여기서 건너뛰지 말 것)</a></li>
+<li><a href="#5">5단계 — 발사 테스트</a></li>
+<li><a href="#6">6단계 — 두 글자 진입로 (⚠️ 반드시 겉으로 나온 뒤)</a></li>
+<li><a href="#7-github">7단계 — GitHub 연동 (대화형)</a></li>
+<li><a href="#8">8단계 — 텔레그램 보고 회의실 (선택, 대화형)</a></li>
+<li><a href="#9">9단계 — 나머지는 에이전트한테 자연어로 위임</a></li>
+<li><a href="#10">10단계 — 헌법 씨앗 (마지막)</a></li>
+<li><a href="#_2">오늘 발견된 버그 요약 (참고용)</a></li>
+</ul>
+</div>
+</nav>
+  <div class="wz-appbar" role="toolbar" aria-label="Document tools">
+    <input type="search" id="wzSearch" class="wz-search" placeholder="페이지 내 검색…" autocomplete="off">
+    <button type="button" id="wzFoldAll" data-cursor>접기</button>
+    <button type="button" id="wzExpandAll" data-cursor>펼치기</button>
+    <button type="button" id="wzCopy" data-cursor>본문 복사</button>
+  </div>
+  <article class="wz-prose" id="wzProse" data-app="doc">
+    <hr>
+<p>date: 2026-08-12<br>
+agent: Boss (음성입력·에이전트 공동) — 폰 하나로 AI 워크스테이션 설치 매뉴얼<br>
+mark: _Boss<br>
+type: manual<br>
+status: active<br>
+note: /sdcard/Download 로컬 복사본에서 S21 레포로 이관 (2026-08-16)</p>
+<hr>
+<h1 id="ai">백서: 폰 하나로 AI 워크스테이션 짓기 (완결판)</h1>
+<h3 id="termux-proot-ubuntu-claude-code-deepseek">Termux → proot Ubuntu → Claude Code + DeepSeek — 처음부터 끝까지, 에러 없는 순서</h3>
+<blockquote>
+<p>이 문서는 여러 대의 폰(S21, 호야당 아저씨, 친구)에 실제로 설치하면서<br>
+나온 사고들을 전부 반영해 고친 최종 버전이다. 앞으로는 이 순서 그대로<br>
+가면 오늘 겪은 에러들을 하나도 다시 안 만난다.</p>
+</blockquote>
+<hr>
+<h2 id="_1">준비물 — 미리 발급받아둘 것</h2>
+<table>
+<thead>
+<tr>
+<th>변수</th>
+<th>어디서</th>
+<th>필수 여부</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DeepSeek API 키</td>
+<td>platform.deepseek.com → API Keys</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>GitHub 아이디 + 개인 액세스 토큰(ghp_&hellip;)</td>
+<td>github.com → Settings → Developer settings (repo 권한)</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>텔레그램 봇 토큰</td>
+<td>텔레그램 <code>@BotFather</code> → <code>/newbot</code></td>
+<td>선택</td>
+</tr>
+</tbody>
+</table>
+<p><strong>원칙 하나만 기억해라: 어떤 스크립트도 토큰을 채팅에 적으라고 요구하지<br>
+않는다.</strong> 전부 <code>read</code>로 그 자리에서 직접 입력받는다.</p>
+<hr>
+<h2 id="1-termux">1단계 — 우분투 설치 (겉, Termux <code>~ $</code>)</h2>
+<pre><code class="language-bash">pkg update -y &amp;&amp; pkg upgrade -y
+pkg install -y proot-distro
+proot-distro install ubuntu
+proot-distro login ubuntu
+</code></pre>
+<p>✅ 프롬프트가 <code>root@localhost:~#</code>로 바뀌면 통과.</p>
+<blockquote>
+<p>⚠️ <code>proot-distro install ubuntu</code>를 실수로 두 번 치면 &ldquo;container<br>
+already exists&rdquo; 뜬다 — 에러 아니다, 그냥 <code>proot-distro login ubuntu</code>로<br>
+바로 넘어가면 된다.</p>
+</blockquote>
+<h2 id="2-claude-code-root">2단계 — 기본 도구 + Claude Code (속, <code>root@</code>)</h2>
+<pre><code class="language-bash">apt update &amp;&amp; apt install -y curl git nano nodejs npm python3 python3-venv
+npm install -g @anthropic-ai/claude-code
+claude --version
+</code></pre>
+<p>✅ 버전 번호(<code>2.x.x</code>) 찍히면 통과.</p>
+<h2 id="3-deepseek">3단계 — DeepSeek 엔진 배선 (대화형)</h2>
+<pre><code class="language-bash">read -p &quot;DeepSeek API 키 입력: &quot; DEEPSEEK_API_KEY
+cat &gt;&gt; ~/.bashrc &lt;&lt; EOF
+export DEEPSEEK_API_KEY=&quot;$DEEPSEEK_API_KEY&quot;
+export ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic
+export ANTHROPIC_AUTH_TOKEN=\$DEEPSEEK_API_KEY
+export ANTHROPIC_MODEL=deepseek-v4-pro
+EOF
+grep -E 'DEEPSEEK_API_KEY|ANTHROPIC_' ~/.bashrc &gt;&gt; ~/.profile
+source ~/.bashrc
+echo $ANTHROPIC_BASE_URL
+</code></pre>
+<p>✅ <code>https://api.deepseek.com/anthropic</code> 출력되면 통과.</p>
+<blockquote>
+<p>모델명은 <code>deepseek-v4-pro</code> 고정. <code>deepseek-chat</code>은 2026년 7월 24일부로<br>
+완전히 폐기된 이름이라 절대 쓰지 않는다.</p>
+</blockquote>
+<h2 id="4">4단계 — 과금 안전장치 (⚠️ 여기서 건너뛰지 말 것)</h2>
+<p>이 단계를 빼먹으면 나중에 잔액이 며칠 만에 증발할 수 있다 — Claude<br>
+Code가 매 요청마다 랜덤 식별값을 헤더에 박아 넣는데, 이게 DeepSeek의<br>
+캐시 프리픽스를 매번 깨뜨려서 정상가의 최대 50배로 과금되는 알려진<br>
+문제가 있다. 미리 막는다.</p>
+<pre><code class="language-bash">mkdir -p ~/.claude
+cat &gt; ~/.claude/settings.json &lt;&lt; 'EOF'
+{
+  &quot;env&quot;: {
+    &quot;CLAUDE_CODE_ATTRIBUTION_HEADER&quot;: &quot;0&quot;,
+    &quot;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC&quot;: &quot;1&quot;,
+    &quot;ENABLE_TOOL_SEARCH&quot;: &quot;true&quot;,
+    &quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;: &quot;deepseek-v4-pro&quot;
+  }
+}
+EOF
+
+python3 -c &quot;
+import json, os
+p = os.path.expanduser('~/.claude.json')
+try:
+    with open(p) as f: d = json.load(f)
+except FileNotFoundError:
+    d = {}
+d['hasCompletedOnboarding'] = True
+d['primaryApiKey'] = os.environ.get('DEEPSEEK_API_KEY','')
+with open(p,'w') as f: json.dump(d, f, indent=2)
+print('patched:', p)
+&quot;
+</code></pre>
+<p>✅ <code>patched: /root/.claude.json</code> 출력되면 통과.</p>
+<h2 id="5">5단계 — 발사 테스트</h2>
+<pre><code class="language-bash">mkdir -p ~/work &amp;&amp; cd ~/work
+IS_SANDBOX=1 claude --dangerously-skip-permissions
+</code></pre>
+<p>동의화면 뜨면 화살표로 <strong><code>2. Yes, I accept</code></strong> 선택 → 엔터.</p>
+<p>✅ 로그인 요구 없이 바로 메인 화면 뜨고, 배너에 <code>deepseek-v4-pro</code><br>
+표시되면 통과. <code>hey</code>처럼 아무 말이나 쳐서 응답+<code>Cost</code> 표시까지 나오면<br>
+완전 확인.</p>
+<h2 id="6">6단계 — 두 글자 진입로 (⚠️ 반드시 겉으로 나온 뒤)</h2>
+<pre><code class="language-bash">exit
+</code></pre>
+<p>Claude Code 안이면 <code>/exit</code>로 먼저 나오고, 그 다음 셸에서 <code>exit</code> 한 번<br>
+<strong>더</strong> — <strong>프롬프트가 <code>~ $</code>인지 반드시 확인.</strong> (<code>root@</code> 상태에서 다음<br>
+줄을 치면 알리아스가 컨테이너 안에 박혀서 &ldquo;proot-distro should not be<br>
+executed under PRoot&rdquo; 에러가 난다 — 오늘 두 번 겪었던 사고다.)</p>
+<pre><code class="language-bash">echo &quot;alias cc='proot-distro login ubuntu -- bash -lc \&quot;cd ~/work &amp;&amp; IS_SANDBOX=1 claude --dangerously-skip-permissions\&quot;'&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+cc
+</code></pre>
+<p>✅ 겉(<code>~ $</code>)에서 <code>cc</code> 두 글자로 바로 Claude Code 뜨면 완료.</p>
+<h2 id="7-github">7단계 — GitHub 연동 (대화형)</h2>
+<pre><code class="language-bash">proot-distro login ubuntu
+
+read -p &quot;GitHub 아이디: &quot; GITHUB_USER
+read -sp &quot;GitHub 토큰(ghp_...): &quot; GITHUB_TOKEN; echo
+read -p &quot;새 레포 이름: &quot; REPO_NAME
+
+git config --global user.name &quot;$GITHUB_USER&quot;
+git config --global user.email &quot;$GITHUB_USER@users.noreply.github.com&quot;
+git config --global credential.helper store
+
+curl -s -X POST -H &quot;Authorization: token $GITHUB_TOKEN&quot; \
+  https://api.github.com/user/repos -d &quot;{\&quot;name\&quot;:\&quot;$REPO_NAME\&quot;}&quot;
+
+cd ~/work
+git init 2&gt;/dev/null
+git remote remove origin 2&gt;/dev/null
+git remote add origin &quot;https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/$REPO_NAME.git&quot;
+git branch -M main
+echo &quot;&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;body&gt;&lt;h1&gt;Workstation Live&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;&quot; &gt; index.html
+git add -A &amp;&amp; git commit -m &quot;init: workstation&quot;
+git push -u origin main
+
+curl -s -X POST -H &quot;Authorization: token $GITHUB_TOKEN&quot; \
+  -H &quot;Accept: application/vnd.github+json&quot; \
+  &quot;https://api.github.com/repos/$GITHUB_USER/$REPO_NAME/pages&quot; \
+  -d '{&quot;source&quot;:{&quot;branch&quot;:&quot;main&quot;,&quot;path&quot;:&quot;/&quot;}}'
+</code></pre>
+<p>✅ push 성공 + Pages 활성화 응답 오면 통과. 2분 뒤<br>
+<code>https://&lt;아이디&gt;.github.io/&lt;레포&gt;/</code> 접속 확인.</p>
+<h2 id="8">8단계 — 텔레그램 보고 회의실 (선택, 대화형)</h2>
+<p>텔레그램에서 만든 봇한테 먼저 메시지 1개 보내둘 것(필수 선행 조건).</p>
+<pre><code class="language-bash">read -sp &quot;텔레그램 봇 토큰: &quot; TG_TOKEN; echo
+TG_CHAT=$(curl -s &quot;https://api.telegram.org/bot$TG_TOKEN/getUpdates&quot; \
+  | grep -o '&quot;chat&quot;:{&quot;id&quot;:[0-9-]*' | head -1 | grep -o '[0-9-]*$')
+
+echo &quot;export TG_TOKEN=\&quot;$TG_TOKEN\&quot;&quot; &gt;&gt; ~/.bashrc
+echo &quot;export TG_CHAT=\&quot;$TG_CHAT\&quot;&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+
+cat &gt; ~/work/tg.sh &lt;&lt; 'EOF'
+#!/bin/bash
+curl -s -X POST &quot;https://api.telegram.org/bot$TG_TOKEN/sendMessage&quot; \
+  -d chat_id=$TG_CHAT -d text=&quot;$1&quot; &gt;/dev/null
+EOF
+chmod +x ~/work/tg.sh
+bash ~/work/tg.sh &quot;🟢 워크스테이션 개통 완료&quot;
+</code></pre>
+<p>✅ 텔레그램에 메시지 도착하면 통과.</p>
+<h2 id="9">9단계 — 나머지는 에이전트한테 자연어로 위임</h2>
+<p>폰 하드웨어 제어(MCP), YouTube 연동처럼 절차가 자주 바뀌는 것들은<br>
+하드코딩하지 않는다. <code>cc</code> 켜고 그냥 말로 시킨다:</p>
+<pre><code>phone-mcp-server 설치해줘. 순수 Termux:API 기반인지, 루트/Shizuku
+필요 없는지 먼저 확인하고 진행해.
+</code></pre>
+<pre><code>YouTube 채널 연동하고 싶어. 콘솔에서 뭘 눌러야 하는지 순서대로 알려주고,
+클라이언트ID/시크릿 받으면 Device Code Flow로 인증까지 진행해줘.
+</code></pre>
+<h2 id="10">10단계 — 헌법 씨앗 (마지막)</h2>
+<pre><code>cc 안에서 이렇게 시켜라:
+CONSTITUTION.md 만들어줘. 최소 3원칙만:
+1) 루팅/Shizuku 금지
+2) 토큰은 절대 대화 로그에 하드코딩하지 말 것 — read 프롬프트나
+   환경변수 파일에서만 읽을 것
+3) 새 세션은 이 문서부터 읽고 시작할 것
+</code></pre>
+<hr>
+<h2 id="_2">오늘 발견된 버그 요약 (참고용)</h2>
+<table>
+<thead>
+<tr>
+<th>증상</th>
+<th>원인</th>
+<th>이 매뉴얼에서 반영된 위치</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pip/numpy 빌드 에러</td>
+<td>겉(Termux)에서 pip 직접 설치 시도</td>
+<td>1~2단계에서 처음부터 우분투 안에서만 설치</td>
+</tr>
+<tr>
+<td><code>proot-distro should not be executed under PRoot</code></td>
+<td>알리아스를 속(root@)에서 등록</td>
+<td>6단계 경고문으로 명시</td>
+</tr>
+<tr>
+<td><code>/login</code> 요구, &ldquo;Opus 5&rdquo; 배너</td>
+<td>서드파티 백엔드 사용 시 온보딩 플래그 미설정</td>
+<td>4단계 <code>.claude.json</code> 패치로 사전 차단</td>
+</tr>
+<tr>
+<td>며칠 만에 잔액 증발</td>
+<td>attribution 헤더가 캐시 프리픽스를 매번 깨뜨림</td>
+<td>4단계에서 처음부터 차단</td>
+</tr>
+<tr>
+<td><code>deepseek-chat</code> 관련 400 에러</td>
+<td>폐기된 모델명 재사용</td>
+<td>전 구간 <code>deepseek-v4-pro</code>로 고정</td>
+</tr>
+</tbody>
+</table>
+<p><strong>39커밋 · 102파일 · 15,874줄짜리 삽질이 이 10단계로 압축됐다. 다음 폰<br>
+부터는 이거 하나면 끝난다.</strong></p>
+  </article>
+  <nav class="wz-pager">
+    <a class="" href="97b-s21-solutions-showcase-evaluation_Grok.html">
+          <span class="dir">Previous</span>
+          <span class="title">재고조사 평가 — Grok (2026-08-16)</span>
+        </a>
+    <a class="next" href="S21-Grok-plugin_Grok.html">
+          <span class="dir">Next</span>
+          <span class="title">S21 Grok 플러그 역할 (온디바이스 카드)</span>
+        </a>
+  </nav>
+  <div class="wz-related">
+          <h2>같은 섹션</h2>
+          <div class="grid"><a href="00-INDEX.html"><strong>📖 S21 Phone 업무 수첩 — 전체 목차</strong>구축: 2026-07-23 ~ 2026-08-14 (23일)</a><a href="01-arch.html"><strong>전체 시스템 아키텍처</strong>Notebook</a><a href="02-discord.html"><strong>디스코드 서버/봇/위젯</strong>Notebook</a><a href="03-telegram.html"><strong>텔레그램 봇/회의실</strong>Notebook</a><a href="04-github-pages.html"><strong>GitHub Pages + Giscus + WidgetBot</strong>Notebook</a><a href="05-tistory.html"><strong>블로그 포트폴리오 + 자동화 전략</strong>Notebook</a></div>
+        </div>
+  <footer class="wz-foot">
+    <div>S21 PHONE · Webzine lakme-audio</div>
+    <div class="gold">모든 계정은 누나 명의입니다.</div>
+    <p style="margin-top:12px"><a href="../index.html">← Back to landing</a></p>
+  </footer>
+</main>
+<div class="wz-float">
+  <button type="button" id="wzTop" aria-label="Top">↑</button>
+  <button type="button" data-theme-toggle aria-label="Theme">◐</button>
+</div>
+<script src="../assets/webzine.js"></script>
+</body>
+</html>
