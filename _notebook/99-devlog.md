@@ -6174,3 +6174,13 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 **🔴 보안 발견·조치:** 3레포(허브/piano/log) remote URL 에 PAT `ghp_...` 내장 확인 → `git remote set-url` 로 전부 제거, push 는 `gh auth git-credential` 로. **⚠️ 해당 PAT 즉시 폐기·재발급 권장.**
 
 **남은 (Boss 지시 대기):** 11편 공개 전환 · render-bgm SF2 캐시 · 서브모듈 등록(helena-piano/faith/metalcare) · Pages build_type 표준화.
+
+### 🧭 서브모듈 등록 정리 — 위성 4레포 일관 등록 (_Claude · 2026-08-16)
+
+**Boss 지시:** "서브모듈 등록 정리해줘" (deferred ③ 해소).
+
+- **진단:** `.gitmodules`에 `helana_log`(url `./helana_log`)만 등록돼 있고, gitlink는 `helana_log`·`helena-piano` 2개만 스테일(구 HEAD) → `fatal: no submodule mapping found for helena-piano`. metalcare/faith는 아예 미등록(untracked full-repo).
+- **조치:** `.gitmodules` 4위성 전부 **절대 URL**(`https://github.com/helena751107/{repo}.git`)로 재작성 + gitlink 4개 전부 현재 HEAD 갱신.
+  - piano `a054464` · metalcare `c43105a` · faith `312f860` · log `20cf94e`
+- **커밋:** `e8ce77c` (push 완료). `git submodule status` 에러 해소 확인.
+- **노트:** 새로 등록된 3개는 로컬 미초기화(`-` 프리픽스) — 정상. fresh clone 에서 `git submodule update --init` 시 4개 전부 체크아웃.
