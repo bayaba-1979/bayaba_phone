@@ -1,0 +1,8 @@
+{
+  "debussy": {"src": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Claude_Debussy_by_Atelier_Nadar.jpg", "caption": "클로드 드뷔시 (Atelier Nadar, 퍼블릭 도메인)"},
+  "satie": {"src": "https://upload.wikimedia.org/wikipedia/commons/5/58/Ericsatie.jpg", "caption": "에릭 사티 (퍼블릭 도메인)"},
+  "bach": {"src": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Johann_Sebastian_Bach.jpg", "caption": "요한 제바스티안 바흐 (1746 초상, 퍼블릭 도메인)"},
+  "chopin": {"src": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Frederic_Chopin_photo.jpeg", "caption": "프레데리크 쇼팽 (1849 다게레오타입, 퍼블릭 도메인)"},
+  "tchaikovsky": {"src": "https://upload.wikimedia.org/wikipedia/commons/1/10/Tschaikowsky_EBieber_1888.jpg", "caption": "표트르 차이콥스키 (1888, 퍼블릭 도메인)"},
+  "piano": {"src": "https://upload.wikimedia.org/wikipedia/commons/0/01/Steinway_Vienna_002.JPG", "caption": "Steinway 그랜드 피아노 (Wikimedia Commons)"}
+}

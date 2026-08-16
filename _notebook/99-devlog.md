@@ -6086,3 +6086,13 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **맥락:** Grok이 "사진 올리면 HTML/CSS 스펙으로 파싱해주겠다"고 제안했으나, Boss가 "Gemini나 ChatGPT 쓰는 게 낫고, Grok 여기 쓸 이유 없다"고 판단. 이전 메시지("사진 찍어서 하나하나 안 해도 될 거 같다")와 합쳐 **직접 빌드가 주 방법론**으로 확정.
 - **의미:** 웹진 제작이 Grok 플러그 의존에서 벗어나, 출판부(_Claude)가 유닛을 직접 짜는 방식. Grok은 딥페이크 다큐 등 원래 칸에만 선택 투입.
 - **다음:** ① 역할 문서 정식화(Boss 확정 후) + CLAUDE.md 에이전트 표에 5번째 등재 ② 레인1 기사 공개(자정 후) ③ 레인2 첫 페이지 유닛을 웹진 디렉터 방법론으로 직접 빌드.
+
+### 🎹 피아노 웹진 — 맥시멈 구축 완료: 11편 비공개 발행 + 공개 전환 준비 (_Claude · 2026-08-16)
+
+- **Boss 지시:** "비공개여도 좋으니 맥시멈으로 웹진 다 만들어... 자율주행" → 레인1(스튜디오 튜토리얼 4편) + 레인2(감상 3·리뷰 1·이론 1) **9편 신규 작성·비공개 발행** 완료.
+- **`magazine.py` 신설:** markdown(+frontmatter) → 잡지 HTML 렌더러. `:::audio URL|제목`(오디오 플레이어), `:::figure key|캡션`(이미지 figure), `mag-dropcap/mag-title/mag-hero` 잡지 스타일. `assets/magazine-images.json` = 퍼블릭 도메인 작곡가 이미지 6장(debussy/satie/bach/chopin/tchaikovsky/piano — upload.wikimedia.org 원본 URL 전부 200 검증, 640px 섬네일은 400이라 원본 URL 사용). MP3는 GitHub Pages CDN(`helena751107.github.io/helena-piano/bgm/output/*.mp3`) 스트리밍.
+- **발행 결과:** 9편 전부 `visibility:private` 성공(성공 9/실패 0). tinymce `setContent+save()` 경로로 `<audio>/<figure>/<img>` 보존(본문 검증 통과). 댓글 비허용 강제 적용. (다이얼로그 dismiss 경고 1건은 benign — 이미 자동 처리된 alert 재해제 시도, 발행엔 무영향.)
+- **전체 글 11편(전부 비공개):** `list_piano_posts.py`(신규, `a.link_cont`로 제목·ID·공개상태 덤프)로 확인 — #2 손바닥위 그랜드피아노(스튜디오, 기존) · #3 달빛(감상, 기존) · #4~6 감상(짐노페디·BWV846·라크메) · #7~10 스튜디오(MIDI·SoundFont·인간화·자동화) · #11 리뷰(백조의호수) · #12 이론(화성).
+- **글로브 버그 수정:** `piano-0{3..11}` brace가 `piano-010/011`로 잘못 확장 → piano-10/11 누락. 명시 경로로 재렌더 해결.
+- **공개 전환 준비:** `flip_visibility.py --account piano --ids 2,3,4,5,6,7,8,9,10,11,12 --visibility public` (11편 < 15개/일 한도, 1회 실행). 단 **Boss 리뷰(교체 이미지) 후 실행** — Boss 프로세스 "업로드된 거 보고 → 갈아끼울 이미지 생성 → 공개 전환".
+- **다음:** ① Boss 리뷰 + 교체 이미지 접수 ② 본문 figure 교체(이미지 스왑) ③ 11편 일괄 공개 전환 ④ 홈 커버 히어로 노출 확인.
