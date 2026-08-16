@@ -1144,6 +1144,14 @@
     "deck": ""
   },
   {
+    "src": "_notebook/97-s21-solutions-showcase_Claude.md",
+    "out": "notebook/97-s21-solutions-showcase_Claude.html",
+    "title": "S21 한 대로 만든 것 — 3주 랩업 & 보여줄 만한 솔루션",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "구형 Galaxy S21(proot Ubuntu) + AI 에이전트 3종으로, **\"돌봄(누나) + 소망(출판)\"** 을 폰 한 대에서 돌리는 1인 미디어 스튜디오를 세웠다."
+  },
+  {
     "src": "_notebook/rvc-environment-gap_Claude.md",
     "out": "notebook/rvc-environment-gap_Claude.html",
     "title": "RVC 환경 차이 진단 — WSL vs S21",
