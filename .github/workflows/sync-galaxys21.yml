@@ -1,0 +1,13 @@
+name: 📰 Tistory RSS → 기자/ (galaxys21-pwuser)
+
+# 허브(helena_phone) 자신의 티스토리 동기화 — 중앙 재사용 워크플로 호출.
+on:
+  schedule:
+    - cron: '7 * * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    uses: helena751107/helena_phone/.github/workflows/tistory-sync.yml@main
+    with:
+      blog: galaxys21-pwuser
