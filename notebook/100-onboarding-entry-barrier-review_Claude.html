@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="**마크:** `_Claude` · Boss 전달 외부 AI 리뷰 보존 (2026-08-17) — S21 Phone Webzine">
+<meta name="theme-color" content="#0a0908">
+<meta name="application-name" content="S21 Phone">
+<title>온보딩 진입 장벽 — 외부 리뷰 + 무결점 세팅 스크립트 — S21 Phone Webzine</title>
+<link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/webzine.css">
+</head>
+<body>
+<div class="spine" aria-hidden="true"><div class="spine-fill" id="spineFill"></div></div>
+<header class="wz-mast">
+  <a class="brand" href="../index.html">S21 <em>Phone</em></a>
+  <div class="wz-mast-actions">
+    <button type="button" class="wz-burger" data-nav-toggle aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav class="wz-nav">
+      <a href="../index.html">Home</a>
+      <a href="../archive.html">Archive</a>
+      <a href="../index.html#library">Library</a>
+      <a href="../index.html#agents">Agents</a>
+      <button type="button" data-theme-toggle>Theme</button>
+      <a class="pill gold" href="../index.html#install">Install</a>
+    </nav>
+  </div>
+</header>
+<main class="wz-shell">
+  <div class="wz-crumb">
+    <a href="../index.html">Webzine</a><span class="sep">/</span>
+    <span>Notebook</span><span class="sep">/</span>
+    <span>온보딩 진입 장벽 — 외부 리뷰 + 무결점 세팅 스크립트</span>
+  </div>
+  <header class="wz-hero">
+    <div class="wz-kicker">Notebook · lakme-audio</div>
+    <h1>온보딩 진입 장벽 — 외부 리뷰 + 무결점 세팅 스크립트</h1>
+    <p class="deck">**마크:** `_Claude` · Boss 전달 외부 AI 리뷰 보존 (2026-08-17)</p>
+    <div class="wz-meta">
+      <span>Source · _notebook/100-onboarding-entry-barrier-review_Claude.md</span>
+      <span>Kind · markdown</span>
+      <span>S21 Phone Editorial</span>
+    </div>
+  </header>
+  <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
+<ul>
+<li><a href="#_2">왜 이 문서인가</a></li>
+<li><a href="#5">진입 장벽 5종 (외부 리뷰 지적)</a></li>
+<li><a href="#_3">무결점 세팅 스크립트 (최종 수정본)</a></li>
+<li><a href="#_4">종합 평가 (외부 리뷰)</a></li>
+<li><a href="#_5">남은 진입 장벽 (리뷰가 못 푼 것)</a></li>
+</ul>
+</div>
+</nav>
+  <div class="wz-appbar" role="toolbar" aria-label="Document tools">
+    <input type="search" id="wzSearch" class="wz-search" placeholder="페이지 내 검색…" autocomplete="off">
+    <button type="button" id="wzFoldAll" data-cursor>접기</button>
+    <button type="button" id="wzExpandAll" data-cursor>펼치기</button>
+    <button type="button" id="wzCopy" data-cursor>본문 복사</button>
+  </div>
+  <article class="wz-prose" id="wzProse" data-app="doc">
+    <blockquote>
+<p><strong>마크:</strong> <code>_Claude</code> · Boss 전달 외부 AI 리뷰 보존 (2026-08-17)<br>
+<strong>연결:</strong> [[98-turning-point-2026-08-16]] (열고 가르치기) · <code>ai-workstation-setup-manual_Boss.md</code> · <code>41-beginner-install-manual_Grok.md</code> · <code>15-proot-report.md</code></p>
+</blockquote>
+<h2 id="_2">왜 이 문서인가</h2>
+<p>&ldquo;열고 가르치기&rdquo;의 <strong>최초 진입점 = 에이전트 1개를 세팅하는 것</strong>. 이게 안 되면 확장 자체가 막힌다. Boss가 직접 4명을 인스톨해주며 겪은 시행착오 + 외부 AI의 코드 리뷰를 그대로 보존한다. &ldquo;어떻게 하는지&rdquo;의 최전선 문서.</p>
+<p><strong>핵심 (Boss):</strong> <em>&ldquo;이거 진입 장벽 있는 최초 세팅 — 에이전트 하나를 세팅해야지 뭘 확장할 수가 있는데, 이게 너무 힘들다.&rdquo;</em></p>
+<hr>
+<h2 id="5">진입 장벽 5종 (외부 리뷰 지적)</h2>
+<ol>
+<li><strong>python3 -c 환경변수 미반영</strong> — <code>source ~/.bashrc</code>를 해도 서브셸/세션에 따라 <code>os.environ.get('DEEPSEEK_API_KEY')</code>가 빈 문자열로 들어가는 경우가 빈번.</li>
+<li><strong>Termux 백그라운드 강제 종료</strong> — Android 12+ Phantom Process Killer가 백그라운드/중작업 시 Termux를 Signal 9로 죽임 → 설치 전 <strong>배터리 최적화 해제</strong> 안내가 최상단에 있어야 함.</li>
+<li><strong>npm install -g 메모리 부족(OOM)</strong> — 저사양 폰에서 <code>@anthropic-ai/claude-code</code> 설치 시 OOM/장시간 → <code>--no-audit --progress=false</code>로 완화.</li>
+<li><strong>텔레그램 Chat ID 파싱 오작동</strong> — <code>grep -o</code> 기반 파싱은 JSON 구조 변화·단체방/채널에서 공백 발생 → <code>python3 json</code>으로 안전 추출.</li>
+<li><strong>alias cc 실행 문제</strong> — <code>cd ~/work</code> 시 <code>~/work</code> 디렉토리가 없으면 진입 실패 → <code>mkdir -p ~/work</code> 선행.</li>
+</ol>
+<hr>
+<h2 id="_3">무결점 세팅 스크립트 (최종 수정본)</h2>
+<blockquote>
+<p>초보자가 복붙해도 에러 없이 한 번에 완주하도록 수정된 버전.</p>
+</blockquote>
+<pre><code class="language-bash"># ========================================================
+# [사전 준비] 안드로이드 설정:
+# Termux 앱 정보 -&gt; 배터리 -&gt; '제한 없음(Unrestricted)' 설정 필수!
+# ========================================================
+
+### ① 우분투 설치 (겉, Termux `~ $`)
+pkg update -y &amp;&amp; pkg upgrade -y
+pkg install -y proot-distro
+proot-distro install ubuntu
+proot-distro login ubuntu
+
+### ② 기본 도구 + Claude Code (속, `root@`)
+apt update &amp;&amp; apt install -y curl git nano nodejs npm python3 python3-venv
+npm install -g --no-audit --progress=false @anthropic-ai/claude-code
+claude --version
+
+### ③ DeepSeek 엔진 배선
+read -p &quot;DeepSeek API 키 입력: &quot; DEEPSEEK_API_KEY
+
+cat &lt;&lt; EOF &gt;&gt; ~/.bashrc
+export DEEPSEEK_API_KEY=&quot;$DEEPSEEK_API_KEY&quot;
+export ANTHROPIC_BASE_URL=&quot;https://api.deepseek.com/anthropic&quot;
+export ANTHROPIC_AUTH_TOKEN=&quot;\$DEEPSEEK_API_KEY&quot;
+export ANTHROPIC_MODEL=&quot;deepseek-v4-pro&quot;
+EOF
+
+grep -E 'DEEPSEEK_API_KEY|ANTHROPIC_' ~/.bashrc &gt;&gt; ~/.profile
+source ~/.bashrc
+echo &quot;엔진 설정 완료: $ANTHROPIC_BASE_URL&quot;
+
+### ④ 과금 안전장치 &amp; 온보딩 우회 (안전 강화 버전)
+mkdir -p ~/.claude ~/work
+cat &gt; ~/.claude/settings.json &lt;&lt; 'EOF'
+{
+  &quot;env&quot;: {
+    &quot;CLAUDE_CODE_ATTRIBUTION_HEADER&quot;: &quot;0&quot;,
+    &quot;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC&quot;: &quot;1&quot;,
+    &quot;ENABLE_TOOL_SEARCH&quot;: &quot;true&quot;,
+    &quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;: &quot;deepseek-v4-pro&quot;
+  }
+}
+EOF
+
+python3 -c &quot;
+import json, os, sys
+p = os.path.expanduser('~/.claude.json')
+key = sys.argv[1] if len(sys.argv) &gt; 1 else ''
+try:
+    with open(p) as f: d = json.load(f)
+except FileNotFoundError:
+    d = {}
+d['hasCompletedOnboarding'] = True
+d['primaryApiKey'] = key
+with open(p,'w') as f: json.dump(d, f, indent=2)
+print('설치 패치 성공:', p)
+&quot; &quot;$DEEPSEEK_API_KEY&quot;
+
+### ⑤ 발사 테스트
+cd ~/work
+IS_SANDBOX=1 claude --dangerously-skip-permissions
+
+(약관 동의 화면 나오면 2 → Yes 선택)
+### ⑥ 두 글자 진입로 설정 (⚠️ 우분투 탈출 후 Termux 겉에서 실행)
+exit
+
+(프롬프트가 ~ $ 상태인지 확인)
+cat &lt;&lt; 'EOF' &gt;&gt; ~/.bashrc
+alias cc='proot-distro login ubuntu -- bash -lc &quot;mkdir -p ~/work &amp;&amp; cd ~/work &amp;&amp; IS_SANDBOX=1 claude --dangerously-skip-permissions&quot;'
+EOF
+source ~/.bashrc
+cc
+
+### ⑦ GitHub 연동 (속, 우분투 내부)
+read -p &quot;GitHub 아이디: &quot; GITHUB_USER
+read -sp &quot;GitHub 토큰(ghp_...): &quot; GITHUB_TOKEN; echo
+read -p &quot;새 레포 이름: &quot; REPO_NAME
+
+git config --global user.name &quot;$GITHUB_USER&quot;
+git config --global user.email &quot;$GITHUB_USER@users.noreply.github.com&quot;
+git config --global credential.helper store
+
+curl -s -X POST -H &quot;Authorization: token $GITHUB_TOKEN&quot; \
+  https://api.github.com/user/repos -d &quot;{\&quot;name\&quot;:\&quot;$REPO_NAME\&quot;}&quot;
+
+cd ~/work
+git init 2&gt;/dev/null
+git remote remove origin 2&gt;/dev/null
+git remote add origin &quot;https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/$REPO_NAME.git&quot;
+git branch -M main
+echo &quot;&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;body&gt;&lt;h1&gt;Workstation Live&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;&quot; &gt; index.html
+git add -A &amp;&amp; git commit -m &quot;init: workstation&quot;
+git push -u origin main
+
+curl -s -X POST -H &quot;Authorization: token $GITHUB_TOKEN&quot; \
+  -H &quot;Accept: application/vnd.github+json&quot; \
+  &quot;https://api.github.com/repos/$GITHUB_USER/$REPO_NAME/pages&quot; \
+  -d '{&quot;source&quot;:{&quot;branch&quot;:&quot;main&quot;,&quot;path&quot;:&quot;/&quot;}}'
+
+### ⑧ 텔레그램 회의실 (안전 파싱 적용)
+read -sp &quot;텔레그램 봇 토큰: &quot; TG_TOKEN; echo
+
+TG_CHAT=$(curl -s &quot;https://api.telegram.org/bot$TG_TOKEN/getUpdates&quot; | python3 -c &quot;
+import sys, json
+try:
+    res = json.load(sys.stdin)
+    print(res['result'][0]['message']['chat']['id'])
+except Exception:
+    print('')
+&quot;)
+
+if [ -z &quot;$TG_CHAT&quot; ]; then
+  echo &quot;⚠️ Chat ID를 찾을 수 없습니다. 봇에게 텔레그램 메시지를 최소 1개 이상 보낸 후 다시 실행해주세요.&quot;
+else
+  cat &lt;&lt; EOF &gt;&gt; ~/.bashrc
+export TG_TOKEN=&quot;$TG_TOKEN&quot;
+export TG_CHAT=&quot;$TG_CHAT&quot;
+EOF
+  source ~/.bashrc
+
+  cat &gt; ~/work/tg.sh &lt;&lt; 'EOF'
+#!/bin/bash
+curl -s -X POST &quot;https://api.telegram.org/bot$TG_TOKEN/sendMessage&quot; \
+  -d chat_id=$TG_CHAT -d text=&quot;$1&quot; &gt;/dev/null
+EOF
+  chmod +x ~/work/tg.sh
+  bash ~/work/tg.sh &quot;🟢 워크스테이션 개통 완료&quot;
+  echo &quot;텔레그램 발송 완료!&quot;
+fi
+</code></pre>
+<hr>
+<h2 id="_4">종합 평가 (외부 리뷰)</h2>
+<ul>
+<li><strong>최적화 여부:</strong> ⭐️⭐️⭐️⭐️⭐️ — 안드로이드 단말기를 Claude Code AI 에이전트 개발 디바이스로 바꾸는 최고 효율의 커스텀 세팅. DeepSeek API를 Anthropic 규격으로 래핑해 비용 1/10 이하로 줄이면서 Claude Code CLI UI의 에이전트 성능을 그대로 쓰는 구조가 뛰어난 기획.</li>
+<li><strong>진입 장벽 솔루션:</strong> 일반 사용자 입장에서 Termux 설치 + API 토큰 발급이 여전히 최대 허들. 스크립트 전 실행 단계로 <strong>&ldquo;Termux APK 설치 사이트 링크&rdquo;</strong> + <strong>&ldquo;배터리 최적화 해제 안내 카드&rdquo;</strong> 단 2가지만 그림/이미지 설명으로 보완하면 완벽한 패키지 솔루션.</li>
+</ul>
+<h2 id="_5">남은 진입 장벽 (리뷰가 못 푼 것)</h2>
+<ol>
+<li><strong>Termux APK 설치 링크</strong> (그림 카드)</li>
+<li><strong>배터리 최적화 해제 안내</strong> (그림 카드)</li>
+<li><strong>API 토큰 발급</strong> (DeepSeek / GitHub / Telegram 3종) — 사람이 직접 계정 만들어야 하는 부분이라 자동화 불가, 안내만 가능.</li>
+</ol>
+  </article>
+  <nav class="wz-pager">
+    <a class="" href="98b-tutorial-reproducibility-shift_Claude.html">
+          <span class="dir">Previous</span>
+          <span class="title">재현성 기준의 변화 — 튜토리얼은 결과 복제가 아니라 사고 과정 재현</span>
+        </a>
+    <a class="next" href="ai-workstation-setup-manual_Boss.html">
+          <span class="dir">Next</span>
+          <span class="title">폰 하나로 AI 워크스테이션 짓기 (설치 매뉴얼)</span>
+        </a>
+  </nav>
+  <div class="wz-related">
+          <h2>같은 섹션</h2>
+          <div class="grid"><a href="00-INDEX.html"><strong>📖 S21 Phone 업무 수첩 — 전체 목차</strong>구축: 2026-07-23 ~ 2026-08-14 (23일)</a><a href="01-arch.html"><strong>전체 시스템 아키텍처</strong>Notebook</a><a href="02-discord.html"><strong>디스코드 서버/봇/위젯</strong>Notebook</a><a href="03-telegram.html"><strong>텔레그램 봇/회의실</strong>Notebook</a><a href="04-github-pages.html"><strong>GitHub Pages + Giscus + WidgetBot</strong>Notebook</a><a href="05-tistory.html"><strong>블로그 포트폴리오 + 자동화 전략</strong>Notebook</a></div>
+        </div>
+  <footer class="wz-foot">
+    <div>S21 PHONE · Webzine lakme-audio</div>
+    <div class="gold">모든 계정은 누나 명의입니다.</div>
+    <p style="margin-top:12px"><a href="../index.html">← Back to landing</a></p>
+  </footer>
+</main>
+<div class="wz-float">
+  <button type="button" id="wzTop" aria-label="Top">↑</button>
+  <button type="button" data-theme-toggle aria-label="Theme">◐</button>
+</div>
+<script src="../assets/webzine.js"></script>
+</body>
+</html>

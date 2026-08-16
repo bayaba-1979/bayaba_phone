@@ -252,6 +252,7 @@ NOTEBOOK_TITLES = {
     "97b-s21-solutions-showcase-evaluation_Grok.md": "재고조사 평가 — 해자는 코드가 아니라 퍼포먼스",
     "97c-ai-limitation-reverse-evaluation_Claude.md": "AI의 한계 — 역평가의 단위 오류 (Boss 역카운터)",
     "98b-tutorial-reproducibility-shift_Claude.md": "재현성 기준의 변화 — 튜토리얼은 사고 과정 재현",
+    "100-onboarding-entry-barrier-review_Claude.md": "온보딩 진입 장벽 — 무결점 세팅 스크립트 리뷰",
     "ai-workstation-setup-manual_Boss.md": "폰 하나로 AI 워크스테이션 짓기 (설치 매뉴얼)",
     "S21-Grok-plugin_Grok.md": "S21 Grok 플러그 역할 (온디바이스 카드)",
 }

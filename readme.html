@@ -53,7 +53,15 @@
 <li><a href="#_2">이제 뭘 하나요? — 빌드 멈춤, 열고 가르치기</a></li>
 <li><a href="#_3">숫자로 보기</a></li>
 <li><a href="#_4">빠른 링크</a></li>
-<li><a href="#1">1줄 설치</a></li>
+<li><a href="#10">🚀 10분 시작 — 복사 → 설정 → 구동</a><ul>
+<li><a href="#0-use-this-template">0분 — 복사 (Use this template)</a></li>
+<li><a href="#2">2분 — 내비게이터 (설정 마법사)</a></li>
+<li><a href="#5">5분 — 스폰 (위성 레포 생성)</a></li>
+<li><a href="#8">8분 — 구동 (워크스페이스)</a></li>
+<li><a href="#10_1">10분 — 확인</a></li>
+</ul>
+</li>
+<li><a href="#1">📱 휴대폰에 1줄 설치 (기존 워크스페이스)</a></li>
 </ul>
 </div>
 </nav>
@@ -187,6 +195,14 @@
 <td><a href="textbook.html">_textbook/index.md</a></td>
 </tr>
 <tr>
+<td><strong>🚀 10분 시작 (내비게이터)</strong></td>
+<td><a href="navigator.sh">navigator.sh</a></td>
+</tr>
+<tr>
+<td><strong>스폰 엔진 (위성 레포 생성)</strong></td>
+<td><a href="g/spawn.sh">g/spawn.sh</a></td>
+</tr>
+<tr>
 <td><strong>1줄 설치</strong></td>
 <td><a href="g/install.html">g/install.sh</a></td>
 </tr>
@@ -196,7 +212,82 @@
 </tr>
 </tbody>
 </table>
-<h2 id="1">1줄 설치</h2>
+<h2 id="10">🚀 10분 시작 — 복사 → 설정 → 구동</h2>
+<p>이 레포는 <strong>보일러플레이트(뼈대)</strong>예요. &ldquo;Use this template&rdquo;으로 복사한 뒤 내 이름·내 블로그·내 채널만 넣으면 그대로 돌아가요. 기존 콘텐츠(피아노·돌봄·신앙)는 <strong>사례(worked example)</strong>로 그대로 들어 있어요 — 변수 지점만 내 것으로 바꾸면 됩니다.</p>
+<table>
+<thead>
+<tr>
+<th>분</th>
+<th>단계</th>
+<th>명령</th>
+<th>결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0분</td>
+<td>복사</td>
+<td>GitHub → <strong>Use this template</strong></td>
+<td>내 계정에 <code>helena_phone</code> 생성</td>
+</tr>
+<tr>
+<td>2분</td>
+<td>설정</td>
+<td><code>bash navigator.sh</code></td>
+<td><code>ecosystem.json</code> + <code>.secrets.env</code> 생성</td>
+</tr>
+<tr>
+<td>5분</td>
+<td>스폰</td>
+<td><code>bash g/spawn.sh</code></td>
+<td>위성 4레포 생성 + 시크릿 배선</td>
+</tr>
+<tr>
+<td>8분</td>
+<td>구동</td>
+<td><code>bash g/install.sh</code></td>
+<td>Termux/proot/Claude 워크스페이스</td>
+</tr>
+<tr>
+<td>10분</td>
+<td>확인</td>
+<td>Pages + 워크플로</td>
+<td>티스토리·유튜브 파이프라인 가동</td>
+</tr>
+</tbody>
+</table>
+<h3 id="0-use-this-template">0분 — 복사 (Use this template)</h3>
+<ul>
+<li>GitHub 레포 페이지 상단 <strong>&ldquo;Use this template&rdquo;</strong> → &ldquo;Create a new repository&rdquo;</li>
+<li>이름은 아무거나(기본 <code>helena_phone</code>), <strong>Public</strong> 유지 (공개가 철학)</li>
+<li>또는 CLI: <code>gh repo create 내아이디/helena_phone --template helena751107/helena_phone --public</code></li>
+</ul>
+<h3 id="2">2분 — 내비게이터 (설정 마법사)</h3>
+<pre><code class="language-bash">cd helena_phone
+bash navigator.sh
+</code></pre>
+<p>물어보는 것 3가지:<br>
+1. <strong>GitHub 사용자명</strong> (명의)<br>
+2. <strong>블로그/채널</strong> — 티스토리 5개 slug, 유튜브 2개 handle (템플릿 샘플 유지 가능)<br>
+3. <strong>시크릿</strong> — BotFather(TG)·Google Cloud Console(YouTube)·Discord 발급법을 단계별 안내하며 입력</p>
+<p>→ 결과물: <code>configs/ecosystem.json</code>(매핑) + <code>.secrets.env</code>(시크릿). <strong>둘 다 gitignore</strong>라 절대 GitHub에 안 올라가요.</p>
+<h3 id="5">5분 — 스폰 (위성 레포 생성)</h3>
+<pre><code class="language-bash">bash g/spawn.sh            # 실행
+bash g/spawn.sh --dry-run  # 실행 전 미리보기
+</code></pre>
+<p><code>ecosystem.json</code>을 읽어 위성 4레포(피아노/멘탈케어/신앙/로그)를 템플릿에서 복사 생성하고, TG 시크릿을 각 레포에 배선해요. (<code>gh CLI</code> + <code>gh auth login</code> 필요)</p>
+<h3 id="8">8분 — 구동 (워크스페이스)</h3>
+<pre><code class="language-bash">bash g/install.sh          # 휴대폰(Termux/proot)에서
+</code></pre>
+<h3 id="10_1">10분 — 확인</h3>
+<ul>
+<li>Pages: <code>https://내아이디.github.io/helena_phone/</code></li>
+<li>워크플로: 각 레포 <strong>Actions</strong> 탭에서 <code>tistory-sync</code> 한 번 수동 실행 → RSS가 <code>기자/</code>로 들어오는지 확인</li>
+</ul>
+<blockquote>
+<p><strong>왜 이렇게 가볍나?</strong> 드리프트 동기화는 중앙 reusable workflow(<code>uses: helena751107/helena_phone/.github/workflows/tistory-sync.yml@main</code>)가 자동 처리해요. 내가 로직을 고치면 복사한 사람들 레포에도 자동 반영돼요.</p>
+</blockquote>
+<h2 id="1">📱 휴대폰에 1줄 설치 (기존 워크스페이스)</h2>
 <p>마법 공구상자를 내 휴대폰에도! 아래 한 줄을 복사해서 비밀 방(터미널)에 붙여넣으세요:</p>
 <pre><code class="language-bash">curl -sL https://raw.github.com/helena751107/helena_phone/main/g/install.sh | bash
 </code></pre>

@@ -1112,6 +1112,14 @@
     "deck": "**Boss 확정 접근법 전환.** \"따라 하기\"의 의미가 **결과 복제**에서 **문제 해결 과정의 재현**으로 이동한다."
   },
   {
+    "src": "_notebook/100-onboarding-entry-barrier-review_Claude.md",
+    "out": "notebook/100-onboarding-entry-barrier-review_Claude.html",
+    "title": "온보딩 진입 장벽 — 외부 리뷰 + 무결점 세팅 스크립트",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "**마크:** `_Claude` · Boss 전달 외부 AI 리뷰 보존 (2026-08-17)"
+  },
+  {
     "src": "_notebook/ai-workstation-setup-manual_Boss.md",
     "out": "notebook/ai-workstation-setup-manual_Boss.html",
     "title": "백서: 폰 하나로 AI 워크스테이션 짓기 (완결판)",

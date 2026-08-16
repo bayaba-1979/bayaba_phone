@@ -68,7 +68,7 @@ OAuth Device Code Flow → Data API v3 → 영상 업로드
 
 사용법:
   ~/browser-env/bin/python3 scripts/yt_upload.py --title &quot;제목&quot; --file video.mp4
-  ~/browser-env/bin/python3 scripts/yt_upload.py --channel @HelenaPark-e7c --list
+  ~/browser-env/bin/python3 scripts/yt_upload.py --channel @내채널handle --list
 
 환경: proot Ubuntu
 의존성: google-auth-oauthlib, google-api-python-client
@@ -86,15 +86,16 @@ TOKEN_FILE = BASE / &quot;configs&quot; / &quot;yt_tokens.json&quot;
 
 CLIENT_ID = os.environ.get(&quot;YT_CLIENT_ID&quot;, &quot;&quot;)
 CLIENT_SECRET = os.environ.get(&quot;YT_CLIENT_SECRET&quot;, &quot;&quot;)
-PROJECT_ID = &quot;911931724403&quot;  # S21 YouTube
+
+# 생태계 SSOT(configs/ecosystem.json)에서 2채널·프로젝트 로드.
+# (구 6채널 하드코딩 → 2채널 정합: main=돌봄, phone=도구)
+from load_ecosystem import channels as _ecosystem_channels, youtube as _ecosystem_youtube
+
+PROJECT_ID = _ecosystem_youtube().get(&quot;project_id&quot;, &quot;&quot;)
 
 CHANNELS = {
-    &quot;main&quot;:     {&quot;id&quot;: &quot;UCRUuiKCCwIbyvqlxTNpDfKw&quot;, &quot;handle&quot;: &quot;@HelenaPark-e7c&quot;,   &quot;topic&quot;: &quot;루트 채널&quot;},
-    &quot;phone&quot;:    {&quot;id&quot;: &quot;&quot;, &quot;handle&quot;: &quot;@S21Phone&quot;,           &quot;topic&quot;: &quot;S21 폰 최적화&quot;},
-    &quot;tech&quot;:     {&quot;id&quot;: &quot;&quot;, &quot;handle&quot;: &quot;@HelenaTechLog&quot;,      &quot;topic&quot;: &quot;기술 튜토리얼&quot;},
-    &quot;faith&quot;:    {&quot;id&quot;: &quot;&quot;, &quot;handle&quot;: &quot;@HelanaFaith&quot;,        &quot;topic&quot;: &quot;신앙 콘텐츠&quot;},
-    &quot;piano&quot;:    {&quot;id&quot;: &quot;&quot;, &quot;handle&quot;: &quot;@HelenaPiano&quot;,        &quot;topic&quot;: &quot;피아노 연주&quot;},
-    &quot;metalcare&quot;:  {&quot;id&quot;: &quot;&quot;, &quot;handle&quot;: &quot;@HelenaMetalcare&quot;,      &quot;topic&quot;: &quot;정신분석&quot;},
+    c[&quot;key&quot;]: {&quot;id&quot;: c.get(&quot;id&quot;, &quot;&quot;), &quot;handle&quot;: c[&quot;handle&quot;], &quot;topic&quot;: c.get(&quot;topic&quot;, &quot;&quot;)}
+    for c in _ecosystem_channels()
 }
 
 SCOPES = [
