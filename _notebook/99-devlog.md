@@ -6124,3 +6124,13 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
   - **helena-piano(웹진):** README 스텁→확장(두 레인), index.html meta·히어로 "미니 스튜디오"→"클래식 웹진" 갱신. description+homepage 설정.
 - **서브모듈 포인터 정리:** helana_log·helena-piano gitlink 갱신(부모 3커밋).
 - **다음:** ① metalcare·faith 2레포(Boss 방향 입력 대기) ② ⚠️ git remote에 GitHub PAT 내장 — 보안 점검 필요 ③ 헌법 제9조 확정.
+
+### 🧭 metalcare·faith 정체성 확정 — 조현병 알아가기 + 종교 판타지 (_Claude · 2026-08-16)
+
+- **Boss 방향 입력 완료** (전 레포 재정렬의 마지막 2레포):
+  - **metalcare(돌봄 트랙):** 누나의 **조현병을 "죽기 전에 진짜로 알아가는" 과정**. 환청 음성화 · 약 분석 · 전문의 상담 · 뷰티풀마인드 미러링 · 환자 대본 설정.
+  - **faith(종교 판타지):** **종교 판타지 채널**. 의심하는 토마스(본인)가 기독교·천주교·불교를 넘나드는 "제3의 시각"으로 교리가 아닌 의심·상상에서 진짜 신앙을 찾음. 누나 문답 + 신학대학원생 조카 질문.
+- **MetalCare 이름 재해석:** MentalCare 오타를 고치지 않고 중의적으로 살림 — "Metal(금속)처럼 강력한 **하나의 기준(잣대)**을 찾는 돌봄(care)". AI 한계 단위 교훈과 맞물림.
+- **경계 반영(제15조·의료/신학 단정 금지):** README·랜딩 meta/hero·CLAUDE.md에 명시. ⚠️ Boss가 부른 "REDACTED"는 실명 추정 → 공개문 전부 "누나/헬레나"로 통일, CLAUDE.md·메모리에 "REDACTED 금지" 못박음.
+- **실행:** description(gh) + README + index.html meta/hero/title + CLAUDE.md 경계, 각각 커밋·푸시. push는 PAT 없이 gh 자격증명 헬퍼 사용(보안 패턴 검증).
+- **다음:** ① REDACTED = 실명/가명 확인(공개 핸들 확정) ② 환청 음성화 → 목소리 전략(3트랙) 연결 ③ git remote PAT 내장 정리(Boss 승인 대기).
