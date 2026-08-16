@@ -6072,3 +6072,10 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **검증(모바일=리더, viewport 390px):** `matchMedia`로 `body.s21-mobile` 자동 부여 → `#category-nav`/`#s21-bezel` `display:none`, `#wrap` 전화면 고정, `#content` 348px 전폭, 웹진 네이비→골드 radial-gradient + 세리프 마스트헤드 그대로. **두 모드 모두 웹진이 얹힘** → Boss 요구 "PC 화면·모바일 화면 둘 다 액자/뷰어 위에 잡지" 충족.
 - **⚠️ 미해결:** 공개 홈 `#content .inner` 자식 0(글 목록 안 뜸), 카테고리 카운트 전부 "(0)". manage API상 공개글 id=1("Galaxy21 Proot R&Scope")이 있는데 리스트 미노출 — 캐시/페이지(글 아님)/커버모드 가능성. 첫 기사(id=2) 공개 전환 시 재확인 필요.
 - **다음:** ① id=2 공개 전환(`flip_visibility.py`) 후 홈 노출 확인 ② 홈 0글 미해결 원인 파악 ③ 레인2 첫 기사.
+
+### 🎹 피아노 웹진 — 홈 0글 원인 해명 + 첫 기사 공개 전환 차단(한도) (_Claude · 2026-08-16)
+
+- **홈 0글 = 버그 아님(해명):** `posts.json`(visibility=all) totalCount=1, 오직 id=2(비공개)뿐. **id=1 "Galaxy21 Proot R&Scope"는 글이 아니라 "페이지"**(글 목록·카테고리 카운트에 미집계)라 공개 홈 "(0)"이 정상. 공개 글이 0개라 커버 히어로가 비어 보였던 것. → id=2 공개 전환하면 채워짐.
+- **공개 전환 시도(차단):** `flip_visibility.py --account piano --ids 2 --visibility public` → 본문 5436자 로드 확인, 공개 설정·댓글비허용 OK 후 발행 클릭에서 **"하루 15개 공개" alert** → 오늘 계정 한도(5블로그 공유) 소진으로 차단. id=2 비공개 유지.
+- **flip_visibility.py 개선:** 다이얼로그 핸들러 추가(기존엔 alert 자동 dismiss로 "❌ → public"만 남아 원인 불명) → alert 메시지 로깅.
+- **다음:** 자정(KST) 한도 리셋 후 같은 명령 재실행 → id=2 공개 → 홈 커버 히어로 노출 확인.

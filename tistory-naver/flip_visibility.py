@@ -59,6 +59,14 @@ async def main():
             args=["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"],
         )
         page = ctx.pages[0] if ctx.pages else await ctx.new_page()
+
+        # 다이얼로그 핸들러 — "하루 15개 공개" alert 를 로그로 남긴다 (자동 dismiss 방지).
+        async def _on_dialog(dlg):
+            msg = (dlg.message or "").replace("\n", " / ")
+            log(f"  ⚠️ 다이얼로그({dlg.type}): {msg[:120]}")
+            await dlg.dismiss()
+        page.on("dialog", _on_dialog)
+
         if not await ensure_logged_in(page, acc["email"], acc["password"]):
             log("❌ 로그인 실패 — 종료")
             await ctx.close()
