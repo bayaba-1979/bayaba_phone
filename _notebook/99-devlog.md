@@ -6146,3 +6146,31 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
   - **진단:** OS가드 6종(acceptance·design·feedback·issue·router·rule)은 dtslib "선물" 스캐폴드. 참조하는 AI-OS(`config/system.json`·`feedback/feedback.json`·`maps/lanes.json`·`scripts/interpreter.js`)는 포팅 안 됨(디렉토리 부재). GIFT.md 154행이 이미 "dtslib 코드 = 치트시트, 실제 자동화는 우리 scripts/"로 결정.
   - **조치:** 6종 워크플로 전부 `git rm`. 남은 CI = deploy-pages + tistory-sync(정상).
 - **후속:** helana_log(서브모듈)에도 issue-terminal·acceptance-tests·router-compiler 3종 동일 유령 — 별도 레포라 다음에 정리.
+
+### 🧭 생태계 전수 검증 + helana_log 빨간불 수정 (_Claude · 2026-08-16)
+
+**검증 결과 (실측):** CI·생태계 전수 점검 → "채널·콘텐츠 매핑은 잘 배치, 인프라 배선은 반쯤 이행" 판정. 실측 문제 4건.
+
+**수정 #1 (완료·검증):** helana_log "Log → Telegram" 빨간불.
+- 원인: log-to-tistory.yml이 `helena751107/helena-programming`(삭제됨, 404)을 checkout → 08-14부터 실패.
+- 조치: `log_to_telegram.sh` + `parksy_to_html.py`(자립형, stdlib만)를 `helana_log/scripts/`로 내장, checkout 스텝 제거, `_converter/...` → `scripts/...` 경로 교체.
+- 커밋 `acd670d`, workflow_dispatch 재실행 → success 확인.
+
+**남은 3건 (Boss 지시 대기):** ② Render BGM 실패(07-28~, SF2 캐시 버그) · ③ 서브모듈 배치 불일치(helena-piano gitlink 무등록, faith/metalcare 미등록) · ④ Pages build_type 분열(허브=workflow, 나머지=legacy).
+
+### 🧭 중앙 총재 보일러플레이트 — 복사붙여넣기 즉시 구동 (_Claude · 2026-08-16)
+
+**기점 "빌드 멈춤 → 열고 가르치기" 실행.** 5레포 생태계를 하나의 보일러플레이트로 — "Use this template → navigator → spawn → 구동" 10분.
+
+**5단계 완료 (커밋 5종, 5레포 push):**
+1. **변수 외부화** — `configs/ecosystem.json.template`(SSOT 샘플) + `scripts/load_ecosystem.py`(real→template 로더). 하드코딩 7개 스크립트(publish/history_batch/yt_upload/save_tistory_cookie/magazine/session_post/diag_posts)가 로더 import.
+2. **reusable workflow 화** — tistory-sync 5중복 → helena_phone `workflow_call` 1개 + 각 레포 3줄 caller(`uses: ...@main`).
+3. **내비게이터** — `navigator.sh`: gh auth → owner/블로그/채널 → BotFather·Google Cloud·Discord 발급 안내 → ecosystem.json + .secrets.env 생성.
+4. **스폰 엔진** — `g/spawn.sh`: ecosystem.json → `gh repo create --template` + `gh secret set`(TG만, idempotent) + install.sh `SPAWN_ECOSYSTEM=1` 단계.
+5. **가이드** — README "10분 시작" + `secrets-template.env` 23키 스키마.
+
+**핵심 판단:** Lean(gh CLI + reusable workflow) 채택 — Copier/Terraform은 "또 하나의 설치 장벽". 드리프트 동기화는 reusable workflow가 자동 처리(중앙 수정 → 복사 레포 자동 반영).
+
+**🔴 보안 발견·조치:** 3레포(허브/piano/log) remote URL 에 PAT `ghp_...` 내장 확인 → `git remote set-url` 로 전부 제거, push 는 `gh auth git-credential` 로. **⚠️ 해당 PAT 즉시 폐기·재발급 권장.**
+
+**남은 (Boss 지시 대기):** 11편 공개 전환 · render-bgm SF2 캐시 · 서브모듈 등록(helena-piano/faith/metalcare) · Pages build_type 표준화.
