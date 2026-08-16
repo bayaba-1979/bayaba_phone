@@ -17,8 +17,13 @@ import sys, os, json, asyncio
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent.parent
-COOKIE_FILE = BASE / ".tistory_session_galaxys21.json"
-BLOG = "galaxys21-pwuser"
+
+# 생태계 SSOT(configs/ecosystem.json)에서 허브 블로그를 읽는다.
+from load_ecosystem import repo_by_name, hub_repo
+_hub = repo_by_name(hub_repo())
+BLOG = _hub.get("blog", "galaxys21-pwuser")
+ACCOUNT = _hub.get("account", "galaxys21")
+COOKIE_FILE = BASE / f".tistory_session_{ACCOUNT}.json"
 TISTORY_LOGIN = "https://www.tistory.com/auth/login"
 TISTORY_WRITE = f"https://{BLOG}.tistory.com/manage/newpost/"
 
@@ -111,7 +116,7 @@ async def method_manual(cookie_json_str=None):
     """수동으로 쿠키 JSON 입력받아 저장"""
     print("📋 티스토리 쿠키 수동 저장")
     print()
-    print("   폰 브라우저(크롬)에서 galaxys21-pwuser.tistory.com 에 이미 로그인한 상태에서:")
+    print(f"   폰 브라우저(크롬)에서 {BLOG}.tistory.com 에 이미 로그인한 상태에서:")
     print("   1. 주소창에 javascript:document.cookie 입력 → 값 전체 복사")
     print("   2. 또는 개발자도구 → Application → Cookies → 값 복사")
     print()

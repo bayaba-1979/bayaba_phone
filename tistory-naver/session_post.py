@@ -17,11 +17,16 @@ POSTS_DIR   = os.path.join(NAVER_TOOLS, "posts")
 WIN_SHOT    = r"C:\Temp\session_screenshot.png"
 WSL_SHOT    = "/tmp/session_screenshot.png"
 
-DOMAIN_MAP = {
+# 생태계 SSOT(configs/ecosystem.json)의 naver.domains 를 읽는다.
+_SCRIPTS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts")
+sys.path.insert(0, _SCRIPTS)
+from load_ecosystem import naver as _naver  # noqa: E402
+
+DOMAIN_MAP = _naver().get("domains", {
     "eae_kr":   "교육방송국",
     "dtslib":   "비즈니스방송국",
     "parksy_kr": "박씨로그",
-}
+})
 
 BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "")
 CHAT_ID   = os.environ.get("TG_CHAT_ID", "")

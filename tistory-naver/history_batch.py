@@ -31,10 +31,14 @@ from pathlib import Path
 BASE = Path(__file__).parent
 ROOT = BASE.parent
 sys.path.insert(0, str(BASE))
+sys.path.insert(0, str(ROOT / "scripts"))
 from template import build_post_json  # noqa: E402
+from load_ecosystem import repos as _ecosystem_repos, repo_by_name, hub_repo  # noqa: E402
 
-ACCOUNT = "galaxys21"
-BLOG = "galaxys21-pwuser"
+# 허브(galaxys21) = 히스토리(업무수첩) 발행 블로그. SSOT에서 role="hub"로 유도.
+_hub = repo_by_name(hub_repo())
+ACCOUNT = _hub.get("account", "galaxys21")
+BLOG = _hub.get("blog", "galaxys21-pwuser")
 ROUTE = ROOT / "assets" / "publish-route.json"
 STATE = ROOT / "assets" / "history-upload-state.json"
 OVERRIDES = ROOT / "assets" / "director-overrides.json"
@@ -48,13 +52,7 @@ DEFAULT_TAGS = ["S21", "업무수첩", "히스토리"]
 # 그래서 히스토리(galaxys21) 배치만 보면 안 되고, 5개 블로그의 오늘 발행수를
 # 전부 세서 "남은 한도"만큼만 배치해야 한다. ← 스케줄러 확실성의 핵심.
 DAILY_LIMIT = 15
-ALL_BLOGS = [
-    "galaxys21-pwuser",
-    "mynote11605",
-    "helana-christianity",
-    "helena-piano",
-    "helena-metalcare",
-]
+ALL_BLOGS = [r["blog"] for r in _ecosystem_repos() if r.get("blog")]
 
 # 실데이터 가능한 원천파일(헌법: 돌봄 데이터 절대 공개 금지) — 스킵
 SKIP_FILES = {

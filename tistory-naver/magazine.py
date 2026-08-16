@@ -40,6 +40,13 @@ from pathlib import Path
 import markdown
 
 BASE = Path(__file__).parent
+sys.path.insert(0, str(BASE.parent / "scripts"))
+from load_ecosystem import repo_by_name  # noqa: E402
+
+# 피아노 웹진 = helena-piano 레포의 블로그. SSOT에서 유도.
+_piano = repo_by_name("helena-piano")
+MAG_ACCOUNT = _piano.get("account", "piano")
+MAG_BLOG = _piano.get("blog", "helena-piano")
 POSTS_DIR = BASE / "posts"
 POSTS_DIR.mkdir(exist_ok=True)
 IMAGES = json.loads((BASE / "assets" / "magazine-images.json").read_text(encoding="utf-8"))
@@ -165,13 +172,13 @@ def render_article(md_text: str) -> dict:
         f'<header>{kicker}\n<h1 class="mag-title">{title}</h1>\n{dek}\n{byline}</header>\n\n'
         f'{hero}\n\n'
         f'{body_html}\n\n'
-        '<div class="mag-end">helena-piano · 세계 히스토리 웹진</div>\n'
+        f'<div class="mag-end">{MAG_BLOG} · 세계 히스토리 웹진</div>\n'
         '</div>'
     )
 
     return {
-        "account": "piano",
-        "blog": "helena-piano",
+        "account": MAG_ACCOUNT,
+        "blog": MAG_BLOG,
         "title": title,
         "content": html,
         "tags": [t.strip() for t in fm.get("tags", "").split(",") if t.strip()],

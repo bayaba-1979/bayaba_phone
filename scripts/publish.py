@@ -18,13 +18,16 @@ TOOLS    = os.path.join(BASE, "tistory-naver")
 PYTHON   = os.path.expanduser("~/browser-env/bin/python3")
 TG_SCRIPT = os.path.join(BASE, "tg.sh")
 
+# 생태계 SSOT(configs/ecosystem.json)에서 계정→블로그 매핑을 읽는다.
+# 복사붙여넣기 보일러플레이트: 여기 하드코딩을 제거하고 단일 설정으로 통일.
+from load_ecosystem import repos as _ecosystem_repos, naver as _ecosystem_naver
+
 ACCOUNTS = {
-    "galaxys21":  {"blog": "galaxys21-pwuser",   "domain": "S21 폰 최적화"},
-    "mynote":     {"blog": "mynote11605",         "domain": "기술노트"},
-    "faith":      {"blog": "helana-christianity", "domain": "신앙사"},
-    "piano":      {"blog": "helena-piano",        "domain": "피아노"},
-    "metalcare":    {"blog": "helena-metalcare",    "domain": "정신분석"},
+    r["account"]: {"blog": r["blog"], "domain": r.get("domain", "")}
+    for r in _ecosystem_repos()
 }
+
+NAVER_BLOG = _ecosystem_naver().get("blog", "helena1975")
 
 def notify_tg(msg):
     subprocess.run(["bash", TG_SCRIPT, msg], check=False)
@@ -63,7 +66,7 @@ def run_naver(account, title_hint=""):
     now  = datetime.datetime.now()
     title = title_hint or f"[관저탑] {now.strftime('%Y-%m-%d')} 기록"
 
-    print(f"📝 네이버 포스팅: helena1975")
+    print(f"📝 네이버 포스팅: {NAVER_BLOG}")
     print(f"   제목: {title}")
 
     cmd = [
@@ -75,10 +78,10 @@ def run_naver(account, title_hint=""):
     print(r.stdout[-500:] if r.stdout else r.stderr[:500])
 
     if r.returncode == 0:
-        notify_tg(f"✅ 네이버 발행 완료 — helena1975\n제목: {title}")
+        notify_tg(f"✅ 네이버 발행 완료 — {NAVER_BLOG}\n제목: {title}")
         return True
     else:
-        notify_tg(f"⚠️ 네이버 발행 실패 — helena1975")
+        notify_tg(f"⚠️ 네이버 발행 실패 — {NAVER_BLOG}")
         return False
 
 def run_batch():

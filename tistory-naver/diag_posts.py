@@ -6,14 +6,19 @@ from playwright.async_api import async_playwright
 
 BASE = Path(__file__).parent
 sys.path.insert(0, str(BASE))
+sys.path.insert(0, str(BASE.parent / "scripts"))
 from post import ensure_logged_in, kakao_login  # noqa: E402
+from load_ecosystem import repo_by_name, hub_repo  # noqa: E402
 
 ACCOUNTS_FILE = BASE / "accounts.json"
+_hub = repo_by_name(hub_repo())
+DIAG_ACCOUNT = _hub.get("account", "galaxys21")
+DIAG_BLOG = _hub.get("blog", "galaxys21-pwuser")
 
 async def main():
     data = json.loads(ACCOUNTS_FILE.read_text(encoding="utf-8"))
     pw = data["password"]
-    acc = next(a for a in data["accounts"] if a["id"] == "galaxys21")
+    acc = next(a for a in data["accounts"] if a["id"] == DIAG_ACCOUNT)
     email, pw2 = acc["email"], pw
 
     async with async_playwright() as pw_:
@@ -27,7 +32,7 @@ async def main():
         page = ctx.pages[0] if ctx.pages else await ctx.new_page()
         ok = await ensure_logged_in(page, email, pw2)
         print("login ok:", ok)
-        await page.goto("https://galaxys21-pwuser.tistory.com/manage/posts",
+        await page.goto(f"https://{DIAG_BLOG}.tistory.com/manage/posts",
                         wait_until="domcontentloaded", timeout=40000)
         await page.wait_for_timeout(3000)
         print("URL:", page.url)

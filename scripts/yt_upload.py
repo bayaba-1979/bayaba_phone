@@ -5,7 +5,7 @@ OAuth Device Code Flow → Data API v3 → 영상 업로드
 
 사용법:
   ~/browser-env/bin/python3 scripts/yt_upload.py --title "제목" --file video.mp4
-  ~/browser-env/bin/python3 scripts/yt_upload.py --channel @HelenaPark-e7c --list
+  ~/browser-env/bin/python3 scripts/yt_upload.py --channel @내채널handle --list
 
 환경: proot Ubuntu
 의존성: google-auth-oauthlib, google-api-python-client
@@ -23,15 +23,16 @@ TOKEN_FILE = BASE / "configs" / "yt_tokens.json"
 
 CLIENT_ID = os.environ.get("YT_CLIENT_ID", "")
 CLIENT_SECRET = os.environ.get("YT_CLIENT_SECRET", "")
-PROJECT_ID = "911931724403"  # S21 YouTube
+
+# 생태계 SSOT(configs/ecosystem.json)에서 2채널·프로젝트 로드.
+# (구 6채널 하드코딩 → 2채널 정합: main=돌봄, phone=도구)
+from load_ecosystem import channels as _ecosystem_channels, youtube as _ecosystem_youtube
+
+PROJECT_ID = _ecosystem_youtube().get("project_id", "")
 
 CHANNELS = {
-    "main":     {"id": "UCRUuiKCCwIbyvqlxTNpDfKw", "handle": "@HelenaPark-e7c",   "topic": "루트 채널"},
-    "phone":    {"id": "", "handle": "@S21Phone",           "topic": "S21 폰 최적화"},
-    "tech":     {"id": "", "handle": "@HelenaTechLog",      "topic": "기술 튜토리얼"},
-    "faith":    {"id": "", "handle": "@HelanaFaith",        "topic": "신앙 콘텐츠"},
-    "piano":    {"id": "", "handle": "@HelenaPiano",        "topic": "피아노 연주"},
-    "metalcare":  {"id": "", "handle": "@HelenaMetalcare",      "topic": "정신분석"},
+    c["key"]: {"id": c.get("id", ""), "handle": c["handle"], "topic": c.get("topic", "")}
+    for c in _ecosystem_channels()
 }
 
 SCOPES = [
