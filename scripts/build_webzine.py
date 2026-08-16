@@ -234,6 +234,8 @@ NOTEBOOK_TITLES = {
     "95-publishing-bootstrap-doctor_Claude.md": "출판 파이프라인 부트스트랩 + 출판 doctor 설계",
     "96-brand-theses_Claude.md": "명제 인벤토리 — 폰 한 대가 곧 ___",
     "97b-s21-solutions-showcase-evaluation_Grok.md": "재고조사 평가 — 해자는 코드가 아니라 퍼포먼스",
+    "97c-ai-limitation-reverse-evaluation_Claude.md": "AI의 한계 — 역평가의 단위 오류 (Boss 역카운터)",
+    "98b-tutorial-reproducibility-shift_Claude.md": "재현성 기준의 변화 — 튜토리얼은 사고 과정 재현",
     "ai-workstation-setup-manual_Boss.md": "폰 하나로 AI 워크스테이션 짓기 (설치 매뉴얼)",
     "S21-Grok-plugin_Grok.md": "S21 Grok 플러그 역할 (온디바이스 카드)",
 }

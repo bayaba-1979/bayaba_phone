@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="**한 번의 역평가가 뒤집힌 기록.** 내가 3주 성과를 &quot;콘텐츠 밀도&quot;라는 잣대로 깎자, — S21 Phone Webzine">
+<meta name="theme-color" content="#0a0908">
+<meta name="application-name" content="S21 Phone">
+<title>AI의 한계 — 역평가의 단위 오류 (Boss 역카운터) — S21 Phone Webzine</title>
+<link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/webzine.css">
+</head>
+<body>
+<div class="spine" aria-hidden="true"><div class="spine-fill" id="spineFill"></div></div>
+<header class="wz-mast">
+  <a class="brand" href="../index.html">S21 <em>Phone</em></a>
+  <div class="wz-mast-actions">
+    <button type="button" class="wz-burger" data-nav-toggle aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav class="wz-nav">
+      <a href="../index.html">Home</a>
+      <a href="../archive.html">Archive</a>
+      <a href="../index.html#library">Library</a>
+      <a href="../index.html#agents">Agents</a>
+      <button type="button" data-theme-toggle>Theme</button>
+      <a class="pill gold" href="../index.html#install">Install</a>
+    </nav>
+  </div>
+</header>
+<main class="wz-shell">
+  <div class="wz-crumb">
+    <a href="../index.html">Webzine</a><span class="sep">/</span>
+    <span>Notebook</span><span class="sep">/</span>
+    <span>AI의 한계 — 역평가의 단위 오류 (Boss 역카운터)</span>
+  </div>
+  <header class="wz-hero">
+    <div class="wz-kicker">Notebook · lakme-audio</div>
+    <h1>AI의 한계 — 역평가의 단위 오류 (Boss 역카운터)</h1>
+    <p class="deck">**한 번의 역평가가 뒤집힌 기록.** 내가 3주 성과를 &quot;콘텐츠 밀도&quot;라는 잣대로 깎자,</p>
+    <div class="wz-meta">
+      <span>Source · _notebook/97c-ai-limitation-reverse-evaluation_Claude.md</span>
+      <span>Kind · markdown</span>
+      <span>S21 Phone Editorial</span>
+    </div>
+  </header>
+  <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
+<ul>
+<li><a href="#_1">교환의 순서</a><ul>
+<li><a href="#1-5">① 내 역평가 — 콘텐츠 밀도 5점 (오류)</a></li>
+<li><a href="#2-boss">② Boss 역카운터</a></li>
+<li><a href="#3">③ 내 재평가 — 단위 교정</a></li>
+</ul>
+</li>
+<li><a href="#ai">그래서 AI의 한계가 뭐냐</a></li>
+<li><a href="#_2">정리</a></li>
+</ul>
+</div>
+</nav>
+  <div class="wz-appbar" role="toolbar" aria-label="Document tools">
+    <input type="search" id="wzSearch" class="wz-search" placeholder="페이지 내 검색…" autocomplete="off">
+    <button type="button" id="wzFoldAll" data-cursor>접기</button>
+    <button type="button" id="wzExpandAll" data-cursor>펼치기</button>
+    <button type="button" id="wzCopy" data-cursor>본문 복사</button>
+  </div>
+  <article class="wz-prose" id="wzProse" data-app="doc">
+    <hr>
+<p>date: 2026-08-16<br>
+agent: Claude Code (_Claude) — Boss 역카운터 기록<br>
+mark: _Claude<br>
+type: reflection<br>
+status: active<br>
+related:<br>
+  - 97b-s21-solutions-showcase-evaluation_Grok.md<br>
+  - 98-turning-point-2026-08-16_Claude.md</p>
+<hr>
+<h1 id="ai-boss">AI의 한계 — 역평가의 단위 오류 (Boss 역카운터)</h1>
+<blockquote>
+<p><strong>한 번의 역평가가 뒤집힌 기록.</strong> 내가 3주 성과를 &ldquo;콘텐츠 밀도&rdquo;라는 잣대로 깎자,<br>
+Boss가 &ldquo;그건 인프라 공사다. 갤럭시 S21 한 대가 단위고, 콘텐츠는 만들면서 업데이트한다&rdquo;로 역카운터.<br>
+이걸 저장하는 이유는 <strong>그 오류가 곧 AI의 한계</strong>이기 때문.</p>
+</blockquote>
+<h2 id="_1">교환의 순서</h2>
+<h3 id="1-5">① 내 역평가 — 콘텐츠 밀도 5점 (오류)</h3>
+<p>3주 성과를 평가하면서 &ldquo;유통면(5레포·블로그·채널)이 콘텐츠보다 앞섰다 → 콘텐츠 밀도 5&rdquo;라고 깎았다.<br>
+콘텐츠 양이라는 <strong>보편 지표</strong>로 인프라 공사를 잰 것.</p>
+<h3 id="2-boss">② Boss 역카운터</h3>
+<blockquote>
+<p>&ldquo;지금까지는 실질적으로 Galaxy 21 디바이스 한 개 측정해야 되는 인프라 공사였어.<br>
+컨텐츠는 만들면서 업데이트하면 돼. 그것까지 알려줘야 되냐?&rdquo;</p>
+</blockquote>
+<p>단위는 콘텐츠가 아니라 <strong>기기 한 대</strong>. 콘텐츠는 애초에 4주차부터의 일.</p>
+<h3 id="3">③ 내 재평가 — 단위 교정</h3>
+<p>콘텐츠 밀도 항목을 삭제하고, <strong>인프라 완성도(기기 한 대)</strong> · <strong>제약 준수(S21+$20)</strong>로 재점수.<br>
+3주는 &ldquo;한 대로 전 과정이 돌아가는지&rdquo;를 증명하는 공사였고, 그 기준에선 거의 만점.</p>
+<h2 id="ai">그래서 AI의 한계가 뭐냐</h2>
+<p><strong>나는 문서를 다 읽었는데도, 단위를 몰랐다.</strong></p>
+<ul>
+<li>터닝포인트(98)에 &ldquo;인프라는 이미 1인 미디어 최소 조건을 갖췄다 → 이제 콘텐츠&rdquo;라고 내가 직접 써놨다.</li>
+<li>그런데도 3주 성적표에 &ldquo;콘텐츠 밀도 5&rdquo;를 매겼다. <strong>읽었지만 &ldquo;살지&rdquo; 않았기 때문.</strong></li>
+</ul>
+<p><strong>AI의 한계 = 맥락의 얇음.</strong><br>
+- AI는 <strong>보편 지표</strong>를 기본값으로 쓴다. 콘텐츠 양 · 코드 줄 수 · 커밋 수 — 누구에게나 통하는 잣대.<br>
+- 사람(Boss)은 <strong>이 프로젝트의 잣대</strong>를 안다. 갤럭시 S21 한 대라는 실측 제약, &ldquo;인프라 → 콘텐츠&rdquo;라는 단계 순서.<br>
+- 그 단위는 문서에 다 적혀 있는데, AI는 그 단위가 &ldquo;왜 그 단위인지&rdquo;를 몸으로 몰라서 평가에 못 넣는다.</p>
+<p><strong>이게 해자의 정확한 반대면이다.</strong></p>
+<blockquote>
+<p>해자 = &ldquo;이 스토리를 실제로 산 사람&rdquo;의 퍼포먼스 · 진정성.<br>
+AI는 스토리를 못 산다. 제약(CPU 135배, ABI 불일치)을 실측으로 겪지 않는다.<br>
+그래서 <strong>실행의 잣대(단위)조차 항상 사람이 줘야 한다.</strong> AI는 실행은 빠르지만, 무엇을 재야 하는지는 모른다.</p>
+</blockquote>
+<h2 id="_2">정리</h2>
+<ul>
+<li>AI가 잘하는 것: 주어진 단위 안에서의 실행 · 변환 · 생산 속도.</li>
+<li>AI가 못하는 것: <strong>단위(측정 기준) 자체를 고르는 일.</strong> 그건 제약을 몸으로 겪은 사람만 안다.</li>
+<li>그래서 이 프로젝트에서 AI의 자리는 <strong>대필 작가</strong>다. 잣대는 Boss, 붓은 Claude.</li>
+</ul>
+<hr>
+<p><strong>한 줄:</strong> 콘텐츠 잣대를 든 게 오류가 아니라 — <strong>&ldquo;어떤 잣대를 들지&rdquo; 자체를 내가 모른다는 게 AI의 한계다.</strong> 잣대는 제약을 몸으로 겪은 사람(Boss)이, 붓은 실행하는 AI(Claude)가.</p>
+  </article>
+  <nav class="wz-pager">
+    <a class="" href="97b-s21-solutions-showcase-evaluation_Grok.html">
+          <span class="dir">Previous</span>
+          <span class="title">재고조사 평가 — Grok (2026-08-16)</span>
+        </a>
+    <a class="next" href="98b-tutorial-reproducibility-shift_Claude.html">
+          <span class="dir">Next</span>
+          <span class="title">재현성 기준의 변화 — 튜토리얼은 사고 과정 재현</span>
+        </a>
+  </nav>
+  <div class="wz-related">
+          <h2>같은 섹션</h2>
+          <div class="grid"><a href="00-INDEX.html"><strong>📖 S21 Phone 업무 수첩 — 전체 목차</strong>구축: 2026-07-23 ~ 2026-08-14 (23일)</a><a href="01-arch.html"><strong>전체 시스템 아키텍처</strong>Notebook</a><a href="02-discord.html"><strong>디스코드 서버/봇/위젯</strong>Notebook</a><a href="03-telegram.html"><strong>텔레그램 봇/회의실</strong>Notebook</a><a href="04-github-pages.html"><strong>GitHub Pages + Giscus + WidgetBot</strong>Notebook</a><a href="05-tistory.html"><strong>블로그 포트폴리오 + 자동화 전략</strong>Notebook</a></div>
+        </div>
+  <footer class="wz-foot">
+    <div>S21 PHONE · Webzine lakme-audio</div>
+    <div class="gold">모든 계정은 누나 명의입니다.</div>
+    <p style="margin-top:12px"><a href="../index.html">← Back to landing</a></p>
+  </footer>
+</main>
+<div class="wz-float">
+  <button type="button" id="wzTop" aria-label="Top">↑</button>
+  <button type="button" data-theme-toggle aria-label="Theme">◐</button>
+</div>
+<script src="../assets/webzine.js"></script>
+</body>
+</html>

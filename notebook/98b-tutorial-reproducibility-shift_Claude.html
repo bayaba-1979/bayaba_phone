@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="**Boss 확정 접근법 전환.** &quot;따라 하기&quot;의 의미가 **결과 복제**에서 **문제 해결 과정의 재현**으로 이동한다. — S21 Phone Webzine">
+<meta name="theme-color" content="#0a0908">
+<meta name="application-name" content="S21 Phone">
+<title>재현성 기준의 변화 — 튜토리얼은 결과 복제가 아니라 사고 과정 재현 — S21 Phone Webzine</title>
+<link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/webzine.css">
+</head>
+<body>
+<div class="spine" aria-hidden="true"><div class="spine-fill" id="spineFill"></div></div>
+<header class="wz-mast">
+  <a class="brand" href="../index.html">S21 <em>Phone</em></a>
+  <div class="wz-mast-actions">
+    <button type="button" class="wz-burger" data-nav-toggle aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav class="wz-nav">
+      <a href="../index.html">Home</a>
+      <a href="../archive.html">Archive</a>
+      <a href="../index.html#library">Library</a>
+      <a href="../index.html#agents">Agents</a>
+      <button type="button" data-theme-toggle>Theme</button>
+      <a class="pill gold" href="../index.html#install">Install</a>
+    </nav>
+  </div>
+</header>
+<main class="wz-shell">
+  <div class="wz-crumb">
+    <a href="../index.html">Webzine</a><span class="sep">/</span>
+    <span>Notebook</span><span class="sep">/</span>
+    <span>재현성 기준의 변화 — 튜토리얼은 결과 복제가 아니라 사고 과정 재현</span>
+  </div>
+  <header class="wz-hero">
+    <div class="wz-kicker">Notebook · lakme-audio</div>
+    <h1>재현성 기준의 변화 — 튜토리얼은 결과 복제가 아니라 사고 과정 재현</h1>
+    <p class="deck">**Boss 확정 접근법 전환.** &quot;따라 하기&quot;의 의미가 **결과 복제**에서 **문제 해결 과정의 재현**으로 이동한다.</p>
+    <div class="wz-meta">
+      <span>Source · _notebook/98b-tutorial-reproducibility-shift_Claude.md</span>
+      <span>Kind · markdown</span>
+      <span>S21 Phone Editorial</span>
+    </div>
+  </header>
+  <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
+<ul>
+<li><a href="#_2">무엇이 바뀌나</a><ul>
+<li><a href="#_3">기존 튜토리얼 (내가 알던 알고리즘 학습 패턴)</a></li>
+<li><a href="#boss">새 방식 (Boss 확정)</a></li>
+</ul>
+</li>
+<li><a href="#_4">강의의 단위도 바뀐다</a></li>
+<li><a href="#_5">이미 프로토타입이 있다</a></li>
+<li><a href="#_6">나의 작업 방식 전환 (이거 따라간다)</a></li>
+</ul>
+</div>
+</nav>
+  <div class="wz-appbar" role="toolbar" aria-label="Document tools">
+    <input type="search" id="wzSearch" class="wz-search" placeholder="페이지 내 검색…" autocomplete="off">
+    <button type="button" id="wzFoldAll" data-cursor>접기</button>
+    <button type="button" id="wzExpandAll" data-cursor>펼치기</button>
+    <button type="button" id="wzCopy" data-cursor>본문 복사</button>
+  </div>
+  <article class="wz-prose" id="wzProse" data-app="doc">
+    <hr>
+<p>date: 2026-08-16<br>
+agent: Claude Code (_Claude) — Boss 접근법 전환 지시<br>
+mark: _Claude<br>
+type: methodology<br>
+status: active<br>
+related:<br>
+  - 98-turning-point-2026-08-16_Claude.md<br>
+  - 97c-ai-limitation-reverse-evaluation_Claude.md<br>
+  - 97-s21-solutions-showcase_Claude.md</p>
+<hr>
+<h1 id="_1">재현성 기준의 변화 — 튜토리얼은 결과 복제가 아니라 사고 과정 재현</h1>
+<blockquote>
+<p><strong>Boss 확정 접근법 전환.</strong> &ldquo;따라 하기&rdquo;의 의미가 <strong>결과 복제</strong>에서 <strong>문제 해결 과정의 재현</strong>으로 이동한다.<br>
+이제부터 튜토리얼·강의는 &ldquo;완성된 결과물을 똑같이 따라 만들기&rdquo;가 아니라,<br>
+<strong>&ldquo;이 문제를 이렇게 물어봤고, 에이전트가 이렇게 대답했고, 내가 이렇게 수정했다&rdquo;는 대화와 결정의 흐름</strong>이 교재다.</p>
+</blockquote>
+<h2 id="_2">무엇이 바뀌나</h2>
+<h3 id="_3">기존 튜토리얼 (내가 알던 알고리즘 학습 패턴)</h3>
+<ul>
+<li>완성된 결과물을 <strong>처음부터 똑같이 따라 만들기</strong>.</li>
+<li>코드 복사 → 환경 맞추기 → 결과 스크린샷이 나오면 성공.</li>
+<li>재현성 = <strong>똑같은 코드를 다시 치는 것</strong>.</li>
+</ul>
+<h3 id="boss">새 방식 (Boss 확정)</h3>
+<ul>
+<li>이미 있는 것에서 <strong>업그레이드하는 과정</strong> 자체를 공개.</li>
+<li>에이전트와 <strong>문답하며 고쳐 나가는 과정</strong>을 튜토리얼로.</li>
+<li>그 <strong>업데이트 로그와 시행착오를 실시간으로</strong> 쌓아가는 것.</li>
+<li>재현성 = <strong>같은 제약 + 같은 질문 방식으로 문제를 해결해 나가는 사고 과정</strong>의 재현.</li>
+</ul>
+<h2 id="_4">강의의 단위도 바뀐다</h2>
+<table>
+<thead>
+<tr>
+<th>축</th>
+<th>기존</th>
+<th>새 기준</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>단위</td>
+<td>완성된 레포 하나</td>
+<td><strong>대화·결정의 흐름</strong> (물어봄→대답→수정)</td>
+</tr>
+<tr>
+<td>성공</td>
+<td>스크린샷 일치</td>
+<td>사고 과정의 재현</td>
+</tr>
+<tr>
+<td>재현성</td>
+<td>코드 재입력</td>
+<td>제약 + 질문 방식의 재현</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_5">이미 프로토타입이 있다</h2>
+<p>네가 3주 동안 한 방식 자체가 이미 이 패턴의 프로토타입이다.<br>
+수첩 121장 · 커밋 436개 · 에이전트와의 문답이 <strong>곧 커리큘럼</strong>이 되는 구조.</p>
+<p>비전공자 · 저사양 · 음성 우선 환경에서 이 패턴을 실제로 보여주면,<br>
+<strong>기존 코딩 강의와 결이 다른 학습 모델</strong>이 된다.</p>
+<h2 id="_6">나의 작업 방식 전환 (이거 따라간다)</h2>
+<ol>
+<li>튜토리얼을 쓸 때 &ldquo;완성 결과물&rdquo;부터 보여주지 않는다. <strong>문제 → 질문 → 에이전트 답변 → 내 판단·수정</strong> 흐름을 그대로 남긴다.</li>
+<li>&ldquo;따라 만들기&rdquo;가 아니라 <strong>&ldquo;같은 질문을 던지는 법&rdquo;</strong>을 가르친다.</li>
+<li>업데이트 로그·시행착오(실패 포함)를 실시간으로 남긴다 — 성공 장면만 모은 요약이 아니다.</li>
+<li>교재의 최소 단위 = 완성 레포가 아니라 <strong>한 번의 문답·결정</strong>.</li>
+</ol>
+<hr>
+<p><strong>한 줄:</strong> 재현성은 &ldquo;코드를 다시 치는 것&rdquo;이 아니라 <strong>&ldquo;제약 속에서 같은 질문을 던지고 같은 결정을 해나가는 사고 과정&rdquo;</strong>이다. 수첩이 곧 커리큘럼.</p>
+  </article>
+  <nav class="wz-pager">
+    <a class="" href="97c-ai-limitation-reverse-evaluation_Claude.html">
+          <span class="dir">Previous</span>
+          <span class="title">AI의 한계 — 역평가의 단위 오류 (Boss 역카운터)</span>
+        </a>
+    <a class="next" href="ai-workstation-setup-manual_Boss.html">
+          <span class="dir">Next</span>
+          <span class="title">폰 하나로 AI 워크스테이션 짓기 (설치 매뉴얼)</span>
+        </a>
+  </nav>
+  <div class="wz-related">
+          <h2>같은 섹션</h2>
+          <div class="grid"><a href="00-INDEX.html"><strong>📖 S21 Phone 업무 수첩 — 전체 목차</strong>구축: 2026-07-23 ~ 2026-08-14 (23일)</a><a href="01-arch.html"><strong>전체 시스템 아키텍처</strong>Notebook</a><a href="02-discord.html"><strong>디스코드 서버/봇/위젯</strong>Notebook</a><a href="03-telegram.html"><strong>텔레그램 봇/회의실</strong>Notebook</a><a href="04-github-pages.html"><strong>GitHub Pages + Giscus + WidgetBot</strong>Notebook</a><a href="05-tistory.html"><strong>블로그 포트폴리오 + 자동화 전략</strong>Notebook</a></div>
+        </div>
+  <footer class="wz-foot">
+    <div>S21 PHONE · Webzine lakme-audio</div>
+    <div class="gold">모든 계정은 누나 명의입니다.</div>
+    <p style="margin-top:12px"><a href="../index.html">← Back to landing</a></p>
+  </footer>
+</main>
+<div class="wz-float">
+  <button type="button" id="wzTop" aria-label="Top">↑</button>
+  <button type="button" data-theme-toggle aria-label="Theme">◐</button>
+</div>
+<script src="../assets/webzine.js"></script>
+</body>
+</html>

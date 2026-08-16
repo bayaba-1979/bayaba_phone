@@ -18,7 +18,7 @@
   {
     "src": "README.md",
     "out": "readme.html",
-    "title": "📱 주머니 속 마법 공구상자",
+    "title": "말로만 · 폰 하나로 · 누나를 위해",
     "section": "Core",
     "kind": "md",
     "deck": "숫자 · 구조 · 빠른 링크"
@@ -1094,6 +1094,22 @@
     "section": "Notebook",
     "kind": "md",
     "deck": "Claude(출판부)가 정리한 **\"S21 한 대로 만든 것 — 3주 랩업 & 솔루션\"** (97) 에 대한 Grok의 평가."
+  },
+  {
+    "src": "_notebook/97c-ai-limitation-reverse-evaluation_Claude.md",
+    "out": "notebook/97c-ai-limitation-reverse-evaluation_Claude.html",
+    "title": "AI의 한계 — 역평가의 단위 오류 (Boss 역카운터)",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "**한 번의 역평가가 뒤집힌 기록.** 내가 3주 성과를 \"콘텐츠 밀도\"라는 잣대로 깎자,"
+  },
+  {
+    "src": "_notebook/98b-tutorial-reproducibility-shift_Claude.md",
+    "out": "notebook/98b-tutorial-reproducibility-shift_Claude.html",
+    "title": "재현성 기준의 변화 — 튜토리얼은 결과 복제가 아니라 사고 과정 재현",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "**Boss 확정 접근법 전환.** \"따라 하기\"의 의미가 **결과 복제**에서 **문제 해결 과정의 재현**으로 이동한다."
   },
   {
     "src": "_notebook/ai-workstation-setup-manual_Boss.md",
