@@ -6048,3 +6048,12 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **DOM 함정(실측):** 이 커스텀 스킨(`customize/8935245`)은 글 목록이 `body.post-type-text > #content > .inner > div.post-item` (ul/li 아님). `.post-type-*`는 body 클래스라 base `skin-premium.css`의 `.post-type-text … !important`가 실제 매칭 → variant CSS에서 font-size/padding에 `!important`로 이겨야 함. 그리드 컨테이너는 `#content .inner:has(.post-item)`.
 - **검증:** 헤드리스 Playwright 계산 스타일로 — 프레임 유지(bezel fixed, wrap 26px radius) + 3열 그리드 + 커버 히어로(42px/44px) + 세리프 마스트헤드 확정. piano 재적용 POST 200·마커 통과.
 - **다음:** ① 두 레인 카테고리 재구성 ② 첫 소재 "S21에서 피아노 음악 렌더링" 발행.
+
+### 🎹 피아노 웹진 — 두 레인 카테고리 + 첫 소재 발행 (일일한도 블록) (_Claude · 2026-08-16)
+
+- **① 두 레인 카테고리 재구성(완료):** `category.json` PUT으로 5개 플레이스홀더("1"~"5")를 재구성 — 레인1 **「스튜디오」**(#848657, 하위 **파이프라인**#852048·**도구 제작**#852049) + 레인2 **「리뷰」「인터뷰」「감상」「이론·악보」**. 서버 검증 통과(스튜디오 entries=1은 기존 플레이스홀더 글).
+  - ⚠️ 명명: 계획서의 "IT 음악 렌더링" 대신 **Boss가 구어로 쓴 "스튜디오"**를 레인1 이름으로 채택(하위 2개가 IT 정체성을 담당). 원하면 rename 1회로 교체 가능.
+- **② 첫 소재 발행(블록):** "손바닥 위의 그랜드 피아노 — S21에서 MIDI를 렌더링하는 방법" 기사 작성(레포 `helena-piano/bgm/` 파이프라인 기반, markdown→`template.py`→`posts/piano-01-s21-render.json`, 카테고리=스튜디오). 발행 시도했으나 **차단**.
+- **근본 원인(실측):** 발행 버튼 클릭 시 `alert` 다이얼로그 — **"하루에 새롭게 공개 발행할 수 있는 글은 최대 15개까지입니다."** → 계정 단위(5블로그 공유, [[history-daily-batch]]) 일일한도가 오늘 이미 소진. sitemap 오늘자 lastmod: galaxys21 8 + mynote 11 + piano 1 + metalcare 1 = 21건(편집 포함).
+- **post.py 개선:** 다이얼로그 핸들러 추가 — "15개" alert를 로그·실패 마킹(이전엔 Playwright 자동 dismiss로 "발행 실패"만 남아 원인 불명), 임시저장 confirm은 dismiss(새로 시작).
+- **다음:** 내일(00:00 KST 한도 리셋) `python3 post.py --post posts/piano-01-s21-render.json` 재실행 → 공개 발행. 기사 소스·JSON은 커밋 완료(재발행만 하면 됨).
