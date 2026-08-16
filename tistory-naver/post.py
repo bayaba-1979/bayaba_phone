@@ -182,6 +182,17 @@ async def _fill_and_save(page, slug: str, post_id: int | None, title: str,
     write_url = (f"https://{slug}.tistory.com/manage/newpost/{post_id}?type=post"
                  if post_id else f"https://{slug}.tistory.com/manage/newpost/?type=post")
     log(f"  [{slug}] 에디터 접근{' (수정)' if post_id else ''}: {write_url}")
+    # 티스토리 편집기는 confirm/alert 다이얼로그를 띄운다. 핸들러 없으면 Playwright 가
+    # 자동 dismiss(취소)해서 "발행 실패"만 남고 원인이 안 보인다. → 핸들러로 원인 로깅.
+    #   - "하루에 … 15개" alert = 계정 단위 공개발행 일일한도 초과 (5블로그 공유)
+    #   - "저장된 글이 있습니다" confirm = 임시저장 글 이어쓰기 → dismiss(새로 시작)
+    async def _on_dialog(dlg):
+        msg = dlg.message or ""
+        log(f"  [{slug}] ⚠️ 다이얼로그({dlg.type}): {msg.replace(chr(10), ' / ')[:120]}")
+        if "15개" in msg or "하루에" in msg:
+            RESULTS["fail"].append(f"{slug}:일일공개발행한도초과(15개)")
+        await dlg.dismiss()
+    page.on("dialog", _on_dialog)
     # networkidle/load 모두 불발: 티스토리 편집기는 상시 폴링 + 일부 서브리소스가
     # 영영 안 끝나 load 이벤트가 안 뜬다. DOM 파싱 완료만 기다리는 domcontentloaded
     # 로 대체(서버는 200 정상). 이후 8초 대기 + 타이틀 click()이 액션가능 대기까지 처리.
