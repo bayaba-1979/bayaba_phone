@@ -37,6 +37,7 @@ INSTALL_GROK="${INSTALL_GROK:-0}"                      # 1이면 grok 안내만 
 SKIP_CLAUDE="${SKIP_CLAUDE:-0}"
 SKIP_MCP="${SKIP_MCP:-0}"
 CLONE_SATELLITES="${CLONE_SATELLITES:-0}"               # 1이면 위성 4레포 안내
+SPAWN_ECOSYSTEM="${SPAWN_ECOSYSTEM:-0}"                 # 1이면 g/spawn.sh 로 위성레포 생성+시크릿 배선
 
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; BLUE='\033[0;34m'
 BOLD='\033[1m'; NC='\033[0m'
@@ -324,6 +325,23 @@ EOF
   fi
 }
 
+spawn_ecosystem() {
+  echo ""
+  echo "─── 10단계: 생태계 스폰 (선택) ───"
+  if [ "$SPAWN_ECOSYSTEM" != "1" ]; then
+    warn "SPAWN_ECOSYSTEM=1 일 때만 실행 (건너뜀)"
+    echo "  위성 4레포(piano/metalcare/faith/log)를 템플릿에서 복사 생성하려면:"
+    echo "    SPAWN_ECOSYSTEM=1 bash g/install.sh   # 또는   bash g/spawn.sh"
+    echo "  설정부터: bash navigator.sh  (configs/ecosystem.json + .secrets.env 생성)"
+    return 0
+  fi
+  if [ -f "$WORK_DIR/g/spawn.sh" ]; then
+    bash "$WORK_DIR/g/spawn.sh"
+  else
+    warn "g/spawn.sh 없음 — 템플릿이 구버전"
+  fi
+}
+
 summary() {
   echo ""
   echo -e "${GREEN}═══════════════════════════════════════════════════${NC}"
@@ -381,6 +399,7 @@ main() {
   setup_telegram
   run_health
   show_satellites
+  spawn_ecosystem
   summary
 }
 
