@@ -17,8 +17,24 @@ from pathlib import Path
 import markdown
 from markdown.extensions.toc import TocExtension
 
+# 생태계 SSOT(configs/ecosystem.json)에서 소유자·허브 레포 로드 — sitemap 기본 URL.
+try:
+    from load_ecosystem import owner as _ecosystem_owner, hub_repo as _ecosystem_hub
+except ImportError:
+    _ecosystem_owner = _ecosystem_hub = None
+
 ROOT = Path(__file__).resolve().parents[1]
 os.chdir(ROOT)
+
+
+def _site_base() -> str:
+    """Pages 기본 URL — ecosystem.json 우선, 없으면 하드코딩 폴백."""
+    if _ecosystem_owner and _ecosystem_hub:
+        try:
+            return f"https://{_ecosystem_owner()}.github.io/{_ecosystem_hub()}/"
+        except Exception:
+            pass
+    return "https://helena751107.github.io/helena_phone/"
 
 
 def _detect_volume() -> str:
@@ -642,10 +658,11 @@ def patch_landing_links() -> int:
 
 
 def write_sitemap() -> None:
-    urls = ["https://helena751107.github.io/helena_phone/"]
-    urls.append("https://helena751107.github.io/helena_phone/archive.html")
+    base = _site_base()
+    urls = [base]
+    urls.append(base + "archive.html")
     for c in CATALOG:
-        urls.append("https://helena751107.github.io/helena_phone/" + c["out"])
+        urls.append(base + c["out"])
     body = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for u in urls:
         body.append(f"  <url><loc>{html.escape(u)}</loc></url>")
