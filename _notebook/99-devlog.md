@@ -6113,3 +6113,14 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **자기 규정 "AI 네이티브":** 파워유저(도구 잘 다룸)를 넘어 "AI를 손과 발로 삼아 사는 방식". "비싼 장비+코딩 실력" 전제를 깨고 "5년 된 폰 + 싸구려 에이전트 + 목소리만으로" 최소 인프라 세움. 지속성으로 증명되는 정체성. 홍보·자기소개용.
 - **저장:** `97b-s21-solutions-showcase-evaluation_Grok.md`(평가+재정의+AI네이티브 3층) + 메모리 `moat-is-performance-not-code`. 97 재고조사 바로 밑에 위치.
 - **다음:** 이 포지셔닝 기반 "해자 백서 최종본" 작성(Boss 지시 대기) + 튜토리얼 첫 편.
+
+### 🧭 전 레포 목적·랜딩·방향성 재정렬 — 터닝포인트 반영 (_Claude · 2026-08-16)
+
+- **Boss 지시:** "한 바퀴 돌고 터닝포인트 됐으니, 전 레포 목적·랜딩 방향성·자산 설정 다 업데이트."
+- **톤 확정(혼합):** hero·description은 샤프한 CI 한 줄("말로만 · 폰 하나로 · 누나를 위해"), 본문은 기존 동화식 유지. "호기심이 문 열고 돌봄이 붙잡는" 구조.
+- **3레포 실행 완료:**
+  - **helena_phone(허브):** README "주머니 속 마법 공구상자" → "말로만 · 폰 하나로 · 누나를 위해" ($55,000→$20 한도, Grok $30 별도 선택). index.html meta·히어로·비용 차트·Grok 카드(2칸) 갱신. GitHub description 설정.
+  - **helana_log(돌봄):** README 신설("헬레나가 사는 법 — 돌봄을 기술로 번역"). description+homepage 설정.
+  - **helena-piano(웹진):** README 스텁→확장(두 레인), index.html meta·히어로 "미니 스튜디오"→"클래식 웹진" 갱신. description+homepage 설정.
+- **서브모듈 포인터 정리:** helana_log·helena-piano gitlink 갱신(부모 3커밋).
+- **다음:** ① metalcare·faith 2레포(Boss 방향 입력 대기) ② ⚠️ git remote에 GitHub PAT 내장 — 보안 점검 필요 ③ 헌법 제9조 확정.
