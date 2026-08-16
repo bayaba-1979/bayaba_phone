@@ -66,10 +66,66 @@
 | **개발일지** | [_notebook/99-devlog.md](_notebook/99-devlog.md) |
 | **업무 수첩 목차** | [_notebook/00-INDEX.md](_notebook/00-INDEX.md) |
 | **완결판 교재** | [_textbook/index.md](_textbook/index.md) |
+| **🚀 10분 시작 (내비게이터)** | [navigator.sh](navigator.sh) |
+| **스폰 엔진 (위성 레포 생성)** | [g/spawn.sh](g/spawn.sh) |
 | **1줄 설치** | [g/install.sh](g/install.sh) |
 | **돌봄 데몬 (수호천사)** | [care/care-daemon.sh](care/care-daemon.sh) |
 
-## 1줄 설치
+## 🚀 10분 시작 — 복사 → 설정 → 구동
+
+이 레포는 **보일러플레이트(뼈대)**예요. "Use this template"으로 복사한 뒤 내 이름·내 블로그·내 채널만 넣으면 그대로 돌아가요. 기존 콘텐츠(피아노·돌봄·신앙)는 **사례(worked example)**로 그대로 들어 있어요 — 변수 지점만 내 것으로 바꾸면 됩니다.
+
+| 분 | 단계 | 명령 | 결과 |
+|----|------|------|------|
+| 0분 | 복사 | GitHub → **Use this template** | 내 계정에 `helena_phone` 생성 |
+| 2분 | 설정 | `bash navigator.sh` | `ecosystem.json` + `.secrets.env` 생성 |
+| 5분 | 스폰 | `bash g/spawn.sh` | 위성 4레포 생성 + 시크릿 배선 |
+| 8분 | 구동 | `bash g/install.sh` | Termux/proot/Claude 워크스페이스 |
+| 10분 | 확인 | Pages + 워크플로 | 티스토리·유튜브 파이프라인 가동 |
+
+### 0분 — 복사 (Use this template)
+
+- GitHub 레포 페이지 상단 **"Use this template"** → "Create a new repository"
+- 이름은 아무거나(기본 `helena_phone`), **Public** 유지 (공개가 철학)
+- 또는 CLI: `gh repo create 내아이디/helena_phone --template helena751107/helena_phone --public`
+
+### 2분 — 내비게이터 (설정 마법사)
+
+```bash
+cd helena_phone
+bash navigator.sh
+```
+
+물어보는 것 3가지:
+1. **GitHub 사용자명** (명의)
+2. **블로그/채널** — 티스토리 5개 slug, 유튜브 2개 handle (템플릿 샘플 유지 가능)
+3. **시크릿** — BotFather(TG)·Google Cloud Console(YouTube)·Discord 발급법을 단계별 안내하며 입력
+
+→ 결과물: `configs/ecosystem.json`(매핑) + `.secrets.env`(시크릿). **둘 다 gitignore**라 절대 GitHub에 안 올라가요.
+
+### 5분 — 스폰 (위성 레포 생성)
+
+```bash
+bash g/spawn.sh            # 실행
+bash g/spawn.sh --dry-run  # 실행 전 미리보기
+```
+
+`ecosystem.json`을 읽어 위성 4레포(피아노/멘탈케어/신앙/로그)를 템플릿에서 복사 생성하고, TG 시크릿을 각 레포에 배선해요. (`gh CLI` + `gh auth login` 필요)
+
+### 8분 — 구동 (워크스페이스)
+
+```bash
+bash g/install.sh          # 휴대폰(Termux/proot)에서
+```
+
+### 10분 — 확인
+
+- Pages: `https://내아이디.github.io/helena_phone/`
+- 워크플로: 각 레포 **Actions** 탭에서 `tistory-sync` 한 번 수동 실행 → RSS가 `기자/`로 들어오는지 확인
+
+> **왜 이렇게 가볍나?** 드리프트 동기화는 중앙 reusable workflow(`uses: helena751107/helena_phone/.github/workflows/tistory-sync.yml@main`)가 자동 처리해요. 내가 로직을 고치면 복사한 사람들 레포에도 자동 반영돼요.
+
+## 📱 휴대폰에 1줄 설치 (기존 워크스페이스)
 
 마법 공구상자를 내 휴대폰에도! 아래 한 줄을 복사해서 비밀 방(터미널)에 붙여넣으세요:
 
