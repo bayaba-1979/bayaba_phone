@@ -1152,6 +1152,14 @@
     "deck": "구형 Galaxy S21(proot Ubuntu) + AI 에이전트 3종으로, **\"돌봄(누나) + 소망(출판)\"** 을 폰 한 대에서 돌리는 1인 미디어 스튜디오를 세웠다."
   },
   {
+    "src": "_notebook/98-turning-point-2026-08-16_Claude.md",
+    "out": "notebook/98-turning-point-2026-08-16_Claude.html",
+    "title": "터닝 포인트 — 빌드 멈춤 → 열고 가르치기 (2026-08-16)",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "**Boss 확정 기점.** 오늘까지 \"만들기\"였다면, 오늘부터 \"열고 가르치기\"다."
+  },
+  {
     "src": "_notebook/rvc-environment-gap_Claude.md",
     "out": "notebook/rvc-environment-gap_Claude.html",
     "title": "RVC 환경 차이 진단 — WSL vs S21",
