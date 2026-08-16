@@ -20,16 +20,9 @@ CSS_END   = "/* HELENA-ORBITAL-SKIN-END */"
 HTML_START = "<!-- HELENA-LAYOUT-START -->"
 HTML_END   = "<!-- HELENA-LAYOUT-END -->"
 
-_LAYOUT_BODY = """<aside id="category-nav">
-  <h2 class="cat-title">카테고리</h2>
-  <div class="cat-tree">[##_category_##]</div>
-  <div id="zoom-ctrl" aria-label="글자 크기">
-    <button type="button" id="zoom-out" aria-label="축소">−</button>
-    <button type="button" id="zoom-reset" aria-label="초기화">A</button>
-    <button type="button" id="zoom-in" aria-label="확대">+</button>
-  </div>
-</aside>
-<div id="s21-bezel" aria-hidden="true"></div>
+# 사이버덱 S21 시그니처 장식 (베젤+카메라+펀치홀+스타필드 파티클).
+# 웹진 variant(피아노)에서는 주입하지 않음 — 웹진은 프레임 없이 순수 편집 디자인.
+_CYBERDECK_DECOR = """<div id="s21-bezel" aria-hidden="true"></div>
 <div id="s21-camera" aria-hidden="true">
   <span class="lens l1"></span>
   <span class="lens l2"></span>
@@ -40,7 +33,18 @@ _LAYOUT_BODY = """<aside id="category-nav">
 <div id="s21-particles" aria-hidden="true">
   <!--STARS-->
   <!--METEORS-->
-</div>
+</div>"""
+
+_LAYOUT_BODY = """<aside id="category-nav">
+  <h2 class="cat-title">카테고리</h2>
+  <div class="cat-tree">[##_category_##]</div>
+  <div id="zoom-ctrl" aria-label="글자 크기">
+    <button type="button" id="zoom-out" aria-label="축소">−</button>
+    <button type="button" id="zoom-reset" aria-label="초기화">A</button>
+    <button type="button" id="zoom-in" aria-label="확대">+</button>
+  </div>
+</aside>
+<!--CYBERDECK-->
 <script>
 (function(){var s=1,step=0.1,min=0.7,max=1.6;function ap(){var c=document.getElementById('content');if(c)c.style.fontSize=(100*s)+'%';}var zi=document.getElementById('zoom-in'),zo=document.getElementById('zoom-out'),zr=document.getElementById('zoom-reset');if(zi)zi.addEventListener('click',function(){s=Math.min(max,s+step);ap();});if(zo)zo.addEventListener('click',function(){s=Math.max(min,s-step);ap();});if(zr)zr.addEventListener('click',function(){s=1;ap();});})();
 </script>
@@ -90,16 +94,17 @@ THEME_MAP = {
         "stars": 24, "meteors": 3, "pace": 1.4, "seed": 7,
         "meteor_ang": "-90deg", "meteor_dx": "0px", "meteor_dy": "140px",
     },
-    "piano": {  # 연주=표현 — 블루-바이올렛, 리듬감
-        "accent": "#6b8cff", "accent_rgb": "107, 140, 255",
-        "accent2": "#c9d4e8", "accent2_rgb": "201, 212, 232",
-        "nebula_a": "rgba(107, 140, 255, 0.54)",
-        "nebula_b": "rgba(120, 90, 200, 0.48)",
-        "nebula_c": "rgba(201, 212, 232, 0.26)",
-        "star1": "#eaf0ff", "star2": "#8fb0ff", "star3": "#d6dff5",
-        "meteor": "#c9d4e8",
-        "stars": 18, "meteors": 3, "pace": 1.0, "seed": 88,
-        "meteor_ang": "0deg", "meteor_dx": "-190px", "meteor_dy": "0px",
+    "piano": {  # 하이엔드 클래식 웹진 — 네이비/블랙 + 골드/아이보리 (Gramophone/DG)
+        "variant": "webzine",
+        "accent": "#d4a84b", "accent_rgb": "212, 168, 75",
+        "accent2": "#f4efe6", "accent2_rgb": "244, 239, 230",
+        "nebula_a": "rgba(212, 168, 75, 0.16)",
+        "nebula_b": "rgba(16, 22, 36, 0.6)",
+        "nebula_c": "rgba(244, 239, 230, 0.10)",
+        "star1": "#f4efe6", "star2": "#d4a84b", "star3": "#ffffff",
+        "meteor": "#d4a84b",
+        "stars": 12, "meteors": 2, "pace": 1.6, "seed": 88,
+        "meteor_ang": "-90deg", "meteor_dx": "0px", "meteor_dy": "160px",
     },
     "metalcare": {  # 멘탈케어=마음 — 세이지-소프트블루, 숨결처럼 느림
         "accent": "#8fd6b3", "accent_rgb": "143, 214, 179",
@@ -235,14 +240,146 @@ def _dashboard_script():
 </script>'''
 
 
+def _webzine_style():
+    """piano 전용 '하이엔드 클래식 웹진' 변형 — S21 액자 프레임은 유지하고,
+    화면(프레임 안)만 네이비/블랙 + 골드/아이보리 + 세리프 편집 디자인으로 바꾼다.
+    마스트헤드 + 커버 히어로 + 3열 그리드. 두 레인(스튜디오·매거진)은 좌측 카테고리 트리로 구분."""
+    return '''<style id="s21-webzine">
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Serif+KR:wght@400;600;700&display=swap');
+
+/* ═══ 하이엔드 클래식 웹진 (Gramophone / Deutsche Grammophon) — S21 액자 안 ═══ */
+
+/* 1) 화면(프레임 안) 배경 — 네이비/블랙 + 은은한 골드 글로우 (프레임·스타필드는 유지) */
+#wrap {
+  background:
+    radial-gradient(1400px 760px at 50% -12%, rgba(212,168,75,0.10), transparent 56%),
+    radial-gradient(900px 520px at 100% 0%, rgba(212,168,75,0.05), transparent 50%),
+    linear-gradient(180deg, #0b0d14 0%, #07080c 100%) !important;
+}
+
+/* 2) 마스트헤드 — 세리프 대제목 (블로그명) */
+#header { background: rgba(7,8,12,0.92); border-bottom: 1px solid rgba(212,168,75,0.24); }
+#header .inner { height: 64px; justify-content: center; }
+#header h1 a {
+  font-family: 'Cormorant Garamond', 'Noto Serif KR', Georgia, serif;
+  font-size: 27px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--s21-accent2);
+}
+#header h1 a::before { content: ""; }
+#header h1 a:hover { color: var(--s21-accent); }
+
+/* 상단 액션(PC 화면 보기 · 설치) — 골드/아이보리 톤으로 절제 */
+#s21-top-actions button {
+  background: transparent;
+  border: 1px solid rgba(212,168,75,0.40);
+  color: var(--s21-accent2);
+  box-shadow: none;
+}
+#s21-top-actions button:hover { background: rgba(212,168,75,0.12); color: var(--s21-accent); transform: none; }
+
+/* 3) 컨테이너 — 단일 컬럼 (카테고리 상단 인덱스 + 본문) */
+section.container { flex-direction: column; align-items: stretch; gap: 0; }
+
+/* 4) 카테고리 = 잡지 섹션 인덱스 (상단, 세리프) — 두 레인의 내비게이션 */
+#category-nav {
+  flex: none; position: static; width: 100%; max-height: none;
+  background: transparent; border: none; border-radius: 0;
+  box-shadow: none; padding: 0 0 18px; margin-bottom: 32px;
+  border-bottom: 1px solid rgba(212,168,75,0.20);
+}
+#category-nav::before { display: none; }
+#category-nav .cat-title {
+  font-family: 'Cormorant Garamond', 'Noto Serif KR', serif;
+  font-size: 15px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--s21-accent); border-left: none; text-align: center;
+  padding: 0 0 10px; margin: 0;
+}
+#category-nav .link_tit, #category-nav .link_tit a {
+  color: var(--s21-accent2); font-family: 'Cormorant Garamond', 'Noto Serif KR', serif;
+  letter-spacing: 0.05em;
+}
+#category-nav li a { color: #b8b2a6; border-bottom-color: rgba(212,168,75,0.10); }
+#category-nav li a::before { color: var(--s21-accent); }
+#category-nav li a:hover { color: var(--s21-accent2); }
+#category-nav .c_cnt { color: var(--s21-accent) !important; background: rgba(212,168,75,0.10) !important; border-color: rgba(212,168,75,0.26) !important; }
+#category-nav #zoom-ctrl { display: none; }
+
+/* 5) 글 목록 — 커버 히어로(최신 1개 전체 폭) + 3열 카드 그리드.
+   실제 DOM: body.post-type-text > #content > .inner > div.post-item.
+   base skin-premium.css 의 .post-type-text … !important 를 이겨야 하므로 !important 사용. */
+#content .inner:has(.post-item) {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  padding: 0; margin: 0;
+}
+#content .post-item {
+  margin-bottom: 0 !important;
+  padding: 26px 24px !important;
+  background: rgba(255,255,255,0.016) !important;
+  border: 1px solid rgba(212,168,75,0.14) !important;
+  border-radius: 3px !important;
+  transition: border-color .2s ease, background .2s ease;
+}
+#content .post-item:hover {
+  transform: none !important; box-shadow: none !important;
+  border-color: rgba(212,168,75,0.50) !important;
+  background: rgba(212,168,75,0.05) !important;
+}
+.post-item .title {
+  font-family: 'Cormorant Garamond', 'Noto Serif KR', Georgia, serif !important;
+  font-size: 21px !important; font-weight: 600 !important; line-height: 1.32 !important;
+  letter-spacing: 0.005em !important;
+  color: var(--s21-accent2) !important; -webkit-line-clamp: 3 !important;
+}
+.post-item:hover .title { color: var(--s21-accent) !important; }
+.post-item .excerpt {
+  font-family: 'Cormorant Garamond', 'Noto Serif KR', serif !important;
+  font-size: 15px !important; line-height: 1.5 !important; color: #a9a398 !important;
+}
+.post-item .more { color: var(--s21-accent) !important; font-size: 12px !important; letter-spacing: 0.08em !important; text-transform: uppercase !important; }
+
+/* 커버 히어로 — 최신 글 전체 폭 (잡지 커버 스토리) */
+#content .inner:has(.post-item) > .post-item:first-child {
+  grid-column: 1 / -1;
+  padding: 44px 40px !important;
+  background: linear-gradient(155deg, rgba(212,168,75,0.12), rgba(255,255,255,0.014) 60%) !important;
+  border-color: rgba(212,168,75,0.36) !important;
+}
+#content .inner:has(.post-item) > .post-item:first-child .title {
+  font-size: 42px !important; line-height: 1.18 !important; font-weight: 700 !important;
+  letter-spacing: 0.01em !important; -webkit-line-clamp: 3 !important;
+}
+#content .inner:has(.post-item) > .post-item:first-child .excerpt {
+  font-size: 17px !important; -webkit-line-clamp: 3 !important; color: #cfc9bc !important;
+}
+
+/* 6) 모바일 — 단일 컬럼 + 커버 축소 (프레임·리더모드는 base 그대로) */
+@media (max-width: 900px) {
+  #header h1 a { font-size: 21px; letter-spacing: 0.10em; }
+  #content .inner:has(.post-item) { grid-template-columns: 1fr; gap: 16px; }
+  #content .inner:has(.post-item) > .post-item:first-child { padding: 28px 22px !important; }
+  #content .inner:has(.post-item) > .post-item:first-child .title { font-size: 30px !important; }
+}
+</style>'''
+
+
 def render_layout(theme):
-    """블로그 테마 → 마커 감싼 최종 레이아웃 HTML (카테고리+줌+스타필드+테마 override)."""
+    """블로그 테마 → 마커 감싼 최종 레이아웃 HTML (카테고리+줌+테마 override).
+
+    S21 액자 프레임(베젤·카메라·펀치홀·스타필드)은 모든 블로그 공통 — "폰 위에서 도는 앱" 컨셉.
+    variant 는 '화면 안'(인테리어) 스타일만 바꾼다: dashboard(모니터) / webzine(잡지)."""
+    variant = theme.get("variant")
     stars, meteors = _starfield(theme)
-    body = _LAYOUT_BODY.replace("<!--STARS-->", stars).replace("<!--METEORS-->", meteors)
+    body = _LAYOUT_BODY.replace("<!--CYBERDECK-->", _CYBERDECK_DECOR)
+    body = body.replace("<!--STARS-->", stars).replace("<!--METEORS-->", meteors)
     body += "\n" + _theme_override(theme)
-    if theme.get("variant") == "dashboard":
+    if variant == "dashboard":
         body += "\n" + _dashboard_style()
         body += "\n" + _dashboard_script()
+    elif variant == "webzine":
+        body += "\n" + _webzine_style()
     return HTML_START + "\n" + body + "\n" + HTML_END
 
 
