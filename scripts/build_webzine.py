@@ -447,7 +447,7 @@ def page_shell(
     </nav>
   </div>
 </header>
-<main class="wz-shell">
+<main class="wz-shell{' wz-shell-code' if kind == 'code' else ''}">
   <div class="wz-crumb">
     <a href="{home}">Webzine</a><span class="sep">/</span>
     <span>{crumb_section}</span><span class="sep">/</span>
