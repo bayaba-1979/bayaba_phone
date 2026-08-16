@@ -6063,3 +6063,12 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **비공개 발행 확정(실증):** Boss 제안대로 "비공개는 15개/일 공개한도에 안 걸린다"는 것 실증 — 첫 기사(손바닥 위의 그랜드 피아노) **비공개 발행 성공**. id=2, 카테고리=스튜디오, permalink `https://helena-piano.tistory.com/2`, statusLabel="비공개글". (공개 발행 시도는 "하루 15개" alert로 차단됐던 것과 대비.)
 - **워크플로 확립:** **"몰아서 비공개로 쌓기 → Boss 확인 → 순차 공개 전환"** 이 표준. 비공개 생성은 한도 무관(대량 배치 가능), 공개 전환만 15개/일 한도. `flip_visibility.py`로 공개 전환.
 - **post.py 다이얼로그 핸들러 실전 확인:** 임시저장 confirm dismiss(새로 시작) + "15개" alert 로깅 — 이번 발행에서 둘 다 정상 동작.
+
+### 🎹 피아노 웹진 — 좌/우 2단 레이아웃 복구 + PC·모바일 양모드 검증 (_Claude · 2026-08-16)
+
+- **회귀 원인:** 내가 `_webzine_style()`에 `section.container { flex-direction: column }` + `#category-nav { flex:none; width:100% }` 를 넣어, Boss가 만든 **"카테고리 좌측 + 콘텐츠 우측" 2단 flex**를 깨뜨림(전부 모바일 최적화로 변질). PC 화면 디폴트값이 사라짐.
+- **수정:** 그 오버라이드 제거. base `section.container` flex-row·`#category-nav` 250px sticky·`#content flex:1` **원형 유지** + 웹진은 **색·타이포만 리테마**(골드·세리프·카운트 배지). 스테일 주석("웹진은 프레임 없이"→"프레임 공통")도 정정.
+- **검증(PC, Playwright getComputedStyle):** `flexDirection:row`, `#category-nav` x=168(좌)·`flex:0 0 250px`, `#content` x=450(우), 펀치홀 `::before`·줌컨트롤 복귀. body class `layout-wide color-bright post-type-text paging-view-more`(s21-mobile 없음 = PC 디폴트 살아있음).
+- **검증(모바일=리더, viewport 390px):** `matchMedia`로 `body.s21-mobile` 자동 부여 → `#category-nav`/`#s21-bezel` `display:none`, `#wrap` 전화면 고정, `#content` 348px 전폭, 웹진 네이비→골드 radial-gradient + 세리프 마스트헤드 그대로. **두 모드 모두 웹진이 얹힘** → Boss 요구 "PC 화면·모바일 화면 둘 다 액자/뷰어 위에 잡지" 충족.
+- **⚠️ 미해결:** 공개 홈 `#content .inner` 자식 0(글 목록 안 뜸), 카테고리 카운트 전부 "(0)". manage API상 공개글 id=1("Galaxy21 Proot R&Scope")이 있는데 리스트 미노출 — 캐시/페이지(글 아님)/커버모드 가능성. 첫 기사(id=2) 공개 전환 시 재확인 필요.
+- **다음:** ① id=2 공개 전환(`flip_visibility.py`) 후 홈 노출 확인 ② 홈 0글 미해결 원인 파악 ③ 레인2 첫 기사.

@@ -21,7 +21,8 @@ HTML_START = "<!-- HELENA-LAYOUT-START -->"
 HTML_END   = "<!-- HELENA-LAYOUT-END -->"
 
 # 사이버덱 S21 시그니처 장식 (베젤+카메라+펀치홀+스타필드 파티클).
-# 웹진 variant(피아노)에서는 주입하지 않음 — 웹진은 프레임 없이 순수 편집 디자인.
+# 모든 블로그 공통 "S21 액자 프레임" — render_layout()이 항상 주입한다.
+# variant 는 화면 안(인테리어)만 바꾼다 (dashboard / webzine).
 _CYBERDECK_DECOR = """<div id="s21-bezel" aria-hidden="true"></div>
 <div id="s21-camera" aria-hidden="true">
   <span class="lens l1"></span>
@@ -278,32 +279,21 @@ def _webzine_style():
 }
 #s21-top-actions button:hover { background: rgba(212,168,75,0.12); color: var(--s21-accent); transform: none; }
 
-/* 3) 컨테이너 — 단일 컬럼 (카테고리 상단 인덱스 + 본문) */
-section.container { flex-direction: column; align-items: stretch; gap: 0; }
-
-/* 4) 카테고리 = 잡지 섹션 인덱스 (상단, 세리프) — 두 레인의 내비게이션 */
-#category-nav {
-  flex: none; position: static; width: 100%; max-height: none;
-  background: transparent; border: none; border-radius: 0;
-  box-shadow: none; padding: 0 0 18px; margin-bottom: 32px;
-  border-bottom: 1px solid rgba(212,168,75,0.20);
-}
-#category-nav::before { display: none; }
+/* 3) 좌측 카테고리 + 우측 본문 2단 flex — base 그대로 유지 (section.container 재정의 금지).
+   웹진은 좌측 패널(펀치홀·스티키·줌컨트롤) 구조를 그대로 두고, 골드·세리프 리테마만 얹는다. */
 #category-nav .cat-title {
-  font-family: 'Cormorant Garamond', 'Noto Serif KR', serif;
-  font-size: 15px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase;
-  color: var(--s21-accent); border-left: none; text-align: center;
-  padding: 0 0 10px; margin: 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif KR', Georgia, serif;
+  font-size: 15px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--s21-accent);
 }
 #category-nav .link_tit, #category-nav .link_tit a {
   color: var(--s21-accent2); font-family: 'Cormorant Garamond', 'Noto Serif KR', serif;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
-#category-nav li a { color: #b8b2a6; border-bottom-color: rgba(212,168,75,0.10); }
+#category-nav li a { color: #b8b2a6; border-bottom-color: rgba(212,168,75,0.12); }
 #category-nav li a::before { color: var(--s21-accent); }
 #category-nav li a:hover { color: var(--s21-accent2); }
-#category-nav .c_cnt { color: var(--s21-accent) !important; background: rgba(212,168,75,0.10) !important; border-color: rgba(212,168,75,0.26) !important; }
-#category-nav #zoom-ctrl { display: none; }
+#category-nav .c_cnt { color: var(--s21-accent) !important; background: rgba(212,168,75,0.12) !important; border-color: rgba(212,168,75,0.28) !important; }
 
 /* 5) 글 목록 — 커버 히어로(최신 1개 전체 폭) + 3열 카드 그리드.
    실제 DOM: body.post-type-text > #content > .inner > div.post-item.
