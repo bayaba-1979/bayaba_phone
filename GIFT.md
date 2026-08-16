@@ -147,7 +147,7 @@ TTS_ENGINE=local bash scripts/produce_intro.sh
 | 티스토리/네이버 | post.py·session_post.py·skin.py | `tistory-naver/` 보존 (API 종료로 사용 안 함) |
 | 텔레그램 3종 | core·bot·bridge | `telegram/` 보존 |
 | YouTube | yt_oauth·orbit_publish·sync | `scripts/yt_*.py` 로 자체 구현 완료 |
-| GitHub Actions 6종 | rule-tuner·design-guard·issue-terminal 등 | `.github/workflows/` 활성화 |
+| GitHub Actions 6종 | rule-tuner·design-guard·issue-terminal 등 | ❌ 제거 (dtslib AI-OS 미포팅 — 유령 빨간불, 2026-08-16) |
 | Discord | webhook.sh | `discord/` 보존 |
 | phone-claude | INSTALL.sh | `g/install.sh` 로 대체 (자체 구현) |
 

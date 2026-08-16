@@ -6134,3 +6134,15 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **경계 반영(제15조·의료/신학 단정 금지):** README·랜딩 meta/hero·CLAUDE.md에 명시. ⚠️ Boss가 부른 "REDACTED"는 실명 추정 → 공개문 전부 "누나/헬레나"로 통일, CLAUDE.md·메모리에 "REDACTED 금지" 못박음.
 - **실행:** description(gh) + README + index.html meta/hero/title + CLAUDE.md 경계, 각각 커밋·푸시. push는 PAT 없이 gh 자격증명 헬퍼 사용(보안 패턴 검증).
 - **다음:** ① REDACTED = 실명/가명 확인(공개 핸들 확정) ② 환청 음성화 → 목소리 전략(3트랙) 연결 ③ git remote PAT 내장 정리(Boss 승인 대기).
+
+### 🧭 CI 빨간불 2건 정리 — Pages 스테일 errored + 유령 Acceptance Tests (_Claude · 2026-08-16)
+
+- **Boss 지시:** "지금 제대로 만들어 놓은 게 맞는지 냉정히 평가" → CI 맵 작성 후 실측 결과 빨간불 2건 발견 → "두 개 다 조사해서 고쳐".
+- **① 허브 Pages `errored`:**
+  - **진단:** `pages/builds` 최신 2건 = commit `5d0fcea`, "Page build failed", `2026-07-25`. **레거시(gh-pages 브랜치) 빌드 실패가 스테일로 남은 것.** `build_type:"workflow"` + `source.branch:"gh-pages"` 공존 = 반쯤 전환된 상태.
+  - **실상:** 실제 배포는 정상. deploy-pages.yml deploy job success · 사이트 HTTP 200 + 최신 콘텐츠(metalcare 마커) 서빙 · workflow deployments(actions/deploy-pages) 계속 성공.
+  - **조치:** PUT `build_type=workflow`(204, 이미 workflow) + gh-pages 브랜치 삭제→복원 시도 → 스테일 캐시라 API로 안 풀림. **사이트 기능 영향 없음.** fresh deploy로 자연 소거 여부 관찰.
+- **② Acceptance Tests 빨간불 (유령):**
+  - **진단:** OS가드 6종(acceptance·design·feedback·issue·router·rule)은 dtslib "선물" 스캐폴드. 참조하는 AI-OS(`config/system.json`·`feedback/feedback.json`·`maps/lanes.json`·`scripts/interpreter.js`)는 포팅 안 됨(디렉토리 부재). GIFT.md 154행이 이미 "dtslib 코드 = 치트시트, 실제 자동화는 우리 scripts/"로 결정.
+  - **조치:** 6종 워크플로 전부 `git rm`. 남은 CI = deploy-pages + tistory-sync(정상).
+- **후속:** helana_log(서브모듈)에도 issue-terminal·acceptance-tests·router-compiler 3종 동일 유령 — 별도 레포라 다음에 정리.
