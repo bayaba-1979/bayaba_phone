@@ -61,7 +61,7 @@ _LAYOUT_BODY = """<aside id="category-nav">
 (function(){var btn=document.getElementById('s21-install'),modal=document.getElementById('s21-install-modal'),close=modal&&modal.querySelector('.s21-install-close'),steps=document.getElementById('s21-install-steps'),deferred=null;window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;if(btn){btn.textContent='앱 설치';}});function browser(){var u=navigator.userAgent;if(/Edg\\//.test(u))return'edge';if(/Chrome\\//.test(u))return'chrome';if(/Firefox\\//.test(u))return'firefox';return'other';}function html(){var b=browser();if(b==='chrome')return'<ol><li>주소창 오른쪽 ⋮ 메뉴 클릭</li><li>저장 및 공유 → 페이지를 앱으로 설치</li><li>(없으면) 도구 더보기 → 바로가기 만들기</li></ol>';if(b==='edge')return'<ol><li>주소창 오른쪽 ⋯ 메뉴 클릭</li><li>앱 → 이 사이트를 앱으로 설치</li></ol>';return'<ol><li>브라우저 메뉴에서 "앱으로 설치" 또는 "바로가기 만들기" 선택</li></ol>';}if(btn)btn.addEventListener('click',function(){if(deferred){deferred.prompt();deferred.userChoice.then(function(){deferred=null;});return;}if(steps)steps.innerHTML=html();modal.hidden=false;});if(close)close.addEventListener('click',function(){modal.hidden=true;});if(modal)modal.addEventListener('click',function(e){if(e.target===modal)modal.hidden=true;});document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal)modal.hidden=true;});})();
 </script>
 <script>
-(function(){var a=document.getElementById('s21-top-actions'),h=document.querySelector('#header h1');if(a&&h){var b=document.createElement('div');b.id='s21-brand';h.parentNode.insertBefore(b,h);b.appendChild(h);b.appendChild(a);}var m=document.getElementById('s21-mobile-view');if(m){var K='s21-mobile';function set(o){document.body.classList.toggle('s21-mobile',o);m.setAttribute('aria-pressed',o?'true':'false');m.classList.toggle('on',o);m.textContent=o?'🖥 PC':'📱 모바일';try{localStorage.setItem(K,o?'1':'0');}catch(e){}}var s=false;try{s=localStorage.getItem(K)==='1';}catch(e){}set(s);m.addEventListener('click',function(){set(!document.body.classList.contains('s21-mobile'));});}})();
+(function(){var a=document.getElementById('s21-top-actions'),h=document.querySelector('#header h1');if(a&&h){var b=document.createElement('div');b.id='s21-brand';h.parentNode.insertBefore(b,h);b.appendChild(h);b.appendChild(a);}var m=document.getElementById('s21-mobile-view'),K='s21-mobile',mq=window.matchMedia('(max-width:900px)');function set(o){document.body.classList.toggle('s21-mobile',o);if(m){m.setAttribute('aria-pressed',o?'true':'false');m.classList.toggle('on',o);m.textContent=o?'✕ 닫기':'📱 모바일';}try{localStorage.setItem(K,o?'1':'0');}catch(e){}}function apply(){if(mq.matches){document.body.classList.add('s21-mobile');if(m){m.setAttribute('aria-pressed','true');m.classList.add('on');m.textContent='✕ 닫기';}}else{var s=false;try{s=localStorage.getItem(K)==='1';}catch(e){}set(s);}}if(m){m.addEventListener('click',function(){set(!document.body.classList.contains('s21-mobile'));});}if(mq.addEventListener){mq.addEventListener('change',apply);}else if(mq.addListener){mq.addListener(apply);}apply();})();
 </script>"""
 
 # ── 블로그별 테마 (색 + 스타필드) — Boss 2026-08-15 ─────────────────────────
@@ -283,11 +283,19 @@ async def kakao_login(page, email, pw):
     return False
 
 
-async def ensure_logged_in(page, email, pw):
+async def ensure_logged_in(page, email, pw, html_url):
     cookies = await page.context.cookies("https://www.tistory.com")
     if any(c["name"] == "TSSESSION" for c in cookies):
-        log("  ✅ 기존 세션 유효 (TSSESSION)")
-        return True
+        # TSSESSION 쿠키가 있어도 서버 세션이 만료됐을 수 있음 — html.json(JSON 응답)으로 실제 검증
+        try:
+            r = await page.request.get(html_url)
+            ct = r.headers.get("content-type", "") or ""
+            if r.status == 200 and "application/json" in ct:
+                log("  ✅ 기존 세션 유효 (TSSESSION + JSON 응답)")
+                return True
+            log("  ⚠️ TSSESSION 만료 감지 (JSON 아님) — 재로그인")
+        except Exception as e:
+            log(f"  세션 검증 실패: {e}")
     return await kakao_login(page, email, pw)
 
 
@@ -339,12 +347,13 @@ async def main():
                 await ctx.add_cookies(cks)
                 log(f"  state 쿠키 {len(cks)}개 복원")
 
-        if not await ensure_logged_in(page, acc["email"], acc["password"]):
+        html_url = f"https://{slug}.tistory.com/manage/design/skin/html.json"
+
+        if not await ensure_logged_in(page, acc["email"], acc["password"], html_url):
             log("❌ 로그인 실패 — 종료")
             sys.exit(1)
         await ctx.storage_state(path=str(st_path))
 
-        html_url = f"https://{slug}.tistory.com/manage/design/skin/html.json"
         log(f"  GET {html_url}")
         resp = await page.request.get(html_url)
         if resp.status != 200:

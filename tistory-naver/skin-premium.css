@@ -611,12 +611,6 @@ section.container {
 }
 #zoom-ctrl button:hover { background: rgba(var(--s21-accent-rgb), 0.12); color: var(--s21-accent); border-color: rgba(var(--s21-accent-rgb), 0.45); }
 
-@media (max-width: 900px) {
-  section.container { flex-direction: column; align-items: stretch; }
-  #category-nav { flex: none; width: 100%; position: static; max-height: none; }
-  #content { width: 100%; max-width: 100%; }
-}
-
 /* ── 12. Galaxy S21 시그니처 디자인 (Boss 2026-08-15) ───────────────────────
    블랙 스킨 위에: 베젤 프레임 + 컨투어컷 카메라(우측·동쪽) + 펀치홀 + 플로팅 파티클.
    전부 pointer-events:none 장식. 움직임 = breathe/spin/flash/rise 애니메이션. */
@@ -810,15 +804,50 @@ section.container {
 #s21-top-actions button.on { color: #0a0c10; background: var(--s21-accent); border-color: var(--s21-accent); }
 #s21-install:before { content: "⤓"; font-size: 13px; line-height: 1; }
 
-/* ── 모바일로 보기 — 본문을 모바일 폭(≤560px) 단일 컬럼으로 좁힘 ── */
+/* ── 앱 뷰어(리더) 모드 — 본문만 화면 꽉 채우기 (Boss 2026-08-16) ──
+   body.s21-mobile = 데스크톱 '📱 모바일' 토글 + 실제 모바일(@media ≤900px) 자동 감지(JS matchMedia).
+   사이버덱 장식(베젤·카메라·펀치홀·스타필드) + 헤더·카테고리를 숨기고 본문만 전체 폭으로. */
+
+/* 1) 사이버덱 외곽 프레임·장식 전부 숨김 */
+body.s21-mobile #s21-bezel,
+body.s21-mobile #s21-camera,
+body.s21-mobile #s21-punch,
+body.s21-mobile #s21-particles { display: none !important; }
+
+/* 2) 스크롤 뷰포트 = 화면 전체 (베젤 프레임 해제 → 본문이 화면을 꽉 채움) */
+body.s21-mobile #wrap {
+  top: 0; bottom: 0; left: 0; right: 0;
+  border-radius: 0;
+}
+
+/* 3) 헤더 → 투명. 블로그명·네비 숨기고 복귀 버튼(🖥 PC)만 우상단에 플로팅 */
+body.s21-mobile #header {
+  background: transparent;
+  border-bottom: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  pointer-events: none;
+}
+body.s21-mobile #header .inner {
+  max-width: none;
+  height: auto;
+  padding: 10px 14px;
+  justify-content: flex-end;
+}
+body.s21-mobile #header h1,
+body.s21-mobile #header #gnb { display: none !important; }
+body.s21-mobile #s21-top-actions { pointer-events: auto; }
+
+/* 4) 컨테이너 = 단일 컬럼·전체 폭. 카테고리 숨기고 본문만 꽉 채움 (좌우 최소 여백 16px) */
 body.s21-mobile section.container {
   flex-direction: column;
   align-items: stretch;
-  max-width: 560px;
-  padding: 32px 20px 64px;
+  gap: 0;
+  max-width: 100%;
+  padding: 16px;
 }
-body.s21-mobile #category-nav { flex: none; width: 100%; position: static; max-height: none; margin-bottom: 20px; }
-body.s21-mobile #content { width: 100%; max-width: 100%; }
+body.s21-mobile #category-nav { display: none !important; }
+body.s21-mobile #content { width: 100%; max-width: 100%; min-width: 0; font-size: 17px; }
 
 #s21-install-modal {
   position: fixed;
@@ -858,14 +887,7 @@ body.s21-mobile #content { width: 100%; max-width: 100%; }
 }
 .s21-install-close:hover { color: var(--s21-accent); }
 
-/* 모바일: 장식 축소 + #wrap 스크롤포트를 모바일 베젤에 맞춤 */
+/* 실제 모바일(≤900px): 상단 액션(토글 버튼) 숨김 — 뷰어 모드는 JS matchMedia가 body.s21-mobile 자동 부여 */
 @media (max-width: 900px) {
-  #wrap { top: 70px; bottom: 10px; left: 10px; right: 10px; border-radius: 20px; }
-  #s21-camera { width: 64px; height: 38px; gap: 6px; top: 76px; right: 14px; }
-  #s21-camera .lens { width: 12px; height: 12px; }
-  #s21-camera .l2 { width: 9px; height: 9px; }
-  #s21-camera .l3 { width: 8px; height: 8px; }
-  #s21-punch { display: none; }
-  #s21-bezel { inset: 70px 10px 10px 10px; border-radius: 20px; }
-  #s21-top-actions { display: none; }  /* 상단 액션 = PC 전용 (Boss: 안드로이드 앱 말고 PC 화면) */
+  #s21-top-actions { display: none; }
 }
