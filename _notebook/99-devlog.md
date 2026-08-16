@@ -6039,3 +6039,12 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **부수 버그 수정:** `apply_layout.py` `ensure_logged_in`이 "TSSESSION 쿠키 존재"만 보고 유효로 오판 → `html.json` JSON 응답 여부로 실제 검증. 재로그인(2FA 없음) 후 갱신 TSSESSION을 4블로그에 시드.
 - **배포:** 5블로그(galaxys21·mynote·faith·piano·metalcare) 전부 재적용, 주입 검증 통과.
 - **후속 보강 (같은 날):** "모바일에선 버튼 숨김"을 뒤집어 **모바일에서도 '🖥 PC 화면' 토글 + '설치' 버튼 노출**. 모바일 기본은 뷰어(리더), 버튼으로 PC 화면(사이버덱 프레임) ↔ 뷰어 왕복. 라벨 컨텍스트별(데스크톱: 📱 모바일/✕ 닫기, 모바일: 🖥 PC 화면/📖 뷰어). 모바일은 localStorage 미저장 → 새로고침 시 항상 뷰어 기본. 5블로그 재적용 통과.
+
+## 🎹 피아노 웹진 스킨 — S21 액자 프레임 유지 + 화면 안 클래식 웹진 (_Claude · 2026-08-16)
+
+- **요청:** 시리즈 3블로그(faith/piano/metalcare) 중 **피아노부터** 하이엔드 클래식 웹진(Gramophone/DG 스타일)으로 개조. 두 레인(스튜디오=IT 렌더링 / 매거진=종합 잡지)을 카테고리로 분리.
+- **핵심 설계 전환(중요):** 처음엔 "웹진은 사이버덱 프레임을 내려놓고 순수 잡지"로 구현했으나, Boss가 **"S21 액자식 — 폰 프레임은 유지하고 화면 안에 웹진을 임베드"** 로 정정. 프레임(베젤·카메라·펀치홀·스타필드)은 **모든 블로그 공통**, 블로그마다 다른 "앱"이 화면 안에서 돈다(galaxys21=사이버덱 / piano=웹진 / mynote=대시보드).
+- **구현 (`apply_layout.py`):** ① 사이버덱 장식을 `_CYBERDECK_DECOR`로 분리 → `render_layout()`이 항상 주입 ② `THEME_MAP["piano"]`에 `variant:"webzine"` + 골드/아이보리 테마 ③ `_webzine_style()`: 네이비/블랙 배경 + 세리프(Cormorant Garamond) 마스트헤드 + 커버 히어로(최신 글 전체폭 42px) + 3열 카드 그리드.
+- **DOM 함정(실측):** 이 커스텀 스킨(`customize/8935245`)은 글 목록이 `body.post-type-text > #content > .inner > div.post-item` (ul/li 아님). `.post-type-*`는 body 클래스라 base `skin-premium.css`의 `.post-type-text … !important`가 실제 매칭 → variant CSS에서 font-size/padding에 `!important`로 이겨야 함. 그리드 컨테이너는 `#content .inner:has(.post-item)`.
+- **검증:** 헤드리스 Playwright 계산 스타일로 — 프레임 유지(bezel fixed, wrap 26px radius) + 3열 그리드 + 커버 히어로(42px/44px) + 세리프 마스트헤드 확정. piano 재적용 POST 200·마커 통과.
+- **다음:** ① 두 레인 카테고리 재구성 ② 첫 소재 "S21에서 피아노 음악 렌더링" 발행.
