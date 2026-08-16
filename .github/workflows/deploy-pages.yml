@@ -1,69 +1,18 @@
 name: Deploy GitHub Pages
+
+# 허브(helena_phone) 자신의 Pages 배포 — 중앙 재사용 워크플로 호출 (build=true).
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
-concurrency:
-  group: pages
-  cancel-in-progress: true
-jobs:
-  verify:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Install deps
-        run: pip install markdown
-      - name: Build webzine pages
-        run: python3 scripts/build_webzine.py
-      - name: Check translation gaps
-        run: python3 scripts/check_webpages_Grok.py
-      - name: Publish metrics
-        run: python3 scripts/publishing_metrics.py
-      - name: Upload metrics artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: publishing-metrics
-          path: assets/publishing-metrics.json
 
+jobs:
   deploy:
-    needs: verify
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: false
-      - name: Bundle
-        run: |
-          set -euo pipefail
-          mkdir -p _site
-          rsync -a \
-            --exclude='.git/' --exclude='.github/' --exclude='node_modules/' \
-            --exclude='.secrets.env' --exclude='.env' --exclude='_site/' \
-            --exclude='helana_log/' --exclude='helena-piano/' \
-            --exclude='helena-faith/' --exclude='helena-metalcare/' \
-            --exclude='helena-programming/' \
-            --exclude='browser-env/' --exclude='.aider*' \
-            --exclude='**/__pycache__/' --exclude='*.pyc' \
-            --exclude='assets/mobile-shot-*.png' --exclude='assets/pw-*.png' \
-            ./ _site/
-          grep -q accChapters _site/index.html
-          touch _site/.nojekyll
-          du -sh _site
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
-      - id: deployment
-        uses: actions/deploy-pages@v4
+    uses: helena751107/helena_phone/.github/workflows/pages-deploy.yml@main
+    with:
+      build: true
