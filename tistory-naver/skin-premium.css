@@ -887,7 +887,4 @@ body.s21-mobile #content { width: 100%; max-width: 100%; min-width: 0; font-size
 }
 .s21-install-close:hover { color: var(--s21-accent); }
 
-/* 실제 모바일(≤900px): 상단 액션(토글 버튼) 숨김 — 뷰어 모드는 JS matchMedia가 body.s21-mobile 자동 부여 */
-@media (max-width: 900px) {
-  #s21-top-actions { display: none; }
-}
+/* 실제 모바일(≤900px): 상단 액션(PC 화면 보기 · 설치) 버튼도 노출 — 기본 뷰어, 버튼으로 PC 화면 ↔ 뷰어 토글 (Boss 2026-08-16) */
