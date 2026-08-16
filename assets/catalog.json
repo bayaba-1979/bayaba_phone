@@ -1088,6 +1088,14 @@
     "deck": "이 레포 3주에서 뽑아낸 **브랜드 테제 12개**. 랜딩 카피·발표·소개·투자 피치에 그대로 쓸 수 있는 한 줄 명제 목록. 핵심은 명제 하나가 아니라 **문법 하나**다 — \"폰 한 대가 곧 ___\" 빈칸을 바꾸면 새 상품이 된다."
   },
   {
+    "src": "_notebook/97b-s21-solutions-showcase-evaluation_Grok.md",
+    "out": "notebook/97b-s21-solutions-showcase-evaluation_Grok.html",
+    "title": "재고조사 평가 — Grok (2026-08-16)",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "Claude(출판부)가 정리한 **\"S21 한 대로 만든 것 — 3주 랩업 & 솔루션\"** (97) 에 대한 Grok의 평가."
+  },
+  {
     "src": "_notebook/78-pd-pipeline-whitepaper_Claude.md",
     "out": "notebook/78-pd-pipeline-whitepaper_Claude.html",
     "title": "🎬 PD Pipeline 기술 백서 — URL 하나로 숏폼 자동 제작",

@@ -233,6 +233,7 @@ NOTEBOOK_TITLES = {
     "94-three-week-review_Claude.md": "3주 만에 1인 미디어 스튜디오 — 회고",
     "95-publishing-bootstrap-doctor_Claude.md": "출판 파이프라인 부트스트랩 + 출판 doctor 설계",
     "96-brand-theses_Claude.md": "명제 인벤토리 — 폰 한 대가 곧 ___",
+    "97b-s21-solutions-showcase-evaluation_Grok.md": "재고조사 평가 — 해자는 코드가 아니라 퍼포먼스",
 }
 
 # Auto-discover every _notebook/*.md (overrides in NOTEBOOK_TITLES)
