@@ -52,13 +52,6 @@ BRANDS = {
         "hub": "https://helena751107.github.io/helena_phone/",
         "kicker": "Care · Docs",
     },
-    "helena-programming": {
-        "name": "Helena Programming",
-        "accent": "#3db8a8",
-        "home": "https://helena751107.github.io/helena-programming/",
-        "hub": "https://helena751107.github.io/helena_phone/",
-        "kicker": "Engineering · Docs",
-    },
 }
 
 SKIP_NAMES = {"_TEST_CONNECTION.md"}
@@ -313,7 +306,6 @@ def main() -> int:
         "helana-faith": base / "helena-faith",
         "helena-piano": base / "helena-piano",
         "helena-metalcare": base / "helena-metalcare",
-        "helena-programming": base / "helena-programming",
     }
     total = 0
     for key, path in mapping.items():
