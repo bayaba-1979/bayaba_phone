@@ -6222,3 +6222,12 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **스크립트 영문화(로직·데이터 불변, bash -n 검증):** `navigator.sh`·`g/install.sh`·`g/spawn.sh`·`scripts/preflight.sh`·`scripts/make_pair.sh` 전부 0 한국어. 설정 템플릿 4종(`ecosystem.json.template`·`quota-manifest.json`·`bait-voice.json`·`accounts.json.template`)도 영문 — 단 고유명사·디렉토리명(`기자`·`교육방송국` 등)은 데이터로 보존.
 - **원조 서사(README·프로필):** "Made in Korea — 토종 한국인 개발자(교포 아님)·인천·구형 S21 한 대·누나 돌봄·~$20" 을 허브 README hero + 프로필 README `## The origin` 섹션에 명시. 진정성이 곧 해자.
 - **결과:** 허브 2커밋(`i18n:`·`docs:`) + 프로필 1커밋 푸시 완료. 남은 자산 레인은 Grok(히어로·소셜 프리뷰 이미지).
+
+### 🖼️ Grok 히어로·소셜 프리뷰 6장 배선 (_Claude · 2026-08-17)
+
+**Boss 지시:** Grok이 만든 이미지 6장(Download 폴더)을 프로필 배너 + 5레포 소셜 프리뷰로 배선. "생성 시간 반대로 가면 숫자."
+
+- **매핑(타임스탬프 18:48:32→18:53:29 = 생성 순 1→6):** 1=프로필 배너, 2=허브, 3=piano, 4=metalcare, 5=faith, 6=log. 바이트 크기로 교차 검증(360284/302957/432974/309000/420074/411117 전부 일치).
+- **배선:** 프로필 README 최상단 배너 + 5레포 `assets/social-preview.jpg` + 각 README 히어로 이미지 + `index.html` `og:image` 교체(helana_log는 og 태그 신설).
+- **한계:** GitHub의 진짜 "social preview"(레포 Settings→Social preview) 업로드는 **Web UI 전용(API 없음)** → README 히어로 + Pages `og:image`로 대체. Grok 워터마크(로고)는 Boss가 인지한 상태로 사용.
+- **결과:** 6레포 커밋(`feat: social preview`) 푸시 완료.
