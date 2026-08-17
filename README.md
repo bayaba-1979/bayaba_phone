@@ -7,7 +7,7 @@
 > **489 commits · 893 files · 129 notebooks · 8 shipped systems · 3 weeks.**
 > Zero PC · resilience-first · multi-channel (Git SSOT → PWA / Tistory / YouTube / Telegram).
 >
-> **Made in Korea.** A native South Korean developer — one old S21, one sister to care for, zero servers. Not a transplant, not a rebrand.
+> **Made in Korea — not a developer.** I don't sit easy at a keyboard; I can't stand that kind of building. Fourteen-hour days of physical labor, and in the cracks of it, all of this — spoken into a terminal, not typed. The nobles take a walk to rest. I rest by working.
 >
 > **The build is done. Now I open it and teach.** Fork it, cite it, run it on the phone in your pocket.
 
