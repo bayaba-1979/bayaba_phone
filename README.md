@@ -1,8 +1,9 @@
-# One Phone · $20 · For My Sister
+# Mobile-First Multi-Platform Content Foundry Boilerplate
 
-> A complete one-person media studio — and a 24/7 care system — on a single Galaxy S21.
-> **485 commits · 895 files · 129 notebooks · 8 shipped systems · 3 AI agents · ~$20/month.**
-> Everything open source. Fork it, cite it, run it on the phone in your pocket.
+> **Powered by Termux/PRoot & MCP.** A complete one-person media studio + 24/7 care system
+> on a single Galaxy S21 — ~$20/month. **485 commits · 895 files · 129 notebooks · 8 systems.**
+> Zero PC · MCP-verified (`returncode == 0`) · resilience-first · multi-channel (Git SSOT → PWA / Tistory / YouTube / Telegram).
+> Fork it, cite it, run it on the phone in your pocket.
 >
 > _Korean below = the full worked example. For the quick start, follow "10분 시작"._
 
