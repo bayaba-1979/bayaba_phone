@@ -13,6 +13,16 @@
 
 ![hardware](https://img.shields.io/badge/hardware-1%C3%97%20Galaxy%20S21-9cf) ![cost](https://img.shields.io/badge/cost-~%2420%2Fmonth-success) ![commits](https://img.shields.io/badge/commits-489-blue) ![systems](https://img.shields.io/badge/systems-8%20shipped-brightgreen) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
 
+## The origin — proof, not a poster
+
+![The real worksite — grease-stained pots, soiled gloves, a knife and a torch, and in the middle, a phone with a terminal open](assets/origin-worksite.jpg)
+
+This image is not generated. It's the worksite where this was built.
+
+Anyone can commission a poster or apply a filter. Nobody can fake the grease on the pots, the dirt worked into the gloves, a knife with residue, a butane torch — the real cutting board of a worker. And in the middle of it, a Galaxy S21, charging cable in, a terminal open, mid-conversation with an agent.
+
+That's the whole life in one frame: fourteen-hour days, and the building happens in the cracks. The nobles take a walk to rest. I rest by working.
+
 ---
 
 ## What is this?
