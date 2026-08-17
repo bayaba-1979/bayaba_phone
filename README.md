@@ -128,6 +128,25 @@ bash g/install.sh          # 휴대폰(Termux/proot)에서
 
 > **왜 이렇게 가볍나?** 드리프트 동기화는 중앙 reusable workflow(`uses: helena751107/helena_phone/.github/workflows/tistory-sync.yml@main`)가 자동 처리해요. 내가 로직을 고치면 복사한 사람들 레포에도 자동 반영돼요.
 
+## 📐 양산 공법 — 3스크립트 + 검증 3층
+
+뼈대가 서면 이제 **양산 공법(레시피)**으로 돌려요. 원자재(`_notebook/*.md`) 하나 → PWA + 티스토리 페어로 뽑아내는 표준 공정입니다.
+
+| 스크립트 | 역할 |
+|----------|------|
+| `bash scripts/preflight.sh` | **테이블 세터** — 양산 직전 소모성 자산(티스토리 세션·유튜브 OAuth·깃허브·텔레그램) 점검. FAIL 이면 갱신부터. |
+| `bash scripts/quota.sh` | **오늘 남은 쿼터** — 티스토리 15/일(계정)·유튜브 1600units·Threads 500자/250일. 한도 SSOT = `configs/quota-manifest.json`. |
+| `bash scripts/make_pair.sh` | **페어 발행** — preflight → PWA 빌드(gap=0 게이트) → 티스토리(디렉터 게이트→배치) 단일 엔트리. |
+
+**검증 3층 (불량 일찍 잡기):**
+1. **테이블 세터(preflight)** — 세션·토큰 만료를 양산 전에 걸러냄.
+2. **exit-code 게이트** — "완료"는 에이전트 말이 아니라 returncode·파일 존재로 판정.
+3. **gap_count=0** — PWA 페이지 누락 시 배포 금지.
+
+**미끼 채널 페르소나** — 같은 소재를 워딩 레벨만 변환해 발화: 네이버=어르신 세대 톤, Threads=MZ 세대 톤 (`configs/bait-voice.json`).
+
+> **스코프:** 이 공법은 콘텐츠(1인 미디어) 전용이에요. 돌봄 망(Tailscale)·돌봄 데몬은 별도 트랙이라 여기 안 섞여요.
+
 ## 📱 휴대폰에 1줄 설치 (기존 워크스페이스)
 
 마법 공구상자를 내 휴대폰에도! 아래 한 줄을 복사해서 비밀 방(터미널)에 붙여넣으세요:

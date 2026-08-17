@@ -294,6 +294,11 @@ print("")
 print("  다음 단계:")
 print("    bash g/spawn.sh        # 위성 4레포 생성 + 시크릿 배선 (gh CLI 필요)")
 print("    bash g/install.sh      # 워크스페이스 구축 (Termux/proot/Claude)")
+print("")
+print("  양산 공법 (설치 후):")
+print("    bash scripts/preflight.sh   # 테이블 세터 — 세션·토큰 사전 점검")
+print("    bash scripts/quota.sh       # 오늘 남은 쿼터 (티스토리 15/일 등)")
+print("    bash scripts/make_pair.sh   # 원자재 → PWA+티스토리 페어 발행")
 PYEOF
   echo ""
   info "스폰은 g/spawn.sh, 워크스페이스는 g/install.sh 가 수행합니다 (navigator 는 '설정'만)."

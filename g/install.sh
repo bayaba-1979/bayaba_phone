@@ -380,6 +380,9 @@ summary() {
   검진:  bash phone-health.sh
   보고:  bash tg.sh '메시지'
   돌봄:  bash care/care-setup.sh
+  양산:  bash scripts/preflight.sh   # 테이블 세터 (세션·토큰 점검)
+         bash scripts/quota.sh       # 오늘 남은 쿼터
+         bash scripts/make_pair.sh   # 원자재 → PWA+티스토리 페어 발행
   매뉴얼: cat _notebook/41-beginner-install-manual_Grok.md
           또는 https://${OWNER_GITHUB}.github.io/helena_phone/install-guide.html
 
