@@ -472,6 +472,7 @@
 <li><a href="#geo-_claude-2026-08-17">🌐 네이버 GEO 원조 텍스트 — 서식 푸터 (_Claude · 2026-08-17)</a></li>
 <li><a href="#geo-_claude-2026-08-17_1">🏭 GEO 공장 스탬프 — 파운드리 기본 부품 승격 (_Claude · 2026-08-17)</a></li>
 <li><a href="#ai-_claude-2026-08-17">🔄 정체 인식 출판 파이프라인 — 보일러플레이트 반영 + AI 평가 검증 (_Claude · 2026-08-17)</a></li>
+<li><a href="#geo-1-_claude-2026-08-17">📐 GEO 측정 루프 1차 — 발행 표면 ✅ · 색인 ❌ · 위성 스탬프 ❌ (_Claude · 2026-08-17)</a></li>
 </ul>
 </li>
 </ul>
@@ -8509,6 +8510,16 @@ Android(호스트 OS) : proot Ubuntu(리눅스 호환 레이어)
 - <code>load_ecosystem.py</code>에 <code>identity()</code> 액세서 추가. 없으면 헬레나 기본값 폴백 → <strong>출력 0 diff</strong>(헬레나 정체 보존 확인).<br>
 - <strong>효과:</strong> 포크한 사람이 <code>identity</code> 블록만 채우면 자기 정체로 자동 상속 — [[always-replicable-installable]] &ldquo;환경 변수만 채우면 바로 구동&rdquo; 원칙을 GEO까지 확장.<br>
 - <strong>결과:</strong> 재빌드 172페이지 원조 스탬프 0 diff(동일) + 밀린 devlog HTML 동기화만 수반.</p>
+<h3 id="geo-1-_claude-2026-08-17">📐 GEO 측정 루프 1차 — 발행 표면 ✅ · 색인 ❌ · 위성 스탬프 ❌ (_Claude · 2026-08-17)</h3>
+<p><strong>Boss 지시:</strong> &ldquo;측정 루프 해봐&rdquo; → 가설(&ldquo;노출이 빨라진다&rdquo;)을 실제 측정으로 검증 시작.</p>
+<ul>
+<li><strong>도구:</strong> <code>scripts/geo_measure.py</code> 신설 — 발행 표면(HTTP 200·canonical·JSON-LD <code>@id→#person</code>·sitemap URL 수)을 curl로 자동 측정, 종료코드 0/1(CI 게이트용). 포크 호환(ecosystem.json에서 base URL 로드).</li>
+</ul>
+<p><strong>1차 베이스라인 측정 결과:</strong><br>
+- <strong>발행 표면 ✅:</strong> 허브 5핵심 URL(홈·robots·sitemap·llms.txt) + 샘플 페이지 전부 200, canonical 정확, JSON-LD 파싱 유효(<code>@id=github.com/helena751107#person</code>). sitemap 174 URL.<br>
+- <strong>색인 ❌ (핵심 병목):</strong> WebSearch 4회(helena751107 · &ldquo;Made in Korea — not a developer&rdquo; · 원본 도메인 · 한글) 전부 <strong>0건</strong>. 검색 엔진이 아직 사이트를 전혀 색인 안 함. 신규라 정상이지만, 메타가 아무리 정확해도 크롤러가 안 오면 노출 0. → <strong>GSC·Bing WMT sitemap 제출이 가속 키(계정 필요).</strong><br>
+- <strong>위성 스탬프 ❌ (신규 발견):</strong> 4위성(helana_log·piano·metalcare·faith)은 200 + canonical + llms.txt + robots + sitemap은 있지만 <strong>JSON-LD 정체 그래프(#person) 없음.</strong> &ldquo;5레포 JSON-LD 완료&rdquo;는 과장 — 실제는 허브만. 위성은 <code>build_satellite_docs</code> 별도 빌드 경로라 미스탬프.</p>
+<p><strong>판단:</strong> GEO 메타는 &ldquo;필요조건이지 충분조건 아님&rdquo;이 측정으로 확인. 진짜 병목 = ①색인(계정 필요 GSC/Bing WMT 제출) ②위성 스탬프(빌드 경로 확장). 진짜 해자는 퍼포먼스·진정성 — GEO는 이름표([[moat-is-performance-not-code]]).</p>
   </article>
   <nav class="wz-pager">
     <a class="" href="session-2026-07-26_Grok.html">

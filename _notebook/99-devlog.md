@@ -6294,3 +6294,16 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - `load_ecosystem.py`에 `identity()` 액세서 추가. 없으면 헬레나 기본값 폴백 → **출력 0 diff**(헬레나 정체 보존 확인).
 - **효과:** 포크한 사람이 `identity` 블록만 채우면 자기 정체로 자동 상속 — [[always-replicable-installable]] "환경 변수만 채우면 바로 구동" 원칙을 GEO까지 확장.
 - **결과:** 재빌드 172페이지 원조 스탬프 0 diff(동일) + 밀린 devlog HTML 동기화만 수반.
+
+### 📐 GEO 측정 루프 1차 — 발행 표면 ✅ · 색인 ❌ · 위성 스탬프 ❌ (_Claude · 2026-08-17)
+
+**Boss 지시:** "측정 루프 해봐" → 가설("노출이 빨라진다")을 실제 측정으로 검증 시작.
+
+- **도구:** `scripts/geo_measure.py` 신설 — 발행 표면(HTTP 200·canonical·JSON-LD `@id→#person`·sitemap URL 수)을 curl로 자동 측정, 종료코드 0/1(CI 게이트용). 포크 호환(ecosystem.json에서 base URL 로드).
+
+**1차 베이스라인 측정 결과:**
+- **발행 표면 ✅:** 허브 5핵심 URL(홈·robots·sitemap·llms.txt) + 샘플 페이지 전부 200, canonical 정확, JSON-LD 파싱 유효(`@id=github.com/helena751107#person`). sitemap 174 URL.
+- **색인 ❌ (핵심 병목):** WebSearch 4회(helena751107 · "Made in Korea — not a developer" · 원본 도메인 · 한글) 전부 **0건**. 검색 엔진이 아직 사이트를 전혀 색인 안 함. 신규라 정상이지만, 메타가 아무리 정확해도 크롤러가 안 오면 노출 0. → **GSC·Bing WMT sitemap 제출이 가속 키(계정 필요).**
+- **위성 스탬프 ❌ (신규 발견):** 4위성(helana_log·piano·metalcare·faith)은 200 + canonical + llms.txt + robots + sitemap은 있지만 **JSON-LD 정체 그래프(#person) 없음.** "5레포 JSON-LD 완료"는 과장 — 실제는 허브만. 위성은 `build_satellite_docs` 별도 빌드 경로라 미스탬프.
+
+**판단:** GEO 메타는 "필요조건이지 충분조건 아님"이 측정으로 확인. 진짜 병목 = ①색인(계정 필요 GSC/Bing WMT 제출) ②위성 스탬프(빌드 경로 확장). 진짜 해자는 퍼포먼스·진정성 — GEO는 이름표([[moat-is-performance-not-code]]).
