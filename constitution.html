@@ -7,6 +7,40 @@
 <meta name="theme-color" content="#0a0908">
 <meta name="application-name" content="S21 Phone">
 <title>CONSTITUTION.md — S21 Phone 헌법 — S21 Phone Webzine</title>
+<link rel="canonical" href="https://helena751107.github.io/helena_phone/constitution.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://github.com/helena751107#person",
+      "name": "Helena Park",
+      "url": "https://github.com/helena751107",
+      "description": "Made in Korea — not a developer. One Galaxy S21, built by voice, for a sister.",
+      "sameAs": [
+        "https://github.com/helena751107",
+        "https://helena751107.github.io/helena_phone/",
+        "https://www.youtube.com/@helena_phone",
+        "https://www.youtube.com/@HelenaPark-e7c"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://helena751107.github.io/helena_phone/constitution.html#webpage",
+      "url": "https://helena751107.github.io/helena_phone/constitution.html",
+      "name": "CONSTITUTION.md — S21 Phone 헌법",
+      "inLanguage": "ko",
+      "publisher": {
+        "@id": "https://github.com/helena751107#person"
+      },
+      "author": {
+        "@id": "https://github.com/helena751107#person"
+      }
+    }
+  ]
+}
+</script>
 <link rel="icon" href="icons/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -89,9 +123,13 @@
 <li><a href="#16">제16조: 위치 정보는 따로 가둔다</a></li>
 </ul>
 </li>
+<li><a href="#5-geo-ai">제5장 — 원조를 기계에 새긴다 (GEO — AI가 읽는 홍보판)</a><ul>
+<li><a href="#17-origin">제17조: 원조(Origin)는 사람 눈과 기계 눈, 둘 다에 새긴다</a></li>
+</ul>
+</li>
 <li><a href="#_9">부칙 — 언제 어떻게 바뀌었나 (개정 이력)</a></li>
 <li><a href="#2_2">부칙 2 — 헌법 지도 (구조도)</a></li>
-<li><a href="#3_1">부칙 3 — 가장 중요한 다섯 가지 (핵심 명제)</a></li>
+<li><a href="#3_1">부칙 3 — 가장 중요한 여섯 가지 (핵심 명제)</a></li>
 </ul>
 </div>
 </nav>
@@ -550,6 +588,18 @@ CLAUDE.md는 이 헌법 아래에서 &ldquo;어떻게 일할지&rdquo;를 적은
 <li>미션 A(꿈 공장)의 어떤 채널(GitHub, 블로그, YouTube, Discord 공개 채널, WidgetBot — 채팅 창)에도 위치 데이터가 흘러가지 않도록 설계 단계에서 막는다.</li>
 </ul>
 <hr>
+<h2 id="5-geo-ai">제5장 — 원조를 기계에 새긴다 (GEO — AI가 읽는 홍보판)</h2>
+<h3 id="17-origin">제17조: 원조(Origin)는 사람 눈과 기계 눈, 둘 다에 새긴다</h3>
+<p><strong>세상의 검색은 &ldquo;구글에 검색해서 글을 눌러보는 시대&rdquo;에서 &ldquo;AI에게 직접 물어보는 시대&rdquo;로 넘어가고 있다. 그래서 원조 서사는 사람이 읽는 글뿐 아니라 기계(LLM — AI의 두뇌)가 읽는 언어로도 새겨둔다.</strong></p>
+<ul>
+<li><strong>코드는 선물이지만, 선물에는 선물한 사람의 이름을 달아둔다.</strong> (제2조와 연결) 이것은 저작권 주장이 아니다. &ldquo;누가 원조인가&rdquo;라는 족보(원조 좌표)를 기계가 읽을 수 있게 남기는 것이다.</li>
+<li><strong>우리가 도메인 루트를 소유한 곳(GitHub)에는</strong> <code>llms.txt</code>(LLM 전용 요약 지도) + JSON-LD(구조화 데이터 — WebSite·Project·Person) + <code>canonical</code>(원본 주소) + <code>sitemap.xml</code>(페이지 목록)을 심는다. AI 크롤러는 이 파일부터 읽어 &ldquo;이 사이트의 정수가 뭔지&rdquo;를 통째로 받아간다.</li>
+<li><strong>루트가 남의 것인 곳(티스토리·네이버·유튜브)에는</strong> JSON-LD 정체 그래프(같은 인물·프로젝트를 가리키는 <code>@id</code> + <code>sameAs</code>)와 텍스트로, &ldquo;원조 = Helena Park의 GitHub&rdquo; 좌표를 가리키게 한다.</li>
+<li><strong>효과:</strong> 어느 플랫폼을 크롤링해도 AI가 &ldquo;원조는 이 GitHub&rdquo;로 재구성한다. 베낀 글은 그 족보가 없으니 AI가 짝퉁으로 분류하고 원조의 손을 들어준다.</li>
+<li><strong>한계(정직하게):</strong> 이것은 법적 저작권이 아니라 &ldquo;AI 인용에서의 원조 확정&rdquo;이다. 사람이 복사해가는 걸 막지는 못한다(제2조 — 코드는 선물). 하지만 AI가 답할 때는 언제나 진짜 원조를 원본으로 인용하게 만든다.</li>
+</ul>
+<p><strong>이 조항은 제8조(A층/B층)의 연장이다</strong> — B층(구조·메타)에 &ldquo;홍보 메타&rdquo;를 심는 일. GitHub 5레포에서 이미 완료했고, 티스토리·유튜브·네이버로 확장한다.</p>
+<hr>
 <h2 id="_9">부칙 — 언제 어떻게 바뀌었나 (개정 이력)</h2>
 <table>
 <thead>
@@ -559,6 +609,10 @@ CLAUDE.md는 이 헌법 아래에서 &ldquo;어떻게 일할지&rdquo;를 적은
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>2026-08-17</td>
+<td>v6 — 제5장·제17조 신설: 원조를 기계에 새긴다(GEO). llms.txt·JSON-LD·canonical·sitemap 5레포 배선 + 정체 그래프(티스토리·유튜브·네이버 확장 예정).</td>
+</tr>
 <tr>
 <td>2026-08-14</td>
 <td>v5 — 제9조·제14조 YouTube 5채널→2채널(콜드 스타트 수렴): <code>@helena_phone</code>(인프라) + <code>@HelenaPark-e7c</code>(돌봄). 매핑 1:1:1→5:5:2. helena-programming 레포 → helena_phone 편입.</td>
@@ -587,7 +641,7 @@ CLAUDE.md는 이 헌법 아래에서 &ldquo;어떻게 일할지&rdquo;를 적은
 </table>
 <hr>
 <h2 id="2_2">부칙 2 — 헌법 지도 (구조도)</h2>
-<pre><code>CONSTITUTION.md (제0장 + 제1~4장 · 총 16조)
+<pre><code>CONSTITUTION.md (제0장 + 제1~5장 · 총 17조)
 │
 ├── 전문 — 두 개의 길: 돌봄과 소망
 │   ├── 길 1: 돌봄 (수호천사) → &quot;절대 안 깨질 것&quot;
@@ -607,10 +661,13 @@ CLAUDE.md는 이 헌법 아래에서 &ldquo;어떻게 일할지&rdquo;를 적은
 ├── 제3장 — 작업 시작과 끝 (제12~14조)
 │   └── 시작순서 · 종료순서 · 우선순위
 │
-└── 제4장 — 비밀 지키기 (제15~16조)
-    └── 식별정보보호 · 위치정보가두기
+├── 제4장 — 비밀 지키기 (제15~16조)
+│   └── 식별정보보호 · 위치정보가두기
+│
+└── 제5장 — 원조를 기계에 새긴다 (제17조)
+    └── GEO · llms.txt · JSON-LD · canonical · 정체그래프
 </code></pre>
-<h2 id="3_1">부칙 3 — 가장 중요한 다섯 가지 (핵심 명제)</h2>
+<h2 id="3_1">부칙 3 — 가장 중요한 여섯 가지 (핵심 명제)</h2>
 <blockquote>
 <ol>
 <li><strong>&ldquo;코드는 그때그때 결과물(인스턴스), 생각하는 방법(사고 서식)이 진짜 자산.&rdquo;</strong> (제6조)</li>
@@ -618,6 +675,7 @@ CLAUDE.md는 이 헌법 아래에서 &ldquo;어떻게 일할지&rdquo;를 적은
 <li><strong>&ldquo;로봇이 내놓은 말은 전부 추측(1차 가설).&rdquo;</strong> (제5조)</li>
 <li><strong>&ldquo;판단력만이 진짜 보물(희소 자산).&rdquo;</strong> (제6조)</li>
 <li><strong>&ldquo;모든 무대는 A층(인간) + B층(말로명령+로봇).&rdquo;</strong> (제8조)</li>
+<li><strong>&ldquo;원조는 사람 눈과 기계 눈, 둘 다에 새긴다.&rdquo;</strong> (제17조)</li>
 </ol>
 </blockquote>
   </article>

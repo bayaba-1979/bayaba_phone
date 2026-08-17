@@ -37,6 +37,45 @@ def _site_base() -> str:
     return "https://helena751107.github.io/helena_phone/"
 
 
+# ── GEO 원조 스탬프 (헌법 제17조) ──────────────────────────────────────────
+# 모든 생성 페이지의 <head>에 canonical + JSON-LD 정체 그래프를 박아
+# "이 콘텐츠의 원조 = github.com/helena751107#person"임을 기계가 읽게 함.
+PERSON_ID = "https://github.com/helena751107#person"
+
+
+def _identity_graph(canonical: str, title: str) -> str:
+    """JSON-LD @graph — Person(@id=GitHub #person) + WebPage(publisher/author→Person)."""
+    ld = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Person",
+                "@id": PERSON_ID,
+                "name": "Helena Park",
+                "url": "https://github.com/helena751107",
+                "description": "Made in Korea — not a developer. One Galaxy S21, built by voice, for a sister.",
+                "sameAs": [
+                    "https://github.com/helena751107",
+                    "https://helena751107.github.io/helena_phone/",
+                    "https://www.youtube.com/@helena_phone",
+                    "https://www.youtube.com/@HelenaPark-e7c",
+                ],
+            },
+            {
+                "@type": "WebPage",
+                "@id": f"{canonical}#webpage",
+                "url": canonical,
+                "name": title,
+                "inLanguage": "ko",
+                "publisher": {"@id": PERSON_ID},
+                "author": {"@id": PERSON_ID},
+            },
+        ],
+    }
+    inner = json.dumps(ld, ensure_ascii=False, indent=2)
+    return f'<script type="application/ld+json">\n{inner}\n</script>'
+
+
 def _detect_volume() -> str:
     """Detect volume tag from git tag, config file, or build date."""
     # 1) git tag
@@ -398,6 +437,10 @@ def page_shell(
     home = prefix + "index.html"
     assets = prefix + "assets/"
 
+    # GEO 원조 스탬프 — canonical URL + JSON-LD 정체 그래프 (헌법 제17조)
+    canonical = _site_base() + out_path
+    ld = _identity_graph(canonical, title)
+
     # prev/next within same section
     section_items = [c for c in CATALOG if c["section"] == section]
     idx = next((i for i, c in enumerate(section_items) if c["out"] == out_path), -1)
@@ -444,6 +487,8 @@ def page_shell(
 <meta name="theme-color" content="#0a0908">
 <meta name="application-name" content="S21 Phone">
 <title>{html.escape(title)} — S21 Phone Webzine</title>
+<link rel="canonical" href="{canonical}">
+{ld}
 <link rel="icon" href="{prefix}icons/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="{prefix}icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{prefix}icons/apple-touch-icon.png">

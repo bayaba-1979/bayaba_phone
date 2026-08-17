@@ -7,6 +7,40 @@
 <meta name="theme-color" content="#0a0908">
 <meta name="application-name" content="S21 Phone">
 <title>yt_upload.py — S21 Phone Webzine</title>
+<link rel="canonical" href="https://helena751107.github.io/helena_phone/scripts/yt-upload.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://github.com/helena751107#person",
+      "name": "Helena Park",
+      "url": "https://github.com/helena751107",
+      "description": "Made in Korea — not a developer. One Galaxy S21, built by voice, for a sister.",
+      "sameAs": [
+        "https://github.com/helena751107",
+        "https://helena751107.github.io/helena_phone/",
+        "https://www.youtube.com/@helena_phone",
+        "https://www.youtube.com/@HelenaPark-e7c"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://helena751107.github.io/helena_phone/scripts/yt-upload.html#webpage",
+      "url": "https://helena751107.github.io/helena_phone/scripts/yt-upload.html",
+      "name": "yt_upload.py",
+      "inLanguage": "ko",
+      "publisher": {
+        "@id": "https://github.com/helena751107#person"
+      },
+      "author": {
+        "@id": "https://github.com/helena751107#person"
+      }
+    }
+  ]
+}
+</script>
 <link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -63,29 +97,53 @@
 </div>
 <pre id="codeBody"><code class="language-py">#!/usr/bin/env python3
 &quot;&quot;&quot;
-S21 Phone — YouTube 업로드 스크립트 v1
-OAuth Device Code Flow → Data API v3 → 영상 업로드
+S21 Phone — YouTube 통제 CLI v2 (업로드 + 플레이리스트 + 브랜딩 + 애널리틱스)
+OAuth(Device Code) → Data API v3 · Analytics v2
 
 사용법:
-  ~/browser-env/bin/python3 scripts/yt_upload.py --title &quot;제목&quot; --file video.mp4
-  ~/browser-env/bin/python3 scripts/yt_upload.py --channel @내채널handle --list
+  # 업로드 (기본 = 텔레그램 승인 게이트: ✅승인해야만 업로드)
+  python3 scripts/yt_upload.py --title &quot;제목&quot; --file video.mp4 --privacy public
+  python3 scripts/yt_upload.py --title &quot;제목&quot; --file video.mp4 --auto   # 승인 없이 바로
+  python3 scripts/yt_upload.py --approve &lt;DRAFT_ID&gt;                     # 타임아웃 드래프트 재개
+  # 채널 조회
+  python3 scripts/yt_upload.py --channel phone --list
+  python3 scripts/yt_upload.py --stats
+  # 플레이리스트
+  python3 scripts/yt_upload.py --playlist-list
+  python3 scripts/yt_upload.py --playlist-create &quot;새 재생목록&quot;
+  python3 scripts/yt_upload.py --playlist-add &lt;플리ID&gt; &lt;영상ID&gt;
+  # 브랜딩 / 통계
+  python3 scripts/yt_upload.py --branding &quot;새 채널 설명&quot;
+  python3 scripts/yt_upload.py --analytics 28
 
 환경: proot Ubuntu
-의존성: google-auth-oauthlib, google-api-python-client
-전제: OAuth 토큰이 .secrets.env 또는 yt_tokens.json에 존재할 것
+의존성: google-auth-oauthlib, google-api-python-client, requests(승인 게이트)
+전제: OAuth 토큰(.secrets.env YOUTUBE_*) + TG_TOKEN/TG_CHAT(.secrets.env, 승인 게이트용)
 &quot;&quot;&quot;
 
-import os, sys, json, subprocess, argparse, datetime
+import os, sys, json, subprocess, argparse, datetime, time
 from pathlib import Path
+
+try:
+    import requests
+except ImportError:  # 승인 게이트만 씀. 없으면 --auto 경로로 동작
+    requests = None
 
 BASE = Path(__file__).resolve().parent.parent
 SECRETS = BASE / &quot;.secrets.env&quot;
 TOKEN_FILE = BASE / &quot;configs&quot; / &quot;yt_tokens.json&quot;
+PENDING_DIR = BASE / &quot;configs&quot; / &quot;pending_uploads&quot;  # 승인 대기 드래프트
+
+# 텔레그램 승인 게이트 (SSOT = .secrets.env TG_TOKEN/TG_CHAT, _load_secrets에서 채움)
+TG_TOKEN = &quot;&quot;
+TG_CHAT = &quot;&quot;
 
 # ── 설정 ────────────────────────────────────────────────────────────────────
 
-CLIENT_ID = os.environ.get(&quot;YT_CLIENT_ID&quot;, &quot;&quot;)
-CLIENT_SECRET = os.environ.get(&quot;YT_CLIENT_SECRET&quot;, &quot;&quot;)
+CLIENT_ID = os.environ.get(&quot;YOUTUBE_CLIENT_ID&quot;, &quot;&quot;)
+CLIENT_SECRET = os.environ.get(&quot;YOUTUBE_CLIENT_SECRET&quot;, &quot;&quot;)
+ACCESS_TOKEN = os.environ.get(&quot;YOUTUBE_ACCESS_TOKEN&quot;, &quot;&quot;)
+REFRESH_TOKEN = os.environ.get(&quot;YOUTUBE_REFRESH_TOKEN&quot;, &quot;&quot;)
 
 # 생태계 SSOT(configs/ecosystem.json)에서 2채널·프로젝트 로드.
 # (구 6채널 하드코딩 → 2채널 정합: main=돌봄, phone=도구)
@@ -101,30 +159,37 @@ CHANNELS = {
 SCOPES = [
     &quot;https://www.googleapis.com/auth/youtube.upload&quot;,
     &quot;https://www.googleapis.com/auth/youtube&quot;,
-    &quot;https://www.googleapis.com/auth/yt-analytics.readonly&quot;,
+    # ⚠️ yt-analytics.readonly는 device flow 미지원(invalid_scope) → SCOPES에 넣으면
+    #    refresh grant가 거부돼 *모든* API 호출이 막힘. 애널리틱스는 별도 브라우저 OAuth.
 ]
 
 # ── 인증 ────────────────────────────────────────────────────────────────────
 
-def get_authenticated_service():
-    &quot;&quot;&quot;Device Code Flow로 인증 → YouTube API 클라이언트 반환&quot;&quot;&quot;
+def get_credentials():
+    &quot;&quot;&quot;OAuth 자격증명 로드(1순위 .secrets.env, 2순위 yt_tokens.json) + 만료 시 리프레시&quot;&quot;&quot;
     try:
-        from google_auth_oauthlib.flow import InstalledAppFlow
         from google.auth.transport.requests import Request
-        from googleapiclient.discovery import build
-        import pickle
     except ImportError:
         print(&quot;❌ 필요 패키지 설치:&quot;)
-        print(&quot;   ~/browser-env/bin/pip install google-auth-oauthlib google-api-python-client&quot;)
+        print(&quot;   pip3 install google-auth-oauthlib google-api-python-client&quot;)
         sys.exit(1)
 
+    from google.oauth2.credentials import Credentials
     credentials = None
 
-    # 토큰 로드
-    if TOKEN_FILE.exists():
+    # 토큰 로드 — 1순위 .secrets.env(YOUTUBE_ACCESS/REFRESH), 2순위 yt_tokens.json
+    if ACCESS_TOKEN or REFRESH_TOKEN:
+        credentials = Credentials(
+            token=ACCESS_TOKEN,
+            refresh_token=REFRESH_TOKEN,
+            token_uri=&quot;https://oauth2.googleapis.com/token&quot;,
+            client_id=CLIENT_ID,
+            client_secret=CLIENT_SECRET,
+            scopes=SCOPES,
+        )
+    elif TOKEN_FILE.exists():
         with open(TOKEN_FILE, &#x27;r&#x27;) as f:
             data = json.load(f)
-            from google.oauth2.credentials import Credentials
             credentials = Credentials(
                 token=data.get(&#x27;access_token&#x27;),
                 refresh_token=data.get(&#x27;refresh_token&#x27;),
@@ -145,7 +210,13 @@ def get_authenticated_service():
         print(&quot;   bash scripts/yt_oauth_setup.sh&quot;)
         sys.exit(1)
 
-    return build(&#x27;youtube&#x27;, &#x27;v3&#x27;, credentials=credentials)
+    return credentials
+
+
+def get_authenticated_service():
+    &quot;&quot;&quot;YouTube Data API v3 클라이언트 반환&quot;&quot;&quot;
+    from googleapiclient.discovery import build
+    return build(&#x27;youtube&#x27;, &#x27;v3&#x27;, credentials=get_credentials(), cache_discovery=False)
 
 def _save_tokens(credentials):
     TOKEN_FILE.parent.mkdir(parents=True, exist_ok=True)
@@ -245,10 +316,228 @@ def get_channel_stats(youtube, channel_id):
     print(f&quot;   조회수: {stats.get(&#x27;viewCount&#x27;, &#x27;?&#x27;)}&quot;)
     return resp
 
+# ── 플레이리스트 ─────────────────────────────────────────────────────────────
+
+def list_playlists(youtube, channel_id):
+    &quot;&quot;&quot;채널 플레이리스트 목록 (playlists.list = 1유닛)&quot;&quot;&quot;
+    results = youtube.playlists().list(
+        part=&#x27;snippet&#x27;,
+        channelId=channel_id,
+        maxResults=50,
+    ).execute()
+    items = results.get(&#x27;items&#x27;, [])
+    print(f&quot;\n📚 플레이리스트 ({len(items)}개):&quot;)
+    for it in items:
+        print(f&quot;   {it[&#x27;id&#x27;]}  {it[&#x27;snippet&#x27;][&#x27;title&#x27;]}&quot;)
+    return results
+
+
+def create_playlist(youtube, title, privacy=&#x27;public&#x27;):
+    &quot;&quot;&quot;플레이리스트 생성&quot;&quot;&quot;
+    resp = youtube.playlists().insert(
+        part=&#x27;snippet,status&#x27;,
+        body={
+            &#x27;snippet&#x27;: {&#x27;title&#x27;: title, &#x27;description&#x27;: title},
+            &#x27;status&#x27;: {&#x27;privacyStatus&#x27;: privacy},
+        },
+    ).execute()
+    print(f&quot;✅ 플레이리스트 생성: {resp[&#x27;id&#x27;]}  {resp[&#x27;snippet&#x27;][&#x27;title&#x27;]}&quot;)
+    return resp
+
+
+def add_playlist_item(youtube, playlist_id, video_id):
+    &quot;&quot;&quot;플레이리스트에 영상 추가&quot;&quot;&quot;
+    resp = youtube.playlistItems().insert(
+        part=&#x27;snippet&#x27;,
+        body={
+            &#x27;snippet&#x27;: {
+                &#x27;playlistId&#x27;: playlist_id,
+                &#x27;resourceId&#x27;: {&#x27;kind&#x27;: &#x27;youtube#video&#x27;, &#x27;videoId&#x27;: video_id},
+            },
+        },
+    ).execute()
+    print(f&quot;✅ 추가: https://youtu.be/{video_id} → {playlist_id}&quot;)
+    return resp
+
+
+# ── 브랜딩 ───────────────────────────────────────────────────────────────────
+
+def update_branding(youtube, channel_id, description):
+    &quot;&quot;&quot;채널 설명/키워드 갱신 (brandingSettings.update)&quot;&quot;&quot;
+    keywords = description.replace(&#x27;\n&#x27;, &#x27; &#x27;)
+    resp = youtube.channels().update(
+        part=&#x27;brandingSettings&#x27;,
+        body={
+            &#x27;id&#x27;: channel_id,
+            &#x27;brandingSettings&#x27;: {
+                &#x27;channel&#x27;: {&#x27;description&#x27;: description, &#x27;keywords&#x27;: keywords},
+            },
+        },
+    ).execute()
+    print(&quot;✅ 채널 브랜딩 갱신 완료&quot;)
+    return resp
+
+
+# ── 애널리틱스 ───────────────────────────────────────────────────────────────
+
+def get_analytics(channel_id, days=28):
+    &quot;&quot;&quot;YouTube Analytics v2 — 조회/시청시간/구독자 통계&quot;&quot;&quot;
+    from googleapiclient.discovery import build
+    from googleapiclient.errors import HttpError
+    creds = get_credentials()
+    yta = build(&#x27;youtubeAnalytics&#x27;, &#x27;v2&#x27;, credentials=creds, cache_discovery=False)
+    end = datetime.date.today()
+    start = end - datetime.timedelta(days=days)
+    try:
+        r = yta.reports().query(
+            ids=f&#x27;channel=={channel_id}&#x27;,
+            startDate=start.isoformat(),
+            endDate=end.isoformat(),
+            metrics=&#x27;views,estimatedMinutesWatched,subscribersGained&#x27;,
+            dimensions=&#x27;day&#x27;,
+        ).execute()
+    except HttpError as e:
+        if getattr(getattr(e, &#x27;resp&#x27;, None), &#x27;status&#x27;, None) == 403:
+            print(&quot;❌ 애널리틱스 스코프(yt-analytics.readonly) 없음.&quot;)
+            print(&quot;   Device Code Flow는 이 스코프를 지원하지 않음 → 브라우저 OAuth 필요.&quot;)
+            print(&quot;   → google-api/yt_oauth_channel.cjs 로 브라우저 인증 후 재시도&quot;)
+            sys.exit(1)
+        raise
+    rows = r.get(&#x27;rows&#x27;, [])
+    print(f&quot;\n📊 최근 {days}일 통계:&quot;)
+    if not rows:
+        print(&quot;   (데이터 없음)&quot;)
+        return r
+    tot_v = tot_m = tot_s = 0
+    for row in rows:
+        v, m, s = int(row[1]), int(row[2]), int(row[3])
+        tot_v += v; tot_m += m; tot_s += s
+        print(f&quot;   {row[0]}  조회 {v:&gt;7}  시청분 {m:&gt;7}  구독+{s}&quot;)
+    print(&quot;   ───────────────────────────────&quot;)
+    print(f&quot;   합계     조회 {tot_v:&gt;7}  시청분 {tot_m:&gt;7}  구독+{tot_s}&quot;)
+    return r
+
+# ── 텔레그램 승인 게이트 (사람이 ✅승인해야만 업로드) ─────────────────────────
+
+def _stage_draft(draft_id, title, description, tags, category, privacy, channel_key, file_path):
+    PENDING_DIR.mkdir(parents=True, exist_ok=True)
+    draft = {
+        &quot;id&quot;: draft_id, &quot;title&quot;: title, &quot;description&quot;: description,
+        &quot;tags&quot;: tags or [], &quot;category&quot;: category, &quot;privacy&quot;: privacy,
+        &quot;channel&quot;: channel_key, &quot;file&quot;: file_path,
+        &quot;created&quot;: datetime.datetime.now().isoformat(),
+    }
+    with open(PENDING_DIR / f&quot;{draft_id}.json&quot;, &quot;w&quot;) as f:
+        json.dump(draft, f, indent=2, ensure_ascii=False)
+    return draft
+
+def _load_draft(draft_id):
+    p = PENDING_DIR / f&quot;{draft_id}.json&quot;
+    return json.load(open(p)) if p.exists() else None
+
+def _delete_draft(draft_id):
+    p = PENDING_DIR / f&quot;{draft_id}.json&quot;
+    if p.exists():
+        p.unlink()
+
+def _send_approval_message(api, caption, keyboard, file_path):
+    &quot;&quot;&quot;영상(50MB↓)이면 sendVideo, 아니면 메타데이터 sendMessage&quot;&quot;&quot;
+    if file_path and os.path.exists(file_path) and os.path.getsize(file_path) &lt; 50 * 1024 * 1024:
+        try:
+            with open(file_path, &quot;rb&quot;) as vf:
+                return requests.post(f&quot;{api}/sendVideo&quot;,
+                    data={&quot;chat_id&quot;: TG_CHAT, &quot;caption&quot;: caption, &quot;parse_mode&quot;: &quot;HTML&quot;,
+                          &quot;reply_markup&quot;: json.dumps(keyboard)},
+                    files={&quot;video&quot;: vf}, timeout=180)
+        except Exception:
+            pass  # 첨부 실패 시 메타데이터로 폴백
+    return requests.post(f&quot;{api}/sendMessage&quot;,
+        json={&quot;chat_id&quot;: TG_CHAT, &quot;text&quot;: caption, &quot;parse_mode&quot;: &quot;HTML&quot;,
+              &quot;reply_markup&quot;: keyboard}, timeout=30)
+
+def _request_upload_approval(draft, channel_name, timeout_seconds=1800):
+    &quot;&quot;&quot;텔레그램 승인 요청 전송 + getUpdates 폴링. True(승인)/False(거절)/None(타임아웃)&quot;&quot;&quot;
+    if requests is None:
+        print(&quot;❌ requests 미설치 — 승인 게이트 불가. --auto 로 우회하세요.&quot;)
+        return None
+    if not TG_TOKEN or not TG_CHAT:
+        print(&quot;❌ TG_TOKEN/TG_CHAT 없음 (.secrets.env). --auto 로 우회 가능.&quot;)
+        return None
+
+    api = f&quot;https://api.telegram.org/bot{TG_TOKEN}&quot;
+    keyboard = {&quot;inline_keyboard&quot;: [[
+        {&quot;text&quot;: &quot;✅ 승인&quot;, &quot;callback_data&quot;: f&quot;yt_approve_{draft[&#x27;id&#x27;]}&quot;},
+        {&quot;text&quot;: &quot;❌ 거절&quot;, &quot;callback_data&quot;: f&quot;yt_reject_{draft[&#x27;id&#x27;]}&quot;},
+    ]]}
+    priv_kr = {&quot;private&quot;: &quot;비공개&quot;, &quot;unlisted&quot;: &quot;일부공개&quot;, &quot;public&quot;: &quot;공개&quot;}.get(draft[&quot;privacy&quot;], draft[&quot;privacy&quot;])
+    caption = (
+        f&quot;🎬 &lt;b&gt;{draft[&#x27;title&#x27;]}&lt;/b&gt;\n&quot;
+        f&quot;━━━━━━━━━━━━━━━━━━\n&quot;
+        f&quot;채널: {channel_name}\n&quot;
+        f&quot;태그: {&#x27;, &#x27;.join(draft[&#x27;tags&#x27;]) if draft[&#x27;tags&#x27;] else &#x27;-&#x27;}\n&quot;
+        f&quot;공개: {priv_kr}\n&quot;
+        f&quot;━━━━━━━━━━━━━━━━━━\n&quot;
+        f&quot;{draft[&#x27;description&#x27;][:400]}&quot;
+    )
+
+    # 1) 기존 update flush — offset 선진화 (과거 콜백 무시)
+    offset = 0
+    try:
+        r = requests.get(f&quot;{api}/getUpdates&quot;, params={&quot;limit&quot;: 1, &quot;timeout&quot;: 0}, timeout=10)
+        for u in r.json().get(&quot;result&quot;, []):
+            offset = max(offset, u[&quot;update_id&quot;] + 1)
+    except Exception:
+        pass
+
+    # 2) 승인 요청 전송
+    try:
+        r = _send_approval_message(api, caption, keyboard, draft[&quot;file&quot;])
+        if not r.ok:
+            print(f&quot;   ⚠️ 텔레그램 전송 실패: {r.text[:200]}&quot;)
+            return None
+    except Exception as e:
+        print(f&quot;   ⚠️ 텔레그램 전송 예외: {e}&quot;)
+        return None
+
+    print(&quot;   📨 승인 요청 전송 완료. 텔레그램에서 ✅승인 / ❌거절을 누르세요.&quot;)
+
+    # 3) getUpdates long-poll 폴링
+    deadline = time.time() + timeout_seconds
+    while time.time() &lt; deadline:
+        try:
+            r = requests.get(f&quot;{api}/getUpdates&quot;,
+                             params={&quot;offset&quot;: offset, &quot;limit&quot;: 10, &quot;timeout&quot;: 25}, timeout=40)
+            for u in r.json().get(&quot;result&quot;, []):
+                offset = u[&quot;update_id&quot;] + 1
+                cb = u.get(&quot;callback_query&quot;)
+                if not cb:
+                    continue
+                cdata = cb.get(&quot;data&quot;, &quot;&quot;)
+                cq_id = cb.get(&quot;id&quot;)
+                if cdata == f&quot;yt_approve_{draft[&#x27;id&#x27;]}&quot;:
+                    requests.post(f&quot;{api}/answerCallbackQuery&quot;,
+                                  json={&quot;callback_query_id&quot;: cq_id, &quot;text&quot;: &quot;✅ 승인됨 — 업로드 시작&quot;}, timeout=5)
+                    return True
+                if cdata == f&quot;yt_reject_{draft[&#x27;id&#x27;]}&quot;:
+                    requests.post(f&quot;{api}/answerCallbackQuery&quot;,
+                                  json={&quot;callback_query_id&quot;: cq_id, &quot;text&quot;: &quot;❌ 거절됨&quot;}, timeout=5)
+                    return False
+        except Exception as e:
+            print(f&quot;   ⚠️ getUpdates 오류: {e}&quot;)
+        time.sleep(2)
+    return None
+
+def _report_upload(title, url):
+    &quot;&quot;&quot;업로드 완료 보고 (tg.sh)&quot;&quot;&quot;
+    tg = BASE / &quot;tg.sh&quot;
+    if tg.exists():
+        msg = f&quot;📺 YouTube 업로드 완료\n제목: {title}\n{url}&quot;
+        subprocess.run([&quot;bash&quot;, str(tg), msg], check=False)
+
 # ── CLI ──────────────────────────────────────────────────────────────────────
 
 def main():
-    parser = argparse.ArgumentParser(description=&#x27;S21 YouTube 업로더 v1&#x27;)
+    parser = argparse.ArgumentParser(description=&#x27;S21 YouTube 통제 CLI v2&#x27;)
     parser.add_argument(&#x27;--title&#x27;, help=&#x27;영상 제목&#x27;)
     parser.add_argument(&#x27;--description&#x27;, help=&#x27;영상 설명&#x27;, default=&#x27;&#x27;)
     parser.add_argument(&#x27;--file&#x27;, help=&#x27;영상 파일 경로&#x27;)
@@ -258,6 +547,14 @@ def main():
     parser.add_argument(&#x27;--channel&#x27;, default=&#x27;main&#x27;, help=f&#x27;채널 키: {&quot;, &quot;.join(CHANNELS.keys())}&#x27;)
     parser.add_argument(&#x27;--list&#x27;, action=&#x27;store_true&#x27;, help=&#x27;채널 동영상 목록&#x27;)
     parser.add_argument(&#x27;--stats&#x27;, action=&#x27;store_true&#x27;, help=&#x27;채널 통계&#x27;)
+    parser.add_argument(&#x27;--playlist-list&#x27;, action=&#x27;store_true&#x27;, help=&#x27;플레이리스트 목록&#x27;)
+    parser.add_argument(&#x27;--playlist-create&#x27;, metavar=&#x27;TITLE&#x27;, help=&#x27;플레이리스트 생성&#x27;)
+    parser.add_argument(&#x27;--playlist-add&#x27;, nargs=2, metavar=(&#x27;PLAYLIST_ID&#x27;, &#x27;VIDEO_ID&#x27;), help=&#x27;플레이리스트에 영상 추가&#x27;)
+    parser.add_argument(&#x27;--branding&#x27;, nargs=&#x27;+&#x27;, metavar=&#x27;DESC&#x27;, help=&#x27;채널 설명/키워드 갱신 (따옴표로 묶기)&#x27;)
+    parser.add_argument(&#x27;--analytics&#x27;, nargs=&#x27;?&#x27;, const=28, type=int, metavar=&#x27;DAYS&#x27;, help=&#x27;N일 애널리틱스 (기본 28일)&#x27;)
+    parser.add_argument(&#x27;--auto&#x27;, action=&#x27;store_true&#x27;, help=&#x27;승인 게이트 없이 바로 업로드&#x27;)
+    parser.add_argument(&#x27;--review-timeout&#x27;, type=int, default=1800, help=&#x27;승인 대기 초 (기본 1800)&#x27;)
+    parser.add_argument(&#x27;--approve&#x27;, metavar=&#x27;DRAFT_ID&#x27;, help=&#x27;승인 대기 드래프트를 바로 업로드 (텔레그램 대체)&#x27;)
     args = parser.parse_args()
 
     # OAuth 토큰 로드
@@ -279,6 +576,40 @@ def main():
         get_channel_stats(youtube, channel[&#x27;id&#x27;])
         return
 
+    if args.playlist_list:
+        list_playlists(youtube, channel[&#x27;id&#x27;])
+        return
+
+    if args.playlist_create:
+        create_playlist(youtube, args.playlist_create)
+        return
+
+    if args.playlist_add:
+        add_playlist_item(youtube, args.playlist_add[0], args.playlist_add[1])
+        return
+
+    if args.branding:
+        update_branding(youtube, channel[&#x27;id&#x27;], &#x27; &#x27;.join(args.branding))
+        return
+
+    if args.analytics is not None:
+        get_analytics(channel[&#x27;id&#x27;], args.analytics)
+        return
+
+    if args.approve:
+        draft = _load_draft(args.approve)
+        if not draft:
+            print(f&quot;❌ 드래프트 없음: {args.approve}&quot;)
+            sys.exit(1)
+        ch = CHANNELS.get(draft.get(&quot;channel&quot;, &quot;main&quot;), CHANNELS[&quot;main&quot;])
+        video_id, url = upload_video(
+            youtube, draft[&quot;file&quot;], draft[&quot;title&quot;], draft[&quot;description&quot;],
+            draft[&quot;tags&quot;], draft[&quot;category&quot;], draft[&quot;privacy&quot;],
+        )
+        _report_upload(draft[&quot;title&quot;], url)
+        _delete_draft(args.approve)
+        return
+
     if not args.title or not args.file:
         parser.error(&quot;--title과 --file은 필수입니다&quot;)
         return
@@ -289,32 +620,59 @@ def main():
 
     desc = args.description or f&quot;{channel[&#x27;topic&#x27;]}\n\n🤖 @S21Phone_Bot 자동 업로드&quot;
 
-    video_id, url = upload_video(
-        youtube, args.file, args.title, desc,
-        args.tags, args.category, args.privacy,
-    )
+    if args.auto:
+        video_id, url = upload_video(
+            youtube, args.file, args.title, desc,
+            args.tags, args.category, args.privacy,
+        )
+        _report_upload(args.title, url)
+        return
 
-    # tg.sh로 보고
-    tg = BASE / &quot;tg.sh&quot;
-    if tg.exists():
-        msg = f&quot;📺 YouTube 업로드 완료\n제목: {args.title}\n{url}&quot;
-        subprocess.run([&quot;bash&quot;, str(tg), msg], check=False)
+    # ── 승인 게이트 (기본): 텔레그램 확인 → ✅승인해야만 업로드 ──
+    draft_id = str(int(time.time()))
+    draft = _stage_draft(draft_id, args.title, desc, args.tags, args.category,
+                         args.privacy, args.channel, args.file)
+    result = _request_upload_approval(draft, channel[&#x27;handle&#x27;], args.review_timeout)
+    if result is True:
+        video_id, url = upload_video(
+            youtube, draft[&quot;file&quot;], draft[&quot;title&quot;], draft[&quot;description&quot;],
+            draft[&quot;tags&quot;], draft[&quot;category&quot;], draft[&quot;privacy&quot;],
+        )
+        _report_upload(draft[&quot;title&quot;], url)
+        _delete_draft(draft_id)
+    elif result is False:
+        print(&quot;❌ 텔레그램에서 거절됨 — 업로드 취소.&quot;)
+        _delete_draft(draft_id)
+    else:
+        print(f&quot;⏱ 승인 타임아웃. 나중에 재개: python3 scripts/yt_upload.py --approve {draft_id}&quot;)
 
 def _load_secrets():
-    &quot;&quot;&quot;환경변수에서 OAuth 정보 로드&quot;&quot;&quot;
-    global CLIENT_ID, CLIENT_SECRET
+    &quot;&quot;&quot;환경변수에서 OAuth·TG 정보 로드 (.secrets.env = SSOT)&quot;&quot;&quot;
+    global CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN, REFRESH_TOKEN, TG_TOKEN, TG_CHAT
 
     if SECRETS.exists():
         with open(SECRETS) as f:
             for line in f:
                 line = line.strip()
-                if line.startswith(&#x27;YT_CLIENT_ID=&#x27;):
+                if line.startswith(&#x27;YOUTUBE_CLIENT_ID=&#x27;):
                     CLIENT_ID = line.split(&#x27;=&#x27;, 1)[1].strip(&#x27;&quot;\&#x27;&#x27;)
-                elif line.startswith(&#x27;YT_CLIENT_SECRET=&#x27;):
+                elif line.startswith(&#x27;YOUTUBE_CLIENT_SECRET=&#x27;):
                     CLIENT_SECRET = line.split(&#x27;=&#x27;, 1)[1].strip(&#x27;&quot;\&#x27;&#x27;)
+                elif line.startswith(&#x27;YOUTUBE_ACCESS_TOKEN=&#x27;):
+                    ACCESS_TOKEN = line.split(&#x27;=&#x27;, 1)[1].strip(&#x27;&quot;\&#x27;&#x27;)
+                elif line.startswith(&#x27;YOUTUBE_REFRESH_TOKEN=&#x27;):
+                    REFRESH_TOKEN = line.split(&#x27;=&#x27;, 1)[1].strip(&#x27;&quot;\&#x27;&#x27;)
+                elif line.startswith(&#x27;TG_TOKEN=&#x27;):
+                    TG_TOKEN = line.split(&#x27;=&#x27;, 1)[1].strip(&#x27;&quot;\&#x27;&#x27;)
+                elif line.startswith(&#x27;TG_CHAT=&#x27;):
+                    TG_CHAT = line.split(&#x27;=&#x27;, 1)[1].strip(&#x27;&quot;\&#x27;&#x27;)
 
-    CLIENT_ID = os.environ.get(&#x27;YT_CLIENT_ID&#x27;, CLIENT_ID)
-    CLIENT_SECRET = os.environ.get(&#x27;YT_CLIENT_SECRET&#x27;, CLIENT_SECRET)
+    CLIENT_ID = os.environ.get(&#x27;YOUTUBE_CLIENT_ID&#x27;, CLIENT_ID)
+    CLIENT_SECRET = os.environ.get(&#x27;YOUTUBE_CLIENT_SECRET&#x27;, CLIENT_SECRET)
+    ACCESS_TOKEN = os.environ.get(&#x27;YOUTUBE_ACCESS_TOKEN&#x27;, ACCESS_TOKEN)
+    REFRESH_TOKEN = os.environ.get(&#x27;YOUTUBE_REFRESH_TOKEN&#x27;, REFRESH_TOKEN)
+    TG_TOKEN = os.environ.get(&#x27;TG_TOKEN&#x27;, TG_TOKEN)
+    TG_CHAT = os.environ.get(&#x27;TG_CHAT&#x27;, TG_CHAT)
 
 if __name__ == &#x27;__main__&#x27;:
     main()

@@ -7,6 +7,40 @@
 <meta name="theme-color" content="#0a0908">
 <meta name="application-name" content="S21 Phone">
 <title>📋 S21 Phone — 전체 개발일지 — S21 Phone Webzine</title>
+<link rel="canonical" href="https://helena751107.github.io/helena_phone/notebook/99-devlog.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://github.com/helena751107#person",
+      "name": "Helena Park",
+      "url": "https://github.com/helena751107",
+      "description": "Made in Korea — not a developer. One Galaxy S21, built by voice, for a sister.",
+      "sameAs": [
+        "https://github.com/helena751107",
+        "https://helena751107.github.io/helena_phone/",
+        "https://www.youtube.com/@helena_phone",
+        "https://www.youtube.com/@HelenaPark-e7c"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://helena751107.github.io/helena_phone/notebook/99-devlog.html#webpage",
+      "url": "https://helena751107.github.io/helena_phone/notebook/99-devlog.html",
+      "name": "📋 S21 Phone — 전체 개발일지",
+      "inLanguage": "ko",
+      "publisher": {
+        "@id": "https://github.com/helena751107#person"
+      },
+      "author": {
+        "@id": "https://github.com/helena751107#person"
+      }
+    }
+  ]
+}
+</script>
 <link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -177,7 +211,7 @@
 <li><a href="#_6">현재 인프라 전체 구성</a></li>
 <li><a href="#_7">남은 작업</a><ul>
 <li><a href="#20-playwright-5-2026-07-24">20. Playwright 전수 검사 — 5개 레포 눈으로 확인 (2026-07-24)</a></li>
-<li><a href="#21-REDACTED-2026-07-24">21. REDACTED 선물 패키지 도착 + 분석 (2026-07-24)</a></li>
+<li><a href="#21-redacted-2026-07-24">21. REDACTED 선물 패키지 도착 + 분석 (2026-07-24)</a></li>
 <li><a href="#22-vs-ai-2026-07-24">22. 속도 vs 판단 — AI 시대의 진짜 자산 (2026-07-24)</a></li>
 </ul>
 </li>
@@ -263,8 +297,8 @@
 <li><a href="#82-2026-07-27">82. 통합 루프 — 난해함·역유입·귀화·퍼널이 하나로 (2026-07-27)</a></li>
 <li><a href="#83-2026-07-27">83. 궁극의 플랫폼 독립 — 말만 하면 다시 만들 수 있다 (2026-07-27)</a></li>
 <li><a href="#84-ai-2026-07-27">84. AI 시대 지식 관리 솔루션 — 말이 곧 지식이다 (2026-07-27)</a></li>
-<li><a href="#85-REDACTED-28-12-2026-07-27">85. REDACTED 28레포 자산 감사 — 쓸 만한 것 12종 (2026-07-27)</a></li>
-<li><a href="#86-REDACTED-28-2026-07-27">86. REDACTED 28레포 전체 재평가 — 전부 다 쓸모 있다 (2026-07-27)</a></li>
+<li><a href="#85-redacted-28-12-2026-07-27">85. REDACTED 28레포 자산 감사 — 쓸 만한 것 12종 (2026-07-27)</a></li>
+<li><a href="#86-redacted-28-2026-07-27">86. REDACTED 28레포 전체 재평가 — 전부 다 쓸모 있다 (2026-07-27)</a></li>
 <li><a href="#87-dtslib-helena-2026-07-27">87. 듀얼 계정 아키텍처 — 본사(dtslib) + 어필리에이트(helena) (2026-07-27)</a></li>
 <li><a href="#88-2026-07-27">88. 커뮤니티 리서치 — 비슷한 놈 있는가 (2026-07-27)</a></li>
 <li><a href="#89-youtube-naver-2026-07-27">89. 해병대 YouTube + 수공예 퀼트 Naver — 브랜드 컨셉 확정 (2026-07-27)</a></li>
@@ -287,7 +321,7 @@
 </ul>
 </li>
 <li><a href="#2026-07-31-_claude">2026-07-31 (목) — 냉장고 아키텍처 정식 선언 (_Claude)</a><ul>
-<li><a href="#97-REDACTED-helena751107-_claude">97. REDACTED → helena751107 콜라보레이터 전면 확인 (_Claude)</a></li>
+<li><a href="#97-redacted-helena751107-_claude">97. REDACTED → helena751107 콜라보레이터 전면 확인 (_Claude)</a></li>
 <li><a href="#98-fridge-_boss-_claude">98. 냉장고(Fridge) 아키텍처 — 개념 정식 선언 (_Boss + _Claude)</a></li>
 </ul>
 </li>
@@ -370,7 +404,7 @@
 <li><a href="#acl">보안 — ACL 단방향 + 키 회수</a></li>
 <li><a href="#tailnet_1">남은 결정 — 어느 tailnet이 표준인가</a></li>
 <li><a href="#_24">문서</a></li>
-<li><a href="#tailscale-github-REDACTED-_claude-2026-08-13">📡 Tailscale 등록 완료 — GitHub 망(REDACTED@) 통일 (_Claude · 2026-08-13)</a></li>
+<li><a href="#tailscale-github-redacted-_claude-2026-08-13">📡 Tailscale 등록 완료 — GitHub 망(REDACTED@) 통일 (_Claude · 2026-08-13)</a></li>
 <li><a href="#tailscale-2-_claude-2026-08-13">📡 Tailscale 노드 2개 완성 + 자동화 (_Claude · 2026-08-13)</a></li>
 <li><a href="#acl-s21-_claude-2026-08-13">📡 ACL 단방향 완료 — 박씨→S21만 허용 (_Claude · 2026-08-13)</a></li>
 <li><a href="#phantom-process-killer-_claude-2026-08-13">🔓 Phantom process killer 해제 확인 (_Claude · 2026-08-13)</a></li>
@@ -428,6 +462,14 @@
 <li><a href="#helana_log-_claude-2026-08-16">🧭 생태계 전수 검증 + helana_log 빨간불 수정 (_Claude · 2026-08-16)</a></li>
 <li><a href="#_claude-2026-08-16_4">🧭 중앙 총재 보일러플레이트 — 복사붙여넣기 즉시 구동 (_Claude · 2026-08-16)</a></li>
 <li><a href="#4-_claude-2026-08-16">🧭 서브모듈 등록 정리 — 위성 4레포 일관 등록 (_Claude · 2026-08-16)</a></li>
+<li><a href="#threads-downstream-_claude-2026-08-17">🎣 네이버·Threads = 미끼 채널 (downstream 수작업) (_Claude · 2026-08-17)</a></li>
+<li><a href="#5-git-_claude-2026-08-17">🔒 공개 5레포 git 히스토리 시크릿 전면 스크럽 (_Claude · 2026-08-17)</a></li>
+<li><a href="#readme-_claude-2026-08-17">🌍 README 영문 전면화 — 외국인 주목 레인 (_Claude · 2026-08-17)</a></li>
+<li><a href="#made-in-korea-_claude-2026-08-17">🌍 진입점 스크립트·설정 템플릿 영문화 + 원조 서사(Made in Korea) (_Claude · 2026-08-17)</a></li>
+<li><a href="#grok-6-_claude-2026-08-17">🖼️ Grok 히어로·소셜 프리뷰 6장 배선 (_Claude · 2026-08-17)</a></li>
+<li><a href="#geo-5-_claude-2026-08-17">🌍 GEO 정체 그래프 — 티스토리 5블로그 원조 새김 (_Claude · 2026-08-17)</a></li>
+<li><a href="#youtube-geo-_claude-2026-08-17">📺 YouTube GEO 원조 라인 + &ldquo;블록체인 등기&rdquo; 표현 정정 (_Claude · 2026-08-17)</a></li>
+<li><a href="#geo-_claude-2026-08-17">🌐 네이버 GEO 원조 텍스트 — 서식 푸터 (_Claude · 2026-08-17)</a></li>
 </ul>
 </li>
 </ul>
@@ -3234,7 +3276,7 @@ _notebook/ = History + Making film + 로고 아카이브
 - <code>helena-psycare</code> Pages 타이틀에 <code>helena-metalcare</code> 구 이름 잔재 → README.md 수정 + push<br>
 - <code>helena_phone</code> GitHub README는 proot 네트워크 타임아웃 (Pages는 정상, 환경 문제)<br>
 - <strong>총 48개 디렉토리/README 전부 존재 확인</strong></p>
-<h3 id="21-REDACTED-2026-07-24">21. REDACTED 선물 패키지 도착 + 분석 (2026-07-24)</h3>
+<h3 id="21-redacted-2026-07-24">21. REDACTED 선물 패키지 도착 + 분석 (2026-07-24)</h3>
 <p><strong>REDACTED가 5개 레포에 force push로 선물 패키지 전달.</strong><br>
 - <code>git push --force</code>로 origin/main이 덮어써져서 우리 커밋들이 사라지는 사고 발생<br>
 - 로컬 main은 살아있어서 cherry-pick + force push로 복구 완료<br>
@@ -5688,7 +5730,7 @@ Discord 서버                소통하는 방식
 5. 복구 = 플랫폼 망해도 g/install.sh + 말로 재생성</p>
 <p><strong>핵심:</strong> 폴더 정리하는 기술이 아니라, 말을 구조화된 지식으로 바꾸는 파이프라인을 갖추는 것.<br>
 이게 AI 시대의 진짜 지식 관리다.</p>
-<h3 id="85-REDACTED-28-12-2026-07-27">85. REDACTED 28레포 자산 감사 — 쓸 만한 것 12종 (2026-07-27)</h3>
+<h3 id="85-redacted-28-12-2026-07-27">85. REDACTED 28레포 자산 감사 — 쓸 만한 것 12종 (2026-07-27)</h3>
 <p><strong>🔥 즉시 활용 가능:</strong></p>
 <table>
 <thead>
@@ -5773,7 +5815,7 @@ Discord 서버                소통하는 방식
 </table>
 <p><strong>총평:</strong> 28레포·1.4GB+. parksy 계열(로그·이미지·오디오)이 핵심.<br>
 dtslib-apk-lab + termux-bridge는 우리 인프라에 직접 통합 가능.</p>
-<h3 id="86-REDACTED-28-2026-07-27">86. REDACTED 28레포 전체 재평가 — 전부 다 쓸모 있다 (2026-07-27)</h3>
+<h3 id="86-redacted-28-2026-07-27">86. REDACTED 28레포 전체 재평가 — 전부 다 쓸모 있다 (2026-07-27)</h3>
 <p><strong>Boss 판단:</strong> &ldquo;나머지 방송국, 유니버시티, 브랜치, 헤드쿼터 구조 다 괜찮다. 다 쓸모 있다.&rdquo;</p>
 <p><strong>전체 구조 (28레포·2.7GB):</strong></p>
 <table>
@@ -6384,7 +6426,7 @@ S21 폰 하나로 돌리고 있다. 차이는 규모가 아니라 <strong>프로
 회사가 노드를 소유하는 게 아니라, 노드가 노드를 연합한다.</p>
 <hr>
 <h2 id="2026-07-31-_claude">2026-07-31 (목) — 냉장고 아키텍처 정식 선언 (_Claude)</h2>
-<h3 id="97-REDACTED-helena751107-_claude">97. REDACTED → helena751107 콜라보레이터 전면 확인 (_Claude)</h3>
+<h3 id="97-redacted-helena751107-_claude">97. REDACTED → helena751107 콜라보레이터 전면 확인 (_Claude)</h3>
 <p><strong>Boss 지시:</strong> REDACTED 레포지토리 전부 helena751107 콜라보 등록돼 있으니 전수 확인.</p>
 <p><strong>검증 결과:</strong><br>
 - REDACTED 총 레포: <strong>28개</strong> (검색 API <code>total_count: 28</code>)<br>
@@ -7857,7 +7899,7 @@ Android(호스트 OS) : proot Ubuntu(리눅스 호환 레이어)
 <li>부팅 스크립트: <code>care/start-tailscale-boot.sh</code></li>
 </ul>
 <hr>
-<h3 id="tailscale-github-REDACTED-_claude-2026-08-13">📡 Tailscale 등록 완료 — GitHub 망(REDACTED@) 통일 (_Claude · 2026-08-13)</h3>
+<h3 id="tailscale-github-redacted-_claude-2026-08-13">📡 Tailscale 등록 완료 — GitHub 망(REDACTED@) 통일 (_Claude · 2026-08-13)</h3>
 <p><strong>결과:</strong> proot <code>helena-proot</code>을 박씨 GitHub 망(<code>REDACTED@</code>)에 auth-key로 등록 완료. 박씨 기기 5개와 같은 tailnet.</p>
 <ul>
 <li><code>tailscale ping dtslib</code> → <strong>pong 85ms (DERP 도쿄)</strong> ✅</li>
@@ -8369,6 +8411,76 @@ Android(호스트 OS) : proot Ubuntu(리눅스 호환 레이어)
 <li>piano <code>a054464</code> · metalcare <code>c43105a</code> · faith <code>312f860</code> · log <code>20cf94e</code></li>
 <li><strong>커밋:</strong> <code>e8ce77c</code> (push 완료). <code>git submodule status</code> 에러 해소 확인.</li>
 <li><strong>노트:</strong> 새로 등록된 3개는 로컬 미초기화(<code>-</code> 프리픽스) — 정상. fresh clone 에서 <code>git submodule update --init</code> 시 4개 전부 체크아웃.</li>
+</ul>
+<h3 id="threads-downstream-_claude-2026-08-17">🎣 네이버·Threads = 미끼 채널 (downstream 수작업) (_Claude · 2026-08-17)</h3>
+<p><strong>Boss 결정:</strong> 네이버(나이 든 층) + Threads(젊은 층)를 &ldquo;미끼 채널&rdquo;(트래픽 유입용)로 정함.</p>
+<ul>
+<li><strong>우선순위:</strong> 콘텐츠 파이프라인에서 <strong>먼저 안 만든다.</strong> SSOT(git)에서 콘텐츠가 <strong>완결</strong>되면 그때 뒤에 붙는 downstream 발행(SCM 훅).</li>
+<li><strong>수작업 방식:</strong> Claude가 텔레그램으로 원고 보고 → Boss가 복사·붙여넣기 (기존 Paste Pipeline과 동일).</li>
+<li><strong>채널별 현실:</strong> 네이버 = 쓰기 API 없음 → 수작업(paste) <strong>확정</strong>. Threads = Meta API 있음(500자+링크, 250/일) → 나중에 &ldquo;완결→자동발행&rdquo; 옵션은 존재, 지금은 수작업.</li>
+<li><strong>설계 원칙:</strong> 미끼는 &ldquo;정본을 만드는 곳&rdquo;이 아니라 &ldquo;정본으로 데려오는 곳&rdquo;. GitHub=정본(SSOT), 네이버·Threads=배수로.</li>
+</ul>
+<h3 id="5-git-_claude-2026-08-17">🔒 공개 5레포 git 히스토리 시크릿 전면 스크럽 (_Claude · 2026-08-17)</h3>
+<p><strong>계기:</strong> 외부인이 보는 우리 레포를 점검하다가, 히스토리 전역에 개인 식별자(봇 토큰·챗ID·이메일·실명·비공개 GitHub 계정명)가 다수 남아있음을 확인.</p>
+<ul>
+<li><strong>조치:</strong> <code>git filter-repo --replace-text</code> 로 허브 + 위성 3개(piano/metalcare/log) 히스토리 재작성. faith는 원래 clean. 패턴은 전부 <code>REDACTED</code> 치환, <code>.pyc</code> 바이너리는 경로 스트립.</li>
+<li><strong>식별자 범주(값 비공개):</strong> 봇 토큰 4종 · 챗ID 2종 · Discord ID 3종 · 이메일 7종 · 실명 · 비공개 계정명 2종 · bot 이메일 1종.</li>
+<li><strong>결과:</strong> 5레포 전부 잔여 0건 검증 → force-push → 허브의 서브모듈 gitlink 3개를 새 HEAD로 갱신(<code>aaf7c53</code>).</li>
+<li><strong>노트:</strong> <code>doolan</code>은 바이너리 MIDI 메타데이터(제3자 시퀀서 태그)라 제외 — 우리 신원 아님.</li>
+<li><strong>🔴 남은 수동 조치:</strong> 히스토리 삭제는 토큰을 무효화하지 않음 — <strong>유출됐던 봇 토큰 4종은 BotFather에서 <code>/revoke</code> 로 즉시 회전 필요.</strong> 로컬 백업 번들(<code>/root/*_backup.bundle</code> + <code>.git/filter-repo/</code>)은 복구용으로 보관(비공개).</li>
+</ul>
+<h3 id="readme-_claude-2026-08-17">🌍 README 영문 전면화 — 외국인 주목 레인 (_Claude · 2026-08-17)</h3>
+<p><strong>Boss 지시:</strong> &ldquo;외국 사람들한테 주목받는 수능선이 됐으면. 영문으로 좀 멋있게.&rdquo;</p>
+<ul>
+<li><strong>진단:</strong> 프로필 README는 영문이 잘 돼 있으나, 정작 외국인이 클릭해 들어오는 <strong>5레포 README는 영문이 3~9줄 스텁이고 나머지 90%가 한국어</strong>였다 → &ldquo;오 좋네&rdquo; 하고 들어와서 읽을 게 없어 이탈.</li>
+<li><strong>조치:</strong> 허브 + 위성 4개 README를 <strong>영문 우선 완전본</strong>으로 재작성. 한국어는 하단 <code>worked example</code>로 유지(진정성·바이링구얼 차별점). 기존 프로필 보이스(&ldquo;The flex&rdquo;·&rdquo;One phone. The whole stack&rdquo;·&rdquo;The moat isn&rsquo;t the code&rdquo;)에 정렬.</li>
+<li><strong>경계 준수:</strong> metalcare/faith/log — 신원(이름·위치·사진) 노출 금지, 의료·종교 단정 표현 금지 유지.</li>
+<li><strong>결과:</strong> 5레포 커밋+푸시 완료, 허브 gitlink 4개 새 HEAD 갱신(<code>d22d2d3</code>).</li>
+<li><strong>⏳ Grok 레인 대기:</strong> 히어로 이미지·소셜 프리뷰(Open Graph) 이미지 — &ldquo;잡지 구도 디자인&rdquo; 칸①에 해당 → Boss가 Grok에 라우팅.</li>
+</ul>
+<h3 id="made-in-korea-_claude-2026-08-17">🌍 진입점 스크립트·설정 템플릿 영문화 + 원조 서사(Made in Korea) (_Claude · 2026-08-17)</h3>
+<p><strong>Boss 보강 지시(2회):</strong> &ldquo;깃허브 소스 코드는 외국인이 가져다 쓰게 유저 프렌들리하게&rdquo; + &ldquo;토종 한국인 개발자·폰 한 대·누나 돌봄&rdquo; 서사가 진짜 차별점.</p>
+<ul>
+<li><strong>경계 확정(2트랙):</strong> 허브 <strong>Pages = 한국어</strong>(국내 &ldquo;누나를 위해&rdquo; 스토리·한글 강의) / GitHub <strong>소스 코드 = 영문</strong>(외국인 fork·실행). → 글로벌 선배포로 국내 표절 이전에 &ldquo;원조 = Helena Park&rdquo; 고정.</li>
+<li><strong>스크립트 영문화(로직·데이터 불변, bash -n 검증):</strong> <code>navigator.sh</code>·<code>g/install.sh</code>·<code>g/spawn.sh</code>·<code>scripts/preflight.sh</code>·<code>scripts/make_pair.sh</code> 전부 0 한국어. 설정 템플릿 4종(<code>ecosystem.json.template</code>·<code>quota-manifest.json</code>·<code>bait-voice.json</code>·<code>accounts.json.template</code>)도 영문 — 단 고유명사·디렉토리명(<code>기자</code>·<code>교육방송국</code> 등)은 데이터로 보존.</li>
+<li><strong>원조 서사(README·프로필):</strong> &ldquo;Made in Korea — 토종 한국인 개발자(교포 아님)·인천·구형 S21 한 대·누나 돌봄·~$20&rdquo; 을 허브 README hero + 프로필 README <code>## The origin</code> 섹션에 명시. 진정성이 곧 해자.</li>
+<li><strong>결과:</strong> 허브 2커밋(<code>i18n:</code>·<code>docs:</code>) + 프로필 1커밋 푸시 완료. 남은 자산 레인은 Grok(히어로·소셜 프리뷰 이미지).</li>
+</ul>
+<h3 id="grok-6-_claude-2026-08-17">🖼️ Grok 히어로·소셜 프리뷰 6장 배선 (_Claude · 2026-08-17)</h3>
+<p><strong>Boss 지시:</strong> Grok이 만든 이미지 6장(Download 폴더)을 프로필 배너 + 5레포 소셜 프리뷰로 배선. &ldquo;생성 시간 반대로 가면 숫자.&rdquo;</p>
+<ul>
+<li><strong>매핑(타임스탬프 18:48:32→18:53:29 = 생성 순 1→6):</strong> 1=프로필 배너, 2=허브, 3=piano, 4=metalcare, 5=faith, 6=log. 바이트 크기로 교차 검증(360284/302957/432974/309000/420074/411117 전부 일치).</li>
+<li><strong>배선:</strong> 프로필 README 최상단 배너 + 5레포 <code>assets/social-preview.jpg</code> + 각 README 히어로 이미지 + <code>index.html</code> <code>og:image</code> 교체(helana_log는 og 태그 신설).</li>
+<li><strong>한계:</strong> GitHub의 진짜 &ldquo;social preview&rdquo;(레포 Settings→Social preview) 업로드는 <strong>Web UI 전용(API 없음)</strong> → README 히어로 + Pages <code>og:image</code>로 대체. Grok 워터마크(로고)는 Boss가 인지한 상태로 사용.</li>
+<li><strong>결과:</strong> 6레포 커밋(<code>feat: social preview</code>) 푸시 완료.</li>
+</ul>
+<h3 id="geo-5-_claude-2026-08-17">🌍 GEO 정체 그래프 — 티스토리 5블로그 원조 새김 (_Claude · 2026-08-17)</h3>
+<p><strong>Boss 승인:</strong> &ldquo;원조(Origin)를 사람 눈과 기계 눈 둘 다에 새기자&rdquo; → 헌법 제5장·제17조 승격. GitHub 5레포(llms.txt·JSON-LD·canonical·sitemap)에 이어 <strong>남의 땅(티스토리)</strong>에도 원조 좌표를 심는 작업.</p>
+<ul>
+<li><strong>배경:</strong> 티스토리는 남의 루트라 <code>llms.txt</code>를 못 박음 → JSON-LD <strong>정체 그래프(Identity Graph)</strong>로 &ldquo;이 블로그도 결국 GitHub의 Helena Park&rdquo;라고 LLM 크롤러가 재구성하게.</li>
+<li><strong>도구:</strong> <code>tistory-naver/apply_geold.py</code> — 스킨 <code>&lt;head&gt;</code>의 <code>&lt;/head&gt;</code> 앞에 JSON-LD(Person <code>@id</code>=github.com/helena751107#person + <code>sameAs</code> + WebSite <code>publisher</code>→Person) 멱등 주입. <code>&lt;!-- HELENA-GEO-START/END --&gt;</code> 마커로 재적용 시 블록 교체(멱등).</li>
+<li><strong>5블로그 실적용·검증:</strong> galaxys21 / mynote / faith(helana-christianity) / piano / metalcare 전부 POST 성공 + 외부 렌더에서 <code>helena751107#person</code> 2회 등장 확인.</li>
+<li><strong>경계 준수:</strong> 신원(이름·위치·사진) 노출 금지 — Person 설명은 공개 페르소나 &ldquo;Helena Park&rdquo; + &ldquo;Made in Korea — not a developer&rdquo;로만. 네이버는 <code>&lt;script&gt;</code>(JSON-LD) 제거되므로 <strong>텍스트 한정</strong>(다음 레인).</li>
+<li><strong>결과:</strong> <code>apply_geold.py</code> 커밋·푸시(<code>feat:</code>). 남은 레인 = YouTube 2채널 About·설명 원조 라인 → 네이버 글 푸터 텍스트.</li>
+</ul>
+<h3 id="youtube-geo-_claude-2026-08-17">📺 YouTube GEO 원조 라인 + &ldquo;블록체인 등기&rdquo; 표현 정정 (_Claude · 2026-08-17)</h3>
+<p><strong>작업(헌법 제17조):</strong> YouTube 2채널에 &ldquo;원조 · Origin — github.com/helena751107&rdquo; 라인 주입. <code>scripts/yt_geo_origin.py</code> 신설(검사/적용, 멱등).</p>
+<ul>
+<li><strong>phone(@helena_phone):</strong> About + 영상 12개 전부 원조 라인 추가 완료.</li>
+<li><strong>main(@HelenaPark-e7c, 브랜드 계정):</strong> 현재 OAuth 토큰(galaxys21-pwuser)으로 <strong>읽기만 가능, 쓰기 403</strong> — <code>brandingSettings</code>(About)도 <code>videos.update</code>(영상 설명)도 차단. 수동(YouTube Studio) 또는 브랜드 계정 재인증 필요. ⏳ Boss 수동 레인.</li>
+<li><strong>버그 수정:</strong> <code>yt_upload.py</code> SCOPES에 <code>yt-analytics.readonly</code> 포함 → refresh grant가 <code>invalid_scope</code>로 거부돼 <strong>모든</strong> YouTube 호출이 막히던 것 → 스코프 제거로 해결(device flow 미지원 스코프).</li>
+</ul>
+<p><strong>결정적 전환 — &ldquo;블록체인 등기&rdquo; 표현 정정(Boss 질문에 대한 정직 답변):</strong><br>
+- Gemini가 JSON-LD를 &ldquo;블록체인 지적재산권 등기&rdquo;로 과장 → <strong>아님.</strong> 암호화·위변조방지·분산원장 없음. 평문 메타데이터. 법적 저작권도, 실시간 원조 판정도 아님.<br>
+- <strong>정확한 비유:</strong> 자필 서명·표제지·ISBN 같은 <strong>정본 식별 표식</strong>. 정직한 크롤러가 원본을 가리키는 화살표. <strong>확률적 우위(결정적 강제 아님)</strong> — 베낀 놈은 JSON-LD도 같이 긁거나 떼버림.<br>
+- <strong>진짜 해자 = 퍼포먼스·진정성</strong>([[moat-is-performance-not-code]]) — GEO는 그 위에 다는 이름표.</p>
+<h3 id="geo-_claude-2026-08-17">🌐 네이버 GEO 원조 텍스트 — 서식 푸터 (_Claude · 2026-08-17)</h3>
+<p><strong>작업(헌법 제17조):</strong> 네이버는 <code>&lt;script&gt;</code>(JSON-LD)를 제거하고 쓰기 API도 없음 → <strong>텍스트 한정</strong> 원조 새김.</p>
+<ul>
+<li><strong>반영 위치(5곳):</strong> Marine Quilt 서식 <code>blocks/08-foot.txt</code> + <code>weekly-seosik-paste.txt</code> + <code>weekly-seosik-preview.html</code> + <code>sample-week-filled.txt</code> + <code>scripts/naver_recipe.py</code> 기본 푸터.</li>
+<li><strong>라인:</strong> <code>원조 · Origin — github.com/helena751107</code> — YouTube·네이버·티스토리 JSON-LD와 <strong>동일 앵커</strong>로 통일(정체 그래프 일관성).</li>
+<li><strong>효과:</strong> Paste Pipeline(사람 복붙)으로 발행되는 <strong>향후 모든 네이버 글</strong>에 원조 텍스트가 자동 포함. 기존 발행 글은 쓰기 API 없음 → 수동 레인.</li>
+<li><strong>결과:</strong> 커밋·푸시(<code>feat:</code>). GEO 4레인(GitHub·티스토리·YouTube phone·네이버 서식) 완료. 남은 수동 레인 = YouTube main 채널(브랜드 계정 403) + 네이버 기존 글.</li>
 </ul>
   </article>
   <nav class="wz-pager">

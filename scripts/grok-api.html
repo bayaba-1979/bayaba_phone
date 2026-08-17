@@ -7,6 +7,40 @@
 <meta name="theme-color" content="#0a0908">
 <meta name="application-name" content="S21 Phone">
 <title>grok_api.py — S21 Phone Webzine</title>
+<link rel="canonical" href="https://helena751107.github.io/helena_phone/scripts/grok-api.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://github.com/helena751107#person",
+      "name": "Helena Park",
+      "url": "https://github.com/helena751107",
+      "description": "Made in Korea — not a developer. One Galaxy S21, built by voice, for a sister.",
+      "sameAs": [
+        "https://github.com/helena751107",
+        "https://helena751107.github.io/helena_phone/",
+        "https://www.youtube.com/@helena_phone",
+        "https://www.youtube.com/@HelenaPark-e7c"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://helena751107.github.io/helena_phone/scripts/grok-api.html#webpage",
+      "url": "https://helena751107.github.io/helena_phone/scripts/grok-api.html",
+      "name": "grok_api.py",
+      "inLanguage": "ko",
+      "publisher": {
+        "@id": "https://github.com/helena751107#person"
+      },
+      "author": {
+        "@id": "https://github.com/helena751107#person"
+      }
+    }
+  ]
+}
+</script>
 <link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -120,9 +154,6 @@ def load_auth():
 
     # OAuth 토큰이면 Bearer, API 키(xai-...)면 그대로
     return token, &quot;https://api.x.ai/v1&quot;
-                if line.startswith(&quot;XAI_API_KEY=&quot;):
-                    return line.split(&quot;=&quot;, 1)[1].strip().strip(&#x27;&quot;\&#x27;&#x27;)
-    return os.environ.get(&quot;XAI_API_KEY&quot;, &quot;&quot;)
 
 # ── Grok API 호출 ────────────────────────────────────────────
 def grok_chat(prompt, model=&quot;grok-4-1-fast&quot;, system=None):

@@ -7,6 +7,40 @@
 <meta name="theme-color" content="#0a0908">
 <meta name="application-name" content="S21 Phone">
 <title>install.sh · 고급 설치기 — S21 Phone Webzine</title>
+<link rel="canonical" href="https://helena751107.github.io/helena_phone/g/install.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://github.com/helena751107#person",
+      "name": "Helena Park",
+      "url": "https://github.com/helena751107",
+      "description": "Made in Korea — not a developer. One Galaxy S21, built by voice, for a sister.",
+      "sameAs": [
+        "https://github.com/helena751107",
+        "https://helena751107.github.io/helena_phone/",
+        "https://www.youtube.com/@helena_phone",
+        "https://www.youtube.com/@HelenaPark-e7c"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://helena751107.github.io/helena_phone/g/install.html#webpage",
+      "url": "https://helena751107.github.io/helena_phone/g/install.html",
+      "name": "install.sh · 고급 설치기",
+      "inLanguage": "ko",
+      "publisher": {
+        "@id": "https://github.com/helena751107#person"
+      },
+      "author": {
+        "@id": "https://github.com/helena751107#person"
+      }
+    }
+  ]
+}
+</script>
 <link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -63,31 +97,31 @@
 </div>
 <pre id="codeBody"><code class="language-sh">#!/usr/bin/env bash
 # ==============================================================================
-# g/install.sh — S21 Phone 1줄 설치기 v3 (누나 명의 · 변수화 · 초심자)
+# g/install.sh — S21 Phone one-line installer v3 (owner-named · parameterized · beginner-friendly)
 # ==============================================================================
-# 에이전트 마크 문서: _notebook/41-beginner-install-manual_Grok.md
+# Agent-mark doc: _notebook/41-beginner-install-manual_Grok.md
 #
-# 한 줄 (템플릿 클론 · 읽기 위주):
+# One-liner (template clone · read-first):
 #   bash &lt;(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/install.sh)
 #
-# 권장 (변수 넣고 실행 · 누나 폰 / Boss 작업 폰 공통):
-#   export OWNER_GITHUB=&quot;helena751107&quot;          # 명의(큰누나) 계정
-#   export WORK_GITHUB=&quot;REDACTED&quot;             # 실제 push 하는 작업 계정(선택)
-#   export GITHUB_TOKEN=&quot;ghp_....&quot;              # WORK 또는 OWNER 토큰
-#   export GITHUB_REPO=&quot;helena_phone&quot;           # 워크스페이스 레포 이름
-#   export DEEPSEEK_API_KEY=&quot;sk-....&quot;           # 선택
-#   export TG_TOKEN=&quot;...&quot; TG_CHAT=&quot;...&quot;         # 선택
+# Recommended (run with variables · works on the owner&#x27;s phone / Boss&#x27;s work phone):
+#   export OWNER_GITHUB=&quot;helena751107&quot;          # ownership (owner) account
+#   export WORK_GITHUB=&quot;your-work-account&quot;      # the work account that actually pushes (optional)
+#   export GITHUB_TOKEN=&quot;ghp_....&quot;              # WORK or OWNER token
+#   export GITHUB_REPO=&quot;helena_phone&quot;           # workspace repo name
+#   export DEEPSEEK_API_KEY=&quot;sk-....&quot;           # optional
+#   export TG_TOKEN=&quot;...&quot; TG_CHAT=&quot;...&quot;         # optional
 #   bash &lt;(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/install.sh)
 #
-# 철학: 모든 공개 표면의 명의는 OWNER. Boss는 콜라보/방문 설치로 핸드오프.
+# Philosophy: every public surface is owned by OWNER. Boss hands off via collab / visit-install.
 # ==============================================================================
 
 set -euo pipefail
 
-# ── 생태계 변수 (환경변수로 덮어쓰기) ───────────────────────────────────────
-OWNER_GITHUB=&quot;${OWNER_GITHUB:-helena751107}&quot;           # 명의 · 템플릿 소유자
-OWNER_NAME=&quot;${OWNER_NAME:-큰누나}&quot;                     # 표시용 이름
-WORK_GITHUB=&quot;${WORK_GITHUB:-${GITHUB_USER:-}}&quot;         # 작업 push 계정 (비우면 OWNER)
+# ── Ecosystem variables (override via env vars) ──────────────────────────────
+OWNER_GITHUB=&quot;${OWNER_GITHUB:-helena751107}&quot;           # ownership · template owner
+OWNER_NAME=&quot;${OWNER_NAME:-Owner}&quot;                      # display name
+WORK_GITHUB=&quot;${WORK_GITHUB:-${GITHUB_USER:-}}&quot;         # work push account (empty = OWNER)
 GITHUB_USER=&quot;${GITHUB_USER:-${WORK_GITHUB:-$OWNER_GITHUB}}&quot;
 GITHUB_TOKEN=&quot;${GITHUB_TOKEN:-}&quot;
 GITHUB_REPO=&quot;${GITHUB_REPO:-helena_phone}&quot;
@@ -96,11 +130,11 @@ WORK_DIR=&quot;${WORK_DIR:-/root/work}&quot;
 DEEPSEEK_API_KEY=&quot;${DEEPSEEK_API_KEY:-}&quot;
 TG_TOKEN=&quot;${TG_TOKEN:-}&quot;
 TG_CHAT=&quot;${TG_CHAT:-}&quot;
-INSTALL_GROK=&quot;${INSTALL_GROK:-0}&quot;                      # 1이면 grok 안내만 (수동 로그인)
+INSTALL_GROK=&quot;${INSTALL_GROK:-0}&quot;                      # if 1, only guide grok (manual login)
 SKIP_CLAUDE=&quot;${SKIP_CLAUDE:-0}&quot;
 SKIP_MCP=&quot;${SKIP_MCP:-0}&quot;
-CLONE_SATELLITES=&quot;${CLONE_SATELLITES:-0}&quot;               # 1이면 위성 4레포 안내
-SPAWN_ECOSYSTEM=&quot;${SPAWN_ECOSYSTEM:-0}&quot;                 # 1이면 g/spawn.sh 로 위성레포 생성+시크릿 배선
+CLONE_SATELLITES=&quot;${CLONE_SATELLITES:-0}&quot;               # if 1, guide the 4 satellite repos
+SPAWN_ECOSYSTEM=&quot;${SPAWN_ECOSYSTEM:-0}&quot;                 # if 1, create satellites + wire secrets via g/spawn.sh
 
 RED=&#x27;\033[0;31m&#x27;; GREEN=&#x27;\033[0;32m&#x27;; YELLOW=&#x27;\033[1;33m&#x27;; BLUE=&#x27;\033[0;34m&#x27;
 BOLD=&#x27;\033[1m&#x27;; NC=&#x27;\033[0m&#x27;
@@ -112,52 +146,50 @@ info() { echo -e &quot;${BLUE}📌${NC} $*&quot;; }
 banner() {
   echo &quot;&quot;
   echo -e &quot;${BOLD}═══════════════════════════════════════════════════${NC}&quot;
-  echo -e &quot;${BOLD}  📱 S21 Phone — 1줄 설치기 v3${NC}&quot;
-  echo -e &quot;${BOLD}  낡은 폰 → Termux → Ubuntu → 워크스페이스${NC}&quot;
-  echo -e &quot;${BOLD}  명의(OWNER)=${OWNER_GITHUB}  작업(USER)=${GITHUB_USER}${NC}&quot;
-  echo -e &quot;${BOLD}  비용: 런타임 \$0 축 | 준비: 폰+WiFi+GitHub${NC}&quot;
+  echo -e &quot;${BOLD}  📱 S21 Phone — one-line installer v3${NC}&quot;
+  echo -e &quot;${BOLD}  old phone → Termux → Ubuntu → workspace${NC}&quot;
+  echo -e &quot;${BOLD}  OWNER=${OWNER_GITHUB}  USER=${GITHUB_USER}${NC}&quot;
+  echo -e &quot;${BOLD}  cost: \$0 runtime | prep: phone + WiFi + GitHub${NC}&quot;
   echo -e &quot;${BOLD}═══════════════════════════════════════════════════${NC}&quot;
   echo &quot;&quot;
 }
 
 check_vars() {
-  echo &quot;─── 0단계: 변수 확인 ───&quot;
-  info &quot;OWNER_GITHUB(명의)=${OWNER_GITHUB}&quot;
-  info &quot;GITHUB_USER(작업)=${GITHUB_USER}&quot;
+  echo &quot;─── Step 0: variables ───&quot;
+  info &quot;OWNER_GITHUB (ownership)=${OWNER_GITHUB}&quot;
+  info &quot;GITHUB_USER (work)=${GITHUB_USER}&quot;
   info &quot;GITHUB_REPO=${GITHUB_REPO}&quot;
   info &quot;TEMPLATE_REPO=${TEMPLATE_REPO}&quot;
   info &quot;WORK_DIR=${WORK_DIR}&quot;
 
   if [ -z &quot;$GITHUB_USER&quot; ]; then
-    echo -n &quot;  작업용 GitHub 사용자명: &quot;
+    echo -n &quot;  Work GitHub username: &quot;
     read -r GITHUB_USER
   fi
-  ok &quot;작업 계정: ${GITHUB_USER}&quot;
+  ok &quot;Work account: ${GITHUB_USER}&quot;
 
-  if [ -z &quot;$GITHUB_TOKEN&quot; ]; then
-    warn &quot;GITHUB_TOKEN 없음 — clone은 가능, push는 나중에&quot;
-    echo &quot;  발급: GitHub → Settings → Developer settings → PAT (repo)&quot;
-    echo -n &quot;  토큰 (Enter=스킵): &quot;
-    read -r GITHUB_TOKEN || true
+  if command -v gh &gt;/dev/null 2&gt;&amp;1 &amp;&amp; gh auth status &gt;/dev/null 2&gt;&amp;1; then
+    ok &quot;gh authenticated — push uses gh auth credentials (no PAT in URL/files)&quot;
+  else
+    warn &quot;gh not authenticated — clone works, push later (recommended: gh auth login)&quot;
   fi
-  [ -n &quot;$GITHUB_TOKEN&quot; ] &amp;&amp; ok &quot;토큰 설정됨&quot; || warn &quot;토큰 없음&quot;
 
-  [ -n &quot;$DEEPSEEK_API_KEY&quot; ] &amp;&amp; ok &quot;DeepSeek 키 있음&quot; || warn &quot;DEEPSEEK_API_KEY 없음 (cc 구동 시 필요)&quot;
-  [ -n &quot;$TG_TOKEN&quot; ] &amp;&amp; [ -n &quot;$TG_CHAT&quot; ] &amp;&amp; ok &quot;Telegram 설정됨&quot; || warn &quot;TG 선택 사항&quot;
+  [ -n &quot;$DEEPSEEK_API_KEY&quot; ] &amp;&amp; ok &quot;DeepSeek key present&quot; || warn &quot;DEEPSEEK_API_KEY missing (needed to run cc)&quot;
+  [ -n &quot;$TG_TOKEN&quot; ] &amp;&amp; [ -n &quot;$TG_CHAT&quot; ] &amp;&amp; ok &quot;Telegram configured&quot; || warn &quot;TG is optional&quot;
 }
 
 check_env() {
   echo &quot;&quot;
-  echo &quot;─── 1단계: 환경 체크 ───&quot;
+  echo &quot;─── Step 1: environment check ───&quot;
   # Termux often reports Android; some builds differ
   if [ &quot;$(uname -o 2&gt;/dev/null)&quot; != &quot;Android&quot; ] &amp;&amp; [ -z &quot;${TERMUX_VERSION:-}&quot; ] &amp;&amp; [ ! -d /data/data/com.termux ]; then
-    fail &quot;Android/Termux에서 실행하세요 (F-Droid Termux 권장)&quot;
+    fail &quot;Run inside Android/Termux (F-Droid Termux recommended)&quot;
     exit 1
   fi
-  ok &quot;Android/Termux 환경&quot;
+  ok &quot;Android/Termux environment&quot;
 
   if [ -z &quot;${TERMUX_VERSION:-}&quot; ]; then
-    warn &quot;TERMUX_VERSION 비어 있음 — Termux 앱 안에서 실행 중인지 확인&quot;
+    warn &quot;TERMUX_VERSION empty — make sure you&#x27;re inside the Termux app&quot;
   else
     ok &quot;Termux ${TERMUX_VERSION}&quot;
   fi
@@ -165,50 +197,50 @@ check_env() {
   local free_mb
   free_mb=$(df /data 2&gt;/dev/null | awk &#x27;NR==2{print int($4/1024)}&#x27; || echo 0)
   if [ &quot;$free_mb&quot; -gt 0 ] &amp;&amp; [ &quot;$free_mb&quot; -lt 5120 ]; then
-    warn &quot;저장공간 ${free_mb}MB (5GB 권장)&quot;
+    warn &quot;Storage ${free_mb}MB (5GB recommended)&quot;
   else
-    ok &quot;저장공간 확인 (${free_mb}MB)&quot;
+    ok &quot;Storage checked (${free_mb}MB)&quot;
   fi
 
   if ping -c1 -W3 8.8.8.8 &gt;/dev/null 2&gt;&amp;1 || ping -c1 -W3 github.com &gt;/dev/null 2&gt;&amp;1; then
-    ok &quot;인터넷 연결&quot;
+    ok &quot;Internet connected&quot;
   else
-    fail &quot;인터넷 필요&quot;; exit 1
+    fail &quot;Internet required&quot;; exit 1
   fi
 }
 
 install_pkgs() {
   echo &quot;&quot;
-  echo &quot;─── 2단계: Termux 패키지 ───&quot;
+  echo &quot;─── Step 2: Termux packages ───&quot;
   if command -v pkg &gt;/dev/null 2&gt;&amp;1; then
-    pkg update -y &gt;/dev/null 2&gt;&amp;1 &amp;&amp; ok &quot;pkg update&quot; || warn &quot;pkg update 경고&quot;
+    pkg update -y &gt;/dev/null 2&gt;&amp;1 &amp;&amp; ok &quot;pkg update&quot; || warn &quot;pkg update warning&quot;
     for p in proot-distro git curl; do
       if command -v &quot;$p&quot; &gt;/dev/null 2&gt;&amp;1; then ok &quot;$p&quot;
-      else info &quot;$p 설치...&quot;; pkg install -y &quot;$p&quot; &gt;/dev/null 2&gt;&amp;1 &amp;&amp; ok &quot;$p&quot; || warn &quot;$p 실패&quot;
+      else info &quot;$p install...&quot;; pkg install -y &quot;$p&quot; &gt;/dev/null 2&gt;&amp;1 &amp;&amp; ok &quot;$p&quot; || warn &quot;$p failed&quot;
       fi
     done
-    pkg install -y termux-api &gt;/dev/null 2&gt;&amp;1 &amp;&amp; ok &quot;termux-api&quot; || warn &quot;termux-api (앱도 설치 권장)&quot;
+    pkg install -y termux-api &gt;/dev/null 2&gt;&amp;1 &amp;&amp; ok &quot;termux-api&quot; || warn &quot;termux-api (install the app too, recommended)&quot;
   else
-    warn &quot;pkg 없음 — 이미 proot 안이거나 PC 환경&quot;
+    warn &quot;no pkg — you may be inside proot or on a PC&quot;
   fi
 }
 
 install_proot() {
   echo &quot;&quot;
-  echo &quot;─── 3단계: proot Ubuntu ───&quot;
+  echo &quot;─── Step 3: proot Ubuntu ───&quot;
   if ! command -v proot-distro &gt;/dev/null 2&gt;&amp;1; then
-    warn &quot;proot-distro 없음 — Termux에서 pkg install proot-distro&quot;
+    warn &quot;no proot-distro — in Termux run pkg install proot-distro&quot;
     return 0
   fi
   if proot-distro list 2&gt;/dev/null | grep -qi ubuntu; then
-    ok &quot;proot Ubuntu 이미 있음&quot;
+    ok &quot;proot Ubuntu already present&quot;
   else
-    info &quot;ubuntu 설치 중 (수 분)...&quot;
-    proot-distro install ubuntu &amp;&amp; ok &quot;Ubuntu 설치&quot; || { fail &quot;Ubuntu 설치 실패&quot;; exit 1; }
+    info &quot;installing ubuntu (a few minutes)...&quot;
+    proot-distro install ubuntu &amp;&amp; ok &quot;Ubuntu installed&quot; || { fail &quot;Ubuntu install failed&quot;; exit 1; }
   fi
 }
 
-# 실제 작업은 proot 안에서. Termux 호스트면 login 후 재실행 안내
+# The real work happens inside proot. On the Termux host, guide a re-run after login.
 in_proot() {
   # rough: not android path for home
   [ -f /etc/os-release ] &amp;&amp; grep -qi ubuntu /etc/os-release 2&gt;/dev/null
@@ -216,35 +248,32 @@ in_proot() {
 
 setup_repo() {
   echo &quot;&quot;
-  echo &quot;─── 4단계: 워크스페이스 클론 ───&quot;
+  echo &quot;─── Step 4: clone workspace ───&quot;
   mkdir -p &quot;$(dirname &quot;$WORK_DIR&quot;)&quot;
 
   if [ -d &quot;$WORK_DIR/.git&quot; ]; then
-    ok &quot;이미 있음: $WORK_DIR&quot;
-    git -C &quot;$WORK_DIR&quot; pull --ff-only 2&gt;/dev/null &amp;&amp; ok &quot;git pull&quot; || warn &quot;pull 스킵&quot;
+    ok &quot;Already present: $WORK_DIR&quot;
+    git -C &quot;$WORK_DIR&quot; pull --ff-only 2&gt;/dev/null &amp;&amp; ok &quot;git pull&quot; || warn &quot;pull skipped&quot;
   else
-    local url
-    if [ -n &quot;$GITHUB_TOKEN&quot; ]; then
-      url=&quot;https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${TEMPLATE_REPO}.git&quot;
-    else
-      url=&quot;https://github.com/${TEMPLATE_REPO}.git&quot;
-    fi
+    local url=&quot;https://github.com/${TEMPLATE_REPO}.git&quot;
     info &quot;clone ${TEMPLATE_REPO} → ${WORK_DIR}&quot;
-    git clone &quot;$url&quot; &quot;$WORK_DIR&quot; &amp;&amp; ok &quot;클론 완료&quot; || { fail &quot;클론 실패&quot;; exit 1; }
+    # Do not put the token in the URL (prevents plaintext leak in .git/config).
+    # For a private repo, use gh repo clone after gh auth login.
+    git clone &quot;$url&quot; &quot;$WORK_DIR&quot; &amp;&amp; ok &quot;clone complete&quot; || { fail &quot;clone failed&quot;; exit 1; }
   fi
 
-  # remote: 작업 계정의 포크/동일 레포로 맞출 때
-  if [ -n &quot;$GITHUB_TOKEN&quot; ] &amp;&amp; [ -n &quot;$GITHUB_USER&quot; ]; then
+  # remote: when pointing at the work account&#x27;s fork/same repo (no token in URL)
+  if [ -n &quot;$GITHUB_USER&quot; ]; then
     git -C &quot;$WORK_DIR&quot; remote set-url origin \
-      &quot;https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.git&quot; 2&gt;/dev/null \
-      &amp;&amp; ok &quot;origin → ${GITHUB_USER}/${GITHUB_REPO}&quot; \
-      || warn &quot;remote 유지 (템플릿 origin)&quot;
+      &quot;https://github.com/${GITHUB_USER}/${GITHUB_REPO}.git&quot; 2&gt;/dev/null \
+      &amp;&amp; ok &quot;origin → ${GITHUB_USER}/${GITHUB_REPO} (push via gh auth)&quot; \
+      || warn &quot;keeping remote (template origin)&quot;
   fi
 
-  # 환경 스니펫 기록 (토큰은 파일에 넣지 않음)
+  # Write the env snippet (no token in the file)
   mkdir -p &quot;$WORK_DIR/configs&quot;
   cat &gt; &quot;$WORK_DIR/configs/helena-env.example.sh&quot; &lt;&lt; EOF
-# 복사: cp configs/helena-env.example.sh configs/helena-env.sh &amp;&amp; nano configs/helena-env.sh
+# Copy: cp configs/helena-env.example.sh configs/helena-env.sh &amp;&amp; nano configs/helena-env.sh
 # source configs/helena-env.sh
 export OWNER_GITHUB=&quot;${OWNER_GITHUB}&quot;
 export OWNER_NAME=&quot;${OWNER_NAME}&quot;
@@ -253,29 +282,43 @@ export GITHUB_USER=&quot;${GITHUB_USER}&quot;
 export GITHUB_REPO=&quot;${GITHUB_REPO}&quot;
 export TEMPLATE_REPO=&quot;${TEMPLATE_REPO}&quot;
 export WORK_DIR=&quot;${WORK_DIR}&quot;
-# export GITHUB_TOKEN=&quot;ghp_...&quot;          # 파일에 넣지 말고 세션 export 권장
+# export GITHUB_TOKEN=&quot;ghp_...&quot;          # prefer a session export over putting it in a file
 # export DEEPSEEK_API_KEY=&quot;sk-...&quot;
 # export TG_TOKEN=&quot;...&quot; TG_CHAT=&quot;...&quot;
 EOF
-  ok &quot;configs/helena-env.example.sh 작성&quot;
+  ok &quot;configs/helena-env.example.sh written&quot;
+
+  # Persist secrets (.secrets.env) into proot shell env vars
+  # source the .secrets.env made by navigator.sh into ~/.bashrc, so
+  # new shells can read TG_TOKEN/TISTORY/YT as env vars (for tg.sh etc.).
+  # (proot env var = SSOT — secrets never go to GitHub, only to on-phone env)
+  if [ -f &quot;$WORK_DIR/.secrets.env&quot; ]; then
+    if [ -f &quot;$HOME/.bashrc&quot; ]; then
+      grep -q &quot;\.secrets\.env&quot; &quot;$HOME/.bashrc&quot; 2&gt;/dev/null \
+        || echo &quot;source ${WORK_DIR}/.secrets.env 2&gt;/dev/null&quot; &gt;&gt; &quot;$HOME/.bashrc&quot;
+      ok &quot;.secrets.env linked into .bashrc (env var persistence)&quot;
+    fi
+  else
+    warn &quot;.secrets.env missing — recommended: run bash navigator.sh first&quot;
+  fi
 }
 
 setup_ubuntu_pkgs() {
   echo &quot;&quot;
-  echo &quot;─── 5단계: Ubuntu 패키지 (proot 안) ───&quot;
+  echo &quot;─── Step 5: Ubuntu packages (inside proot) ───&quot;
   if ! in_proot; then
-    warn &quot;지금 Termux 호스트일 수 있음. Ubuntu 안에서는:&quot;
+    warn &quot;You may be on the Termux host right now. Inside Ubuntu:&quot;
     echo &quot;  proot-distro login ubuntu&quot;
     echo &quot;  apt update &amp;&amp; apt install -y git curl nodejs npm python3 python3-pip&quot;
     return 0
   fi
   apt-get update -qq &gt;/dev/null 2&gt;&amp;1 || true
   DEBIAN_FRONTEND=noninteractive apt-get install -y -qq git curl ca-certificates python3 python3-pip &gt;/dev/null 2&gt;&amp;1 \
-    &amp;&amp; ok &quot;git curl python3&quot; || warn &quot;apt 일부 실패&quot;
+    &amp;&amp; ok &quot;git curl python3&quot; || warn &quot;apt partially failed&quot;
   if ! command -v node &gt;/dev/null 2&gt;&amp;1; then
-    info &quot;nodejs 설치 시도...&quot;
+    info &quot;trying nodejs...&quot;
     DEBIAN_FRONTEND=noninteractive apt-get install -y -qq nodejs npm &gt;/dev/null 2&gt;&amp;1 \
-      &amp;&amp; ok &quot;nodejs&quot; || warn &quot;nodejs 수동 설치 필요&quot;
+      &amp;&amp; ok &quot;nodejs&quot; || warn &quot;nodejs needs manual install&quot;
   else
     ok &quot;node $(node -v 2&gt;/dev/null || echo ok)&quot;
   fi
@@ -283,7 +326,7 @@ setup_ubuntu_pkgs() {
 
 setup_claude() {
   echo &quot;&quot;
-  echo &quot;─── 6단계: Claude Code + DeepSeek ───&quot;
+  echo &quot;─── Step 6: Claude Code + DeepSeek ───&quot;
   if [ &quot;$SKIP_CLAUDE&quot; = &quot;1&quot; ]; then warn &quot;SKIP_CLAUDE=1&quot;; return 0; fi
 
   mkdir -p &quot;$WORK_DIR/configs&quot;
@@ -295,77 +338,79 @@ DSEOF
   if [ -n &quot;$DEEPSEEK_API_KEY&quot; ]; then
     echo &quot;export ANTHROPIC_API_KEY=${DEEPSEEK_API_KEY}&quot; &gt;&gt; &quot;$WORK_DIR/configs/deepseek.env&quot;
     echo &quot;export DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}&quot; &gt;&gt; &quot;$WORK_DIR/configs/deepseek.env&quot;
-    ok &quot;DeepSeek 키를 deepseek.env에 기록&quot;
+    ok &quot;DeepSeek key written to deepseek.env&quot;
   else
-    warn &quot;키 없음 — configs/deepseek.env 에 나중에 추가&quot;
+    warn &quot;no key — add it to configs/deepseek.env later&quot;
   fi
 
   if command -v npm &gt;/dev/null 2&gt;&amp;1; then
-    if command -v claude &gt;/dev/null 2&gt;&amp;1; then ok &quot;claude 이미 있음&quot;
+    if command -v claude &gt;/dev/null 2&gt;&amp;1; then ok &quot;claude already present&quot;
     else
       info &quot;npm i -g @anthropic-ai/claude-code ...&quot;
-      npm install -g @anthropic-ai/claude-code &gt;/dev/null 2&gt;&amp;1 &amp;&amp; ok &quot;Claude Code&quot; || warn &quot;Claude Code 설치 실패 — 수동&quot;
+      npm install -g @anthropic-ai/claude-code &gt;/dev/null 2&gt;&amp;1 &amp;&amp; ok &quot;Claude Code&quot; || warn &quot;Claude Code install failed — manual&quot;
     fi
   else
-    warn &quot;npm 없음 — Ubuntu 안 패키지 후 재실행&quot;
+    warn &quot;no npm — install Ubuntu packages, then re-run&quot;
   fi
 
   if [ -f &quot;$HOME/.bashrc&quot; ]; then
     grep -q &quot;deepseek.env&quot; &quot;$HOME/.bashrc&quot; 2&gt;/dev/null \
       || echo &quot;source ${WORK_DIR}/configs/deepseek.env 2&gt;/dev/null&quot; &gt;&gt; &quot;$HOME/.bashrc&quot;
-    ok &quot;.bashrc 에 deepseek.env 연결&quot;
+    ok &quot;deepseek.env linked into .bashrc&quot;
   fi
 }
 
 setup_mcp() {
   echo &quot;&quot;
-  echo &quot;─── 7단계: phone-mcp (선택) ───&quot;
+  echo &quot;─── Step 7: phone-mcp (optional) ───&quot;
   if [ &quot;$SKIP_MCP&quot; = &quot;1&quot; ]; then warn &quot;SKIP_MCP=1&quot;; return 0; fi
   local mcp_dir=&quot;/tmp/phone-mcp-server&quot;
   if [ ! -f &quot;$mcp_dir/server.py&quot; ]; then
     git clone --depth 1 https://github.com/htekdev/phone-mcp-server &quot;$mcp_dir&quot; &gt;/dev/null 2&gt;&amp;1 \
-      &amp;&amp; ok &quot;phone-mcp-server 클론&quot; || warn &quot;mcp 클론 실패&quot;
+      &amp;&amp; ok &quot;phone-mcp-server cloned&quot; || warn &quot;mcp clone failed&quot;
   else
-    ok &quot;phone-mcp 이미 있음&quot;
+    ok &quot;phone-mcp already present&quot;
   fi
   mkdir -p &quot;$HOME/.claude&quot;
   if [ -f &quot;$WORK_DIR/configs/settings.json&quot; ]; then
-    cp &quot;$WORK_DIR/configs/settings.json&quot; &quot;$HOME/.claude/settings.json&quot; 2&gt;/dev/null &amp;&amp; ok &quot;MCP settings 복사&quot;
+    cp &quot;$WORK_DIR/configs/settings.json&quot; &quot;$HOME/.claude/settings.json&quot; 2&gt;/dev/null &amp;&amp; ok &quot;MCP settings copied&quot;
   fi
 }
 
 setup_telegram() {
   echo &quot;&quot;
-  echo &quot;─── 8단계: Telegram ───&quot;
+  echo &quot;─── Step 8: Telegram ───&quot;
+  # source .secrets.env to read env vars (no pre-export dependency)
+  [ -f &quot;$WORK_DIR/.secrets.env&quot; ] &amp;&amp; source &quot;$WORK_DIR/.secrets.env&quot; 2&gt;/dev/null || true
   if [ -n &quot;$TG_TOKEN&quot; ] &amp;&amp; [ -n &quot;$TG_CHAT&quot; ]; then
-    ok &quot;TG_TOKEN / TG_CHAT 설정됨&quot;
+    ok &quot;TG_TOKEN / TG_CHAT configured&quot;
     if [ -x &quot;$WORK_DIR/tg.sh&quot; ] || [ -f &quot;$WORK_DIR/tg.sh&quot; ]; then
       chmod +x &quot;$WORK_DIR/tg.sh&quot; 2&gt;/dev/null || true
-      (cd &quot;$WORK_DIR&quot; &amp;&amp; TG_TOKEN=&quot;$TG_TOKEN&quot; TG_CHAT=&quot;$TG_CHAT&quot; bash tg.sh &quot;✅ S21 install v3 완료 · OWNER=${OWNER_GITHUB} USER=${GITHUB_USER}&quot;) 2&gt;/dev/null \
-        &amp;&amp; ok &quot;테스트 메시지 전송&quot; || warn &quot;tg 테스트 스킵&quot;
+      (cd &quot;$WORK_DIR&quot; &amp;&amp; TG_TOKEN=&quot;$TG_TOKEN&quot; TG_CHAT=&quot;$TG_CHAT&quot; bash tg.sh &quot;✅ S21 install v3 complete · OWNER=${OWNER_GITHUB} USER=${GITHUB_USER}&quot;) 2&gt;/dev/null \
+        &amp;&amp; ok &quot;test message sent&quot; || warn &quot;tg test skipped&quot;
     fi
   else
-    warn &quot;TG 없음 — @BotFather 후 export TG_TOKEN TG_CHAT&quot;
+    warn &quot;no TG — use @BotFather, then export TG_TOKEN TG_CHAT&quot;
   fi
 }
 
 run_health() {
   echo &quot;&quot;
-  echo &quot;─── 9단계: 건강 검진 ───&quot;
+  echo &quot;─── Step 9: health check ───&quot;
   if [ -f &quot;$WORK_DIR/phone-health.sh&quot; ]; then
     chmod +x &quot;$WORK_DIR/phone-health.sh&quot;
-    bash &quot;$WORK_DIR/phone-health.sh&quot; 2&gt;&amp;1 | tail -8 || warn &quot;검진 경고&quot;
-    ok &quot;phone-health 실행&quot;
+    bash &quot;$WORK_DIR/phone-health.sh&quot; 2&gt;&amp;1 | tail -8 || warn &quot;health check warning&quot;
+    ok &quot;phone-health ran&quot;
   else
-    warn &quot;phone-health.sh 없음&quot;
+    warn &quot;phone-health.sh missing&quot;
   fi
 }
 
 show_satellites() {
   echo &quot;&quot;
-  echo &quot;─── 위성 레포 (참고) ───&quot;
+  echo &quot;─── Satellite repos (reference) ───&quot;
   cat &lt;&lt; EOF
-  명의 계정 아래 공개 표면:
+  Public surfaces under the owner account:
     https://github.com/${OWNER_GITHUB}/helena_phone
     https://github.com/${OWNER_GITHUB}/helana_log
     https://github.com/${OWNER_GITHUB}/helana-faith
@@ -378,57 +423,60 @@ show_satellites() {
     ...
 EOF
   if [ &quot;$CLONE_SATELLITES&quot; = &quot;1&quot; ]; then
-    info &quot;CLONE_SATELLITES=1 — /root/sites 에 클론 시도&quot;
+    info &quot;CLONE_SATELLITES=1 — cloning into /root/sites&quot;
     mkdir -p /root/sites
     for r in helana_log helana-faith helena-piano helena-metalcare; do
       [ -d &quot;/root/sites/$r/.git&quot; ] &amp;&amp; continue
       git clone &quot;https://github.com/${OWNER_GITHUB}/${r}.git&quot; &quot;/root/sites/$r&quot; 2&gt;/dev/null \
-        &amp;&amp; ok &quot;$r&quot; || warn &quot;$r 클론 실패&quot;
+        &amp;&amp; ok &quot;$r&quot; || warn &quot;$r clone failed&quot;
     done
   fi
 }
 
 spawn_ecosystem() {
   echo &quot;&quot;
-  echo &quot;─── 10단계: 생태계 스폰 (선택) ───&quot;
+  echo &quot;─── Step 10: ecosystem spawn (optional) ───&quot;
   if [ &quot;$SPAWN_ECOSYSTEM&quot; != &quot;1&quot; ]; then
-    warn &quot;SPAWN_ECOSYSTEM=1 일 때만 실행 (건너뜀)&quot;
-    echo &quot;  위성 4레포(piano/metalcare/faith/log)를 템플릿에서 복사 생성하려면:&quot;
-    echo &quot;    SPAWN_ECOSYSTEM=1 bash g/install.sh   # 또는   bash g/spawn.sh&quot;
-    echo &quot;  설정부터: bash navigator.sh  (configs/ecosystem.json + .secrets.env 생성)&quot;
+    warn &quot;runs only when SPAWN_ECOSYSTEM=1 (skipping)&quot;
+    echo &quot;  To create the 4 satellites (piano/metalcare/faith/log) from the template:&quot;
+    echo &quot;    SPAWN_ECOSYSTEM=1 bash g/install.sh   # or   bash g/spawn.sh&quot;
+    echo &quot;  Configure first: bash navigator.sh  (creates configs/ecosystem.json + .secrets.env)&quot;
     return 0
   fi
   if [ -f &quot;$WORK_DIR/g/spawn.sh&quot; ]; then
     bash &quot;$WORK_DIR/g/spawn.sh&quot;
   else
-    warn &quot;g/spawn.sh 없음 — 템플릿이 구버전&quot;
+    warn &quot;g/spawn.sh missing — template is an old version&quot;
   fi
 }
 
 summary() {
   echo &quot;&quot;
   echo -e &quot;${GREEN}═══════════════════════════════════════════════════${NC}&quot;
-  echo -e &quot;${GREEN}  ✅ 설치 플로우 완료 (v3)${NC}&quot;
+  echo -e &quot;${GREEN}  ✅ install flow complete (v3)${NC}&quot;
   echo -e &quot;${GREEN}═══════════════════════════════════════════════════${NC}&quot;
   cat &lt;&lt; EOF
 
-  명의(OWNER):  ${OWNER_GITHUB} (${OWNER_NAME})
-  작업(USER):   ${GITHUB_USER}
-  워크스페이스: ${WORK_DIR}
-  템플릿:       ${TEMPLATE_REPO}
+  OWNER:      ${OWNER_GITHUB} (${OWNER_NAME})
+  USER:       ${GITHUB_USER}
+  Workspace:  ${WORK_DIR}
+  Template:   ${TEMPLATE_REPO}
 
-  다음 명령 (Termux):
+  Next commands (Termux):
     proot-distro login ubuntu
     cd ${WORK_DIR}
-    source configs/deepseek.env   # 키 넣었다면
+    source configs/deepseek.env   # once the key is set
     source configs/helena-env.example.sh
-    claude                        # 또는 grok / bash scripts/ds.sh
+    claude                        # or grok / bash scripts/ds.sh
 
-  검진:  bash phone-health.sh
-  보고:  bash tg.sh &#x27;메시지&#x27;
-  돌봄:  bash care/care-setup.sh
-  매뉴얼: cat _notebook/41-beginner-install-manual_Grok.md
-          또는 https://${OWNER_GITHUB}.github.io/helena_phone/install-guide.html
+  Health:      bash phone-health.sh
+  Report:      bash tg.sh &#x27;message&#x27;
+  Care:        bash care/care-setup.sh
+  Production:  bash scripts/preflight.sh   # table-setter (session/token check)
+               bash scripts/quota.sh       # today&#x27;s remaining quota
+               bash scripts/make_pair.sh   # raw asset → PWA+Tistory pair
+  Manual:      cat _notebook/41-beginner-install-manual_Grok.md
+               or https://${OWNER_GITHUB}.github.io/helena_phone/install-guide.html
 
   Pages: https://${OWNER_GITHUB}.github.io/${GITHUB_REPO}/
 
@@ -444,8 +492,8 @@ main() {
 
   if ! in_proot; then
     echo &quot;&quot;
-    warn &quot;지금은 Termux 호스트 단계까지 완료했을 수 있습니다.&quot;
-    echo &quot;  아래를 실행한 뒤, Ubuntu 안에서 이 스크립트를 다시 돌리세요:&quot;
+    warn &quot;You may have completed up to the Termux host stage.&quot;
+    echo &quot;  Run the following, then re-run this script inside Ubuntu:&quot;
     echo &quot;&quot;
     echo &quot;  proot-distro login ubuntu&quot;
     echo &quot;  apt update &amp;&amp; apt install -y git curl nodejs npm python3&quot;

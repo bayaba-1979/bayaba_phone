@@ -18,7 +18,7 @@
   {
     "src": "README.md",
     "out": "readme.html",
-    "title": "말로만 · 폰 하나로 · 누나를 위해",
+    "title": "Mobile-First Multi-Platform Content Foundry — Boilerplate",
     "section": "Core",
     "kind": "md",
     "deck": "숫자 · 구조 · 빠른 링크"

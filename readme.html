@@ -6,7 +6,41 @@
 <meta name="description" content="숫자 · 구조 · 빠른 링크 — S21 Phone Webzine">
 <meta name="theme-color" content="#0a0908">
 <meta name="application-name" content="S21 Phone">
-<title>말로만 · 폰 하나로 · 누나를 위해 — S21 Phone Webzine</title>
+<title>Mobile-First Multi-Platform Content Foundry — Boilerplate — S21 Phone Webzine</title>
+<link rel="canonical" href="https://helena751107.github.io/helena_phone/readme.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://github.com/helena751107#person",
+      "name": "Helena Park",
+      "url": "https://github.com/helena751107",
+      "description": "Made in Korea — not a developer. One Galaxy S21, built by voice, for a sister.",
+      "sameAs": [
+        "https://github.com/helena751107",
+        "https://helena751107.github.io/helena_phone/",
+        "https://www.youtube.com/@helena_phone",
+        "https://www.youtube.com/@HelenaPark-e7c"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://helena751107.github.io/helena_phone/readme.html#webpage",
+      "url": "https://helena751107.github.io/helena_phone/readme.html",
+      "name": "Mobile-First Multi-Platform Content Foundry — Boilerplate",
+      "inLanguage": "ko",
+      "publisher": {
+        "@id": "https://github.com/helena751107#person"
+      },
+      "author": {
+        "@id": "https://github.com/helena751107#person"
+      }
+    }
+  ]
+}
+</script>
 <link rel="icon" href="icons/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -36,11 +70,11 @@
   <div class="wz-crumb">
     <a href="index.html">Webzine</a><span class="sep">/</span>
     <span>Core</span><span class="sep">/</span>
-    <span>말로만 · 폰 하나로 · 누나를 위해</span>
+    <span>Mobile-First Multi-Platform Content Foundry — Boilerplate</span>
   </div>
   <header class="wz-hero">
     <div class="wz-kicker">Core · lakme-audio</div>
-    <h1>말로만 · 폰 하나로 · 누나를 위해</h1>
+    <h1>Mobile-First Multi-Platform Content Foundry — Boilerplate</h1>
     <p class="deck">숫자 · 구조 · 빠른 링크</p>
     <div class="wz-meta">
       <span>Source · README.md</span>
@@ -50,18 +84,22 @@
   </header>
   <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
 <ul>
-<li><a href="#_2">이제 뭘 하나요? — 빌드 멈춤, 열고 가르치기</a></li>
-<li><a href="#_3">숫자로 보기</a></li>
-<li><a href="#_4">빠른 링크</a></li>
-<li><a href="#10">🚀 10분 시작 — 복사 → 설정 → 구동</a><ul>
-<li><a href="#0-use-this-template">0분 — 복사 (Use this template)</a></li>
-<li><a href="#2">2분 — 내비게이터 (설정 마법사)</a></li>
-<li><a href="#5">5분 — 스폰 (위성 레포 생성)</a></li>
-<li><a href="#8">8분 — 구동 (워크스페이스)</a></li>
-<li><a href="#10_1">10분 — 확인</a></li>
+<li><a href="#the-origin-proof-not-a-poster">The origin — proof, not a poster</a></li>
+<li><a href="#what-is-this">What is this?</a></li>
+<li><a href="#the-architecture">The architecture</a></li>
+<li><a href="#by-the-numbers">By the numbers</a></li>
+<li><a href="#the-roadmap-seed-spread-sublimate">The roadmap — seed → spread → sublimate</a></li>
+<li><a href="#quick-links">Quick links</a></li>
+<li><a href="#10-minute-start-copy-configure-run">🚀 10-minute start — copy → configure → run</a><ul>
+<li><a href="#0-min-copy-use-this-template">0 min — Copy (Use this template)</a></li>
+<li><a href="#2-min-navigator-setup-wizard">2 min — Navigator (setup wizard)</a></li>
+<li><a href="#5-min-spawn-satellite-repos">5 min — Spawn (satellite repos)</a></li>
+<li><a href="#8-min-run-workspace">8 min — Run (workspace)</a></li>
+<li><a href="#10-min-verify">10 min — Verify</a></li>
 </ul>
 </li>
-<li><a href="#1">📱 휴대폰에 1줄 설치 (기존 워크스페이스)</a></li>
+<li><a href="#the-production-recipe-3-scripts-3-layer-verification">📐 The production recipe — 3 scripts + 3-layer verification</a></li>
+<li><a href="#one-line-install-existing-workspace">📱 One-line install (existing workspace)</a></li>
 </ul>
 </div>
 </nav>
@@ -72,230 +110,289 @@
     <button type="button" id="wzCopy" data-cursor>본문 복사</button>
   </div>
   <article class="wz-prose" id="wzProse" data-app="doc">
-    <blockquote>
-<p><strong>구형 Galaxy S21 한 대 + 월 ~$20.</strong> 그 안에서 1인 미디어 스튜디오가 통째로 굴러간다.<br>
-낮에는 누나를 지키는 <strong>수호천사(돌봄 데몬)</strong>, 밤에는 꿈을 만드는 <strong>꿈 공장(출판 파이프라인)</strong>.</p>
-<p><strong>복제 가능한 건 전부 공개한다.</strong> 복제 불가능한 건 <strong>&ldquo;이 스토리를 실제로 산 사람&rdquo;으로서의 퍼포먼스와 진정성</strong>이다.</p>
+    <p><img alt="One phone, the whole studio — a content foundry running on a single Galaxy S21" src="assets/social-preview.jpg"></p>
+<blockquote>
+<p><strong>One Galaxy S21. ~$20/month. A one-person media studio — and a 24/7 care system.</strong><br>
+Powered by Termux/PRoot &amp; MCP. Every step hard-verified by <code>returncode == 0</code> — no agent hallucinations.<br>
+<strong>489 commits · 893 files · 129 notebooks · 8 shipped systems · 3 weeks.</strong><br>
+Zero PC · resilience-first · multi-channel (Git SSOT → PWA / Tistory / YouTube / Telegram).</p>
+<p><strong>Made in Korea — not a developer.</strong> I don&rsquo;t sit easy at a keyboard; I can&rsquo;t stand that kind of building. Fourteen-hour days of physical labor, and in the cracks of it, all of this — spoken into a terminal, not typed. The nobles take a walk to rest. I rest by working.</p>
+<p><strong>The build is done. Now I open it and teach.</strong> Fork it, cite it, run it on the phone in your pocket.</p>
 </blockquote>
+<p><img alt="hardware" src="https://img.shields.io/badge/hardware-1%C3%97%20Galaxy%20S21-9cf"> <img alt="cost" src="https://img.shields.io/badge/cost-~%2420%2Fmonth-success"> <img alt="commits" src="https://img.shields.io/badge/commits-489-blue"> <img alt="systems" src="https://img.shields.io/badge/systems-8%20shipped-brightgreen"> <img alt="license" src="https://img.shields.io/badge/license-MIT-lightgrey"></p>
+<h2 id="the-origin-proof-not-a-poster">The origin — proof, not a poster</h2>
+<p><img alt="The real worksite — grease-stained pots, soiled gloves, a knife and a torch, and in the middle, a phone with a terminal open" src="assets/origin-worksite.jpg"></p>
+<p>This image is not generated. It&rsquo;s the worksite where this was built.</p>
+<p>Anyone can commission a poster or apply a filter. Nobody can fake the grease on the pots, the dirt worked into the gloves, a knife with residue, a butane torch — the real cutting board of a worker. And in the middle of it, a Galaxy S21, charging cable in, a terminal open, mid-conversation with an agent.</p>
+<p>That&rsquo;s the whole life in one frame: fourteen-hour days, and the building happens in the cracks. The nobles take a walk to rest. I rest by working.</p>
+<hr>
+<h2 id="what-is-this">What is this?</h2>
+<p>One phone does two jobs.</p>
+<p>By <strong>day</strong>, it&rsquo;s a <strong>guardian angel</strong> — a care daemon watching over my sister 24/7.<br>
+By <strong>night</strong>, it&rsquo;s a <strong>dream factory</strong> — a publishing pipeline that turns a single phone into a media company.</p>
+<p>Three weeks of building (2026-07-23 → 08-16). No new features. What&rsquo;s left is <strong>opening it and teaching you to run it</strong> — because everything here is reproducible. Copy it to your phone and run the same thing.</p>
+<p><strong>~$20 a month.</strong> Claude Code + DeepSeek + Aider. Cheaper than a Netflix subscription. If this runs on hardware you&rsquo;d recycle, so can yours — <em>that&rsquo;s</em> the flex.</p>
+<h2 id="the-architecture">The architecture</h2>
 <pre><code>┌─────────────────────────────────────────────────────┐
-│        말로만 · 폰 하나로 · 누나를 위해               │
+│         Words only · One phone · For my sister       │
 │                                                     │
-│  📱 갤럭시 S21  →  비밀 방(Termux + proot)          │
+│  📱 Galaxy S21  →  the secret room (Termux + proot) │
 │                          │                          │
 │         ┌────────────────┼──────────────────┐       │
 │         │                │                  │       │
-│    글짓기 로봇         그림·PD 로봇        고치기 로봇 │
-│  (Claude Code)      (Grok · 두 칸만)      (Aider)  │
-│  출판·번역·검증      구도디자인·다큐     패치·시공   │
+│    Writer bot        Design/PD bot       Fixer bot  │
+│  (Claude Code)     (Grok · two lanes)     (Aider)  │
+│  publish·translate  layout·docu          patch·build│
 │         │                │                  │       │
 │         └────────────────┼──────────────────┘       │
 │                    ┌─────┴──────────┐               │
-│                    │  7개 작업실 방   │              │
-│                    │ 무료 전시장(GitHub·5개)│         │
-│                    │ 세상 창문(Pages)  │             │
-│                    │ TV 방송국(YouTube)│             │
-│                    │  Naver·Tistory   │              │
-│                    │ 무전기(Telegram) │              │
+│                    │  7 workshops    │               │
+│                    │ GitHub (5 repos)│               │
+│                    │ Pages           │               │
+│                    │ YouTube         │               │
+│                    │ Naver · Tistory │               │
+│                    │ Telegram        │               │
 │                    └────────────────┘               │
 │                                                     │
-│  446커밋 · 888파일 · 126종 업무수첩 · 8솔루션        │
-│  만들기는 끝났다 → 이제 열고 가르친다                │
+│  489 commits · 893 files · 129 notebooks · 8 systems│
+│  Build is done → now I open it and teach            │
 └─────────────────────────────────────────────────────┘
 </code></pre>
-<h2 id="_2">이제 뭘 하나요? — 빌드 멈춤, 열고 가르치기</h2>
-<p>휴대폰 하나로 두 가지 일을 해요. 낮에는 누나를 지키는 <strong>수호천사</strong>(돌봄 도우미)로, 밤에는 꿈을 만드는 <strong>꿈 공장</strong>(콘텐츠 제작소)으로 움직여요.</p>
-<p>3주 동안(2026-07-23 ~ 08-16) 열심히 &ldquo;만들었어요&rdquo;. 이제 <strong>새 기능은 안 만들고</strong>, 만든 것들을 <strong>하나씩 풀어서 따라올 수 있게 가르치는 일</strong>만 남았어요. 전부 오픈소스라, 내 휴대폰에 복사해서 똑같이 돌려볼 수 있어요.</p>
-<p><strong>한 달 용돈 ~$20.</strong> Claude Code + DeepSeek/Aider 경비만으로 이 모든 게 돌아가요. 넷플릭스 한 달 값보다 싸게요. &ldquo;이 한도면 누구나 똑같이 가능&rdquo;하다는 것 자체가 보여줄 값이에요.</p>
-<h2 id="_3">숫자로 보기</h2>
+<h2 id="by-the-numbers">By the numbers</h2>
 <table>
 <thead>
 <tr>
-<th>지표</th>
-<th>값</th>
+<th>Metric</th>
+<th>Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>구축 기간</td>
-<td>3주 (2026-07-23 ~ 08-16)</td>
+<td>Build time</td>
+<td>3 weeks (2026-07-23 → 08-16)</td>
 </tr>
 <tr>
-<td>커밋</td>
-<td>446회</td>
+<td>Commits</td>
+<td>489</td>
 </tr>
 <tr>
-<td>파일</td>
-<td>888개</td>
+<td>Files</td>
+<td>893</td>
 </tr>
 <tr>
-<td>업무 수첩</td>
-<td>126종</td>
+<td>Notebooks</td>
+<td>129</td>
 </tr>
 <tr>
-<td>솔루션</td>
-<td>8종 (웹진·돌봄데몬·교재·발행·영상 등)</td>
+<td>Shipped systems</td>
+<td>8 (webzine · care daemon · textbook · publishing · video · …)</td>
 </tr>
 <tr>
-<td>AI 로봇</td>
-<td>3종 (글짓기·그림PD·고치기)</td>
+<td>AI agents</td>
+<td>3 (writer · designer/PD · patcher)</td>
 </tr>
 <tr>
-<td>GitHub 레포</td>
-<td>5개 (전부 PUBLIC)</td>
+<td>Repos</td>
+<td>5, all public</td>
 </tr>
 <tr>
-<td>한 달 용돈</td>
-<td>~$20 (넷플릭스 하나 값이면 끝!)</td>
+<td>Monthly cost</td>
+<td>~$20 (one Netflix subscription)</td>
 </tr>
 <tr>
-<td>기술 한도</td>
-<td>핸드폰 1대 (구형 S21, proot PC화)</td>
+<td>Hardware</td>
+<td>1 old Galaxy S21 (PRoot as a PC)</td>
 </tr>
 </tbody>
 </table>
-<h2 id="_4">빠른 링크</h2>
+<h2 id="the-roadmap-seed-spread-sublimate">The roadmap — seed → spread → sublimate</h2>
+<p>The direction isn&rsquo;t technical. It&rsquo;s human — the lowest hardware, the warmest purpose, the widest reach.</p>
+<p><strong>Act I · Seed (done).</strong> One Galaxy S21 on Termux/PRoot. A care daemon for my sister + a mobile content foundry — running today.</p>
+<p><strong>Act II · Spread (next).</strong> Global open source — forks, issues, citations from Reddit · GitHub · Hacker News. Then public-good proof: national / public R&amp;D validation, so &ldquo;it works&rdquo; is a verified fact, not a claim.</p>
+<p><strong>Act III · Sublimate (north star).</strong> <em>AI for the marginalized</em> — care technology that lifts up the overlooked, on hardware anyone can afford. Measured not by specs, but by <strong>who it saves</strong>.</p>
+<h2 id="quick-links">Quick links</h2>
 <table>
 <thead>
 <tr>
-<th>보고 싶은 것</th>
-<th>링크</th>
+<th>Looking for</th>
+<th>Link</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>전체 포털</strong></td>
+<td><strong>Full portal</strong></td>
 <td><a href=".">index.html</a></td>
 </tr>
 <tr>
-<td><strong>규칙책 (헌법)</strong></td>
+<td><strong>Constitution</strong></td>
 <td><a href="constitution.html">CONSTITUTION.md</a></td>
 </tr>
 <tr>
-<td><strong>실무 규칙</strong></td>
+<td><strong>Working rules</strong></td>
 <td><a href="claude.html">CLAUDE.md</a></td>
 </tr>
 <tr>
-<td><strong>터닝포인트 (빌드 멈춤)</strong></td>
+<td><strong>Turning point (build stops)</strong></td>
 <td><a href="notebook/98-turning-point-2026-08-16_Claude.html">_notebook/98-turning-point-2026-08-16_Claude.md</a></td>
 </tr>
 <tr>
-<td><strong>쇼케이스 (8솔루션 재고조사)</strong></td>
+<td><strong>Showcase (8 systems)</strong></td>
 <td><a href="notebook/97-s21-solutions-showcase_Claude.html">_notebook/97-s21-solutions-showcase_Claude.md</a></td>
 </tr>
 <tr>
-<td><strong>개발일지</strong></td>
+<td><strong>Dev log</strong></td>
 <td><a href="notebook/99-devlog.html">_notebook/99-devlog.md</a></td>
 </tr>
 <tr>
-<td><strong>업무 수첩 목차</strong></td>
+<td><strong>Notebook index</strong></td>
 <td><a href="notebook/00-INDEX.html">_notebook/00-INDEX.md</a></td>
 </tr>
 <tr>
-<td><strong>완결판 교재</strong></td>
+<td><strong>Textbook</strong></td>
 <td><a href="textbook.html">_textbook/index.md</a></td>
 </tr>
 <tr>
-<td><strong>🚀 10분 시작 (내비게이터)</strong></td>
+<td><strong>🚀 10-minute start</strong></td>
 <td><a href="navigator.sh">navigator.sh</a></td>
 </tr>
 <tr>
-<td><strong>스폰 엔진 (위성 레포 생성)</strong></td>
+<td><strong>Spawn engine (satellites)</strong></td>
 <td><a href="g/spawn.sh">g/spawn.sh</a></td>
 </tr>
 <tr>
-<td><strong>1줄 설치</strong></td>
+<td><strong>One-line install</strong></td>
 <td><a href="g/install.html">g/install.sh</a></td>
 </tr>
 <tr>
-<td><strong>돌봄 데몬 (수호천사)</strong></td>
+<td><strong>Care daemon (guardian)</strong></td>
 <td><a href="care/care-daemon.html">care/care-daemon.sh</a></td>
 </tr>
 </tbody>
 </table>
-<h2 id="10">🚀 10분 시작 — 복사 → 설정 → 구동</h2>
-<p>이 레포는 <strong>보일러플레이트(뼈대)</strong>예요. &ldquo;Use this template&rdquo;으로 복사한 뒤 내 이름·내 블로그·내 채널만 넣으면 그대로 돌아가요. 기존 콘텐츠(피아노·돌봄·신앙)는 <strong>사례(worked example)</strong>로 그대로 들어 있어요 — 변수 지점만 내 것으로 바꾸면 됩니다.</p>
+<h2 id="10-minute-start-copy-configure-run">🚀 10-minute start — copy → configure → run</h2>
+<p>This repo is a <strong>boilerplate</strong>. Click <strong>&ldquo;Use this template&rdquo;</strong>, fill in your name / blog / channel, and it runs as-is. The existing content (piano · care · faith) ships as a <strong>worked example</strong> — swap the variable points for your own.</p>
 <table>
 <thead>
 <tr>
-<th>분</th>
-<th>단계</th>
-<th>명령</th>
-<th>결과</th>
+<th>Min</th>
+<th>Step</th>
+<th>Command</th>
+<th>Result</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>0분</td>
-<td>복사</td>
+<td>0</td>
+<td>Copy</td>
 <td>GitHub → <strong>Use this template</strong></td>
-<td>내 계정에 <code>helena_phone</code> 생성</td>
+<td><code>helena_phone</code> under your account</td>
 </tr>
 <tr>
-<td>2분</td>
-<td>설정</td>
+<td>2</td>
+<td>Configure</td>
 <td><code>bash navigator.sh</code></td>
-<td><code>ecosystem.json</code> + <code>.secrets.env</code> 생성</td>
+<td><code>ecosystem.json</code> + <code>.secrets.env</code></td>
 </tr>
 <tr>
-<td>5분</td>
-<td>스폰</td>
+<td>5</td>
+<td>Spawn</td>
 <td><code>bash g/spawn.sh</code></td>
-<td>위성 4레포 생성 + 시크릿 배선</td>
+<td>4 satellite repos + secret wiring</td>
 </tr>
 <tr>
-<td>8분</td>
-<td>구동</td>
+<td>8</td>
+<td>Run</td>
 <td><code>bash g/install.sh</code></td>
-<td>Termux/proot/Claude 워크스페이스</td>
+<td>Termux/proot/Claude workspace</td>
 </tr>
 <tr>
-<td>10분</td>
-<td>확인</td>
-<td>Pages + 워크플로</td>
-<td>티스토리·유튜브 파이프라인 가동</td>
+<td>10</td>
+<td>Verify</td>
+<td>Pages + workflows</td>
+<td>Tistory / YouTube pipeline live</td>
 </tr>
 </tbody>
 </table>
-<h3 id="0-use-this-template">0분 — 복사 (Use this template)</h3>
+<h3 id="0-min-copy-use-this-template">0 min — Copy (Use this template)</h3>
 <ul>
-<li>GitHub 레포 페이지 상단 <strong>&ldquo;Use this template&rdquo;</strong> → &ldquo;Create a new repository&rdquo;</li>
-<li>이름은 아무거나(기본 <code>helena_phone</code>), <strong>Public</strong> 유지 (공개가 철학)</li>
-<li>또는 CLI: <code>gh repo create 내아이디/helena_phone --template helena751107/helena_phone --public</code></li>
+<li>Repo page → <strong>&ldquo;Use this template&rdquo;</strong> → &ldquo;Create a new repository&rdquo;</li>
+<li>Name it anything (default <code>helena_phone</code>), keep it <strong>Public</strong> (public is the philosophy)</li>
+<li>Or CLI: <code>gh repo create &lt;you&gt;/helena_phone --template helena751107/helena_phone --public</code></li>
 </ul>
-<h3 id="2">2분 — 내비게이터 (설정 마법사)</h3>
+<h3 id="2-min-navigator-setup-wizard">2 min — Navigator (setup wizard)</h3>
 <pre><code class="language-bash">cd helena_phone
 bash navigator.sh
 </code></pre>
-<p>물어보는 것 3가지:<br>
-1. <strong>GitHub 사용자명</strong> (명의)<br>
-2. <strong>블로그/채널</strong> — 티스토리 5개 slug, 유튜브 2개 handle (템플릿 샘플 유지 가능)<br>
-3. <strong>시크릿</strong> — BotFather(TG)·Google Cloud Console(YouTube)·Discord 발급법을 단계별 안내하며 입력</p>
-<p>→ 결과물: <code>configs/ecosystem.json</code>(매핑) + <code>.secrets.env</code>(시크릿). <strong>둘 다 gitignore</strong>라 절대 GitHub에 안 올라가요.</p>
-<h3 id="5">5분 — 스폰 (위성 레포 생성)</h3>
-<pre><code class="language-bash">bash g/spawn.sh            # 실행
-bash g/spawn.sh --dry-run  # 실행 전 미리보기
+<p>Three things it asks:<br>
+1. <strong>GitHub username</strong> (ownership)<br>
+2. <strong>Blogs / channels</strong> — 5 Tistory slugs, 2 YouTube handles (or keep the samples)<br>
+3. <strong>Secrets</strong> — step-by-step for BotFather (TG), Google Cloud Console (YouTube), Discord</p>
+<p>→ Produces <code>configs/ecosystem.json</code> (mapping) + <code>.secrets.env</code> (secrets). <strong>Both gitignored</strong> — never pushed.</p>
+<blockquote>
+<p><strong>🔐 The secret model — &ldquo;env var on the phone = source of truth&rdquo;</strong><br>
+Every secret lives in <code>.secrets.env</code> inside your proot Ubuntu — that&rsquo;s the SSOT. <code>g/install.sh</code> <code>source</code>s it into <code>~/.bashrc</code>, so <code>TG_TOKEN</code> · <code>TISTORY_EMAIL</code> · <code>YOUTUBE_*</code> are env vars in every new shell. On GitHub, <code>g/spawn.sh</code> wires <strong>only <code>TG_TOKEN</code>/<code>TG_CHAT</code></strong> via <code>gh secret set</code> (the only secrets the workflow actually reads). Everything else (Tistory/YT/Discord/Tailscale) stays local — read by on-phone scripts, never pushed.</p>
+</blockquote>
+<h3 id="5-min-spawn-satellite-repos">5 min — Spawn (satellite repos)</h3>
+<pre><code class="language-bash">bash g/spawn.sh            # run
+bash g/spawn.sh --dry-run  # preview first
 </code></pre>
-<p><code>ecosystem.json</code>을 읽어 위성 4레포(피아노/멘탈케어/신앙/로그)를 템플릿에서 복사 생성하고, TG 시크릿을 각 레포에 배선해요. (<code>gh CLI</code> + <code>gh auth login</code> 필요)</p>
-<h3 id="8">8분 — 구동 (워크스페이스)</h3>
-<pre><code class="language-bash">bash g/install.sh          # 휴대폰(Termux/proot)에서
+<p>Reads <code>ecosystem.json</code>, creates the 4 satellites (piano / metalcare / faith / log) from the template, and wires TG secrets into each. (Needs <code>gh CLI</code> + <code>gh auth login</code>.)</p>
+<h3 id="8-min-run-workspace">8 min — Run (workspace)</h3>
+<pre><code class="language-bash">bash g/install.sh          # on your phone (Termux/proot)
 </code></pre>
-<h3 id="10_1">10분 — 확인</h3>
+<h3 id="10-min-verify">10 min — Verify</h3>
 <ul>
-<li>Pages: <code>https://내아이디.github.io/helena_phone/</code></li>
-<li>워크플로: 각 레포 <strong>Actions</strong> 탭에서 <code>tistory-sync</code> 한 번 수동 실행 → RSS가 <code>기자/</code>로 들어오는지 확인</li>
+<li>Pages: <code>https://&lt;you&gt;.github.io/helena_phone/</code></li>
+<li>Workflows: each repo&rsquo;s <strong>Actions</strong> tab → run <code>tistory-sync</code> once → RSS lands in <code>기자/</code></li>
 </ul>
 <blockquote>
-<p><strong>왜 이렇게 가볍나?</strong> 드리프트 동기화는 중앙 reusable workflow(<code>uses: helena751107/helena_phone/.github/workflows/tistory-sync.yml@main</code>)가 자동 처리해요. 내가 로직을 고치면 복사한 사람들 레포에도 자동 반영돼요.</p>
+<p><strong>Why so light?</strong> Drift sync is handled by a central reusable workflow (<code>uses: helena751107/helena_phone/.github/workflows/tistory-sync.yml@main</code>). Fix the logic once, every fork gets it automatically.</p>
 </blockquote>
-<h2 id="1">📱 휴대폰에 1줄 설치 (기존 워크스페이스)</h2>
-<p>마법 공구상자를 내 휴대폰에도! 아래 한 줄을 복사해서 비밀 방(터미널)에 붙여넣으세요:</p>
+<h2 id="the-production-recipe-3-scripts-3-layer-verification">📐 The production recipe — 3 scripts + 3-layer verification</h2>
+<p>Once the skeleton stands, production runs on a <strong>recipe</strong>. One raw asset (<code>_notebook/*.md</code>) → a PWA + Tistory pair, on a standard process.</p>
+<table>
+<thead>
+<tr>
+<th>Script</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bash scripts/preflight.sh</code></td>
+<td><strong>Table-setter</strong> — checks consumable assets (Tistory session · YouTube OAuth · GitHub · Telegram) before a batch. On FAIL, renew first.</td>
+</tr>
+<tr>
+<td><code>python3 tistory-naver/renew_sessions.py --if-needed</code></td>
+<td><strong>Self-healing sessions</strong> — re-logs into the 5 Tistory blogs only on expiry. Called automatically before publishing — no one babysits sessions.</td>
+</tr>
+<tr>
+<td><code>bash scripts/quota.sh</code></td>
+<td><strong>Today&rsquo;s quota</strong> — Tistory 15/day (account) · YouTube 1600 units · Threads 500 chars / 250/day. SSOT = <code>configs/quota-manifest.json</code>.</td>
+</tr>
+<tr>
+<td><code>bash scripts/make_pair.sh</code></td>
+<td><strong>Pair publish</strong> — preflight → PWA build (gap=0 gate) → Tistory (director gate → batch). Single entry point.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Three-layer verification (catch failures early):</strong><br>
+1. <strong>Table-setter (preflight)</strong> — session/token expiry filtered out before the batch.<br>
+2. <strong>Exit-code gate</strong> — &ldquo;done&rdquo; is judged by <code>returncode</code> and file existence, not by an agent&rsquo;s word.<br>
+3. <strong>gap_count = 0</strong> — a missing PWA page blocks deployment.</p>
+<blockquote>
+<p><strong>🥛 Tistory sessions last about 24 hours.</strong> Reboot or expiry — it doesn&rsquo;t matter; the recipe checks and re-logs in automatically before every publish (<code>make_pair</code>). &ldquo;Stay signed in&rdquo; isn&rsquo;t available (verified), but self-healing swaps in a fresh session for you.</p>
+<p><strong>One prerequisite</strong> — <code>tistory-naver/accounts.json</code> (Kakao email + password). Copy <code>accounts.json.template</code>, fill in yours, and both self-healing and publishing work. (Gitignored — never pushed.)</p>
+</blockquote>
+<p><strong>Bait-channel personas</strong> — the same material, re-voiced per audience: Naver = older generation, Threads = MZ generation (<code>configs/bait-voice.json</code>).</p>
+<blockquote>
+<p><strong>Scope:</strong> this recipe is for content (one-person media). The care mesh (Tailscale) and care daemon are a separate track — not mixed in here.</p>
+</blockquote>
+<h2 id="one-line-install-existing-workspace">📱 One-line install (existing workspace)</h2>
 <pre><code class="language-bash">curl -sL https://raw.github.com/helena751107/helena_phone/main/g/install.sh | bash
 </code></pre>
-<hr>
 <blockquote>
-<p>© 2026 Helena Park — 말로만 · 폰 하나로 · 누나를 위해.<br>
-구형 갤럭시 S21 한 대 + $20으로, 비밀 방(Termux + proot)에서 로봇 친구들과 함께.<br>
-모든 계정은 누나 명의예요. 언젠가 바통 터치(handoff) — 모든 걸 누나에게.</p>
+<p>🇰🇷 Korean guide (한국어 안내) → <a href=".">index.html</a></p>
 </blockquote>
   </article>
   <nav class="wz-pager">
