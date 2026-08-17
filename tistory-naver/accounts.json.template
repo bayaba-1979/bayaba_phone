@@ -1,10 +1,10 @@
 {
-  "password": "공통_카카오_비밀번호",
+  "password": "your-kakao-password",
   "accounts": [
-    {"id": "galaxys21", "email": "누나_카카오_이메일@example.com", "blog": "galaxys21-pwuser"},
-    {"id": "mynote",    "email": "누나_카카오_이메일@example.com", "blog": "mynote11605"},
-    {"id": "faith",     "email": "누나_카카오_이메일@example.com", "blog": "helana-christianity"},
-    {"id": "piano",     "email": "누나_카카오_이메일@example.com", "blog": "helena-piano"},
-    {"id": "metalcare",   "email": "누나_카카오_이메일@example.com", "blog": "helena-metalcare"}
+    {"id": "galaxys21", "email": "your-kakao-email@example.com", "blog": "galaxys21-pwuser"},
+    {"id": "mynote",    "email": "your-kakao-email@example.com", "blog": "mynote11605"},
+    {"id": "faith",     "email": "your-kakao-email@example.com", "blog": "helana-christianity"},
+    {"id": "piano",     "email": "your-kakao-email@example.com", "blog": "helena-piano"},
+    {"id": "metalcare", "email": "your-kakao-email@example.com", "blog": "helena-metalcare"}
   ]
 }

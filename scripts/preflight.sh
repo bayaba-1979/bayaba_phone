@@ -1,27 +1,28 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# preflight.sh — 테이블 세터 (양산 직전 소모성 자산 사전 점검)
+# preflight.sh — table-setter (pre-check consumable assets right before production)
 # ==============================================================================
-# 목적: 양산(콘텐츠 발행)을 돌리기 전에, 만료되기 쉬운 자산(세션·토큰·키)을
-#       미리 점검해서 "지금 갱신해야 하는 것"을 표로 보여준다.
-#       → Boss가 수작업으로 갱신하고 나서 양산을 돌리게 하는 사전 게이트.
+# Purpose: before running production (content publishing), pre-check the assets
+#          that expire easily (sessions · tokens · keys) and show "what to renew
+#          now" as a table.
+#          → a pre-gate so Boss renews them by hand before production runs.
 #
-# 사용법:
-#   bash scripts/preflight.sh          # 표만 출력
-#   bash scripts/preflight.sh --tg     # 결과를 텔레그램으로도 보고 (tg.sh 사용)
+# Usage:
+#   bash scripts/preflight.sh          # print the table only
+#   bash scripts/preflight.sh --tg     # also report the result to Telegram (uses tg.sh)
 #
-# 점검 항목 (콘텐츠 양산 스코프만 — 돌봄(Tailscale·돌봄데몬)은 제외):
-#   1. 티스토리 세션 (manage URL 실측 — 302→login 이면 세션 만료)
-#   2. YouTube OAuth (refresh 토큰으로 실제 갱신 시도)
-#   3. GitHub 인증 (gh auth status)
-#   4. 텔레그램 봇 (getMe 프로브)
+# Checks (content-production scope only — care (Tailscale · care daemon) excluded):
+#   1. Tistory session (live manage URL probe — 302→login means the session expired)
+#   2. YouTube OAuth (actually try refreshing with the refresh token)
+#   3. GitHub auth (gh auth status)
+#   4. Telegram bot (getMe probe)
 #
-# ⚠️ 티스토리 세션은 "파일 최신성(24h)"이 아니라 실제 manage URL 프로브로 판정.
-#    서버측 세션이 쿠키 expires(클라이언트측, 6일 뒤)보다 먼저 만료되므로
-#    mtime 휴리스틱은 놓친다 (실측 2026-08-17: 5개 전부 302→login).
-#    유통기한 = 로그인 후 ~24시간(서버 정책). "로그인 유지" 옵션 없음 → 연장 불가.
-#    폰 재부팅과 무관(쿠키는 디스크 영속), 진짜 한계는 서버 TTL 24h.
-#    갱신은 1줄:  python3 tistory-naver/renew_sessions.py  (카카오 1회 로그인 → 5블로그 시드)
+# ⚠️ Tistory sessions are judged by a live manage-URL probe, not file freshness (24h).
+#    The server-side session expires before the cookie expires (client-side, 6 days),
+#    so an mtime heuristic misses it (live 2026-08-17: all 5 → 302→login).
+#    Shelf life = ~24h after login (server policy). No "keep me signed in" option → cannot extend.
+#    Independent of phone reboots (cookies are disk-persistent); the real limit is the 24h server TTL.
+#    Renew in one line:  python3 tistory-naver/renew_sessions.py  (one Kakao login → seeds 5 blogs)
 # ==============================================================================
 
 set -uo pipefail
@@ -30,8 +31,8 @@ BASE="$(cd "$(dirname "$0")/.." && pwd)"
 SECRETS="$BASE/.secrets.env"
 TG="$BASE/tg.sh"
 
-# ── 시크릿 로드 (SSOT) ──
-# set -a = 소스된 모든 변수를 자식 프로세스(python/curl)로 export
+# ── Load secrets (SSOT) ──
+# set -a = export every sourced variable to child processes (python/curl)
 set -a
 [ -f "$SECRETS" ] && source "$SECRETS" 2>/dev/null
 set +a
@@ -42,15 +43,15 @@ warn() { echo -e "  ${YELLOW}⚠️${NC}  $*"; }
 fail() { echo -e "  ${RED}❌${NC} $*"; }
 
 FAIL_CNT=0; WARN_CNT=0
-RENEW=()   # 갱신 필요 목록
+RENEW=()   # list of items needing renewal
 
 echo "════════════════════════════════════════"
-echo "  🔧 양산 전 점검 (Preflight)"
+echo "  🔧 Preflight (pre-production check)"
 echo "════════════════════════════════════════"
 
-# ── 1. 티스토리 세션 (manage URL 실측) ──
+# ── 1. Tistory sessions (live manage URL probe) ──
 echo ""
-echo "[1] 티스토리 세션 (5블로그, 실측)"
+echo "[1] Tistory sessions (5 blogs, live probe)"
 TISTORY_RESULT=$(python3 - "$BASE" <<'PY'
 import json
 import sys
@@ -59,7 +60,7 @@ import urllib.request
 
 BASE = sys.argv[1]
 
-# account→blog slug (ecosystem.json SSOT, 없으면 샘플 폴백)
+# account→blog slug (ecosystem.json SSOT, fall back to samples if missing)
 try:
     sys.path.insert(0, BASE + "/scripts")
     from load_ecosystem import repos
@@ -107,14 +108,14 @@ PY
 while IFS=$'\t' read -r acct status; do
   [ -z "$acct" ] && continue
   case "$status" in
-    OK)      ok "티스토리 $acct — 세션 유효" ;;
-    EXPIRED) fail "티스토리 $acct — 세션 만료 (발행 make_pair 시 자동 갱신됨)"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("티스토리 $acct 재로그인") ;;
-    MISSING) fail "티스토리 $acct — state 없음 (발행 make_pair 시 자동 갱신됨)"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("티스토리 $acct 재로그인") ;;
-    *)       warn "티스토리 $acct — 점검 불가 ($status)" ;;
+    OK)      ok "Tistory $acct — session valid" ;;
+    EXPIRED) fail "Tistory $acct — session expired (auto-renewed when publishing via make_pair)"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("Tistory $acct re-login") ;;
+    MISSING) fail "Tistory $acct — state missing (auto-renewed when publishing via make_pair)"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("Tistory $acct re-login") ;;
+    *)       warn "Tistory $acct — cannot check ($status)" ;;
   esac
 done <<< "$TISTORY_RESULT"
 
-# ── 2. YouTube OAuth (refresh 실측) ──
+# ── 2. YouTube OAuth (live refresh) ──
 echo ""
 echo "[2] YouTube OAuth"
 YT_RESULT=$(python3 - "$BASE" <<'PY'
@@ -144,70 +145,70 @@ else:
 PY
 )
 case "$YT_RESULT" in
-  OK) ok "YouTube OAuth — refresh 성공";;
-  MISSING) fail "YouTube — 토큰 미설정 → yt_oauth_setup.sh 실행 필요"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("YouTube OAuth 재인증");;
-  FAIL) fail "YouTube — refresh 실패(만료/폐기) → 재인증 필요"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("YouTube OAuth 재인증");;
-  *) warn "YouTube — 점검 불가 ($YT_RESULT)";;
+  OK) ok "YouTube OAuth — refresh succeeded";;
+  MISSING) fail "YouTube — tokens not set → run yt_oauth_setup.sh"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("YouTube OAuth re-auth");;
+  FAIL) fail "YouTube — refresh failed (expired/revoked) → re-auth needed"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("YouTube OAuth re-auth");;
+  *) warn "YouTube — cannot check ($YT_RESULT)";;
 esac
 
-# ── 3. GitHub 인증 ──
+# ── 3. GitHub auth ──
 echo ""
-echo "[3] GitHub 인증"
+echo "[3] GitHub auth"
 if command -v gh >/dev/null 2>&1; then
   if gh auth status >/dev/null 2>&1; then
-    ok "GitHub — gh 인증 유효"
+    ok "GitHub — gh auth valid"
   else
-    fail "GitHub — 인증 없음 → gh auth login 필요"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("GitHub 재인증")
+    fail "GitHub — not authenticated → run gh auth login"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("GitHub re-auth")
   fi
 else
-  warn "GitHub — gh CLI 없음 (스킵)"
+  warn "GitHub — gh CLI missing (skip)"
 fi
 
-# ── 4. 텔레그램 봇 ──
+# ── 4. Telegram bot ──
 echo ""
-echo "[4] 텔레그램 봇 (메인 보고)"
+echo "[4] Telegram bot (main reporting)"
 if [ -n "${TG_TOKEN:-}" ]; then
   TG_RESP=$(curl -s -m 10 "https://api.telegram.org/bot${TG_TOKEN}/getMe")
   if echo "$TG_RESP" | grep -q '"ok":true'; then
-    ok "텔레그램 — 봇 응답 정상"
+    ok "Telegram — bot responds"
   else
-    fail "텔레그램 — getMe 실패(토큰 폐기?) → BotFather 재발급"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("텔레그램 봇 토큰 재발급")
+    fail "Telegram — getMe failed (token revoked?) → reissue via BotFather"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("Telegram bot token reissue")
   fi
 else
-  fail "텔레그램 — TG_TOKEN 미설정"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("텔레그램 TG_TOKEN")
+  fail "Telegram — TG_TOKEN not set"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("Telegram TG_TOKEN")
 fi
 
-# ── 요약 ──
+# ── Summary ──
 echo ""
 echo "════════════════════════════════════════"
 if [ "$FAIL_CNT" -eq 0 ] && [ "$WARN_CNT" -eq 0 ]; then
-  echo -e "  ${GREEN}✅ 전 항목 정상 — 양산 가능${NC}"
+  echo -e "  ${GREEN}✅ all checks pass — ready to produce${NC}"
 elif [ "$FAIL_CNT" -eq 0 ]; then
-  echo -e "  ${YELLOW}⚠️  경고 ${WARN_CNT}건 (진행 가능하나 갱신 권장)${NC}"
+  echo -e "  ${YELLOW}⚠️  ${WARN_CNT} warning(s) (can proceed, renewal recommended)${NC}"
 else
-  echo -e "  ${RED}❌ 실패 ${FAIL_CNT}건 — 양산 전 갱신 필요${NC}"
+  echo -e "  ${RED}❌ ${FAIL_CNT} failure(s) — renew before producing${NC}"
 fi
 if [ "${#RENEW[@]}" -gt 0 ]; then
   echo ""
-  echo "  📋 갱신 필요:"
+  echo "  📋 needs renewal:"
   for r in "${RENEW[@]}"; do echo "     - $r"; done
 fi
 echo "════════════════════════════════════════"
 
-# ── 텔레그램 보고 (--tg) ──
+# ── Telegram report (--tg) ──
 if [ "${1:-}" = "--tg" ] && [ -x "$TG" ]; then
   if [ "$FAIL_CNT" -eq 0 ] && [ "$WARN_CNT" -eq 0 ]; then
-    STATUS="✅ 전 항목 정상"
+    STATUS="✅ all checks pass"
   elif [ "$FAIL_CNT" -eq 0 ]; then
-    STATUS="⚠️ 경고 ${WARN_CNT}건"
+    STATUS="⚠️ ${WARN_CNT} warning(s)"
   else
-    STATUS="❌ 실패 ${FAIL_CNT}건"
+    STATUS="❌ ${FAIL_CNT} failure(s)"
   fi
-  MSG="🔧 양산 전 점검 — $STATUS"
+  MSG="🔧 preflight check — $STATUS"
   if [ "${#RENEW[@]}" -gt 0 ]; then
-    MSG="$MSG"$'\n'"갱신 필요: $(printf '%s; ' "${RENEW[@]}")"
+    MSG="$MSG"$'\n'"needs renewal: $(printf '%s; ' "${RENEW[@]}")"
   fi
-  bash "$TG" "$MSG" >/dev/null 2>&1 && echo "" && echo "📤 텔레그램 보고 완료"
+  bash "$TG" "$MSG" >/dev/null 2>&1 && echo "" && echo "📤 Telegram report sent"
 fi
 
 exit $((FAIL_CNT > 0 ? 1 : 0))

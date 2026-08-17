@@ -1,13 +1,13 @@
 {
-  "_comment": "미끼 채널 발화 페르소나 설정 — 편집장이 네이버/Threads 미끼 원고를 쓸 때 적용. 공개용 = 일반화 레이블(개인 미러링은 비공개 메모리에만).",
+  "_comment": "Bait-channel persona settings — applied when the editor writes Naver/Threads bait copy. Public version = generalized labels (personal mirroring lives only in private memory).",
   "naver": {
-    "audience": "어르신 세대",
-    "register": "친근·공감·정서 위주",
-    "wording": "쉬운 말(전문용어·한자 낮춤), 여유 띄어쓰기, 구어체, 자극적 제목"
+    "audience": "senior generation",
+    "register": "warm · empathetic · emotional",
+    "wording": "plain language (fewer jargon/Chinese terms), relaxed spacing, conversational tone, provocative titles"
   },
   "threads": {
-    "audience": "MZ 세대",
-    "register": "짧고 직관적·트렌디",
-    "wording": "숏폼 문법, 줄임말·이모지·밈, 빠른 리듬"
+    "audience": "Gen MZ",
+    "register": "short · direct · trendy",
+    "wording": "short-form grammar, abbreviations · emoji · memes, fast rhythm"
   }
 }

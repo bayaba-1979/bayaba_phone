@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# g/spawn.sh — 스폰 엔진 (ecosystem.json → GitHub 레포 생성 + 시크릿 배선)
+# g/spawn.sh — spawn engine (ecosystem.json → create GitHub repos + wire secrets)
 # ==============================================================================
-# navigator.sh 가 만든 configs/ecosystem.json 을 읽어:
-#   ① 허브(helena_phone) 를 GitHub Template Repo 로 표시
-#   ② 위성 4레포(piano/metalcare/faith/log) 를 템플릿에서 복사 생성 (--public)
-#   ③ .secrets.env 의 TG_TOKEN/TG_CHAT 을 각 레포 GitHub Actions 시크릿으로 배선
+# Reads configs/ecosystem.json (made by navigator.sh):
+#   ① Mark the hub (helena_phone) as a GitHub Template Repo
+#   ② Create the 4 satellites (piano/metalcare/faith/log) from the template (--public)
+#   ③ Wire .secrets.env's TG_TOKEN/TG_CHAT into each repo's GitHub Actions secrets
 #
-# 사용법:
-#   bash g/spawn.sh              # 실행 (idempotent — 이미 있으면 스킵)
-#   bash g/spawn.sh --dry-run    # 무엇을 할지 미리보기만 (실행 안 함)
+# Usage:
+#   bash g/spawn.sh              # run (idempotent — skips if already present)
+#   bash g/spawn.sh --dry-run    # preview only (doesn't run)
 #
-# 원칙: PAT 를 넣지 않음 — gh auth 로 인증. 시크릿은 gh secret set (값은 파일에 안 남김).
+# Rule: no PAT — authenticate via gh auth. Secrets via gh secret set (values never touch a file).
 # ==============================================================================
 
 set -euo pipefail
@@ -20,7 +20,7 @@ BASE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SCRIPTS="$BASE/scripts"
 REAL="$BASE/configs/ecosystem.json"
 SECRETS="$BASE/.secrets.env"
-TEMPLATE_OWNER="${TEMPLATE_OWNER:-helena751107}"   # 보일러플레이트 원본 소유자
+TEMPLATE_OWNER="${TEMPLATE_OWNER:-helena751107}"   # boilerplate's original owner
 
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; BLUE='\033[0;34m'; CYAN='\033[0;36m'
 BOLD='\033[1m'; NC='\033[0m'
@@ -32,11 +32,11 @@ info() { echo -e "${BLUE}📌${NC} $*"; }
 DRY=0
 [ "${1:-}" = "--dry-run" ] && DRY=1
 
-# ── 로더: owner / hub / 위성 목록 ───────────────────────────────────────────
+# ── Loader: owner / hub / satellite list ─────────────────────────────────────
 owner()   { python3 "$SCRIPTS/load_ecosystem.py" --json owner; }
 hub_repo() { python3 -c "import sys;sys.path.insert(0,'$SCRIPTS');from load_ecosystem import hub_repo;print(hub_repo())"; }
 
-# 위성 레포(role != hub) 목록을 "repo<TAB>blog" 로 출력
+# Print the satellite repos (role != hub) as "repo<TAB>blog"
 satellites() {
   python3 - "$SCRIPTS" << 'PYEOF'
 import sys, json
@@ -50,14 +50,14 @@ PYEOF
 
 require_gh() {
   if ! command -v gh >/dev/null 2>&1; then
-    fail "gh CLI 없음 — https://cli.github.com/ 설치 후 gh auth login"
+    fail "gh CLI missing — install https://cli.github.com/ then gh auth login"
     exit 1
   fi
   if ! gh auth status >/dev/null 2>&1; then
-    fail "gh 미인증 — 먼저 'gh auth login' 실행 (PAT 파일 비커밋 원칙)"
+    fail "gh not authenticated — run 'gh auth login' first (no PAT in files)"
     exit 1
   fi
-  ok "gh 인증 확인"
+  ok "gh auth verified"
 }
 
 exists() { gh repo view "$1" >/dev/null 2>&1; }
@@ -70,10 +70,10 @@ mark_hub_template() {
   fi
   if exists "${OWNER}/${hub}"; then
     gh repo edit "${OWNER}/${hub}" --template 2>/dev/null \
-      && ok "템플릿 표시: ${OWNER}/${hub}" \
-      || warn "템플릿 표시 실패(이미 표시됐을 수 있음): ${OWNER}/${hub}"
+      && ok "marked as template: ${OWNER}/${hub}" \
+      || warn "mark-as-template failed (may already be): ${OWNER}/${hub}"
   else
-    warn "허브 레포 없음: ${OWNER}/${hub} (use-this-template 으로 먼저 생성하세요)"
+    warn "hub repo missing: ${OWNER}/${hub} (create it via use-this-template first)"
   fi
 }
 
@@ -85,29 +85,29 @@ spawn_satellites() {
       continue
     fi
     if exists "${OWNER}/${repo}"; then
-      ok "이미 있음: ${OWNER}/${repo} (스킵)"
+      ok "already present: ${OWNER}/${repo} (skip)"
     else
-      info "생성: ${OWNER}/${repo} ← ${TEMPLATE_OWNER}/${repo}"
+      info "create: ${OWNER}/${repo} ← ${TEMPLATE_OWNER}/${repo}"
       gh repo create "${OWNER}/${repo}" --template "${TEMPLATE_OWNER}/${repo}" --public \
-        && ok "생성 완료: ${OWNER}/${repo}" \
-        || warn "생성 실패(권한/템플릿 확인): ${OWNER}/${repo}"
+        && ok "created: ${OWNER}/${repo}" \
+        || warn "create failed (check permission/template): ${OWNER}/${repo}"
     fi
   done < <(satellites)
 }
 
 set_secrets() {
-  # .secrets.env 를 source 해 env var 로 읽는다 (proot env var = SSOT).
-  # GitHub Actions 가 실제로 쓰는 시크릿은 TG_TOKEN/TG_CHAT 뿐(helana_log log-to-tistory.yml).
-  # TISTORY/YOUTUBE/DISCORD/TAILSCALE 은 로컬 스크립트가 폰 proot 에서 읽으므로 GitHub 배선 안 함(불필요 노출 방지).
+  # source .secrets.env to read env vars (proot env var = SSOT).
+  # The only secrets GitHub Actions actually reads are TG_TOKEN/TG_CHAT (helana_log log-to-tistory.yml).
+  # TISTORY/YOUTUBE/DISCORD/TAILSCALE are read by local scripts on the phone's proot, so they're not wired to GitHub (avoid needless exposure).
   local tg_token="" tg_chat=""
   if [ -f "$SECRETS" ]; then
     source "$SECRETS" 2>/dev/null || true
     tg_token="${TG_TOKEN:-}"
     tg_chat="${TG_CHAT:-}"
   fi
-  [ -z "$tg_token" ] && { warn "TG_TOKEN 없음 — 시크릿 배선 스킵 (bash navigator.sh --secrets)"; return 0; }
+  [ -z "$tg_token" ] && { warn "TG_TOKEN missing — skipping secret wiring (bash navigator.sh --secrets)"; return 0; }
 
-  # 배선 대상 = 허브 + 모든 위성 (generic 봇)
+  # wiring targets = hub + all satellites (generic bot)
   local repos_list="$1
 $(satellites | cut -f1)"
   local repo
@@ -117,45 +117,45 @@ $(satellites | cut -f1)"
       info "dry-run: gh secret set TG_TOKEN/TG_CHAT -R ${OWNER}/${repo}"
       continue
     fi
-    exists "${OWNER}/${repo}" || { warn "레포 없음(스킵): ${OWNER}/${repo}"; continue; }
+    exists "${OWNER}/${repo}" || { warn "repo missing (skip): ${OWNER}/${repo}"; continue; }
     printf '%s' "$tg_token" | gh secret set TG_TOKEN -R "${OWNER}/${repo}" \
       && printf '%s' "$tg_chat" | gh secret set TG_CHAT -R "${OWNER}/${repo}" \
-      && ok "시크릿 배선: ${OWNER}/${repo} (TG_TOKEN/TG_CHAT)" \
-      || warn "시크릿 배선 실패: ${OWNER}/${repo}"
+      && ok "secret wired: ${OWNER}/${repo} (TG_TOKEN/TG_CHAT)" \
+      || warn "secret wiring failed: ${OWNER}/${repo}"
   done <<< "$repos_list"
 
-  # 레포별 전용 봇 (스키마 고급 키) — 값 있으면 해당 레포에 덮어씀
+  # per-repo dedicated bot (schema advanced keys) — if present, overwrite that repo's
   wire_repo_bot helena-piano     HELENA_PIANO_TG_TOKEN   HELENA_PIANO_TG_CHAT
   wire_repo_bot helena-metalcare HELENA_PSYCARE_TG_TOKEN HELENA_PSYCARE_TG_CHAT
   wire_repo_bot helana-faith     HELENA_FAITH_TG_TOKEN   HELENA_FAITH_TG_CHAT
   wire_repo_bot helana_log       HELANA_LOG_TG_TOKEN     HELANA_LOG_TG_CHAT
 }
 
-# 레포별 전용 봇 토큰 배선 (값 있으면 그 레포의 TG_TOKEN/TG_CHAT 을 덮어씀)
+# Wire a per-repo dedicated bot token (if present, overwrites that repo's TG_TOKEN/TG_CHAT)
 wire_repo_bot() {
   local repo="$1" tok_var="$2" chat_var="$3"
   local tok="${!tok_var:-}" chat="${!chat_var:-}"
   [ -z "$tok" ] && return 0
   if [ "$DRY" = "1" ]; then
-    info "dry-run: gh secret set TG_TOKEN/TG_CHAT -R ${OWNER}/${repo} (전용 봇 ${tok_var})"
+    info "dry-run: gh secret set TG_TOKEN/TG_CHAT -R ${OWNER}/${repo} (dedicated bot ${tok_var})"
     return 0
   fi
-  exists "${OWNER}/${repo}" || { warn "레포 없음(스킵): ${OWNER}/${repo}"; return 0; }
+  exists "${OWNER}/${repo}" || { warn "repo missing (skip): ${OWNER}/${repo}"; return 0; }
   printf '%s' "$tok" | gh secret set TG_TOKEN -R "${OWNER}/${repo}" \
     && printf '%s' "$chat" | gh secret set TG_CHAT -R "${OWNER}/${repo}" \
-    && ok "전용 봇 배선: ${OWNER}/${repo} (${tok_var})" \
-    || warn "전용 봇 배선 실패: ${OWNER}/${repo}"
+    && ok "dedicated bot wired: ${OWNER}/${repo} (${tok_var})" \
+    || warn "dedicated bot wiring failed: ${OWNER}/${repo}"
 }
 
 # ── main ────────────────────────────────────────────────────────────────────
 main() {
   echo ""
-  echo -e "${BOLD}═══ 스폰 엔진 (ecosystem.json → GitHub) ═══${NC}"
+  echo -e "${BOLD}═══ Spawn engine (ecosystem.json → GitHub) ═══${NC}"
   echo ""
 
   if [ ! -f "$REAL" ]; then
-    warn "configs/ecosystem.json 없음 — bash navigator.sh 로 먼저 생성"
-    warn "템플릿(${REAL}.template) 기준으로 진행합니다."
+    warn "configs/ecosystem.json missing — run bash navigator.sh first"
+    warn "Proceeding from the template (${REAL}.template)."
   fi
 
   OWNER="$(owner)"
@@ -163,7 +163,7 @@ main() {
   info "owner=${OWNER}  hub=${HUB}  template_owner=${TEMPLATE_OWNER}"
 
   if [ "$DRY" = "1" ]; then
-    info "── dry-run (실행 안 함) ──"
+    info "── dry-run (no action) ──"
     echo ""
   else
     require_gh
@@ -177,10 +177,10 @@ main() {
 
   echo ""
   if [ "$DRY" = "1" ]; then
-    info "위 내용을 실제로 하려면: bash g/spawn.sh"
+    info "To actually run the above: bash g/spawn.sh"
   else
-    ok "스폰 완료. 각 레포의 Pages/워크플로는 GitHub 에서 확인."
-    info "드리프트 동기화는 중앙 reusable workflow(uses: helena751107/...) 가 자동 처리."
+    ok "Spawn complete. Check each repo's Pages/workflows on GitHub."
+    info "Drift sync is handled automatically by the central reusable workflow (uses: helena751107/...)."
   fi
 }
 
