@@ -105,6 +105,7 @@
 <li><a href="#pd-pipeline-v10-2026-08-08">PD Pipeline (웹페이지 → 숏폼 영상) — V10 공짜 공장 (2026-08-08~)</a></li>
 <li><a href="#_7">파일 구조 — 우리 집 지도</a></li>
 <li><a href="#_8">현재 인프라 — 우리가 가진 도구들</a></li>
+<li><a href="#geo-17-2026-08-17">GEO 원조 스탬프 — 정체 인식 출판 파이프라인 (헌법 제17조 · 2026-08-17~)</a></li>
 </ul>
 </div>
 </nav>
@@ -467,6 +468,18 @@ URL=&quot;https://페이지주소&quot; EP=에피소드ID bash scripts/produce_p
 - <strong>Discord</strong>: 로비랑 AI 보고방 있음.<br>
 - <strong>phone-mcp-server</strong>: 18가지 도구, 포트 3456으로 연결.</p>
 </blockquote>
+<h2 id="geo-17-2026-08-17">GEO 원조 스탬프 — 정체 인식 출판 파이프라인 (헌법 제17조 · 2026-08-17~)</h2>
+<ul>
+<li><strong>본질:</strong> 사람 눈(텍스트)과 기계 눈(JSON-LD/canonical/sitemap) <strong>둘 다</strong>에 &ldquo;원조 = GitHub&rdquo; 좌표를 새기는 것. 사람이 검색 안 하고 AI한테 묻는 시대 → 크롤링 미끼를 전역에 뿌려두고 &ldquo;원조가 GitHub&rdquo;라고 답하게.</li>
+<li><strong>파운드리 스탬프(핵심):</strong> <code>scripts/build_webzine.py</code>가 나오는 <strong>모든 페이지</strong> <code>&lt;head&gt;</code>에 canonical + JSON-LD 정체 그래프(<code>Person @id→GitHub #person</code> + <code>WebPage publisher/author→Person</code>)를 <strong>자동 주입</strong>. 유지비 0, 반복 작업 0.</li>
+<li><strong>정체는 변수:</strong> <code>configs/ecosystem.json</code> → <code>identity</code> 블록(person_name·github_user·hub_repo·tagline·sameAs). 포크한 사람은 이거만 채우면 <strong>자기 정체</strong>로 자동 상속. 하드코딩 금지.</li>
+<li><strong>플랫폼별 위치(루트 소유권에 따라):</strong></li>
+<li>GitHub Pages(루트 소유) = llms.txt / robots.txt / sitemap / JSON-LD / canonical 전부.</li>
+<li>티스토리·YouTube(남의 루트) = JSON-LD 정체 그래프 + &ldquo;원조 · Origin&rdquo; 텍스트 라인. (<code>apply_geold.py</code> / <code>yt_geo_origin.py</code>)</li>
+<li>네이버(남의 루트 + <code>&lt;script&gt;</code> 제거) = <strong>텍스트 한정</strong> 푸터 라인.</li>
+<li><strong>⚠️ 한계(정직 — 과장 금지):</strong> JSON-LD는 <strong>블록체인/등기 아님</strong>(암호화·위변조방지·분산원장 없음). 법적 저작권도, 실시간 원조 판정도 아님. <strong>정본 화살표 = 확률적 우위.</strong> 진짜 해자는 퍼포먼스·진정성. &ldquo;노출이 빨라진다&rdquo;는 지금까지 가설 — <strong>측정 루프</strong>(Bing WMT AI 성과·GSC·AI 질의 스팟체크)로 증명할 것.</li>
+<li><strong>상세:</strong> <code>_notebook/99-devlog.md</code> GEO 항목 · 메모리 <code>geo-llm-origin-protection</code></li>
+</ul>
   </article>
   <nav class="wz-pager">
     <a class="" href="constitution.html">

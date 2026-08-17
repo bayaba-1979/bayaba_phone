@@ -44,6 +44,11 @@ def owner() -> str:
     return load().get("owner", "")
 
 
+def identity() -> dict:
+    """정체 그래프(GEO 원조 스탬프) 블록 — person_name/github_user/hub_repo/tagline/sameAs."""
+    return load().get("identity", {})
+
+
 def git_identity() -> dict:
     return load().get("git", {})
 

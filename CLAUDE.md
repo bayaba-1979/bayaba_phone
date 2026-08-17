@@ -312,3 +312,15 @@ helena_phone/
 > - **유튜브, 네이버, 티스토리**: 우리 작품 전시하는 여러 곳!
 > - **Discord**: 로비랑 AI 보고방 있음.
 > - **phone-mcp-server**: 18가지 도구, 포트 3456으로 연결.
+
+## GEO 원조 스탬프 — 정체 인식 출판 파이프라인 (헌법 제17조 · 2026-08-17~)
+
+- **본질:** 사람 눈(텍스트)과 기계 눈(JSON-LD/canonical/sitemap) **둘 다**에 "원조 = GitHub" 좌표를 새기는 것. 사람이 검색 안 하고 AI한테 묻는 시대 → 크롤링 미끼를 전역에 뿌려두고 "원조가 GitHub"라고 답하게.
+- **파운드리 스탬프(핵심):** `scripts/build_webzine.py`가 나오는 **모든 페이지** `<head>`에 canonical + JSON-LD 정체 그래프(`Person @id→GitHub #person` + `WebPage publisher/author→Person`)를 **자동 주입**. 유지비 0, 반복 작업 0.
+- **정체는 변수:** `configs/ecosystem.json` → `identity` 블록(person_name·github_user·hub_repo·tagline·sameAs). 포크한 사람은 이거만 채우면 **자기 정체**로 자동 상속. 하드코딩 금지.
+- **플랫폼별 위치(루트 소유권에 따라):**
+  - GitHub Pages(루트 소유) = llms.txt / robots.txt / sitemap / JSON-LD / canonical 전부.
+  - 티스토리·YouTube(남의 루트) = JSON-LD 정체 그래프 + "원조 · Origin" 텍스트 라인. (`apply_geold.py` / `yt_geo_origin.py`)
+  - 네이버(남의 루트 + `<script>` 제거) = **텍스트 한정** 푸터 라인.
+- **⚠️ 한계(정직 — 과장 금지):** JSON-LD는 **블록체인/등기 아님**(암호화·위변조방지·분산원장 없음). 법적 저작권도, 실시간 원조 판정도 아님. **정본 화살표 = 확률적 우위.** 진짜 해자는 퍼포먼스·진정성. "노출이 빨라진다"는 지금까지 가설 — **측정 루프**(Bing WMT AI 성과·GSC·AI 질의 스팟체크)로 증명할 것.
+- **상세:** `_notebook/99-devlog.md` GEO 항목 · 메모리 `geo-llm-origin-protection`

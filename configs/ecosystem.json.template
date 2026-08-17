@@ -2,6 +2,20 @@
   "_readme": "S21 ecosystem SSOT — repo↔blog↔channel · owner · git identity · sync config. navigator.sh copies this template to configs/ecosystem.json and fills in the values. Never put secrets here (secrets live in .secrets.env).",
   "owner": "helena751107",
 
+  "identity": {
+    "_readme": "GEO 원조 스탬프(헌법 제17조) — build_webzine.py가 모든 페이지 <head>에 canonical+JSON-LD 정체 그래프를 박을 때 쓴다. 포크한 사람은 여기 채우면 자기 정체로 자동 상속.",
+    "person_name": "Helena Park",
+    "github_user": "helena751107",
+    "hub_repo": "helena_phone",
+    "tagline": "Made in Korea — not a developer. One Galaxy S21, built by voice, for a sister.",
+    "sameAs": [
+      "https://github.com/helena751107",
+      "https://helena751107.github.io/helena_phone/",
+      "https://www.youtube.com/@helena_phone",
+      "https://www.youtube.com/@HelenaPark-e7c"
+    ]
+  },
+
   "git": {
     "name": "helena-bot",
     "email": "bot@helena.phone",

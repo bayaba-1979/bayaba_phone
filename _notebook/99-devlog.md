@@ -6272,3 +6272,25 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **효과:** 공장에서 나오는 **172페이지 전부**가 태어날 때부터 `<head>`에 `원조 = github.com/helena751107#person` 스탬프를 달고 나옴. 새 글·새 레포도 자동 상속(유지비 0, 반복 작업 0).
 - **부수 효과(정상):** 재빌드가 밀린 소스→HTML 동기화(README 영문 타이틀·install.sh v3·CONSTITUTION 제17조 목차)까지 함께 반영 — 출판부 게이트 정상화.
 - **결과:** `feat:` 커밋(176파일). 이로써 GEO가 일회성 → **공장 기본 부품**으로 승격. 남은 수동 2레인(YouTube main·네이버 기존 글)은 선택.
+
+### 🔄 정체 인식 출판 파이프라인 — 보일러플레이트 반영 + AI 평가 검증 (_Claude · 2026-08-17)
+
+**Boss 지시:** "보일러플레이트에 반영하고, 업무 수첩에 저장하고, S21 래퍼에 저장해놔. 붙여온 AI 평가가 얘기하는 거 맞는지 봐봐."
+
+**① AI 평가 검증 — 대체로 정확(약 95%):**
+- **"identity-aware publishing pipeline"(정체 인식 출판 파이프라인)** 프레임: **맞음.** Person → Author → WebPage → Content → Canonical URL 순으로 기계가 재구성하게 하는 게 정확한 표현. 이게 우리가 만든 것의 본질.
+- **"규칙 1번 정의 → build → 172개 동일 적용"(비선형 확장):** **맞음.** 파운드리 스탬프의 핵심. 노가다 제거가 목적이라는 Boss 판단과 일치.
+- **"llms.txt는 표준화 제안, Google이 특별히 쓰지 않음":** **맞음 + 중요한 정정.** 앞서 나도 같은 한계를 말했음(일부 LLM 크롤러만 읽는 초기 제안). canonical·JSON-LD·sitemap이 튼튼한 바닥이고 llms.txt는 보조.
+- **"canonical은 명령이 아니라 힌트":** **맞음.** Google이 무시할 수 있음. 확률적 우위지 결정적 강제가 아님.
+- **"Bing Webmaster Tools AI Performance(2026-02)로 AI 인용 측정":** 개념은 **실재**(Bing WMT가 AI 인용/grounding 쿼리를 보여줌). 단, 정확한 출시일·명칭은 여기서 **독립 확인 불가** → Bing WMT에서 직접 확인 필요.
+- **"실리콘밸리 0.1% 아님, 다만 일반 블로거와 아키텍처가 다름":** **맞음.** 정직한 평가.
+
+**② 다음 단계(측정 루프) — AI 제안 채택:**
+- 정체 → 빌드 → 발행 → 색인 → 검색 → AI 인용 → 측정 → 피드백의 **폐루프**. "노출이 빨라진다"는 지금까지 **가설**일 뿐 — 실제 AI 인용(grounding)을 측정해야 증명.
+- 측정 지점: Bing WMT AI 성과(있으면) · Google Search Console · Perplexity/ChatGPT/Gemini에 "S21 원조" 질의해 인용 스팟체크.
+
+**③ 보일러플레이트 반영 — 정체 변수화:**
+- `build_webzine.py`의 GEO 스탬프가 `Helena Park`/`helena751107` **하드코딩**이던 것 → `configs/ecosystem.json`의 `identity` 블록(person_name/github_user/hub_repo/tagline/sameAs)에서 읽도록 변수화.
+- `load_ecosystem.py`에 `identity()` 액세서 추가. 없으면 헬레나 기본값 폴백 → **출력 0 diff**(헬레나 정체 보존 확인).
+- **효과:** 포크한 사람이 `identity` 블록만 채우면 자기 정체로 자동 상속 — [[always-replicable-installable]] "환경 변수만 채우면 바로 구동" 원칙을 GEO까지 확장.
+- **결과:** 재빌드 172페이지 원조 스탬프 0 diff(동일) + 밀린 devlog HTML 동기화만 수반.
