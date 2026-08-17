@@ -1,5 +1,7 @@
 # Mobile-First Multi-Platform Content Foundry — Boilerplate
 
+![One phone, the whole studio — a content foundry running on a single Galaxy S21](assets/social-preview.jpg)
+
 > **One Galaxy S21. ~$20/month. A one-person media studio — and a 24/7 care system.**
 > Powered by Termux/PRoot & MCP. Every step hard-verified by `returncode == 0` — no agent hallucinations.
 > **489 commits · 893 files · 129 notebooks · 8 shipped systems · 3 weeks.**
