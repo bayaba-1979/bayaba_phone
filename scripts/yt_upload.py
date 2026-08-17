@@ -1,15 +1,25 @@
 #!/usr/bin/env python3
 """
-S21 Phone — YouTube 업로드 스크립트 v1
-OAuth Device Code Flow → Data API v3 → 영상 업로드
+S21 Phone — YouTube 통제 CLI v2 (업로드 + 플레이리스트 + 브랜딩 + 애널리틱스)
+OAuth(Device Code) → Data API v3 · Analytics v2
 
 사용법:
-  ~/browser-env/bin/python3 scripts/yt_upload.py --title "제목" --file video.mp4
-  ~/browser-env/bin/python3 scripts/yt_upload.py --channel @내채널handle --list
+  # 업로드 (제목/설명/태그/카테고리/공개설정/채널)
+  ~/browser-env/bin/python3 scripts/yt_upload.py --title "제목" --file video.mp4 --privacy public
+  # 채널 조회
+  ~/browser-env/bin/python3 scripts/yt_upload.py --channel phone --list
+  ~/browser-env/bin/python3 scripts/yt_upload.py --stats
+  # 플레이리스트
+  ~/browser-env/bin/python3 scripts/yt_upload.py --playlist-list
+  ~/browser-env/bin/python3 scripts/yt_upload.py --playlist-create "새 재생목록"
+  ~/browser-env/bin/python3 scripts/yt_upload.py --playlist-add <플리ID> <영상ID>
+  # 브랜딩 / 통계
+  ~/browser-env/bin/python3 scripts/yt_upload.py --branding "새 채널 설명"
+  ~/browser-env/bin/python3 scripts/yt_upload.py --analytics 28
 
 환경: proot Ubuntu
 의존성: google-auth-oauthlib, google-api-python-client
-전제: OAuth 토큰이 .secrets.env 또는 yt_tokens.json에 존재할 것
+전제: OAuth 토큰이 .secrets.env(YOUTUBE_*) 또는 yt_tokens.json에 존재할 것
 """
 
 import os, sys, json, subprocess, argparse, datetime
@@ -45,22 +55,19 @@ SCOPES = [
 
 # ── 인증 ────────────────────────────────────────────────────────────────────
 
-def get_authenticated_service():
-    """Device Code Flow로 인증 → YouTube API 클라이언트 반환"""
+def get_credentials():
+    """OAuth 자격증명 로드(1순위 .secrets.env, 2순위 yt_tokens.json) + 만료 시 리프레시"""
     try:
-        from google_auth_oauthlib.flow import InstalledAppFlow
         from google.auth.transport.requests import Request
-        from googleapiclient.discovery import build
-        import pickle
     except ImportError:
         print("❌ 필요 패키지 설치:")
         print("   ~/browser-env/bin/pip install google-auth-oauthlib google-api-python-client")
         sys.exit(1)
 
+    from google.oauth2.credentials import Credentials
     credentials = None
 
     # 토큰 로드 — 1순위 .secrets.env(YOUTUBE_ACCESS/REFRESH), 2순위 yt_tokens.json
-    from google.oauth2.credentials import Credentials
     if ACCESS_TOKEN or REFRESH_TOKEN:
         credentials = Credentials(
             token=ACCESS_TOKEN,
@@ -93,7 +100,13 @@ def get_authenticated_service():
         print("   bash scripts/yt_oauth_setup.sh")
         sys.exit(1)
 
-    return build('youtube', 'v3', credentials=credentials)
+    return credentials
+
+
+def get_authenticated_service():
+    """YouTube Data API v3 클라이언트 반환"""
+    from googleapiclient.discovery import build
+    return build('youtube', 'v3', credentials=get_credentials(), cache_discovery=False)
 
 def _save_tokens(credentials):
     TOKEN_FILE.parent.mkdir(parents=True, exist_ok=True)
@@ -193,10 +206,102 @@ def get_channel_stats(youtube, channel_id):
     print(f"   조회수: {stats.get('viewCount', '?')}")
     return resp
 
+# ── 플레이리스트 ─────────────────────────────────────────────────────────────
+
+def list_playlists(youtube, channel_id):
+    """채널 플레이리스트 목록 (playlists.list = 1유닛)"""
+    results = youtube.playlists().list(
+        part='snippet',
+        channelId=channel_id,
+        maxResults=50,
+    ).execute()
+    items = results.get('items', [])
+    print(f"\n📚 플레이리스트 ({len(items)}개):")
+    for it in items:
+        print(f"   {it['id']}  {it['snippet']['title']}")
+    return results
+
+
+def create_playlist(youtube, title, privacy='public'):
+    """플레이리스트 생성"""
+    resp = youtube.playlists().insert(
+        part='snippet,status',
+        body={
+            'snippet': {'title': title, 'description': title},
+            'status': {'privacyStatus': privacy},
+        },
+    ).execute()
+    print(f"✅ 플레이리스트 생성: {resp['id']}  {resp['snippet']['title']}")
+    return resp
+
+
+def add_playlist_item(youtube, playlist_id, video_id):
+    """플레이리스트에 영상 추가"""
+    resp = youtube.playlistItems().insert(
+        part='snippet',
+        body={
+            'snippet': {
+                'playlistId': playlist_id,
+                'resourceId': {'kind': 'youtube#video', 'videoId': video_id},
+            },
+        },
+    ).execute()
+    print(f"✅ 추가: https://youtu.be/{video_id} → {playlist_id}")
+    return resp
+
+
+# ── 브랜딩 ───────────────────────────────────────────────────────────────────
+
+def update_branding(youtube, channel_id, description):
+    """채널 설명/키워드 갱신 (brandingSettings.update)"""
+    keywords = description.replace('\n', ' ')
+    resp = youtube.channels().update(
+        part='brandingSettings',
+        body={
+            'id': channel_id,
+            'brandingSettings': {
+                'channel': {'description': description, 'keywords': keywords},
+            },
+        },
+    ).execute()
+    print("✅ 채널 브랜딩 갱신 완료")
+    return resp
+
+
+# ── 애널리틱스 ───────────────────────────────────────────────────────────────
+
+def get_analytics(channel_id, days=28):
+    """YouTube Analytics v2 — 조회/시청시간/구독자 통계"""
+    from googleapiclient.discovery import build
+    creds = get_credentials()
+    yta = build('youtubeAnalytics', 'v2', credentials=creds, cache_discovery=False)
+    end = datetime.date.today()
+    start = end - datetime.timedelta(days=days)
+    r = yta.reports().query(
+        ids=f'channel=={channel_id}',
+        startDate=start.isoformat(),
+        endDate=end.isoformat(),
+        metrics='views,estimatedMinutesWatched,subscribersGained',
+        dimensions='day',
+    ).execute()
+    rows = r.get('rows', [])
+    print(f"\n📊 최근 {days}일 통계:")
+    if not rows:
+        print("   (데이터 없음)")
+        return r
+    tot_v = tot_m = tot_s = 0
+    for row in rows:
+        v, m, s = int(row[1]), int(row[2]), int(row[3])
+        tot_v += v; tot_m += m; tot_s += s
+        print(f"   {row[0]}  조회 {v:>7}  시청분 {m:>7}  구독+{s}")
+    print("   ───────────────────────────────")
+    print(f"   합계     조회 {tot_v:>7}  시청분 {tot_m:>7}  구독+{tot_s}")
+    return r
+
 # ── CLI ──────────────────────────────────────────────────────────────────────
 
 def main():
-    parser = argparse.ArgumentParser(description='S21 YouTube 업로더 v1')
+    parser = argparse.ArgumentParser(description='S21 YouTube 통제 CLI v2')
     parser.add_argument('--title', help='영상 제목')
     parser.add_argument('--description', help='영상 설명', default='')
     parser.add_argument('--file', help='영상 파일 경로')
@@ -206,6 +311,11 @@ def main():
     parser.add_argument('--channel', default='main', help=f'채널 키: {", ".join(CHANNELS.keys())}')
     parser.add_argument('--list', action='store_true', help='채널 동영상 목록')
     parser.add_argument('--stats', action='store_true', help='채널 통계')
+    parser.add_argument('--playlist-list', action='store_true', help='플레이리스트 목록')
+    parser.add_argument('--playlist-create', metavar='TITLE', help='플레이리스트 생성')
+    parser.add_argument('--playlist-add', nargs=2, metavar=('PLAYLIST_ID', 'VIDEO_ID'), help='플레이리스트에 영상 추가')
+    parser.add_argument('--branding', nargs='+', metavar='DESC', help='채널 설명/키워드 갱신 (따옴표로 묶기)')
+    parser.add_argument('--analytics', nargs='?', const=28, type=int, metavar='DAYS', help='N일 애널리틱스 (기본 28일)')
     args = parser.parse_args()
 
     # OAuth 토큰 로드
@@ -225,6 +335,26 @@ def main():
 
     if args.stats:
         get_channel_stats(youtube, channel['id'])
+        return
+
+    if args.playlist_list:
+        list_playlists(youtube, channel['id'])
+        return
+
+    if args.playlist_create:
+        create_playlist(youtube, args.playlist_create)
+        return
+
+    if args.playlist_add:
+        add_playlist_item(youtube, args.playlist_add[0], args.playlist_add[1])
+        return
+
+    if args.branding:
+        update_branding(youtube, channel['id'], ' '.join(args.branding))
+        return
+
+    if args.analytics is not None:
+        get_analytics(channel['id'], args.analytics)
         return
 
     if not args.title or not args.file:
