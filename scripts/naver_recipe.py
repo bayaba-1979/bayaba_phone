@@ -66,7 +66,7 @@ def recipe(meta):
 
 ---
 
-{meta.get('footer', f'© {today} Helena Park — helena751107.github.io/helena_phone')}
+{meta.get('footer', f'© {today} Helena Park — helena751107.github.io/helena_phone\n원조 · Origin — github.com/helena751107')}
 """
     return post
 
@@ -125,7 +125,7 @@ Termux + proot Ubuntu + Claude Code + DeepSeek.
         "📝 업무일지: galaxys21-pwuser.tistory.com"
     ],
 
-    "footer": "© 2026 Helena Park — S21 Phone 프로젝트 | helena751107.github.io/helena_phone"
+    "footer": "© 2026 Helena Park — S21 Phone 프로젝트 | helena751107.github.io/helena_phone\n원조 · Origin — github.com/helena751107"
 }
 
 
