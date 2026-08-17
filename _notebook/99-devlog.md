@@ -6377,3 +6377,20 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **절대 못 넘는 선:** 태블릿은 자기 정체(노드②)로 — S21(helena751107) 복제본 금지(4계정4세계 붕괴). 시크릿·Tailscale 키는 기기별로 새로.
 
 **기록 의무:** 이 대화 이력 전부를 helena_phone 레포에 기록하면서, 나중에 "기기 이식 솔루션"으로 정제한다(Boss 예정). 태블릿 상태 확인 1줄(`ls $PREFIX/var/lib/proot-distro/installed-rootfs/`)로 뇌 유무 확정 후 ①번(install.sh) 진행.
+
+### 🧊 태블릿(Tab S9) 베이스라인 확정 — One UI 8.5·Android 16 동결 (_Boss · 2026-08-18)
+
+**Boss 결정:** Galaxy Tab S9(공기계)의 OS 동결선을 확정하고 그 버전까지 설치 중.
+
+- **정체:** thomas.tj.park (삼성 + GitHub 둘 다)
+- **Samsung One UI: 8.5** (확정·동결)
+- **Android: 16**
+- **동결:** 업데이트는 여기까지만. **8/20 자동 업데이트(보안패치 예정) → 스킵(안 함).**
+- **이유:** Tab S9 = 옛 기기라 계속 업데이트하면 성능 한도가 버벅거림. 동결 OS + 동결 보일러플레이트 = 재현가능 노드.
+- **다음:** 2번(수동 Termux) → 3번 `g/workstation.sh` 원스탑(정체 `OWNER_GITHUB` 변수).
+
+### ⚙️ 원스탑 워크스테이션 설치기 신설 + 정체 변수화 (_Claude · 2026-08-18)
+
+- **`g/workstation.sh` 신규:** 공기계 → Termux → Ubuntu → Claude Code(DeepSeek) → 보일러플레이트 클론, 한 줄. Boss의 "새 폰 최종판 8블록"(실사용 4회) + 외부 AI 수정 5종(배터리 최적화·`--no-audit`·키 sys.argv·TG JSON파싱·`mkdir -p work`) 반영.
+- **정체 변수화(Boss 정정):** `OWNER_GITHUB`에 `helena751107` 기본값을 박아놨다가 지적 → **기본값 제거, 프롬프트로 각자 계정 입력.** `easy.sh`·`install.sh`에도 같은 기본값이 잔존 → 전부 제거. `TEMPLATE_REPO`는 교재 원본(소스) 위치라 고정 유지.
+- **원칙 확정:** 정체(계정)는 절대 기본값 하드코딩 금지 — 교재니까 각자 자기 계정. [[always-replicable-installable]] 반영.
