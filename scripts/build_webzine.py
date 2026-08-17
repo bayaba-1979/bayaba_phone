@@ -17,15 +17,13 @@ from pathlib import Path
 import markdown
 from markdown.extensions.toc import TocExtension
 
-# 생태계 SSOT(configs/ecosystem.json)에서 소유자·허브 레포·정체 로드.
+# 생태계 SSOT(configs/ecosystem.json)에서 소유자·허브 레포 로드 + GEO 정체 그래프(단일 진실).
 try:
-    from load_ecosystem import (
-        owner as _ecosystem_owner,
-        hub_repo as _ecosystem_hub,
-        identity as _ecosystem_identity,
-    )
+    from load_ecosystem import owner as _ecosystem_owner, hub_repo as _ecosystem_hub
 except ImportError:
-    _ecosystem_owner = _ecosystem_hub = _ecosystem_identity = None
+    _ecosystem_owner = _ecosystem_hub = None
+
+from geo_identity import identity_graph  # GEO 원조 스탬프 — Person + WebPage JSON-LD
 
 ROOT = Path(__file__).resolve().parents[1]
 os.chdir(ROOT)
@@ -44,67 +42,7 @@ def _site_base() -> str:
 # ── GEO 원조 스탬프 (헌법 제17조) ──────────────────────────────────────────
 # 모든 생성 페이지의 <head>에 canonical + JSON-LD 정체 그래프를 박아
 # "이 콘텐츠의 원조 = github.com/<owner>#person"임을 기계가 읽게 함.
-# 보일러플레이트: 정체는 configs/ecosystem.json 의 identity 블록에서 읽는다.
-# 포크한 사람이 자기 이름·깃헙·채널을 채우면 자기 정체로 자동 상속된다.
-_DEFAULT_IDENTITY = {
-    "person_name": "Helena Park",
-    "github_user": "helena751107",
-    "hub_repo": "helena_phone",
-    "tagline": "Made in Korea — not a developer. One Galaxy S21, built by voice, for a sister.",
-    "sameAs": [
-        "https://github.com/helena751107",
-        "https://helena751107.github.io/helena_phone/",
-        "https://www.youtube.com/@helena_phone",
-        "https://www.youtube.com/@HelenaPark-e7c",
-    ],
-}
-
-
-def _identity() -> dict:
-    """ecosystem.json identity 블록 → 없으면 헬레나 기본값으로 폴백."""
-    ident = dict(_DEFAULT_IDENTITY)
-    if _ecosystem_identity:
-        try:
-            loaded = _ecosystem_identity()
-            if isinstance(loaded, dict):
-                ident.update({k: v for k, v in loaded.items() if v})
-        except Exception:
-            pass
-    return ident
-
-
-def _identity_graph(canonical: str, title: str) -> str:
-    """JSON-LD @graph — Person(@id=GitHub #person) + WebPage(publisher/author→Person)."""
-    ident = _identity()
-    person_id = f"https://github.com/{ident['github_user']}#person"
-    same_as = ident.get("sameAs") or [
-        f"https://github.com/{ident['github_user']}",
-        f"https://{ident['github_user']}.github.io/{ident['hub_repo']}/",
-    ]
-    ld = {
-        "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "Person",
-                "@id": person_id,
-                "name": ident.get("person_name", ""),
-                "url": f"https://github.com/{ident['github_user']}",
-                "description": ident.get("tagline", ""),
-                "sameAs": same_as,
-            },
-            {
-                "@type": "WebPage",
-                "@id": f"{canonical}#webpage",
-                "url": canonical,
-                "name": title,
-                "inLanguage": "ko",
-                "publisher": {"@id": person_id},
-                "author": {"@id": person_id},
-            },
-        ],
-    }
-    inner = json.dumps(ld, ensure_ascii=False, indent=2)
-    return f'<script type="application/ld+json">\n{inner}\n</script>'
+# 정체 그래프 정의는 scripts/geo_identity.py(단일 진실) — 위성 빌더와 공유.
 
 
 def _detect_volume() -> str:
@@ -470,7 +408,7 @@ def page_shell(
 
     # GEO 원조 스탬프 — canonical URL + JSON-LD 정체 그래프 (헌법 제17조)
     canonical = _site_base() + out_path
-    ld = _identity_graph(canonical, title)
+    ld = identity_graph(canonical, title)
 
     # prev/next within same section
     section_items = [c for c in CATALOG if c["section"] == section]

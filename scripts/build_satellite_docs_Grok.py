@@ -10,6 +10,8 @@ import re
 import sys
 from pathlib import Path
 
+from geo_identity import identity_graph  # GEO 원조 스탬프 — Person + WebPage JSON-LD (헌법 제17조)
+
 try:
     import markdown
     from markdown.extensions.toc import TocExtension
@@ -57,9 +59,11 @@ BRANDS = {
 SKIP_NAMES = {"_TEST_CONNECTION.md"}
 
 
-def shell(brand: dict, title: str, deck: str, body: str, src: str, rel_home: str = "../") -> str:
+def shell(brand: dict, title: str, deck: str, body: str, src: str, rel_home: str = "../", canonical: str = "") -> str:
     acc = brand["accent"]
-    # depth for icons
+    # GEO 원조 스탬프 — canonical + JSON-LD 정체 그래프 (canonical 없으면 생략)
+    canonical_tag = f'<link rel="canonical" href="{canonical}">' if canonical else ""
+    ld = identity_graph(canonical, title) if canonical else ""
     return f"""<!DOCTYPE html>
 <html lang="ko" data-theme="dark">
 <head>
@@ -68,6 +72,8 @@ def shell(brand: dict, title: str, deck: str, body: str, src: str, rel_home: str
 <meta name="description" content="{html.escape(deck or title)}">
 <meta name="theme-color" content="#0a0908">
 <title>{html.escape(title)} — {html.escape(brand['name'])}</title>
+{canonical_tag}
+{ld}
 <link rel="icon" href="{rel_home}icons/favicon-32.png" type="image/png">
 <link rel="manifest" href="{rel_home}site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -261,7 +267,8 @@ def build_repo(root: Path, brand_key: str) -> list[str]:
         out = md_path.with_suffix(".html")
         # rewrite .md links in body to .html roughly
         body = re.sub(r'href="([^"]+)\.md"', r'href="\1.html"', body)
-        page = shell(brand, title, deck, body, str(rel).replace("\\", "/"), rel_home=rel_home)
+        canonical = brand["home"] + str(rel.with_suffix(".html")).replace("\\", "/")
+        page = shell(brand, title, deck, body, str(rel).replace("\\", "/"), rel_home=rel_home, canonical=canonical)
         out.write_text(page, encoding="utf-8")
         built.append(str(rel.with_suffix(".html")))
 
@@ -273,7 +280,7 @@ def build_repo(root: Path, brand_key: str) -> list[str]:
             rel = p.relative_to(docs)
             links.append(f'<li><a href="{rel.as_posix()}">{html.escape(p.stem)}</a></li>')
         hub_body = "<p>문서 ↔ 웹페이지 브릿지. 검색·접기 지원.</p><ul>" + "".join(links) + "</ul>"
-        hub = shell(brand, "Docs Hub", "문서 목록", hub_body, "docs/", rel_home="../")
+        hub = shell(brand, "Docs Hub", "문서 목록", hub_body, "docs/", rel_home="../", canonical=brand["home"] + "docs/index.html")
         (docs / "index.html").write_text(hub, encoding="utf-8")
         built.append("docs/index.html")
 
@@ -292,7 +299,7 @@ def build_repo(root: Path, brand_key: str) -> list[str]:
         # write pages/index or docs-bridge
         bridge_dir = root / "pages"
         bridge_dir.mkdir(exist_ok=True)
-        page = shell(brand, f"{brand['name']} · Pages Bridge", "md→html 목록", idx_body, "pages/", rel_home="../")
+        page = shell(brand, f"{brand['name']} · Pages Bridge", "md→html 목록", idx_body, "pages/", rel_home="../", canonical=brand["home"] + "pages/index.html")
         (bridge_dir / "index.html").write_text(page, encoding="utf-8")
         built.append("pages/index.html")
 
@@ -303,7 +310,7 @@ def main() -> int:
     base = Path(__file__).resolve().parents[1]  # /root/work/ (helena_phone root)
     mapping = {
         "helana_log": base / "helana_log",
-        "helana-faith": base / "helena-faith",
+        "helana-faith": base / "helana-faith",
         "helena-piano": base / "helena-piano",
         "helena-metalcare": base / "helena-metalcare",
     }
