@@ -1,3 +1,13 @@
+# One Phone · $20 · For My Sister
+
+> A single Galaxy S21 runs a complete one-person media studio —
+> a **care daemon** for my sister by day, a **publishing factory** by night.
+> Everything here is open source, built to be copied — not just admired.
+>
+> _Korean below = the full worked example. For the quick start, follow "10분 시작"._
+
+---
+
 # 말로만 · 폰 하나로 · 누나를 위해
 
 > **구형 Galaxy S21 한 대 + 월 ~$20.** 그 안에서 1인 미디어 스튜디오가 통째로 굴러간다.
