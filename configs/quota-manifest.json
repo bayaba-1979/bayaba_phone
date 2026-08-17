@@ -1,0 +1,30 @@
+{
+  "_comment": "콘텐츠 양산 일일 한도 SSOT. 숫자는 실측/공식 API 기준. history_batch.py·quota.sh가 함께 읽음. 수정 시 이 파일만 바꾼다.",
+  "_scope": "콘텐츠 1인 미디어 자동화만. 돌봄(Tailscale·돌봄데몬)은 제외.",
+  "tistory": {
+    "limit_per_day": 15,
+    "unit": "신규 글 / 계정 (5블로그 공유)",
+    "source": "실측 2026-08-15: galaxys21 13 + mynote 2 = 15, 16번째 403",
+    "measured_by": "RSS today pubDate 집계 (history_batch.today_published_count)"
+  },
+  "youtube": {
+    "units_per_day": 10000,
+    "units_per_upload": 1600,
+    "approx_uploads_per_day": 6,
+    "unit": "Data API v3 quota units",
+    "source": "YouTube Data API v3 기본 할당 (videos.insert=1600 units)",
+    "measured_by": "로컬 업로드 카운터 없음 → 정확한 잔여는 Cloud Console에서만 확인"
+  },
+  "threads": {
+    "limit_per_day": 250,
+    "chars_per_post": 500,
+    "unit": "API 발행 게시물 / 일 (프로필당)",
+    "source": "Meta Threads API 공식 (댓글은 250 한도 미포함)",
+    "measured_by": "수작업 (미배선)"
+  },
+  "naver": {
+    "limit_per_day": null,
+    "note": "쓰기 API 없음 → 수작업 paste, 하드 한도 없음",
+    "measured_by": "수작업"
+  }
+}

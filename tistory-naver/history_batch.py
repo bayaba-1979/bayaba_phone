@@ -51,7 +51,16 @@ DEFAULT_TAGS = ["S21", "업무수첩", "히스토리"]
 # (실측 2026-08-15: galaxys21 13 + mynote 2 = 15, 16번째 403).
 # 그래서 히스토리(galaxys21) 배치만 보면 안 되고, 5개 블로그의 오늘 발행수를
 # 전부 세서 "남은 한도"만큼만 배치해야 한다. ← 스케줄러 확실성의 핵심.
-DAILY_LIMIT = 15
+def _load_daily_limit() -> int:
+    """일일 한도 SSOT = configs/quota-manifest.json. 없으면 실측값 15 폴백."""
+    try:
+        with open(ROOT / "configs" / "quota-manifest.json", encoding="utf-8") as f:
+            return int(json.load(f)["tistory"]["limit_per_day"])
+    except Exception:
+        return 15
+
+
+DAILY_LIMIT = _load_daily_limit()
 ALL_BLOGS = [r["blog"] for r in _ecosystem_repos() if r.get("blog")]
 
 # 실데이터 가능한 원천파일(헌법: 돌봄 데이터 절대 공개 금지) — 스킵
