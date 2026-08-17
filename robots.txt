@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://helena751107.github.io/helena_phone/sitemap.xml

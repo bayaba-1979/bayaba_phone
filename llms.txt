@@ -1,0 +1,29 @@
+# Helena Content Foundry — Mobile-First Multi-Platform Content Foundry
+
+> One Galaxy S21 · ~$20/month · no servers — a one-person media studio and a 24/7 care system, running entirely on a single Android phone. Made in Korea, built by a brother (not a developer) for his sister: fourteen-hour days of physical labor, built by voice — spoken into a terminal, not typed. Fully open source and reproducible, with a tutorial.
+
+## What this is
+- [README](https://github.com/helena751107/helena_phone#readme): overview, architecture, roadmap, one-line install
+- [The origin — proof, not a poster](https://github.com/helena751107/helena_phone#the-origin--proof-not-a-poster): the raw worksite photo and the story behind it
+- [Live site (Korean)](https://helena751107.github.io/helena_phone/): the hub Pages portal, in Korean for the domestic audience
+- [Constitution](https://github.com/helena751107/helena_phone/blob/main/CONSTITUTION.md): why this exists — care + aspiration
+
+## Key concepts
+- Mobile-first content foundry — a single phone as the whole studio
+- Care daemon — 24/7 remote care for a sister (Track 1 = care, Track 2 = aspiration)
+- MCP-driven verification — every step gated by `returncode == 0`, no agent hallucinations
+- One phone, ~$20/month — no servers, no team, no investors
+- Made in Korea — not a developer, built by voice (STT into a terminal)
+- The moat is performance, not code — authenticity over reproducibility
+
+## Repositories
+- [helena_phone](https://github.com/helena751107/helena_phone): the hub & boilerplate — fork and run
+- [helena-piano](https://github.com/helena751107/helena-piano): a classical-music webzine
+- [helena-metalcare](https://github.com/helena751107/helena-metalcare): getting to know a sister's schizophrenia
+- [helana-faith](https://github.com/helena751107/helana-faith): faith as fantasy — a doubting Thomas
+- [helana_log](https://github.com/helena751107/helana_log): the care daemon, day by day
+
+## Tutorial
+- [10-minute start](https://github.com/helena751107/helena_phone#-10-minute-start--copy--configure--run): copy → configure → run
+- [One-line install](https://github.com/helena751107/helena_phone#-one-line-install-existing-workspace): `curl -sL …/g/install.sh | bash`
+- [Production recipe](https://github.com/helena751107/helena_phone#-the-production-recipe--3-scripts--3-layer-verification): preflight → quota → make_pair
