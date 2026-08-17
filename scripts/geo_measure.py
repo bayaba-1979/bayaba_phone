@@ -30,20 +30,23 @@ import sys
 from pathlib import Path
 
 # ecosystem.json에서 base URL 로드(포크 호환), 없으면 헬레나 기본.
+_OWNER = "helena751107"
 try:
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
     from load_ecosystem import owner as _owner, hub_repo as _hub
-    _BASE = f"https://{_owner()}.github.io/{_hub()}/"
+    _OWNER = _owner() or _OWNER
+    _BASE = f"https://{_OWNER}.github.io/{_hub()}/"
 except Exception:
-    _BASE = "https://helena751107.github.io/helena_phone/"
+    _BASE = f"https://{_OWNER}.github.io/helena_phone/"
 
 CORE_PATHS = ["", "robots.txt", "sitemap.xml", "llms.txt"]
 SAMPLE_PAGES = ["constitution.html", "archive.html", "notebook/99-devlog.html"]
+SATELLITES = ["helana_log", "helena-piano", "helena-metalcare", "helana-faith"]
 
 
 def _fetch(path: str) -> str:
     try:
-        r = subprocess.run(["curl", "-s", "--max-time", "15", _BASE + path],
+        r = subprocess.run(["curl", "-s", "--max-time", "45", _BASE + path],
                            capture_output=True, text=True)
         return r.stdout
     except Exception:
@@ -98,6 +101,22 @@ def main() -> int:
 
     sitemap = _fetch("sitemap.xml")
     print(f"\n  sitemap <url> 수: {len(re.findall(r'<url>', sitemap))}")
+
+    # 위성 4레포 — 랜딩에 정체 그래프(#person)가 서빙되는지만 확인
+    print("\n  ── 위성 4레포 ──")
+    for repo in SATELLITES:
+        try:
+            base = f"https://{_OWNER}.github.io/{repo}/"
+            import subprocess as _sp
+            html = _sp.run(["curl", "-s", "--max-time", "12", base],
+                           capture_output=True, text=True).stdout
+            stamped = "helena751107#person" in html or "#person" in html
+            fails += 0 if (html and stamped) else 1
+            print(f"  {'✅' if html and stamped else '❌'} {repo:20s} "
+                  f"HTTP={'200' if html else '❌'} JSON-LD={'✅' if stamped else '❌'}")
+        except Exception:
+            fails += 1
+            print(f"  ❌ {repo}")
 
     print("=" * 62)
     print("결과:", "✅ 발행 표면 전부 통과" if fails == 0 else f"❌ {fails}개 실패")

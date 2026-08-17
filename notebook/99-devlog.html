@@ -473,6 +473,8 @@
 <li><a href="#geo-_claude-2026-08-17_1">🏭 GEO 공장 스탬프 — 파운드리 기본 부품 승격 (_Claude · 2026-08-17)</a></li>
 <li><a href="#ai-_claude-2026-08-17">🔄 정체 인식 출판 파이프라인 — 보일러플레이트 반영 + AI 평가 검증 (_Claude · 2026-08-17)</a></li>
 <li><a href="#geo-1-_claude-2026-08-17">📐 GEO 측정 루프 1차 — 발행 표면 ✅ · 색인 ❌ · 위성 스탬프 ❌ (_Claude · 2026-08-17)</a></li>
+<li><a href="#4-_claude-2026-08-17">🛰️ 위성 4레포 스탬프 완료 — 정체 그래프 단일 진실로 통합 (_Claude · 2026-08-17)</a></li>
+<li><a href="#geo-2-_claude-2026-08-17">🔧 GEO 측정 루프 2차 — 발행 표면 전부 통과 + 타임아웃 버그 수정 (_Claude · 2026-08-17)</a></li>
 </ul>
 </li>
 </ul>
@@ -8520,6 +8522,22 @@ Android(호스트 OS) : proot Ubuntu(리눅스 호환 레이어)
 - <strong>색인 ❌ (핵심 병목):</strong> WebSearch 4회(helena751107 · &ldquo;Made in Korea — not a developer&rdquo; · 원본 도메인 · 한글) 전부 <strong>0건</strong>. 검색 엔진이 아직 사이트를 전혀 색인 안 함. 신규라 정상이지만, 메타가 아무리 정확해도 크롤러가 안 오면 노출 0. → <strong>GSC·Bing WMT sitemap 제출이 가속 키(계정 필요).</strong><br>
 - <strong>위성 스탬프 ❌ (신규 발견):</strong> 4위성(helana_log·piano·metalcare·faith)은 200 + canonical + llms.txt + robots + sitemap은 있지만 <strong>JSON-LD 정체 그래프(#person) 없음.</strong> &ldquo;5레포 JSON-LD 완료&rdquo;는 과장 — 실제는 허브만. 위성은 <code>build_satellite_docs</code> 별도 빌드 경로라 미스탬프.</p>
 <p><strong>판단:</strong> GEO 메타는 &ldquo;필요조건이지 충분조건 아님&rdquo;이 측정으로 확인. 진짜 병목 = ①색인(계정 필요 GSC/Bing WMT 제출) ②위성 스탬프(빌드 경로 확장). 진짜 해자는 퍼포먼스·진정성 — GEO는 이름표([[moat-is-performance-not-code]]).</p>
+<h3 id="4-_claude-2026-08-17">🛰️ 위성 4레포 스탬프 완료 — 정체 그래프 단일 진실로 통합 (_Claude · 2026-08-17)</h3>
+<p><strong>Boss 지시:</strong> &ldquo;위성 4레포 스탬프 해줘&rdquo; → 측정 루프 1차가 발견한 &ldquo;위성엔 JSON-LD 없음&rdquo; 병목을 해소.</p>
+<ul>
+<li><strong>단일 진실 신설:</strong> <code>scripts/geo_identity.py</code> — Person(@id=GitHub #person) + WebPage/WebSite(publisher/author→Person) JSON-LD 블록을 <strong>한 곳 정의</strong>. 허브(<code>build_webzine.py</code>)와 위성(<code>build_satellite_docs_Grok.py</code>) 둘 다 import. build_webzine 로컬 identity 함수 제거(재빌드 0 diff 검증).</li>
+<li><strong>위성 빌드 확장:</strong> <code>build_satellite_docs_Grok.py</code>의 <code>shell()</code>이 canonical + JSON-LD(<code>{canonical_tag}</code>·<code>{ld}</code>)를 자동 주입. 랜딩 index.html 4개는 수작업 주입(WebSite 그래프).</li>
+<li><strong>버그 수정:</strong> 위성 매핑 <code>helana-faith</code>(오타) → <code>helana-faith</code> 정정 — 기존에 faith만 빌드 경로 누락.</li>
+<li><strong>결과:</strong> 위성 4레포(helana_log·piano·metalcare·faith) 랜딩+문서 63페이지 재빌드·커밋·푸시(<code>git push origin main</code>). 라이브 <code>#person</code> 3회 확인. 허브 gitlink 갱신.</li>
+<li><strong>정정(정직):</strong> 이전 &ldquo;5레포 JSON-LD 완료&rdquo;는 과장 — 이번에 진짜 허브+위성 5레포 전부 채움.</li>
+</ul>
+<h3 id="geo-2-_claude-2026-08-17">🔧 GEO 측정 루프 2차 — 발행 표면 전부 통과 + 타임아웃 버그 수정 (_Claude · 2026-08-17)</h3>
+<ul>
+<li><strong>도구 확장:</strong> <code>geo_measure.py</code>에 위성 4레포 랜딩 <code>#person</code> 검사 추가(<code>SATELLITES</code> 목록 + <code>_OWNER</code> 폴백 리팩터).</li>
+<li><strong>버그 수정:</strong> <code>notebook/99-devlog.html</code>(510KB)이 <code>--max-time 15</code> 초과(~16초 소요)로 오탐 실패 → <code>45</code>초로 상향. <strong>원인은 일시적 네트워크가 아니라 페이지 크기 대비 타임아웃 부족.</strong></li>
+<li><strong>2차 측정 결과:</strong> 허브 7핵심(홈·robots·sitemap·llms.txt·constitution·archive·99-devlog) ✅ + 위성 4레포 ✅ = <strong>발행 표면 전부 통과(종료코드 0)</strong>. sitemap 174 URL.</li>
+<li><strong>남은 병목(불변):</strong> 색인 ❌(GSC·Bing WMT sitemap 제출 — 계정 필요) + AI 인용 측정은 수동 레인. GEO 메타는 필요조건이지 충분조건 아님.</li>
+</ul>
   </article>
   <nav class="wz-pager">
     <a class="" href="session-2026-07-26_Grok.html">
