@@ -6220,5 +6220,5 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 
 - **경계 확정(2트랙):** 허브 **Pages = 한국어**(국내 "누나를 위해" 스토리·한글 강의) / GitHub **소스 코드 = 영문**(외국인 fork·실행). → 글로벌 선배포로 국내 표절 이전에 "원조 = Helena Park" 고정.
 - **스크립트 영문화(로직·데이터 불변, bash -n 검증):** `navigator.sh`·`g/install.sh`·`g/spawn.sh`·`scripts/preflight.sh`·`scripts/make_pair.sh` 전부 0 한국어. 설정 템플릿 4종(`ecosystem.json.template`·`quota-manifest.json`·`bait-voice.json`·`accounts.json.template`)도 영문 — 단 고유명사·디렉토리명(`기자`·`교육방송국` 등)은 데이터로 보존.
-- **원조 서사(README·프로필):** "Made in Korea — 토종 한국인 개발자(교포 아님)·Incheon/Seoul·구형 S21 한 대·누나 돌봄·~$20" 을 허브 README hero + 프로필 README `## The origin` 섹션에 명시. 진정성이 곧 해자.
+- **원조 서사(README·프로필):** "Made in Korea — 토종 한국인 개발자(교포 아님)·인천·구형 S21 한 대·누나 돌봄·~$20" 을 허브 README hero + 프로필 README `## The origin` 섹션에 명시. 진정성이 곧 해자.
 - **결과:** 허브 2커밋(`i18n:`·`docs:`) + 프로필 1커밋 푸시 완료. 남은 자산 레인은 Grok(히어로·소셜 프리뷰 이미지).
