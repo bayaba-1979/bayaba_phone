@@ -11,23 +11,21 @@
 #   bash scripts/preflight.sh --tg     # 결과를 텔레그램으로도 보고 (tg.sh 사용)
 #
 # 점검 항목 (콘텐츠 양산 스코프만 — 돌봄(Tailscale·돌봄데몬)은 제외):
-#   1. 티스토리 세션 (5블로그 state.json 존재 + 최신 여부)
+#   1. 티스토리 세션 (manage URL 실측 — 302→login 이면 세션 만료)
 #   2. YouTube OAuth (refresh 토큰으로 실제 갱신 시도)
 #   3. GitHub 인증 (gh auth status)
 #   4. 텔레그램 봇 (getMe 프로브)
 #
-# ⚠️ 한계(정직하게): 티스토리 세션은 TSSESSION(expires=-1)이라 "정확한 만료시각"을
-#    알 수 없음 → 파일 최신성(기본 24h) 휴리스틱으로 판정. 의심되면
-#    verify_accounts.py 나 실제 발행 프로브로 확정.
+# ⚠️ 티스토리 세션은 "파일 최신성(24h)"이 아니라 실제 manage URL 프로브로 판정.
+#    서버측 세션이 쿠키 expires(클라이언트측, 6일 뒤)보다 먼저 만료되므로
+#    mtime 휴리스틱은 놓친다 (실측 2026-08-17: 5개 전부 302→login).
 # ==============================================================================
 
 set -uo pipefail
 
 BASE="$(cd "$(dirname "$0")/.." && pwd)"
 SECRETS="$BASE/.secrets.env"
-COOKIES="$BASE/tistory-naver/cookies"
 TG="$BASE/tg.sh"
-STALE_HOURS="${STALE_HOURS:-24}"
 
 # ── 시크릿 로드 (SSOT) ──
 # set -a = 소스된 모든 변수를 자식 프로세스(python/curl)로 export
@@ -47,22 +45,71 @@ echo "════════════════════════�
 echo "  🔧 양산 전 점검 (Preflight)"
 echo "════════════════════════════════════════"
 
-# ── 1. 티스토리 세션 (5블로그) ──
+# ── 1. 티스토리 세션 (manage URL 실측) ──
 echo ""
-echo "[1] 티스토리 세션 (5블로그)"
-BLOGS=(galaxys21 piano faith metalcare mynote)
-for b in "${BLOGS[@]}"; do
-  st="$COOKIES/${b}_state.json"
-  if [ ! -f "$st" ]; then
-    fail "티스토리 $b — state 없음 → 재로그인 필요"
-    FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("티스토리 $b 재로그인")
-  elif [ -n "$(find "$st" -mmin +$((STALE_HOURS*60)) 2>/dev/null)" ]; then
-    warn "티스토리 $b — 세션 ${STALE_HOURS}h 이상 방치 → 재로그인 권장"
-    WARN_CNT=$((WARN_CNT+1)); RENEW+=("티스토리 $b 재로그인 권장")
-  else
-    ok "티스토리 $b"
-  fi
-done
+echo "[1] 티스토리 세션 (5블로그, 실측)"
+TISTORY_RESULT=$(python3 - "$BASE" <<'PY'
+import json
+import sys
+import urllib.error
+import urllib.request
+
+BASE = sys.argv[1]
+
+# account→blog slug (ecosystem.json SSOT, 없으면 샘플 폴백)
+try:
+    sys.path.insert(0, BASE + "/scripts")
+    from load_ecosystem import repos
+    pairs = [(r.get("account", ""), r.get("blog", "")) for r in repos()]
+except Exception:
+    pairs = [
+        ("galaxys21", "galaxys21-pwuser"),
+        ("mynote", "mynote11605"),
+        ("piano", "helena-piano"),
+        ("metalcare", "helena-metalcare"),
+        ("faith", "helana-christianity"),
+    ]
+
+
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, *a, **k):
+        return None
+
+
+UA = {"User-Agent": "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36"}
+
+for acct, slug in pairs:
+    if not acct or not slug:
+        continue
+    st = f"{BASE}/tistory-naver/cookies/{acct}_state.json"
+    try:
+        d = json.load(open(st, encoding="utf-8"))
+        header = "; ".join(f"{c['name']}={c['value']}" for c in d.get("cookies", []))
+    except Exception:
+        print(f"{acct}\tMISSING")
+        continue
+    try:
+        req = urllib.request.Request(
+            f"https://{slug}.tistory.com/manage", headers={"Cookie": header, **UA}
+        )
+        urllib.request.build_opener(NoRedirect).open(req, timeout=10)
+        print(f"{acct}\tOK")
+    except urllib.error.HTTPError as e:
+        loc = e.headers.get("Location", "")
+        print(f"{acct}\tEXPIRED" if "/auth/login" in loc else f"{acct}\tHTTP{e.code}")
+    except Exception:
+        print(f"{acct}\tERR")
+PY
+)
+while IFS=$'\t' read -r acct status; do
+  [ -z "$acct" ] && continue
+  case "$status" in
+    OK)      ok "티스토리 $acct — 세션 유효" ;;
+    EXPIRED) fail "티스토리 $acct — 세션 만료(login 리다이렉트) → 재로그인 필요"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("티스토리 $acct 재로그인") ;;
+    MISSING) fail "티스토리 $acct — state 없음 → 재로그인 필요"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("티스토리 $acct 재로그인") ;;
+    *)       warn "티스토리 $acct — 점검 불가 ($status)" ;;
+  esac
+done <<< "$TISTORY_RESULT"
 
 # ── 2. YouTube OAuth (refresh 실측) ──
 echo ""
