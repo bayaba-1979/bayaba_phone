@@ -6213,3 +6213,12 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **경계 준수:** metalcare/faith/log — 신원(이름·위치·사진) 노출 금지, 의료·종교 단정 표현 금지 유지.
 - **결과:** 5레포 커밋+푸시 완료, 허브 gitlink 4개 새 HEAD 갱신(`d22d2d3`).
 - **⏳ Grok 레인 대기:** 히어로 이미지·소셜 프리뷰(Open Graph) 이미지 — "잡지 구도 디자인" 칸①에 해당 → Boss가 Grok에 라우팅.
+
+### 🌍 진입점 스크립트·설정 템플릿 영문화 + 원조 서사(Made in Korea) (_Claude · 2026-08-17)
+
+**Boss 보강 지시(2회):** "깃허브 소스 코드는 외국인이 가져다 쓰게 유저 프렌들리하게" + "토종 한국인 개발자·폰 한 대·누나 돌봄" 서사가 진짜 차별점.
+
+- **경계 확정(2트랙):** 허브 **Pages = 한국어**(국내 "누나를 위해" 스토리·한글 강의) / GitHub **소스 코드 = 영문**(외국인 fork·실행). → 글로벌 선배포로 국내 표절 이전에 "원조 = Helena Park" 고정.
+- **스크립트 영문화(로직·데이터 불변, bash -n 검증):** `navigator.sh`·`g/install.sh`·`g/spawn.sh`·`scripts/preflight.sh`·`scripts/make_pair.sh` 전부 0 한국어. 설정 템플릿 4종(`ecosystem.json.template`·`quota-manifest.json`·`bait-voice.json`·`accounts.json.template`)도 영문 — 단 고유명사·디렉토리명(`기자`·`교육방송국` 등)은 데이터로 보존.
+- **원조 서사(README·프로필):** "Made in Korea — 토종 한국인 개발자(교포 아님)·Incheon/Seoul·구형 S21 한 대·누나 돌봄·~$20" 을 허브 README hero + 프로필 README `## The origin` 섹션에 명시. 진정성이 곧 해자.
+- **결과:** 허브 2커밋(`i18n:`·`docs:`) + 프로필 1커밋 푸시 완료. 남은 자산 레인은 Grok(히어로·소셜 프리뷰 이미지).
