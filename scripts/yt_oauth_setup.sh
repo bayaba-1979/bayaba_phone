@@ -48,9 +48,11 @@ ok "클라이언트 ID 확인"
 echo ""
 echo "📡 Google에 device code 요청..."
 
+# 주의: yt-analytics.readonly 스코프는 Device Code Flow 미지원(invalid_scope).
+# → 여기선 youtube(관리)·youtube.upload 만 요청. 애널리틱스는 브라우저 OAuth 전용.
 RESP=$(curl -s -X POST "https://oauth2.googleapis.com/device/code" \
   -d "client_id=${CLIENT_ID}" \
-  -d "scope=https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/yt-analytics.readonly")
+  -d "scope=https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.upload")
 
 DEVICE_CODE=$(echo "$RESP" | python3 -c "import json,sys; print(json.load(sys.stdin)['device_code'])" 2>/dev/null || echo "")
 USER_CODE=$(echo "$RESP" | python3 -c "import json,sys; print(json.load(sys.stdin)['user_code'])" 2>/dev/null || echo "")

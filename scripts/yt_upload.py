@@ -5,17 +5,17 @@ OAuth(Device Code) → Data API v3 · Analytics v2
 
 사용법:
   # 업로드 (제목/설명/태그/카테고리/공개설정/채널)
-  ~/browser-env/bin/python3 scripts/yt_upload.py --title "제목" --file video.mp4 --privacy public
+  python3 scripts/yt_upload.py --title "제목" --file video.mp4 --privacy public
   # 채널 조회
-  ~/browser-env/bin/python3 scripts/yt_upload.py --channel phone --list
-  ~/browser-env/bin/python3 scripts/yt_upload.py --stats
+  python3 scripts/yt_upload.py --channel phone --list
+  python3 scripts/yt_upload.py --stats
   # 플레이리스트
-  ~/browser-env/bin/python3 scripts/yt_upload.py --playlist-list
-  ~/browser-env/bin/python3 scripts/yt_upload.py --playlist-create "새 재생목록"
-  ~/browser-env/bin/python3 scripts/yt_upload.py --playlist-add <플리ID> <영상ID>
+  python3 scripts/yt_upload.py --playlist-list
+  python3 scripts/yt_upload.py --playlist-create "새 재생목록"
+  python3 scripts/yt_upload.py --playlist-add <플리ID> <영상ID>
   # 브랜딩 / 통계
-  ~/browser-env/bin/python3 scripts/yt_upload.py --branding "새 채널 설명"
-  ~/browser-env/bin/python3 scripts/yt_upload.py --analytics 28
+  python3 scripts/yt_upload.py --branding "새 채널 설명"
+  python3 scripts/yt_upload.py --analytics 28
 
 환경: proot Ubuntu
 의존성: google-auth-oauthlib, google-api-python-client
@@ -61,7 +61,7 @@ def get_credentials():
         from google.auth.transport.requests import Request
     except ImportError:
         print("❌ 필요 패키지 설치:")
-        print("   ~/browser-env/bin/pip install google-auth-oauthlib google-api-python-client")
+        print("   pip3 install google-auth-oauthlib google-api-python-client")
         sys.exit(1)
 
     from google.oauth2.credentials import Credentials
@@ -273,17 +273,26 @@ def update_branding(youtube, channel_id, description):
 def get_analytics(channel_id, days=28):
     """YouTube Analytics v2 — 조회/시청시간/구독자 통계"""
     from googleapiclient.discovery import build
+    from googleapiclient.errors import HttpError
     creds = get_credentials()
     yta = build('youtubeAnalytics', 'v2', credentials=creds, cache_discovery=False)
     end = datetime.date.today()
     start = end - datetime.timedelta(days=days)
-    r = yta.reports().query(
-        ids=f'channel=={channel_id}',
-        startDate=start.isoformat(),
-        endDate=end.isoformat(),
-        metrics='views,estimatedMinutesWatched,subscribersGained',
-        dimensions='day',
-    ).execute()
+    try:
+        r = yta.reports().query(
+            ids=f'channel=={channel_id}',
+            startDate=start.isoformat(),
+            endDate=end.isoformat(),
+            metrics='views,estimatedMinutesWatched,subscribersGained',
+            dimensions='day',
+        ).execute()
+    except HttpError as e:
+        if getattr(getattr(e, 'resp', None), 'status', None) == 403:
+            print("❌ 애널리틱스 스코프(yt-analytics.readonly) 없음.")
+            print("   Device Code Flow는 이 스코프를 지원하지 않음 → 브라우저 OAuth 필요.")
+            print("   → google-api/yt_oauth_channel.cjs 로 브라우저 인증 후 재시도")
+            sys.exit(1)
+        raise
     rows = r.get('rows', [])
     print(f"\n📊 최근 {days}일 통계:")
     if not rows:
