@@ -135,6 +135,7 @@ bash g/install.sh          # 휴대폰(Termux/proot)에서
 | 스크립트 | 역할 |
 |----------|------|
 | `bash scripts/preflight.sh` | **테이블 세터** — 양산 직전 소모성 자산(티스토리 세션·유튜브 OAuth·깃허브·텔레그램) 점검. FAIL 이면 갱신부터. |
+| `python3 tistory-naver/renew_sessions.py` | **세션 갱신** — 티스토리 5블로그 만료 시 카카오 1회 로그인 → 5개 시드. preflight 티스토리 FAIL 시 실행. |
 | `bash scripts/quota.sh` | **오늘 남은 쿼터** — 티스토리 15/일(계정)·유튜브 1600units·Threads 500자/250일. 한도 SSOT = `configs/quota-manifest.json`. |
 | `bash scripts/make_pair.sh` | **페어 발행** — preflight → PWA 빌드(gap=0 게이트) → 티스토리(디렉터 게이트→배치) 단일 엔트리. |
 

@@ -19,6 +19,7 @@
 # ⚠️ 티스토리 세션은 "파일 최신성(24h)"이 아니라 실제 manage URL 프로브로 판정.
 #    서버측 세션이 쿠키 expires(클라이언트측, 6일 뒤)보다 먼저 만료되므로
 #    mtime 휴리스틱은 놓친다 (실측 2026-08-17: 5개 전부 302→login).
+#    갱신은 1줄:  python3 tistory-naver/renew_sessions.py  (카카오 1회 로그인 → 5블로그 시드)
 # ==============================================================================
 
 set -uo pipefail
@@ -105,8 +106,8 @@ while IFS=$'\t' read -r acct status; do
   [ -z "$acct" ] && continue
   case "$status" in
     OK)      ok "티스토리 $acct — 세션 유효" ;;
-    EXPIRED) fail "티스토리 $acct — 세션 만료(login 리다이렉트) → 재로그인 필요"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("티스토리 $acct 재로그인") ;;
-    MISSING) fail "티스토리 $acct — state 없음 → 재로그인 필요"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("티스토리 $acct 재로그인") ;;
+    EXPIRED) fail "티스토리 $acct — 세션 만료(login 리다이렉트) → python3 tistory-naver/renew_sessions.py"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("티스토리 $acct 재로그인") ;;
+    MISSING) fail "티스토리 $acct — state 없음 → python3 tistory-naver/renew_sessions.py"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("티스토리 $acct 재로그인") ;;
     *)       warn "티스토리 $acct — 점검 불가 ($status)" ;;
   esac
 done <<< "$TISTORY_RESULT"
