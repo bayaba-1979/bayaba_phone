@@ -4,7 +4,7 @@
 # ==============================================================================
 # 사용법: bash scripts/yt_oauth_setup.sh
 # 전제: Google Cloud Console에서 OAuth 클라이언트 ID 발급 완료
-#       → .secrets.env에 YT_CLIENT_ID, YT_CLIENT_SECRET 저장
+#       → .secrets.env에 YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET 저장
 # ==============================================================================
 
 set -euo pipefail
@@ -26,11 +26,11 @@ if [ -f "$SECRETS" ]; then
   source "$SECRETS" 2>/dev/null || true
 fi
 
-CLIENT_ID="${YT_CLIENT_ID:-}"
-CLIENT_SECRET="${YT_CLIENT_SECRET:-}"
+CLIENT_ID="${YOUTUBE_CLIENT_ID:-}"
+CLIENT_SECRET="${YOUTUBE_CLIENT_SECRET:-}"
 
 if [ -z "$CLIENT_ID" ] || [ -z "$CLIENT_SECRET" ]; then
-  echo "❌ YT_CLIENT_ID 또는 YT_CLIENT_SECRET이 설정되지 않았습니다."
+  echo "❌ YOUTUBE_CLIENT_ID 또는 YOUTUBE_CLIENT_SECRET이 설정되지 않았습니다."
   echo ""
   echo "   발급 방법:"
   echo "   1. console.cloud.google.com → S21 YouTube 프로젝트"
@@ -38,8 +38,8 @@ if [ -z "$CLIENT_ID" ] || [ -z "$CLIENT_SECRET" ]; then
   echo "   3. OAuth 클라이언트 ID → TV 및 제한된 입력 장치"
   echo "   4. 클라이언트 ID + 시크릿 → .secrets.env에 저장:"
   echo ""
-  echo "      YT_CLIENT_ID=xxxxxxxx.apps.googleusercontent.com"
-  echo "      YT_CLIENT_SECRET=GOCSPX-xxxxxxxx"
+  echo "      YOUTUBE_CLIENT_ID=xxxxxxxx.apps.googleusercontent.com"
+  echo "      YOUTUBE_CLIENT_SECRET=GOCSPX-xxxxxxxx"
   exit 1
 fi
 ok "클라이언트 ID 확인"
@@ -89,6 +89,7 @@ for i in $(seq 1 $((EXPIRES / INTERVAL))); do
     -d "grant_type=urn:ietf:params:oauth:grant-type:device_code")
 
   ACCESS_TOKEN=$(echo "$TOKEN_RESP" | python3 -c "import json,sys; print(json.load(sys.stdin).get('access_token',''))" 2>/dev/null || echo "")
+  REFRESH_TOKEN=$(echo "$TOKEN_RESP" | python3 -c "import json,sys; print(json.load(sys.stdin).get('refresh_token',''))" 2>/dev/null || echo "")
 
   if [ -n "$ACCESS_TOKEN" ]; then
     ok "인증 성공!"
@@ -109,6 +110,27 @@ with open('$TOKEN_FILE', 'w') as f:
 " && ok "토큰 저장: $TOKEN_FILE"
 
     chmod 600 "$TOKEN_FILE" 2>/dev/null || true
+
+    # .secrets.env (SSOT) 갱신 — YOUTUBE_ACCESS_TOKEN / YOUTUBE_REFRESH_TOKEN
+    python3 - "$SECRETS" "$ACCESS_TOKEN" "$REFRESH_TOKEN" << 'PYEOF'
+import sys, os
+path, acc, ref = sys.argv[1], sys.argv[2], sys.argv[3]
+lines = open(path).read().splitlines() if os.path.exists(path) else []
+out, done = [], set()
+for ln in lines:
+    if ln.startswith("YOUTUBE_ACCESS_TOKEN="):
+        out.append(f'YOUTUBE_ACCESS_TOKEN="{acc}"'); done.add("acc"); continue
+    if ln.startswith("YOUTUBE_REFRESH_TOKEN=") and ref:
+        out.append(f'YOUTUBE_REFRESH_TOKEN="{ref}"'); done.add("ref"); continue
+    out.append(ln)
+if "acc" not in done:
+    out.append(f'YOUTUBE_ACCESS_TOKEN="{acc}"')
+if "ref" not in done and ref:
+    out.append(f'YOUTUBE_REFRESH_TOKEN="{ref}"')
+open(path, "w").write("\n".join(out) + "\n")
+os.chmod(path, 0o600)
+print("✔ .secrets.env 갱신 (YOUTUBE_ACCESS_TOKEN / YOUTUBE_REFRESH_TOKEN)")
+PYEOF
 
     echo ""
     echo "✅ YouTube OAuth 설정 완료!"

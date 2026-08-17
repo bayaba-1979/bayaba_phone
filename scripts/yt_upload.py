@@ -21,8 +21,10 @@ TOKEN_FILE = BASE / "configs" / "yt_tokens.json"
 
 # ── 설정 ────────────────────────────────────────────────────────────────────
 
-CLIENT_ID = os.environ.get("YT_CLIENT_ID", "")
-CLIENT_SECRET = os.environ.get("YT_CLIENT_SECRET", "")
+CLIENT_ID = os.environ.get("YOUTUBE_CLIENT_ID", "")
+CLIENT_SECRET = os.environ.get("YOUTUBE_CLIENT_SECRET", "")
+ACCESS_TOKEN = os.environ.get("YOUTUBE_ACCESS_TOKEN", "")
+REFRESH_TOKEN = os.environ.get("YOUTUBE_REFRESH_TOKEN", "")
 
 # 생태계 SSOT(configs/ecosystem.json)에서 2채널·프로젝트 로드.
 # (구 6채널 하드코딩 → 2채널 정합: main=돌봄, phone=도구)
@@ -57,11 +59,20 @@ def get_authenticated_service():
 
     credentials = None
 
-    # 토큰 로드
-    if TOKEN_FILE.exists():
+    # 토큰 로드 — 1순위 .secrets.env(YOUTUBE_ACCESS/REFRESH), 2순위 yt_tokens.json
+    from google.oauth2.credentials import Credentials
+    if ACCESS_TOKEN or REFRESH_TOKEN:
+        credentials = Credentials(
+            token=ACCESS_TOKEN,
+            refresh_token=REFRESH_TOKEN,
+            token_uri="https://oauth2.googleapis.com/token",
+            client_id=CLIENT_ID,
+            client_secret=CLIENT_SECRET,
+            scopes=SCOPES,
+        )
+    elif TOKEN_FILE.exists():
         with open(TOKEN_FILE, 'r') as f:
             data = json.load(f)
-            from google.oauth2.credentials import Credentials
             credentials = Credentials(
                 token=data.get('access_token'),
                 refresh_token=data.get('refresh_token'),
@@ -238,20 +249,26 @@ def main():
         subprocess.run(["bash", str(tg), msg], check=False)
 
 def _load_secrets():
-    """환경변수에서 OAuth 정보 로드"""
-    global CLIENT_ID, CLIENT_SECRET
+    """환경변수에서 OAuth 정보 로드 (.secrets.env = SSOT, YOUTUBE_* 키)"""
+    global CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN, REFRESH_TOKEN
 
     if SECRETS.exists():
         with open(SECRETS) as f:
             for line in f:
                 line = line.strip()
-                if line.startswith('YT_CLIENT_ID='):
+                if line.startswith('YOUTUBE_CLIENT_ID='):
                     CLIENT_ID = line.split('=', 1)[1].strip('"\'')
-                elif line.startswith('YT_CLIENT_SECRET='):
+                elif line.startswith('YOUTUBE_CLIENT_SECRET='):
                     CLIENT_SECRET = line.split('=', 1)[1].strip('"\'')
+                elif line.startswith('YOUTUBE_ACCESS_TOKEN='):
+                    ACCESS_TOKEN = line.split('=', 1)[1].strip('"\'')
+                elif line.startswith('YOUTUBE_REFRESH_TOKEN='):
+                    REFRESH_TOKEN = line.split('=', 1)[1].strip('"\'')
 
-    CLIENT_ID = os.environ.get('YT_CLIENT_ID', CLIENT_ID)
-    CLIENT_SECRET = os.environ.get('YT_CLIENT_SECRET', CLIENT_SECRET)
+    CLIENT_ID = os.environ.get('YOUTUBE_CLIENT_ID', CLIENT_ID)
+    CLIENT_SECRET = os.environ.get('YOUTUBE_CLIENT_SECRET', CLIENT_SECRET)
+    ACCESS_TOKEN = os.environ.get('YOUTUBE_ACCESS_TOKEN', ACCESS_TOKEN)
+    REFRESH_TOKEN = os.environ.get('YOUTUBE_REFRESH_TOKEN', REFRESH_TOKEN)
 
 if __name__ == '__main__':
     main()
