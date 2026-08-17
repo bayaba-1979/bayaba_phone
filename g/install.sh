@@ -22,7 +22,7 @@
 set -euo pipefail
 
 # ── Ecosystem variables (override via env vars) ──────────────────────────────
-OWNER_GITHUB="${OWNER_GITHUB:-helena751107}"           # ownership · template owner
+OWNER_GITHUB="${OWNER_GITHUB:-}"                       # 정체(내 계정) — 고정값 금지(교재)
 OWNER_NAME="${OWNER_NAME:-Owner}"                      # display name
 WORK_GITHUB="${WORK_GITHUB:-${GITHUB_USER:-}}"         # work push account (empty = OWNER)
 GITHUB_USER="${GITHUB_USER:-${WORK_GITHUB:-$OWNER_GITHUB}}"
@@ -65,6 +65,13 @@ check_vars() {
   info "TEMPLATE_REPO=${TEMPLATE_REPO}"
   info "WORK_DIR=${WORK_DIR}"
 
+  if [ -z "$OWNER_GITHUB" ]; then
+    echo -n "  내 GitHub 계정(정체/소유): "
+    read -r OWNER_GITHUB
+  fi
+  [ -z "$OWNER_GITHUB" ] && { fail "OWNER_GITHUB 필요 (정체 계정)"; exit 1; }
+
+  GITHUB_USER="${GITHUB_USER:-$OWNER_GITHUB}"
   if [ -z "$GITHUB_USER" ]; then
     echo -n "  Work GitHub username: "
     read -r GITHUB_USER
