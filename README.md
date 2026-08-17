@@ -146,6 +146,8 @@ bash g/install.sh          # 휴대폰(Termux/proot)에서
 
 **🥛 티스토리 세션 유통기한 = 하루(약 24시간).** 폰을 재부팅했든 세션이 만료됐든 **사람이 구분할 필요 없이, 발행(`make_pair`) 전에 자동으로 검사+재로그인**돼요. "로그인 유지" 옵션이 없어서 유통기한 연장은 불가(실측)하지만, 자가치유(`renew_sessions.py --if-needed`)가 알아서 새 세션을 갈아줍니다.
 
+> **준비물은 딱 하나** — `tistory-naver/accounts.json`(카카오 이메일·비번). `accounts.json.template`을 복사해 내 것으로 채우면 세션 자가치유와 티스토리 발행이 모두 동작해요. (gitignore 대상이라 GitHub에 안 올라감.)
+
 **미끼 채널 페르소나** — 같은 소재를 워딩 레벨만 변환해 발화: 네이버=어르신 세대 톤, Threads=MZ 세대 톤 (`configs/bait-voice.json`).
 
 > **스코프:** 이 공법은 콘텐츠(1인 미디어) 전용이에요. 돌봄 망(Tailscale)·돌봄 데몬은 별도 트랙이라 여기 안 섞여요.
