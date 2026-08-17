@@ -4,8 +4,10 @@ S21 Phone — YouTube 통제 CLI v2 (업로드 + 플레이리스트 + 브랜딩 
 OAuth(Device Code) → Data API v3 · Analytics v2
 
 사용법:
-  # 업로드 (제목/설명/태그/카테고리/공개설정/채널)
+  # 업로드 (기본 = 텔레그램 승인 게이트: ✅승인해야만 업로드)
   python3 scripts/yt_upload.py --title "제목" --file video.mp4 --privacy public
+  python3 scripts/yt_upload.py --title "제목" --file video.mp4 --auto   # 승인 없이 바로
+  python3 scripts/yt_upload.py --approve <DRAFT_ID>                     # 타임아웃 드래프트 재개
   # 채널 조회
   python3 scripts/yt_upload.py --channel phone --list
   python3 scripts/yt_upload.py --stats
@@ -18,16 +20,26 @@ OAuth(Device Code) → Data API v3 · Analytics v2
   python3 scripts/yt_upload.py --analytics 28
 
 환경: proot Ubuntu
-의존성: google-auth-oauthlib, google-api-python-client
-전제: OAuth 토큰이 .secrets.env(YOUTUBE_*) 또는 yt_tokens.json에 존재할 것
+의존성: google-auth-oauthlib, google-api-python-client, requests(승인 게이트)
+전제: OAuth 토큰(.secrets.env YOUTUBE_*) + TG_TOKEN/TG_CHAT(.secrets.env, 승인 게이트용)
 """
 
-import os, sys, json, subprocess, argparse, datetime
+import os, sys, json, subprocess, argparse, datetime, time
 from pathlib import Path
+
+try:
+    import requests
+except ImportError:  # 승인 게이트만 씀. 없으면 --auto 경로로 동작
+    requests = None
 
 BASE = Path(__file__).resolve().parent.parent
 SECRETS = BASE / ".secrets.env"
 TOKEN_FILE = BASE / "configs" / "yt_tokens.json"
+PENDING_DIR = BASE / "configs" / "pending_uploads"  # 승인 대기 드래프트
+
+# 텔레그램 승인 게이트 (SSOT = .secrets.env TG_TOKEN/TG_CHAT, _load_secrets에서 채움)
+TG_TOKEN = ""
+TG_CHAT = ""
 
 # ── 설정 ────────────────────────────────────────────────────────────────────
 
@@ -307,6 +319,123 @@ def get_analytics(channel_id, days=28):
     print(f"   합계     조회 {tot_v:>7}  시청분 {tot_m:>7}  구독+{tot_s}")
     return r
 
+# ── 텔레그램 승인 게이트 (사람이 ✅승인해야만 업로드) ─────────────────────────
+
+def _stage_draft(draft_id, title, description, tags, category, privacy, channel_key, file_path):
+    PENDING_DIR.mkdir(parents=True, exist_ok=True)
+    draft = {
+        "id": draft_id, "title": title, "description": description,
+        "tags": tags or [], "category": category, "privacy": privacy,
+        "channel": channel_key, "file": file_path,
+        "created": datetime.datetime.now().isoformat(),
+    }
+    with open(PENDING_DIR / f"{draft_id}.json", "w") as f:
+        json.dump(draft, f, indent=2, ensure_ascii=False)
+    return draft
+
+def _load_draft(draft_id):
+    p = PENDING_DIR / f"{draft_id}.json"
+    return json.load(open(p)) if p.exists() else None
+
+def _delete_draft(draft_id):
+    p = PENDING_DIR / f"{draft_id}.json"
+    if p.exists():
+        p.unlink()
+
+def _send_approval_message(api, caption, keyboard, file_path):
+    """영상(50MB↓)이면 sendVideo, 아니면 메타데이터 sendMessage"""
+    if file_path and os.path.exists(file_path) and os.path.getsize(file_path) < 50 * 1024 * 1024:
+        try:
+            with open(file_path, "rb") as vf:
+                return requests.post(f"{api}/sendVideo",
+                    data={"chat_id": TG_CHAT, "caption": caption, "parse_mode": "HTML",
+                          "reply_markup": json.dumps(keyboard)},
+                    files={"video": vf}, timeout=180)
+        except Exception:
+            pass  # 첨부 실패 시 메타데이터로 폴백
+    return requests.post(f"{api}/sendMessage",
+        json={"chat_id": TG_CHAT, "text": caption, "parse_mode": "HTML",
+              "reply_markup": keyboard}, timeout=30)
+
+def _request_upload_approval(draft, channel_name, timeout_seconds=1800):
+    """텔레그램 승인 요청 전송 + getUpdates 폴링. True(승인)/False(거절)/None(타임아웃)"""
+    if requests is None:
+        print("❌ requests 미설치 — 승인 게이트 불가. --auto 로 우회하세요.")
+        return None
+    if not TG_TOKEN or not TG_CHAT:
+        print("❌ TG_TOKEN/TG_CHAT 없음 (.secrets.env). --auto 로 우회 가능.")
+        return None
+
+    api = f"https://api.telegram.org/bot{TG_TOKEN}"
+    keyboard = {"inline_keyboard": [[
+        {"text": "✅ 승인", "callback_data": f"yt_approve_{draft['id']}"},
+        {"text": "❌ 거절", "callback_data": f"yt_reject_{draft['id']}"},
+    ]]}
+    priv_kr = {"private": "비공개", "unlisted": "일부공개", "public": "공개"}.get(draft["privacy"], draft["privacy"])
+    caption = (
+        f"🎬 <b>{draft['title']}</b>\n"
+        f"━━━━━━━━━━━━━━━━━━\n"
+        f"채널: {channel_name}\n"
+        f"태그: {', '.join(draft['tags']) if draft['tags'] else '-'}\n"
+        f"공개: {priv_kr}\n"
+        f"━━━━━━━━━━━━━━━━━━\n"
+        f"{draft['description'][:400]}"
+    )
+
+    # 1) 기존 update flush — offset 선진화 (과거 콜백 무시)
+    offset = 0
+    try:
+        r = requests.get(f"{api}/getUpdates", params={"limit": 1, "timeout": 0}, timeout=10)
+        for u in r.json().get("result", []):
+            offset = max(offset, u["update_id"] + 1)
+    except Exception:
+        pass
+
+    # 2) 승인 요청 전송
+    try:
+        r = _send_approval_message(api, caption, keyboard, draft["file"])
+        if not r.ok:
+            print(f"   ⚠️ 텔레그램 전송 실패: {r.text[:200]}")
+            return None
+    except Exception as e:
+        print(f"   ⚠️ 텔레그램 전송 예외: {e}")
+        return None
+
+    print("   📨 승인 요청 전송 완료. 텔레그램에서 ✅승인 / ❌거절을 누르세요.")
+
+    # 3) getUpdates long-poll 폴링
+    deadline = time.time() + timeout_seconds
+    while time.time() < deadline:
+        try:
+            r = requests.get(f"{api}/getUpdates",
+                             params={"offset": offset, "limit": 10, "timeout": 25}, timeout=40)
+            for u in r.json().get("result", []):
+                offset = u["update_id"] + 1
+                cb = u.get("callback_query")
+                if not cb:
+                    continue
+                cdata = cb.get("data", "")
+                cq_id = cb.get("id")
+                if cdata == f"yt_approve_{draft['id']}":
+                    requests.post(f"{api}/answerCallbackQuery",
+                                  json={"callback_query_id": cq_id, "text": "✅ 승인됨 — 업로드 시작"}, timeout=5)
+                    return True
+                if cdata == f"yt_reject_{draft['id']}":
+                    requests.post(f"{api}/answerCallbackQuery",
+                                  json={"callback_query_id": cq_id, "text": "❌ 거절됨"}, timeout=5)
+                    return False
+        except Exception as e:
+            print(f"   ⚠️ getUpdates 오류: {e}")
+        time.sleep(2)
+    return None
+
+def _report_upload(title, url):
+    """업로드 완료 보고 (tg.sh)"""
+    tg = BASE / "tg.sh"
+    if tg.exists():
+        msg = f"📺 YouTube 업로드 완료\n제목: {title}\n{url}"
+        subprocess.run(["bash", str(tg), msg], check=False)
+
 # ── CLI ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -325,6 +454,9 @@ def main():
     parser.add_argument('--playlist-add', nargs=2, metavar=('PLAYLIST_ID', 'VIDEO_ID'), help='플레이리스트에 영상 추가')
     parser.add_argument('--branding', nargs='+', metavar='DESC', help='채널 설명/키워드 갱신 (따옴표로 묶기)')
     parser.add_argument('--analytics', nargs='?', const=28, type=int, metavar='DAYS', help='N일 애널리틱스 (기본 28일)')
+    parser.add_argument('--auto', action='store_true', help='승인 게이트 없이 바로 업로드')
+    parser.add_argument('--review-timeout', type=int, default=1800, help='승인 대기 초 (기본 1800)')
+    parser.add_argument('--approve', metavar='DRAFT_ID', help='승인 대기 드래프트를 바로 업로드 (텔레그램 대체)')
     args = parser.parse_args()
 
     # OAuth 토큰 로드
@@ -366,6 +498,20 @@ def main():
         get_analytics(channel['id'], args.analytics)
         return
 
+    if args.approve:
+        draft = _load_draft(args.approve)
+        if not draft:
+            print(f"❌ 드래프트 없음: {args.approve}")
+            sys.exit(1)
+        ch = CHANNELS.get(draft.get("channel", "main"), CHANNELS["main"])
+        video_id, url = upload_video(
+            youtube, draft["file"], draft["title"], draft["description"],
+            draft["tags"], draft["category"], draft["privacy"],
+        )
+        _report_upload(draft["title"], url)
+        _delete_draft(args.approve)
+        return
+
     if not args.title or not args.file:
         parser.error("--title과 --file은 필수입니다")
         return
@@ -376,20 +522,35 @@ def main():
 
     desc = args.description or f"{channel['topic']}\n\n🤖 @S21Phone_Bot 자동 업로드"
 
-    video_id, url = upload_video(
-        youtube, args.file, args.title, desc,
-        args.tags, args.category, args.privacy,
-    )
+    if args.auto:
+        video_id, url = upload_video(
+            youtube, args.file, args.title, desc,
+            args.tags, args.category, args.privacy,
+        )
+        _report_upload(args.title, url)
+        return
 
-    # tg.sh로 보고
-    tg = BASE / "tg.sh"
-    if tg.exists():
-        msg = f"📺 YouTube 업로드 완료\n제목: {args.title}\n{url}"
-        subprocess.run(["bash", str(tg), msg], check=False)
+    # ── 승인 게이트 (기본): 텔레그램 확인 → ✅승인해야만 업로드 ──
+    draft_id = str(int(time.time()))
+    draft = _stage_draft(draft_id, args.title, desc, args.tags, args.category,
+                         args.privacy, args.channel, args.file)
+    result = _request_upload_approval(draft, channel['handle'], args.review_timeout)
+    if result is True:
+        video_id, url = upload_video(
+            youtube, draft["file"], draft["title"], draft["description"],
+            draft["tags"], draft["category"], draft["privacy"],
+        )
+        _report_upload(draft["title"], url)
+        _delete_draft(draft_id)
+    elif result is False:
+        print("❌ 텔레그램에서 거절됨 — 업로드 취소.")
+        _delete_draft(draft_id)
+    else:
+        print(f"⏱ 승인 타임아웃. 나중에 재개: python3 scripts/yt_upload.py --approve {draft_id}")
 
 def _load_secrets():
-    """환경변수에서 OAuth 정보 로드 (.secrets.env = SSOT, YOUTUBE_* 키)"""
-    global CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN, REFRESH_TOKEN
+    """환경변수에서 OAuth·TG 정보 로드 (.secrets.env = SSOT)"""
+    global CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN, REFRESH_TOKEN, TG_TOKEN, TG_CHAT
 
     if SECRETS.exists():
         with open(SECRETS) as f:
@@ -403,11 +564,17 @@ def _load_secrets():
                     ACCESS_TOKEN = line.split('=', 1)[1].strip('"\'')
                 elif line.startswith('YOUTUBE_REFRESH_TOKEN='):
                     REFRESH_TOKEN = line.split('=', 1)[1].strip('"\'')
+                elif line.startswith('TG_TOKEN='):
+                    TG_TOKEN = line.split('=', 1)[1].strip('"\'')
+                elif line.startswith('TG_CHAT='):
+                    TG_CHAT = line.split('=', 1)[1].strip('"\'')
 
     CLIENT_ID = os.environ.get('YOUTUBE_CLIENT_ID', CLIENT_ID)
     CLIENT_SECRET = os.environ.get('YOUTUBE_CLIENT_SECRET', CLIENT_SECRET)
     ACCESS_TOKEN = os.environ.get('YOUTUBE_ACCESS_TOKEN', ACCESS_TOKEN)
     REFRESH_TOKEN = os.environ.get('YOUTUBE_REFRESH_TOKEN', REFRESH_TOKEN)
+    TG_TOKEN = os.environ.get('TG_TOKEN', TG_TOKEN)
+    TG_CHAT = os.environ.get('TG_CHAT', TG_CHAT)
 
 if __name__ == '__main__':
     main()

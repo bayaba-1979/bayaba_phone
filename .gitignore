@@ -6,6 +6,7 @@ bot_token.txt
 # 🔐 생태계 SSOT (navigator가 생성 — .template만 커밋)
 configs/ecosystem.json
 configs/yt_tokens.json
+configs/pending_uploads/
 
 # AI 보조 기록
 .aider*
