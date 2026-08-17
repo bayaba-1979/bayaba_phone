@@ -45,7 +45,7 @@ def _load_tg_config():
             elif line.startswith('TG_CHAT_ID='):
                 chat = line.split('=', 1)[1].strip()
     return token or os.environ.get('TG_TOKEN_PARKSY_BRIDGE', ''), \
-           chat or os.environ.get('TG_CHAT_ID', 'REDACTED')
+           chat or os.environ.get('TG_CHAT_ID', '')
 
 TG_TOKEN, TG_CHAT = _load_tg_config()
 

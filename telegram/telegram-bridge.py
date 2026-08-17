@@ -10,8 +10,8 @@ import urllib.request, urllib.error, urllib.parse, logging
 from datetime import datetime, timezone
 from pathlib import Path
 
-BOT_TOKEN = "REDACTED"
-CHAT_ID = "REDACTED"
+BOT_TOKEN = os.environ.get("TG_TOKEN", "")
+CHAT_ID = os.environ.get("TG_CHAT", "")
 POLL_TIMEOUT = 30
 POLL_INTERVAL = 5
 

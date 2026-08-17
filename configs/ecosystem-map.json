@@ -13,7 +13,7 @@
       "ai_report": "#ai-보고 (REDACTED)"
     },
     "telegram_bot": "@S21Phone_Bot",
-    "telegram_chat": "REDACTED"
+    "telegram_chat": "<YOUR_TG_CHAT_ID>"
   },
 
   "channels": [

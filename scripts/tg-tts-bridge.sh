@@ -27,7 +27,7 @@ LAST_UPDATE="/tmp/tg-tts-last-update.txt"
 # ── TG 설정 (.secrets.env에서) ──────────────────────
 source /root/work/.secrets.env 2>/dev/null || true
 TG_TOKEN="${HELENA_PIANO_TG_TOKEN}"
-TG_CHAT="${HELENA_PIANO_TG_CHAT:-REDACTED}"
+TG_CHAT="${HELENA_PIANO_TG_CHAT:-}"
 
 TG_API="https://api.telegram.org/bot${TG_TOKEN}"
 

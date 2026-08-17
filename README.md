@@ -1,7 +1,7 @@
 # Mobile-First Multi-Platform Content Foundry Boilerplate
 
 > **Powered by Termux/PRoot & MCP.** A complete one-person media studio + 24/7 care system
-> on a single Galaxy S21 — ~$20/month. **485 commits · 895 files · 129 notebooks · 8 systems.**
+> on a single Galaxy S21 — ~$20/month. **489 commits · 893 files · 129 notebooks · 8 systems.**
 > Zero PC · MCP-verified (`returncode == 0`) · resilience-first · multi-channel (Git SSOT → PWA / Tistory / YouTube / Telegram).
 > Fork it, cite it, run it on the phone in your pocket.
 >
@@ -38,7 +38,7 @@
 │                    │ 무전기(Telegram) │              │
 │                    └────────────────┘               │
 │                                                     │
-│  446커밋 · 888파일 · 126종 업무수첩 · 8솔루션        │
+│  489커밋 · 893파일 · 129종 업무수첩 · 8솔루션        │
 │  만들기는 끝났다 → 이제 열고 가르친다                │
 └─────────────────────────────────────────────────────┘
 ```
@@ -56,8 +56,8 @@
 | 지표 | 값 |
 |------|-----|
 | 구축 기간 | 3주 (2026-07-23 ~ 08-16) |
-| 커밋 | 485회 |
-| 파일 | 895개 |
+| 커밋 | 489회 |
+| 파일 | 893개 |
 | 업무 수첩 | 129종 |
 | 솔루션 | 8종 (웹진·돌봄데몬·교재·발행·영상 등) |
 | AI 로봇 | 3종 (글짓기·그림PD·고치기) |

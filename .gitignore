@@ -8,6 +8,11 @@ configs/ecosystem.json
 configs/yt_tokens.json
 configs/pending_uploads/
 
+# 🔐 설치/인증 생성 파일 (install.sh·oauth·grok 이 실제 키를 기록 — 절대 커밋 금지)
+configs/deepseek.env
+configs/helena-env.sh
+configs/grok_token.json
+
 # AI 보조 기록
 .aider*
 

@@ -57,9 +57,6 @@ def load_auth():
 
     # OAuth 토큰이면 Bearer, API 키(xai-...)면 그대로
     return token, "https://api.x.ai/v1"
-                if line.startswith("XAI_API_KEY="):
-                    return line.split("=", 1)[1].strip().strip('"\'')
-    return os.environ.get("XAI_API_KEY", "")
 
 # ── Grok API 호출 ────────────────────────────────────────────
 def grok_chat(prompt, model="grok-4-1-fast", system=None):

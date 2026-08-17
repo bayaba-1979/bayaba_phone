@@ -6,6 +6,9 @@ on:
     - cron: '7 * * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   sync:
     uses: helena751107/helena_phone/.github/workflows/tistory-sync.yml@main

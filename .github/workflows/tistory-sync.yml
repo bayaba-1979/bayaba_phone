@@ -35,6 +35,11 @@ on:
 
 jobs:
   sync:
+    # git push(기자/ 커밋)가 필요 → contents: write.
+    # 단, 권한의 최종 결정권은 caller. 각 caller 워크플로에도 반드시
+    # `permissions: contents: write` 를 둔다 (fresh 포크 기본값 read-only 함정 방지).
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

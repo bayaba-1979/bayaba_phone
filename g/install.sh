@@ -71,13 +71,11 @@ check_vars() {
   fi
   ok "작업 계정: ${GITHUB_USER}"
 
-  if [ -z "$GITHUB_TOKEN" ]; then
-    warn "GITHUB_TOKEN 없음 — clone은 가능, push는 나중에"
-    echo "  발급: GitHub → Settings → Developer settings → PAT (repo)"
-    echo -n "  토큰 (Enter=스킵): "
-    read -r GITHUB_TOKEN || true
+  if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
+    ok "gh 인증됨 — push 는 gh auth 자격증명 (PAT 를 URL/파일에 넣지 않음)"
+  else
+    warn "gh 미인증 — clone 은 가능, push 는 나중에 (권장: gh auth login)"
   fi
-  [ -n "$GITHUB_TOKEN" ] && ok "토큰 설정됨" || warn "토큰 없음"
 
   [ -n "$DEEPSEEK_API_KEY" ] && ok "DeepSeek 키 있음" || warn "DEEPSEEK_API_KEY 없음 (cc 구동 시 필요)"
   [ -n "$TG_TOKEN" ] && [ -n "$TG_CHAT" ] && ok "Telegram 설정됨" || warn "TG 선택 사항"
@@ -160,21 +158,18 @@ setup_repo() {
     ok "이미 있음: $WORK_DIR"
     git -C "$WORK_DIR" pull --ff-only 2>/dev/null && ok "git pull" || warn "pull 스킵"
   else
-    local url
-    if [ -n "$GITHUB_TOKEN" ]; then
-      url="https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${TEMPLATE_REPO}.git"
-    else
-      url="https://github.com/${TEMPLATE_REPO}.git"
-    fi
+    local url="https://github.com/${TEMPLATE_REPO}.git"
     info "clone ${TEMPLATE_REPO} → ${WORK_DIR}"
+    # 토큰을 URL 에 넣지 않는다 (.git/config 평문 유출 방지).
+    # private 레포라면 gh auth login 후 gh repo clone 을 쓰는 게 안전.
     git clone "$url" "$WORK_DIR" && ok "클론 완료" || { fail "클론 실패"; exit 1; }
   fi
 
-  # remote: 작업 계정의 포크/동일 레포로 맞출 때
-  if [ -n "$GITHUB_TOKEN" ] && [ -n "$GITHUB_USER" ]; then
+  # remote: 작업 계정의 포크/동일 레포로 맞출 때 (토큰은 URL 에 넣지 않음)
+  if [ -n "$GITHUB_USER" ]; then
     git -C "$WORK_DIR" remote set-url origin \
-      "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.git" 2>/dev/null \
-      && ok "origin → ${GITHUB_USER}/${GITHUB_REPO}" \
+      "https://github.com/${GITHUB_USER}/${GITHUB_REPO}.git" 2>/dev/null \
+      && ok "origin → ${GITHUB_USER}/${GITHUB_REPO} (push 는 gh auth 자격증명)" \
       || warn "remote 유지 (템플릿 origin)"
   fi
 
