@@ -6394,3 +6394,31 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **`g/workstation.sh` 신규:** 공기계 → Termux → Ubuntu → Claude Code(DeepSeek) → 보일러플레이트 클론, 한 줄. Boss의 "새 폰 최종판 8블록"(실사용 4회) + 외부 AI 수정 5종(배터리 최적화·`--no-audit`·키 sys.argv·TG JSON파싱·`mkdir -p work`) 반영.
 - **정체 변수화(Boss 정정):** `OWNER_GITHUB`에 `helena751107` 기본값을 박아놨다가 지적 → **기본값 제거, 프롬프트로 각자 계정 입력.** `easy.sh`·`install.sh`에도 같은 기본값이 잔존 → 전부 제거. `TEMPLATE_REPO`는 교재 원본(소스) 위치라 고정 유지.
 - **원칙 확정:** 정체(계정)는 절대 기본값 하드코딩 금지 — 교재니까 각자 자기 계정. [[always-replicable-installable]] 반영.
+
+### 🔬 태블릿(Tab S9) 하드웨어 — S21과 2세대 차이 (_Claude · 2026-08-18)
+
+**Boss 추정("S21과 비슷할 것")을 검증 → 틀림. 태블릿이 두 세대 위.**
+
+- **S21:** Exynos 2100(5nm) · Mali-G78 MP14 · 트리코어 NPU 26 TOPS · 8GB · 4000mAh.
+- **Tab S9:** Snapdragon 8 Gen 2 for Galaxy(4nm) · Adreno 740 · Hexagon NPU · 8/12GB · **8400mAh** · 11" 2560×1600 · microSD 1TB.
+- **같아 보였던 이유:** RAM(8GB)·저장(128/256GB)·120Hz AMOLED 겉면이 겹침. **뇌(SoC)는 완전히 다름.**
+- **결론:** CPU 단일코어 ~30~40%↑, GPU(Adreno 740)는 Mali-G78보다 배↑. → 사다리의 "위쪽" 노드로 정합.
+- **⚠️ 가속 결론은 기기별 재실측:** S21의 NPU/GPU 연구(Exynos·Mali·26TOPS)는 S21 전용. 태블릿은 Snapdragon이라 NPU(Hexagon)·GPU(Adreno)가 다른 부품. NNAPI 추상층은 공통이라 원리상 sherpa-onnx 경로는 양쪽 다 되지만, 밑단 가속기는 다름.
+- **일상 뇌(Claude Code+DeepSeek)는 클라우드 추론이라 SoC 무관.** SoC가 중요한 건 로컬 추론(TTS·STT·NPU)뿐.
+
+### 🧊 앱도 동결 — S21 검증 APK 사이드로드 (_Boss · 2026-08-18)
+
+- **결정:** F-Droid에서 최신 받지 말고, **S21의 검증된 Termux APK를 사이드로드.** "안정화된 앱이 중요, 최신 업데이트할 이유 없음."
+- **방법:** 파일관리자/APK Extractor로 추출 → Quick Share → 태블릿 "출처를 알 수 없는 앱" 허용 → 설치. 필요한 앱 = Termux 하나(+Termux:API 선택).
+- **핵심:** APK는 '껍데기'(앱 그 자체)만 옮기고, 뇌(proot 우분투)는 어차피 `workstation.sh`가 새로 깔림 → 정체 분리에 딱 맞음.
+- **⚠️ APK 동결 = Termux 앱만 고정.** 내부 툴체인(claude-code npm 최신)은 다음 단계 정밀화 항목.
+
+### 🎯 태블릿 워크스테이션 목적 — 파이프라인 2개 (_Boss · 2026-08-18)
+
+**Boss 방향:** 태블릿 한도 내에서 이 2개 목적을 확실하게. WSL/윈도우 머신 없이 proot 우분투에서.
+
+1. **스케치 → 이미지(웹툰/그림):** `SPen 스케치(삼성 노트) → PNG → proot 폴더 감시 → Grok(클라우드) → 결과`. 이미지 생성이 클라우드라 CPU 사양 무관, 순수 스크립트.
+2. **화면 녹화 → 오버레이 → 편집 → 유튜브(방송 키트):** PD Pipeline(P0~P6)이 이미 이거 — 캡처→Edge TTS→ffmpeg→YouTube OAuth. S21에서 증명됨.
+
+- **⚠️ proot ≠ WSL (핵심 경계):** WSL2 = 진짜 커널+GPU 통과. proot = 사용자 공간 에뮬레이션 → GPU를 glibc에서 못 잡음(S21 Mali-G78에서 확인된 ABI 문제). → **로컬 온디바이스 이미지 생성만 어려움**(NNAPI 일부 가능, 실측 필요). 클라우드(Grok)+ffmpeg(CPU)+유튜브 업로드는 전부 가능.
+- **원칙:** 이미지는 클라우드(Grok), 영상은 CPU(ffmpeg)로 분리. 로컬 이미지 생성은 NNAPI 실측 항목으로 보류.
