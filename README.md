@@ -103,6 +103,9 @@ bash navigator.sh
 
 → 결과물: `configs/ecosystem.json`(매핑) + `.secrets.env`(시크릿). **둘 다 gitignore**라 절대 GitHub에 안 올라가요.
 
+> **🔐 시크릿 모델 — "폰 안 env var = 원본"**  
+> 시크릿은 전부 **내 proot Ubuntu 안 `.secrets.env`가 원본(SSOT)**이에요. `g/install.sh`가 이걸 `~/.bashrc`에 `source`로 연결해서 새 셸에서도 `TG_TOKEN`·`TISTORY_EMAIL`·`YOUTUBE_*` 등이 env var로 살아 있어요. GitHub에는 `g/spawn.sh`가 `gh secret set`으로 **TG_TOKEN/TG_CHAT만** 자동 배선(워크플로가 실제로 쓰는 유일한 시크릿). 나머지(TISTORY/YT/Discord/Tailscale)는 폰 안 로컬 스크립트가 env var로 읽는 전용이라 GitHub에 올리지 않아요.
+
 ### 5분 — 스폰 (위성 레포 생성)
 
 ```bash

@@ -96,22 +96,25 @@ spawn_satellites() {
 }
 
 set_secrets() {
-  # .secrets.env 에서 TG 값 읽기 (없으면 스킵)
+  # .secrets.env 를 source 해 env var 로 읽는다 (proot env var = SSOT).
+  # GitHub Actions 가 실제로 쓰는 시크릿은 TG_TOKEN/TG_CHAT 뿐(helana_log log-to-tistory.yml).
+  # TISTORY/YOUTUBE/DISCORD/TAILSCALE 은 로컬 스크립트가 폰 proot 에서 읽으므로 GitHub 배선 안 함(불필요 노출 방지).
   local tg_token="" tg_chat=""
   if [ -f "$SECRETS" ]; then
-    tg_token="$(sed -nE 's/^TG_TOKEN="?([^"]*)"?$/\1/p' "$SECRETS")"
-    tg_chat="$(sed -nE 's/^TG_CHAT="?([^"]*)"?$/\1/p' "$SECRETS")"
+    source "$SECRETS" 2>/dev/null || true
+    tg_token="${TG_TOKEN:-}"
+    tg_chat="${TG_CHAT:-}"
   fi
   [ -z "$tg_token" ] && { warn "TG_TOKEN 없음 — 시크릿 배선 스킵 (bash navigator.sh --secrets)"; return 0; }
 
-  # 배선 대상 = 허브 + 모든 위성
+  # 배선 대상 = 허브 + 모든 위성 (generic 봇)
   local repos_list="$1
 $(satellites | cut -f1)"
   local repo
   while IFS= read -r repo; do
     [ -z "$repo" ] && continue
     if [ "$DRY" = "1" ]; then
-      info "dry-run: gh secret set TG_TOKEN -R ${OWNER}/${repo} / TG_CHAT -R ${OWNER}/${repo}"
+      info "dry-run: gh secret set TG_TOKEN/TG_CHAT -R ${OWNER}/${repo}"
       continue
     fi
     exists "${OWNER}/${repo}" || { warn "레포 없음(스킵): ${OWNER}/${repo}"; continue; }
@@ -120,6 +123,28 @@ $(satellites | cut -f1)"
       && ok "시크릿 배선: ${OWNER}/${repo} (TG_TOKEN/TG_CHAT)" \
       || warn "시크릿 배선 실패: ${OWNER}/${repo}"
   done <<< "$repos_list"
+
+  # 레포별 전용 봇 (스키마 고급 키) — 값 있으면 해당 레포에 덮어씀
+  wire_repo_bot helena-piano     HELENA_PIANO_TG_TOKEN   HELENA_PIANO_TG_CHAT
+  wire_repo_bot helena-metalcare HELENA_PSYCARE_TG_TOKEN HELENA_PSYCARE_TG_CHAT
+  wire_repo_bot helana-faith     HELENA_FAITH_TG_TOKEN   HELENA_FAITH_TG_CHAT
+  wire_repo_bot helana_log       HELANA_LOG_TG_TOKEN     HELANA_LOG_TG_CHAT
+}
+
+# 레포별 전용 봇 토큰 배선 (값 있으면 그 레포의 TG_TOKEN/TG_CHAT 을 덮어씀)
+wire_repo_bot() {
+  local repo="$1" tok_var="$2" chat_var="$3"
+  local tok="${!tok_var:-}" chat="${!chat_var:-}"
+  [ -z "$tok" ] && return 0
+  if [ "$DRY" = "1" ]; then
+    info "dry-run: gh secret set TG_TOKEN/TG_CHAT -R ${OWNER}/${repo} (전용 봇 ${tok_var})"
+    return 0
+  fi
+  exists "${OWNER}/${repo}" || { warn "레포 없음(스킵): ${OWNER}/${repo}"; return 0; }
+  printf '%s' "$tok" | gh secret set TG_TOKEN -R "${OWNER}/${repo}" \
+    && printf '%s' "$chat" | gh secret set TG_CHAT -R "${OWNER}/${repo}" \
+    && ok "전용 봇 배선: ${OWNER}/${repo} (${tok_var})" \
+    || warn "전용 봇 배선 실패: ${OWNER}/${repo}"
 }
 
 # ── main ────────────────────────────────────────────────────────────────────

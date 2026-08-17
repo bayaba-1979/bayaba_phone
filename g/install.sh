@@ -195,6 +195,20 @@ export WORK_DIR="${WORK_DIR}"
 # export TG_TOKEN="..." TG_CHAT="..."
 EOF
   ok "configs/helena-env.example.sh 작성"
+
+  # 시크릿(.secrets.env) → proot 셸 env var 로 영속화
+  # navigator.sh 가 만든 .secrets.env 를 ~/.bashrc 에 source 해서,
+  # 새 셸에서도 tg.sh 등이 TG_TOKEN/TISTORY/YT 를 env var 로 읽게 한다.
+  # (proot env var = SSOT — 시크릿은 GitHub 에 두지 않고 폰 안 env 로만 관리)
+  if [ -f "$WORK_DIR/.secrets.env" ]; then
+    if [ -f "$HOME/.bashrc" ]; then
+      grep -q "\.secrets\.env" "$HOME/.bashrc" 2>/dev/null \
+        || echo "source ${WORK_DIR}/.secrets.env 2>/dev/null" >> "$HOME/.bashrc"
+      ok ".bashrc 에 .secrets.env 연결 (env var 영속화)"
+    fi
+  else
+    warn ".secrets.env 없음 — bash navigator.sh 로 먼저 생성 권장"
+  fi
 }
 
 setup_ubuntu_pkgs() {
@@ -274,6 +288,8 @@ setup_mcp() {
 setup_telegram() {
   echo ""
   echo "─── 8단계: Telegram ───"
+  # .secrets.env 를 source 해 env var 로 읽는다 (사전 export 의존 제거)
+  [ -f "$WORK_DIR/.secrets.env" ] && source "$WORK_DIR/.secrets.env" 2>/dev/null || true
   if [ -n "$TG_TOKEN" ] && [ -n "$TG_CHAT" ]; then
     ok "TG_TOKEN / TG_CHAT 설정됨"
     if [ -x "$WORK_DIR/tg.sh" ] || [ -f "$WORK_DIR/tg.sh" ]; then
