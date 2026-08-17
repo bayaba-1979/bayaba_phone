@@ -6254,3 +6254,12 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - Gemini가 JSON-LD를 "블록체인 지적재산권 등기"로 과장 → **아님.** 암호화·위변조방지·분산원장 없음. 평문 메타데이터. 법적 저작권도, 실시간 원조 판정도 아님.
 - **정확한 비유:** 자필 서명·표제지·ISBN 같은 **정본 식별 표식**. 정직한 크롤러가 원본을 가리키는 화살표. **확률적 우위(결정적 강제 아님)** — 베낀 놈은 JSON-LD도 같이 긁거나 떼버림.
 - **진짜 해자 = 퍼포먼스·진정성**([[moat-is-performance-not-code]]) — GEO는 그 위에 다는 이름표.
+
+### 🌐 네이버 GEO 원조 텍스트 — 서식 푸터 (_Claude · 2026-08-17)
+
+**작업(헌법 제17조):** 네이버는 `<script>`(JSON-LD)를 제거하고 쓰기 API도 없음 → **텍스트 한정** 원조 새김.
+
+- **반영 위치(5곳):** Marine Quilt 서식 `blocks/08-foot.txt` + `weekly-seosik-paste.txt` + `weekly-seosik-preview.html` + `sample-week-filled.txt` + `scripts/naver_recipe.py` 기본 푸터.
+- **라인:** `원조 · Origin — github.com/helena751107` — YouTube·네이버·티스토리 JSON-LD와 **동일 앵커**로 통일(정체 그래프 일관성).
+- **효과:** Paste Pipeline(사람 복붙)으로 발행되는 **향후 모든 네이버 글**에 원조 텍스트가 자동 포함. 기존 발행 글은 쓰기 API 없음 → 수동 레인.
+- **결과:** 커밋·푸시(`feat:`). GEO 4레인(GitHub·티스토리·YouTube phone·네이버 서식) 완료. 남은 수동 레인 = YouTube main 채널(브랜드 계정 403) + 네이버 기존 글.
