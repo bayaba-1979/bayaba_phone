@@ -6184,3 +6184,12 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
   - piano `a054464` · metalcare `c43105a` · faith `312f860` · log `20cf94e`
 - **커밋:** `e8ce77c` (push 완료). `git submodule status` 에러 해소 확인.
 - **노트:** 새로 등록된 3개는 로컬 미초기화(`-` 프리픽스) — 정상. fresh clone 에서 `git submodule update --init` 시 4개 전부 체크아웃.
+
+### 🎣 네이버·Threads = 미끼 채널 (downstream 수작업) (_Claude · 2026-08-17)
+
+**Boss 결정:** 네이버(나이 든 층) + Threads(젊은 층)를 "미끼 채널"(트래픽 유입용)로 정함.
+
+- **우선순위:** 콘텐츠 파이프라인에서 **먼저 안 만든다.** SSOT(git)에서 콘텐츠가 **완결**되면 그때 뒤에 붙는 downstream 발행(SCM 훅).
+- **수작업 방식:** Claude가 텔레그램으로 원고 보고 → Boss가 복사·붙여넣기 (기존 Paste Pipeline과 동일).
+- **채널별 현실:** 네이버 = 쓰기 API 없음 → 수작업(paste) **확정**. Threads = Meta API 있음(500자+링크, 250/일) → 나중에 "완결→자동발행" 옵션은 존재, 지금은 수작업.
+- **설계 원칙:** 미끼는 "정본을 만드는 곳"이 아니라 "정본으로 데려오는 곳". GitHub=정본(SSOT), 네이버·Threads=배수로.
