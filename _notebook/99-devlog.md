@@ -6231,3 +6231,13 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **배선:** 프로필 README 최상단 배너 + 5레포 `assets/social-preview.jpg` + 각 README 히어로 이미지 + `index.html` `og:image` 교체(helana_log는 og 태그 신설).
 - **한계:** GitHub의 진짜 "social preview"(레포 Settings→Social preview) 업로드는 **Web UI 전용(API 없음)** → README 히어로 + Pages `og:image`로 대체. Grok 워터마크(로고)는 Boss가 인지한 상태로 사용.
 - **결과:** 6레포 커밋(`feat: social preview`) 푸시 완료.
+
+### 🌍 GEO 정체 그래프 — 티스토리 5블로그 원조 새김 (_Claude · 2026-08-17)
+
+**Boss 승인:** "원조(Origin)를 사람 눈과 기계 눈 둘 다에 새기자" → 헌법 제5장·제17조 승격. GitHub 5레포(llms.txt·JSON-LD·canonical·sitemap)에 이어 **남의 땅(티스토리)**에도 원조 좌표를 심는 작업.
+
+- **배경:** 티스토리는 남의 루트라 `llms.txt`를 못 박음 → JSON-LD **정체 그래프(Identity Graph)**로 "이 블로그도 결국 GitHub의 Helena Park"라고 LLM 크롤러가 재구성하게.
+- **도구:** `tistory-naver/apply_geold.py` — 스킨 `<head>`의 `</head>` 앞에 JSON-LD(Person `@id`=github.com/helena751107#person + `sameAs` + WebSite `publisher`→Person) 멱등 주입. `<!-- HELENA-GEO-START/END -->` 마커로 재적용 시 블록 교체(멱등).
+- **5블로그 실적용·검증:** galaxys21 / mynote / faith(helana-christianity) / piano / metalcare 전부 POST 성공 + 외부 렌더에서 `helena751107#person` 2회 등장 확인.
+- **경계 준수:** 신원(이름·위치·사진) 노출 금지 — Person 설명은 공개 페르소나 "Helena Park" + "Made in Korea — not a developer"로만. 네이버는 `<script>`(JSON-LD) 제거되므로 **텍스트 한정**(다음 레인).
+- **결과:** `apply_geold.py` 커밋·푸시(`feat:`). 남은 레인 = YouTube 2채널 About·설명 원조 라인 → 네이버 글 푸터 텍스트.
