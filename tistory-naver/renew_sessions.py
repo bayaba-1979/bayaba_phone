@@ -183,11 +183,19 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="티스토리 5블로그 세션 일괄 갱신")
     ap.add_argument("--headed", action="store_true", help="화면 띄움 (captcha 수동 입력용)")
     ap.add_argument("--dry-run", action="store_true", help="갱신 없이 현재 상태만 probe")
+    ap.add_argument("--if-needed", action="store_true", help="만료일 때만 갱신 (전부 유효하면 스킵) — 발행 전 자가치유")
     args = ap.parse_args()
 
     data = json.loads(ACCOUNTS_FILE.read_text(encoding="utf-8"))
     accounts = data["accounts"]
     log(f"=== 티스토리 세션 갱신 ({len(accounts)}개 블로그 / 카카오 1계정) ===")
+
+    if args.if_needed:
+        log("=== 자가치유: 현재 세션 상태 probe ===")
+        if probe_all(accounts) == 0:
+            log("ℹ 전 블로그 이미 유효 — 갱신 스킵")
+            return 0
+        log("⚠ 만료 감지 → 자동 갱신 시작")
 
     if args.dry_run:
         return 0 if probe_all(accounts) == 0 else 1

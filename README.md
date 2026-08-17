@@ -135,7 +135,7 @@ bash g/install.sh          # 휴대폰(Termux/proot)에서
 | 스크립트 | 역할 |
 |----------|------|
 | `bash scripts/preflight.sh` | **테이블 세터** — 양산 직전 소모성 자산(티스토리 세션·유튜브 OAuth·깃허브·텔레그램) 점검. FAIL 이면 갱신부터. |
-| `python3 tistory-naver/renew_sessions.py` | **세션 갱신** — 티스토리 5블로그 만료 시 카카오 1회 로그인 → 5개 시드. preflight 티스토리 FAIL 시 실행. |
+| `python3 tistory-naver/renew_sessions.py --if-needed` | **세션 자가치유** — 티스토리 5블로그 만료 시에만 자동 재로그인. `make_pair.sh`가 발행 전에 자동 호출 → 사람이 세션을 신경 쓸 일 없음. |
 | `bash scripts/quota.sh` | **오늘 남은 쿼터** — 티스토리 15/일(계정)·유튜브 1600units·Threads 500자/250일. 한도 SSOT = `configs/quota-manifest.json`. |
 | `bash scripts/make_pair.sh` | **페어 발행** — preflight → PWA 빌드(gap=0 게이트) → 티스토리(디렉터 게이트→배치) 단일 엔트리. |
 
@@ -144,7 +144,7 @@ bash g/install.sh          # 휴대폰(Termux/proot)에서
 2. **exit-code 게이트** — "완료"는 에이전트 말이 아니라 returncode·파일 존재로 판정.
 3. **gap_count=0** — PWA 페이지 누락 시 배포 금지.
 
-**🥛 티스토리 세션 유통기한 = 하루(약 24시간).** "로그인 유지" 옵션이 없어서 연장이 불가능해요(실측). 폰 재부팅과 무관 — 쿠키를 디스크에 저장하므로 재부팅해도 살아있지만, 24시간 지나면 서버가 거부해요. 매일 아침 `preflight`로 유통기한을 검사하고, 만료면 `renew_sessions.py`로 새 세션(우유)을 갈아줘요.
+**🥛 티스토리 세션 유통기한 = 하루(약 24시간).** 폰을 재부팅했든 세션이 만료됐든 **사람이 구분할 필요 없이, 발행(`make_pair`) 전에 자동으로 검사+재로그인**돼요. "로그인 유지" 옵션이 없어서 유통기한 연장은 불가(실측)하지만, 자가치유(`renew_sessions.py --if-needed`)가 알아서 새 세션을 갈아줍니다.
 
 **미끼 채널 페르소나** — 같은 소재를 워딩 레벨만 변환해 발화: 네이버=어르신 세대 톤, Threads=MZ 세대 톤 (`configs/bait-voice.json`).
 

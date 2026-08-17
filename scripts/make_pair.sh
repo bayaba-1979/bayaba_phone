@@ -45,12 +45,14 @@ echo "════════════════════════�
 FAIL=0
 MSG=()
 
-# ── 1. 테이블 세터 (preflight) ──
+# ── 1. 세션 자가치유 + 테이블 세터 (preflight) ──
 if [ "$SKIP_PRE" -eq 0 ]; then
   echo ""
+  echo "→ [1/3] 세션 자가치유 (티스토리 만료 시 자동 재로그인)..."
+  python3 "$BASE/tistory-naver/renew_sessions.py" --if-needed || true
   echo "→ [1/3] 테이블 세터 (preflight) 점검..."
   if ! bash "$BASE/scripts/preflight.sh"; then
-    echo "❌ preflight 실패 — 소모성 자산(세션·토큰) 갱신 후 재실행"
+    echo "❌ preflight 실패 — 자가치유가 안 된 경우(captcha) renew_sessions.py --headed, 또는 유튜브/깃허브/텔레그램 재인증"
     exit 1
   fi
 fi

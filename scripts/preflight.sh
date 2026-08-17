@@ -108,8 +108,8 @@ while IFS=$'\t' read -r acct status; do
   [ -z "$acct" ] && continue
   case "$status" in
     OK)      ok "티스토리 $acct — 세션 유효" ;;
-    EXPIRED) fail "티스토리 $acct — 세션 만료(login 리다이렉트) → python3 tistory-naver/renew_sessions.py"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("티스토리 $acct 재로그인") ;;
-    MISSING) fail "티스토리 $acct — state 없음 → python3 tistory-naver/renew_sessions.py"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("티스토리 $acct 재로그인") ;;
+    EXPIRED) fail "티스토리 $acct — 세션 만료 (발행 make_pair 시 자동 갱신됨)"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("티스토리 $acct 재로그인") ;;
+    MISSING) fail "티스토리 $acct — state 없음 (발행 make_pair 시 자동 갱신됨)"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("티스토리 $acct 재로그인") ;;
     *)       warn "티스토리 $acct — 점검 불가 ($status)" ;;
   esac
 done <<< "$TISTORY_RESULT"
