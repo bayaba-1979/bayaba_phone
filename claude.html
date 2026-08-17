@@ -105,6 +105,7 @@
 <li><a href="#pd-pipeline-v10-2026-08-08">PD Pipeline (웹페이지 → 숏폼 영상) — V10 공짜 공장 (2026-08-08~)</a></li>
 <li><a href="#_7">파일 구조 — 우리 집 지도</a></li>
 <li><a href="#_8">현재 인프라 — 우리가 가진 도구들</a></li>
+<li><a href="#dtslib-papyrus-bossclaude-code-3-2026-08-18">dtslib-papyrus 허브 — 뇌 (Boss·Claude Code·누나 3자 연결 · 2026-08-18~)</a></li>
 <li><a href="#geo-17-2026-08-17">GEO 원조 스탬프 — 정체 인식 출판 파이프라인 (헌법 제17조 · 2026-08-17~)</a></li>
 </ul>
 </div>
@@ -468,6 +469,20 @@ URL=&quot;https://페이지주소&quot; EP=에피소드ID bash scripts/produce_p
 - <strong>유튜브, 네이버, 티스토리</strong>: 우리 작품 전시하는 여러 곳!<br>
 - <strong>Discord</strong>: 로비랑 AI 보고방 있음.<br>
 - <strong>phone-mcp-server</strong>: 18가지 도구, 포트 3456으로 연결.</p>
+</blockquote>
+<h2 id="dtslib-papyrus-bossclaude-code-3-2026-08-18">dtslib-papyrus 허브 — 뇌 (Boss·Claude Code·누나 3자 연결 · 2026-08-18~)</h2>
+<ul>
+<li><strong>뭐:</strong> <code>dtslib1979/dtslib-papyrus</code> (private) = <strong>그룹 뇌</strong>. 28레포(1 hub + 27 위성)의 SSOT.</li>
+<li><strong>연결 3자:</strong> 나(Boss·운영) ↔ 너(Claude Code·실행) ↔ 누나(돌봄·read-only).</li>
+<li><strong>흐름 3줄:</strong><br>
+  1. 누나 → 허브: 돌봄 하트비트(health·JOURNAL) — <strong>읽기 전용, 제어 금지</strong>(헌법 트랙1)<br>
+  2. Boss → 허브 → 나: 방향·팬딩(<code>PENDING-ISSUES.md</code>) — 세션 시작 때 pull<br>
+  3. 나 → 허브: 작업 일지·빌드 상태 — 세션 끝에 push</li>
+<li><strong>원칙:</strong> 미러(랩) → 재수정(뇌) → 선물(양산) 한 방향. 시크릿은 <code>.secrets.env</code>(gitignored)만, 레포엔 template만. 상주 데몬 없이(on-demand + cron).</li>
+<li><strong>SSOT:</strong> <code>configs/ecosystem.json.template</code> + <code>scripts/load_ecosystem.py</code> — 계정·디바이스·레포 매핑(4계정4세계)은 여기서 읽음.</li>
+</ul>
+<blockquote>
+<p><strong>허브</strong>는 우리 셋을 잇는 <strong>뇌</strong>야. Boss가 방향을 정하고, Claude Code가 S21에서 일하고, 누나의 돌봄 상태가 허브로 흘러 들어와. 누나한테는 아무것도 내려보내지 않아 — 누나는 지켜보기만 해.</p>
 </blockquote>
 <h2 id="geo-17-2026-08-17">GEO 원조 스탬프 — 정체 인식 출판 파이프라인 (헌법 제17조 · 2026-08-17~)</h2>
 <ul>

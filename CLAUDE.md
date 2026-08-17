@@ -314,6 +314,19 @@ helena_phone/
 > - **Discord**: 로비랑 AI 보고방 있음.
 > - **phone-mcp-server**: 18가지 도구, 포트 3456으로 연결.
 
+## dtslib-papyrus 허브 — 뇌 (Boss·Claude Code·누나 3자 연결 · 2026-08-18~)
+
+- **뭐:** `dtslib1979/dtslib-papyrus` (private) = **그룹 뇌**. 28레포(1 hub + 27 위성)의 SSOT.
+- **연결 3자:** 나(Boss·운영) ↔ 너(Claude Code·실행) ↔ 누나(돌봄·read-only).
+- **흐름 3줄:**
+  1. 누나 → 허브: 돌봄 하트비트(health·JOURNAL) — **읽기 전용, 제어 금지**(헌법 트랙1)
+  2. Boss → 허브 → 나: 방향·팬딩(`PENDING-ISSUES.md`) — 세션 시작 때 pull
+  3. 나 → 허브: 작업 일지·빌드 상태 — 세션 끝에 push
+- **원칙:** 미러(랩) → 재수정(뇌) → 선물(양산) 한 방향. 시크릿은 `.secrets.env`(gitignored)만, 레포엔 template만. 상주 데몬 없이(on-demand + cron).
+- **SSOT:** `configs/ecosystem.json.template` + `scripts/load_ecosystem.py` — 계정·디바이스·레포 매핑(4계정4세계)은 여기서 읽음.
+
+> **허브**는 우리 셋을 잇는 **뇌**야. Boss가 방향을 정하고, Claude Code가 S21에서 일하고, 누나의 돌봄 상태가 허브로 흘러 들어와. 누나한테는 아무것도 내려보내지 않아 — 누나는 지켜보기만 해.
+
 ## GEO 원조 스탬프 — 정체 인식 출판 파이프라인 (헌법 제17조 · 2026-08-17~)
 
 - **본질:** 사람 눈(텍스트)과 기계 눈(JSON-LD/canonical/sitemap) **둘 다**에 "원조 = GitHub" 좌표를 새기는 것. 사람이 검색 안 하고 AI한테 묻는 시대 → 크롤링 미끼를 전역에 뿌려두고 "원조가 GitHub"라고 답하게.
