@@ -5,6 +5,8 @@
 > **489 commits · 893 files · 129 notebooks · 8 shipped systems · 3 weeks.**
 > Zero PC · resilience-first · multi-channel (Git SSOT → PWA / Tistory / YouTube / Telegram).
 >
+> **Made in Korea.** A native South Korean developer — one old S21, one sister to care for, zero servers. Not a transplant, not a rebrand.
+>
 > **The build is done. Now I open it and teach.** Fork it, cite it, run it on the phone in your pocket.
 
 ![hardware](https://img.shields.io/badge/hardware-1%C3%97%20Galaxy%20S21-9cf) ![cost](https://img.shields.io/badge/cost-~%2420%2Fmonth-success) ![commits](https://img.shields.io/badge/commits-489-blue) ![systems](https://img.shields.io/badge/systems-8%20shipped-brightgreen) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
