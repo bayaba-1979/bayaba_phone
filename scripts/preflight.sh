@@ -10,12 +10,11 @@
 #   bash scripts/preflight.sh          # 표만 출력
 #   bash scripts/preflight.sh --tg     # 결과를 텔레그램으로도 보고 (tg.sh 사용)
 #
-# 점검 항목:
+# 점검 항목 (콘텐츠 양산 스코프만 — 돌봄(Tailscale·돌봄데몬)은 제외):
 #   1. 티스토리 세션 (5블로그 state.json 존재 + 최신 여부)
 #   2. YouTube OAuth (refresh 토큰으로 실제 갱신 시도)
 #   3. GitHub 인증 (gh auth status)
 #   4. 텔레그램 봇 (getMe 프로브)
-#   5. Tailscale (상태 + 키 만료일)
 #
 # ⚠️ 한계(정직하게): 티스토리 세션은 TSSESSION(expires=-1)이라 "정확한 만료시각"을
 #    알 수 없음 → 파일 최신성(기본 24h) 휴리스틱으로 판정. 의심되면
@@ -126,32 +125,6 @@ if [ -n "${TG_TOKEN:-}" ]; then
   fi
 else
   fail "텔레그램 — TG_TOKEN 미설정"; FAIL_CNT=$((FAIL_CNT+1)); RENEW+=("텔레그램 TG_TOKEN")
-fi
-
-# ── 5. Tailscale ──
-echo ""
-echo "[5] Tailscale"
-if command -v tailscale >/dev/null 2>&1; then
-  if tailscale status >/dev/null 2>&1; then
-    ok "Tailscale — 연결됨"
-  else
-    warn "Tailscale — 미연결/중지 (운영 경고, 재발급 아님)"
-    WARN_CNT=$((WARN_CNT+1))
-  fi
-else
-  warn "Tailscale — CLI 없음 (스킵)"
-fi
-# 키 만료(참고): 2026-11-11 (메모리 tailscale-care-daemon)
-NOW_EPOCH=$(date +%s)
-EXP_EPOCH=$(date -d "2026-11-11" +%s 2>/dev/null || echo 0)
-if [ "$EXP_EPOCH" -gt 0 ]; then
-  DAYS=$(( (EXP_EPOCH - NOW_EPOCH) / 86400 ))
-  if [ "$DAYS" -le 14 ]; then
-    warn "Tailscale 키 — 만료 ${DAYS}일 전 → 재발급 준비"
-    RENEW+=("Tailscale 키 재발급")
-  else
-    ok "Tailscale 키 — ${DAYS}일 남음 (2026-11-11)"
-  fi
 fi
 
 # ── 요약 ──
