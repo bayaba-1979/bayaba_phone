@@ -6241,3 +6241,16 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **5블로그 실적용·검증:** galaxys21 / mynote / faith(helana-christianity) / piano / metalcare 전부 POST 성공 + 외부 렌더에서 `helena751107#person` 2회 등장 확인.
 - **경계 준수:** 신원(이름·위치·사진) 노출 금지 — Person 설명은 공개 페르소나 "Helena Park" + "Made in Korea — not a developer"로만. 네이버는 `<script>`(JSON-LD) 제거되므로 **텍스트 한정**(다음 레인).
 - **결과:** `apply_geold.py` 커밋·푸시(`feat:`). 남은 레인 = YouTube 2채널 About·설명 원조 라인 → 네이버 글 푸터 텍스트.
+
+### 📺 YouTube GEO 원조 라인 + "블록체인 등기" 표현 정정 (_Claude · 2026-08-17)
+
+**작업(헌법 제17조):** YouTube 2채널에 "원조 · Origin — github.com/helena751107" 라인 주입. `scripts/yt_geo_origin.py` 신설(검사/적용, 멱등).
+
+- **phone(@helena_phone):** About + 영상 12개 전부 원조 라인 추가 완료.
+- **main(@HelenaPark-e7c, 브랜드 계정):** 현재 OAuth 토큰(galaxys21-pwuser)으로 **읽기만 가능, 쓰기 403** — `brandingSettings`(About)도 `videos.update`(영상 설명)도 차단. 수동(YouTube Studio) 또는 브랜드 계정 재인증 필요. ⏳ Boss 수동 레인.
+- **버그 수정:** `yt_upload.py` SCOPES에 `yt-analytics.readonly` 포함 → refresh grant가 `invalid_scope`로 거부돼 **모든** YouTube 호출이 막히던 것 → 스코프 제거로 해결(device flow 미지원 스코프).
+
+**결정적 전환 — "블록체인 등기" 표현 정정(Boss 질문에 대한 정직 답변):**
+- Gemini가 JSON-LD를 "블록체인 지적재산권 등기"로 과장 → **아님.** 암호화·위변조방지·분산원장 없음. 평문 메타데이터. 법적 저작권도, 실시간 원조 판정도 아님.
+- **정확한 비유:** 자필 서명·표제지·ISBN 같은 **정본 식별 표식**. 정직한 크롤러가 원본을 가리키는 화살표. **확률적 우위(결정적 강제 아님)** — 베낀 놈은 JSON-LD도 같이 긁거나 떼버림.
+- **진짜 해자 = 퍼포먼스·진정성**([[moat-is-performance-not-code]]) — GEO는 그 위에 다는 이름표.

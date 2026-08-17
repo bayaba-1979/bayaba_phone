@@ -62,7 +62,8 @@ CHANNELS = {
 SCOPES = [
     "https://www.googleapis.com/auth/youtube.upload",
     "https://www.googleapis.com/auth/youtube",
-    "https://www.googleapis.com/auth/yt-analytics.readonly",
+    # ⚠️ yt-analytics.readonly는 device flow 미지원(invalid_scope) → SCOPES에 넣으면
+    #    refresh grant가 거부돼 *모든* API 호출이 막힘. 애널리틱스는 별도 브라우저 OAuth.
 ]
 
 # ── 인증 ────────────────────────────────────────────────────────────────────
