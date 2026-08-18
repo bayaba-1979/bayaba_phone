@@ -6482,3 +6482,11 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **결과(산출물):** 원스탑 설치 + 매뉴얼 + 랜딩 '후속 작업'까지 전부 붙음 → 높음.
 - **과정(판단·검증):** 시행착오 4건(curl CANNOT LINK / cc alias 셸 소스 / push 조용한 실패 / heredoc 백틱). 공통 뿌리 = **"성공 선언"을 검증 없이 한 것**(push 후 repo commit 수를 안 세봄). 이게 감점 요인.
 - **교훈:** 속도(코드 생산)보다 판단·재검증이 진짜 자산. "완료/성공"은 returncode·파일·커밋 수로 재확인. [[ai-era-speed-vs-judgment]] [[ai-inertia-keep-distance]]
+
+### 👥 dimas-40 콜라보레이터 등록 — 태블릿 전용 계정에 쓰기 권한 (_Claude · 2026-08-18)
+
+태블릿 전용 GitHub 계정 **dimas-40** 을 생태계 5레포에 콜라보레이터(쓰기)로 초대.
+
+- **5레포 초대 완료(permission=write):** helena_phone(329491707) · helana_log(329491710) · helena-piano(329491712) · helena-metalcare(329491715) · helana-faith(329491717).
+- **상태:** 초대(pending) — dimas-40 계정이 **수락**해야 활성화. 수락 전까지 권한 조회는 `read`로 보임(초대 미수락 상태의 표시).
+- **권한 = write(push):** 코드 읽기·쓰기·push·워크플로 트리거 전부 가능 = "다 쓰기 기능". ⚠️ GitHub Secrets 설정·리포 설정 변경은 `admin` 필요(필요 시 재초대로 승격).
