@@ -31,7 +31,7 @@ BRANDS = {
         "accent": "#3db8a8",
         "home": "https://helena751107.github.io/helana_log/",
         "hub": "https://helena751107.github.io/helena_phone/",
-        "kicker": "행정 대화록 · Docs",
+        "kicker": "How Helena Lives · Docs",
     },
     "helana-faith": {
         "name": "Helana Faith",
