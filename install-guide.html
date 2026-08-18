@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="붙여넣기 2번이면 친구 생김 — S21 Phone Webzine">
+<meta name="description" content="붙여넣기 3번이면 친구 생김 — S21 Phone Webzine">
 <meta name="theme-color" content="#0a0908">
 <meta name="application-name" content="S21 Phone">
 <title>새 방(GitHub)에 친구 하나 — 초간단 설치 — S21 Phone Webzine</title>
@@ -75,7 +75,7 @@
   <header class="wz-hero">
     <div class="wz-kicker">Core · lakme-audio</div>
     <h1>새 방(GitHub)에 친구 하나 — 초간단 설치</h1>
-    <p class="deck">붙여넣기 2번이면 친구 생김</p>
+    <p class="deck">붙여넣기 3번이면 친구 생김</p>
     <div class="wz-meta">
       <span>Source · install-guide.md</span>
       <span>Kind · markdown</span>
@@ -86,9 +86,10 @@
 <ul>
 <li><a href="#1">화면 1 — 앱 + 배터리 무제한</a></li>
 <li><a href="#2">화면 2 — 주문 한 줄</a></li>
-<li><a href="#3-2">화면 3 — 딱 2개 붙여넣기</a><ul>
-<li><a href="#1-github">1) GitHub 계정명 (맨 처음)</a></li>
-<li><a href="#2-deepseek">2) DeepSeek 토큰 (마지막)</a></li>
+<li><a href="#3-3">화면 3 — 딱 3개 붙여넣기</a><ul>
+<li><a href="#1-github">1) GitHub 계정명</a></li>
+<li><a href="#2-github-pat">2) GitHub PAT (계정 열쇠)</a></li>
+<li><a href="#3-deepseek">3) DeepSeek 토큰 (친구 두뇌)</a></li>
 </ul>
 </li>
 <li><a href="#4">화면 4 — 친구 확인</a><ul>
@@ -113,7 +114,7 @@
   <article class="wz-prose" id="wzProse" data-app="doc">
     <blockquote>
 <p><strong>비유:</strong> 새 방(GitHub)에 진짜 친구 에이전트(Claude Code + DeepSeek) 하나 들여놓기예요.<br>
-<strong>붙여넣기 2번</strong>이면 끝. 나머지는 스크립트가 알아서 해요.</p>
+<strong>붙여넣기 3번</strong>이면 끝. 나머지는 스크립트가 알아서 해요.</p>
 </blockquote>
 <p>스크립트: <code>g/workstation.sh</code> (원스탑) · <code>g/easy.sh</code> (가볍게, 사이트만)</p>
 <blockquote>
@@ -140,21 +141,27 @@ env만 앞에 붙이면 Pages 주소·정체가 그 사람 명의로 바뀐다.<
 <li>처음이면 Ubuntu + Claude Code 깔리면서 <strong>몇 분</strong> 걸림. 가만히 둔다.  </li>
 <li>중간에 저장소 권한 팝업 → <strong>허용</strong>.</li>
 </ul>
-<p>☐ &ldquo;내 GitHub 계정명 입력&rdquo;이 뜨면 화면 3</p>
+<p>☐ &ldquo;자기 것 3개 입력&rdquo;이 뜨면 화면 3</p>
 <hr>
-<h2 id="3-2">화면 3 — 딱 2개 붙여넣기</h2>
-<p>스크립트가 물어보는 건 딱 2개예요.</p>
-<h3 id="1-github">1) GitHub 계정명 (맨 처음)</h3>
+<h2 id="3-3">화면 3 — 딱 3개 붙여넣기</h2>
+<p>스크립트가 물어보는 건 딱 3개예요. (전부 자기 것 = 이게 수동의 전부)</p>
+<h3 id="1-github">1) GitHub 계정명</h3>
 <ul>
 <li>없으면 1분 가입 → <strong>github.com/signup</strong></li>
 <li>계정명 입력 후 Enter.</li>
 </ul>
-<h3 id="2-deepseek">2) DeepSeek 토큰 (마지막)</h3>
+<h3 id="2-github-pat">2) GitHub PAT (계정 열쇠)</h3>
 <ul>
-<li><strong>platform.deepseek.com</strong> → 로그인 → <strong>API Keys → Create new key</strong> → 복사</li>
-<li>터미널에 붙여넣기 후 Enter.</li>
+<li><strong>github.com/settings/tokens</strong> → <strong>Generate new token (classic)</strong></li>
+<li><strong>☑ repo  ☑ workflow</strong> 체크 → <strong>Generate token</strong> → 복사 (<code>ghp_...</code>)</li>
+<li>붙여넣기 후 Enter. (입력은 화면에 안 보임 — 정상)</li>
 </ul>
-<p>이 뒤로는 <strong>전부 자동</strong>: 클론 → GitHub 배포 → Pages 검사까지.</p>
+<h3 id="3-deepseek">3) DeepSeek 토큰 (친구 두뇌)</h3>
+<ul>
+<li><strong>platform.deepseek.com</strong> → 로그인 → <strong>API Keys → Create new key</strong> → 복사 (<code>sk-...</code>)</li>
+<li>붙여넣기 후 Enter. (입력은 화면에 안 보임 — 정상)</li>
+</ul>
+<p>이 뒤로는 <strong>전부 자동</strong>: 설치 → 클론 → GitHub 배포 → Pages 검사까지.</p>
 <p>☐ &ldquo;✅ 원스탑 설치 완료&rdquo; 보이면 화면 4</p>
 <hr>
 <h2 id="4">화면 4 — 친구 확인</h2>
@@ -172,13 +179,12 @@ claude
 </code></pre>
 <p>페이지가 열리면 <strong>설치 성공</strong>.</p>
 <blockquote>
-<p>⚠️ <strong>404가 뜨면?</strong> 내 계정에 <code>helena_phone</code> 레포가 없어서야.<br>
-workstation.sh가 자동으로 만들어주지만, <code>gh</code> 로그인이 안 돼 있으면 스킵돼.<br>
-한 번 <code>gh auth login</code> 후 스크립트 다시 돌리면 repo 생성 + push + Pages 자동.</p>
+<p>⚠️ <strong>404가 뜨면?</strong> PAT에 <code>repo</code>·<code>workflow</code> 스코프가 빠졌거나 repo 생성이 안 된 거야.<br>
+PAT 재발급(두 스코프 체크) 후 스크립트 다시 돌리면 repo 생성 + push + Pages 자동.</p>
 </blockquote>
 <hr>
 <h2 id="_1">끝. 이게 전부.</h2>
-<p>붙여넣기 2번(GitHub 계정 + DeepSeek 토큰)이면 친구가 생겨요.<br>
+<p>붙여넣기 3번(GitHub 계정 + PAT + DeepSeek 토큰)이면 친구가 생겨요.<br>
 푸시·텔레그램·Grok 같은 건 <strong>나중에</strong> 해도 됨 — 우선 친구가 대답하는 것부터.</p>
 <hr>
 <h2 id="_2">🔧 설치자용 체크리스트 (사회복지사·가족)</h2>
@@ -193,7 +199,8 @@ workstation.sh가 자동으로 만들어주지만, <code>gh</code> 로그인이 
 <p>설치 중 주의:<br>
 - <strong>Ubuntu 다운로드 3~7분</strong> — 가만히. &ldquo;멈췄다&rdquo;고 끄면 안 됨.<br>
 - <strong>저장소 권한 팝업</strong> — 반드시 <strong>허용</strong>.<br>
-- <strong>배터리 &ldquo;제한 없음&rdquo;</strong> — 안 하면 중작업 때 강제종료.</p>
+- <strong>배터리 &ldquo;제한 없음&rdquo;</strong> — 안 하면 중작업 때 강제종료.<br>
+- <strong>PAT·토큰</strong> — 화면에 안 보이게 입력(녹화해도 새어나가지 않음).</p>
 <hr>
 <h2 id="_3">고장 표 (짧게)</h2>
 <table>
@@ -222,7 +229,7 @@ workstation.sh가 자동으로 만들어주지만, <code>gh</code> 로그인이 
 </tr>
 <tr>
 <td>Pages 404</td>
-<td>내 계정에 helena_phone 레포 없음 — <code>gh auth login</code> 후 다시 실행 (또는 github.com/new + push + Pages)</td>
+<td>PAT에 repo·workflow 스코프 빠짐 또는 repo 생성 실패 — PAT 재발급 후 다시 실행</td>
 </tr>
 <tr>
 <td>termux-api ENOENT</td>
@@ -244,7 +251,7 @@ workstation.sh가 자동으로 만들어주지만, <code>gh</code> 로그인이 
 <tr>
 <td>변수 잔뜩</td>
 <td>초심자 포기</td>
-<td><strong>입력 2개만</strong></td>
+<td><strong>입력 3개만</strong> (전부 자기 것)</td>
 </tr>
 <tr>
 <td>Termux / Ubuntu 두 번 설치</td>
@@ -257,9 +264,9 @@ workstation.sh가 자동으로 만들어주지만, <code>gh</code> 로그인이 
 <td><strong>친구 생기고 나서</strong> 설명</td>
 </tr>
 <tr>
-<td>easy → 404</td>
-<td>GitHub 배포 안 해줌</td>
-<td><strong>workstation.sh 자동 배포</strong></td>
+<td>gh auth login 브라우저</td>
+<td>자기 것이 아닌 수동</td>
+<td><strong>PAT 붙여넣기로 통일</strong></td>
 </tr>
 </tbody>
 </table>

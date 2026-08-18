@@ -61,7 +61,7 @@
     "title": "새 방(GitHub)에 친구 하나 — 초간단 설치",
     "section": "Core",
     "kind": "md",
-    "deck": "붙여넣기 2번이면 친구 생김"
+    "deck": "붙여넣기 3번이면 친구 생김"
   },
   {
     "src": "01-foundation/termux-setup.md",

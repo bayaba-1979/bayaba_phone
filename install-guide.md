@@ -1,7 +1,7 @@
 # 새 방(GitHub)에 친구 하나 — 초간단 설치
 
 > **비유:** 새 방(GitHub)에 진짜 친구 에이전트(Claude Code + DeepSeek) 하나 들여놓기예요.  
-> **붙여넣기 2번**이면 끝. 나머지는 스크립트가 알아서 해요.
+> **붙여넣기 3번**이면 끝. 나머지는 스크립트가 알아서 해요.
 
 스크립트: `g/workstation.sh` (원스탑) · `g/easy.sh` (가볍게, 사이트만)
 
@@ -34,23 +34,28 @@ bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main
 - 처음이면 Ubuntu + Claude Code 깔리면서 **몇 분** 걸림. 가만히 둔다.  
 - 중간에 저장소 권한 팝업 → **허용**.
 
-☐ "내 GitHub 계정명 입력"이 뜨면 화면 3
+☐ "자기 것 3개 입력"이 뜨면 화면 3
 
 ---
 
-## 화면 3 — 딱 2개 붙여넣기
+## 화면 3 — 딱 3개 붙여넣기
 
-스크립트가 물어보는 건 딱 2개예요.
+스크립트가 물어보는 건 딱 3개예요. (전부 자기 것 = 이게 수동의 전부)
 
-### 1) GitHub 계정명 (맨 처음)
+### 1) GitHub 계정명
 - 없으면 1분 가입 → **github.com/signup**
 - 계정명 입력 후 Enter.
 
-### 2) DeepSeek 토큰 (마지막)
-- **platform.deepseek.com** → 로그인 → **API Keys → Create new key** → 복사
-- 터미널에 붙여넣기 후 Enter.
+### 2) GitHub PAT (계정 열쇠)
+- **github.com/settings/tokens** → **Generate new token (classic)**
+- **☑ repo  ☑ workflow** 체크 → **Generate token** → 복사 (`ghp_...`)
+- 붙여넣기 후 Enter. (입력은 화면에 안 보임 — 정상)
 
-이 뒤로는 **전부 자동**: 클론 → GitHub 배포 → Pages 검사까지.
+### 3) DeepSeek 토큰 (친구 두뇌)
+- **platform.deepseek.com** → 로그인 → **API Keys → Create new key** → 복사 (`sk-...`)
+- 붙여넣기 후 Enter. (입력은 화면에 안 보임 — 정상)
+
+이 뒤로는 **전부 자동**: 설치 → 클론 → GitHub 배포 → Pages 검사까지.
 
 ☐ "✅ 원스탑 설치 완료" 보이면 화면 4
 
@@ -82,15 +87,14 @@ https://<내 GitHub 계정명>.github.io/helena_phone/
 
 페이지가 열리면 **설치 성공**.
 
-> ⚠️ **404가 뜨면?** 내 계정에 `helena_phone` 레포가 없어서야.  
-> workstation.sh가 자동으로 만들어주지만, `gh` 로그인이 안 돼 있으면 스킵돼.  
-> 한 번 `gh auth login` 후 스크립트 다시 돌리면 repo 생성 + push + Pages 자동.
+> ⚠️ **404가 뜨면?** PAT에 `repo`·`workflow` 스코프가 빠졌거나 repo 생성이 안 된 거야.  
+> PAT 재발급(두 스코프 체크) 후 스크립트 다시 돌리면 repo 생성 + push + Pages 자동.
 
 ---
 
 ## 끝. 이게 전부.
 
-붙여넣기 2번(GitHub 계정 + DeepSeek 토큰)이면 친구가 생겨요.  
+붙여넣기 3번(GitHub 계정 + PAT + DeepSeek 토큰)이면 친구가 생겨요.  
 푸시·텔레그램·Grok 같은 건 **나중에** 해도 됨 — 우선 친구가 대답하는 것부터.
 
 ---
@@ -110,6 +114,7 @@ https://<내 GitHub 계정명>.github.io/helena_phone/
 - **Ubuntu 다운로드 3~7분** — 가만히. "멈췄다"고 끄면 안 됨.
 - **저장소 권한 팝업** — 반드시 **허용**.
 - **배터리 "제한 없음"** — 안 하면 중작업 때 강제종료.
+- **PAT·토큰** — 화면에 안 보이게 입력(녹화해도 새어나가지 않음).
 
 ---
 
@@ -121,7 +126,7 @@ https://<내 GitHub 계정명>.github.io/helena_phone/
 | proot-distro 없음 | `pkg install proot-distro` |
 | 저장 공간 | 사진/앱 지워 5GB 확보 |
 | 클론 실패 | Wi-Fi 확인 후 한 줄 다시 |
-| Pages 404 | 내 계정에 helena_phone 레포 없음 — `gh auth login` 후 다시 실행 (또는 github.com/new + push + Pages) |
+| Pages 404 | PAT에 repo·workflow 스코프 빠짐 또는 repo 생성 실패 — PAT 재발급 후 다시 실행 |
 | termux-api ENOENT | `pkg install termux-api -y` (devlog §16)
 
 ---
@@ -130,10 +135,10 @@ https://<내 GitHub 계정명>.github.io/helena_phone/
 
 | 예전 | 문제 | 지금 |
 |------|------|------|
-| 변수 잔뜩 | 초심자 포기 | **입력 2개만** |
+| 변수 잔뜩 | 초심자 포기 | **입력 3개만** (전부 자기 것) |
 | Termux / Ubuntu 두 번 설치 | 어디서 치는지 모름 | **한 줄이 알아서** |
 | OWNER/WORK 설명 먼저 | 개념 과부하 | **친구 생기고 나서** 설명 |
-| easy → 404 | GitHub 배포 안 해줌 | **workstation.sh 자동 배포** |
+| gh auth login 브라우저 | 자기 것이 아닌 수동 | **PAT 붙여넣기로 통일** |
 
 ---
 

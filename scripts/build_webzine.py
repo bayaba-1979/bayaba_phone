@@ -104,7 +104,7 @@ add("GUIDE.md", "guide.html", "5단계 GUIDE", "Core", deck="Termux부터 방송
 add("CHRONICLE.md", "chronicle.html", "CHRONICLE · 연대기", "Core", deck="DAY 1–2 개발 기록")
 add("GIFT.md", "gift.html", "GIFT · dtslib 선물", "Core", deck="선물 패키지 분석")
 add("_textbook/index.md", "textbook.html", "완결판 교재", "Core", deck="판단층 + 실행층")
-add("install-guide.md", "install-guide.html", "새 방에 친구 하나", "Core", deck="붙여넣기 2번이면 친구 생김")
+add("install-guide.md", "install-guide.html", "새 방에 친구 하나", "Core", deck="붙여넣기 3번이면 친구 생김")
 
 # Foundation
 for name, title in [
