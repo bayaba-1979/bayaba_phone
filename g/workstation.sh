@@ -89,16 +89,16 @@ ubuntu_phase() {
   set -e
   export DEBIAN_FRONTEND=noninteractive
 
-  B "─── [2] Ubuntu 패키지 ───"
+  B "─── [2] Ubuntu 패키지 (node·npm·gh 등 다운로드 — 몇 분, 멈춘 듯해도 기다려) ───"
   apt-get update -qq >/dev/null 2>&1 || true
-  apt-get install -y -qq git curl ca-certificates python3 nodejs npm nano gh >/dev/null 2>&1 \
+  apt-get install -y git curl ca-certificates python3 nodejs npm nano gh \
     || apt-get install -y git curl ca-certificates python3 nodejs npm nano
 
-  B "─── [3] Claude Code ───"
+  B "─── [3] Claude Code (npm — 가장 오래 걸림, 몇 분) ───"
   if command -v claude >/dev/null 2>&1; then
     G "claude 이미 있음 ($(claude --version 2>/dev/null || echo ok))"
   else
-    npm install -g --no-audit --progress=false @anthropic-ai/claude-code
+    npm install -g --no-audit @anthropic-ai/claude-code
     G "claude 설치됨 ($(claude --version 2>/dev/null || echo ok))"
   fi
 
