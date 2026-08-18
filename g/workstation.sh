@@ -225,8 +225,10 @@ main() {
   fi
 
   battery_notice
-  B "─── [1] Termux 패키지 + Ubuntu ───"
+  B "─── [1] Termux 패키지 동기화 + Ubuntu ───"
+  B "     (curl 'CANNOT LINK' 라이브러리 어긋남 방지용 upgrade)"
   pkg update -y 2>/dev/null || true
+  pkg upgrade -y 2>/dev/null || true
   pkg install -y proot-distro git curl 2>/dev/null || pkg install -y proot-distro git curl
   if proot-distro list 2>/dev/null | grep -qi ubuntu; then
     G "Ubuntu 이미 있음"

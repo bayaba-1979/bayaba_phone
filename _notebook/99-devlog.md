@@ -6444,3 +6444,10 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **남은 수동 1개:** `gh auth login` (1회). gh 미로그인 시 배포 스킵 + pages_check가 404 알람. → 완전 무수동 원한다면 GitHub PAT 방식 검토 여지.
 - **튜토리얼 영상 계획:** 진짜 초심자 타이밍(3~7분 Ubuntu 다운로드 포함)을 보여주려면 `proot-distro remove ubuntu`로 밀고 처음부터 녹화. 지금은 덮어쓰기로 동작 확인 먼저 → 나중에 밀고 재촬영.
 - **검증:** bash -n OK · raw URL 200(9194B) · Pages 라이브 문구 반영 확인.
+
+### 🔧 curl 'CANNOT LINK' — Termux 부분 업데이트 버전 어긋남 (_Claude · 2026-08-18)
+
+태블릿에서 한 줄 실행 시 `curl: cannot locate symbol SSL_set_quic_tls_transport_params` 발생.
+- **원인:** Termux 롤링 릴리스에서 `pkg install curl` 같은 부분 설치로 curl·libngtcp2(HTTP/3)는 새 버전, openssl은 옛 버전으로 어긋남 → 새 curl이 새 openssl에만 있는 심볼 요구 → 로드 실패.
+- **해결/예방:** `pkg update -y && pkg upgrade -y`로 전체 동기화. workstation.sh·easy.sh 호스트 단계에 `pkg upgrade` 추가(자기치유). 고장표에 행 추가.
+- **교훈:** 부분 설치(curl만) 금지, 항상 전체 upgrade로 동기화.

@@ -33,6 +33,7 @@ bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main
 
 - 처음이면 Ubuntu + Claude Code 깔리면서 **몇 분** 걸림. 가만히 둔다.  
 - 중간에 저장소 권한 팝업 → **허용**.
+- 한 줄이 `curl ... CANNOT LINK` 에러가 나면 → `termux-change-repo`로 미러 선택 → `apt update && apt full-upgrade` → 다시 한 줄.
 
 ☐ "자기 것 3개 입력"이 뜨면 화면 3
 
@@ -123,6 +124,7 @@ https://<내 GitHub 계정명>.github.io/helena_phone/
 | 보이면 | 할 일 |
 |--------|--------|
 | curl: not found | `pkg install curl` 후 한 줄 다시 |
+| curl CANNOT LINK | `termux-change-repo`(미러 선택) → `apt update && apt full-upgrade` 후 한 줄 다시 |
 | proot-distro 없음 | `pkg install proot-distro` |
 | 저장 공간 | 사진/앱 지워 5GB 확보 |
 | 클론 실패 | Wi-Fi 확인 후 한 줄 다시 |

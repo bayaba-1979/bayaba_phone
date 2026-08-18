@@ -140,6 +140,7 @@ env만 앞에 붙이면 Pages 주소·정체가 그 사람 명의로 바뀐다.<
 <ul>
 <li>처음이면 Ubuntu + Claude Code 깔리면서 <strong>몇 분</strong> 걸림. 가만히 둔다.  </li>
 <li>중간에 저장소 권한 팝업 → <strong>허용</strong>.</li>
+<li>한 줄이 <code>curl ... CANNOT LINK</code> 에러가 나면 → <code>termux-change-repo</code>로 미러 선택 → <code>apt update &amp;&amp; apt full-upgrade</code> → 다시 한 줄.</li>
 </ul>
 <p>☐ &ldquo;자기 것 3개 입력&rdquo;이 뜨면 화면 3</p>
 <hr>
@@ -214,6 +215,10 @@ PAT 재발급(두 스코프 체크) 후 스크립트 다시 돌리면 repo 생�
 <tr>
 <td>curl: not found</td>
 <td><code>pkg install curl</code> 후 한 줄 다시</td>
+</tr>
+<tr>
+<td>curl CANNOT LINK</td>
+<td><code>termux-change-repo</code>(미러 선택) → <code>apt update &amp;&amp; apt full-upgrade</code> 후 한 줄 다시</td>
 </tr>
 <tr>
 <td>proot-distro 없음</td>

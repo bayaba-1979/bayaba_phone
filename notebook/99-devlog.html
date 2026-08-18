@@ -486,6 +486,7 @@
 <li><a href="#2-_boss-2026-08-18">🎯 태블릿 워크스테이션 목적 — 파이프라인 2개 (_Boss · 2026-08-18)</a></li>
 <li><a href="#pages-404-_claude-2026-08-18">🚨 설치 시행착오 — Pages 404 + 원스탑 보강 (_Claude · 2026-08-18)</a></li>
 <li><a href="#2-_claude-2026-08-18">🎬 원스탑 설치기 &ldquo;2입력 프레임&rdquo; 확정 + 튜토리얼 영상 계획 (_Claude · 2026-08-18)</a></li>
+<li><a href="#curl-cannot-link-termux-_claude-2026-08-18">🔧 curl &lsquo;CANNOT LINK&rsquo; — Termux 부분 업데이트 버전 어긋남 (_Claude · 2026-08-18)</a></li>
 </ul>
 </li>
 </ul>
@@ -8655,6 +8656,11 @@ Android(호스트 OS) : proot Ubuntu(리눅스 호환 레이어)
 <li><strong>튜토리얼 영상 계획:</strong> 진짜 초심자 타이밍(3~7분 Ubuntu 다운로드 포함)을 보여주려면 <code>proot-distro remove ubuntu</code>로 밀고 처음부터 녹화. 지금은 덮어쓰기로 동작 확인 먼저 → 나중에 밀고 재촬영.</li>
 <li><strong>검증:</strong> bash -n OK · raw URL 200(9194B) · Pages 라이브 문구 반영 확인.</li>
 </ul>
+<h3 id="curl-cannot-link-termux-_claude-2026-08-18">🔧 curl &lsquo;CANNOT LINK&rsquo; — Termux 부분 업데이트 버전 어긋남 (_Claude · 2026-08-18)</h3>
+<p>태블릿에서 한 줄 실행 시 <code>curl: cannot locate symbol SSL_set_quic_tls_transport_params</code> 발생.<br>
+- <strong>원인:</strong> Termux 롤링 릴리스에서 <code>pkg install curl</code> 같은 부분 설치로 curl·libngtcp2(HTTP/3)는 새 버전, openssl은 옛 버전으로 어긋남 → 새 curl이 새 openssl에만 있는 심볼 요구 → 로드 실패.<br>
+- <strong>해결/예방:</strong> <code>pkg update -y &amp;&amp; pkg upgrade -y</code>로 전체 동기화. workstation.sh·easy.sh 호스트 단계에 <code>pkg upgrade</code> 추가(자기치유). 고장표에 행 추가.<br>
+- <strong>교훈:</strong> 부분 설치(curl만) 금지, 항상 전체 upgrade로 동기화.</p>
   </article>
   <nav class="wz-pager">
     <a class="" href="session-2026-07-26_Grok.html">

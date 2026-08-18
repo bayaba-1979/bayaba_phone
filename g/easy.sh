@@ -53,8 +53,9 @@ need_termux() {
 }
 
 step_termux_host() {
-  B "Termux 패키지…"
+  B "Termux 패키지 동기화…"
   pkg update -y 2>/dev/null || true
+  pkg upgrade -y 2>/dev/null || true
   pkg install -y proot-distro git curl termux-api 2>/dev/null || pkg install -y proot-distro git curl
   G "패키지 OK"
 
