@@ -156,15 +156,10 @@ PYEOF
   export GH_TOKEN="${GITHUB_PAT}"
   export GIT_TERMINAL_PROMPT=0
   if command -v gh >/dev/null 2>&1 && [ -n "$GITHUB_PAT" ]; then
-    gh auth setup-git >/dev/null 2>&1 || true
-    if gh repo create "${OWNER_GITHUB}/helena_phone" --public --source "${WORK_DIR}" --push 2>/dev/null; then
-      G "repo 생성 + push 완료"
-    else
-      Y "repo 이미 있음(또는 push 재시도) → 다시 push"
-      gh repo view "${OWNER_GITHUB}/helena_phone" >/dev/null 2>&1 || true
-      git -C "${WORK_DIR}" remote set-url origin "https://github.com/${OWNER_GITHUB}/helena_phone.git"
-      git -C "${WORK_DIR}" push -u origin main 2>&1 || true
-    fi
+    gh repo create "${OWNER_GITHUB}/helena_phone" --public 2>/dev/null \
+      || gh repo view "${OWNER_GITHUB}/helena_phone" >/dev/null 2>&1 || true
+    git -C "${WORK_DIR}" remote set-url origin "https://${OWNER_GITHUB}:${GITHUB_PAT}@github.com/${OWNER_GITHUB}/helena_phone.git"
+    git -C "${WORK_DIR}" push -u origin main 2>&1 | tail -5 || true
     gh api -X POST "repos/${OWNER_GITHUB}/helena_phone/pages" -f build_type=workflow 2>/dev/null \
       || gh api -X POST "repos/${OWNER_GITHUB}/helena_phone/pages" -f "source[branch]=main" -f "source[path]=/" 2>/dev/null \
       || true
@@ -222,7 +217,7 @@ summary() {
   두 글자 (Termux 겉에서):
     cc
 
-  ⚠️ cc 첫 사용: 새 창 열거나 `source ~/.bashrc` 한 번 (지금 이 창에선 아직 안 먹힘)
+  ⚠️ cc 첫 사용: 반드시 새 세션(New session) 열고 cc — 지금 이 창에선 아직 안 먹힘
 
   엔진 확인:
     claude --version   # 배너에 ${MODEL} 뜨면 성공
