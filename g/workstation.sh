@@ -245,6 +245,10 @@ main() {
     export WORK_DIR='${WORK_DIR}'
     export DEEPSEEK_API_KEY='${DEEPSEEK_API_KEY}'
     export ANTHROPIC_MODEL='${MODEL}'
+    $(declare -f G)
+    $(declare -f Y)
+    $(declare -f B)
+    $(declare -f R)
     $(declare -f ubuntu_phase)
     ubuntu_phase
   "
