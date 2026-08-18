@@ -34,7 +34,9 @@ in_ubuntu() { [ -f /etc/os-release ] && grep -qi ubuntu /etc/os-release 2>/dev/n
 # 정체(계정)는 필수 변수. 고정값 금지 — 교재는 각자 자기 계정으로 깐다.
 ask_identity() {
   if [ -z "$OWNER_GITHUB" ]; then
-    read -rp "  내 GitHub 계정(정체) 입력: " OWNER_GITHUB
+    B "GitHub 계정 — 없으면 1분이면 만들어 (무료):"
+    B "  👉 https://github.com/signup → 계정 생성 → 계정명 기억"
+    read -rp "  내 GitHub 계정명 입력: " OWNER_GITHUB
   fi
   if [ -z "$OWNER_GITHUB" ]; then
     R "계정 없이 진행 불가. export OWNER_GITHUB=내계정 후 다시 실행."
@@ -72,7 +74,7 @@ ubuntu_phase() {
 
   B "─── [2] Ubuntu 패키지 ───"
   apt-get update -qq >/dev/null 2>&1 || true
-  apt-get install -y -qq git curl ca-certificates python3 nodejs npm nano >/dev/null 2>&1 \
+  apt-get install -y -qq git curl ca-certificates python3 nodejs npm nano gh >/dev/null 2>&1 \
     || apt-get install -y git curl ca-certificates python3 nodejs npm nano
 
   B "─── [3] Claude Code (--no-audit --progress=false) ───"
@@ -85,7 +87,9 @@ ubuntu_phase() {
 
   B "─── [4] DeepSeek 엔진 배선 ───"
   if [ -z "$DEEPSEEK_API_KEY" ]; then
-    read -rp "  DeepSeek API 키 입력: " DEEPSEEK_API_KEY
+    B "DeepSeek API 키 발급 (1분):"
+    B "  👉 https://platform.deepseek.com → API Keys → Create new key → 복사"
+    read -rp "  DeepSeek API 키 붙여넣기: " DEEPSEEK_API_KEY
   fi
   cat >> ~/.bashrc <<EOF
 export DEEPSEEK_API_KEY="${DEEPSEEK_API_KEY}"
@@ -135,6 +139,22 @@ PYEOF
     G "클론 완료 → ${WORK_DIR}"
   fi
 
+  B "─── [7] GitHub 배포 (repo 생성 + push + Pages) ───"
+  if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
+    gh repo create "${OWNER_GITHUB}/helena_phone" --public --source "${WORK_DIR}" --push 2>/dev/null \
+      || { gh repo view "${OWNER_GITHUB}/helena_phone" >/dev/null 2>&1 \
+        && git -C "${WORK_DIR}" remote set-url origin "https://github.com/${OWNER_GITHUB}/helena_phone.git" \
+        && git -C "${WORK_DIR}" push -u origin main 2>/dev/null; } || true
+    gh api -X POST "repos/${OWNER_GITHUB}/helena_phone/pages" -f build_type=workflow 2>/dev/null \
+      || gh api -X POST "repos/${OWNER_GITHUB}/helena_phone/pages" -f "source[branch]=main" -f "source[path]=/" 2>/dev/null \
+      || true
+    G "배포 요청 완료 — 몇 분 뒤: https://${OWNER_GITHUB}.github.io/helena_phone/"
+  else
+    Y "gh 로그인 안 됨 → GitHub 자동 배포 스킵."
+    B "  한 번만: 'gh auth login' 후 다시 실행하면 repo 생성+push+Pages 자동."
+    B "  수동: 1) github.com/new 로 helena_phone 생성  2) push  3) Settings→Pages→GitHub Actions"
+  fi
+
   G "Ubuntu 단계 완료"
 }
 
@@ -145,6 +165,18 @@ write_cc_alias() {
   fi
   printf "%s\n" "alias cc='proot-distro login ubuntu -- bash -lc \"mkdir -p ${WORK_DIR} && cd ${WORK_DIR} && IS_SANDBOX=1 claude --dangerously-skip-permissions\"'" >> ~/.bashrc
   G "cc 별칭 등록 (Termux ~/.bashrc)"
+}
+
+pages_check() {
+  local url="https://${OWNER_GITHUB}.github.io/helena_phone/"
+  local code
+  code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 "$url" 2>/dev/null || echo "000")
+  if [ "$code" = "200" ]; then
+    G "GitHub Pages 살아있음: ${url}"
+  else
+    Y "GitHub Pages 아직 안 뜸 (HTTP ${code}) — ${url}"
+    B "  배포 후 몇 분 걸림. 계속 404면: repo 존재 + Settings→Pages→GitHub Actions 확인."
+  fi
 }
 
 summary() {
@@ -198,6 +230,7 @@ main() {
   "
 
   write_cc_alias
+  pages_check
   summary
 }
 

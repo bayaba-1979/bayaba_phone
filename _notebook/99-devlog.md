@@ -6422,3 +6422,16 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 
 - **⚠️ proot ≠ WSL (핵심 경계):** WSL2 = 진짜 커널+GPU 통과. proot = 사용자 공간 에뮬레이션 → GPU를 glibc에서 못 잡음(S21 Mali-G78에서 확인된 ABI 문제). → **로컬 온디바이스 이미지 생성만 어려움**(NNAPI 일부 가능, 실측 필요). 클라우드(Grok)+ffmpeg(CPU)+유튜브 업로드는 전부 가능.
 - **원칙:** 이미지는 클라우드(Grok), 영상은 CPU(ffmpeg)로 분리. 로컬 이미지 생성은 NNAPI 실측 항목으로 보류.
+
+### 🚨 설치 시행착오 — Pages 404 + 원스탑 보강 (_Claude · 2026-08-18)
+
+태블릿(GitHub = dimas-40) 설치에서 시행착오 2건 → 원스탑 설치기 보강.
+
+- **404 원인:** easy.sh는 클론만 하고 GitHub 배포(repo 생성+push+Pages)를 안 함. 그런데 S21-START.txt·매뉴얼이 "웹 보기: https://<계정>.github.io/helena_phone/"라고 안내 → 계정에 repo가 없어 404. **Pages는 repo + Pages 활성화(액션)가 전제.**
+- **정정:** 태블릿 GitHub 계정 = **dimas-40** (삼성 = thomas.tj.park). thomas.tj.park를 GitHub로 잘못 기록 → 수정.
+- **원스탑 보강(`g/workstation.sh`):**
+  - [0] GitHub 계정 생성 안내(`github.com/signup`)부터 → 계정명 입력 (정체 우선)
+  - [4] DeepSeek 키 발급 안내(`platform.deepseek.com`) → 붙여넣기
+  - [7] GitHub 자동 배포: `gh repo create` + push + Pages 활성화 (gh 로그인 시)
+  - `pages_check()`: Pages 404면 경고 + 수동 절차 안내
+- **easy.sh·초심자 매뉴얼:** Pages 404 트러블슈팅 수정 ("주소 오타" → "repo+Pages 미설정").

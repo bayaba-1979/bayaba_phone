@@ -484,6 +484,7 @@
 <li><a href="#tab-s9-s21-2-_claude-2026-08-18">🔬 태블릿(Tab S9) 하드웨어 — S21과 2세대 차이 (_Claude · 2026-08-18)</a></li>
 <li><a href="#s21-apk-_boss-2026-08-18">🧊 앱도 동결 — S21 검증 APK 사이드로드 (_Boss · 2026-08-18)</a></li>
 <li><a href="#2-_boss-2026-08-18">🎯 태블릿 워크스테이션 목적 — 파이프라인 2개 (_Boss · 2026-08-18)</a></li>
+<li><a href="#pages-404-_claude-2026-08-18">🚨 설치 시행착오 — Pages 404 + 원스탑 보강 (_Claude · 2026-08-18)</a></li>
 </ul>
 </li>
 </ul>
@@ -8631,6 +8632,18 @@ Android(호스트 OS) : proot Ubuntu(리눅스 호환 레이어)
 <ul>
 <li><strong>⚠️ proot ≠ WSL (핵심 경계):</strong> WSL2 = 진짜 커널+GPU 통과. proot = 사용자 공간 에뮬레이션 → GPU를 glibc에서 못 잡음(S21 Mali-G78에서 확인된 ABI 문제). → <strong>로컬 온디바이스 이미지 생성만 어려움</strong>(NNAPI 일부 가능, 실측 필요). 클라우드(Grok)+ffmpeg(CPU)+유튜브 업로드는 전부 가능.</li>
 <li><strong>원칙:</strong> 이미지는 클라우드(Grok), 영상은 CPU(ffmpeg)로 분리. 로컬 이미지 생성은 NNAPI 실측 항목으로 보류.</li>
+</ul>
+<h3 id="pages-404-_claude-2026-08-18">🚨 설치 시행착오 — Pages 404 + 원스탑 보강 (_Claude · 2026-08-18)</h3>
+<p>태블릿(GitHub = dimas-40) 설치에서 시행착오 2건 → 원스탑 설치기 보강.</p>
+<ul>
+<li><strong>404 원인:</strong> easy.sh는 클론만 하고 GitHub 배포(repo 생성+push+Pages)를 안 함. 그런데 S21-START.txt·매뉴얼이 &ldquo;웹 보기: https://&lt;계정&gt;.github.io/helena_phone/&rdquo;라고 안내 → 계정에 repo가 없어 404. <strong>Pages는 repo + Pages 활성화(액션)가 전제.</strong></li>
+<li><strong>정정:</strong> 태블릿 GitHub 계정 = <strong>dimas-40</strong> (삼성 = thomas.tj.park). thomas.tj.park를 GitHub로 잘못 기록 → 수정.</li>
+<li><strong>원스탑 보강(<code>g/workstation.sh</code>):</strong></li>
+<li>[0] GitHub 계정 생성 안내(<code>github.com/signup</code>)부터 → 계정명 입력 (정체 우선)</li>
+<li>[4] DeepSeek 키 발급 안내(<code>platform.deepseek.com</code>) → 붙여넣기</li>
+<li>[7] GitHub 자동 배포: <code>gh repo create</code> + push + Pages 활성화 (gh 로그인 시)</li>
+<li><code>pages_check()</code>: Pages 404면 경고 + 수동 절차 안내</li>
+<li><strong>easy.sh·초심자 매뉴얼:</strong> Pages 404 트러블슈팅 수정 (&ldquo;주소 오타&rdquo; → &ldquo;repo+Pages 미설정&rdquo;).</li>
 </ul>
   </article>
   <nav class="wz-pager">

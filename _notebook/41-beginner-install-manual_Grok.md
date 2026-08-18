@@ -60,7 +60,7 @@ cat S21-START.txt
 폰 브라우저 주소창:
 
 ```
-https://helena751107.github.io/helena_phone/
+https://<내 GitHub 계정명>.github.io/helena_phone/
 ```
 
 페이지가 열리면 **설치 성공**이다.  
@@ -69,6 +69,10 @@ https://helena751107.github.io/helana_log/
 https://helena751107.github.io/helana-faith/  
 https://helena751107.github.io/helena-piano/  
 https://helena751107.github.io/helena-metalcare/
+
+> ⚠️ **404가 뜨면?** easy.sh는 "클론"만 하고 GitHub 배포는 안 해.
+> 내 계정에 `helena_phone` 레포를 만들고 push + **Settings → Pages → GitHub Actions** 활성화해야 열린다.
+> (자동 배포까지 한 번에 하려면 `g/workstation.sh` 사용.)
 
 ---
 
@@ -129,7 +133,7 @@ bash g/install.sh
 | proot-distro 없음 | `pkg install proot-distro` |
 | 저장 공간 | 사진/앱 지워 5GB 확보 |
 | 클론 실패 | Wi-Fi 확인 후 easy 한 줄 다시 |
-| Pages 안 열림 | 주소 오타 · 나중에 다시 |
+| Pages 404 | 내 계정에 helena_phone 레포 없음 — 만들고 push + Settings→Pages→GitHub Actions (또는 workstation.sh 자동) |
 | termux-api ENOENT | `pkg install termux-api -y` (devlog §16)
 
 ---

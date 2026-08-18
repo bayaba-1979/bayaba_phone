@@ -152,7 +152,7 @@ cat S21-START.txt
 <p><code>S21-START.txt</code> 가 읽히면 워크스페이스 준비 완료.</p>
 <h3 id="b">B) 브라우저 (눈으로 확인)</h3>
 <p>폰 브라우저 주소창:</p>
-<pre><code>https://helena751107.github.io/helena_phone/
+<pre><code>https://&lt;내 GitHub 계정명&gt;.github.io/helena_phone/
 </code></pre>
 <p>페이지가 열리면 <strong>설치 성공</strong>이다.<br>
 (위성)<br>
@@ -160,6 +160,11 @@ https://helena751107.github.io/helana_log/<br>
 https://helena751107.github.io/helana-faith/<br>
 https://helena751107.github.io/helena-piano/<br>
 https://helena751107.github.io/helena-metalcare/</p>
+<blockquote>
+<p>⚠️ <strong>404가 뜨면?</strong> easy.sh는 &ldquo;클론&rdquo;만 하고 GitHub 배포는 안 해.<br>
+내 계정에 <code>helena_phone</code> 레포를 만들고 push + <strong>Settings → Pages → GitHub Actions</strong> 활성화해야 열린다.<br>
+(자동 배포까지 한 번에 하려면 <code>g/workstation.sh</code> 사용.)</p>
+</blockquote>
 <hr>
 <h2 id="_1">끝. 오늘은 여기까지.</h2>
 <p>키 발급, 토큰, Claude, Grok, 푸시는 <strong>오늘 안 해도 됨.</strong><br>
@@ -247,8 +252,8 @@ bash g/install.sh
 <td>Wi-Fi 확인 후 easy 한 줄 다시</td>
 </tr>
 <tr>
-<td>Pages 안 열림</td>
-<td>주소 오타 · 나중에 다시</td>
+<td>Pages 404</td>
+<td>내 계정에 helena_phone 레포 없음 — 만들고 push + Settings→Pages→GitHub Actions (또는 workstation.sh 자동)</td>
 </tr>
 <tr>
 <td>termux-api ENOENT</td>
