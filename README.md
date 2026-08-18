@@ -4,14 +4,14 @@
 
 > **One Galaxy S21. ~$20/month. A one-person media studio — and a 24/7 care system.**
 > Powered by Termux/PRoot & MCP. Every step hard-verified by `returncode == 0` — no agent hallucinations.
-> **489 commits · 893 files · 129 notebooks · 8 shipped systems · 3 weeks.**
+> **548 commits · 905 files · 129 notebooks · 8 shipped systems · 3 weeks.**
 > Zero PC · resilience-first · multi-channel (Git SSOT → PWA / Tistory / YouTube / Telegram).
 >
 > **Made in Korea — not a developer.** I don't sit easy at a keyboard; I can't stand that kind of building. Fourteen-hour days of physical labor, and in the cracks of it, all of this — spoken into a terminal, not typed. The nobles take a walk to rest. I rest by working.
 >
 > **The build is done. Now I open it and teach.** Fork it, cite it, run it on the phone in your pocket.
 
-![hardware](https://img.shields.io/badge/hardware-1%C3%97%20Galaxy%20S21-9cf) ![cost](https://img.shields.io/badge/cost-~%2420%2Fmonth-success) ![commits](https://img.shields.io/badge/commits-489-blue) ![systems](https://img.shields.io/badge/systems-8%20shipped-brightgreen) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
+![hardware](https://img.shields.io/badge/hardware-1%C3%97%20Galaxy%20S21-9cf) ![cost](https://img.shields.io/badge/cost-~%2420%2Fmonth-success) ![commits](https://img.shields.io/badge/commits-548-blue) ![systems](https://img.shields.io/badge/systems-8%20shipped-brightgreen) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ## The origin — proof, not a poster
 
@@ -60,7 +60,7 @@ Three weeks of building (2026-07-23 → 08-16). No new features. What's left is 
 │                    │ Telegram        │               │
 │                    └────────────────┘               │
 │                                                     │
-│  489 commits · 893 files · 129 notebooks · 8 systems│
+│  548 commits · 905 files · 129 notebooks · 8 systems│
 │  Build is done → now I open it and teach            │
 └─────────────────────────────────────────────────────┘
 ```
@@ -70,8 +70,8 @@ Three weeks of building (2026-07-23 → 08-16). No new features. What's left is 
 | Metric | Value |
 |--------|-------|
 | Build time | 3 weeks (2026-07-23 → 08-16) |
-| Commits | 489 |
-| Files | 893 |
+| Commits | 548 |
+| Files | 905 |
 | Notebooks | 129 |
 | Shipped systems | 8 (webzine · care daemon · textbook · publishing · video · …) |
 | AI agents | 3 (writer · designer/PD · patcher) |
