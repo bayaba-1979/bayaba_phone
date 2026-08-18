@@ -105,6 +105,7 @@ add("CHRONICLE.md", "chronicle.html", "CHRONICLE · 연대기", "Core", deck="DA
 add("GIFT.md", "gift.html", "GIFT · dtslib 선물", "Core", deck="선물 패키지 분석")
 add("_textbook/index.md", "textbook.html", "완결판 교재", "Core", deck="판단층 + 실행층")
 add("install-guide.md", "install-guide.html", "새 방에 친구 하나", "Core", deck="붙여넣기 3번이면 친구 생김")
+add("SETUP.md", "setup.html", "설치 후 · 생태계 셋업 런북", "Core", deck="계정·토큰 갈아끼워 S21과 동일하게")
 
 # Foundation
 for name, title in [
