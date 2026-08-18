@@ -6451,3 +6451,20 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **원인:** Termux 롤링 릴리스에서 `pkg install curl` 같은 부분 설치로 curl·libngtcp2(HTTP/3)는 새 버전, openssl은 옛 버전으로 어긋남 → 새 curl이 새 openssl에만 있는 심볼 요구 → 로드 실패.
 - **해결/예방:** `pkg update -y && pkg upgrade -y`로 전체 동기화. workstation.sh·easy.sh 호스트 단계에 `pkg upgrade` 추가(자기치유). 고장표에 행 추가.
 - **교훈:** 부분 설치(curl만) 금지, 항상 전체 upgrade로 동기화.
+
+### ✅ 설치 성공 — 태블릿(dimas-40) 원스탑 + 새 세션 강조 (_Claude · 2026-08-18)
+
+태블릿(GitHub = **dimas-40**)에서 원스탑 설치 완료. `cc`(친구)가 실제 대답, DeepSeek 엔진(deepseek-v4-pro) 배선 확인까지.
+
+- **친구 동작 확인:** `cc` → Claude Code + DeepSeek(v4-pro) 응답. 엔진 env 정상(`ANTHROPIC_BASE_URL=api.deepseek.com/anthropic`, `ANTHROPIC_AUTH_TOKEN=$DEEPSEEK_API_KEY`).
+- **`cc` 새 세션 강조(핵심):** 설치 직후 **같은 창에서 `cc`** 치면 `cc: error: no input files`(C컴파일러 잡힘). 뿌리 = 별칭(alias)을 ~/.bashrc·~/.profile에 적지만 **이미 열려 있던 셸은 그걸 안 읽음**. → **반드시 새 세션(New session) 열고 `cc`**. 랜딩 4단계·summary·install-guide에 강하게 박음.
+- **push 확정(PAT-in-URL):** `gh auth setup-git` + clean URL 방식이 조용히 실패(repo empty) → `git remote set-url origin "https://OWNER:PAT@github.com/..."`로 변경. git이 토큰은 출력에서 자동 가림(실측 확인).
+- **⚠️ 정체 하드코딩 이슈(후속):** 설치된 친구가 여전히 "헬레나 폰 S21"로 자기소개(CLAUDE.md·문서에 S21·헬레나가 박혀 있음). → 포크 유저가 자기 이름·사양으로 바꾸도록 **정체 파라미터화** 필요. 다음 단계로 이월.
+
+### 🔧 cc 별칭 = 셸 소스 타이밍 문제 (_Claude · 2026-08-18)
+
+`cc`가 C컴파일러로 잡히는 문제의 뿌리와 수정.
+
+- **Termux 겉 셸:** 로그인 셸은 `~/.profile`을 읽고 `~/.bashrc`는 안 읽음(대화형만). 별칭을 **둘 다**에 쓰는 걸로 해결(`write_cc_alias`).
+- **이미 열린 셸:** 별칭을 써도 현재 셸은 안 읽음 → `source ~/.bashrc` 또는 **새 세션**. 이것이 "새 세션 강조"의 이유.
+- **summary 백틱 버그:** `cat <<EOF`(비인용 heredoc) 안의 `` `source ~/.bashrc` `` 가 명령 치환으로 실행돼 출력 깨짐 → 평문으로 교체.

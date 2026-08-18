@@ -76,7 +76,8 @@ bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main
 cc
 ```
 
-> 처음 한 번: 설치 끝난 직후 같은 창에서 `cc` 치면 C컴파일러가 잡힐 수 있어. **새 창을 열고** `cc` 치면 돼 (또는 `source ~/.bashrc` 치고 `cc`).
+> ⚠️ **`cc`는 반드시 새 창(New session)을 열고 눌러야 해요.** 설치 끝난 직후 같은 창에서 바로 치면 아직 안 먹혀요(컴퓨터가 "cc"를 C컴파일러로 착각).  
+> → Termux에서 **새 세션(New session)** 열고 `cc` 한 번. (급하면 `source ~/.bashrc` 친 뒤 `cc`)
 
 (또는)
 

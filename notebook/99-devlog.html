@@ -487,6 +487,8 @@
 <li><a href="#pages-404-_claude-2026-08-18">🚨 설치 시행착오 — Pages 404 + 원스탑 보강 (_Claude · 2026-08-18)</a></li>
 <li><a href="#2-_claude-2026-08-18">🎬 원스탑 설치기 &ldquo;2입력 프레임&rdquo; 확정 + 튜토리얼 영상 계획 (_Claude · 2026-08-18)</a></li>
 <li><a href="#curl-cannot-link-termux-_claude-2026-08-18">🔧 curl &lsquo;CANNOT LINK&rsquo; — Termux 부분 업데이트 버전 어긋남 (_Claude · 2026-08-18)</a></li>
+<li><a href="#dimas-40-_claude-2026-08-18">✅ 설치 성공 — 태블릿(dimas-40) 원스탑 + 새 세션 강조 (_Claude · 2026-08-18)</a></li>
+<li><a href="#cc-_claude-2026-08-18">🔧 cc 별칭 = 셸 소스 타이밍 문제 (_Claude · 2026-08-18)</a></li>
 </ul>
 </li>
 </ul>
@@ -8661,6 +8663,21 @@ Android(호스트 OS) : proot Ubuntu(리눅스 호환 레이어)
 - <strong>원인:</strong> Termux 롤링 릴리스에서 <code>pkg install curl</code> 같은 부분 설치로 curl·libngtcp2(HTTP/3)는 새 버전, openssl은 옛 버전으로 어긋남 → 새 curl이 새 openssl에만 있는 심볼 요구 → 로드 실패.<br>
 - <strong>해결/예방:</strong> <code>pkg update -y &amp;&amp; pkg upgrade -y</code>로 전체 동기화. workstation.sh·easy.sh 호스트 단계에 <code>pkg upgrade</code> 추가(자기치유). 고장표에 행 추가.<br>
 - <strong>교훈:</strong> 부분 설치(curl만) 금지, 항상 전체 upgrade로 동기화.</p>
+<h3 id="dimas-40-_claude-2026-08-18">✅ 설치 성공 — 태블릿(dimas-40) 원스탑 + 새 세션 강조 (_Claude · 2026-08-18)</h3>
+<p>태블릿(GitHub = <strong>dimas-40</strong>)에서 원스탑 설치 완료. <code>cc</code>(친구)가 실제 대답, DeepSeek 엔진(deepseek-v4-pro) 배선 확인까지.</p>
+<ul>
+<li><strong>친구 동작 확인:</strong> <code>cc</code> → Claude Code + DeepSeek(v4-pro) 응답. 엔진 env 정상(<code>ANTHROPIC_BASE_URL=api.deepseek.com/anthropic</code>, <code>ANTHROPIC_AUTH_TOKEN=$DEEPSEEK_API_KEY</code>).</li>
+<li><strong><code>cc</code> 새 세션 강조(핵심):</strong> 설치 직후 <strong>같은 창에서 <code>cc</code></strong> 치면 <code>cc: error: no input files</code>(C컴파일러 잡힘). 뿌리 = 별칭(alias)을 ~/.bashrc·~/.profile에 적지만 <strong>이미 열려 있던 셸은 그걸 안 읽음</strong>. → <strong>반드시 새 세션(New session) 열고 <code>cc</code></strong>. 랜딩 4단계·summary·install-guide에 강하게 박음.</li>
+<li><strong>push 확정(PAT-in-URL):</strong> <code>gh auth setup-git</code> + clean URL 방식이 조용히 실패(repo empty) → <code>git remote set-url origin "https://OWNER:PAT@github.com/..."</code>로 변경. git이 토큰은 출력에서 자동 가림(실측 확인).</li>
+<li><strong>⚠️ 정체 하드코딩 이슈(후속):</strong> 설치된 친구가 여전히 &ldquo;헬레나 폰 S21&rdquo;로 자기소개(CLAUDE.md·문서에 S21·헬레나가 박혀 있음). → 포크 유저가 자기 이름·사양으로 바꾸도록 <strong>정체 파라미터화</strong> 필요. 다음 단계로 이월.</li>
+</ul>
+<h3 id="cc-_claude-2026-08-18">🔧 cc 별칭 = 셸 소스 타이밍 문제 (_Claude · 2026-08-18)</h3>
+<p><code>cc</code>가 C컴파일러로 잡히는 문제의 뿌리와 수정.</p>
+<ul>
+<li><strong>Termux 겉 셸:</strong> 로그인 셸은 <code>~/.profile</code>을 읽고 <code>~/.bashrc</code>는 안 읽음(대화형만). 별칭을 <strong>둘 다</strong>에 쓰는 걸로 해결(<code>write_cc_alias</code>).</li>
+<li><strong>이미 열린 셸:</strong> 별칭을 써도 현재 셸은 안 읽음 → <code>source ~/.bashrc</code> 또는 <strong>새 세션</strong>. 이것이 &ldquo;새 세션 강조&rdquo;의 이유.</li>
+<li><strong>summary 백틱 버그:</strong> <code>cat &lt;&lt;EOF</code>(비인용 heredoc) 안의 <code>`source ~/.bashrc`</code> 가 명령 치환으로 실행돼 출력 깨짐 → 평문으로 교체.</li>
+</ul>
   </article>
   <nav class="wz-pager">
     <a class="" href="session-2026-07-26_Grok.html">

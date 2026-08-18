@@ -1225,8 +1225,13 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
     <div class="ed-card reveal" style="margin-top:16px;padding:16px;border:1px solid var(--rule);background:var(--paper-2)">
       <div style="font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600">4단계 · 확인</div>
       <pre style="margin:0 0 10px;font-family:var(--mono);font-size:.72rem;color:var(--ink-dim);white-space:pre-wrap">cc</pre>
-      <p style="color:var(--ink-dim);font-weight:300;font-size:.85rem;margin:0">
+      <p style="color:var(--ink-dim);font-weight:300;font-size:.85rem;margin:0 0 10px">
         친구(Claude Code + DeepSeek)가 대답하면 성공! 그 뒤엔 <b style="color:var(--ink)">클론 → GitHub 배포 → Pages</b>까지 자동으로 끝나요. 🎉
+      </p>
+      <p style="margin:0;padding:11px 13px;border:1px solid var(--gold);border-radius:8px;background:rgba(212,175,55,.08);font-size:.8rem;line-height:1.5">
+        <b style="color:var(--gold)">⚠️ `cc`는 지금 이 창에서 치면 안 돼요. 반드시 새 창(New session)을 열고 눌러주세요.</b><br>
+        <span style="color:var(--ink-dim);font-weight:300">설치 끝난 직후 같은 창은 "cc"를 아직 모르는 상태라서 C컴파일러로 착각해요.<br>
+        → Termux에서 <b style="color:var(--ink)">새 세션(New session)</b> 열고 <code>cc</code> 한 번. (급하면 <code>source ~/.bashrc</code> 친 뒤 <code>cc</code>)</span>
       </p>
     </div>
   </section>
