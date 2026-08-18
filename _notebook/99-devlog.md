@@ -6468,3 +6468,17 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **Termux 겉 셸:** 로그인 셸은 `~/.profile`을 읽고 `~/.bashrc`는 안 읽음(대화형만). 별칭을 **둘 다**에 쓰는 걸로 해결(`write_cc_alias`).
 - **이미 열린 셸:** 별칭을 써도 현재 셸은 안 읽음 → `source ~/.bashrc` 또는 **새 세션**. 이것이 "새 세션 강조"의 이유.
 - **summary 백틱 버그:** `cat <<EOF`(비인용 heredoc) 안의 `` `source ~/.bashrc` `` 가 명령 치환으로 실행돼 출력 깨짐 → 평문으로 교체.
+
+### 🏁 원스탑 설치 완결 — 랜딩 '후속 작업' 매뉴얼 + 자평 (_Claude · 2026-08-18)
+
+설치기가 초심자 한 명(태블릿 dimas-40)을 실제로 끝까지 태우는 걸 확인. 산출물 기준 완성.
+
+- **설치 완결 확인:** `cc`(친구) 동작 + DeepSeek(v4-pro) 배선 + push는 PAT-in-URL로 확정.
+- **랜딩 '후속 작업' 매뉴얼 추가:** 설치 4단계 아래에 생태계 연결 순서 5단계(**GitHub → Telegram → 티스토리 → YouTube → 네이버/Threads**) + 양산 BOM(`preflight.sh → quota.sh → make_pair.sh`) 한 줄 병기. "설치 다음 뭐 하지?" 질문에 순서가 바로 보이게.
+- **정체 파라미터화 이월:** 에이전트가 "헬레나 폰 S21"로 자기소개하는 하드코딩은 대화로 수정 가능. 기계가 읽는 `ecosystem.json` identity 블록만 후속 배선(→ [[identity-parameterization]]).
+
+### 🪞 퍼포먼스 자평 요지 (Boss 요청 · _Claude · 2026-08-18)
+
+- **결과(산출물):** 원스탑 설치 + 매뉴얼 + 랜딩 '후속 작업'까지 전부 붙음 → 높음.
+- **과정(판단·검증):** 시행착오 4건(curl CANNOT LINK / cc alias 셸 소스 / push 조용한 실패 / heredoc 백틱). 공통 뿌리 = **"성공 선언"을 검증 없이 한 것**(push 후 repo commit 수를 안 세봄). 이게 감점 요인.
+- **교훈:** 속도(코드 생산)보다 판단·재검증이 진짜 자산. "완료/성공"은 returncode·파일·커밋 수로 재확인. [[ai-era-speed-vs-judgment]] [[ai-inertia-keep-distance]]
