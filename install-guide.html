@@ -144,12 +144,16 @@ env만 앞에 붙이면 Pages 주소·정체가 그 사람 명의로 바뀐다.<
 <ul>
 <li>처음이면 Ubuntu + Claude Code 깔리면서 <strong>몇 분</strong> 걸림. 가만히 둔다.  </li>
 <li>중간에 저장소 권한 팝업 → <strong>허용</strong>.</li>
+<li>중간에 <code>Do you want to continue? [Y/n]</code> 같은 물음이 뜨면 → <strong>Enter</strong>(또는 <code>y</code>) 누르면 돼.</li>
 <li>한 줄이 <code>curl ... CANNOT LINK</code> 에러가 나면 → <code>termux-change-repo</code>로 미러 선택 → <code>apt update &amp;&amp; apt full-upgrade</code> → 다시 한 줄.</li>
 </ul>
 <p>☐ &ldquo;자기 것 3개 입력&rdquo;이 뜨면 화면 3</p>
 <hr>
 <h2 id="3-3">화면 3 — 딱 3개 붙여넣기</h2>
 <p>스크립트가 물어보는 건 딱 3개예요. (전부 자기 것 = 이게 수동의 전부)</p>
+<blockquote>
+<p>🔐 <strong>토큰 붙여넣기 안내:</strong> 붙여넣을 때 화면에 안 보이는 건 <strong>보안 때문에 숨긴 거</strong>예요. <strong>Enter 누르면 앞 4자만 보여줘서</strong> 붙었는지 확인돼요 (예: <code>ghp_···</code> / <code>sk-c···</code>). 복사한 걸 그냥 붙여넣고 Enter.</p>
+</blockquote>
 <h3 id="1-github">1) GitHub 계정명</h3>
 <ul>
 <li>없으면 1분 가입 → <strong>github.com/signup</strong></li>

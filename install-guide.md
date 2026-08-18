@@ -35,6 +35,7 @@ bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main
 
 - 처음이면 Ubuntu + Claude Code 깔리면서 **몇 분** 걸림. 가만히 둔다.  
 - 중간에 저장소 권한 팝업 → **허용**.
+- 중간에 `Do you want to continue? [Y/n]` 같은 물음이 뜨면 → **Enter**(또는 `y`) 누르면 돼.
 - 한 줄이 `curl ... CANNOT LINK` 에러가 나면 → `termux-change-repo`로 미러 선택 → `apt update && apt full-upgrade` → 다시 한 줄.
 
 ☐ "자기 것 3개 입력"이 뜨면 화면 3
@@ -44,6 +45,8 @@ bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main
 ## 화면 3 — 딱 3개 붙여넣기
 
 스크립트가 물어보는 건 딱 3개예요. (전부 자기 것 = 이게 수동의 전부)
+
+> 🔐 **토큰 붙여넣기 안내:** 붙여넣을 때 화면에 안 보이는 건 **보안 때문에 숨긴 거**예요. **Enter 누르면 앞 4자만 보여줘서** 붙었는지 확인돼요 (예: `ghp_···` / `sk-c···`). 복사한 걸 그냥 붙여넣고 Enter.
 
 ### 1) GitHub 계정명
 - 없으면 1분 가입 → **github.com/signup**

@@ -43,17 +43,19 @@ ask_credentials() {
   [ -n "$OWNER_GITHUB" ] || { R "계정 없이 진행 불가. 다시 실행."; exit 1; }
 
   if [ -z "$GITHUB_PAT" ]; then
-    B "2) GitHub PAT (계정 열쇠 — 입력은 화면에 안 보임)"
+    B "2) GitHub PAT (계정 열쇠 — 입력은 숨김, Enter 후 앞 4자만 보여줌)"
     B "  👉 https://github.com/settings/tokens → Generate new token (classic)"
     B "     ☑ repo  ☑ workflow  체크 → Generate → 복사 (ghp_...)"
     read -rsp "  붙여넣기: " GITHUB_PAT; echo
+    [ -n "$GITHUB_PAT" ] && printf "  ✅ 붙었음 (앞 4자): %s···\n" "${GITHUB_PAT:0:4}"
   fi
   [ -n "$GITHUB_PAT" ] || { R "PAT 없이 진행 불가. 다시 실행."; exit 1; }
 
   if [ -z "$DEEPSEEK_API_KEY" ]; then
-    B "3) DeepSeek 토큰 (친구 두뇌 — 입력은 화면에 안 보임)"
+    B "3) DeepSeek 토큰 (친구 두뇌 — 입력은 숨김, Enter 후 앞 4자만 보여줌)"
     B "  👉 https://platform.deepseek.com → API Keys → Create new key → 복사 (sk-...)"
     read -rsp "  붙여넣기: " DEEPSEEK_API_KEY; echo
+    [ -n "$DEEPSEEK_API_KEY" ] && printf "  ✅ 붙었음 (앞 4자): %s···\n" "${DEEPSEEK_API_KEY:0:4}"
   fi
   [ -n "$DEEPSEEK_API_KEY" ] || { R "토큰 없이 진행 불가. 다시 실행."; exit 1; }
 
