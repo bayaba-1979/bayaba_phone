@@ -160,9 +160,9 @@ PYEOF
     if gh repo create "${OWNER_GITHUB}/helena_phone" --public --source "${WORK_DIR}" --push 2>/dev/null; then
       G "repo 생성 + push 완료"
     else
-      Y "repo 이미 있음(또는 push 재시도) → PAT로 직접 push"
+      Y "repo 이미 있음(또는 push 재시도) → 다시 push"
       gh repo view "${OWNER_GITHUB}/helena_phone" >/dev/null 2>&1 || true
-      git -C "${WORK_DIR}" remote set-url origin "https://${OWNER_GITHUB}:${GITHUB_PAT}@github.com/${OWNER_GITHUB}/helena_phone.git"
+      git -C "${WORK_DIR}" remote set-url origin "https://github.com/${OWNER_GITHUB}/helena_phone.git"
       git -C "${WORK_DIR}" push -u origin main 2>&1 || true
     fi
     gh api -X POST "repos/${OWNER_GITHUB}/helena_phone/pages" -f build_type=workflow 2>/dev/null \
@@ -178,12 +178,21 @@ PYEOF
 }
 
 write_cc_alias() {
-  if grep -q "alias cc=" ~/.bashrc 2>/dev/null; then
-    G "cc 별칭 이미 있음"
-    return 0
+  local line="alias cc='proot-distro login ubuntu -- bash -lc \"mkdir -p ${WORK_DIR} && cd ${WORK_DIR} && IS_SANDBOX=1 claude --dangerously-skip-permissions\"'"
+  local wrote=0
+  if ! grep -q "alias cc=" ~/.bashrc 2>/dev/null; then
+    printf "%s\n" "$line" >> ~/.bashrc
+    wrote=1
   fi
-  printf "%s\n" "alias cc='proot-distro login ubuntu -- bash -lc \"mkdir -p ${WORK_DIR} && cd ${WORK_DIR} && IS_SANDBOX=1 claude --dangerously-skip-permissions\"'" >> ~/.bashrc
-  G "cc 별칭 등록 (Termux ~/.bashrc)"
+  if ! grep -q "alias cc=" ~/.profile 2>/dev/null; then
+    printf "%s\n" "$line" >> ~/.profile
+    wrote=1
+  fi
+  if [ "$wrote" = "1" ]; then
+    G "cc 별칭 등록 (~/.bashrc + ~/.profile) — 새 창 열면 cc 먹힘"
+  else
+    G "cc 별칭 이미 있음"
+  fi
 }
 
 pages_check() {
@@ -212,6 +221,8 @@ summary() {
 
   두 글자 (Termux 겉에서):
     cc
+
+  ⚠️ cc 첫 사용: 새 창 열거나 `source ~/.bashrc` 한 번 (지금 이 창에선 아직 안 먹힘)
 
   엔진 확인:
     claude --version   # 배너에 ${MODEL} 뜨면 성공

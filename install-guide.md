@@ -76,6 +76,8 @@ bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main
 cc
 ```
 
+> 처음 한 번: 설치 끝난 직후 같은 창에서 `cc` 치면 C컴파일러가 잡힐 수 있어. **새 창을 열고** `cc` 치면 돼 (또는 `source ~/.bashrc` 치고 `cc`).
+
 (또는)
 
 ```bash
