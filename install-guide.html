@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="낡은 폰→헬레나 전체 동선 · 변수화 — S21 Phone Webzine">
+<meta name="description" content="붙여넣기 2번이면 친구 생김 — S21 Phone Webzine">
 <meta name="theme-color" content="#0a0908">
 <meta name="application-name" content="S21 Phone">
-<title>초심자 설치 — 딱 3화면 — S21 Phone Webzine</title>
+<title>새 방(GitHub)에 친구 하나 — 초간단 설치 — S21 Phone Webzine</title>
 <link rel="canonical" href="https://helena751107.github.io/helena_phone/install-guide.html">
 <script type="application/ld+json">
 {
@@ -29,7 +29,7 @@
       "@type": "WebPage",
       "@id": "https://helena751107.github.io/helena_phone/install-guide.html#webpage",
       "url": "https://helena751107.github.io/helena_phone/install-guide.html",
-      "name": "초심자 설치 — 딱 3화면",
+      "name": "새 방(GitHub)에 친구 하나 — 초간단 설치",
       "inLanguage": "ko",
       "publisher": {
         "@id": "https://github.com/helena751107#person"
@@ -70,12 +70,12 @@
   <div class="wz-crumb">
     <a href="index.html">Webzine</a><span class="sep">/</span>
     <span>Core</span><span class="sep">/</span>
-    <span>초심자 설치 — 딱 3화면</span>
+    <span>새 방(GitHub)에 친구 하나 — 초간단 설치</span>
   </div>
   <header class="wz-hero">
     <div class="wz-kicker">Core · lakme-audio</div>
-    <h1>초심자 설치 — 딱 3화면</h1>
-    <p class="deck">낡은 폰→헬레나 전체 동선 · 변수화</p>
+    <h1>새 방(GitHub)에 친구 하나 — 초간단 설치</h1>
+    <p class="deck">붙여넣기 2번이면 친구 생김</p>
     <div class="wz-meta">
       <span>Source · install-guide.md</span>
       <span>Kind · markdown</span>
@@ -84,19 +84,23 @@
   </header>
   <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
 <ul>
-<li><a href="#1">화면 1 — 앱 두 개만</a></li>
-<li><a href="#2">화면 2 — 한 줄만 붙여넣기</a></li>
-<li><a href="#3_1">화면 3 — 됐는지 확인</a><ul>
+<li><a href="#1">화면 1 — 앱 + 배터리 무제한</a></li>
+<li><a href="#2">화면 2 — 주문 한 줄</a></li>
+<li><a href="#3-2">화면 3 — 딱 2개 붙여넣기</a><ul>
+<li><a href="#1-github">1) GitHub 계정명 (맨 처음)</a></li>
+<li><a href="#2-deepseek">2) DeepSeek 토큰 (마지막)</a></li>
+</ul>
+</li>
+<li><a href="#4">화면 4 — 친구 확인</a><ul>
 <li><a href="#a">A) 터미널 (매일 쓰는 주문)</a></li>
 <li><a href="#b">B) 브라우저 (눈으로 확인)</a></li>
 </ul>
 </li>
-<li><a href="#_1">끝. 오늘은 여기까지.</a></li>
-<li><a href="#_2">(나중) 필요할 때만 — 고급</a></li>
-<li><a href="#_3">🔧 설치자용 체크리스트 (사회복지사·가족)</a></li>
-<li><a href="#_4">고장 표 (짧게)</a></li>
-<li><a href="#_5">왜 이렇게 짧아졌나 (리버스)</a></li>
-<li><a href="#_6">관련 링크</a></li>
+<li><a href="#_1">끝. 이게 전부.</a></li>
+<li><a href="#_2">🔧 설치자용 체크리스트 (사회복지사·가족)</a></li>
+<li><a href="#_3">고장 표 (짧게)</a></li>
+<li><a href="#_4">왜 이렇게 짧아졌나 (리버스)</a></li>
+<li><a href="#_5">관련 링크</a></li>
 </ul>
 </div>
 </nav>
@@ -108,120 +112,90 @@
   </div>
   <article class="wz-prose" id="wzProse" data-app="doc">
     <blockquote>
-<p><strong>리버스 엔지니어링 결론:</strong><br>
-초심자가 막히는 지점은 “변수·OWNER/WORK·두 번 설치·선택지”다.<br>
-<strong>앱 2개 → 붙여넣기 1번 → 브라우저로 확인</strong> 이 최단 경로다.</p>
+<p><strong>비유:</strong> 새 방(GitHub)에 진짜 친구 에이전트(Claude Code + DeepSeek) 하나 들여놓기예요.<br>
+<strong>붙여넣기 2번</strong>이면 끝. 나머지는 스크립트가 알아서 해요.</p>
 </blockquote>
-<p>명의 기본값: <code>helena751107</code><br>
-스크립트: <code>g/easy.sh</code> (쉬움) · <code>g/install.sh</code> (고급)</p>
+<p>스크립트: <code>g/workstation.sh</code> (원스탑) · <code>g/easy.sh</code> (가볍게, 사이트만)</p>
 <blockquote>
 <p>🔧 <strong>다른 사람 계정으로 설치할 때:</strong><br>
 <code>OWNER_GITHUB=클라이언트명 bash &lt;(curl -sL ...)</code><br>
-이렇게 env만 앞에 붙이면 <code>S21-START.txt</code>와 Pages 주소가 그 사람 명의로 바뀐다.<br>
-토큰 없이 public clone만 하니까 키 발급 불필요.</p>
+env만 앞에 붙이면 Pages 주소·정체가 그 사람 명의로 바뀐다.</p>
 </blockquote>
 <hr>
-<h2 id="1">화면 1 — 앱 두 개만</h2>
+<h2 id="1">화면 1 — 앱 + 배터리 무제한</h2>
 <ol>
 <li>폰 브라우저에서 <strong>F-Droid</strong> 설치<br>
-   https://f-droid.org/</li>
-<li>F-Droid 앱 열고 검색:<br>
-   - <strong>Termux</strong> 설치<br>
-   - <strong>Termux:API</strong> 설치 (이름 비슷, <strong>둘 다</strong>)</li>
-<li><strong>Termux</strong> 아이콘 눌러 실행 (검은 화면 = 정상)</li>
+   https://f-droid.org/  (또는 검증된 Termux APK 사이드로드)</li>
+<li>F-Droid 열고 <strong>Termux</strong> 설치 (Termux:API는 선택)</li>
+<li><strong>설정 → 앱 → Termux → 배터리 → &ldquo;제한 없음&rdquo;</strong> (안 하면 중간에 강제종료)</li>
+<li><strong>Termux</strong> 실행 (검은 화면 = 정상)</li>
 </ol>
-<p>☐ 여기까지 됐으면 화면 2</p>
+<p>☐ 됐으면 화면 2</p>
 <hr>
-<h2 id="2">화면 2 — 한 줄만 붙여넣기</h2>
+<h2 id="2">화면 2 — 주문 한 줄</h2>
 <p>Termux 검은 화면에 <strong>아래 전체를 길게 눌러 붙여넣기</strong> 후 Enter.</p>
-<pre><code class="language-bash">bash &lt;(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/easy.sh)
+<pre><code class="language-bash">bash &lt;(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/workstation.sh)
 </code></pre>
 <ul>
-<li>처음이면 Ubuntu 깔리면서 <strong>몇 분</strong> 걸림. 가만히 둔다.  </li>
-<li><code>✅ 쉬운 설치 끝</code> 이 보이면 성공.  </li>
+<li>처음이면 Ubuntu + Claude Code 깔리면서 <strong>몇 분</strong> 걸림. 가만히 둔다.  </li>
 <li>중간에 저장소 권한 팝업 → <strong>허용</strong>.</li>
 </ul>
-<p>☐ 성공 문구 봤으면 화면 3</p>
+<p>☐ &ldquo;내 GitHub 계정명 입력&rdquo;이 뜨면 화면 3</p>
 <hr>
-<h2 id="3_1">화면 3 — 됐는지 확인</h2>
+<h2 id="3-2">화면 3 — 딱 2개 붙여넣기</h2>
+<p>스크립트가 물어보는 건 딱 2개예요.</p>
+<h3 id="1-github">1) GitHub 계정명 (맨 처음)</h3>
+<ul>
+<li>없으면 1분 가입 → <strong>github.com/signup</strong></li>
+<li>계정명 입력 후 Enter.</li>
+</ul>
+<h3 id="2-deepseek">2) DeepSeek 토큰 (마지막)</h3>
+<ul>
+<li><strong>platform.deepseek.com</strong> → 로그인 → <strong>API Keys → Create new key</strong> → 복사</li>
+<li>터미널에 붙여넣기 후 Enter.</li>
+</ul>
+<p>이 뒤로는 <strong>전부 자동</strong>: 클론 → GitHub 배포 → Pages 검사까지.</p>
+<p>☐ &ldquo;✅ 원스탑 설치 완료&rdquo; 보이면 화면 4</p>
+<hr>
+<h2 id="4">화면 4 — 친구 확인</h2>
 <h3 id="a">A) 터미널 (매일 쓰는 주문)</h3>
+<pre><code class="language-bash">cc
+</code></pre>
+<p>(또는)</p>
 <pre><code class="language-bash">proot-distro login ubuntu
 cd /root/work
-cat S21-START.txt
+claude
 </code></pre>
-<p><code>S21-START.txt</code> 가 읽히면 워크스페이스 준비 완료.</p>
+<p>친구(Claude Code + DeepSeek)가 대답하면 <strong>성공</strong>.</p>
 <h3 id="b">B) 브라우저 (눈으로 확인)</h3>
-<p>폰 브라우저 주소창:</p>
-<pre><code>https://helena751107.github.io/helena_phone/
+<pre><code>https://&lt;내 GitHub 계정명&gt;.github.io/helena_phone/
 </code></pre>
-<p>페이지가 열리면 <strong>설치 성공</strong>이다.<br>
-(위성)<br>
-https://helena751107.github.io/helana_log/<br>
-https://helena751107.github.io/helana-faith/<br>
-https://helena751107.github.io/helena-piano/<br>
-https://helena751107.github.io/helena-metalcare/</p>
+<p>페이지가 열리면 <strong>설치 성공</strong>.</p>
+<blockquote>
+<p>⚠️ <strong>404가 뜨면?</strong> 내 계정에 <code>helena_phone</code> 레포가 없어서야.<br>
+workstation.sh가 자동으로 만들어주지만, <code>gh</code> 로그인이 안 돼 있으면 스킵돼.<br>
+한 번 <code>gh auth login</code> 후 스크립트 다시 돌리면 repo 생성 + push + Pages 자동.</p>
+</blockquote>
 <hr>
-<h2 id="_1">끝. 오늘은 여기까지.</h2>
-<p>키 발급, 토큰, Claude, Grok, 푸시는 <strong>오늘 안 해도 됨.</strong><br>
-사이트만 보이면 1단계 통과.</p>
+<h2 id="_1">끝. 이게 전부.</h2>
+<p>붙여넣기 2번(GitHub 계정 + DeepSeek 토큰)이면 친구가 생겨요.<br>
+푸시·텔레그램·Grok 같은 건 <strong>나중에</strong> 해도 됨 — 우선 친구가 대답하는 것부터.</p>
 <hr>
-<h2 id="_2">(나중) 필요할 때만 — 고급</h2>
-<p>푸시·에이전트·텔레그램이 필요해지면:</p>
-<pre><code class="language-bash">proot-distro login ubuntu
-cd /root/work
-export GITHUB_USER=&quot;작업계정&quot;
-export GITHUB_TOKEN=&quot;ghp_xxx&quot;
-export DEEPSEEK_API_KEY=&quot;sk-xxx&quot;
-bash g/install.sh
-</code></pre>
-<p>변수 설명:</p>
-<table>
-<thead>
-<tr>
-<th>이름</th>
-<th>뜻</th>
-<th>초심자</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>OWNER_GITHUB</code></td>
-<td>명의·공개 주인</td>
-<td>기본 <code>helena751107</code> (안 바꿔도 됨)</td>
-</tr>
-<tr>
-<td><code>GITHUB_USER</code></td>
-<td>푸시하는 손</td>
-<td>나중에</td>
-</tr>
-<tr>
-<td><code>GITHUB_TOKEN</code></td>
-<td>비밀번호 대신</td>
-<td>나중에</td>
-</tr>
-<tr>
-<td><code>TEMPLATE_REPO</code></td>
-<td>클론 원본</td>
-<td>기본 그대로</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h2 id="_3">🔧 설치자용 체크리스트 (사회복지사·가족)</h2>
+<h2 id="_2">🔧 설치자용 체크리스트 (사회복지사·가족)</h2>
 <blockquote>
 <p>남의 폰에 깔아줄 때 — <strong>설치 전</strong> 확인 4가지:</p>
 </blockquote>
 <pre><code>☐ Android 버전: 10 이상 (설정 → 휴대전화 정보 → 소프트웨어 정보)
 ☐ 저장공간: 5GB 이상 여유 (설정 → 디바이스 케어 → 저장공간)
 ☐ Wi-Fi: 연결됨 (Ubuntu 200MB+ 다운로드)
-☐ F-Droid APK: https://f-droid.org/ 에서 미리 받아둘 것
+☐ F-Droid APK 미리 받아둘 것 (https://f-droid.org/)
 </code></pre>
 <p>설치 중 주의:<br>
-- <strong>Ubuntu 다운로드 3~7분</strong> — 이 구간은 가만히. &ldquo;멈췄다&rdquo;고 끄면 안 됨.<br>
-- <strong>저장소 권한 팝업</strong> — 반드시 <strong>허용</strong>. 안 뜨면 괜찮음.<br>
-- <strong>끝난 후:</strong> <code>pkg install termux-api -y</code> 한 번 더 (MCP 도구용 — devlog §16)</p>
+- <strong>Ubuntu 다운로드 3~7분</strong> — 가만히. &ldquo;멈췄다&rdquo;고 끄면 안 됨.<br>
+- <strong>저장소 권한 팝업</strong> — 반드시 <strong>허용</strong>.<br>
+- <strong>배터리 &ldquo;제한 없음&rdquo;</strong> — 안 하면 중작업 때 강제종료.</p>
 <hr>
-<h2 id="_4">고장 표 (짧게)</h2>
+<h2 id="_3">고장 표 (짧게)</h2>
 <table>
 <thead>
 <tr>
@@ -232,7 +206,7 @@ bash g/install.sh
 <tbody>
 <tr>
 <td>curl: not found</td>
-<td><code>pkg install curl</code> 후 easy 한 줄 다시</td>
+<td><code>pkg install curl</code> 후 한 줄 다시</td>
 </tr>
 <tr>
 <td>proot-distro 없음</td>
@@ -244,11 +218,11 @@ bash g/install.sh
 </tr>
 <tr>
 <td>클론 실패</td>
-<td>Wi-Fi 확인 후 easy 한 줄 다시</td>
+<td>Wi-Fi 확인 후 한 줄 다시</td>
 </tr>
 <tr>
-<td>Pages 안 열림</td>
-<td>주소 오타 · 나중에 다시</td>
+<td>Pages 404</td>
+<td>내 계정에 helena_phone 레포 없음 — <code>gh auth login</code> 후 다시 실행 (또는 github.com/new + push + Pages)</td>
 </tr>
 <tr>
 <td>termux-api ENOENT</td>
@@ -257,7 +231,7 @@ bash g/install.sh
 </tbody>
 </table>
 <hr>
-<h2 id="_5">왜 이렇게 짧아졌나 (리버스)</h2>
+<h2 id="_4">왜 이렇게 짧아졌나 (리버스)</h2>
 <table>
 <thead>
 <tr>
@@ -270,27 +244,27 @@ bash g/install.sh
 <tr>
 <td>변수 잔뜩</td>
 <td>초심자 포기</td>
-<td>easy는 <strong>질문 없음</strong></td>
+<td><strong>입력 2개만</strong></td>
 </tr>
 <tr>
 <td>Termux / Ubuntu 두 번 설치</td>
 <td>어디서 치는지 모름</td>
-<td><strong>한 줄이 알아서 넘김</strong></td>
+<td><strong>한 줄이 알아서</strong></td>
 </tr>
 <tr>
 <td>OWNER/WORK 설명 먼저</td>
 <td>개념 과부하</td>
-<td><strong>사이트 연 다음에</strong> 설명</td>
+<td><strong>친구 생기고 나서</strong> 설명</td>
 </tr>
 <tr>
-<td>install.sh 만</td>
-<td>선택지 많음</td>
-<td><strong>easy → 성공 경험 먼저</strong></td>
+<td>easy → 404</td>
+<td>GitHub 배포 안 해줌</td>
+<td><strong>workstation.sh 자동 배포</strong></td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="_6">관련 링크</h2>
+<h2 id="_5">관련 링크</h2>
 <table>
 <thead>
 <tr>
@@ -308,8 +282,8 @@ bash g/install.sh
 <td>https://helena751107.github.io/helena_phone/#install</td>
 </tr>
 <tr>
-<td>easy 소스</td>
-<td>https://raw.githubusercontent.com/helena751107/helena_phone/main/g/easy.sh</td>
+<td>workstation 소스</td>
+<td>https://raw.githubusercontent.com/helena751107/helena_phone/main/g/workstation.sh</td>
 </tr>
 <tr>
 <td>허브</td>
@@ -317,7 +291,7 @@ bash g/install.sh
 </tr>
 </tbody>
 </table>
-<p><em>초심자 3화면 · agent _Grok · 2026-07-27</em></p>
+<p><em>초심자 4화면 · agent _Claude · 2026-08-18</em></p>
   </article>
   <nav class="wz-pager">
     <a class="" href="textbook.html">

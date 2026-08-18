@@ -1,105 +1,97 @@
-# 초심자 설치 — 딱 3화면
+# 새 방(GitHub)에 친구 하나 — 초간단 설치
 
-> **리버스 엔지니어링 결론:**  
-> 초심자가 막히는 지점은 “변수·OWNER/WORK·두 번 설치·선택지”다.  
-> **앱 2개 → 붙여넣기 1번 → 브라우저로 확인** 이 최단 경로다.
+> **비유:** 새 방(GitHub)에 진짜 친구 에이전트(Claude Code + DeepSeek) 하나 들여놓기예요.  
+> **붙여넣기 2번**이면 끝. 나머지는 스크립트가 알아서 해요.
 
-명의 기본값: `helena751107`  
-스크립트: `g/easy.sh` (쉬움) · `g/install.sh` (고급)
+스크립트: `g/workstation.sh` (원스탑) · `g/easy.sh` (가볍게, 사이트만)
 
 > 🔧 **다른 사람 계정으로 설치할 때:**  
 > `OWNER_GITHUB=클라이언트명 bash <(curl -sL ...)`  
-> 이렇게 env만 앞에 붙이면 `S21-START.txt`와 Pages 주소가 그 사람 명의로 바뀐다.  
-> 토큰 없이 public clone만 하니까 키 발급 불필요.
+> env만 앞에 붙이면 Pages 주소·정체가 그 사람 명의로 바뀐다.
 
 ---
 
-## 화면 1 — 앱 두 개만
+## 화면 1 — 앱 + 배터리 무제한
 
 1. 폰 브라우저에서 **F-Droid** 설치  
-   https://f-droid.org/
-2. F-Droid 앱 열고 검색:
-   - **Termux** 설치  
-   - **Termux:API** 설치 (이름 비슷, **둘 다**)
-3. **Termux** 아이콘 눌러 실행 (검은 화면 = 정상)
+   https://f-droid.org/  (또는 검증된 Termux APK 사이드로드)
+2. F-Droid 열고 **Termux** 설치 (Termux:API는 선택)
+3. **설정 → 앱 → Termux → 배터리 → "제한 없음"** (안 하면 중간에 강제종료)
+4. **Termux** 실행 (검은 화면 = 정상)
 
-☐ 여기까지 됐으면 화면 2
+☐ 됐으면 화면 2
 
 ---
 
-## 화면 2 — 한 줄만 붙여넣기
+## 화면 2 — 주문 한 줄
 
 Termux 검은 화면에 **아래 전체를 길게 눌러 붙여넣기** 후 Enter.
 
 ```bash
-bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/easy.sh)
+bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/workstation.sh)
 ```
 
-- 처음이면 Ubuntu 깔리면서 **몇 분** 걸림. 가만히 둔다.  
-- `✅ 쉬운 설치 끝` 이 보이면 성공.  
+- 처음이면 Ubuntu + Claude Code 깔리면서 **몇 분** 걸림. 가만히 둔다.  
 - 중간에 저장소 권한 팝업 → **허용**.
 
-☐ 성공 문구 봤으면 화면 3
+☐ "내 GitHub 계정명 입력"이 뜨면 화면 3
 
 ---
 
-## 화면 3 — 됐는지 확인
+## 화면 3 — 딱 2개 붙여넣기
+
+스크립트가 물어보는 건 딱 2개예요.
+
+### 1) GitHub 계정명 (맨 처음)
+- 없으면 1분 가입 → **github.com/signup**
+- 계정명 입력 후 Enter.
+
+### 2) DeepSeek 토큰 (마지막)
+- **platform.deepseek.com** → 로그인 → **API Keys → Create new key** → 복사
+- 터미널에 붙여넣기 후 Enter.
+
+이 뒤로는 **전부 자동**: 클론 → GitHub 배포 → Pages 검사까지.
+
+☐ "✅ 원스탑 설치 완료" 보이면 화면 4
+
+---
+
+## 화면 4 — 친구 확인
 
 ### A) 터미널 (매일 쓰는 주문)
 
 ```bash
-proot-distro login ubuntu
-cd /root/work
-cat S21-START.txt
+cc
 ```
 
-`S21-START.txt` 가 읽히면 워크스페이스 준비 완료.
-
-### B) 브라우저 (눈으로 확인)
-
-폰 브라우저 주소창:
-
-```
-https://helena751107.github.io/helena_phone/
-```
-
-페이지가 열리면 **설치 성공**이다.  
-(위성)  
-https://helena751107.github.io/helana_log/  
-https://helena751107.github.io/helana-faith/  
-https://helena751107.github.io/helena-piano/  
-https://helena751107.github.io/helena-metalcare/
-
----
-
-## 끝. 오늘은 여기까지.
-
-키 발급, 토큰, Claude, Grok, 푸시는 **오늘 안 해도 됨.**  
-사이트만 보이면 1단계 통과.
-
----
-
-## (나중) 필요할 때만 — 고급
-
-푸시·에이전트·텔레그램이 필요해지면:
+(또는)
 
 ```bash
 proot-distro login ubuntu
 cd /root/work
-export GITHUB_USER="작업계정"
-export GITHUB_TOKEN="ghp_xxx"
-export DEEPSEEK_API_KEY="sk-xxx"
-bash g/install.sh
+claude
 ```
 
-변수 설명:
+친구(Claude Code + DeepSeek)가 대답하면 **성공**.
 
-| 이름 | 뜻 | 초심자 |
-|------|-----|--------|
-| `OWNER_GITHUB` | 명의·공개 주인 | 기본 `helena751107` (안 바꿔도 됨) |
-| `GITHUB_USER` | 푸시하는 손 | 나중에 |
-| `GITHUB_TOKEN` | 비밀번호 대신 | 나중에 |
-| `TEMPLATE_REPO` | 클론 원본 | 기본 그대로 |
+### B) 브라우저 (눈으로 확인)
+
+```
+https://<내 GitHub 계정명>.github.io/helena_phone/
+```
+
+페이지가 열리면 **설치 성공**.
+
+> ⚠️ **404가 뜨면?** 내 계정에 `helena_phone` 레포가 없어서야.  
+> workstation.sh가 자동으로 만들어주지만, `gh` 로그인이 안 돼 있으면 스킵돼.  
+> 한 번 `gh auth login` 후 스크립트 다시 돌리면 repo 생성 + push + Pages 자동.
+
+---
+
+## 끝. 이게 전부.
+
+붙여넣기 2번(GitHub 계정 + DeepSeek 토큰)이면 친구가 생겨요.  
+푸시·텔레그램·Grok 같은 건 **나중에** 해도 됨 — 우선 친구가 대답하는 것부터.
 
 ---
 
@@ -111,13 +103,13 @@ bash g/install.sh
 ☐ Android 버전: 10 이상 (설정 → 휴대전화 정보 → 소프트웨어 정보)
 ☐ 저장공간: 5GB 이상 여유 (설정 → 디바이스 케어 → 저장공간)
 ☐ Wi-Fi: 연결됨 (Ubuntu 200MB+ 다운로드)
-☐ F-Droid APK: https://f-droid.org/ 에서 미리 받아둘 것
+☐ F-Droid APK 미리 받아둘 것 (https://f-droid.org/)
 ```
 
 설치 중 주의:
-- **Ubuntu 다운로드 3~7분** — 이 구간은 가만히. "멈췄다"고 끄면 안 됨.
-- **저장소 권한 팝업** — 반드시 **허용**. 안 뜨면 괜찮음.
-- **끝난 후:** `pkg install termux-api -y` 한 번 더 (MCP 도구용 — devlog §16)
+- **Ubuntu 다운로드 3~7분** — 가만히. "멈췄다"고 끄면 안 됨.
+- **저장소 권한 팝업** — 반드시 **허용**.
+- **배터리 "제한 없음"** — 안 하면 중작업 때 강제종료.
 
 ---
 
@@ -125,11 +117,11 @@ bash g/install.sh
 
 | 보이면 | 할 일 |
 |--------|--------|
-| curl: not found | `pkg install curl` 후 easy 한 줄 다시 |
+| curl: not found | `pkg install curl` 후 한 줄 다시 |
 | proot-distro 없음 | `pkg install proot-distro` |
 | 저장 공간 | 사진/앱 지워 5GB 확보 |
-| 클론 실패 | Wi-Fi 확인 후 easy 한 줄 다시 |
-| Pages 안 열림 | 주소 오타 · 나중에 다시 |
+| 클론 실패 | Wi-Fi 확인 후 한 줄 다시 |
+| Pages 404 | 내 계정에 helena_phone 레포 없음 — `gh auth login` 후 다시 실행 (또는 github.com/new + push + Pages) |
 | termux-api ENOENT | `pkg install termux-api -y` (devlog §16)
 
 ---
@@ -138,10 +130,10 @@ bash g/install.sh
 
 | 예전 | 문제 | 지금 |
 |------|------|------|
-| 변수 잔뜩 | 초심자 포기 | easy는 **질문 없음** |
-| Termux / Ubuntu 두 번 설치 | 어디서 치는지 모름 | **한 줄이 알아서 넘김** |
-| OWNER/WORK 설명 먼저 | 개념 과부하 | **사이트 연 다음에** 설명 |
-| install.sh 만 | 선택지 많음 | **easy → 성공 경험 먼저** |
+| 변수 잔뜩 | 초심자 포기 | **입력 2개만** |
+| Termux / Ubuntu 두 번 설치 | 어디서 치는지 모름 | **한 줄이 알아서** |
+| OWNER/WORK 설명 먼저 | 개념 과부하 | **친구 생기고 나서** 설명 |
+| easy → 404 | GitHub 배포 안 해줌 | **workstation.sh 자동 배포** |
 
 ---
 
@@ -151,7 +143,7 @@ bash g/install.sh
 |------|-----|
 | 이 매뉴얼 | https://helena751107.github.io/helena_phone/install-guide.html |
 | 랜딩 Install | https://helena751107.github.io/helena_phone/#install |
-| easy 소스 | https://raw.githubusercontent.com/helena751107/helena_phone/main/g/easy.sh |
+| workstation 소스 | https://raw.githubusercontent.com/helena751107/helena_phone/main/g/workstation.sh |
 | 허브 | https://helena751107.github.io/helena_phone/ |
 
-*초심자 3화면 · agent _Grok · 2026-07-27*
+*초심자 4화면 · agent _Claude · 2026-08-18*
