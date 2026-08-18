@@ -34,6 +34,7 @@ bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main
 ```
 
 - 처음이면 Ubuntu + Claude Code 깔리면서 **10~20분** 걸림 (인터넷 다운로드가 큼). 멈춘 듯해도 가만히 둔다.  
+- 패키지 받는 중엔 **다운로드 %**가 화면에 보여 (예: `28%`). 그 숫자가 올라가면 정상이야.
 - 중간에 저장소 권한 팝업 → **허용**.
 - 중간에 `Do you want to continue? [Y/n]` 같은 물음이 뜨면 → **Enter**(또는 `y`) 누르면 돼.
 - 한 줄이 `curl ... CANNOT LINK` 에러가 나면 → `termux-change-repo`로 미러 선택 → `apt update && apt full-upgrade` → 다시 한 줄.
