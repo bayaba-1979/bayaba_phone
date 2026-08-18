@@ -115,7 +115,7 @@
 
 set -euo pipefail
 
-OWNER_GITHUB=&quot;${OWNER_GITHUB:-helena751107}&quot;
+OWNER_GITHUB=&quot;${OWNER_GITHUB:-}&quot;                          # 정체(내 계정) — 고정값 금지(교재)
 TEMPLATE_REPO=&quot;${TEMPLATE_REPO:-helena751107/helena_phone}&quot;
 WORK_DIR=&quot;${WORK_DIR:-/root/work}&quot;
 # 초심자: 토큰 없이 public clone (나중에 push 할 때만 토큰)
@@ -178,7 +178,7 @@ ubuntu_bootstrap() {
 
   WORK_DIR=&quot;${WORK_DIR:-/root/work}&quot;
   TEMPLATE_REPO=&quot;${TEMPLATE_REPO:-helena751107/helena_phone}&quot;
-  OWNER_GITHUB=&quot;${OWNER_GITHUB:-helena751107}&quot;
+  OWNER_GITHUB=&quot;${OWNER_GITHUB:-}&quot;
 
   if [ -d &quot;$WORK_DIR/.git&quot; ]; then
     echo &quot;✅ 이미 워크스페이스 있음: $WORK_DIR&quot;
@@ -241,6 +241,15 @@ EOF
 
 # ── MAIN ───────────────────────────────────────────────────────────────────
 banner
+
+# 정체(계정) 필수 — 교재. 각자 자기 계정.
+if [ -z &quot;$OWNER_GITHUB&quot; ]; then
+  read -rp &quot;  내 GitHub 계정(정체) 입력: &quot; OWNER_GITHUB
+fi
+if [ -z &quot;$OWNER_GITHUB&quot; ]; then
+  R &quot;계정 없이 진행 불가. export OWNER_GITHUB=내계정 후 다시 실행.&quot;
+  exit 1
+fi
 
 # Already inside Ubuntu proot?
 if [ -f /etc/os-release ] &amp;&amp; grep -qi ubuntu /etc/os-release &amp;&amp; [ ! -d /data/data/com.termux ]; then

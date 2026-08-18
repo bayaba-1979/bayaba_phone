@@ -85,13 +85,14 @@
   <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
 <ul>
 <li><a href="#termux-proot-ubuntu-claude-code-deepseek">Termux → proot Ubuntu → Claude Code + DeepSeek — 처음부터 끝까지, 에러 없는 순서</a></li>
+<li><a href="#6">⚡ 원스탑 6단계 — 한 줄로 전부 (권장)</a></li>
 <li><a href="#_1">준비물 — 미리 발급받아둘 것</a></li>
 <li><a href="#1-termux">1단계 — 우분투 설치 (겉, Termux ~ $)</a></li>
 <li><a href="#2-claude-code-root">2단계 — 기본 도구 + Claude Code (속, root@)</a></li>
 <li><a href="#3-deepseek">3단계 — DeepSeek 엔진 배선 (대화형)</a></li>
 <li><a href="#4">4단계 — 과금 안전장치 (⚠️ 여기서 건너뛰지 말 것)</a></li>
 <li><a href="#5">5단계 — 발사 테스트</a></li>
-<li><a href="#6">6단계 — 두 글자 진입로 (⚠️ 반드시 겉으로 나온 뒤)</a></li>
+<li><a href="#6_1">6단계 — 두 글자 진입로 (⚠️ 반드시 겉으로 나온 뒤)</a></li>
 <li><a href="#7-github">7단계 — GitHub 연동 (대화형)</a></li>
 <li><a href="#8">8단계 — 텔레그램 보고 회의실 (선택, 대화형)</a></li>
 <li><a href="#9">9단계 — 나머지는 에이전트한테 자연어로 위임</a></li>
@@ -122,6 +123,19 @@ note: /sdcard/Download 로컬 복사본에서 S21 레포로 이관 (2026-08-16)<
 나온 사고들을 전부 반영해 고친 최종 버전이다. 앞으로는 이 순서 그대로<br>
 가면 오늘 겪은 에러들을 하나도 다시 안 만난다.</p>
 </blockquote>
+<hr>
+<h2 id="6">⚡ 원스탑 6단계 — 한 줄로 전부 (권장)</h2>
+<p>아래 수동 7단계를 스크립트 하나로 합친 게 <code>g/workstation.sh</code>. 준비물(내 GitHub 계정 + DeepSeek 키)만 있으면 이 6단계로 끝난다. 막히면 아래 수동 7단계로 복구.</p>
+<ol>
+<li><strong>Termux 설치</strong> — F-Droid에서, 또는 검증된 APK 사이드로드(Quick Share).</li>
+<li><strong>배터리 무제한</strong> — 설정 → 앱 → Termux → 배터리 → &ldquo;제한 없음&rdquo; (안드로이드 12+ 강제종료 방지).</li>
+<li><strong>Termux 열기</strong> — 프롬프트 <code>$</code> 확인.</li>
+<li><strong>한 줄 붙여넣기:</strong><br>
+<code>bash
+   bash &lt;(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/workstation.sh)</code></li>
+<li><strong>계정 입력</strong> — 물어보면 자기 GitHub 계정 (각자 자기 계정, 고정값 없음).</li>
+<li><strong>발사</strong> — 끝나면 <code>cc</code> 두 글자 → Claude Code(DeepSeek) 배너 뜨면 성공.</li>
+</ol>
 <hr>
 <h2 id="_1">준비물 — 미리 발급받아둘 것</h2>
 <table>
@@ -227,7 +241,7 @@ IS_SANDBOX=1 claude --dangerously-skip-permissions
 <p>✅ 로그인 요구 없이 바로 메인 화면 뜨고, 배너에 <code>deepseek-v4-pro</code><br>
 표시되면 통과. <code>hey</code>처럼 아무 말이나 쳐서 응답+<code>Cost</code> 표시까지 나오면<br>
 완전 확인.</p>
-<h2 id="6">6단계 — 두 글자 진입로 (⚠️ 반드시 겉으로 나온 뒤)</h2>
+<h2 id="6_1">6단계 — 두 글자 진입로 (⚠️ 반드시 겉으로 나온 뒤)</h2>
 <pre><code class="language-bash">exit
 </code></pre>
 <p>Claude Code 안이면 <code>/exit</code>로 먼저 나오고, 그 다음 셸에서 <code>exit</code> 한 번<br>

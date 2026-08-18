@@ -15,6 +15,22 @@ note: /sdcard/Download 로컬 복사본에서 S21 레포로 이관 (2026-08-16)
 
 ---
 
+## ⚡ 원스탑 6단계 — 한 줄로 전부 (권장)
+
+아래 수동 7단계를 스크립트 하나로 합친 게 `g/workstation.sh`. 준비물(내 GitHub 계정 + DeepSeek 키)만 있으면 이 6단계로 끝난다. 막히면 아래 수동 7단계로 복구.
+
+1. **Termux 설치** — F-Droid에서, 또는 검증된 APK 사이드로드(Quick Share).
+2. **배터리 무제한** — 설정 → 앱 → Termux → 배터리 → "제한 없음" (안드로이드 12+ 강제종료 방지).
+3. **Termux 열기** — 프롬프트 `$` 확인.
+4. **한 줄 붙여넣기:**
+   ```bash
+   bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/workstation.sh)
+   ```
+5. **계정 입력** — 물어보면 자기 GitHub 계정 (각자 자기 계정, 고정값 없음).
+6. **발사** — 끝나면 `cc` 두 글자 → Claude Code(DeepSeek) 배너 뜨면 성공.
+
+---
+
 ## 준비물 — 미리 발급받아둘 것
 
 | 변수 | 어디서 | 필수 여부 |

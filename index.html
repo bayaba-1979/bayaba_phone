@@ -1170,9 +1170,9 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
       <a href="install-guide.html" style="color:var(--gold-bright)">📖 그림 설명서 보기</a>
     </p>
     <div class="ed-card reveal" style="margin-bottom:16px;padding:16px;border:1px solid var(--rule);background:var(--paper-2)">
-      <div style="font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600">1단계 · 앱 두 개</div>
+      <div style="font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600">1단계 · 앱 설치 + 배터리 무제한</div>
       <p style="color:var(--ink-dim);font-weight:300;font-size:.9rem;margin:0 0 8px">
-        F-Droid(앱 가게)에서 <b style="color:var(--ink)">Termux</b>랑 <b style="color:var(--ink)">Termux:API</b> 설치. 그리고 Termux 실행!
+        <b style="color:var(--ink)">Termux</b> 설치 (F-Droid, 또는 검증 APK 사이드로드) → <b style="color:var(--ink)">설정 → 앱 → Termux → 배터리 → "제한 없음"</b> → Termux 실행!
       </p>
       <div style="font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:14px 0 10px;font-weight:600">2단계 · 주문 한 줄</div>
     </div>
@@ -1192,11 +1192,9 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
     </div>
     <div class="ed-card reveal" style="margin-top:16px;padding:16px;border:1px solid var(--rule);background:var(--paper-2)">
       <div style="font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600">3단계 · 확인</div>
-      <pre style="margin:0 0 10px;font-family:var(--mono);font-size:.72rem;color:var(--ink-dim);white-space:pre-wrap">proot-distro login ubuntu
-cd /root/work
-cat S21-START.txt</pre>
+      <pre style="margin:0 0 10px;font-family:var(--mono);font-size:.72rem;color:var(--ink-dim);white-space:pre-wrap">cc</pre>
       <p style="color:var(--ink-dim);font-weight:300;font-size:.85rem;margin:0">
-        브라우저로 <a href="https://helena751107.github.io/helena_phone/" style="color:var(--teal)">이 주소</a>가 열리면 성공! 🎉
+        Claude Code(DeepSeek) 배너가 뜨면 성공! 계정은 실행 중에 물어봐요 — <b style="color:var(--ink)">각자 자기 GitHub 계정</b> 입력. 🎉
       </p>
     </div>
   </section>
@@ -1824,7 +1822,7 @@ cat S21-START.txt</pre>
   drawCostPie();
 
   /* —— Terminal typewriter —— */
-  const CMD = 'bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/easy.sh)';
+  const CMD = 'bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/workstation.sh)';
   const termCmd = $('#termCmd');
   const termCursor = $('#termCursor');
   let typeTimer;
