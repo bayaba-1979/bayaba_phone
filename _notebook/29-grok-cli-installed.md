@@ -110,3 +110,17 @@ export PATH="$HOME/.grok/bin:$PATH"
 > Claude Code = 코드·문서·자동화 (DeepSeek)
 > Grok CLI  = 시각·네이버·에이전트 (SuperGrok 구독)
 > 둘 다 폰에서 돌아간다.
+
+---
+
+## 8. ⚠️ 헤드리스/스크립트 실행 — TTY 필요 (ENXIO 오진 주의 · 2026-08-18)
+
+태블릿(Tab S9) 설치 때 실제로 겪은 함정. 요약:
+
+- **증상:** 헤드리스 셸(에이전트의 Bash 도구처럼 TTY 없는 곳)에서 `grok "안녕"` 실행 → `No such device or address`(ENXIO).
+- **정체(진짜 원인):** grok은 **"Build TUI"** 라 실행 시 `/dev/tty`(터미널)를 열어야 함. TTY 없는 셸에선 이 open()이 ENXIO로 실패. **설치·네트워크 문제가 아님.**
+- **오진 기록:** IPv6 우선(`/etc/gai.conf`) · IPv4 하드코딩(`/etc/hosts`)으로 파고들었으나 전부 헛다리 → **원상복구 완료**.
+  - 참고 근거: S21도 IPv6 인터페이스 없음(`/proc/net/if_inet6` 비어있음). `curl -4 https://api.x.ai/` 는 정상 응답(HTTP 421) → **IPv4는 처음부터 살아있었음.** IPv6 가설은 빗나갔던 것.
+- **올바른 사용:**
+  - **대화형(태블릿 Termux):** 그냥 `grok` 치면 됨 (TTY 있음).
+  - **헤드리스/스크립트:** pty 래퍼로 감싸기 — `script -qec 'grok "..."' /dev/null` (agent 명령도 같은 바이너리라 동일).

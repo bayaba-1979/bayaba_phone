@@ -95,6 +95,7 @@
 <li><a href="#5-grok-cli-claude-code">5. Grok CLI + Claude Code 협업</a></li>
 <li><a href="#6-grok-agent">6. grok + agent 명령어</a></li>
 <li><a href="#7-path">7. PATH 영구 등록</a></li>
+<li><a href="#8-tty-enxio-2026-08-18">8. ⚠️ 헤드리스/스크립트 실행 — TTY 필요 (ENXIO 오진 주의 · 2026-08-18)</a></li>
 </ul>
 </div>
 </nav>
@@ -222,6 +223,18 @@ Claude Code = 코드·문서·자동화 (DeepSeek)<br>
 Grok CLI  = 시각·네이버·에이전트 (SuperGrok 구독)<br>
 둘 다 폰에서 돌아간다.</p>
 </blockquote>
+<hr>
+<h2 id="8-tty-enxio-2026-08-18">8. ⚠️ 헤드리스/스크립트 실행 — TTY 필요 (ENXIO 오진 주의 · 2026-08-18)</h2>
+<p>태블릿(Tab S9) 설치 때 실제로 겪은 함정. 요약:</p>
+<ul>
+<li><strong>증상:</strong> 헤드리스 셸(에이전트의 Bash 도구처럼 TTY 없는 곳)에서 <code>grok "안녕"</code> 실행 → <code>No such device or address</code>(ENXIO).</li>
+<li><strong>정체(진짜 원인):</strong> grok은 <strong>&ldquo;Build TUI&rdquo;</strong> 라 실행 시 <code>/dev/tty</code>(터미널)를 열어야 함. TTY 없는 셸에선 이 open()이 ENXIO로 실패. <strong>설치·네트워크 문제가 아님.</strong></li>
+<li><strong>오진 기록:</strong> IPv6 우선(<code>/etc/gai.conf</code>) · IPv4 하드코딩(<code>/etc/hosts</code>)으로 파고들었으나 전부 헛다리 → <strong>원상복구 완료</strong>.</li>
+<li>참고 근거: S21도 IPv6 인터페이스 없음(<code>/proc/net/if_inet6</code> 비어있음). <code>curl -4 https://api.x.ai/</code> 는 정상 응답(HTTP 421) → <strong>IPv4는 처음부터 살아있었음.</strong> IPv6 가설은 빗나갔던 것.</li>
+<li><strong>올바른 사용:</strong></li>
+<li><strong>대화형(태블릿 Termux):</strong> 그냥 <code>grok</code> 치면 됨 (TTY 있음).</li>
+<li><strong>헤드리스/스크립트:</strong> pty 래퍼로 감싸기 — <code>script -qec 'grok "..."' /dev/null</code> (agent 명령도 같은 바이너리라 동일).</li>
+</ul>
   </article>
   <nav class="wz-pager">
     <a class="" href="28-grok-github-bridge.html">

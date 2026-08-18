@@ -492,6 +492,7 @@
 <li><a href="#_claude-2026-08-18_1">🏁 원스탑 설치 완결 — 랜딩 &lsquo;후속 작업&rsquo; 매뉴얼 + 자평 (_Claude · 2026-08-18)</a></li>
 <li><a href="#boss-_claude-2026-08-18">🪞 퍼포먼스 자평 요지 (Boss 요청 · _Claude · 2026-08-18)</a></li>
 <li><a href="#dimas-40-_claude-2026-08-18_1">👥 dimas-40 콜라보레이터 등록 — 태블릿 전용 계정에 쓰기 권한 (_Claude · 2026-08-18)</a></li>
+<li><a href="#grok-cli-enxio-tty-_claude-2026-08-18">🤖 Grok CLI 태블릿 설치 — ENXIO 오진 → TTY가 진짜 원인 (_Claude · 2026-08-18)</a></li>
 </ul>
 </li>
 </ul>
@@ -8700,6 +8701,14 @@ Android(호스트 OS) : proot Ubuntu(리눅스 호환 레이어)
 <li><strong>5레포 초대 완료(permission=write):</strong> helena_phone(329491707) · helana_log(329491710) · helena-piano(329491712) · helena-metalcare(329491715) · helana-faith(329491717).</li>
 <li><strong>상태:</strong> 초대(pending) — dimas-40 계정이 <strong>수락</strong>해야 활성화. 수락 전까지 권한 조회는 <code>read</code>로 보임(초대 미수락 상태의 표시).</li>
 <li><strong>권한 = write(push):</strong> 코드 읽기·쓰기·push·워크플로 트리거 전부 가능 = &ldquo;다 쓰기 기능&rdquo;. ⚠️ GitHub Secrets 설정·리포 설정 변경은 <code>admin</code> 필요(필요 시 재초대로 승격).</li>
+</ul>
+<h3 id="grok-cli-enxio-tty-_claude-2026-08-18">🤖 Grok CLI 태블릿 설치 — ENXIO 오진 → TTY가 진짜 원인 (_Claude · 2026-08-18)</h3>
+<p>태블릿에 Grok CLI 설치·로그인 완료(grok 1.0.5, dtslib1979@gmail.com device-auth). 설치 중 <code>grok "안녕"</code> 이 <code>No such device or address</code>(ENXIO)로 실패해서 원인 추적.</p>
+<ul>
+<li><strong>오진 경로:</strong> IPv6 인터페이스 없음 → &ldquo;grok(Rust)이 IPv6 먼저 잡고 실패&rdquo; → <code>/etc/gai.conf</code>·<code>/etc/hosts</code> 하드코딩까지 시도. <strong>전부 빗나감.</strong></li>
+<li><strong>진짜 원인(확인됨):</strong> grok은 Build TUI라 실행 시 <code>/dev/tty</code>를 열어야 함. 에이전트의 헤드리스 셸엔 TTY가 없어서 ENXIO. <strong>pty 래퍼(<code>script -qec 'grok "..."' /dev/null</code>)로 감싸니 정상 연결·응답 확인.</strong></li>
+<li><strong>근거(내 검증):</strong> S21도 IPv6 없음 + <code>curl -4 https://api.x.ai/</code> = HTTP 421 정상 응답 → IPv4는 살아있었음. IPv6 가설은 처음부터 헛다리.</li>
+<li><strong>정리:</strong> 대화형(Termux)은 그냥 <code>grok</code>, 헤드리스는 pty 래퍼. gai.conf/hosts 변경은 원상복구. 상세는 <code>_notebook/29-grok-cli-installed.md</code> §8.</li>
 </ul>
   </article>
   <nav class="wz-pager">

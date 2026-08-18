@@ -6490,3 +6490,12 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - **5레포 초대 완료(permission=write):** helena_phone(329491707) · helana_log(329491710) · helena-piano(329491712) · helena-metalcare(329491715) · helana-faith(329491717).
 - **상태:** 초대(pending) — dimas-40 계정이 **수락**해야 활성화. 수락 전까지 권한 조회는 `read`로 보임(초대 미수락 상태의 표시).
 - **권한 = write(push):** 코드 읽기·쓰기·push·워크플로 트리거 전부 가능 = "다 쓰기 기능". ⚠️ GitHub Secrets 설정·리포 설정 변경은 `admin` 필요(필요 시 재초대로 승격).
+
+### 🤖 Grok CLI 태블릿 설치 — ENXIO 오진 → TTY가 진짜 원인 (_Claude · 2026-08-18)
+
+태블릿에 Grok CLI 설치·로그인 완료(grok 1.0.5, dtslib1979@gmail.com device-auth). 설치 중 `grok "안녕"` 이 `No such device or address`(ENXIO)로 실패해서 원인 추적.
+
+- **오진 경로:** IPv6 인터페이스 없음 → "grok(Rust)이 IPv6 먼저 잡고 실패" → `/etc/gai.conf`·`/etc/hosts` 하드코딩까지 시도. **전부 빗나감.**
+- **진짜 원인(확인됨):** grok은 Build TUI라 실행 시 `/dev/tty`를 열어야 함. 에이전트의 헤드리스 셸엔 TTY가 없어서 ENXIO. **pty 래퍼(`script -qec 'grok "..."' /dev/null`)로 감싸니 정상 연결·응답 확인.**
+- **근거(내 검증):** S21도 IPv6 없음 + `curl -4 https://api.x.ai/` = HTTP 421 정상 응답 → IPv4는 살아있었음. IPv6 가설은 처음부터 헛다리.
+- **정리:** 대화형(Termux)은 그냥 `grok`, 헤드리스는 pty 래퍼. gai.conf/hosts 변경은 원상복구. 상세는 `_notebook/29-grok-cli-installed.md` §8.
