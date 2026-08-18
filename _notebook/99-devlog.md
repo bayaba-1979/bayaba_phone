@@ -6435,3 +6435,12 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
   - [7] GitHub 자동 배포: `gh repo create` + push + Pages 활성화 (gh 로그인 시)
   - `pages_check()`: Pages 404면 경고 + 수동 절차 안내
 - **easy.sh·초심자 매뉴얼:** Pages 404 트러블슈팅 수정 ("주소 오타" → "repo+Pages 미설정").
+
+### 🎬 원스탑 설치기 "2입력 프레임" 확정 + 튜토리얼 영상 계획 (_Claude · 2026-08-18)
+
+- **프레임 확정:** 초심자 매뉴얼 = "새 방(GitHub)에 친구(Claude Code+DeepSeek) 하나. 붙여넣기 2번이면 끝." 랜딩(#install) + 그림 설명서(install-guide) 둘 다 4단계로 재편:
+  1) 앱+배터리 무제한 → 2) 한 줄(workstation.sh) → 3) 딱 2개 붙여넣기(GitHub 계정·DeepSeek 토큰, 발급 URL 동봉) → 4) cc 확인.
+- **원스탑 흐름(workstation.sh):** GitHub 계정(첫 입력) → 자동 설치(Termux→Ubuntu→Claude Code) → DeepSeek 토큰(마지막 입력) → 자동(클론→repo 생성→push→Pages→검사). 사람 입력 = 2번.
+- **남은 수동 1개:** `gh auth login` (1회). gh 미로그인 시 배포 스킵 + pages_check가 404 알람. → 완전 무수동 원한다면 GitHub PAT 방식 검토 여지.
+- **튜토리얼 영상 계획:** 진짜 초심자 타이밍(3~7분 Ubuntu 다운로드 포함)을 보여주려면 `proot-distro remove ubuntu`로 밀고 처음부터 녹화. 지금은 덮어쓰기로 동작 확인 먼저 → 나중에 밀고 재촬영.
+- **검증:** bash -n OK · raw URL 200(9194B) · Pages 라이브 문구 반영 확인.
