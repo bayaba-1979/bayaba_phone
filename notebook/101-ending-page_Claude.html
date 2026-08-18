@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="**랜딩 페이지가 &quot;여기 뭐가 있나&quot;라면, 엔딩 페이지는 &quot;여기까지 오면서 뭘 탑재했고, 뭘 헤맸나&quot;.** — S21 Phone Webzine">
+<meta name="theme-color" content="#0a0908">
+<meta name="application-name" content="S21 Phone">
+<title>엔딩 페이지 — 설치 이후, 이 작업실에 탑재된 모든 것 · 삽질 기록 — S21 Phone Webzine</title>
+<link rel="canonical" href="https://helena751107.github.io/helena_phone/notebook/101-ending-page_Claude.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://github.com/helena751107#person",
+      "name": "Helena Park",
+      "url": "https://github.com/helena751107",
+      "description": "Made in Korea — not a developer. One Galaxy S21, built by voice, for a sister.",
+      "sameAs": [
+        "https://github.com/helena751107",
+        "https://helena751107.github.io/helena_phone/",
+        "https://www.youtube.com/@helena_phone",
+        "https://www.youtube.com/@HelenaPark-e7c"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://helena751107.github.io/helena_phone/notebook/101-ending-page_Claude.html#webpage",
+      "url": "https://helena751107.github.io/helena_phone/notebook/101-ending-page_Claude.html",
+      "name": "엔딩 페이지 — 설치 이후, 이 작업실에 탑재된 모든 것 · 삽질 기록",
+      "inLanguage": "ko",
+      "publisher": {
+        "@id": "https://github.com/helena751107#person"
+      },
+      "author": {
+        "@id": "https://github.com/helena751107#person"
+      }
+    }
+  ]
+}
+</script>
+<link rel="icon" href="../icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/webzine.css">
+</head>
+<body>
+<div class="spine" aria-hidden="true"><div class="spine-fill" id="spineFill"></div></div>
+<header class="wz-mast">
+  <a class="brand" href="../index.html">S21 <em>Phone</em></a>
+  <div class="wz-mast-actions">
+    <button type="button" class="wz-burger" data-nav-toggle aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav class="wz-nav">
+      <a href="../index.html">Home</a>
+      <a href="../archive.html">Archive</a>
+      <a href="../index.html#library">Library</a>
+      <a href="../index.html#agents">Agents</a>
+      <button type="button" data-theme-toggle>Theme</button>
+      <a class="pill gold" href="../index.html#install">Install</a>
+    </nav>
+  </div>
+</header>
+<main class="wz-shell">
+  <div class="wz-crumb">
+    <a href="../index.html">Webzine</a><span class="sep">/</span>
+    <span>Notebook</span><span class="sep">/</span>
+    <span>엔딩 페이지 — 설치 이후, 이 작업실에 탑재된 모든 것 · 삽질 기록</span>
+  </div>
+  <header class="wz-hero">
+    <div class="wz-kicker">Notebook · lakme-audio</div>
+    <h1>엔딩 페이지 — 설치 이후, 이 작업실에 탑재된 모든 것 · 삽질 기록</h1>
+    <p class="deck">**랜딩 페이지가 &quot;여기 뭐가 있나&quot;라면, 엔딩 페이지는 &quot;여기까지 오면서 뭘 탑재했고, 뭘 헤맸나&quot;.**</p>
+    <div class="wz-meta">
+      <span>Source · _notebook/101-ending-page_Claude.md</span>
+      <span>Kind · markdown</span>
+      <span>S21 Phone Editorial</span>
+    </div>
+  </header>
+  <nav class="wz-toc" aria-label="목차"><div class="label">Contents</div><div class="toc">
+<ul>
+<li><a href="#part-1">Part 1 — 설치 이후 탑재된 것 (장착 인벤토리)</a><ul>
+<li><a href="#1-ai-4">1. 로봇 친구들 (AI 에이전트 4종)</a></li>
+<li><a href="#2-5">2. 파이프라인 (5종)</a></li>
+<li><a href="#3-mcp">3. MCP 서버</a></li>
+<li><a href="#4-47">4. 티스토리 툴링 (47파일)</a></li>
+<li><a href="#5-75">5. 스크립트 (75개)</a></li>
+<li><a href="#6">6. 허브 + 기기 사다리</a></li>
+</ul>
+</li>
+<li><a href="#part-2">Part 2 — 삽질 기록 (포스트모텀)</a><ul>
+<li><a href="#1-glibc-bionic-abi">① 하드웨어 접근 벽 — glibc ↔ bionic ABI 불일치</a></li>
+<li><a href="#2-parksytts-35-471-135">② ParksyTTS — 3.5초 음성에 471초 (실시간의 135배)</a></li>
+<li><a href="#3-numba-librosa-arm64">③ numba / librosa — ARM64 크래시</a></li>
+<li><a href="#4-torchcodec">④ torchcodec 누락</a></li>
+<li><a href="#5-grok-tts-api-403">⑤ Grok TTS API 403</a></li>
+<li><a href="#6-tssession">⑥ TSSESSION — 세션 쿠키가 재실행하면 사라짐</a></li>
+<li><a href="#7-ci">⑦ 카카오 로그인을 CI에서 시도 — &ldquo;삽질 신드롬&rdquo;</a></li>
+<li><a href="#8-63-6768-ai">⑧ 63 → 실제 67/68 사건 — AI 출력은 기술적 관성</a></li>
+<li><a href="#9-git-push">⑨ git push — 세션 드랍 후 인증 실패</a></li>
+<li><a href="#10-24h-ttl-captcha">⑩ 티스토리 세션 만료 (24h TTL) + captcha</a></li>
+</ul>
+</li>
+<li><a href="#_2">부칙 — 이 페이지의 위치</a></li>
+</ul>
+</div>
+</nav>
+  <div class="wz-appbar" role="toolbar" aria-label="Document tools">
+    <input type="search" id="wzSearch" class="wz-search" placeholder="페이지 내 검색…" autocomplete="off">
+    <button type="button" id="wzFoldAll" data-cursor>접기</button>
+    <button type="button" id="wzExpandAll" data-cursor>펼치기</button>
+    <button type="button" id="wzCopy" data-cursor>본문 복사</button>
+  </div>
+  <article class="wz-prose" id="wzProse" data-app="doc">
+    <blockquote>
+<p><strong>랜딩 페이지가 &ldquo;여기 뭐가 있나&rdquo;라면, 엔딩 페이지는 &ldquo;여기까지 오면서 뭘 탑재했고, 뭘 헤맸나&rdquo;.</strong><br>
+원스탑 설치(<code>g/workstation.sh</code>) 이후 이 작업실에 붙은 것 전부를 친절하게 풀고,<br>
+그 과정에서 삽질했던 것(포스트모텀)을 남긴다. 흉터까지 다 기록해 두는 이유는 —<br>
+이 땅을 밟는 다음 사람이 같은 벽에서 또 헤매지 않게.</p>
+</blockquote>
+<hr>
+<h2 id="part-1">Part 1 — 설치 이후 탑재된 것 (장착 인벤토리)</h2>
+<p>원스탑 설치가 &ldquo;빈 방에 친구 하나 들이기&rdquo;였다면, 아래는 그 뒤로 차곡차곡 붙인 것들이다.</p>
+<h3 id="1-ai-4">1. 로봇 친구들 (AI 에이전트 4종)</h3>
+<table>
+<thead>
+<tr>
+<th>호출</th>
+<th>직함</th>
+<th>영역</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>grok</code> / <code>gr</code></td>
+<td>잡지 구도 디자이너 · 다큐 PD</td>
+<td>① 사진+잡지 구도 → 웹 디자인+이미지 ② 딥페이크급 10초 PD 다큐</td>
+</tr>
+<tr>
+<td><code>ds</code> / <code>dsflash</code></td>
+<td>작업 반장 (Aider)</td>
+<td>패치 큐 · 디프 · 반복 시공 · 실행 감독</td>
+</tr>
+<tr>
+<td><code>cc</code> (출판부)</td>
+<td>출판부 · 번역 수호자</td>
+<td>md→html 변환 · 커버리지 · 품질 게이트 · CI 검증</td>
+</tr>
+<tr>
+<td><code>cc</code> (감사)</td>
+<td>감사</td>
+<td>거리 둔 검증 · 보안 · 헌법 · 통과/보류/반려 (⏳ 미설치)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-5">2. 파이프라인 (5종)</h3>
+<table>
+<thead>
+<tr>
+<th>파이프라인</th>
+<th>하는 일</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>출판부</strong></td>
+<td><code>_notebook/*.md</code> → <code>notebook/*.html</code> 변환 + 커버리지 게이트(<code>gap_count=0</code>)</td>
+</tr>
+<tr>
+<td><strong>Paste Pipeline</strong></td>
+<td>네이버·티스토리(API 없는 곳) 수동 발행 — TG 원고 배달 → 사람 복붙</td>
+</tr>
+<tr>
+<td><strong>PD Pipeline (V10)</strong></td>
+<td>웹페이지를 &ldquo;읽고&rdquo; 섹션별 캡처 → 숏폼 영상 자동 제작 (P0~P6)</td>
+</tr>
+<tr>
+<td><strong>GEO 원조 스탬프</strong></td>
+<td>llms.txt · JSON-LD · canonical · sitemap — &ldquo;원조 = GitHub&rdquo;를 기계 눈에 새김</td>
+</tr>
+<tr>
+<td><strong>콘텐츠 파운드리</strong></td>
+<td>BOM 4Phase + 검증 3층(preflight/exitcode/gap) + 양산 3스크립트(<code>preflight→quota→make_pair</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-mcp">3. MCP 서버</h3>
+<pre><code>mcp-servers/ (5개)
+├── parksy_law_mcp.py     · parksy_rawmat_mcp.py · parksy_scm_mcp.py
+├── eae_mcp_platform.py   · eae_mcp_writer.py
+└── phone-mcp-server      (18 도구, 포트 3456 — Termux:API 기반, 루트/ADB/Shizuku 제로)
+</code></pre>
+<h3 id="4-47">4. 티스토리 툴링 (47파일)</h3>
+<p><code>tistory-naver/</code> — 카카오 세션(<code>renew_sessions.py</code>) · 스킨(<code>apply_skin.py</code>/<code>batch_apply.py</code>) · 발행(<code>post.py</code>) · 심사(<code>director_gate.py</code>) · 쿼터(<code>quota.sh</code>) · 카테고리·댓글 차단까지.</p>
+<h3 id="5-75">5. 스크립트 (75개)</h3>
+<p><code>scripts/</code> — 양산 3스크립트, PD 파이프라인(P0~P6), GEO 주입, YouTube 업로드, 웹진 빌드, 건강 검진, TG 보고.</p>
+<h3 id="6">6. 허브 + 기기 사다리</h3>
+<ul>
+<li><strong>dtslib-papyrus 허브</strong> — Boss ↔ Claude Code(S21) ↔ 누나(읽기 전용) 3자 연결. 28레포 SSOT.</li>
+<li><strong>기기 사다리</strong> — S21(베이스라인) → 태블릿(n=1→n=2) → S25. &ldquo;가장 약한 기기에서 돌면 어디서든 돌아감.&rdquo;</li>
+</ul>
+<p><strong>현재 지표:</strong> 548 커밋 · 905 파일 · 129 노트북(md) · 132 웹페이지(html) · 75 스크립트 · 5 MCP 서버 · 8 시스템.</p>
+<hr>
+<h2 id="part-2">Part 2 — 삽질 기록 (포스트모텀)</h2>
+<blockquote>
+<p>각 항목: <strong>증상 → 원인 → 해결.</strong> 흉터는 그대로 남겨둔다. 이게 교재다.</p>
+</blockquote>
+<h3 id="1-glibc-bionic-abi">① 하드웨어 접근 벽 — glibc ↔ bionic ABI 불일치</h3>
+<ul>
+<li><strong>증상:</strong> proot Ubuntu(glibc)에서 안드로이드 NPU/NNAPI(<code>libneuralnetworks.so</code>), GPU(Mali), 오디오 하드웨어에 못 붙음.</li>
+<li><strong>원인:</strong> 초기엔 &ldquo;sysfs 권한 문제&rdquo;라 오진. 실제는 <strong>glibc↔bionic ABI 불일치</strong> — proot(glibc)은 bionic 라이브러리를 dlopen 못 함.</li>
+<li><strong>해결:</strong> Termux가 bionic 네이티브 → NDK 크로스컴파일 경로(sherpa-onnx NNAPI). 단 <strong>벽은 파워가 아니라 구조</strong>라, 태블릿(더 강한 CPU)도 proot면 같은 벽.</li>
+</ul>
+<h3 id="2-parksytts-35-471-135">② ParksyTTS — 3.5초 음성에 471초 (실시간의 135배)</h3>
+<ul>
+<li><strong>증상:</strong> GPT-SoVITS semantic token 예측이 CPU에서 1500 iters × ~3s = 471초(7분51초).</li>
+<li><strong>원인:</strong> CPU-only 추론. 실사용 불가.</li>
+<li><strong>해결:</strong> TTS는 NPU 가속 미확정 → Edge TTS(쇼츠)/Piper(오디오북) 다중 트랙으로 회피. <code>TTS_ENGINE=local</code> 기본.</li>
+</ul>
+<h3 id="3-numba-librosa-arm64">③ numba / librosa — ARM64 크래시</h3>
+<ul>
+<li><strong>증상:</strong> 한국어 음성 처리에서 numba·librosa가 aarch64에서 크래시.</li>
+<li><strong>해결:</strong> soundfile로 의존성 자체 제거 (한국어는 BERT 불필요 → 0-vector 처리).</li>
+</ul>
+<h3 id="4-torchcodec">④ torchcodec 누락</h3>
+<ul>
+<li><strong>증상:</strong> import 실패.</li>
+<li><strong>해결:</strong> <code>torchcodec 0.15.0+cu130</code> 설치 (<code>--break-system-packages</code>).</li>
+</ul>
+<h3 id="5-grok-tts-api-403">⑤ Grok TTS API 403</h3>
+<ul>
+<li><strong>증상:</strong> SuperGrok 구독으로 TTS 호출 → 403.</li>
+<li><strong>원인:</strong> SuperGrok 구독에 TTS 미포함.</li>
+<li><strong>해결:</strong> Grok은 폴백, local 전용으로 전환.</li>
+</ul>
+<h3 id="6-tssession">⑥ TSSESSION — 세션 쿠키가 재실행하면 사라짐</h3>
+<ul>
+<li><strong>증상:</strong> 로그인 성공해도 Playwright 재실행마다 재로그인 → CAPTCHA 유발.</li>
+<li><strong>원인:</strong> <code>TSSESSION</code>이 <strong>세션 쿠키(<code>expires=-1</code>)</strong> 라 <code>launch_persistent_context</code> 프로파일에 영속 안 됨.</li>
+<li><strong>해결:</strong> <code>expires=-1</code> 쿠키는 <code>now + 7일</code>로 보정해 영속화. <code>apply_skin.py</code>/<code>batch_apply.py</code>/<code>post.py</code> 전부 내장.</li>
+</ul>
+<h3 id="7-ci">⑦ 카카오 로그인을 CI에서 시도 — &ldquo;삽질 신드롬&rdquo;</h3>
+<ul>
+<li><strong>증상:</strong> GitHub Actions 워크플로에서 카카오 로그인 폼 렌더까지 성공 → 45초 리다이렉트 타임아웃.</li>
+<li><strong>원인:</strong> 카카오 로그인 = captcha/2FA/새기기인증 = <strong>수동 하한(자기 것)</strong>. CI는 헤드리스라 절대 못 뚫음. <strong>버그가 아니라 설계.</strong></li>
+<li><strong>해결:</strong> <code>xvfb-run -a renew_sessions.py --headed</code> — 기기 위에서 headed 로그인, captcha 1회 수동 → 쿠키 저장 → 이후 자동.</li>
+<li><strong>교훈:</strong> 로그인·인증류는 CI/헤드리스 금지. &ldquo;일단 자동으로 돌려봐 → 막히면 그때 사람&rdquo; 순서.</li>
+</ul>
+<h3 id="8-63-6768-ai">⑧ 63 → 실제 67/68 사건 — AI 출력은 기술적 관성</h3>
+<ul>
+<li><strong>증상:</strong> AI 보고서가 &ldquo;63개&rdquo;라 했는데, 실제 세어보니 67/68개.</li>
+<li><strong>교훈:</strong> AI 출력 = 학습한 표준 패턴의 그럴싸한 자동생성. &ldquo;전부/완료/검증됨&rdquo;은 <strong>내가 다시 세어서 확인.</strong> 통제권·의구심은 Boss 손에.</li>
+</ul>
+<h3 id="9-git-push">⑨ git push — 세션 드랍 후 인증 실패</h3>
+<ul>
+<li><strong>증상:</strong> 세션 끊긴 뒤 <code>git push</code> HTTPS 인증 실패.</li>
+<li><strong>해결:</strong> <code>gh auth setup-git</code>으로 재연결.</li>
+</ul>
+<h3 id="10-24h-ttl-captcha">⑩ 티스토리 세션 만료 (24h TTL) + captcha</h3>
+<ul>
+<li><strong>증상:</strong> 세션 5개 만료, headless 재로그인 실패(captcha/2FA).</li>
+<li><strong>해결:</strong> 세션은 서버 TTL ~24h → <code>renew_sessions.py --if-needed</code> 자가치유. captcha는 <code>--headed</code> + RustDesk 수동 1회.</li>
+</ul>
+<hr>
+<h2 id="_2">부칙 — 이 페이지의 위치</h2>
+<ul>
+<li><strong>랜딩(입구)</strong>: <code>index.html</code> — &ldquo;여기 뭐가 있나&rdquo;</li>
+<li><strong>엔딩(퇴장)</strong>: 이 페이지 — &ldquo;여기까지 오면서 뭘 탑재하고 뭘 헤맸나&rdquo;</li>
+</ul>
+<p><em>엔딩 페이지 · agent <code>_Claude</code> · 2026-08-18</em></p>
+  </article>
+  <nav class="wz-pager">
+    <a class="" href="S21-Grok-plugin_Grok.html">
+          <span class="dir">Previous</span>
+          <span class="title">S21 Grok 플러그 역할 (온디바이스 카드)</span>
+        </a>
+    <a class="next" href="78-pd-pipeline-whitepaper_Claude.html">
+          <span class="dir">Next</span>
+          <span class="title">78 pd pipeline whitepaper Claude</span>
+        </a>
+  </nav>
+  <div class="wz-related">
+          <h2>같은 섹션</h2>
+          <div class="grid"><a href="00-INDEX.html"><strong>📖 S21 Phone 업무 수첩 — 전체 목차</strong>구축: 2026-07-23 ~ 2026-08-14 (23일)</a><a href="01-arch.html"><strong>전체 시스템 아키텍처</strong>Notebook</a><a href="02-discord.html"><strong>디스코드 서버/봇/위젯</strong>Notebook</a><a href="03-telegram.html"><strong>텔레그램 봇/회의실</strong>Notebook</a><a href="04-github-pages.html"><strong>GitHub Pages + Giscus + WidgetBot</strong>Notebook</a><a href="05-tistory.html"><strong>블로그 포트폴리오 + 자동화 전략</strong>Notebook</a></div>
+        </div>
+  <footer class="wz-foot">
+    <div>S21 PHONE · Webzine lakme-audio</div>
+    <div class="gold">모든 계정은 누나 명의입니다.</div>
+    <p style="margin-top:12px"><a href="../index.html">← Back to landing</a></p>
+  </footer>
+</main>
+<div class="wz-float">
+  <button type="button" id="wzTop" aria-label="Top">↑</button>
+  <button type="button" data-theme-toggle aria-label="Theme">◐</button>
+</div>
+<script src="../assets/webzine.js"></script>
+</body>
+</html>

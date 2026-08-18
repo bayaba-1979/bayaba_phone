@@ -6559,3 +6559,19 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 - 나의 역할: 인프라 확장(딴짓) 금지. Boss와 함께 **양산만**.
 
 **양산 준비 상태(재고):** MCP 5서버(parksy_law/rawmat/scm + eae_platform/writer) + phone-mcp(18도구) + pd_pipeline. 일정·스케줄 = `assets/publish-schedule.json`(phase 1-install-guides) + `assets/director-overrides.json`(디렉터 확정) + `scripts/radio_ticket/config.json`(주 1회 일 22시).
+
+---
+
+### 🩸 포스트모텀 — 삽질 신드롬: 카카오 로그인을 CI에서 시도 (_Claude · 2026-08-18)
+
+**사건:** 태블릿 `eae_kr` 에이전트가 티스토리 카카오 로그인을 GitHub Actions 워크플로(CI)에서 자동화하려다 45초 타임아웃 실패. 약 7m46s 삽질.
+
+**증상:** 로그인 폼 렌더까지 성공(~2s) → 리다이렉트 대기 45초 타임아웃. captcha 문구("답해주세요")는 안 뜸.
+
+**근본 원인:** 카카오 로그인 = captcha/2FA/새 기기 인증 = **수동 하한(자기 것)**. CI는 헤드리스(화면 없음)라 절대 못 뚫음. **버그가 아니라 설계.**
+
+**정답(이미 보일러플레이트에 있음):** `xvfb-run -a python3 tistory-naver/renew_sessions.py --headed` — 기기(proot) 위에서 headed 로그인, RustDesk로 captcha 1회 수동 → `cookies/` 저장 → 이후 `apply_skin.py`/`post.py` 자동.
+
+**패턴 명명 — "삽질 신드롬":** 새 에이전트가 이미 푼 문제를 재발명하고, 엉뚱한 자리(CI)에서 시도하는 것. 보일러플레이트에 정답이 있어도 "정답 위치"를 모르니 반복된다.
+
+**재발 방지:** SETUP.md "수동 하한" + README `renew_sessions.py --if-needed`에 "로그인·인증은 CI/헤드리스 금지, 기기 위 headed + 사람 1회" 한 줄 명시.

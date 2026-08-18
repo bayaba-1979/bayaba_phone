@@ -264,6 +264,7 @@ NOTEBOOK_TITLES = {
     "100-onboarding-entry-barrier-review_Claude.md": "온보딩 진입 장벽 — 무결점 세팅 스크립트 리뷰",
     "ai-workstation-setup-manual_Boss.md": "폰 하나로 AI 워크스테이션 짓기 (설치 매뉴얼)",
     "S21-Grok-plugin_Grok.md": "S21 Grok 플러그 역할 (온디바이스 카드)",
+    "101-ending-page_Claude.md": "엔딩 페이지 — 설치 이후 탑재된 모든 것 · 삽질 기록",
 }
 
 # Auto-discover every _notebook/*.md (overrides in NOTEBOOK_TITLES)

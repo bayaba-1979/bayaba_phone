@@ -1144,6 +1144,14 @@
     "deck": ""
   },
   {
+    "src": "_notebook/101-ending-page_Claude.md",
+    "out": "notebook/101-ending-page_Claude.html",
+    "title": "엔딩 페이지 — 설치 이후, 이 작업실에 탑재된 모든 것 · 삽질 기록",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "**랜딩 페이지가 \"여기 뭐가 있나\"라면, 엔딩 페이지는 \"여기까지 오면서 뭘 탑재했고, 뭘 헤맸나\".**"
+  },
+  {
     "src": "_notebook/78-pd-pipeline-whitepaper_Claude.md",
     "out": "notebook/78-pd-pipeline-whitepaper_Claude.html",
     "title": "🎬 PD Pipeline 기술 백서 — URL 하나로 숏폼 자동 제작",
