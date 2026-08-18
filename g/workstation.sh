@@ -154,16 +154,21 @@ PYEOF
 
   B "─── [7] GitHub 배포 (repo 생성 + push + Pages) ───"
   export GH_TOKEN="${GITHUB_PAT}"
+  export GIT_TERMINAL_PROMPT=0
   if command -v gh >/dev/null 2>&1 && [ -n "$GITHUB_PAT" ]; then
-    gh repo create "${OWNER_GITHUB}/helena_phone" --public --source "${WORK_DIR}" --push 2>/dev/null \
-      || { gh repo view "${OWNER_GITHUB}/helena_phone" >/dev/null 2>&1 \
-        && git -C "${WORK_DIR}" remote set-url origin "https://github.com/${OWNER_GITHUB}/helena_phone.git" \
-        && git -C "${WORK_DIR}" push -u origin main 2>/dev/null; } || true
+    gh auth setup-git >/dev/null 2>&1 || true
+    if gh repo create "${OWNER_GITHUB}/helena_phone" --public --source "${WORK_DIR}" --push 2>/dev/null; then
+      G "repo 생성 + push 완료"
+    else
+      Y "repo 이미 있음(또는 push 재시도) → PAT로 직접 push"
+      gh repo view "${OWNER_GITHUB}/helena_phone" >/dev/null 2>&1 || true
+      git -C "${WORK_DIR}" remote set-url origin "https://${OWNER_GITHUB}:${GITHUB_PAT}@github.com/${OWNER_GITHUB}/helena_phone.git"
+      git -C "${WORK_DIR}" push -u origin main 2>&1 || true
+    fi
     gh api -X POST "repos/${OWNER_GITHUB}/helena_phone/pages" -f build_type=workflow 2>/dev/null \
       || gh api -X POST "repos/${OWNER_GITHUB}/helena_phone/pages" -f "source[branch]=main" -f "source[path]=/" 2>/dev/null \
       || true
-    gh auth setup-git >/dev/null 2>&1 || true
-    G "배포 요청 완료 — 몇 분 뒤: https://${OWNER_GITHUB}.github.io/helena_phone/"
+    G "배포 완료 — 몇 분 뒤: https://${OWNER_GITHUB}.github.io/helena_phone/"
   else
     Y "gh 또는 PAT 없음 → 배포 스킵."
     B "  PAT 재발급 후 다시 실행하면 repo 생성 + push + Pages 자동."
