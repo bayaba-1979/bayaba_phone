@@ -1224,6 +1224,14 @@
     "deck": "**Boss 확정 기점.** 오늘까지 \"만들기\"였다면, 오늘부터 \"열고 가르치기\"다."
   },
   {
+    "src": "_notebook/bayaba-tistory-skin-시행착오_Claude.md",
+    "out": "notebook/bayaba-tistory-skin-시행착오_Claude.html",
+    "title": "티스토리 스킨 적용 — 시행착오 기록 (bayaba 이식)",
+    "section": "Notebook",
+    "kind": "md",
+    "deck": "2026-08-19 · Claude Code · bayaba(마왕가족) 보일러플레이트 이식 세션"
+  },
+  {
     "src": "_notebook/rvc-environment-gap_Claude.md",
     "out": "notebook/rvc-environment-gap_Claude.html",
     "title": "RVC 환경 차이 진단 — WSL vs S21",
