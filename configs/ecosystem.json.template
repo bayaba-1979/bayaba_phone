@@ -51,40 +51,40 @@
   "repos": [
     {
       "repo": "bayaba_phone",
-      "account": "galaxys21",
+      "account": "hub",
       "blog": "bayaba-phone",
       "channel": "@남성훈-f7i",
       "role": "hub",
       "domain": "S21 phone optimization"
     },
     {
-      "repo": "helana_log",
+      "repo": "bayaba_log",
       "account": "mynote",
-      "blog": "mynote11605",
+      "blog": "bayaba-1979",
       "channel": "@남성훈-f7i",
       "role": "care",
       "domain": "Tech notes"
     },
     {
-      "repo": "helena-piano",
-      "account": "piano",
-      "blog": "helena-piano",
+      "repo": "bayaba-jokbal",
+      "account": "jokbal",
+      "blog": "bayaba-jokbal",
       "channel": "@남성훈-f7i",
       "role": "content",
       "domain": "Piano"
     },
     {
-      "repo": "helena-metalcare",
-      "account": "metalcare",
-      "blog": "helena-metalcare",
+      "repo": "bayaba-chicken",
+      "account": "chicken",
+      "blog": "bayaba-chicken",
       "channel": "@남성훈-f7i",
       "role": "content",
       "domain": "Psychoanalysis"
     },
     {
-      "repo": "helana-faith",
-      "account": "faith",
-      "blog": "helana-christianity",
+      "repo": "bayaba-installation",
+      "account": "installation",
+      "blog": "bayaba-installation",
       "channel": "@남성훈-f7i",
       "role": "content",
       "domain": "Faith history"

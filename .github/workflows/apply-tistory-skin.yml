@@ -1,0 +1,80 @@
+name: 🎨 티스토리 스킨 일괄 적용 (Playwright)
+
+# helena_phone 에서 가져온 skin-premium.css 를 5개 bayaba 블로그에 주입.
+# apply_skin.py 는 티스토리 html.json API 에 CSS 를 append 한다 (DOM 스크래핑 없음).
+# 로그인은 카카오 1계정(accounts.json 공유) → 5개 블로그 전부 커버.
+
+on:
+  workflow_dispatch:
+    inputs:
+      account:
+        description: "적용할 계정 (비우면 5개 전체)"
+        required: false
+        type: string
+        default: "all"
+
+permissions:
+  contents: read
+
+jobs:
+  apply-skin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Playwright 설치
+        run: |
+          pip install --quiet playwright
+          playwright install --with-deps chromium
+
+      - name: accounts.json 생성 (Secret 기반)
+        env:
+          TISTORY_EMAIL: ${{ secrets.TISTORY_EMAIL }}
+          TISTORY_PW: ${{ secrets.TISTORY_PW }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          email = os.environ["TISTORY_EMAIL"]
+          pw = os.environ["TISTORY_PW"]
+          accounts = {
+              "password": pw,
+              "accounts": [
+                  {"id": "hub",          "email": email, "blog": "bayaba-phone"},
+                  {"id": "mynote",       "email": email, "blog": "bayaba-1979"},
+                  {"id": "jokbal",       "email": email, "blog": "bayaba-jokbal"},
+                  {"id": "chicken",      "email": email, "blog": "bayaba-chicken"},
+                  {"id": "installation", "email": email, "blog": "bayaba-installation"},
+              ]
+          }
+          with open("tistory-naver/accounts.json", "w") as f:
+              json.dump(accounts, f, ensure_ascii=False, indent=2)
+          print("✅ accounts.json 생성")
+          PY
+
+      - name: 스킨 일괄 적용
+        env:
+          APPLY_ACCOUNT: ${{ github.event.inputs.account }}
+        run: |
+          cd tistory-naver
+          if [ "$APPLY_ACCOUNT" = "all" ] || [ -z "$APPLY_ACCOUNT" ]; then
+            ids="hub mynote jokbal chicken installation"
+          else
+            ids="$APPLY_ACCOUNT"
+          fi
+          ok=0; fail=0
+          for id in $ids; do
+            echo "════════ $id ════════"
+            if python3 apply_skin.py --account "$id"; then
+              ok=$((ok+1))
+            else
+              fail=$((fail+1))
+            fi
+          done
+          echo ""
+          echo "결과: 성공 ${ok} / 실패 ${fail}"
+          if [ "$fail" != "0" ]; then exit 1; fi
