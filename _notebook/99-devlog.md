@@ -6591,3 +6591,44 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 **삽질 재발 (99-devlog 포스트모텀 패턴 재확인):**
 - 카카오 로그인을 헤드리스/Actions에서 반복 시도 → 봇감지 CAPTCHA 유발. 정답은 `xvfb-run -a renew_sessions.py --headed` + 사람 1회 수동.
 - Termux pip(3.14 bionic)과 Ubuntu python(glibc) ABI 혼선 → `/usr/bin/python3 -m pip` 로 명시해야 함.
+
+---
+
+### 🩸 포스트모텀 — bayaba 이식 세션의 삽질 전수기록 (_Claude · 2026-08-19)
+
+**배경:** helena_phone 보일러플레이트를 bayaba(마왕가족)로 이식하는 과정에서 터진 삽질 전부. 다음 에이전트가 같은 길로 헤매지 않게 차단용으로 남김.
+
+#### 삽질 1 — Termux pip vs Ubuntu python ABI 혼선
+- **증상:** `pip install playwright` → "No matching distribution found"
+- **원인:** PATH의 `pip`이 **Termux(3.14 bionic)** 것이었고, proot Ubuntu(glibc) python과 ABI가 달라 wheel이 안 맞음.
+- **해결:** `/usr/bin/python3 -m pip install ...` 로 **명시적으로 Ubuntu python** 지정. `which -a pip`로 항상 확인.
+
+#### 삽질 2 — Ubuntu python에 pip 자체가 없음
+- **증상:** `/usr/bin/python3 -m pip` → "No module named pip"
+- **해결:** `apt-get install -y python3-pip python3-venv`
+
+#### 삽질 3 — PEP 668 externally-managed
+- **증상:** pip install → "externally-managed-environment"
+- **해결:** `--break-system-packages` (기존 CLAUDE.md에도 torchcodec 설치 때 썼던 기록 있음)
+
+#### 삽질 4 — headless로 카카오 로그인 반복 → 봇감지 캡차 유발
+- **증상:** 카카오 로그인 제출 → "안전한 서비스 이용을 위해 아래 문제에 답해 주세요" 캡차 모달
+- **오판 1:** 처음엔 "캡차 = 쿨다운 기다리면 됨"이라 판단 → 틀림. 반복 시도가 오히려 캡차를 계속 유발.
+- **오판 2:** 중간에 "비밀번호 틀림(일치하지 않습니다)" 메시지를 보고 비번 오류로 단정 → **틀림.** 같은 시도가 캡차일 때도 있고 비번 오류 문구가 나올 때도 있음. 카카오는 봇 감지 시 오류 메시지가 일정하지 않다.
+
+#### 삽질 5 — headless에선 dkaptcha 캡차 iframe이 로드 안 됨 (핵심!)
+- **증상:** 캡차 모달의 `#dkaptcha-XXXX` div가 **비어 있음** (childCount=0, 이미지/canvas/iframe 전부 없음)
+- **원인:** 카카오 캡차(dkaptcha)는 iframe으로 로드되는데, **headless=True에서는 그 iframe이 차단/미로드**됨.
+- **돌파:** `headless=False` + `xvfb-run -a`로 가상화면 위에서 실행 → 캡차 iframe이 실제 로드됨:
+  `https://dkaptcha.kakao.com/dkaptcha/quiz?widget=...&platform=pc`
+- **캡차 정체:** **지도 클릭형** — "아래 장소를 지도에서 눌러주세요. 문제: 코끼리어린이공원" → 지도 이미지(512x256)에서 해당 POI 라벨을 클릭, 좌표를 hidden input `#inpDkaptcha`에 담아 제출.
+
+#### 해결책 (정답)
+- 카카오 로그인 = **수동 하한**. headless/CI 금지.
+- 화면 있는 기기(태블릿)에서 `headless=False` 로그인 1회 → 캡차는 지도 클릭형이니 사람이 직접 클릭 → `cookies/`에 TSSESSION 영속화.
+- 이 머신(화면 없는 proot)에서는 지도 클릭형 캡차를 사람이 풀 수 없음 → **태블릿의 cookies/ 세션을 복사해오는 게 정답.**
+
+#### 재발 방지
+- 카카오/티스토리 로그인 작업 전에 반드시 `which pip`, `which python3` 확인.
+- 캡차는 절대 headless로 못 풀음. 반복 시도 금지(쿨다운만 늘어남).
+- 보일러플레이트 99-devlog 기존 포스트모텀("CI 헤드리스 금지")과 동일 패턴의 재발 — 새 에이전트가 이미 푼 문제를 재발명하는 "삽질 신드롬".
