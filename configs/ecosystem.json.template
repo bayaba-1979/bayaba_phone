@@ -32,18 +32,18 @@
     }
   },
   "youtube": {
-    "project_id": "911931724403"
+    "project_id": "1081026476792"
   },
   "channels": [
     {
       "key": "main",
-      "id": "UCRUuiKCCwIbyvqlxTNpDfKw",
+      "id": "UCP_hF3RZ0yMIpTnVB2rqpfQ",
       "handle": "@남성훈-f7i",
       "topic": "Care · Root"
     },
     {
       "key": "phone",
-      "id": "UC_IPajoyj6_IO8wt9JwVCAQ",
+      "id": "UCP_hF3RZ0yMIpTnVB2rqpfQ",
       "handle": "@남성훈-f7i",
       "topic": "Tools · Tutorials"
     }
@@ -55,7 +55,8 @@
       "blog": "bayaba-phone",
       "channel": "@남성훈-f7i",
       "role": "hub",
-      "domain": "S21 phone optimization"
+      "domain": "S21 phone optimization",
+      "playlist": "PLUCFEuNoSsEY"
     },
     {
       "repo": "bayaba_log",
@@ -63,7 +64,8 @@
       "blog": "bayaba-1979",
       "channel": "@남성훈-f7i",
       "role": "care",
-      "domain": "Tech notes"
+      "domain": "Tech notes",
+      "playlist": "PLFF4DYzOxLrg"
     },
     {
       "repo": "bayaba-jokbal",
@@ -71,7 +73,8 @@
       "blog": "bayaba-jokbal",
       "channel": "@남성훈-f7i",
       "role": "content",
-      "domain": "Piano"
+      "domain": "Piano",
+      "playlist": "PLVMbpu2817PA"
     },
     {
       "repo": "bayaba-chicken",
@@ -79,7 +82,8 @@
       "blog": "bayaba-chicken",
       "channel": "@남성훈-f7i",
       "role": "content",
-      "domain": "Psychoanalysis"
+      "domain": "Psychoanalysis",
+      "playlist": "PLMELfNWmu7a0"
     },
     {
       "repo": "bayaba-installation",
@@ -87,7 +91,8 @@
       "blog": "bayaba-installation",
       "channel": "@남성훈-f7i",
       "role": "content",
-      "domain": "Faith history"
+      "domain": "Faith history",
+      "playlist": "PLfBwCPUmnvDI"
     }
   ]
 }
