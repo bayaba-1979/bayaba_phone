@@ -17,9 +17,9 @@
   },
 
   "git": {
-    "name": "helena-bot",
+    "name": "bayaba-bot",
     "email": "bayaba-1979@github.com",
-    "user_agent": "helena-bot/1.0"
+    "user_agent": "bayaba-bot/1.0"
   },
 
   "sync": {

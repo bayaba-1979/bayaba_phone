@@ -435,7 +435,7 @@ export ANTHROPIC_MODEL=deepseek-v4-pro  # 2026-07-24 deepseek-chat 폐기 대응
 <hr>
 <h2 id="6-youtube-oauth-2026-07-24">제6부 — YouTube OAuth + 헌법 제정 (2026-07-24)</h2>
 <h3 id="27-youtube-oauth">[27] YouTube OAuth 인증 완료</h3>
-<p>GCP 프로젝트 S21 YouTube(ID: 911931724403), 채널 남성훈(@helenapark-e7c, UCRUuiKCCwIbyvqlxTNpDfKw). 인증 방식: <strong>TV Device Flow</strong>(google.com/device) — 콘솔 GUI 없이 폰으로 인증 가능한 유일한 경로. 막혔던 지점: 테스트 사용자 미등록(403 access_denied) → OAuth 동의 화면에서 수동 추가. YouTube Data API 미활성화 → 콘솔에서 활성화. 액세스 토큰 + 리프레시 토큰 <code>.secrets.env</code>에 저장.</p>
+<p>GCP 프로젝트 S21 YouTube(ID: 911931724403), 채널 남성훈(@남성훈-f7i, UCRUuiKCCwIbyvqlxTNpDfKw). 인증 방식: <strong>TV Device Flow</strong>(google.com/device) — 콘솔 GUI 없이 폰으로 인증 가능한 유일한 경로. 막혔던 지점: 테스트 사용자 미등록(403 access_denied) → OAuth 동의 화면에서 수동 추가. YouTube Data API 미활성화 → 콘솔에서 활성화. 액세스 토큰 + 리프레시 토큰 <code>.secrets.env</code>에 저장.</p>
 <blockquote>
 <p><strong>이걸 코드로:</strong> <code>bash scripts/yt_oauth_setup.sh</code> — Device Code Flow 자동 폴링 + 토큰 저장. 인증 완료 후 <code>python3 scripts/yt_upload.py --title "제목" --file video.mp4</code> 로 업로드.</p>
 </blockquote>

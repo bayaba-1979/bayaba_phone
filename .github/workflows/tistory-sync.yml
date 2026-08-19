@@ -23,11 +23,11 @@ on:
       user_agent:
         required: false
         type: string
-        default: 'helena-bot/1.0'
+        default: 'bayaba-bot/1.0'
       git_name:
         required: false
         type: string
-        default: 'helena-bot'
+        default: 'bayaba-bot'
       git_email:
         required: false
         type: string

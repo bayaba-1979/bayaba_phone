@@ -230,7 +230,7 @@ YouTube OAuth를 **"컨디션 좋은 날"로 의도적 보류**. 스캐폴드 �
 
 ### [27] YouTube OAuth 인증 완료
 
-GCP 프로젝트 S21 YouTube(ID: 911931724403), 채널 남성훈(@helenapark-e7c, UCRUuiKCCwIbyvqlxTNpDfKw). 인증 방식: **TV Device Flow**(google.com/device) — 콘솔 GUI 없이 폰으로 인증 가능한 유일한 경로. 막혔던 지점: 테스트 사용자 미등록(403 access_denied) → OAuth 동의 화면에서 수동 추가. YouTube Data API 미활성화 → 콘솔에서 활성화. 액세스 토큰 + 리프레시 토큰 `.secrets.env`에 저장.
+GCP 프로젝트 S21 YouTube(ID: 911931724403), 채널 남성훈(@남성훈-f7i, UCRUuiKCCwIbyvqlxTNpDfKw). 인증 방식: **TV Device Flow**(google.com/device) — 콘솔 GUI 없이 폰으로 인증 가능한 유일한 경로. 막혔던 지점: 테스트 사용자 미등록(403 access_denied) → OAuth 동의 화면에서 수동 추가. YouTube Data API 미활성화 → 콘솔에서 활성화. 액세스 토큰 + 리프레시 토큰 `.secrets.env`에 저장.
 
 > **이걸 코드로:** `bash scripts/yt_oauth_setup.sh` — Device Code Flow 자동 폴링 + 토큰 저장. 인증 완료 후 `python3 scripts/yt_upload.py --title "제목" --file video.mp4` 로 업로드.
 
