@@ -1,7 +1,6 @@
 {
   "_readme": "S21 ecosystem SSOT — repo↔blog↔channel · owner · git identity · sync config. navigator.sh copies this template to configs/ecosystem.json and fills in the values. Never put secrets here (secrets live in .secrets.env).",
   "owner": "bayaba-1979",
-
   "identity": {
     "_readme": "GEO 원조 스탬프(헌법 제17조) — build_webzine.py가 모든 페이지 <head>에 canonical+JSON-LD 정체 그래프를 박을 때 쓴다. 포크한 사람은 여기 채우면 자기 정체로 자동 상속.",
     "person_name": "남성훈",
@@ -15,18 +14,15 @@
       "https://www.youtube.com/@남성훈-f7i"
     ]
   },
-
   "git": {
     "name": "bayaba-bot",
     "email": "bayaba-1979@github.com",
     "user_agent": "bayaba-bot/1.0"
   },
-
   "sync": {
     "cron": "7 * * * *",
     "out_dir": "기자"
   },
-
   "naver": {
     "blog": "helena1975",
     "domains": {
@@ -35,21 +31,63 @@
       "parksy_kr": "박씨로그"
     }
   },
-
   "youtube": {
     "project_id": "911931724403"
   },
-
   "channels": [
-    { "key": "main",  "id": "UCRUuiKCCwIbyvqlxTNpDfKw", "handle": "@남성훈-f7i", "topic": "Care · Root" },
-    { "key": "phone", "id": "UC_IPajoyj6_IO8wt9JwVCAQ", "handle": "@남성훈-f7i",   "topic": "Tools · Tutorials" }
+    {
+      "key": "main",
+      "id": "UCRUuiKCCwIbyvqlxTNpDfKw",
+      "handle": "@남성훈-f7i",
+      "topic": "Care · Root"
+    },
+    {
+      "key": "phone",
+      "id": "UC_IPajoyj6_IO8wt9JwVCAQ",
+      "handle": "@남성훈-f7i",
+      "topic": "Tools · Tutorials"
+    }
   ],
-
   "repos": [
-    { "repo": "bayaba_phone",     "account": "galaxys21", "blog": "galaxys21-pwuser",   "channel": "@남성훈-f7i",   "role": "hub",     "domain": "S21 phone optimization" },
-    { "repo": "helana_log",       "account": "mynote",    "blog": "mynote11605",        "channel": "@남성훈-f7i",   "role": "care",    "domain": "Tech notes" },
-    { "repo": "helena-piano",     "account": "piano",     "blog": "helena-piano",       "channel": "@남성훈-f7i", "role": "content", "domain": "Piano" },
-    { "repo": "helena-metalcare", "account": "metalcare", "blog": "helena-metalcare",   "channel": "@남성훈-f7i", "role": "content", "domain": "Psychoanalysis" },
-    { "repo": "helana-faith",     "account": "faith",     "blog": "helana-christianity", "channel": "@남성훈-f7i", "role": "content", "domain": "Faith history" }
+    {
+      "repo": "bayaba_phone",
+      "account": "galaxys21",
+      "blog": "bayaba-phone",
+      "channel": "@남성훈-f7i",
+      "role": "hub",
+      "domain": "S21 phone optimization"
+    },
+    {
+      "repo": "helana_log",
+      "account": "mynote",
+      "blog": "mynote11605",
+      "channel": "@남성훈-f7i",
+      "role": "care",
+      "domain": "Tech notes"
+    },
+    {
+      "repo": "helena-piano",
+      "account": "piano",
+      "blog": "helena-piano",
+      "channel": "@남성훈-f7i",
+      "role": "content",
+      "domain": "Piano"
+    },
+    {
+      "repo": "helena-metalcare",
+      "account": "metalcare",
+      "blog": "helena-metalcare",
+      "channel": "@남성훈-f7i",
+      "role": "content",
+      "domain": "Psychoanalysis"
+    },
+    {
+      "repo": "helana-faith",
+      "account": "faith",
+      "blog": "helana-christianity",
+      "channel": "@남성훈-f7i",
+      "role": "content",
+      "domain": "Faith history"
+    }
   ]
 }

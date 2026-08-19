@@ -1,10 +1,30 @@
 {
   "password": "your-kakao-password",
   "accounts": [
-    {"id": "galaxys21", "email": "your-kakao-email@example.com", "blog": "galaxys21-pwuser"},
-    {"id": "mynote",    "email": "your-kakao-email@example.com", "blog": "mynote11605"},
-    {"id": "faith",     "email": "your-kakao-email@example.com", "blog": "helana-christianity"},
-    {"id": "piano",     "email": "your-kakao-email@example.com", "blog": "helena-piano"},
-    {"id": "metalcare", "email": "your-kakao-email@example.com", "blog": "helena-metalcare"}
+    {
+      "id": "hub",
+      "email": "your-kakao-email@example.com",
+      "blog": "bayaba-phone"
+    },
+    {
+      "id": "mynote",
+      "email": "your-kakao-email@example.com",
+      "blog": "bayaba-1979"
+    },
+    {
+      "id": "jokbal",
+      "email": "your-kakao-email@example.com",
+      "blog": "bayaba-jokbal"
+    },
+    {
+      "id": "chicken",
+      "email": "your-kakao-email@example.com",
+      "blog": "bayaba-chicken"
+    },
+    {
+      "id": "installation",
+      "email": "your-kakao-email@example.com",
+      "blog": "bayaba-installation"
+    }
   ]
 }
