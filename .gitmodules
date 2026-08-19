@@ -1,12 +1,15 @@
-[submodule "helena-piano"]
-	path = helena-piano
-	url = https://github.com/helena751107/helena-piano.git
-[submodule "helena-metalcare"]
-	path = helena-metalcare
-	url = https://github.com/helena751107/helena-metalcare.git
-[submodule "helana-faith"]
-	path = helana-faith
-	url = https://github.com/helena751107/helana-faith.git
-[submodule "helana_log"]
-	path = helana_log
-	url = https://github.com/helena751107/helana_log.git
+[submodule "bayaba-jokbal"]
+	path = bayaba-jokbal
+	url = https://github.com/bayaba-1979/bayaba-jokbal.git
+	branch = main
+[submodule "bayaba-chicken"]
+	path = bayaba-chicken
+	url = https://github.com/bayaba-1979/bayaba-chicken.git
+	branch = main
+[submodule "bayaba-installation"]
+	path = bayaba-installation
+	url = https://github.com/bayaba-1979/bayaba-installation.git
+	branch = main
+[submodule "bayaba_log"]
+	path = bayaba_log
+	url = https://github.com/bayaba-1979/bayaba_log.git
