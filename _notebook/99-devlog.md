@@ -6575,3 +6575,19 @@ Boss 지시: 역할은 채팅이 아니라 **온디바이스 수첩 + S21 레포
 **패턴 명명 — "삽질 신드롬":** 새 에이전트가 이미 푼 문제를 재발명하고, 엉뚱한 자리(CI)에서 시도하는 것. 보일러플레이트에 정답이 있어도 "정답 위치"를 모르니 반복된다.
 
 **재발 방지:** SETUP.md "수동 하한" + README `renew_sessions.py --if-needed`에 "로그인·인증은 CI/헤드리스 금지, 기기 위 headed + 사람 1회" 한 줄 명시.
+
+---
+
+### 🏗️ helena_phone → bayaba_phone 전량 이식 + 플랫폼 자동화 연결 (_Claude · 2026-08-19)
+
+**작업:** 헬레나 보일러플레이트 자산을 bayaba(마왕가족) 명의로 전량 이식.
+
+**완료 항목:**
+1. **GitHub 5레포 이식** — `bayaba_phone`(hub) + `bayaba-jokbal`/`bayaba-chicken`/`bayaba-installation`(신규) + `bayaba_log`(유지). helena 브랜딩 2,273곳 치환, 기존 jokbal/chicken 콘텐츠는 legacy/로 보존 후 원 repo 삭제.
+2. **GitHub Pages 5개 배포** — hub의 reusable workflow로 위성 4개 배포. 전부 HTTP 200.
+3. **티스토리 5블로그 매칭** — repo↔tistory slug(bayaba-phone/bayaba-1979/bayaba-jokbal/bayaba-chicken/bayaba-installation) SSOT 반영.
+4. **YouTube 자동화 연결** — OAuth TV Device Flow 인증 완료(마왕가족 @남성훈-f7i, 채널 UCP_hF3RZ0yMIpTnVB2rqpfQ). 플레이리스트 5개 생성 + ecosystem.json 매핑.
+
+**삽질 재발 (99-devlog 포스트모텀 패턴 재확인):**
+- 카카오 로그인을 헤드리스/Actions에서 반복 시도 → 봇감지 CAPTCHA 유발. 정답은 `xvfb-run -a renew_sessions.py --headed` + 사람 1회 수동.
+- Termux pip(3.14 bionic)과 Ubuntu python(glibc) ABI 혼선 → `/usr/bin/python3 -m pip` 로 명시해야 함.
