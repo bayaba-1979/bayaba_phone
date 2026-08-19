@@ -1,8 +1,8 @@
 {
   "id": "/bayaba_phone/",
-  "name": "S21 Phone Webzine",
-  "short_name": "S21 Phone",
-  "description": "Galaxy S21 AI Workstation — 돌봄과 소망, 3 Agents, 7 Workcenters. Editorial Webzine Vol.01",
+  "name": "Bayaba Phone · 폰",
+  "short_name": "폰",
+  "description": "바야바 폰. 모바일 워크스테이션과 플랫폼 자동화 허브.",
   "lang": "ko",
   "dir": "ltr",
   "start_url": "/bayaba_phone/",
@@ -17,9 +17,8 @@
   "background_color": "#0a0908",
   "theme_color": "#0a0908",
   "categories": [
-    "productivity",
-    "education",
-    "utilities"
+    "utilities",
+    "technology"
   ],
   "prefer_related_applications": false,
   "icons": [
