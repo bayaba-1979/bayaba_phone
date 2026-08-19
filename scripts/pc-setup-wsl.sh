@@ -56,7 +56,7 @@ cat > ~/bin/ds << 'DSEOF'
 #         ds --apply "코드 수정 지시"
 #         ds --repo ~/other-repo "지시"
 
-REPO="${REPO:-$HOME/work/helena_phone}"
+REPO="${REPO:-$HOME/work/bayaba_phone}"
 MODEL="${DEEPSEEK_MODEL:-deepseek/deepseek-chat}"
 
 cd "$REPO" || { echo "❌ $REPO 없음. 먼저 git clone 하세요."; exit 1; }
@@ -79,12 +79,12 @@ echo ""
 echo "📥 [6/6] Git 레포 클론..."
 mkdir -p ~/work
 cd ~/work
-if [ -d helena_phone ]; then
-    echo "✅ helena_phone 이미 존재 — pull"
-    cd helena_phone && git pull --recurse-submodules
+if [ -d bayaba_phone ]; then
+    echo "✅ bayaba_phone 이미 존재 — pull"
+    cd bayaba_phone && git pull --recurse-submodules
 else
-    git clone --recurse-submodules https://github.com/helena751107/helena_phone.git
-    echo "✅ helena_phone 클론 완료"
+    git clone --recurse-submodules https://github.com/bayaba-1979/bayaba_phone.git
+    echo "✅ bayaba_phone 클론 완료"
 fi
 
 echo ""

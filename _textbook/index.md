@@ -75,9 +75,9 @@
 
 ### [1] 첫 삽: gugudan.py → GitHub
 
-`gugudan.py`(구구단 출력, 테스트 파일)에서 시작. Git init → GitHub `s21-work` 레포 생성(helena751107 계정) → push 파이프 개통.
+`gugudan.py`(구구단 출력, 테스트 파일)에서 시작. Git init → GitHub `s21-work` 레포 생성(bayaba-1979 계정) → push 파이프 개통.
 
-> **이걸 코드로:** `git init && git remote add origin https://github.com/helena751107/...`
+> **이걸 코드로:** `git init && git remote add origin https://github.com/bayaba-1979/...`
 
 ### [2] Claude Code + DeepSeek
 
@@ -94,7 +94,7 @@ export ANTHROPIC_MODEL=deepseek-v4-pro  # 2026-07-24 deepseek-chat 폐기 대응
 
 ### [4~8] 레포 개명·Giscus·Discord·Telegram·Git hooks
 
-레포 `s21-work` → `helena_phone` 개명(PATCH API → remote 갱신 → Pages 리다이렉트 확인). Discussions 활성화 + Giscus 댓글 연결. Discord 서버 "S21 Phone" API로 생성(#로비·#ai-보고·WidgetBot Crate v3). Telegram @S21Phone_Bot + `tg.sh` 보고 스크립트. Git hooks(post-commit/post-merge) 삭제 — 알림 과잉 → 수동 보고 체계로.
+레포 `s21-work` → `bayaba_phone` 개명(PATCH API → remote 갱신 → Pages 리다이렉트 확인). Discussions 활성화 + Giscus 댓글 연결. Discord 서버 "S21 Phone" API로 생성(#로비·#ai-보고·WidgetBot Crate v3). Telegram @S21Phone_Bot + `tg.sh` 보고 스크립트. Git hooks(post-commit/post-merge) 삭제 — 알림 과잉 → 수동 보고 체계로.
 
 > **이걸 코드로:** `g/install.sh` 1~3단계. 통신망 3종은 GitHub·Discord·Telegram API 호출로 전부 자동화됨.
 
@@ -157,7 +157,7 @@ YouTube OAuth를 **"컨디션 좋은 날"로 의도적 보류**. 스캐폴드 �
 
 | 레포 | 최종 테마 | 콜라보레이터 |
 |------|----------|------------|
-| helena_phone | 📱 S21 폰 최적화 바이블 | REDACTED admin |
+| bayaba_phone | 📱 S21 폰 최적화 바이블 | REDACTED admin |
 | helana_log | 🗃️ 박씨캡처 리버싱 | REDACTED admin |
 | helana-faith | ✝️ 가족 신앙사 + 비교종교학 | REDACTED admin |
 | helena-piano | 🎹 피아노 종합 + 음원 생성 | REDACTED admin |
@@ -230,7 +230,7 @@ YouTube OAuth를 **"컨디션 좋은 날"로 의도적 보류**. 스캐폴드 �
 
 ### [27] YouTube OAuth 인증 완료
 
-GCP 프로젝트 S21 YouTube(ID: 911931724403), 채널 Helena Park(@helenapark-e7c, UCRUuiKCCwIbyvqlxTNpDfKw). 인증 방식: **TV Device Flow**(google.com/device) — 콘솔 GUI 없이 폰으로 인증 가능한 유일한 경로. 막혔던 지점: 테스트 사용자 미등록(403 access_denied) → OAuth 동의 화면에서 수동 추가. YouTube Data API 미활성화 → 콘솔에서 활성화. 액세스 토큰 + 리프레시 토큰 `.secrets.env`에 저장.
+GCP 프로젝트 S21 YouTube(ID: 911931724403), 채널 남성훈(@helenapark-e7c, UCRUuiKCCwIbyvqlxTNpDfKw). 인증 방식: **TV Device Flow**(google.com/device) — 콘솔 GUI 없이 폰으로 인증 가능한 유일한 경로. 막혔던 지점: 테스트 사용자 미등록(403 access_denied) → OAuth 동의 화면에서 수동 추가. YouTube Data API 미활성화 → 콘솔에서 활성화. 액세스 토큰 + 리프레시 토큰 `.secrets.env`에 저장.
 
 > **이걸 코드로:** `bash scripts/yt_oauth_setup.sh` — Device Code Flow 자동 폴링 + 토큰 저장. 인증 완료 후 `python3 scripts/yt_upload.py --title "제목" --file video.mp4` 로 업로드.
 
@@ -323,7 +323,7 @@ Boss 디렉션: "내가 디렉션하고 문제 정의하면 나머지는 너네�
 ### ✅ g/install.sh (364줄) — 1줄 설치기
 
 ```bash
-curl -sL https://raw.github.com/helena751107/helena_phone/main/g/install.sh | bash
+curl -sL https://raw.github.com/bayaba-1979/bayaba_phone/main/g/install.sh | bash
 ```
 
 8단계 자동화: 환경체크 → Termux 패키지 → proot Ubuntu → GitHub 클론 → Claude Code+DeepSeek → phone-mcp-server → Telegram 봇 → 건강검진 → CONSTITUTION 동의 확인. **비용 0원.**
@@ -379,7 +379,7 @@ Termux (겉, ~ $)
 
 | 티스토리 | YouTube | GitHub | 테마 |
 |----------|---------|--------|------|
-| galaxys21-pwuser | S21 Phone | helena_phone | 📱 폰 최적화 바이블 |
+| galaxys21-pwuser | S21 Phone | bayaba_phone | 📱 폰 최적화 바이블 |
 | mynote11605 | Tech Log | helana_log | 🗃️ 박씨캡처 리버싱 |
 | helana-christianity | Helena Faith | helena-faith | ✝️ 가족 신앙사 |
 | helena-piano | Helena Piano | helena-piano | 🎹 피아노+음원생성 |
@@ -422,7 +422,7 @@ Termux (겉, ~ $)
 
 ```bash
 # 1줄 설치
-curl -sL https://raw.github.com/helena751107/helena_phone/main/g/install.sh | bash
+curl -sL https://raw.github.com/bayaba-1979/bayaba_phone/main/g/install.sh | bash
 
 # 돌봄 데몬 (Termux에서)
 bash ~/care/care-setup.sh

@@ -35,7 +35,7 @@ from pathlib import Path
 
 import yaml
 
-BASE = Path(__file__).resolve().parents[1]  # /root/work (helena_phone)
+BASE = Path(__file__).resolve().parents[1]  # /root/work (bayaba_phone)
 sys.path.insert(0, str(BASE / "scripts"))
 from build_satellite_docs_Grok import shell, MD, BRANDS  # noqa: E402
 

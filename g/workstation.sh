@@ -4,7 +4,7 @@
 # ==============================================================================
 # 한 줄 설치기. 공기계 → Termux → Ubuntu → Claude Code(DeepSeek) → 클론 → 배포.
 #
-#   bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/workstation.sh)
+#   bash <(curl -sL https://raw.githubusercontent.com/bayaba-1979/bayaba_phone/main/g/workstation.sh)
 #
 # 수동 입력 = 자기 것 3개 (이게 최소 수동):
 #   1) GitHub 계정명   (정체 — 남이 못 만들어줌)
@@ -20,7 +20,7 @@ set -euo pipefail
 
 OWNER_GITHUB="${OWNER_GITHUB:-}"
 GITHUB_PAT="${GITHUB_PAT:-}"
-TEMPLATE_REPO="${TEMPLATE_REPO:-helena751107/helena_phone}"
+TEMPLATE_REPO="${TEMPLATE_REPO:-bayaba-1979/bayaba_phone}"
 WORK_DIR="${WORK_DIR:-/root/work}"
 DEEPSEEK_API_KEY="${DEEPSEEK_API_KEY:-}"
 MODEL="${ANTHROPIC_MODEL:-deepseek-v4-pro}"
@@ -156,14 +156,14 @@ PYEOF
   export GH_TOKEN="${GITHUB_PAT}"
   export GIT_TERMINAL_PROMPT=0
   if command -v gh >/dev/null 2>&1 && [ -n "$GITHUB_PAT" ]; then
-    gh repo create "${OWNER_GITHUB}/helena_phone" --public 2>/dev/null \
-      || gh repo view "${OWNER_GITHUB}/helena_phone" >/dev/null 2>&1 || true
-    git -C "${WORK_DIR}" remote set-url origin "https://${OWNER_GITHUB}:${GITHUB_PAT}@github.com/${OWNER_GITHUB}/helena_phone.git"
+    gh repo create "${OWNER_GITHUB}/bayaba_phone" --public 2>/dev/null \
+      || gh repo view "${OWNER_GITHUB}/bayaba_phone" >/dev/null 2>&1 || true
+    git -C "${WORK_DIR}" remote set-url origin "https://${OWNER_GITHUB}:${GITHUB_PAT}@github.com/${OWNER_GITHUB}/bayaba_phone.git"
     git -C "${WORK_DIR}" push -u origin main 2>&1 | tail -5 || true
-    gh api -X POST "repos/${OWNER_GITHUB}/helena_phone/pages" -f build_type=workflow 2>/dev/null \
-      || gh api -X POST "repos/${OWNER_GITHUB}/helena_phone/pages" -f "source[branch]=main" -f "source[path]=/" 2>/dev/null \
+    gh api -X POST "repos/${OWNER_GITHUB}/bayaba_phone/pages" -f build_type=workflow 2>/dev/null \
+      || gh api -X POST "repos/${OWNER_GITHUB}/bayaba_phone/pages" -f "source[branch]=main" -f "source[path]=/" 2>/dev/null \
       || true
-    G "배포 완료 — 몇 분 뒤: https://${OWNER_GITHUB}.github.io/helena_phone/"
+    G "배포 완료 — 몇 분 뒤: https://${OWNER_GITHUB}.github.io/bayaba_phone/"
   else
     Y "gh 또는 PAT 없음 → 배포 스킵."
     B "  PAT 재발급 후 다시 실행하면 repo 생성 + push + Pages 자동."
@@ -191,7 +191,7 @@ write_cc_alias() {
 }
 
 pages_check() {
-  local url="https://${OWNER_GITHUB}.github.io/helena_phone/"
+  local url="https://${OWNER_GITHUB}.github.io/bayaba_phone/"
   local code
   code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 "$url" 2>/dev/null || echo "000")
   if [ "$code" = "200" ]; then
@@ -223,7 +223,7 @@ summary() {
     claude --version   # 배너에 ${MODEL} 뜨면 성공
 
   웹:
-    https://${OWNER_GITHUB}.github.io/helena_phone/
+    https://${OWNER_GITHUB}.github.io/bayaba_phone/
 
   ⚠️  PAT·토큰은 ~/.bashrc에 저장됨 — 남한테 보여주지 말 것.
 EOF

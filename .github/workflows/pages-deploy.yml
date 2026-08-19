@@ -2,9 +2,9 @@ name: 🌐 Pages Deploy (reusable)
 
 # ── 중앙 재사용 워크플로 — GitHub Pages 배포 ─────────────────────────────────
 # 5개 레포의 Pages 배포를 여기 한 곳으로 모은다.
-# 각 레포는 얇은 caller 로 `uses: helena751107/helena_phone/.github/workflows/pages-deploy.yml@main`
+# 각 레포는 얇은 caller 로 `uses: bayaba-1979/bayaba_phone/.github/workflows/pages-deploy.yml@main`
 # + `with: build: <true|false>` 만 쓴다.
-#   - build=true : 허브(helena_phone) 전용 — build_webzine + gap 게이트 + metrics
+#   - build=true : 허브(bayaba_phone) 전용 — build_webzine + gap 게이트 + metrics
 #   - build=false: 위성 4레포(정적 HTML) — 번들 + 배포만
 # 배포 스텝은 공통(rsync 번들 → upload-pages-artifact → deploy-pages).
 

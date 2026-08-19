@@ -1,6 +1,6 @@
 name: Deploy GitHub Pages
 
-# 허브(helena_phone) 자신의 Pages 배포 — 중앙 재사용 워크플로 호출 (build=true).
+# 허브(bayaba_phone) 자신의 Pages 배포 — 중앙 재사용 워크플로 호출 (build=true).
 on:
   push:
     branches: [main]
@@ -13,6 +13,6 @@ permissions:
 
 jobs:
   deploy:
-    uses: helena751107/helena_phone/.github/workflows/pages-deploy.yml@main
+    uses: bayaba-1979/bayaba_phone/.github/workflows/pages-deploy.yml@main
     with:
       build: true

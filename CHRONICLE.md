@@ -21,7 +21,7 @@ gugudan.py  ← 구구단 출력 (Python 테스트)
 여기서 시작해서 Git 저장소를 만들고, GitHub에 연결했다. 처음 만든 레포 이름은 `s21-work`. Pages도 바로 개통했다.
 
 ```
-helena751107.github.io/helena_phone/  ← "S21 Workstation Live" 발행
+bayaba-1979.github.io/bayaba_phone/  ← "S21 Workstation Live" 발행
 ```
 
 ### 오후: AI 에이전트 이식
@@ -55,7 +55,7 @@ CLAUDE.md에 "AI 에이전트는 작업 후 텔레그램으로 보고할 의무�
 
 | 레포 | 매칭 블로그 | 용도 |
 |------|-----------|------|
-| `helena_phone` | (메인 포털) | 전체 허브 |
+| `bayaba_phone` | (메인 포털) | 전체 허브 |
 | `helana_log` | mynote11605 | 기술블로그 |
 | `helana-faith` | helana-christianity | 신앙 |
 | `helena-piano` | helena-piano | 피아노 |
@@ -144,7 +144,7 @@ YouTube OAuth TV 클라이언트 ID를 발급받으려고 했는데, 문득 생�
 │   └── 🔗 Git → GitHub
 │
 ├── 🌐 GitHub (5개 레포)
-│   ├── helena_phone (메인 포털)       ✅ Pages + Giscus
+│   ├── bayaba_phone (메인 포털)       ✅ Pages + Giscus
 │   ├── helana_log (기술노트)           ✅ Pages + Giscus
 │   ├── helana-faith (신앙)             ✅ Pages + Giscus
 │   ├── helena-piano (피아노)           ✅ Pages + Giscus
@@ -191,7 +191,7 @@ YouTube OAuth TV 클라이언트 ID를 발급받으려고 했는데, 문득 생�
 ├── 💬 Discord (2채널) + WidgetBot
 ├── 🤖 Telegram @S21Phone_Bot
 ├── 📝 티스토리 5종
-├── 📺 YouTube @helena_phone
+├── 📺 YouTube @남성훈-f7i
 └── 🌐 네이버 웹진 (helena1975)
 ```
 

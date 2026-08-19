@@ -1,7 +1,7 @@
 #!/bin/bash
 # 🎬 episode_produce.sh — 시리즈 에피소드 제작 표준 파이프
 # 사용법: bash episode_produce.sh <에피소드번호> <페이지URL> <제목>
-# 예: bash episode_produce.sh e01 https://helena751107.github.io/helena_phone/notebook/series/e01-proot-linux.html "스마트폰에 리눅스를?"
+# 예: bash episode_produce.sh e01 https://bayaba-1979.github.io/bayaba_phone/notebook/series/e01-proot-linux.html "스마트폰에 리눅스를?"
 
 # ── 표준 설정 (변경 금지) ─────────────────────
 EP="${1:?에피소드 번호 필요 (e01~e24)}"

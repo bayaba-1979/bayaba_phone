@@ -5,16 +5,16 @@
 # Agent-mark doc: _notebook/41-beginner-install-manual_Grok.md
 #
 # One-liner (template clone · read-first):
-#   bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/install.sh)
+#   bash <(curl -sL https://raw.githubusercontent.com/bayaba-1979/bayaba_phone/main/g/install.sh)
 #
 # Recommended (run with variables · works on the owner's phone / Boss's work phone):
-#   export OWNER_GITHUB="helena751107"          # ownership (owner) account
+#   export OWNER_GITHUB="bayaba-1979"          # ownership (owner) account
 #   export WORK_GITHUB="your-work-account"      # the work account that actually pushes (optional)
 #   export GITHUB_TOKEN="ghp_...."              # WORK or OWNER token
-#   export GITHUB_REPO="helena_phone"           # workspace repo name
+#   export GITHUB_REPO="bayaba_phone"           # workspace repo name
 #   export DEEPSEEK_API_KEY="sk-...."           # optional
 #   export TG_TOKEN="..." TG_CHAT="..."         # optional
-#   bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/install.sh)
+#   bash <(curl -sL https://raw.githubusercontent.com/bayaba-1979/bayaba_phone/main/g/install.sh)
 #
 # Philosophy: every public surface is owned by OWNER. Boss hands off via collab / visit-install.
 # ==============================================================================
@@ -27,8 +27,8 @@ OWNER_NAME="${OWNER_NAME:-Owner}"                      # display name
 WORK_GITHUB="${WORK_GITHUB:-${GITHUB_USER:-}}"         # work push account (empty = OWNER)
 GITHUB_USER="${GITHUB_USER:-${WORK_GITHUB:-$OWNER_GITHUB}}"
 GITHUB_TOKEN="${GITHUB_TOKEN:-}"
-GITHUB_REPO="${GITHUB_REPO:-helena_phone}"
-TEMPLATE_REPO="${TEMPLATE_REPO:-helena751107/helena_phone}"
+GITHUB_REPO="${GITHUB_REPO:-bayaba_phone}"
+TEMPLATE_REPO="${TEMPLATE_REPO:-bayaba-1979/bayaba_phone}"
 WORK_DIR="${WORK_DIR:-/root/work}"
 DEEPSEEK_API_KEY="${DEEPSEEK_API_KEY:-}"
 TG_TOKEN="${TG_TOKEN:-}"
@@ -321,14 +321,14 @@ show_satellites() {
   echo "─── Satellite repos (reference) ───"
   cat << EOF
   Public surfaces under the owner account:
-    https://github.com/${OWNER_GITHUB}/helena_phone
+    https://github.com/${OWNER_GITHUB}/bayaba_phone
     https://github.com/${OWNER_GITHUB}/helana_log
     https://github.com/${OWNER_GITHUB}/helana-faith
     https://github.com/${OWNER_GITHUB}/helena-piano
     https://github.com/${OWNER_GITHUB}/helena-metalcare
 
   Pages:
-    https://${OWNER_GITHUB}.github.io/helena_phone/
+    https://${OWNER_GITHUB}.github.io/bayaba_phone/
     https://${OWNER_GITHUB}.github.io/helana_log/
     ...
 EOF
@@ -386,7 +386,7 @@ summary() {
                bash scripts/quota.sh       # today's remaining quota
                bash scripts/make_pair.sh   # raw asset → PWA+Tistory pair
   Manual:      cat _notebook/41-beginner-install-manual_Grok.md
-               or https://${OWNER_GITHUB}.github.io/helena_phone/install-guide.html
+               or https://${OWNER_GITHUB}.github.io/bayaba_phone/install-guide.html
 
   Pages: https://${OWNER_GITHUB}.github.io/${GITHUB_REPO}/
 

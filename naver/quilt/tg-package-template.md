@@ -39,9 +39,9 @@ URL: https://youtu.be/【ID】
 【GitHub Pages 이미지 URL 또는 없음】
 
 ■ 고정 링크
-Pages: https://helena751107.github.io/helena_phone/
-Repo: https://github.com/helena751107/helena_phone
-YT: https://www.youtube.com/@helena_phone
+Pages: https://bayaba-1979.github.io/bayaba_phone/
+Repo: https://github.com/bayaba-1979/bayaba_phone
+YT: https://www.youtube.com/@남성훈-f7i
 
 — 손바느질 5분 · 서식 불러오기 후 슬롯 교체 —
 ```

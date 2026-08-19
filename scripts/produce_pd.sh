@@ -25,7 +25,7 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 EP="${1:-pd_intro}"
-URL="${2:-https://helena751107.github.io/helena_phone/}"
+URL="${2:-https://bayaba-1979.github.io/bayaba_phone/}"
 shift 2 2>/dev/null || true
 
 # ── Optional flags ──
@@ -94,14 +94,14 @@ BIBLE="$OUTDIR/shot_bible.json"
 NEED_PARSE=false
 if [[ ! -f "$BIBLE" ]]; then
   NEED_PARSE=true
-elif [[ -n "$URL" ]] && [[ "$URL" != "https://helena751107.github.io/helena_phone/" ]]; then
+elif [[ -n "$URL" ]] && [[ "$URL" != "https://bayaba-1979.github.io/bayaba_phone/" ]]; then
   # External URL: always re-parse to get fresh :has-text() selectors
   echo "[P0] External URL detected — force-reparsing for fresh selectors..."
   NEED_PARSE=true
 fi
 
 if $NEED_PARSE; then
-  if [[ -n "$URL" ]] && [[ "$URL" != "https://helena751107.github.io/helena_phone/" ]]; then
+  if [[ -n "$URL" ]] && [[ "$URL" != "https://bayaba-1979.github.io/bayaba_phone/" ]]; then
     echo "[P0] Auto-parsing URL → shot_bible..."
     python3 "$ROOT/scripts/_parse_url.py" "$URL" "$OUTDIR" || echo "  ⚠️ [P0] parse failed, continuing" >&2
     if [[ -f "$BIBLE" ]]; then

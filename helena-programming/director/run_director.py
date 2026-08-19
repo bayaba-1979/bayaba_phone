@@ -4,8 +4,8 @@ Director Agent — URL → scripted tour video
   Scout → Writer/Director → Voice → Shoot → Edit
 
 Usage:
-  python3 run_director.py --url https://helena751107.github.io/helena_phone/
-  python3 run_director.py --scenario scenarios/helena_phone.json --scout
+  python3 run_director.py --url https://bayaba-1979.github.io/bayaba_phone/
+  python3 run_director.py --scenario scenarios/bayaba_phone.json --scout
   python3 run_director.py --url URL --scout-only   # write scout.json + scenario only
 
 Phone/proot friendly: Playwright record + edge-tts + ffmpeg.

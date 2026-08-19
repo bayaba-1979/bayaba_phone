@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://helena751107.github.io/helena_phone/sitemap.xml
+Sitemap: https://bayaba-1979.github.io/bayaba_phone/sitemap.xml

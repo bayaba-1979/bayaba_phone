@@ -112,7 +112,7 @@ This repo is a **boilerplate**. Click **"Use this template"**, fill in your name
 
 | Min | Step | Command | Result |
 |-----|------|---------|--------|
-| 0 | Copy | GitHub → **Use this template** | `helena_phone` under your account |
+| 0 | Copy | GitHub → **Use this template** | `bayaba_phone` under your account |
 | 2 | Configure | `bash navigator.sh` | `ecosystem.json` + `.secrets.env` |
 | 5 | Spawn | `bash g/spawn.sh` | 4 satellite repos + secret wiring |
 | 8 | Run | `bash g/install.sh` | Termux/proot/Claude workspace |
@@ -121,13 +121,13 @@ This repo is a **boilerplate**. Click **"Use this template"**, fill in your name
 ### 0 min — Copy (Use this template)
 
 - Repo page → **"Use this template"** → "Create a new repository"
-- Name it anything (default `helena_phone`), keep it **Public** (public is the philosophy)
-- Or CLI: `gh repo create <you>/helena_phone --template helena751107/helena_phone --public`
+- Name it anything (default `bayaba_phone`), keep it **Public** (public is the philosophy)
+- Or CLI: `gh repo create <you>/bayaba_phone --template bayaba-1979/bayaba_phone --public`
 
 ### 2 min — Navigator (setup wizard)
 
 ```bash
-cd helena_phone
+cd bayaba_phone
 bash navigator.sh
 ```
 
@@ -158,10 +158,10 @@ bash g/install.sh          # on your phone (Termux/proot)
 
 ### 10 min — Verify
 
-- Pages: `https://<you>.github.io/helena_phone/`
+- Pages: `https://<you>.github.io/bayaba_phone/`
 - Workflows: each repo's **Actions** tab → run `tistory-sync` once → RSS lands in `기자/`
 
-> **Why so light?** Drift sync is handled by a central reusable workflow (`uses: helena751107/helena_phone/.github/workflows/tistory-sync.yml@main`). Fix the logic once, every fork gets it automatically.
+> **Why so light?** Drift sync is handled by a central reusable workflow (`uses: bayaba-1979/bayaba_phone/.github/workflows/tistory-sync.yml@main`). Fix the logic once, every fork gets it automatically.
 
 ## 📐 The production recipe — 3 scripts + 3-layer verification
 
@@ -190,7 +190,7 @@ Once the skeleton stands, production runs on a **recipe**. One raw asset (`_note
 ## 📱 One-line install (existing workspace)
 
 ```bash
-curl -sL https://raw.github.com/helena751107/helena_phone/main/g/install.sh | bash
+curl -sL https://raw.github.com/bayaba-1979/bayaba_phone/main/g/install.sh | bash
 ```
 
 > 🇰🇷 Korean guide (한국어 안내) → [index.html](.)

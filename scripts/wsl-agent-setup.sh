@@ -3,7 +3,7 @@
 # wsl-agent-setup.sh — PC WSL에 S21 Agent 워크스페이스 + Tailscale + Mosh 설치
 # ==============================================================================
 # 용도: 집 PC WSL Ubuntu → 핸드폰(S21)에서 Mosh로 원격 접속 가능하게
-# 사용: bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/scripts/wsl-agent-setup.sh)
+# 사용: bash <(curl -sL https://raw.githubusercontent.com/bayaba-1979/bayaba_phone/main/scripts/wsl-agent-setup.sh)
 #
 # 선행 조건:
 #   Windows에 Tailscale 설치 + 로그인 완료 (https://tailscale.com/download)
@@ -23,8 +23,8 @@ fail() { echo -e "${RED}❌${NC} $*"; }
 info() { echo -e "${BLUE}📌${NC} $*"; }
 
 # ── 설정 변수 ────────────────────────────────────────────────────────────────
-OWNER_GITHUB="${OWNER_GITHUB:-helena751107}"
-GITHUB_REPO="${GITHUB_REPO:-helena_phone}"
+OWNER_GITHUB="${OWNER_GITHUB:-bayaba-1979}"
+GITHUB_REPO="${GITHUB_REPO:-bayaba_phone}"
 WORK_DIR="${WORK_DIR:-/root/work}"
 DEEPSEEK_API_KEY="${DEEPSEEK_API_KEY:-}"
 SSH_PORT="${SSH_PORT:-2222}"           # WSL SSH 포트 (Windows와 충돌 방지)

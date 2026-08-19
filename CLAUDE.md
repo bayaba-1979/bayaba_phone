@@ -266,7 +266,7 @@ URL="https://페이지주소" EP=에피소드ID bash scripts/produce_pd.sh "$EP"
 ## 파일 구조 — 우리 집 지도
 
 ```
-helena_phone/
+bayaba_phone/
 ├── CONSTITUTION.md  ← 헌법 (무엇을, 왜)
 ├── CLAUDE.md        ← 실무 규칙 (어떻게)
 ├── index.html       ← 랜딩 포털
@@ -301,7 +301,7 @@ helena_phone/
 ├── Discord S21 Phone 서버 (#로비, #ai-보고)
 ├── Telegram @S21Phone_Bot (tg.sh 보고)
 ├── 티스토리 5종 (수동 업무일지)
-├── YouTube @helena_phone (OAuth 완료)
+├── YouTube @남성훈-f7i (OAuth 완료)
 └── 네이버 helena1975 (웹진·미끼)
 ```
 

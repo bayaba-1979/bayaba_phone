@@ -18,7 +18,7 @@
 
 ```bash
 # 레포 클론
-gh repo clone helena751107/helena-programming
+gh repo clone bayaba-1979/helena-programming
 
 # 온디바이스: APK 빌드 (GitHub Actions 수동 트리거)
 gh workflow run build-apk.yml

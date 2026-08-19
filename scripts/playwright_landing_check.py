@@ -6,7 +6,7 @@ Playwright E2E — S21 랜딩페이지 + 설치 플로우 전수 검사
 import sys, time
 from playwright.sync_api import sync_playwright
 
-BASE = "https://helena751107.github.io/helena_phone"
+BASE = "https://bayaba-1979.github.io/bayaba_phone"
 RESULTS = []  # (label, pass:bool, detail)
 
 def check(label, ok, detail=""):
@@ -90,7 +90,7 @@ def main():
             check("cat S21-START.txt 텍스트", page.locator("text=cat S21-START.txt").count() > 0)
 
             # 페이지 링크 확인
-            pages_link = page.locator(f"a[href*='helena751107.github.io/helena_phone/']")
+            pages_link = page.locator(f"a[href*='bayaba-1979.github.io/bayaba_phone/']")
             check("Pages URL 링크", pages_link.count() > 0)
 
         page.screenshot(path="/root/work/_notebook/playwright-check-install.png", full_page=False)
@@ -127,11 +127,11 @@ def main():
         check("termux-setup HTTP 200", resp3.status == 200, f"status={resp3.status}")
         check("F-Droid 언급", page.locator("text=F-Droid").count() > 0)
         check("pkg install 언급", page.locator("text=pkg install").count() > 0)
-        # 제네릭 검증: helena751107 없어야 함
+        # 제네릭 검증: bayaba-1979 없어야 함
         body3 = page.locator("body").inner_text()
-        has_account = "helena751107" in body3 or "helena1975" in body3
+        has_account = "bayaba-1979" in body3 or "helena1975" in body3
         check("계정정보 0건 (제네릭)", not has_account,
-              "helena751107 발견됨" if has_account else "깨끗함")
+              "bayaba-1979 발견됨" if has_account else "깨끗함")
 
         # ────────────────────────────────────────
         # 5. foundation/proot-ubuntu.html
@@ -141,9 +141,9 @@ def main():
         check("proot-ubuntu HTTP 200", resp4.status == 200, f"status={resp4.status}")
         check("proot-distro 언급", page.locator("text=proot-distro").count() > 0)
         body4 = page.locator("body").inner_text()
-        has_account2 = "helena751107" in body4 or "helena1975" in body4
+        has_account2 = "bayaba-1979" in body4 or "helena1975" in body4
         check("계정정보 0건 (제네릭)", not has_account2,
-              "helena751107 발견됨" if has_account2 else "깨끗함")
+              "bayaba-1979 발견됨" if has_account2 else "깨끗함")
 
         # ────────────────────────────────────────
         # 6. g/easy.html (easy.sh 소스뷰어)
@@ -155,7 +155,7 @@ def main():
               or page.locator("text=OWNER").count() > 0,
               "env override 변수 존재")
         check("TEMPLATE_REPO 파라미터화", page.locator("text=TEMPLATE_REPO").count() > 0
-              or page.locator("text=helena751107/helena_phone").count() > 0)
+              or page.locator("text=bayaba-1979/bayaba_phone").count() > 0)
 
         # ────────────────────────────────────────
         # 7. g/install.html (고급 설치)

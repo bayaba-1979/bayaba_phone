@@ -378,7 +378,7 @@ def build_page(content_html, title, eyebrow=None, subtitle=None, footer_text=Non
     eyebrow_html = f'<div class="eyebrow">{html_mod.escape(eyebrow)}</div>' if eyebrow else ''
     subtitle_html = f'<div class="subtitle">{subtitle}</div>' if subtitle else ''
 
-    footer = footer_text or f'📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: {datetime.now().strftime("%Y-%m-%d")} (_Claude)'
+    footer = footer_text or f'📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://bayaba-1979.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: {datetime.now().strftime("%Y-%m-%d")} (_Claude)'
 
     js = SHARED_JS if include_js else ''
 
@@ -568,7 +568,7 @@ def build_home(pages_dir):
     full_html = build_page(content, "S21 Phone AI 워크스테이션 — 완결 교과서",
                           eyebrow="Helena Programming · Textbook v1.0",
                           subtitle="8 Parts · 31 Chapters · 3개 레포 · S21 단독 운영 · 풀인터랙티브 HTML",
-                          footer_text=f'📚 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · <a href="https://github.com/helena751107/helena-programming" style="color:var(--a)">GitHub</a> · {datetime.now().strftime("%Y-%m-%d")} (_Claude)')
+                          footer_text=f'📚 <a href="https://bayaba-1979.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · <a href="https://github.com/bayaba-1979/helena-programming" style="color:var(--a)">GitHub</a> · {datetime.now().strftime("%Y-%m-%d")} (_Claude)')
 
     output_path = pages_dir / 'index.html'
     output_path.parent.mkdir(parents=True, exist_ok=True)

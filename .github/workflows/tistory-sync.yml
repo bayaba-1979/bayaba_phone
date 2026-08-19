@@ -2,7 +2,7 @@ name: 📰 Tistory RSS → 기자/ (reusable)
 
 # ── 중앙 재사용 워크플로 ─────────────────────────────────────────────────────
 # 5개 레포의 동일한 tistory-sync 로직을 여기 한 곳으로 모은다.
-# 각 레포는 얇은 caller 로 `uses: helena751107/helena_phone/.github/workflows/tistory-sync.yml@main`
+# 각 레포는 얇은 caller 로 `uses: bayaba-1979/bayaba_phone/.github/workflows/tistory-sync.yml@main`
 # + `with: blog: <내 블로그 slug>` 만 쓴다. 로직을 고칠 땐 여기만 고치면 전부 반영.
 #
 # blog 를 required 로 둔 이유: schedule 트리거에서는 workflow_call inputs 가
@@ -31,7 +31,7 @@ on:
       git_email:
         required: false
         type: string
-        default: 'bot@helena.phone'
+        default: 'bayaba-1979@github.com'
 
 jobs:
   sync:

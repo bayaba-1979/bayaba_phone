@@ -8,7 +8,7 @@
 ## 📋 5개 레포 맞춤 구성표
 
 ```
-helena_phone (메인)         helana_log          helana-faith
+bayaba_phone (메인)         helana_log          helana-faith
 ├─ 1-phone-claude            ├─ 2-github-actions  ├─ 3-discord
 ├─ 2-github-actions          ├─ 4-telegram        ├─ 2-github-actions
 ├─ 3-discord                 └─ config             └─ config

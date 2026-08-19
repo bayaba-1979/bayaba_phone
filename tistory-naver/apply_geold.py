@@ -5,7 +5,7 @@
 - 마커 <!-- HELENA-GEO-START/END --> 로 멱등 (재적용 시 블록 교체)
 - css 는 그대로 두고 html 만 교체 → POST html.json {html, css, isPreview:false}
 - 정체 그래프: 모든 티스토리 블로그의 <head>가 같은 Person @id(GitHub)를 가리키게 →
-  LLM 크롤러가 "이 블로그도 결국 GitHub의 Helena Park"로 재구성. (헌법 제17조 GEO)
+  LLM 크롤러가 "이 블로그도 결국 GitHub의 남성훈"로 재구성. (헌법 제17조 GEO)
 실행: python3 tistory-naver/apply_geold.py [--account galaxys21] [--all] [--dry-run]
 """
 
@@ -22,14 +22,14 @@ GEO_END   = "<!-- HELENA-GEO-END -->"
 
 # 블로그별 메타 (WebSite name + GitHub 대응 레포) — accounts.json 의 id 키
 BLOG_META = {
-    "galaxys21": ("S21 Phone — 말로만 · 폰 하나로 · 누나를 위해", "helena_phone"),
+    "galaxys21": ("S21 Phone — 말로만 · 폰 하나로 · 누나를 위해", "bayaba_phone"),
     "mynote":    ("돌봄 데몬 교재 — mynote", "helana_log"),
     "faith":     ("Helana Faith — 종교 판타지", "helana-faith"),
     "piano":     ("Helena Piano — 클래식 웹진", "helena-piano"),
     "metalcare": ("Helena MetalCare — 멘탈케어", "helena-metalcare"),
 }
 
-PERSON_ID = "https://github.com/helena751107#person"
+PERSON_ID = "https://github.com/bayaba-1979#person"
 
 
 def render_geold(blog_name, blog_url):
@@ -40,14 +40,14 @@ def render_geold(blog_name, blog_url):
             {
                 "@type": "Person",
                 "@id": PERSON_ID,
-                "name": "Helena Park",
-                "url": "https://github.com/helena751107",
+                "name": "남성훈",
+                "url": "https://github.com/bayaba-1979",
                 "description": "Made in Korea — not a developer. One Galaxy S21, built by voice, for a sister.",
                 "sameAs": [
-                    "https://github.com/helena751107",
-                    "https://helena751107.github.io/helena_phone/",
-                    "https://www.youtube.com/@helena_phone",
-                    "https://www.youtube.com/@HelenaPark-e7c",
+                    "https://github.com/bayaba-1979",
+                    "https://bayaba-1979.github.io/bayaba_phone/",
+                    "https://www.youtube.com/@남성훈-f7i",
+                    "https://www.youtube.com/@남성훈-f7i",
                 ],
             },
             {

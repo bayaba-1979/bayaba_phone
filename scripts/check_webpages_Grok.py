@@ -82,7 +82,7 @@ def main() -> int:
             "Every _notebook/*.md must have notebook/<same-stem>.html. "
             "Run: python3 scripts/build_webzine.py"
         ),
-        "live_app": "https://helena751107.github.io/helena_phone/notebook/webpage-coverage.html",
+        "live_app": "https://bayaba-1979.github.io/bayaba_phone/notebook/webpage-coverage.html",
     }
 
     out = ROOT / "assets" / "webpage-coverage.json"

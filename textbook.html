@@ -7,35 +7,35 @@
 <meta name="theme-color" content="#0a0908">
 <meta name="application-name" content="S21 Phone">
 <title>폰 하나로 AI 워크스테이션을 짓다 — S21 Phone Webzine</title>
-<link rel="canonical" href="https://helena751107.github.io/helena_phone/textbook.html">
+<link rel="canonical" href="https://bayaba-1979.github.io/bayaba_phone/textbook.html">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Person",
-      "@id": "https://github.com/helena751107#person",
-      "name": "Helena Park",
-      "url": "https://github.com/helena751107",
+      "@id": "https://github.com/bayaba-1979#person",
+      "name": "남성훈",
+      "url": "https://github.com/bayaba-1979",
       "description": "Made in Korea — not a developer. One Galaxy S21, built by voice, for a sister.",
       "sameAs": [
-        "https://github.com/helena751107",
-        "https://helena751107.github.io/helena_phone/",
-        "https://www.youtube.com/@helena_phone",
-        "https://www.youtube.com/@HelenaPark-e7c"
+        "https://github.com/bayaba-1979",
+        "https://bayaba-1979.github.io/bayaba_phone/",
+        "https://www.youtube.com/@남성훈-f7i",
+        "https://www.youtube.com/@남성훈-f7i"
       ]
     },
     {
       "@type": "WebPage",
-      "@id": "https://helena751107.github.io/helena_phone/textbook.html#webpage",
-      "url": "https://helena751107.github.io/helena_phone/textbook.html",
+      "@id": "https://bayaba-1979.github.io/bayaba_phone/textbook.html#webpage",
+      "url": "https://bayaba-1979.github.io/bayaba_phone/textbook.html",
       "name": "폰 하나로 AI 워크스테이션을 짓다",
       "inLanguage": "ko",
       "publisher": {
-        "@id": "https://github.com/helena751107#person"
+        "@id": "https://github.com/bayaba-1979#person"
       },
       "author": {
-        "@id": "https://github.com/helena751107#person"
+        "@id": "https://github.com/bayaba-1979#person"
       }
     }
   ]
@@ -280,9 +280,9 @@
 <hr>
 <h2 id="1-day-1-2026-07-23">제1부 — DAY 1: 기반 구축 (2026-07-23)</h2>
 <h3 id="1-gugudanpy-github">[1] 첫 삽: gugudan.py → GitHub</h3>
-<p><code>gugudan.py</code>(구구단 출력, 테스트 파일)에서 시작. Git init → GitHub <code>s21-work</code> 레포 생성(helena751107 계정) → push 파이프 개통.</p>
+<p><code>gugudan.py</code>(구구단 출력, 테스트 파일)에서 시작. Git init → GitHub <code>s21-work</code> 레포 생성(bayaba-1979 계정) → push 파이프 개통.</p>
 <blockquote>
-<p><strong>이걸 코드로:</strong> <code>git init &amp;&amp; git remote add origin https://github.com/helena751107/...</code></p>
+<p><strong>이걸 코드로:</strong> <code>git init &amp;&amp; git remote add origin https://github.com/bayaba-1979/...</code></p>
 </blockquote>
 <h3 id="2-claude-code-deepseek">[2] Claude Code + DeepSeek</h3>
 <p>ANTHROPIC_BASE_URL을 DeepSeek 엔드포인트로 배선. Claude Code의 UI/도구는 그대로, LLM만 DeepSeek로 교체. 비용 약 10~50배 절감. Claude Code는 애초에 모델-불가지론적 클라이언트라 엔드포인트만 갈아끼우면 된다.</p>
@@ -292,7 +292,7 @@ export ANTHROPIC_MODEL=deepseek-v4-pro  # 2026-07-24 deepseek-chat 폐기 대응
 <h3 id="3-github-pages">[3] GitHub Pages 개통</h3>
 <p>브라우저 클릭 없이 API로 직접 활성화. <code>POST /repos/{owner}/{repo}/pages</code>. index.html — &ldquo;S21 Workstation Live&rdquo; 발행. HTTP 200 + 내용 정상까지 확인.</p>
 <h3 id="48-giscusdiscordtelegramgit-hooks">[4~8] 레포 개명·Giscus·Discord·Telegram·Git hooks</h3>
-<p>레포 <code>s21-work</code> → <code>helena_phone</code> 개명(PATCH API → remote 갱신 → Pages 리다이렉트 확인). Discussions 활성화 + Giscus 댓글 연결. Discord 서버 &ldquo;S21 Phone&rdquo; API로 생성(#로비·#ai-보고·WidgetBot Crate v3). Telegram @S21Phone_Bot + <code>tg.sh</code> 보고 스크립트. Git hooks(post-commit/post-merge) 삭제 — 알림 과잉 → 수동 보고 체계로.</p>
+<p>레포 <code>s21-work</code> → <code>bayaba_phone</code> 개명(PATCH API → remote 갱신 → Pages 리다이렉트 확인). Discussions 활성화 + Giscus 댓글 연결. Discord 서버 &ldquo;S21 Phone&rdquo; API로 생성(#로비·#ai-보고·WidgetBot Crate v3). Telegram @S21Phone_Bot + <code>tg.sh</code> 보고 스크립트. Git hooks(post-commit/post-merge) 삭제 — 알림 과잉 → 수동 보고 체계로.</p>
 <blockquote>
 <p><strong>이걸 코드로:</strong> <code>g/install.sh</code> 1~3단계. 통신망 3종은 GitHub·Discord·Telegram API 호출로 전부 자동화됨.</p>
 </blockquote>
@@ -340,7 +340,7 @@ export ANTHROPIC_MODEL=deepseek-v4-pro  # 2026-07-24 deepseek-chat 폐기 대응
 </thead>
 <tbody>
 <tr>
-<td>helena_phone</td>
+<td>bayaba_phone</td>
 <td>📱 S21 폰 최적화 바이블</td>
 <td>REDACTED admin</td>
 </tr>
@@ -435,7 +435,7 @@ export ANTHROPIC_MODEL=deepseek-v4-pro  # 2026-07-24 deepseek-chat 폐기 대응
 <hr>
 <h2 id="6-youtube-oauth-2026-07-24">제6부 — YouTube OAuth + 헌법 제정 (2026-07-24)</h2>
 <h3 id="27-youtube-oauth">[27] YouTube OAuth 인증 완료</h3>
-<p>GCP 프로젝트 S21 YouTube(ID: 911931724403), 채널 Helena Park(@helenapark-e7c, UCRUuiKCCwIbyvqlxTNpDfKw). 인증 방식: <strong>TV Device Flow</strong>(google.com/device) — 콘솔 GUI 없이 폰으로 인증 가능한 유일한 경로. 막혔던 지점: 테스트 사용자 미등록(403 access_denied) → OAuth 동의 화면에서 수동 추가. YouTube Data API 미활성화 → 콘솔에서 활성화. 액세스 토큰 + 리프레시 토큰 <code>.secrets.env</code>에 저장.</p>
+<p>GCP 프로젝트 S21 YouTube(ID: 911931724403), 채널 남성훈(@helenapark-e7c, UCRUuiKCCwIbyvqlxTNpDfKw). 인증 방식: <strong>TV Device Flow</strong>(google.com/device) — 콘솔 GUI 없이 폰으로 인증 가능한 유일한 경로. 막혔던 지점: 테스트 사용자 미등록(403 access_denied) → OAuth 동의 화면에서 수동 추가. YouTube Data API 미활성화 → 콘솔에서 활성화. 액세스 토큰 + 리프레시 토큰 <code>.secrets.env</code>에 저장.</p>
 <blockquote>
 <p><strong>이걸 코드로:</strong> <code>bash scripts/yt_oauth_setup.sh</code> — Device Code Flow 자동 폴링 + 토큰 저장. 인증 완료 후 <code>python3 scripts/yt_upload.py --title "제목" --file video.mp4</code> 로 업로드.</p>
 </blockquote>
@@ -601,7 +601,7 @@ export ANTHROPIC_MODEL=deepseek-v4-pro  # 2026-07-24 deepseek-chat 폐기 대응
 <h2 id="8-2026-07-25">제8부 — 오늘 구축한 것들 (2026-07-25)</h2>
 <p>Boss 디렉션: &ldquo;내가 디렉션하고 문제 정의하면 나머지는 너네가 하는 거다. 다 구축해.&rdquo;</p>
 <h3 id="ginstallsh-364-1">✅ g/install.sh (364줄) — 1줄 설치기</h3>
-<pre><code class="language-bash">curl -sL https://raw.github.com/helena751107/helena_phone/main/g/install.sh | bash
+<pre><code class="language-bash">curl -sL https://raw.github.com/bayaba-1979/bayaba_phone/main/g/install.sh | bash
 </code></pre>
 <p>8단계 자동화: 환경체크 → Termux 패키지 → proot Ubuntu → GitHub 클론 → Claude Code+DeepSeek → phone-mcp-server → Telegram 봇 → 건강검진 → CONSTITUTION 동의 확인. <strong>비용 0원.</strong></p>
 <h3 id="care-1-394">✅ care/ — 트랙 1 돌봄 데몬 (394줄)</h3>
@@ -714,7 +714,7 @@ export ANTHROPIC_MODEL=deepseek-v4-pro  # 2026-07-24 deepseek-chat 폐기 대응
 <tr>
 <td>galaxys21-pwuser</td>
 <td>S21 Phone</td>
-<td>helena_phone</td>
+<td>bayaba_phone</td>
 <td>📱 폰 최적화 바이블</td>
 </tr>
 <tr>
@@ -801,7 +801,7 @@ export ANTHROPIC_MODEL=deepseek-v4-pro  # 2026-07-24 deepseek-chat 폐기 대응
 <hr>
 <h2 id="_3">설치 — 지금 당장</h2>
 <pre><code class="language-bash"># 1줄 설치
-curl -sL https://raw.github.com/helena751107/helena_phone/main/g/install.sh | bash
+curl -sL https://raw.github.com/bayaba-1979/bayaba_phone/main/g/install.sh | bash
 
 # 돌봄 데몬 (Termux에서)
 bash ~/care/care-setup.sh

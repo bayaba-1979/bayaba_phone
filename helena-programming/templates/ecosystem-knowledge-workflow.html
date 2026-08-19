@@ -161,11 +161,11 @@ details.acc>.acc-body{padding:0 14px 14px overflow-x:hidden}
 <table class="eco-table">
 <thead><tr><th>채널</th><th>테마</th><th>티스토리</th><th>GitHub Repo</th><th>GitHub Pages</th></tr></thead>
 <tbody>
-<tr><td class="ch-name"><span class="chip chip-ph">📱 Phone</span></td><td>S21 최적화 바이블</td><td><a href="https://galaxys21-pwuser.tistory.com">galaxys21-pwuser</a></td><td><a href="https://github.com/helena751107/helena_phone">helena_phone</a></td><td><a href="https://helena751107.github.io/helena_phone/">helena_phone</a></td></tr>
-<tr><td class="ch-name"><span class="chip chip-tch">🗃️ Tech</span></td><td>박씨캡처 리버싱</td><td><a href="https://mynote11605.tistory.com">mynote11605</a></td><td><a href="https://github.com/helena751107/helana_log">helana_log</a></td><td><a href="https://helena751107.github.io/helana_log/">helana_log</a></td></tr>
-<tr><td class="ch-name"><span class="chip chip-fth">✝️ Faith</span></td><td>가족 신앙사</td><td><a href="https://helana-christianity.tistory.com">helana-christianity</a></td><td><a href="https://github.com/helena751107/helana-faith">helena-faith</a></td><td><a href="https://helena751107.github.io/helena-faith/">helena-faith</a></td></tr>
-<tr><td class="ch-name"><span class="chip chip-pno">🎹 Piano</span></td><td>피아노 종합</td><td><a href="https://helena-piano.tistory.com">helena-piano</a></td><td><a href="https://github.com/helena751107/helena-piano">helena-piano</a></td><td><a href="https://helena751107.github.io/helena-piano/">helena-piano</a></td></tr>
-<tr><td class="ch-name"><span class="chip chip-psy">🧠 Metalcare</span></td><td>멘탈케어</td><td><a href="https://helena-metalcare.tistory.com">helena-metalcare</a></td><td><a href="https://github.com/helena751107/helena-metalcare">helena-metalcare</a></td><td><a href="https://helena751107.github.io/helena-metalcare/">helena-metalcare</a></td></tr>
+<tr><td class="ch-name"><span class="chip chip-ph">📱 Phone</span></td><td>S21 최적화 바이블</td><td><a href="https://galaxys21-pwuser.tistory.com">galaxys21-pwuser</a></td><td><a href="https://github.com/bayaba-1979/bayaba_phone">bayaba_phone</a></td><td><a href="https://bayaba-1979.github.io/bayaba_phone/">bayaba_phone</a></td></tr>
+<tr><td class="ch-name"><span class="chip chip-tch">🗃️ Tech</span></td><td>박씨캡처 리버싱</td><td><a href="https://mynote11605.tistory.com">mynote11605</a></td><td><a href="https://github.com/bayaba-1979/helana_log">helana_log</a></td><td><a href="https://bayaba-1979.github.io/helana_log/">helana_log</a></td></tr>
+<tr><td class="ch-name"><span class="chip chip-fth">✝️ Faith</span></td><td>가족 신앙사</td><td><a href="https://helana-christianity.tistory.com">helana-christianity</a></td><td><a href="https://github.com/bayaba-1979/helana-faith">helena-faith</a></td><td><a href="https://bayaba-1979.github.io/helena-faith/">helena-faith</a></td></tr>
+<tr><td class="ch-name"><span class="chip chip-pno">🎹 Piano</span></td><td>피아노 종합</td><td><a href="https://helena-piano.tistory.com">helena-piano</a></td><td><a href="https://github.com/bayaba-1979/helena-piano">helena-piano</a></td><td><a href="https://bayaba-1979.github.io/helena-piano/">helena-piano</a></td></tr>
+<tr><td class="ch-name"><span class="chip chip-psy">🧠 Metalcare</span></td><td>멘탈케어</td><td><a href="https://helena-metalcare.tistory.com">helena-metalcare</a></td><td><a href="https://github.com/bayaba-1979/helena-metalcare">helena-metalcare</a></td><td><a href="https://bayaba-1979.github.io/helena-metalcare/">helena-metalcare</a></td></tr>
 </tbody>
 </table>
 </div>
@@ -294,7 +294,7 @@ details.acc>.acc-body{padding:0 14px 14px overflow-x:hidden}
 <figure class="diagram">
 <div class="ltitle" style="margin-bottom:6px;font-weight:700;color:var(--t)">📡 5 Tistory → RSS → GitHub 기자/ → Pages (1:1:1)</div>
 <div class="r" style="gap:3px;font-size:.73rem;margin-bottom:5px">
-<span class="node n-bl">galaxys21-pwuser</span><span class="arr">→</span><span class="node n-a">helena_phone/기자/</span>
+<span class="node n-bl">galaxys21-pwuser</span><span class="arr">→</span><span class="node n-a">bayaba_phone/기자/</span>
 <span style="margin:0 4px;color:var(--bdr)">│</span>
 <span class="node n-g">mynote11605</span><span class="arr">→</span><span class="node n-a">helana_log/기자/</span>
 </div>
@@ -316,14 +316,14 @@ details.acc>.acc-body{padding:0 14px 14px overflow-x:hidden}
 <div class="acc-body">
 <pre>.github/workflows/tistory-sync.yml (레포당 1개)
 
-📱 helena_phone  → blog="galaxys21-pwuser"
+📱 bayaba_phone  → blog="galaxys21-pwuser"
 🗃️ helana_log    → blog="mynote11605"
 ✝️ helana-faith  → blog="helana-christianity"
 🎹 helena-piano  → blog="helena-piano"
 🧠 helena-metalcare → blog="helena-metalcare"
 
 # checkout 안 된 레포는 gh api로 원격 생성:
-gh api repos/helena751107/{repo}/contents/.github/workflows/tistory-sync.yml \
+gh api repos/bayaba-1979/{repo}/contents/.github/workflows/tistory-sync.yml \
   -X PUT -f message="📰 RSS sync" -f content="$(base64 -w0 wf.yml)"</pre>
 </div>
 </details>
@@ -427,11 +427,11 @@ bash log_to_telegram.sh --html logs/2026/08/topic.md
 # git diff 변경분 전체
 bash log_to_telegram.sh --diff</pre></div>
 <div class="tab-panel"><pre># 수동 RSS sync (5레포)
-gh workflow run tistory-sync.yml -R helena751107/helena_phone
-gh workflow run tistory-sync.yml -R helena751107/helana_log
-gh workflow run tistory-sync.yml -R helena751107/helana-faith
-gh workflow run tistory-sync.yml -R helena751107/helena-piano
-gh workflow run tistory-sync.yml -R helena751107/helena-metalcare</pre></div>
+gh workflow run tistory-sync.yml -R bayaba-1979/bayaba_phone
+gh workflow run tistory-sync.yml -R bayaba-1979/helana_log
+gh workflow run tistory-sync.yml -R bayaba-1979/helana-faith
+gh workflow run tistory-sync.yml -R bayaba-1979/helena-piano
+gh workflow run tistory-sync.yml -R bayaba-1979/helena-metalcare</pre></div>
 <div class="tab-panel"><pre># 폰 건강 검진
 bash ~/work/phone-health.sh
 bash ~/work/phone-health.sh --telegram</pre></div>
@@ -483,6 +483,6 @@ python3 scripts/publishing_metrics.py</pre></div>
 <!-- ═══ FOOTER ═══ -->
 <div class="footer">
 <p>S21 Phone — Helena Knowledge Management Ecosystem v2<br>
-🌐 <a href="https://github.com/helena751107" style="color:var(--a);">github.com/helena751107</a> · 📱 @S21Phone_Bot<br>
+🌐 <a href="https://github.com/bayaba-1979" style="color:var(--a);">github.com/bayaba-1979</a> · 📱 @S21Phone_Bot<br>
 생성: 2026-08-10 (_Claude) · Tistory HTML 모드 호환</p>
 </div>

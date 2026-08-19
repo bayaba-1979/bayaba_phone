@@ -16,5 +16,5 @@ S21 Phone의 **방송탑**은 YouTube Data API + OAuth로 운영한다. 채널 �
 ## 스택
 ```
 Claude Code / 스크립트 → YouTube Data API (OAuth)
-                      → @helena_phone 채널 업로드
+                      → @남성훈-f7i 채널 업로드
 ```

@@ -491,9 +491,9 @@ if end_card_enabled:
         f":alpha='if(lt(t,0.3),0,min(1,(t-0.3)*4))',"
         f"drawtext=text='헨드오프가 곧 성공이다':fontcolor=#ffffff:fontsize=28:x=(w-text_w)/2:y=h*0.48:{font_opt}"
         f":alpha='if(lt(t,0.8),0,min(1,(t-0.8)*4))',"
-        f"drawtext=text='@HelenaPark-e7c':fontcolor=#7a7064:fontsize=22:x=(w-text_w)/2:y=h*0.57:{font_opt}"
+        f"drawtext=text='@남성훈-f7i':fontcolor=#7a7064:fontsize=22:x=(w-text_w)/2:y=h*0.57:{font_opt}"
         f":alpha='if(lt(t,1.3),0,min(1,(t-1.3)*4))',"
-        f"drawtext=text='helena751107.github.io':fontcolor=#555555:fontsize=18:x=(w-text_w)/2:y=h*0.65:{font_opt}"
+        f"drawtext=text='bayaba-1979.github.io':fontcolor=#555555:fontsize=18:x=(w-text_w)/2:y=h*0.65:{font_opt}"
         f":alpha='if(lt(t,1.8),0,min(1,(t-1.8)*4))',"
         f"fade=t=in:st=0:d=0.5,vignette=PI/5,format=yuv420p"
     )

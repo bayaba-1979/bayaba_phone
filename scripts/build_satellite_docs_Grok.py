@@ -29,29 +29,29 @@ BRANDS = {
     "helana_log": {
         "name": "Helana Log",
         "accent": "#3db8a8",
-        "home": "https://helena751107.github.io/helana_log/",
-        "hub": "https://helena751107.github.io/helena_phone/",
+        "home": "https://bayaba-1979.github.io/helana_log/",
+        "hub": "https://bayaba-1979.github.io/bayaba_phone/",
         "kicker": "How Helena Lives · Docs",
     },
     "helana-faith": {
         "name": "Helana Faith",
         "accent": "#d4a84b",
-        "home": "https://helena751107.github.io/helana-faith/",
-        "hub": "https://helena751107.github.io/helena_phone/",
+        "home": "https://bayaba-1979.github.io/helana-faith/",
+        "hub": "https://bayaba-1979.github.io/bayaba_phone/",
         "kicker": "Faith · Docs",
     },
     "helena-piano": {
         "name": "Helena Piano",
         "accent": "#8b7cf0",
-        "home": "https://helena751107.github.io/helena-piano/",
-        "hub": "https://helena751107.github.io/helena_phone/",
+        "home": "https://bayaba-1979.github.io/helena-piano/",
+        "hub": "https://bayaba-1979.github.io/bayaba_phone/",
         "kicker": "Studio · Docs",
     },
     "helena-metalcare": {
         "name": "Helena MetalCare",
         "accent": "#e85d4c",
-        "home": "https://helena751107.github.io/helena-metalcare/",
-        "hub": "https://helena751107.github.io/helena_phone/",
+        "home": "https://bayaba-1979.github.io/helena-metalcare/",
+        "hub": "https://bayaba-1979.github.io/bayaba_phone/",
         "kicker": "Care · Docs",
     },
 }
@@ -78,7 +78,7 @@ def shell(brand: dict, title: str, deck: str, body: str, src: str, rel_home: str
 <link rel="manifest" href="{rel_home}site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,600&family=JetBrains+Mono:wght@400&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://helena751107.github.io/helena_phone/assets/webzine.css">
+<link rel="stylesheet" href="https://bayaba-1979.github.io/bayaba_phone/assets/webzine.css">
 <style>
 :root {{
   --ink:#f4efe6; --ink-dim:#b5a999; --ink-mute:#7a7064;
@@ -307,7 +307,7 @@ def build_repo(root: Path, brand_key: str) -> list[str]:
 
 
 def main() -> int:
-    base = Path(__file__).resolve().parents[1]  # /root/work/ (helena_phone root)
+    base = Path(__file__).resolve().parents[1]  # /root/work/ (bayaba_phone root)
     mapping = {
         "helana_log": base / "helana_log",
         "helana-faith": base / "helana-faith",

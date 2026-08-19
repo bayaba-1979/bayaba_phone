@@ -19,10 +19,10 @@ def log(msg: str):
         f.write(line + "\n")
 
 def find_tg_script() -> str | None:
-    """tg.sh 위치 찾기 — helena_phone 레포의 tg.sh"""
+    """tg.sh 위치 찾기 — bayaba_phone 레포의 tg.sh"""
     candidates = [
         "/root/work/tg.sh",
-        "/root/work/helena_phone/tg.sh",
+        "/root/work/bayaba_phone/tg.sh",
     ]
     for c in candidates:
         if os.path.exists(c):

@@ -284,7 +284,7 @@ FINAL_MSG="📊 <b>로그 → Telegram 전송 완료</b> (${MODE_LABEL})%0A✅ $
 if [ "$FAILED" -gt 0 ]; then
   FINAL_MSG="${FINAL_MSG} · ❌ ${FAILED}건 실패"
 fi
-FINAL_MSG="${FINAL_MSG}%0A🔗 <a href='https://github.com/helena751107/helana_log'>helana_log</a>"
+FINAL_MSG="${FINAL_MSG}%0A🔗 <a href='https://github.com/bayaba-1979/helana_log'>helana_log</a>"
 
 curl -s -X POST "https://api.telegram.org/bot${TOKEN}/sendMessage" \
   -d chat_id="$CHAT" \

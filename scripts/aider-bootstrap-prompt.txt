@@ -42,13 +42,13 @@
 
 [9] Git 레포 클론 (WSL)
 - mkdir -p ~/work && cd ~/work
-- git clone --recurse-submodules https://github.com/helena751107/helena_phone.git
+- git clone --recurse-submodules https://github.com/bayaba-1979/bayaba_phone.git
 
 [10] ds 래퍼 설치 (WSL + Windows 양쪽)
 
 WSL (~/bin/ds):
 #!/bin/bash
-REPO="${REPO:-$HOME/work/helena_phone}"
+REPO="${REPO:-$HOME/work/bayaba_phone}"
 MODEL="${DEEPSEEK_MODEL:-deepseek/deepseek-chat}"
 cd "$REPO" || exit 1
 echo "🔧 ds (WSL) — Aider + DeepSeek (${MODEL})"

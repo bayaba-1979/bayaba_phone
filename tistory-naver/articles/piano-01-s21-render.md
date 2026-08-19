@@ -88,7 +88,7 @@ bash bgm/scripts/render.sh --soundfont fluidr3 # Fluid R3 로 전환
 결과물은 곧바로 CDN 주소로 접근 가능하다.
 
 ```
-https://helena751107.github.io/helena-piano/bgm/output/곡제목.mp3
+https://bayaba-1979.github.io/helena-piano/bgm/output/곡제목.mp3
 ```
 
 ## S21 로컬 렌더링: 폰 안에서 직접
@@ -120,14 +120,14 @@ bash bgm/scripts/render.sh
 실제로 들어보려면 아래 주소에서 스트리밍할 수 있다.
 
 ```
-https://helena751107.github.io/helena-piano/bgm/output/bach_prelude_bwv846.mp3
-https://helena751107.github.io/helena-piano/bgm/output/clair_de_lune.mp3
-https://helena751107.github.io/helena-piano/bgm/output/satie_gymnopedie1.mp3
+https://bayaba-1979.github.io/helena-piano/bgm/output/bach_prelude_bwv846.mp3
+https://bayaba-1979.github.io/helena-piano/bgm/output/clair_de_lune.mp3
+https://bayaba-1979.github.io/helena-piano/bgm/output/satie_gymnopedie1.mp3
 ```
 
 ## 이 음악은 어디로 흘러가는가
 
-렌더링된 BGM은 유튜브 채널의 배경음악으로 공급된다. 찬양·클래식 채널(@HelenaPark-e7c)과 연주·브이로그 채널(@helena_phone)에서 같은 곡이 서로 다른 문맥으로 울린다. 다음 기사에서는 레인 2로 넘어가, 이 곡들을 **"감상"의 관점에서** 다시 읽어 볼 예정이다.
+렌더링된 BGM은 유튜브 채널의 배경음악으로 공급된다. 찬양·클래식 채널(@남성훈-f7i)과 연주·브이로그 채널(@남성훈-f7i)에서 같은 곡이 서로 다른 문맥으로 울린다. 다음 기사에서는 레인 2로 넘어가, 이 곡들을 **"감상"의 관점에서** 다시 읽어 볼 예정이다.
 
 ---
 

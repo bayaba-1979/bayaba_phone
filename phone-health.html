@@ -7,35 +7,35 @@
 <meta name="theme-color" content="#0a0908">
 <meta name="application-name" content="S21 Phone">
 <title>phone-health.sh — S21 Phone Webzine</title>
-<link rel="canonical" href="https://helena751107.github.io/helena_phone/phone-health.html">
+<link rel="canonical" href="https://bayaba-1979.github.io/bayaba_phone/phone-health.html">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Person",
-      "@id": "https://github.com/helena751107#person",
-      "name": "Helena Park",
-      "url": "https://github.com/helena751107",
+      "@id": "https://github.com/bayaba-1979#person",
+      "name": "남성훈",
+      "url": "https://github.com/bayaba-1979",
       "description": "Made in Korea — not a developer. One Galaxy S21, built by voice, for a sister.",
       "sameAs": [
-        "https://github.com/helena751107",
-        "https://helena751107.github.io/helena_phone/",
-        "https://www.youtube.com/@helena_phone",
-        "https://www.youtube.com/@HelenaPark-e7c"
+        "https://github.com/bayaba-1979",
+        "https://bayaba-1979.github.io/bayaba_phone/",
+        "https://www.youtube.com/@남성훈-f7i",
+        "https://www.youtube.com/@남성훈-f7i"
       ]
     },
     {
       "@type": "WebPage",
-      "@id": "https://helena751107.github.io/helena_phone/phone-health.html#webpage",
-      "url": "https://helena751107.github.io/helena_phone/phone-health.html",
+      "@id": "https://bayaba-1979.github.io/bayaba_phone/phone-health.html#webpage",
+      "url": "https://bayaba-1979.github.io/bayaba_phone/phone-health.html",
       "name": "phone-health.sh",
       "inLanguage": "ko",
       "publisher": {
-        "@id": "https://github.com/helena751107#person"
+        "@id": "https://github.com/bayaba-1979#person"
       },
       "author": {
-        "@id": "https://github.com/helena751107#person"
+        "@id": "https://github.com/bayaba-1979#person"
       }
     }
   ]
@@ -159,7 +159,7 @@ info &quot;MCP tools: 18 (phone-mcp-server)&quot;
 
 info &quot;Disk: $(df -h /data/data/com.termux/files 2&gt;/dev/null | awk &#x27;NR==2{print $4&quot; free / &quot;$2&quot; total&quot;}&#x27;)&quot;
 
-GH_HTTP=$(curl -s -o /dev/null -w &quot;%{http_code}&quot; --max-time 5 &quot;https://helena751107.github.io/helena_phone/&quot; 2&gt;/dev/null || echo &quot;000&quot;)
+GH_HTTP=$(curl -s -o /dev/null -w &quot;%{http_code}&quot; --max-time 5 &quot;https://bayaba-1979.github.io/bayaba_phone/&quot; 2&gt;/dev/null || echo &quot;000&quot;)
 [ &quot;$GH_HTTP&quot; = &quot;200&quot; ] &amp;&amp; ok &quot;GitHub Pages (HTTP ${GH_HTTP})&quot; || warn &quot;GitHub Pages (HTTP ${GH_HTTP})&quot;
 
 # ============================================================
@@ -393,11 +393,11 @@ NT=$(termux-notification --title &quot;Health Check&quot; \
 sect &quot;9. 네트워크 서비스&quot;
 
 for URL_LABEL in \
-  &quot;helena_phone|https://helena751107.github.io/helena_phone/&quot; \
-  &quot;helana_log|https://github.com/helena751107/helana_log&quot; \
-  &quot;helana-faith|https://github.com/helena751107/helana-faith&quot; \
-  &quot;helena-piano|https://github.com/helena751107/helena-piano&quot; \
-  &quot;helena-metalcare|https://github.com/helena751107/helena-metalcare&quot;; do
+  &quot;bayaba_phone|https://bayaba-1979.github.io/bayaba_phone/&quot; \
+  &quot;helana_log|https://github.com/bayaba-1979/helana_log&quot; \
+  &quot;helana-faith|https://github.com/bayaba-1979/helana-faith&quot; \
+  &quot;helena-piano|https://github.com/bayaba-1979/helena-piano&quot; \
+  &quot;helena-metalcare|https://github.com/bayaba-1979/helena-metalcare&quot;; do
   L=&quot;${URL_LABEL%%|*}&quot;; U=&quot;${URL_LABEL##*|}&quot;
   H=$(curl -s -o /dev/null -w &quot;%{http_code}&quot; --max-time 5 &quot;$U&quot; 2&gt;/dev/null || echo &quot;000&quot;)
   ok &quot;$L (HTTP ${H})&quot;

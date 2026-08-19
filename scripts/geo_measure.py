@@ -30,14 +30,14 @@ import sys
 from pathlib import Path
 
 # ecosystem.json에서 base URL 로드(포크 호환), 없으면 헬레나 기본.
-_OWNER = "helena751107"
+_OWNER = "bayaba-1979"
 try:
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
     from load_ecosystem import owner as _owner, hub_repo as _hub
     _OWNER = _owner() or _OWNER
     _BASE = f"https://{_OWNER}.github.io/{_hub()}/"
 except Exception:
-    _BASE = f"https://{_OWNER}.github.io/helena_phone/"
+    _BASE = f"https://{_OWNER}.github.io/bayaba_phone/"
 
 CORE_PATHS = ["", "robots.txt", "sitemap.xml", "llms.txt"]
 SAMPLE_PAGES = ["constitution.html", "archive.html", "notebook/99-devlog.html"]
@@ -110,7 +110,7 @@ def main() -> int:
             import subprocess as _sp
             html = _sp.run(["curl", "-s", "--max-time", "12", base],
                            capture_output=True, text=True).stdout
-            stamped = "helena751107#person" in html or "#person" in html
+            stamped = "bayaba-1979#person" in html or "#person" in html
             fails += 0 if (html and stamped) else 1
             print(f"  {'✅' if html and stamped else '❌'} {repo:20s} "
                   f"HTTP={'200' if html else '❌'} JSON-LD={'✅' if stamped else '❌'}")

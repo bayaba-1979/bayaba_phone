@@ -27,7 +27,7 @@ tags: 드뷔시, 달빛, 클레르 드 룬, 인상주의, 클래식, 감상
 
 이 감상에 실린 음원은 갤럭시 S21과 GitHub Actions가 만들어 낸 것이다. Salamander Grand Piano — Yamaha C5 그랜드 피아노를 건반별 16단계 강약으로 녹음한 244MB 샘플 — 이 MIDI 악보를 따라 연주했다.
 
-:::audio https://helena751107.github.io/helena-piano/bgm/output/clair_de_lune.mp3|Clair de Lune — Salamander (Yamaha C5) 렌더
+:::audio https://bayaba-1979.github.io/helena-piano/bgm/output/clair_de_lune.mp3|Clair de Lune — Salamander (Yamaha C5) 렌더
 
 샘플 기반 합성은 "연주"가 아니라 "조합"이다. 사람의 손이 아니라, 악보의 지시(MIDI)가 건반 하나하나의 샘플을 호출해 음색을 만든다. 그래서 이 달빛에는 페달의 잡음도, 의자의 삐걱임도 없다. 오직 음표들만이 — 마치 드뷔시가 악보 위에 남긴 그 빛의 파편들만이 남는다.
 

@@ -23,7 +23,7 @@ from playwright.sync_api import sync_playwright
 with sync_playwright() as p:
     b = p.chromium.launch()
     page = b.new_page()
-    page.goto('https://helena751107.github.io/helena-programming/web/public/')
+    page.goto('https://bayaba-1979.github.io/helena-programming/web/public/')
     page.screenshot(path='page.png', full_page=True)
 "
 ```
@@ -61,7 +61,7 @@ ffmpeg -loop 1 -i page.png -i voice.mp3 \
 | 단계 | 상태 | 위치 |
 |------|------|------|
 | ① 웹페이지 생성 | 🟡 구조만 | `mcp/mcp_server.py` render_diagram |
-| ② 스크린샷 | 🟢 보유 | `helena_phone/tistory-naver/session_post.py` |
+| ② 스크린샷 | 🟢 보유 | `bayaba_phone/tistory-naver/session_post.py` |
 | ③ TTS 더빙 | 🟢 보유 | `REDACTED/parksy-audio/` phone_rvc.py |
 | ④ 이미지→영상 | 🔴 미구현 | clip-shorts에 추가 예정 |
 | ⑤ 클립 이어붙이기 | 🟢 보유 | `apps/clip-shorts/` (FFmpeg.wasm PWA) |

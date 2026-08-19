@@ -3,8 +3,8 @@
   "_principle": "각 채널은 독립된 정체성. 모든 콘텐츠는 Layer A(인간·STT) → Layer B(에이전트·API) 파이프라인으로 발행.",
 
   "main_hub": {
-    "youtube_main": "@HelenaPark-e7c (UCRUuiKCCwIbyvqlxTNpDfKw)",
-    "youtube_first_brand": "@helena_phone (UC_IPajoyj6_IO8wt9JwVCAQ) ✅ 2026-07-25 생성",
+    "youtube_main": "@남성훈-f7i (UCRUuiKCCwIbyvqlxTNpDfKw)",
+    "youtube_first_brand": "@남성훈-f7i (UC_IPajoyj6_IO8wt9JwVCAQ) ✅ 2026-07-25 생성",
     "naver": "helena1975",
     "naver_role": "관제탑 — 전체 교차홍보 게이트웨이 (그림첩/이미지 중심)",
     "discord_server": "S21 Phone",
@@ -30,9 +30,9 @@
         "posts": 0
       },
       "youtube": {
-        "channel": "@helena_phone ✅",
+        "channel": "@남성훈-f7i ✅",
         "channel_id": "UC_IPajoyj6_IO8wt9JwVCAQ",
-        "handle": "@helena_phone",
+        "handle": "@남성훈-f7i",
         "created": "2026-07-25",
         "playlists": [
           {"name": "S21 셋업 가이드", "id": "PLJSop2E1aaV4", "topic": "Termux→proot→ClaudeCode→MCP 전체 설치"},
@@ -43,8 +43,8 @@
         "content_type": "튜토리얼·셋업·설치·설정가이드"
       },
       "github": {
-        "repo": "helena_phone",
-        "pages": "https://helena751107.github.io/helena_phone/",
+        "repo": "bayaba_phone",
+        "pages": "https://bayaba-1979.github.io/bayaba_phone/",
         "role": "코드 저장소 + 문서 + Pages"
       },
       "discord_notify": "#로비",
@@ -70,7 +70,7 @@
       },
       "github": {
         "repo": "helana_log",
-        "pages": "https://helena751107.github.io/helana_log/",
+        "pages": "https://bayaba-1979.github.io/helana_log/",
         "role": "APK 분석 + 로그 저장소 + MCP 코드"
       },
       "discord_notify": "#로비",
@@ -96,7 +96,7 @@
       },
       "github": {
         "repo": "helena-faith",
-        "pages": "https://helena751107.github.io/helena-faith/",
+        "pages": "https://bayaba-1979.github.io/helena-faith/",
         "role": "신학 문서 + 가족사 아카이브"
       },
       "discord_notify": "#로비",
@@ -122,7 +122,7 @@
       },
       "github": {
         "repo": "helena-piano",
-        "pages": "https://helena751107.github.io/helena-piano/",
+        "pages": "https://bayaba-1979.github.io/helena-piano/",
         "role": "MIDI파일·REAPER프로젝트·AI음원·악보"
       },
       "discord_notify": "#로비",
@@ -148,7 +148,7 @@
       },
       "github": {
         "repo": "helena-metalcare",
-        "pages": "https://helena751107.github.io/helena-metalcare/",
+        "pages": "https://bayaba-1979.github.io/helena-metalcare/",
         "role": "분석코드·MCP모델·문헌·케이스스터디"
       },
       "discord_notify": "#로비",
@@ -197,10 +197,10 @@
         "phase": 1,
         "date": "2026-07-25",
         "name": "S21 Phone",
-        "handle": "@helena_phone",
+        "handle": "@남성훈-f7i",
         "id": "UC_IPajoyj6_IO8wt9JwVCAQ",
         "tistory": "galaxys21-pwuser",
-        "github": "helena_phone",
+        "github": "bayaba_phone",
         "playlist_count": 4,
         "topic": "📱 컴퓨터·폰 셋업·설치·STT코딩"
       }
@@ -214,9 +214,9 @@
   },
 
   "phase1_content_plan": {
-    "channel": "@helena_phone",
+    "channel": "@남성훈-f7i",
     "first_upload_target": "S21 셋업 가이드 — Termux 설치부터 Claude Code까지",
-    "pipeline": "STT음성 → Claude Code → scripts/yt_upload.py → @helena_phone → tg.sh 보고 → 티스토리 크로스포스트",
+    "pipeline": "STT음성 → Claude Code → scripts/yt_upload.py → @남성훈-f7i → tg.sh 보고 → 티스토리 크로스포스트",
     "video_ideas": [
       "1. S21에 Termux + proot Ubuntu 설치하기 (10분)",
       "2. Claude Code 첫 실행 — 말로 코딩 시작하기 (10분)",

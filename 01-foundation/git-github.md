@@ -33,7 +33,7 @@ git push
 
 ```bash
 git remote -v
-# origin → https://github.com/사용자명/helena_phone.git
+# origin → https://github.com/사용자명/bayaba_phone.git
 
 # 다른 레포도 동일한 방식
 git clone https://github.com/사용자명/helana_log.git

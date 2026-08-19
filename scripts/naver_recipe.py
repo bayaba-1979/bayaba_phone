@@ -66,7 +66,7 @@ def recipe(meta):
 
 ---
 
-{meta.get('footer', f'© {today} Helena Park — helena751107.github.io/helena_phone\n원조 · Origin — github.com/helena751107')}
+{meta.get('footer', f'© {today} 남성훈 — bayaba-1979.github.io/bayaba_phone\n원조 · Origin — github.com/bayaba-1979')}
 """
     return post
 
@@ -93,8 +93,8 @@ Termux + proot Ubuntu + Claude Code + DeepSeek.
         "🛠️ Termux (F-Droid에서 설치)",
         "🐧 proot-distro Ubuntu 26.04",
         "🤖 Claude Code + DeepSeek (무료 LLM)",
-        "📺 YouTube 채널 (@helena_phone)",
-        "📝 GitHub 계정 (helena751107)",
+        "📺 YouTube 채널 (@남성훈-f7i)",
+        "📝 GitHub 계정 (bayaba-1979)",
         "💬 Discord 서버 + Telegram 봇",
         "🎤 STT 음성입력 (키보드 없이 말로만!)"
     ],
@@ -118,14 +118,14 @@ Termux + proot Ubuntu + Claude Code + DeepSeek.
 대필작가-간병인의 손길로 언젠가 누나가 직접 이 시스템을 운영하는 날까지.""",
 
     "links": [
-        "📱 GitHub: github.com/helena751107/helena_phone",
-        "🌐 영문판: helena751107.github.io/helena_phone/index-en.html",
-        "📺 YouTube: youtube.com/@helena_phone",
+        "📱 GitHub: github.com/bayaba-1979/bayaba_phone",
+        "🌐 영문판: bayaba-1979.github.io/bayaba_phone/index-en.html",
+        "📺 YouTube: youtube.com/@남성훈-f7i",
         "💬 Discord: discord.gg/JTYSZv2WQE",
         "📝 업무일지: galaxys21-pwuser.tistory.com"
     ],
 
-    "footer": "© 2026 Helena Park — S21 Phone 프로젝트 | helena751107.github.io/helena_phone\n원조 · Origin — github.com/helena751107"
+    "footer": "© 2026 남성훈 — S21 Phone 프로젝트 | bayaba-1979.github.io/bayaba_phone\n원조 · Origin — github.com/bayaba-1979"
 }
 
 

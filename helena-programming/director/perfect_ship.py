@@ -6,7 +6,7 @@ Perfect Ship — 만점 강제 프로세스 (코드화된 사다리).
 유일한 경로:
 
   python3 perfect_ship.py --url URL --out out/demo.mp4
-  python3 perfect_ship.py --scenario scenarios/helena_phone.json --out out/helena_phone.mp4
+  python3 perfect_ship.py --scenario scenarios/bayaba_phone.json --out out/bayaba_phone.mp4
 
 1) process/perfect_ship_v1.json 사다리 로드
 2) run_director 전체 파이프 (policy+directing 강제)

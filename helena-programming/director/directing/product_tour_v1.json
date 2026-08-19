@@ -232,8 +232,8 @@
     "require_directing_id": "product_tour_v1"
   },
 
-  "helena_phone_defaults": {
-    "url": "https://helena751107.github.io/helena_phone/",
+  "bayaba_phone_defaults": {
+    "url": "https://bayaba-1979.github.io/bayaba_phone/",
     "primary_story": [
       "cover hero + CTA (visual)",
       "tracks accordion open — care vs aspiration",

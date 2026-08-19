@@ -21,27 +21,27 @@ ROOT = Path(__file__).resolve().parents[1]
 SATELLITES = {
     "helana_log": {
         "dir": ROOT / "helana_log",
-        "pages_url": "https://helena751107.github.io/helana_log/",
+        "pages_url": "https://bayaba-1979.github.io/helana_log/",
         "accent": "#3db8a8",
     },
     "helena-piano": {
         "dir": ROOT / "helena-piano",
-        "pages_url": "https://helena751107.github.io/helena-piano/",
+        "pages_url": "https://bayaba-1979.github.io/helena-piano/",
         "accent": "#8b7cf0",
     },
     "helena-faith": {
         "dir": ROOT / "helena-faith",
-        "pages_url": "https://helena751107.github.io/helena-faith/",
+        "pages_url": "https://bayaba-1979.github.io/helena-faith/",
         "accent": "#d4a84b",
     },
     "helena-metalcare": {
         "dir": ROOT / "helena-metalcare",
-        "pages_url": "https://helena751107.github.io/helena-metalcare/",
+        "pages_url": "https://bayaba-1979.github.io/helena-metalcare/",
         "accent": "#e85d4c",
     },
     "helena-programming": {
         "dir": ROOT / "helena-programming",
-        "pages_url": "https://helena751107.github.io/helena-programming/",
+        "pages_url": "https://bayaba-1979.github.io/helena-programming/",
         "accent": "#d4a84b",
     },
 }
@@ -132,7 +132,7 @@ def check_internal_links(md_text: str, md_dir: Path, all_md_stems: set) -> list[
 # ── repo scanners ────────────────────────────────────────────────────────
 
 def scan_main_hub() -> dict:
-    """Scan helena_phone _notebook/ vs notebook/."""
+    """Scan bayaba_phone _notebook/ vs notebook/."""
     nb_dir = ROOT / "_notebook"
     html_dir = ROOT / "notebook"
 
@@ -290,12 +290,12 @@ def main() -> int:
     print("=" * 60)
 
     # Main hub
-    print("\n── helena_phone (main hub) ──")
+    print("\n── bayaba_phone (main hub) ──")
     main_hub = scan_main_hub()
-    _print_repo_report("helena_phone", main_hub)
+    _print_repo_report("bayaba_phone", main_hub)
 
     # Satellites
-    repos = {"helena_phone": main_hub}
+    repos = {"bayaba_phone": main_hub}
     total_md = main_hub["source_md"]
     total_html = main_hub["output_html"]
     total_gaps = main_hub["gap_count"]

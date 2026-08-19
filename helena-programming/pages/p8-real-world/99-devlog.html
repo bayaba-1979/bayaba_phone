@@ -611,7 +611,7 @@ python3<span class="w"> </span>scripts/train_voice.py<span class="w"> </span>--s
 <tbody>
 <tr>
 <td>파이프</td>
-<td><code>perfect_ship.py --url helena_phone --format shorts_1080 --subs --tts auto</code></td>
+<td><code>perfect_ship.py --url bayaba_phone --format shorts_1080 --subs --tts auto</code></td>
 </tr>
 <tr>
 <td>TTS</td>
@@ -1773,7 +1773,7 @@ Boss: 최종 판단만 (SHIP / 폐기)
 <h3>Director PRO v8 소원 풀이 (_Grok)</h3>
 <p><strong>Boss:</strong> 진짜 프로급, 이전 TG보다 훨씬 잘.<br />
 <strong>솔루션:</strong> overlay v5 approach+KenBurns · pro 대본 · CRF17 · 배속 상한 0.72+atempo · 줌 스크롤 버그 수정<br />
-<strong>SHIP:</strong> <code>helena_phone_pro_v8.mp4</code> · VQA 100 · TG 전송<br />
+<strong>SHIP:</strong> <code>bayaba_phone_pro_v8.mp4</code> · VQA 100 · TG 전송<br />
 <strong>문서:</strong> <code>_notebook/60-director-pro-v8-wish_Grok.md</code></p>
 <hr />
 <h3>Grok 영상 프로세스 백서 + TG 첨부 (_Grok)</h3>
@@ -1793,7 +1793,7 @@ Boss: 최종 판단만 (SHIP / 폐기)
 <h3>Director Community A-bar 구현 · pro_v7 (_Grok)</h3>
 <p><strong>리서치:</strong> playwright-recast · Purple Owl · Playwright Screencast<br />
 <strong>구현:</strong> autoZoom · TTS-first freeze/speed-compress · voice_engine · 1080p · --subs<br />
-<strong>SHIP:</strong> <code>out/helena_phone_pro_v7.mp4</code> 1080×1920 · zoom ✓ · 8 clicks · VQA 100 · perfect_ship 10/10<br />
+<strong>SHIP:</strong> <code>out/bayaba_phone_pro_v7.mp4</code> 1080×1920 · zoom ✓ · 8 clicks · VQA 100 · perfect_ship 10/10<br />
 <strong>진입:</strong> <code>perfect_ship.py --format shorts_1080 --subs</code><br />
 <strong>문서:</strong> <code>_notebook/57-director-community-a-bar_Grok.md</code></p>
 <hr />
@@ -1812,19 +1812,19 @@ Boss: 최종 판단만 (SHIP / 폐기)
 <p><strong>Boss:</strong> 초A 올려라. 솔루션.</p>
 <p><strong>죽인 버그:</strong> 커서 메트릭 주차 · multi-click 증발 · 기계 TTS · lead 8s<br />
 <strong>수정:</strong> overlay v4 cursor-lock + soft zoom · multi-click pad · TTS humanize · result hold  </p>
-<p><strong>SHIP:</strong> <code>out/helena_phone_pro_v6.mp4</code><br />
+<p><strong>SHIP:</strong> <code>out/bayaba_phone_pro_v6.mp4</code><br />
 클릭 <strong>8/0</strong> · proof <strong>16/16</strong> · VQA <strong>100 S</strong> · cursor_on_primary · TG 전송<br />
 <strong>문서:</strong> <code>_notebook/55-director-pro-v6-perfect_Grok.md</code></p>
 <hr />
 <h3>Director PRO v5 · 5막 shoot 연주 + TG (_Grok)</h3>
-<p><strong>이어하기:</strong> helena_phone 영상 TG 이력 파싱 → pro_v4 다음 미완(5막 shoot) 구현.</p>
+<p><strong>이어하기:</strong> bayaba_phone 영상 TG 이력 파싱 → pro_v4 다음 미완(5막 shoot) 구현.</p>
 <p><strong>TG 이력 (확인됨):</strong> intro → scout_intro → pro → tutorial → pro_v2 → pro_v3 → pro_v4 → <strong>pro_v5</strong></p>
 <p><strong>구현:</strong>
 - <code>shoot()</code> = establish→focus→act→hold→release (product_tour_v1)
 - <code>phases_played[]</code> + enforce <code>require_phases_played</code>
 - 비트 시계 = VO 길이 (오버런 방지)
 - intro/body 이음 검정 프레임 스킵</p>
-<p><strong>SHIP:</strong> <code>out/helena_phone_pro_v5.mp4</code> · VQA <strong>100/100 S</strong> · clicks 6 · proof 12/12 · TG 전송<br />
+<p><strong>SHIP:</strong> <code>out/bayaba_phone_pro_v5.mp4</code> · VQA <strong>100/100 S</strong> · clicks 6 · proof 12/12 · TG 전송<br />
 <strong>문서:</strong> <code>_notebook/54-director-pro-v5-five-act_Grok.md</code><br />
 <strong>다음:</strong> multi-click 비트 시간 배분 · dtslib Air action_mapper 이식</p>
 <hr />
@@ -1844,7 +1844,7 @@ Boss: 최종 판단만 (SHIP / 폐기)
 2. 수정: nav-lock · concat re-encode · ring cap · VQA ship gate<br />
 3. pro_v4: <strong>auto VQA 100/100 S</strong> · 사람 A+ · TG SHIP 보고</p>
 <p><strong>모듈:</strong> <code>director/vision_qa.py</code> · policy <code>vision_qa_pass_score:85</code><br />
-<strong>산출:</strong> <code>out/helena_phone_pro_v4.mp4</code><br />
+<strong>산출:</strong> <code>out/bayaba_phone_pro_v4.mp4</code><br />
 <strong>문서:</strong> <code>_notebook/52-director-vision-qa-loop_Grok.md</code></p>
 <hr />
 <h3>Scout v2 · ARIA Planner급 커뮤니티 리서치 (_Grok)</h3>
@@ -1854,7 +1854,7 @@ Boss: 최종 판단만 (SHIP / 폐기)
 - <code>page.aria_snapshot()</code> + DOM + <code>getByRole</code> 라이브 검증
 - <code>demo_score</code> 랭킹 · <code>scout_plan.md</code> (Planner 산출)
 - shoot: role locator 우선 → CSS healer</p>
-<p><strong>실측 helena_phone:</strong> aria 7345c · live-verify 28/28 · verified 36/40 interactives<br />
+<p><strong>실측 bayaba_phone:</strong> aria 7345c · live-verify 28/28 · verified 36/40 interactives<br />
 <strong>문서:</strong> <code>_notebook/51-scout-v2-community-research_Grok.md</code></p>
 <hr />
 <h3>Director PRO v3 · Visual Proof 강제 (_Grok)</h3>
@@ -1870,7 +1870,7 @@ Boss: 최종 판단만 (SHIP / 폐기)
 - policy <code>require_visual_proof</code> + min_overlay_version 3
 - PNG unfilter 디코더</p>
 <p><strong>SHIP (진짜):</strong>
-- <code>helena-programming/director/out/helena_phone_pro_v3.mp4</code>
+- <code>helena-programming/director/out/bayaba_phone_pro_v3.mp4</code>
 - 클릭 8/0 · proof <strong>16/16</strong> · G7 <strong>5/5</strong> · 56s · ~3.5MB · ~317s render
 - 문서: <code>_notebook/50-director-pro-v3-visual-proof_Grok.md</code> · 49 갱신</p>
 <p><strong>다음 갭:</strong> Ken Burns / 커서 스플라인 / A-V 비트 타임라인 / 카드 클릭 비트</p>
@@ -1956,7 +1956,7 @@ Boss: 최종 판단만 (SHIP / 폐기)
 <ul>
 <li><code>gugudan.py</code> 생성 (테스트 파일)</li>
 <li>Git 저장소 초기화 (<code>/root/work/</code>)</li>
-<li>GitHub 레포 <code>s21-work</code> 생성 → <code>helena751107/s21-work</code></li>
+<li>GitHub 레포 <code>s21-work</code> 생성 → <code>bayaba-1979/s21-work</code></li>
 <li>GitHub 연결 + push 파이프 개통</li>
 </ul>
 <h3>2. Claude Code + DeepSeek (Anthropic 과금 바이패스)</h3>
@@ -1972,12 +1972,12 @@ ANTHROPIC_MODEL=deepseek-chat
 <ul>
 <li>API로 Pages 활성화: <code>POST /repos/{owner}/{repo}/pages</code></li>
 <li><code>index.html</code> — "S21 Workstation Live" 발행</li>
-<li>Pages URL: <code>helena751107.github.io/helena_phone/</code></li>
+<li>Pages URL: <code>bayaba-1979.github.io/bayaba_phone/</code></li>
 <li>검증: HTTP 200 + 내용 정상</li>
 </ul>
-<h3>4. 레포 개명 <code>s21-work</code> → <code>helena_phone</code></h3>
+<h3>4. 레포 개명 <code>s21-work</code> → <code>bayaba_phone</code></h3>
 <ul>
-<li>API: <code>PATCH /repos/{owner}/{repo}</code> <code>{"name":"helena_phone"}</code></li>
+<li>API: <code>PATCH /repos/{owner}/{repo}</code> <code>{"name":"bayaba_phone"}</code></li>
 <li>로컬 remote 업데이트 + git push 검증</li>
 <li>Pages 새 URL 자동 리다이렉트 확인</li>
 </ul>
@@ -1985,7 +1985,7 @@ ANTHROPIC_MODEL=deepseek-chat
 <ul>
 <li><code>PATCH /repos/{owner}/{repo}</code> <code>{"has_discussions":true}</code></li>
 <li>Giscus: repo-id + Announcements 카테고리 연결</li>
-<li>양쪽 레포(<code>helena_phone</code>, <code>helana_log</code>)에 적용</li>
+<li>양쪽 레포(<code>bayaba_phone</code>, <code>helana_log</code>)에 적용</li>
 </ul>
 <h3>6. 디스코드 서버 구축</h3>
 <ul>
@@ -2041,9 +2041,9 @@ ANTHROPIC_MODEL=deepseek-chat
 </table>
 <ul>
 <li>각 레포: index.html + Pages + Discussions + Giscus + WidgetBot 전부 활성</li>
-<li>현재 총 5개 레포: <code>helena_phone</code>, <code>helana_log</code>, <code>helana-faith</code>, <code>helena-piano</code>, <code>helena-metalcare</code></li>
+<li>현재 총 5개 레포: <code>bayaba_phone</code>, <code>helana_log</code>, <code>helana-faith</code>, <code>helena-piano</code>, <code>helena-metalcare</code></li>
 </ul>
-<h3>10. 포털 사이트 전면 개편 (<code>helena_phone</code> index.html)</h3>
+<h3>10. 포털 사이트 전면 개편 (<code>bayaba_phone</code> index.html)</h3>
 <ul>
 <li>레포지토리 생태계 5종 테이블</li>
 <li>개발일지 타임라인</li>
@@ -2189,7 +2189,7 @@ ANTHROPIC_MODEL=deepseek-chat
 <span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">Git</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">GitHub</span>
 <span class="err">│</span>
 <span class="err">├──</span><span class="w"> </span><span class="err">🌐</span><span class="w"> </span><span class="n">GitHub</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="n">개</span><span class="w"> </span><span class="n">레포</span><span class="w"> </span><span class="n">전면</span><span class="w"> </span><span class="n">재정의</span><span class="p">)</span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">helena_phone</span><span class="w">     </span><span class="err">📱</span><span class="w"> </span><span class="n">S21</span><span class="w"> </span><span class="n">폰</span><span class="w"> </span><span class="n">최적화</span><span class="w"> </span><span class="n">바이블</span><span class="w">        </span><span class="err">✅</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">bayaba_phone</span><span class="w">     </span><span class="err">📱</span><span class="w"> </span><span class="n">S21</span><span class="w"> </span><span class="n">폰</span><span class="w"> </span><span class="n">최적화</span><span class="w"> </span><span class="n">바이블</span><span class="w">        </span><span class="err">✅</span>
 <span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">helana_log</span><span class="w">       </span><span class="err">🗃️</span><span class="w"> </span><span class="n">박식캡처</span><span class="w"> </span><span class="n">리버싱</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">MCP</span><span class="w">      </span><span class="err">✅</span>
 <span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">helana</span><span class="o">-</span><span class="n">faith</span><span class="w">     </span><span class="err">✝️</span><span class="w"> </span><span class="n">가족</span><span class="w"> </span><span class="n">신앙사</span><span class="o">/</span><span class="n">비교종교학</span><span class="w">      </span><span class="err">✅</span>
 <span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">helena</span><span class="o">-</span><span class="n">piano</span><span class="w">     </span><span class="err">🎹</span><span class="w"> </span><span class="n">피아노</span><span class="w"> </span><span class="n">종합</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">음원</span><span class="w"> </span><span class="n">생성</span><span class="w">     </span><span class="err">✅</span>
@@ -2275,7 +2275,7 @@ ANTHROPIC_MODEL=deepseek-chat
 </thead>
 <tbody>
 <tr>
-<td><code>helena_phone</code></td>
+<td><code>bayaba_phone</code></td>
 <td>(메인 포털)</td>
 <td>📱 <strong>S21 폰 최적화 바이블</strong></td>
 <td>5단계 GUIDE + CHRONICLE + configs/scripts</td>
@@ -2326,7 +2326,7 @@ ANTHROPIC_MODEL=deepseek-chat
 </thead>
 <tbody>
 <tr>
-<td>📱 helena_phone</td>
+<td>📱 bayaba_phone</td>
 <td>✅ HTTP 200 "S21 Phone — Workstation"</td>
 <td>—</td>
 <td>12/12 ✅</td>
@@ -2364,7 +2364,7 @@ ANTHROPIC_MODEL=deepseek-chat
 </table>
 <p><strong>발견 및 조치:</strong>
 - <code>helena-metalcare</code> Pages 타이틀에 <code>helena-metalcare</code> 구 이름 잔재 → README.md 수정 + push
-- <code>helena_phone</code> GitHub README는 proot 네트워크 타임아웃 (Pages는 정상, 환경 문제)
+- <code>bayaba_phone</code> GitHub README는 proot 네트워크 타임아웃 (Pages는 정상, 환경 문제)
 - <strong>총 48개 디렉토리/README 전부 존재 확인</strong></p>
 <h3>21. REDACTED 선물 패키지 도착 + 분석 (2026-07-24)</h3>
 <p><strong>REDACTED가 5개 레포에 force push로 선물 패키지 전달.</strong>
@@ -2455,15 +2455,15 @@ cc의 비교 기준은 AI 없이 혼자 타이핑하는 사람 — 그건 지금
 </tr>
 <tr>
 <td>GitHub</td>
-<td><code>github.com/helena751107/helena_phone</code></td>
+<td><code>github.com/bayaba-1979/bayaba_phone</code></td>
 </tr>
 <tr>
 <td>Pages</td>
-<td><code>helena751107.github.io/helena_phone/</code></td>
+<td><code>bayaba-1979.github.io/bayaba_phone/</code></td>
 </tr>
 <tr>
 <td>YouTube</td>
-<td><code>youtube.com/@HelenaPark-e7c</code></td>
+<td><code>youtube.com/@남성훈-f7i</code></td>
 </tr>
 <tr>
 <td>Naver</td>
@@ -2530,7 +2530,7 @@ STT로만 12시간, 식당 노동 병행, 30커밋·98파일·헌법 16조 — "
 <h3>27. YouTube OAuth 인증 완료 (2026-07-24)</h3>
 <ul>
 <li>프로젝트: S21 YouTube (ID: 911931724403)</li>
-<li>채널: Helena Park (<code>@helenapark-e7c</code>, ID: <code>UCRUuiKCCwIbyvqlxTNpDfKw</code>)</li>
+<li>채널: 남성훈 (<code>@helenapark-e7c</code>, ID: <code>UCRUuiKCCwIbyvqlxTNpDfKw</code>)</li>
 <li>인증 방식: TV Device Flow — <code>google.com/device</code></li>
 <li>액세스 토큰 + 리프레시 토큰 발급 완료</li>
 <li>YouTube Data API v3 활성화 완료</li>
@@ -2618,7 +2618,7 @@ GitHub↔YouTube에서 동일 패턴 실증 완료.</p>
 - TV 클라이언트 ID + 시크릿 발급
 - Device Code Flow: <code>google.com/device</code> → <code>XZDJ-SHNM</code>
 - YouTube Data API v3 + YouTube Analytics API 활성화</p>
-<p><strong>결과:</strong> 채널 <code>Helena Park (@helenapark-e7c, UCRUuiKCCwIbyvqlxTNpDfKw)</code> 연결 성공.
+<p><strong>결과:</strong> 채널 <code>남성훈 (@helenapark-e7c, UCRUuiKCCwIbyvqlxTNpDfKw)</code> 연결 성공.
 액세스 토큰 + 리프레시 토큰 <code>.secrets.env</code>에 저장.</p>
 <p><strong>문제 해결:</strong> 테스트 사용자 미등록 → 403 access_denied 해결. API 미활성화 → 콘솔에서 활성화.</p>
 <h3>35. Playwright 자동화 환경 구축 (2026-07-24)</h3>
@@ -2853,12 +2853,12 @@ Claude API로 스레드 이미지 URL 별도 수집 파이프 고려.</p>
 </code></pre></div>
 
 <h3>43. YouTube 브랜드 채널 Phase 1 + 워크센터 정의 (2026-07-25)</h3>
-<p><strong>@helena_phone 브랜드 채널 연결:</strong>
-- UC_IPajoyj6_IO8wt9JwVCAQ (@helena_phone) 생성 확인 → galaxys21-pwuser → helena_phone 1:1 매핑
+<p><strong>@남성훈-f7i 브랜드 채널 연결:</strong>
+- UC_IPajoyj6_IO8wt9JwVCAQ (@남성훈-f7i) 생성 확인 → galaxys21-pwuser → bayaba_phone 1:1 매핑
 - 채널 브랜딩: 설명·키워드 설정
 - 4개 플레이리스트: S21 셋업 가이드·STT 음성 코딩·폰 건강 검진·0원 풀스택 인프라</p>
 <p><strong>Phase 1~5 로드맵:</strong>
-- Phase 1 (7월): @helena_phone ✅ — 컴퓨터 셋업부터 시작
+- Phase 1 (7월): @남성훈-f7i ✅ — 컴퓨터 셋업부터 시작
 - Phase 2~5: 8~11월 매월 25일 CronCreate 리마인더 등록 완료
 - Google 브랜드 계정 생성 제한 — 월 1개. 11월에 5x5 완성.</p>
 <p><strong>워크센터 7종 정의:</strong>
@@ -3023,7 +3023,7 @@ YouTube 강의(Claude Code 완성본)로 들어와서 수익이 된다.</p>
 <blockquote>
 <p><strong>agent mark:</strong> <code>_Grok</code><br />
 세션 주체: <strong>Grok (SuperGrok / Grok Build TUI)</strong><br />
-작업 루트: <code>/root/work</code> (helena_phone) · <code>/tmp/sites/*</code> (위성 Pages)<br />
+작업 루트: <code>/root/work</code> (bayaba_phone) · <code>/tmp/sites/*</code> (위성 Pages)<br />
 주제 축: 에이전트 운용 · 웹진 랜딩 · 홈 화면 아이콘 · <strong>행정 대화록 정체성</strong><br />
 수첩 세션 파일: <code>_notebook/session-2026-07-26_Grok.md</code><br />
 마크 규약: <code>_notebook/30-agent-file-marks.md</code> (_Shared)</p>
@@ -3081,7 +3081,7 @@ YouTube 강의(Claude Code 완성본)로 들어와서 수익이 된다.</p>
 - 색상 설정 정리
 - <strong>stuck Aider는 <code>pgrep -f</code> 단독이 아니라 PID 기준 종료</strong> (오탐·미종료 방지)
 - 복구 후 <code>ds</code>가 보조 코딩 레인으로 다시 사용 가능하게</p>
-<h3>54. helena_phone — A급 웹진 랜딩 (Playwright 검증)</h3>
+<h3>54. bayaba_phone — A급 웹진 랜딩 (Playwright 검증)</h3>
 <p><strong>목표:</strong> 갤럭시 S21 워크스테이션 서사를 <strong>에디토리얼 웹진</strong>으로 랜딩</p>
 <p><strong>구현 요약</strong>
 - <code>index.html</code> 전면 개편: masthead, chapter rail, cover, accordion 챕터, install 섹션
@@ -3099,11 +3099,11 @@ YouTube 강의(Claude Code 완성본)로 들어와서 수익이 된다.</p>
 <p><strong>Install (PWA 아님)</strong>
 - <strong>서비스 워커 없음</strong>
 - <code>site.webmanifest</code> + <code>icons/</code> (16/32/192/512/maskable/svg/apple-touch)
-- <code>start_url</code> / <code>scope</code> 절대 경로: <code>/helena_phone/</code>
+- <code>start_url</code> / <code>scope</code> 절대 경로: <code>/bayaba_phone/</code>
 - Chrome/Edge “홈 화면에 추가” 아이콘 정상 목표</p>
-<p><strong>라이브:</strong> https://helena751107.github.io/helena_phone/</p>
+<p><strong>라이브:</strong> https://bayaba-1979.github.io/bayaba_phone/</p>
 <h3>55. 생태계 위성 4종 — 웹진 랜딩 통일</h3>
-<p>각 레포에 helena_phone 톤의 랜딩 + Giscus + 생태계 링크 바:</p>
+<p>각 레포에 bayaba_phone 톤의 랜딩 + Giscus + 생태계 링크 바:</p>
 <table>
 <thead>
 <tr>
@@ -3114,19 +3114,19 @@ YouTube 강의(Claude Code 완성본)로 들어와서 수익이 된다.</p>
 <tbody>
 <tr>
 <td>helana_log</td>
-<td>https://helena751107.github.io/helana_log/</td>
+<td>https://bayaba-1979.github.io/helana_log/</td>
 </tr>
 <tr>
 <td>helana-faith</td>
-<td>https://helena751107.github.io/helana-faith/</td>
+<td>https://bayaba-1979.github.io/helana-faith/</td>
 </tr>
 <tr>
 <td>helena-piano</td>
-<td>https://helena751107.github.io/helena-piano/</td>
+<td>https://bayaba-1979.github.io/helena-piano/</td>
 </tr>
 <tr>
 <td>helena-metalcare</td>
-<td>https://helena751107.github.io/helena-metalcare/</td>
+<td>https://bayaba-1979.github.io/helena-metalcare/</td>
 </tr>
 </tbody>
 </table>
@@ -3136,7 +3136,7 @@ YouTube 강의(Claude Code 완성본)로 들어와서 수익이 된다.</p>
 <li>텔레그램 안내는 <strong>URL 위주</strong> (장문 HTML 대신)</li>
 </ul>
 <h3>56. 전 레포 파비콘 · 매니페스트 (서비스 워커 없음)</h3>
-<p><strong>요구:</strong> helena_phone처럼 “바로 가기 추가 시 아이콘” — SW 없이</p>
+<p><strong>요구:</strong> bayaba_phone처럼 “바로 가기 추가 시 아이콘” — SW 없이</p>
 <p><strong>아이콘 생성</strong>
 - Playwright로 SVG 모노그램 → PNG 일괄
   - Log <strong>L</strong> 청록 · Faith <strong>F</strong> 금 · Piano <strong>P</strong> 라일락 · MetalCare <strong>C</strong> 코랄
@@ -3193,9 +3193,9 @@ YouTube 강의(Claude Code 완성본)로 들어와서 수익이 된다.</p>
 6. <code>#solutions</code> 솔루션 보드 (위기 1p / 갱신 체크 / 타임라인 / 질문 카드)
 7. 경계 · 문서 지도 · 홈 화면 추가 · Giscus</p>
 <p><strong>커밋:</strong> <code>a3b8ae9</code> — <em>Expand landing with on-page charter, method, and dialogue</em><br />
-<strong>라이브:</strong> https://helena751107.github.io/helana_log/ (캐시 시 hard refresh)</p>
+<strong>라이브:</strong> https://bayaba-1979.github.io/helana_log/ (캐시 시 hard refresh)</p>
 <h3>59. 세션 산출물 맵 (파일·URL)</h3>
-<div class="codehilite"><pre><span></span><code>helena_phone
+<div class="codehilite"><pre><span></span><code>bayaba_phone
   index.html, assets/webzine.*, site.webmanifest, icons/
   scripts/build_webzine.py
   _notebook/99-devlog.md  ← 본 일지
@@ -3210,18 +3210,18 @@ helana-faith / helena-piano / helena-metalcare
 </code></pre></div>
 
 <p><strong>Pages (전부 main 배포 전제, SW 없음)</strong>
-- https://helena751107.github.io/helena_phone/
-- https://helena751107.github.io/helana_log/
-- https://helena751107.github.io/helana-faith/
-- https://helena751107.github.io/helena-piano/
-- https://helena751107.github.io/helena-metalcare/</p>
+- https://bayaba-1979.github.io/bayaba_phone/
+- https://bayaba-1979.github.io/helana_log/
+- https://bayaba-1979.github.io/helana-faith/
+- https://bayaba-1979.github.io/helena-piano/
+- https://bayaba-1979.github.io/helena-metalcare/</p>
 <h3>60. 다음 액션 (일지 기준 백로그)</h3>
 <ul>
 <li>[ ] helana_log: 실제 창구·전화 후 <code>docs/dialogue/</code> 템플릿 1편</li>
 <li>[ ] <code>docs/solutions/dw-crisis-map.md</code> 위기 연락 1페이지</li>
 <li>[ ] BL 갱신 체크리스트 · DC 하루 타임라인</li>
 <li>[ ] 위성 랜딩 카피 중 아직 “학습 로그” 잔향 있으면 트랙별 톤 정리</li>
-<li>[ ] helena_phone 허브 카피에 helana_log <strong>행정 대화록</strong> 한 줄 반영</li>
+<li>[ ] bayaba_phone 허브 카피에 helana_log <strong>행정 대화록</strong> 한 줄 반영</li>
 <li>[ ] 노출된 토큰 패턴 있으면 재발급·로그 마스킹 (이전 ParksyLog 경고와 동일 원칙)</li>
 </ul>
 <h3>61. 교훈 (이번 세션)</h3>
@@ -3287,7 +3287,7 @@ helana-faith / helena-piano / helena-metalcare
 <li><code>CLAUDE.md</code> 표·파이프 갱신 · <code>30-agent-file-marks</code> · <code>25-multi-ai</code> §8 · INDEX</li>
 <li>파이프: Boss → 디자이너 시안 → 반장 시공 → 감사 → Boss 최종</li>
 </ul>
-<h3>51. YouTube @helena_phone 5개 플레이리스트 완성 + 첫 영상 (2026-07-26)</h3>
+<h3>51. YouTube @남성훈-f7i 5개 플레이리스트 완성 + 첫 영상 (2026-07-26)</h3>
 <p><strong>플레이리스트 (5/5):</strong>
 | # | 카테고리 | ID |
 |---|---------|-----|
@@ -3300,7 +3300,7 @@ helana-faith / helena-piano / helena-metalcare
 <p><strong>첫 영상:</strong> Boss가 "채널 소개" 샘플 업로드.
 - URL: <code>https://youtu.be/lelb7X3h4VE</code>
 - 상태: public · 0조회 · 2026-07-26
-- @helena_phone 채널의 첫 콘텐츠 🎉</p>
+- @남성훈-f7i 채널의 첫 콘텐츠 🎉</p>
 <p><strong>채널:</strong> UC_IPajoyj6_IO8wt9JwVCAQ · 구독자 0명 · 동영상 1개</p>
 <h3>53. 중간 자기 평가</h3>
 <p><strong>Boss 평가:</strong> "랜딩페이지 5번 갈아엎은 건 네가 역할을 못 해서다. 그래서 Grok에 예시켜서 다른 세션에서 작업하고 있다."</p>
@@ -3312,7 +3312,7 @@ helana-faith / helena-piano / helena-metalcare
 - 실행: install.sh·care-daemon·yt_upload·grok_api 전부 구동되는 코드</p>
 <p>못한 점:
 - <strong>랜딩페이지 디자인</strong>: 시각적 완성도가 Grok 수준에 못 미침. S급 목표였지만 결과는 B+.
-  → Boss가 직접 Grok 세션으로 이관 (@helena_phone 웹진 Vol.1 디자인은 Grok 작업)
+  → Boss가 직접 Grok 세션으로 이관 (@남성훈-f7i 웹진 Vol.1 디자인은 Grok 작업)
 - <strong>너무 많은 문서</strong>: 34종 업무수첩은 내부용으로 과잉. 핵심 10개로 압축 가능.
 - <strong>중복 작업</strong>: 영문판 만들었다 취소. 플레이리스트 쿼터 3일 소진. 북마크릿 삽질.
 - <strong>시각적 사고 부족</strong>: 코드·문서는 잘 다루지만 디자인·레이아웃·타이포는 약점.</p>
@@ -3337,7 +3337,7 @@ helana-faith / helena-piano / helena-metalcare
 <tbody>
 <tr>
 <td>1</td>
-<td>helena_phone</td>
+<td>bayaba_phone</td>
 <td>@S21Phone_Bot</td>
 <td>기존</td>
 <td>🟢</td>
@@ -3383,7 +3383,7 @@ helana-faith / helena-piano / helena-metalcare
 - <code>helana_log/scripts/tg.sh</code> 전용 보고 스크립트 생성
 - 모든 chat_id: <code>REDACTED</code> (Boss 회의실)</p>
 <h3>64. 웹페이지 커버리지 가디언 · 인터랙티브 문서 앱 (_Grok)</h3>
-<p><strong>Boss:</strong> helena_phone 문서 중 웹페이지 안 된 것 파악·전부 생성. Grok에 상시 체크 역할. 가급적 JS 웹앱 형태.</p>
+<p><strong>Boss:</strong> bayaba_phone 문서 중 웹페이지 안 된 것 파악·전부 생성. Grok에 상시 체크 역할. 가급적 JS 웹앱 형태.</p>
 <p><strong>갭:</strong> <code>_notebook/32-ecosystem-whitepaper.md</code> HTML 없음 → 빌드 생성.<br />
 <strong>자동화:</strong> <code>build_webzine.py</code> 노트북 md 전체 자동 발견 · <code>check_webpages_Grok.py</code> · <code>assets/webpage-coverage.json</code><br />
 <strong>역할 문서:</strong> <code>33-webpage-coverage_Grok.md</code> · CLAUDE.md · 직함 보강<br />
@@ -4112,7 +4112,7 @@ YouTube에서 두 칠판을 오가며 설명하는 게 완결된 콘텐츠 구�
 <span class="w">   </span><span class="nl">제목</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="n">마커</span><span class="o">]</span><span class="w"> </span><span class="n">작업명</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">상태</span>
 <span class="w">   </span><span class="nl">예</span><span class="p">:</span><span class="w">   </span><span class="o">[</span><span class="n">Grok</span><span class="o">]</span><span class="w"> </span><span class="n">랜딩페이지</span><span class="w"> </span><span class="n">웹진</span><span class="w"> </span><span class="n">디자인</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">진행중</span>
 <span class="w">   </span><span class="nl">예</span><span class="p">:</span><span class="w">   </span><span class="o">[</span><span class="n">Claude</span><span class="o">]</span><span class="w"> </span><span class="n">care</span><span class="o">-</span><span class="n">daemon</span><span class="p">.</span><span class="n">sh</span><span class="w"> </span><span class="n">구현</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">완료</span>
-<span class="w">   </span><span class="nl">예</span><span class="p">:</span><span class="w">   </span><span class="o">[</span><span class="n">YouTube</span><span class="o">]</span><span class="w"> </span><span class="nv">@helena_phone</span><span class="w"> </span><span class="n">첫</span><span class="w"> </span><span class="n">영상</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">업로드완료</span>
+<span class="w">   </span><span class="nl">예</span><span class="p">:</span><span class="w">   </span><span class="o">[</span><span class="n">YouTube</span><span class="o">]</span><span class="w"> </span><span class="nv">@남성훈-f7i</span><span class="w"> </span><span class="n">첫</span><span class="w"> </span><span class="n">영상</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">업로드완료</span>
 
 <span class="n">②</span><span class="w"> </span><span class="n">Claude</span><span class="w"> </span><span class="n">Code가</span><span class="w"> </span><span class="n">RSS</span><span class="w"> </span><span class="n">파싱</span>
 <span class="w">   </span><span class="err">→</span><span class="w"> </span><span class="n">제목에서</span><span class="w"> </span><span class="n">마커</span><span class="err">·</span><span class="n">상태</span><span class="w"> </span><span class="n">추출</span>
@@ -4293,10 +4293,10 @@ Boss가 직접 초심자(누나)의 환경에 들어가서
 <p><strong>Boss 전략:</strong> REDACTED(누나 계정)를 5개 레포 전부 콜라보레이터로 등록.
 두 개의 폰, 두 개의 계정, 같은 레포.</p>
 <p><strong>듀얼 구조:</strong></p>
-<div class="codehilite"><pre><span></span><code>Boss 폰 (helena751107)          누나 폰 (REDACTED)
+<div class="codehilite"><pre><span></span><code>Boss 폰 (bayaba-1979)          누나 폰 (REDACTED)
      │                                │
      ├── 같은 GitHub 레포 ─────────────┤
-     │    helena_phone                 │
+     │    bayaba_phone                 │
      │    helana_log                   │
      │    helena-faith                 │
      │    helena-piano                 │
@@ -4327,7 +4327,7 @@ Boss가 직접 초심자(누나)의 환경에 들어가서
 <tbody>
 <tr>
 <td><strong>소유권</strong></td>
-<td>helena751107 = 누나 명의 (S21)</td>
+<td>bayaba-1979 = 누나 명의 (S21)</td>
 </tr>
 <tr>
 <td><strong>Boss 계정</strong></td>
@@ -4406,7 +4406,7 @@ Boss가 직접 초심자(누나)의 환경에 들어가서
 - 랜딩페이지: 터미널 명령어 사용자 변수 포함 + 가이드 링크
 - 매 단계 복사 버튼 포함</p>
 <p><strong>특징:</strong>
-- 실제 helena751107 구축 과정을 초심자용으로 재구성
+- 실제 bayaba-1979 구축 과정을 초심자용으로 재구성
 - "누나의 설치 과정"을 템플릿으로 모든 유저가 따라할 수 있게
 - 0원~1만원대로 풀스택 AI 워크스테이션 구축 가능</p>
 <h3>77. 잠정 결론: Naver=최종출판물·YouTube=강의 (2026-07-27)</h3>
@@ -4606,7 +4606,7 @@ KOE006·북마크릿·Playwright삽질·API종료·HTML모드제거 —
 </thead>
 <tbody>
 <tr>
-<td>📱 helena_phone</td>
+<td>📱 bayaba_phone</td>
 <td>한국 IT 문화·스타트업·모바일 생태계</td>
 <td>현대 한국 사회</td>
 </tr>
@@ -4988,7 +4988,7 @@ dtslib-apk-lab + termux-bridge는 우리 인프라에 직접 통합 가능.</p>
 <tr>
 <th></th>
 <th>REDACTED (Boss)</th>
-<th>helena751107 (누나)</th>
+<th>bayaba-1979 (누나)</th>
 </tr>
 </thead>
 <tbody>
@@ -5241,7 +5241,7 @@ YouTube: &quot;다음 훈련으로 넘어간다.&quot;
 </tr>
 <tr>
 <td>명의 기본</td>
-<td><code>OWNER_GITHUB=helena751107</code> (토큰 day-1 강제 없음)</td>
+<td><code>OWNER_GITHUB=bayaba-1979</code> (토큰 day-1 강제 없음)</td>
 </tr>
 <tr>
 <td>고급</td>
@@ -5255,7 +5255,7 @@ YouTube: &quot;다음 훈련으로 넘어간다.&quot;
 3. <code>S21-START.txt</code> 읽힘<br />
 4. 키·푸시·에이전트 = 나중에</p>
 <p><strong>한 줄 주문:</strong></p>
-<div class="codehilite"><pre><span></span><code>bash<span class="w"> </span>&lt;<span class="o">(</span>curl<span class="w"> </span>-sL<span class="w"> </span>https://raw.githubusercontent.com/helena751107/helena_phone/main/g/easy.sh<span class="o">)</span>
+<div class="codehilite"><pre><span></span><code>bash<span class="w"> </span>&lt;<span class="o">(</span>curl<span class="w"> </span>-sL<span class="w"> </span>https://raw.githubusercontent.com/bayaba-1979/bayaba_phone/main/g/easy.sh<span class="o">)</span>
 </code></pre></div>
 
 <p><strong>교훈:</strong>
@@ -5397,9 +5397,9 @@ YouTube: &quot;다음 훈련으로 넘어간다.&quot;
 </code></pre></div>
 
 <p><strong>라이브 URL:</strong>
-- 서식 미리보기: https://helena751107.github.io/helena_phone/naver/quilt/weekly-seosik-preview.html
-- 디자인 노트: https://helena751107.github.io/helena_phone/notebook/42-marine-quilt-naver-design_Grok.html
-- 스킨 CSS raw: https://raw.githubusercontent.com/helena751107/helena_phone/main/naver/quilt/skin-custom.css</p>
+- 서식 미리보기: https://bayaba-1979.github.io/bayaba_phone/naver/quilt/weekly-seosik-preview.html
+- 디자인 노트: https://bayaba-1979.github.io/bayaba_phone/notebook/42-marine-quilt-naver-design_Grok.html
+- 스킨 CSS raw: https://raw.githubusercontent.com/bayaba-1979/bayaba_phone/main/naver/quilt/skin-custom.css</p>
 <p><strong>한 줄 평:</strong>
 브랜드(§89)를 <strong>파일·CSS·서식·TG 포맷</strong>까지 박았다.<br />
 자동화 티 내는 UI 없음. 스킨 1회 + 서식 1회 + 매주 손바느질.</p>
@@ -5474,11 +5474,11 @@ paste.txt로 글 구성 → <strong>템플릿→내 템플릿→현재 글 추�
 <hr />
 <h2>2026-07-28 (화) — helena-piano BGM Studio 구축 + parksy-audio 전수조사 (_Claude)</h2>
 <h3>배경</h3>
-<p>helena-piano 웹진(https://helena751107.github.io/helena-piano/)에 
+<p>helena-piano 웹진(https://bayaba-1979.github.io/helena-piano/)에 
 실제 피아노 음원·배경음악 파이프를 연결하려는 시도.</p>
 <h3>parksy-audio 냉장고 전수조사</h3>
 <ul>
-<li>REDACTED 소유 28개 private 레포 + helena751107 소유 6개 = <strong>34종 전체 파악</strong></li>
+<li>REDACTED 소유 28개 private 레포 + bayaba-1979 소유 6개 = <strong>34종 전체 파악</strong></li>
 <li><code>parksy-audio</code> (986MB): MIDI→렌더링→YouTube 풀스택</li>
 <li>steal.py: YouTube→demucs→basic-pitch→MIDI 추출</li>
 <li>local-agent/bot.py: TG 봇 (36KB)</li>
@@ -5515,7 +5515,7 @@ Internet Archive 장애 등 예측 불가능한 변수가 쏟아졌다.</p>
 <h3>아키텍처 선언 — "프로덕은 나 자신, 노드의 프로토콜" (_Boss + _Claude)</h3>
 <p>오늘 대화에서 핵심 아키텍처가 정리됐다.</p>
 <p><strong>이것은 프로덕(생산물)을 만드는 프로젝트가 아니다.</strong>
-Helena Park 자체가 프로덕이다. S21은 신경계, 34개 레포는 기억·사고·표현 체계,
+남성훈 자체가 프로덕이다. S21은 신경계, 34개 레포는 기억·사고·표현 체계,
 AI 3중주(Grok·Aider·Claude)는 증폭기, Pages·YouTube·Naver는 외부 접점.</p>
 <p><strong>이 노드의 본질: AI 시대 1인 미디어회사의 참조 구현체.</strong>
 - 기자 = 월급받는 사람이 아니라, 출판 능력이 있는 개인 노드
@@ -5528,18 +5528,18 @@ AI 3중주(Grok·Aider·Claude)는 증폭기, Pages·YouTube·Naver는 외부 �
 - parksy-audio → 음원 제작·송출
 - helena-piano → 웹진 출판
 - Naver·Tistory 파이프 → 텍스트 유통
-- YouTube (@helena_phone, @HelenaPark-e7c) → 영상 방송
+- YouTube (@남성훈-f7i, @남성훈-f7i) → 영상 방송
 - TG 봇 → 구독자 직접 배달</p>
 <p><strong>핵심 인사이트:</strong> 중앙일보 기자가 쓰는 CMS와 기능적으로 동일한 스택을,
 S21 폰 하나로 돌리고 있다. 차이는 규모가 아니라 <strong>프로토콜의 방향</strong> —
 회사가 노드를 소유하는 게 아니라, 노드가 노드를 연합한다.</p>
 <hr />
 <h2>2026-07-31 (목) — 냉장고 아키텍처 정식 선언 (_Claude)</h2>
-<h3>97. REDACTED → helena751107 콜라보레이터 전면 확인 (_Claude)</h3>
-<p><strong>Boss 지시:</strong> REDACTED 레포지토리 전부 helena751107 콜라보 등록돼 있으니 전수 확인.</p>
+<h3>97. REDACTED → bayaba-1979 콜라보레이터 전면 확인 (_Claude)</h3>
+<p><strong>Boss 지시:</strong> REDACTED 레포지토리 전부 bayaba-1979 콜라보 등록돼 있으니 전수 확인.</p>
 <p><strong>검증 결과:</strong>
 - REDACTED 총 레포: <strong>28개</strong> (검색 API <code>total_count: 28</code>)
-- helena751107 콜라보 등록: <strong>28/28 (100%)</strong>
+- bayaba-1979 콜라보 등록: <strong>28/28 (100%)</strong>
 - 권한: 전부 <strong>RW</strong> (admin collaborator)
 - 가시성: 27개 🔒 private + 1개 🌐 public (<code>dtslib-apk-lab</code>)
 - 실제 접근: <code>gh api</code> · <code>gh repo clone</code> 전부 정상</p>
@@ -5558,17 +5558,17 @@ Claude가 이 차이를 인지하지 못하고 "1개"라고 잘못 보고. Boss 
 <p><strong>정의:</strong></p>
 <blockquote>
 <p><strong>냉장고(Fridge)</strong> 란, REDACTED(창작자)가 구축한 모든 코드·에셋·실험·템플릿을
-helena751107(수혜자·누나)에게 <strong>콜라보레이터로 즉시 공유</strong>하는 자산 전달 체계다.</p>
+bayaba-1979(수혜자·누나)에게 <strong>콜라보레이터로 즉시 공유</strong>하는 자산 전달 체계다.</p>
 </blockquote>
 <p><strong>왜 "냉장고"인가:</strong>
 - 포크(fork)가 아니다 — 포크는 원본과 분리된 내 사본. 냉장고는 <strong>원본에 직접 접근.</strong>
 - PR이 아니다 — PR은 기여자→소유자 단방향. 냉장고는 <strong>쌍방 RW 공동소유.</strong>
 - "필요한 거 꺼내 써" — 레시피(아이디어)가 아니라 <strong>완성된 식재료(코드·템플릿·파이프)</strong> 를 바로 투입 가능.</p>
 <p><strong>구조:</strong></p>
-<div class="codehilite"><pre><span></span><code>REDACTED (창작자)                    helena751107 (수혜자·대필작가)
+<div class="codehilite"><pre><span></span><code>REDACTED (창작자)                    bayaba-1979 (수혜자·대필작가)
   │                                        │
   ├── 28개 레포 (27🔒 + 1🌐)              ├── 6개 레포 (전부 🌐)
-  │   · parksy-audio (986MB 음원)          │   · helena_phone (워크스페이스)
+  │   · parksy-audio (986MB 음원)          │   · bayaba_phone (워크스페이스)
   │   · parksy-image (썸네일·AI시드)       │   · helana_log (기술로그)
   │   · parksy-logs (캡처 아카이브)        │   · helena-piano (피아노)
   │   · termux-bridge (PC↔Termux)         │   · helena-faith (신앙)
@@ -5579,7 +5579,7 @@ helena751107(수혜자·누나)에게 <strong>콜라보레이터로 즉시 공�
   │   · OrbitPrompt (다중쿼리→AI)         │
   │   · ... 외 18종                        │
   │                                        │
-  └──────── helena751107 콜라보 ──────────→ 34종 전체 자산 풀
+  └──────── bayaba-1979 콜라보 ──────────→ 34종 전체 자산 풀
                  (RW, admin)
 </code></pre></div>
 
@@ -5648,7 +5648,7 @@ gh<span class="w"> </span>api<span class="w"> </span>repos/REDACTED/termux-bridg
 </blockquote>
 <p><strong>의의:</strong>
 이 아키텍처는 단순한 GitHub Collaborator 설정 이상이다.
-REDACTED의 창작물 전체가 helena751107의 <strong>운영 자산</strong>으로 편입되고,
+REDACTED의 창작물 전체가 bayaba-1979의 <strong>운영 자산</strong>으로 편입되고,
 AI 에이전트(Claude·Aider·Grok)는 이 34종 자산 풀 위에서 작업한다.</p>
 <p>창작자와 수혜자가 <strong>같은 냉장고를 열고, 같은 식재료로 각자의 요리를 하는</strong> 구조.
 이것이 제2조 "코드는 선물"의 실물 구현이다.</p>
@@ -5656,7 +5656,7 @@ AI 에이전트(Claude·Aider·Grok)는 이 34종 자산 풀 위에서 작업한
 <hr />
 <h2>2026-07-31 (목) — Demo Pipeline 삽질 + DeepSeek 비전 리버스 엔지니어링 (_Claude)</h2>
 <h3>99. 빅테크 튜토리얼 데모 파이프라인 개발기</h3>
-<p><strong>목표:</strong> helena_phone 랜딩페이지를 빅테크 수준의 제품 튜토리얼 영상으로 자동 생성.</p>
+<p><strong>목표:</strong> bayaba_phone 랜딩페이지를 빅테크 수준의 제품 튜토리얼 영상으로 자동 생성.</p>
 <p><strong>시도한 접근:</strong></p>
 <table>
 <thead>
@@ -5896,7 +5896,7 @@ Grok 세션 파싱으로 확인된 사항:</p>
 Grok은 시각 피드백이 가능해 디버깅이 빠르고, Claude는 자동화 인프라가 탄탄하다.
 최종적으로는 Scout(시각분석·시나리오) + Claude(실행·인코딩) 조합이 최적.</p>
 <h3>101. Helena Studio 파이프라인 6종 완성 (_Claude)</h3>
-<p>레포: <code>helena751107/helena-programming</code></p>
+<p>레포: <code>bayaba-1979/helena-programming</code></p>
 <table>
 <thead>
 <tr>
@@ -5967,7 +5967,7 @@ Grok은 시각 피드백이 가능해 디버깅이 빠르고, Claude는 자동�
 <h3>105. 오늘의 최종 정리 — "출판에서 방송까지" (_Boss + _Claude)</h3>
 <p><strong>2026-07-31 하루 동안 구축된 것:</strong></p>
 <div class="codehilite"><pre><span></span><code><span class="nl">입력</span><span class="p">:</span><span class="w"> </span><span class="n">Boss의</span><span class="w"> </span><span class="n">목소리</span><span class="w"> </span><span class="p">(</span><span class="n">STT</span><span class="p">)</span>
-<span class="w">  </span><span class="err">→</span><span class="w"> </span><span class="n">GitHub</span><span class="w"> </span><span class="p">(</span><span class="n">helena_phone</span><span class="p">)</span>
+<span class="w">  </span><span class="err">→</span><span class="w"> </span><span class="n">GitHub</span><span class="w"> </span><span class="p">(</span><span class="n">bayaba_phone</span><span class="p">)</span>
 <span class="w">  </span><span class="err">→</span><span class="w"> </span><span class="n">AI</span><span class="w"> </span><span class="n">에이전트</span><span class="w"> </span><span class="p">(</span><span class="n">Claude</span><span class="err">·</span><span class="n">Grok</span><span class="err">·</span><span class="n">Aider</span><span class="p">)</span>
 <span class="w">  </span><span class="err">→</span><span class="w"> </span><span class="n">웹페이지</span><span class="w"> </span><span class="n">출판</span><span class="w"> </span><span class="p">(</span><span class="n">GitHub</span><span class="w"> </span><span class="n">Pages</span><span class="p">)</span>
 <span class="w">  </span><span class="err">→</span><span class="w"> </span><span class="n">영상</span><span class="w"> </span><span class="n">변환</span><span class="w"> </span><span class="p">(</span><span class="mi">6</span><span class="n">종</span><span class="w"> </span><span class="n">파이프</span><span class="p">)</span>
@@ -6031,7 +6031,7 @@ Grok은 시각 피드백이 가능해 디버깅이 빠르고, Claude는 자동�
 ┌─────────────────────────────────────────────┐
 │           5개 레포 = 콘텐츠 채널               │
 │                                             │
-│  📡 helena_phone    → 기술 웹진·시리즈       │
+│  📡 bayaba_phone    → 기술 웹진·시리즈       │
 │  ✝️ helana-faith    → 신앙 콘텐츠            │
 │  📝 helana_log      → 학습·대화록           │
 │  🎹 helena-piano    → 연주·음악             │
@@ -6174,7 +6174,7 @@ Boss + 외부 LLM(Grok/ChatGPT)이 대화 → 요약 → HTML 코딩 → 티스�
 <td>1</td>
 <td>galaxys21-pwuser</td>
 <td>업무일지·개발</td>
-<td>helena_phone</td>
+<td>bayaba_phone</td>
 </tr>
 <tr>
 <td>2</td>
@@ -6238,7 +6238,7 @@ Phone의 Claude Code(cc) + Windows ds + WSL ds = 3중 에이전트.</p>
 - 랜딩 index.html 네비게이션 + Infrastructure 라이브러리에 링크 추가
 - 0단계(Boss 2줄) → 1단계(Aider 위임 11단계) 구조
 - WSL·Tailscale·SSH·ds 래퍼·모델 설정 전체 커버
-- GitHub Pages에서 바로 확인 가능: helena751107.github.io/helena_phone/pc-setup.html</p>
+- GitHub Pages에서 바로 확인 가능: bayaba-1979.github.io/bayaba_phone/pc-setup.html</p>
 <h3>🔄 PC 확장 포기 — GitHub 공짜 전략으로 전환 (_Boss, _Claude) — 2026-08-05</h3>
 <p><strong>사양 검토:</strong>
 - 누나 PC: Celeron 3855U 2코어 + 4GB DDR3
@@ -6331,7 +6331,7 @@ helena-programming 레포(public→Actions 무제한)에 3종 파이프 추가:<
 폰에서 FluidSynth+Salamander는 완벽하게 돌아간다.
 MIDI 소싱: Mutopia → IMSLP → (필요시) basic-pitch Actions</p>
 <p><strong>저장소:</strong> helena-piano/bgm/ → midi/ + output/ + scripts/
-<strong>CDN:</strong> https://helena751107.github.io/helena-piano/bgm/output/</p>
+<strong>CDN:</strong> https://bayaba-1979.github.io/helena-piano/bgm/output/</p>
 <h3>🎬 만점 비디오 파이프라인 — 3차 업그레이드 (_Boss, _Claude) — 2026-08-06</h3>
 <p><strong>품질 진화:</strong>
 | 버전 | 점수 | 핵심 |
@@ -6451,7 +6451,7 @@ MIDI 소싱: Mutopia → IMSLP → (필요시) basic-pitch Actions</p>
 Gaps: 0 — 모든 레포 번역 무결성
 Quality: premium 78 | standard 58 | minimal 34
 
-helena_phone:      99 md → 102 html (103%) ✅
+bayaba_phone:      99 md → 102 html (103%) ✅
 helana_log:        15 md → 18 html  (120%) ✅
 helena-piano:      10 md → 12 html  (120%) ✅ — fridge/ 6문서 최초 HTML화
 helena-programming: 46 md → 58 html (126%) ✅ — 최초 번역 브릿지 구축
@@ -6501,7 +6501,7 @@ helena-metalcare:    not checked out
 </ul>
 <h3>📚 출판부 정식 가동 — 역방향 출판 패턴 + 티스토리 교재화 (_Claude · 2026-08-10)</h3>
 <h4>발견: GitHub = 원자재 창고, DeepSeek+Claude Code = 출판부</h4>
-<p>Boss가 18일 동안 3개 레포(helena_phone·helana_log·helena-programming)에 "때려넣은" 모든 문서를 Claude Code(스킨) + DeepSeek v4-pro(엔진)가 역으로 정리·구조화해 출판하는 패턴이 실증됨.</p>
+<p>Boss가 18일 동안 3개 레포(bayaba_phone·helana_log·helena-programming)에 "때려넣은" 모든 문서를 Claude Code(스킨) + DeepSeek v4-pro(엔진)가 역으로 정리·구조화해 출판하는 패턴이 실증됨.</p>
 <p><strong>일반적인 출판:</strong> 기획 → 집필 → 편집 → 출판 (순방향, 쓰는 사람이 모든 걸 부담)
 <strong>역방향 출판:</strong> 무질서 덤프 → Claude Code 전수조사 → DeepSeek가 Part·Chapter 구조 설계 → 투트랙 출판</p>
 <p>핵심: <strong>Boss는 "원자재 공급자"일 뿐, 정리·편집·출판은 전부 Claude Code(DeepSeek 엔진) 담당.</strong> "빈 페이지 공포"를 아예 없애버린 패턴.</p>
@@ -6516,7 +6516,7 @@ helena-metalcare:    not checked out
 </thead>
 <tbody>
 <tr>
-<td>helena_phone</td>
+<td>bayaba_phone</td>
 <td>100+</td>
 <td>업무수첩·5챕터 가이드·CHRONICLE·세션로그·백서</td>
 </tr>
@@ -6665,7 +6665,7 @@ WSL·RTX·21채널·15채널을 다 돌려봤던 사람이, 의도적으로 최�
 3. 독자 3층: "나도 할 수 있다"(장비 없는 사람) + "장비 핑계였구나"(시작 못 하는 사람) + "베이스라인 다시 긋자"(확장만 하던 사람)</p>
 <p><strong>Boss 코멘트:</strong> "확실히 이게 남이 볼 때도 괜찮고 따라할 만한 콘텐츠·솔루션이 나온 거 아니야? 5년 전 저가 폰으로 딥시크 하나 가지고. 저가 폰을 어디까지 할 수 있는지를 테스트하고 있는 거고, 반대로 지금까지 확장만 했던 내 WSL 베이스라인을 다시 여기에 맞춰 정리도 하고 있는 거야."</p>
 <p>→ <code>low-spec-phone-survival-test</code> 메모리로 저장. [[reverse-publishing-pattern]] [[s21-constitution]]</p>
-<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://bayaba-1979.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
 <script>
 (function(){
 var pres=document.querySelectorAll('pre');

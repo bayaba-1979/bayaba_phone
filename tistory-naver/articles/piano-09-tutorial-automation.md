@@ -27,7 +27,7 @@ MIDI push → Actions 트리거 → fluidsynth 렌더 → MP3 커밋 → CDN 배
 결과물은 곧바로 CDN 주소로 접근할 수 있다.
 
 ```text
-https://helena751107.github.io/helena-piano/bgm/output/곡제목.mp3
+https://bayaba-1979.github.io/helena-piano/bgm/output/곡제목.mp3
 ```
 
 이 웹진의 모든 음원이 이 주소를 통해 스트리밍된다. 감상 기사에 박힌 `<audio>` 플레이어도 이 CDN을 가리킨다.

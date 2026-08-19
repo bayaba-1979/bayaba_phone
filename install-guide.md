@@ -30,7 +30,7 @@
 Termux 검은 화면에 **아래 전체를 길게 눌러 붙여넣기** 후 Enter.
 
 ```bash
-bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/workstation.sh)
+bash <(curl -sL https://raw.githubusercontent.com/bayaba-1979/bayaba_phone/main/g/workstation.sh)
 ```
 
 - 처음이면 Ubuntu + Claude Code 깔리면서 **10~20분** 걸림 (인터넷 다운로드가 큼). 멈춘 듯해도 가만히 둔다.  
@@ -92,7 +92,7 @@ claude
 ### B) 브라우저 (눈으로 확인)
 
 ```
-https://<내 GitHub 계정명>.github.io/helena_phone/
+https://<내 GitHub 계정명>.github.io/bayaba_phone/
 ```
 
 페이지가 열리면 **설치 성공**.
@@ -157,9 +157,9 @@ https://<내 GitHub 계정명>.github.io/helena_phone/
 
 | 무엇 | URL |
 |------|-----|
-| 이 매뉴얼 | https://helena751107.github.io/helena_phone/install-guide.html |
-| 랜딩 Install | https://helena751107.github.io/helena_phone/#install |
-| workstation 소스 | https://raw.githubusercontent.com/helena751107/helena_phone/main/g/workstation.sh |
-| 허브 | https://helena751107.github.io/helena_phone/ |
+| 이 매뉴얼 | https://bayaba-1979.github.io/bayaba_phone/install-guide.html |
+| 랜딩 Install | https://bayaba-1979.github.io/bayaba_phone/#install |
+| workstation 소스 | https://raw.githubusercontent.com/bayaba-1979/bayaba_phone/main/g/workstation.sh |
+| 허브 | https://bayaba-1979.github.io/bayaba_phone/ |
 
 *초심자 4화면 · agent _Claude · 2026-08-18*

@@ -22,7 +22,7 @@ def main() -> int:
         if a == "--url" and i + 1 < len(sys.argv):
             url = sys.argv[i + 1]
     if not url:
-        url = os.environ.get("URL", "https://helena751107.github.io/helena_phone/")
+        url = os.environ.get("URL", "https://bayaba-1979.github.io/bayaba_phone/")
 
     stills = outdir / "stills"
     stills.mkdir(exist_ok=True)

@@ -15,7 +15,7 @@ tags: 들리브, 라크메, 꽃의 2중창, 오페라, 클래식, 감상
 
 이 2중창의 아름다움은 두 성부가 번갈아 피어나는 구조에 있다. 먼저 한 목소리가 선율을 내고, 다른 목소리가 3도 위에서 따라 들어온다. 두 선율은 잠시 어긋나며 화음을 만들다가, "오라, 우리 함께 강가로 내려가자"는 대목에서 완전히 겹쳐 한 줄이 된다. 이 교차가 만드는 것은 "화려함"이 아니라 "무중력"이다. 두 목소리가 서로를 떠받치며, 둘 다 땅에 닿지 않는 듯한 느낌.
 
-:::audio https://helena751107.github.io/helena-piano/bgm/output/lakme_pro.mp3|Lakmé — Flower Duet (PRO 마스터링 렌더)
+:::audio https://bayaba-1979.github.io/helena-piano/bgm/output/lakme_pro.mp3|Lakmé — Flower Duet (PRO 마스터링 렌더)
 
 ## 피아노 한 대가 오케스트라와 두 성부를 대신할 때
 

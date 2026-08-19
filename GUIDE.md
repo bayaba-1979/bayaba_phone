@@ -153,8 +153,8 @@ proot-distro login ubuntu
 apt update && apt install git curl nodejs -y
 
 # 3. 설계도를 내 폰으로 복사해 와요
-git clone https://github.com/helena751107/helena_phone.git
-cd helena_phone
+git clone https://github.com/bayaba-1979/bayaba_phone.git
+cd bayaba_phone
 
 # 4. 설정 파일을 제자리에 복사해요 (레고 블록 끼우기)
 cp configs/settings.json ~/.claude/
@@ -170,5 +170,5 @@ bash scripts/phone-health.sh
 
 > **궁금한 게 있으면 언제든지 물어보세요!**
 > - [Discord](https://discord.gg/JTYSZv2WQE) — 채팅방에서 실시간으로 물어보기
-> - [GitHub Issues](https://github.com/helena751107/helena_phone/issues) — 버그 신고나 아이디어 제안
+> - [GitHub Issues](https://github.com/bayaba-1979/bayaba_phone/issues) — 버그 신고나 아이디어 제안
 > - 이 저장소를 포크해서 자기만의 공방으로 마음대로 고쳐도 좋아요!

@@ -23,7 +23,7 @@ tags: 바흐, 평균율, BWV 846, 클래식, 감상, 전주곡
 
 이 전주곡은 이후 한 프랑스 작곡가에게 "원료"를 제공했다. 1859년 샤를 구노는 BWV 846의 화성 진행 위에 자작 선율을 얹어 《아베 마리아》를 만들었다. 구노의 아베 마리아는 "바흐의 아베 마리아"로 잘못 불릴 만큼 유명해졌지만, 원곡은 어디까지나 이 건반 전주곡이다. 바흐가 쓴 것은 기도의 배경이 아니라, 기도 그 자체에 가까운 정적이다.
 
-:::audio https://helena751107.github.io/helena-piano/bgm/output/bach_prelude_bwv846.mp3|Prelude in C major, BWV 846 — Salamander 렌더
+:::audio https://bayaba-1979.github.io/helena-piano/bgm/output/bach_prelude_bwv846.mp3|Prelude in C major, BWV 846 — Salamander 렌더
 
 ## 렌더링이 드러낸 것
 

@@ -14,18 +14,18 @@ cd helena-programming/director
 
 # ✅ CANONICAL — 만점 사다리 전체
 python3 perfect_ship.py \
-  --scenario scenarios/helena_phone.json \
-  --out out/helena_phone.mp4
+  --scenario scenarios/bayaba_phone.json \
+  --out out/bayaba_phone.mp4
 
 # 동일 (alias)
 python3 run_director.py --process perfect_ship_v1 \
-  --scenario scenarios/helena_phone.json \
-  --out out/helena_phone.mp4
+  --scenario scenarios/bayaba_phone.json \
+  --out out/bayaba_phone.mp4
 
 # 이미 렌더된 work/ 만 재검증
 python3 perfect_ship.py --verify-only \
-  --scenario scenarios/helena_phone.json \
-  --out out/helena_phone_pro_v6.mp4
+  --scenario scenarios/bayaba_phone.json \
+  --out out/bayaba_phone_pro_v6.mp4
 ```
 
 **SHIP 배지 없이 텔레그램 전송 금지.**

@@ -69,12 +69,12 @@ param(
     [string[]]`$Args
 )
 
-`$repo = if (`$env:REPO) { `$env:REPO } else { "`$env:USERPROFILE\work\helena_phone" }
+`$repo = if (`$env:REPO) { `$env:REPO } else { "`$env:USERPROFILE\work\bayaba_phone" }
 `$model = if (`$env:DEEPSEEK_MODEL) { `$env:DEEPSEEK_MODEL } else { "deepseek/deepseek-chat" }
 
 if (-not (Test-Path `$repo)) {
     Write-Host "❌ `$repo 없음. Git clone 먼저." -ForegroundColor Red
-    Write-Host "   git clone --recurse-submodules https://github.com/helena751107/helena_phone.git `$env:USERPROFILE\work\helena_phone"
+    Write-Host "   git clone --recurse-submodules https://github.com/bayaba-1979/bayaba_phone.git `$env:USERPROFILE\work\bayaba_phone"
     exit 1
 }
 
@@ -103,7 +103,7 @@ Write-Host ""
 Write-Host "✨ 다음 수동 작업:"
 Write-Host "   1. Tailscale 설치 + 로그인 (https://tailscale.com/download/windows)"
 Write-Host "   2. API 키 환경 변수 설정"
-Write-Host "   3. Git 클론: git clone --recurse-submodules https://github.com/helena751107/helena_phone.git ~/work/helena_phone"
+Write-Host "   3. Git 클론: git clone --recurse-submodules https://github.com/bayaba-1979/bayaba_phone.git ~/work/bayaba_phone"
 Write-Host "   4. 새 PowerShell 터미널 열어서 PATH 반영"
 Write-Host ""
 Write-Host "🧪 테스트:"

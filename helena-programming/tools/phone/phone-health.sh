@@ -62,7 +62,7 @@ info "MCP tools: 18 (phone-mcp-server)"
 
 info "Disk: $(df -h /data/data/com.termux/files 2>/dev/null | awk 'NR==2{print $4" free / "$2" total"}')"
 
-GH_HTTP=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "https://helena751107.github.io/helena_phone/" 2>/dev/null || echo "000")
+GH_HTTP=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "https://bayaba-1979.github.io/bayaba_phone/" 2>/dev/null || echo "000")
 [ "$GH_HTTP" = "200" ] && ok "GitHub Pages (HTTP ${GH_HTTP})" || warn "GitHub Pages (HTTP ${GH_HTTP})"
 
 # ============================================================
@@ -247,11 +247,11 @@ NT=$(termux-notification --title "Health Check" \
 sect "9. 네트워크 서비스"
 
 for URL_LABEL in \
-  "helena_phone|https://helena751107.github.io/helena_phone/" \
-  "helana_log|https://github.com/helena751107/helana_log" \
-  "helana-faith|https://github.com/helena751107/helana-faith" \
-  "helena-piano|https://github.com/helena751107/helena-piano" \
-  "helena-metalcare|https://github.com/helena751107/helena-metalcare"; do
+  "bayaba_phone|https://bayaba-1979.github.io/bayaba_phone/" \
+  "helana_log|https://github.com/bayaba-1979/helana_log" \
+  "helana-faith|https://github.com/bayaba-1979/helana-faith" \
+  "helena-piano|https://github.com/bayaba-1979/helena-piano" \
+  "helena-metalcare|https://github.com/bayaba-1979/helena-metalcare"; do
   L="${URL_LABEL%%|*}"; U="${URL_LABEL##*|}"
   H=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "$U" 2>/dev/null || echo "000")
   ok "$L (HTTP ${H})"

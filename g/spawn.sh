@@ -3,7 +3,7 @@
 # g/spawn.sh — spawn engine (ecosystem.json → create GitHub repos + wire secrets)
 # ==============================================================================
 # Reads configs/ecosystem.json (made by navigator.sh):
-#   ① Mark the hub (helena_phone) as a GitHub Template Repo
+#   ① Mark the hub (bayaba_phone) as a GitHub Template Repo
 #   ② Create the 4 satellites (piano/metalcare/faith/log) from the template (--public)
 #   ③ Wire .secrets.env's TG_TOKEN/TG_CHAT into each repo's GitHub Actions secrets
 #
@@ -20,7 +20,7 @@ BASE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SCRIPTS="$BASE/scripts"
 REAL="$BASE/configs/ecosystem.json"
 SECRETS="$BASE/.secrets.env"
-TEMPLATE_OWNER="${TEMPLATE_OWNER:-helena751107}"   # boilerplate's original owner
+TEMPLATE_OWNER="${TEMPLATE_OWNER:-bayaba-1979}"   # boilerplate's original owner
 
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; BLUE='\033[0;34m'; CYAN='\033[0;36m'
 BOLD='\033[1m'; NC='\033[0m'
@@ -180,7 +180,7 @@ main() {
     info "To actually run the above: bash g/spawn.sh"
   else
     ok "Spawn complete. Check each repo's Pages/workflows on GitHub."
-    info "Drift sync is handled automatically by the central reusable workflow (uses: helena751107/...)."
+    info "Drift sync is handled automatically by the central reusable workflow (uses: bayaba-1979/...)."
   fi
 }
 

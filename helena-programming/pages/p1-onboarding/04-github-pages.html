@@ -72,48 +72,48 @@ details.acc>.acc-body{padding:0 14px 14px;overflow-x:hidden}
 </thead>
 <tbody>
 <tr>
-<td>helena_phone</td>
-<td><code>github.com/helena751107/helena_phone</code></td>
-<td><code>helena751107.github.io/helena_phone/</code></td>
+<td>bayaba_phone</td>
+<td><code>github.com/bayaba-1979/bayaba_phone</code></td>
+<td><code>bayaba-1979.github.io/bayaba_phone/</code></td>
 </tr>
 <tr>
 <td>helana_log</td>
-<td><code>github.com/helena751107/helana_log</code></td>
-<td><code>helena751107.github.io/helana_log/</code></td>
+<td><code>github.com/bayaba-1979/helana_log</code></td>
+<td><code>bayaba-1979.github.io/helana_log/</code></td>
 </tr>
 </tbody>
 </table>
 <h2>GitHub Pages 활성화 (API)</h2>
 <div class="codehilite"><pre><span></span><code><span class="nv">TOKEN</span><span class="o">=</span><span class="s2">&quot;ghp_...여기에_토큰&quot;</span>
 curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: token </span><span class="nv">$TOKEN</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>https://api.github.com/repos/helena751107/helena_phone/pages<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://api.github.com/repos/bayaba-1979/bayaba_phone/pages<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;source&quot;:{&quot;branch&quot;:&quot;main&quot;,&quot;path&quot;:&quot;/&quot;}}&#39;</span>
 </code></pre></div>
 
 <h2>Giscus (댓글/게시판)</h2>
-<h3>helena_phone</h3>
+<h3>bayaba_phone</h3>
 <ul>
-<li>repo: <code>helena751107/helena_phone</code></li>
+<li>repo: <code>bayaba-1979/bayaba_phone</code></li>
 <li>repo-id: <code>R_kgDOTg3jPQ</code></li>
 <li>category: <code>Announcements</code></li>
 <li>category-id: <code>DIC_kwDOTg3jPc4DByff</code></li>
 </ul>
 <h3>helana_log</h3>
 <ul>
-<li>repo: <code>helena751107/helana_log</code></li>
+<li>repo: <code>bayaba-1979/helana_log</code></li>
 <li>repo-id: <code>R_kgDOTg3TCg</code></li>
 <li>category: <code>Announcements</code></li>
 <li>category-id: <code>DIC_kwDOTg3TCs4DByif</code></li>
 </ul>
 <h2>Discussions 활성화 (API)</h2>
 <div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PATCH<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: token </span><span class="nv">$TOKEN</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>https://api.github.com/repos/helena751107/helena_phone<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://api.github.com/repos/bayaba-1979/bayaba_phone<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;has_discussions&quot;:true}&#39;</span>
 </code></pre></div>
 
 <h2>Giscus GraphQL (카테고리 ID 조회)</h2>
 <div class="codehilite"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="n">repository</span><span class="p">(</span><span class="n">owner</span><span class="p">:</span><span class="s">&quot;helena751107&quot;</span><span class="p">,</span><span class="n">name</span><span class="p">:</span><span class="s">&quot;helena_phone&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">repository</span><span class="p">(</span><span class="n">owner</span><span class="p">:</span><span class="s">&quot;bayaba-1979&quot;</span><span class="p">,</span><span class="n">name</span><span class="p">:</span><span class="s">&quot;bayaba_phone&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">discussionCategories</span><span class="p">(</span><span class="n">first</span><span class="p">:</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="n">nodes</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">slug</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
@@ -134,7 +134,7 @@ curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </spa
 </thead>
 <tbody>
 <tr>
-<td>helena_phone</td>
+<td>bayaba_phone</td>
 <td>✅ Live</td>
 <td>✅</td>
 <td>✅</td>
@@ -166,7 +166,7 @@ curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </spa
 </tbody>
 </table>
 <p><strong>참고:</strong> GitHub Pages 빌드가 stuck 상태가 되면 Settings → Pages → None → Save → Deploy from branch로 리셋.</p>
-<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://bayaba-1979.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
 <script>
 (function(){
 var pres=document.querySelectorAll('pre');

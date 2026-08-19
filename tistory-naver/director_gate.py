@@ -43,7 +43,7 @@ from history_category_map import history_category_for  # noqa: E402
 # ── 판정 규칙 (디렉터의 편집 기준) ──────────────────────────────────────────
 # 내부 전용어 — 교재 제목에 있으면 외부 검색 의도와 불일치 → 제목 재작성(REVISE)
 INTERNAL_JARGON = [
-    "dtslib", "REDACTED", "helena751107", "mynote11605",
+    "dtslib", "REDACTED", "bayaba-1979", "mynote11605",
     "Director PRO", "Director Community", "Director Plan", "Director Vision",
     "Scout v", "A-bar", "리줌", "허들", "재발일지", "세션", "플러그인 영상 파이프",
     "Video Plugin Standard", "Imagine 프롬프트", "Perfect Ship",

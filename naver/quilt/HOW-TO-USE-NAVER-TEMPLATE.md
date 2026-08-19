@@ -48,7 +48,7 @@
 
 1. 미리보기 눈으로 구조 익히기  
    `naver/quilt/weekly-seosik-preview.html`  
-   또는 https://helena751107.github.io/helena_phone/naver/quilt/weekly-seosik-preview.html
+   또는 https://bayaba-1979.github.io/bayaba_phone/naver/quilt/weekly-seosik-preview.html
 2. 텍스트 골격 열기  
    `naver/quilt/weekly-seosik-paste.txt`  
    (또는 채운 예: `sample-week-filled.txt`)

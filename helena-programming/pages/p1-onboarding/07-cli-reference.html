@@ -73,23 +73,23 @@ git<span class="w"> </span>push
 git<span class="w"> </span>remote<span class="w"> </span>-v
 
 <span class="c1"># remote 변경 (레포 이름 바뀌었을 때)</span>
-git<span class="w"> </span>remote<span class="w"> </span>set-url<span class="w"> </span>origin<span class="w"> </span>https://helena751107:TOKEN@github.com/helena751107/새레포명.git
+git<span class="w"> </span>remote<span class="w"> </span>set-url<span class="w"> </span>origin<span class="w"> </span>https://bayaba-1979:TOKEN@github.com/bayaba-1979/새레포명.git
 </code></pre></div>
 
 <h2>GitHub API</h2>
 <div class="codehilite"><pre><span></span><code><span class="c1"># Pages 활성화</span>
 <span class="nv">TOKEN</span><span class="o">=</span><span class="s2">&quot;ghp_...&quot;</span>
 curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: token </span><span class="nv">$TOKEN</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>https://api.github.com/repos/helena751107/helena_phone/pages<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://api.github.com/repos/bayaba-1979/bayaba_phone/pages<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;source&quot;:{&quot;branch&quot;:&quot;main&quot;,&quot;path&quot;:&quot;/&quot;}}&#39;</span>
 
 <span class="c1"># 레포 정보 조회</span>
 curl<span class="w"> </span>-s<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: token </span><span class="nv">$TOKEN</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>https://api.github.com/repos/helena751107/helena_phone<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.name
+<span class="w">  </span>https://api.github.com/repos/bayaba-1979/bayaba_phone<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.name
 
 <span class="c1"># Discussions 활성화</span>
 curl<span class="w"> </span>-X<span class="w"> </span>PATCH<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: token </span><span class="nv">$TOKEN</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>https://api.github.com/repos/helena751107/helena_phone<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://api.github.com/repos/bayaba-1979/bayaba_phone<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;has_discussions&quot;:true}&#39;</span>
 </code></pre></div>
 
@@ -127,11 +127,11 @@ curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;htt
 
 <h2>다양한 용도</h2>
 <div class="codehilite"><pre><span></span><code><span class="c1"># Pages 배포 확인</span>
-curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}&quot;</span><span class="w"> </span>https://helena751107.github.io/helena_phone/
+curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}&quot;</span><span class="w"> </span>https://bayaba-1979.github.io/bayaba_phone/
 
 <span class="c1"># 전체 레포 목록</span>
 curl<span class="w"> </span>-s<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: token </span><span class="nv">$TOKEN</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>https://api.github.com/users/helena751107/repos<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[].name&#39;</span>
+<span class="w">  </span>https://api.github.com/users/bayaba-1979/repos<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[].name&#39;</span>
 </code></pre></div>
 
 <hr />
@@ -146,7 +146,7 @@ agent<span class="w">       </span><span class="c1"># 헤드리스 에이전트<
 
 <span class="c1"># 예전 이름도 동작: gr / grlogin / grc</span>
 </code></pre></div>
-<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://helena751107.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
+<div class="footer"><p>📚 Helena Programming · Pages Textbook<br>🌐 <a href="https://bayaba-1979.github.io/helena-programming/pages/" style="color:var(--a)">교재 홈</a> · 생성: 2026-08-11 (_Claude)</p></div>
 <script>
 (function(){
 var pres=document.querySelectorAll('pre');

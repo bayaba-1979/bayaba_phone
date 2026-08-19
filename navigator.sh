@@ -97,7 +97,7 @@ collect_mapping() {
   step "1. Ownership (owner) + blog/channel mapping"
 
   local owner_default
-  owner_default="$(python3 -c "import json;print(json.load(open('$TEMPLATE')).get('owner','helena751107'))" 2>/dev/null || echo helena751107)"
+  owner_default="$(python3 -c "import json;print(json.load(open('$TEMPLATE')).get('owner','bayaba-1979'))" 2>/dev/null || echo bayaba-1979)"
   OWNER="$(prompt "GitHub username/org (ownership)" "$owner_default")"
   ok "owner = $OWNER"
 
@@ -286,7 +286,7 @@ sys.path.insert(0, "$BASE/scripts")
 from load_ecosystem import repos, channels
 print("  Repos to be spawned:")
 for r in repos():
-    print(f"    gh repo create $OWNER/{r['repo']} --template helena751107/{r['repo']} --public   # {r['blog']} → {r['channel']}")
+    print(f"    gh repo create $OWNER/{r['repo']} --template bayaba-1979/{r['repo']} --public   # {r['blog']} → {r['channel']}")
 print("")
 print("  Secret wiring (gh secret set -R):")
 print("    TG_TOKEN · TG_CHAT · TISTORY_EMAIL · TISTORY_PW · YOUTUBE_CLIENT_ID · YOUTUBE_CLIENT_SECRET")
@@ -335,7 +335,7 @@ sys.path.insert(0, "$BASE/scripts")
 from load_ecosystem import repos
 own = "$own"
 for r in repos():
-    print(f"  gh repo create {own}/{r['repo']} --template helena751107/{r['repo']} --public")
+    print(f"  gh repo create {own}/{r['repo']} --template bayaba-1979/{r['repo']} --public")
 PYEOF
 }
 

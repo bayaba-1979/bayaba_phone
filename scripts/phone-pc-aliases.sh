@@ -6,7 +6,7 @@
 # ⚠️ PC 설정 후 PC_IP를 실제 Tailscale IP로 변경할 것
 PC_IP="${PC_IP:-100.0.0.0}"      # PC WSL Tailscale IP
 PC_USER="${PC_USER:-boss}"        # WSL 사용자명
-PC_WORK="${PC_WORK:-~/work/helena_phone}"
+PC_WORK="${PC_WORK:-~/work/bayaba_phone}"
 
 # SSH 접속
 alias pc="ssh ${PC_USER}@${PC_IP}"

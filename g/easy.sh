@@ -4,12 +4,12 @@
 # ==============================================================================
 # 목표: 결정 최소화. 앱 2개 설치 후, Termux에 이 한 줄만.
 #
-#   bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/easy.sh)
+#   bash <(curl -sL https://raw.githubusercontent.com/bayaba-1979/bayaba_phone/main/g/easy.sh)
 #
 # 기본 동작 (질문 거의 없음):
 #   1) Termux 패키지
 #   2) Ubuntu proot (없으면 설치)
-#   3) Ubuntu 안에서 /root/work 에 helena_phone 클론
+#   3) Ubuntu 안에서 /root/work 에 bayaba_phone 클론
 #   4) 시작 치트시트 출력 + 저장
 #
 # 명의 기본값 = 큰누나 계정 (변수로 변경 가능)
@@ -19,7 +19,7 @@
 set -euo pipefail
 
 OWNER_GITHUB="${OWNER_GITHUB:-}"                          # 정체(내 계정) — 고정값 금지(교재)
-TEMPLATE_REPO="${TEMPLATE_REPO:-helena751107/helena_phone}"
+TEMPLATE_REPO="${TEMPLATE_REPO:-bayaba-1979/bayaba_phone}"
 WORK_DIR="${WORK_DIR:-/root/work}"
 # 초심자: 토큰 없이 public clone (나중에 push 할 때만 토큰)
 
@@ -47,7 +47,7 @@ need_termux() {
     echo "  2) Termux 검색 → 설치"
     echo "  3) Termux:API 도 설치"
     echo "  4) Termux 열고 아래 한 줄 다시:"
-    echo "     bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/easy.sh)"
+    echo "     bash <(curl -sL https://raw.githubusercontent.com/bayaba-1979/bayaba_phone/main/g/easy.sh)"
     exit 1
   fi
 }
@@ -81,7 +81,7 @@ ubuntu_bootstrap() {
   apt-get install -y -qq git curl ca-certificates python3 2>/dev/null || apt-get install -y git curl ca-certificates python3
 
   WORK_DIR="${WORK_DIR:-/root/work}"
-  TEMPLATE_REPO="${TEMPLATE_REPO:-helena751107/helena_phone}"
+  TEMPLATE_REPO="${TEMPLATE_REPO:-bayaba-1979/bayaba_phone}"
   OWNER_GITHUB="${OWNER_GITHUB:-}"
 
   if [ -d "$WORK_DIR/.git" ]; then
@@ -105,7 +105,7 @@ S21 시작 쪽지 (초심자)
   2) 입력:  proot-distro login ubuntu
   3) 입력:  cd /root/work
   4) 웹 보기(폰 브라우저):
-     https://${OWNER_GITHUB}.github.io/helena_phone/
+     https://${OWNER_GITHUB}.github.io/bayaba_phone/
 
 나중에 필요할 때만 (필수로 안 함):
   · GitHub 토큰, DeepSeek 키
@@ -139,7 +139,7 @@ EOF
   echo "지금 바로:"
   echo "  cd ${WORK_DIR} && ls"
   echo "브라우저:"
-  echo "  https://${OWNER_GITHUB}.github.io/helena_phone/"
+  echo "  https://${OWNER_GITHUB}.github.io/bayaba_phone/"
   echo ""
 }
 
@@ -185,11 +185,11 @@ cat << EOF
 
 ▶ 웹 (성공 확인):
 
-   https://${OWNER_GITHUB}.github.io/helena_phone/
+   https://${OWNER_GITHUB}.github.io/bayaba_phone/
 
    ⚠️ 이 주소는 GitHub에 repo를 만들고 push + Pages 활성화를 해야 열려요.
       easy.sh는 클론만 하고 GitHub 배포는 안 해요. (자동 배포 = g/workstation.sh)
-      수동: 1) github.com/new 로 helena_phone 생성  2) push  3) Settings→Pages→GitHub Actions
+      수동: 1) github.com/new 로 bayaba_phone 생성  2) push  3) Settings→Pages→GitHub Actions
 
 ▶ 키·푸시·에이전트는 나중에:
    매뉴얼 install-guide.html 또는 g/install.sh

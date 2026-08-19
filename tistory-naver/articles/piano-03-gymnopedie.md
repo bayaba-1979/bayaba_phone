@@ -23,7 +23,7 @@ tags: 사티, 짐노페디, 인상주의, 클래식, 감상, 미니멀
 
 세 곡은 모두 같은 박자와 비슷한 템포로 쓰였지만 분위기는 조금씩 다르다. 1번은 D장조의 맑은 정적, 3번은 단조로 기울며 더 깊은 우울로 가라앉는다. 사티가 의도한 것은 "세 번의 같은 호흡"이다. 한 곡을 세 번 다르게 들려주는 것이 아니라, 한 번의 침묵을 세 갈래로 나눈 것이다.
 
-:::audio https://helena751107.github.io/helena-piano/bgm/output/satie_gymnopedie1.mp3|Gymnopédie No.1 — Salamander (Yamaha C5) 렌더
+:::audio https://bayaba-1979.github.io/helena-piano/bgm/output/satie_gymnopedie1.mp3|Gymnopédie No.1 — Salamander (Yamaha C5) 렌더
 
 우리의 렌더링은 이 정적을 건드리지 않으려고 애썼다. Yamaha C5 샘플의 16단계 벨로서티는, 이 곡처럼 극단적으로 여린 다이내믹에서 그 진가를 드러낸다. 여린 셈여림에서도 음의 윤곽이 흐려지지 않는 것 — 샘플 기반 합성이 사람 연주에 가장 근접하는 순간이다.
 

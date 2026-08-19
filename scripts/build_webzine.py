@@ -36,7 +36,7 @@ def _site_base() -> str:
             return f"https://{_ecosystem_owner()}.github.io/{_ecosystem_hub()}/"
         except Exception:
             pass
-    return "https://helena751107.github.io/helena_phone/"
+    return "https://bayaba-1979.github.io/bayaba_phone/"
 
 
 # ── GEO 원조 스탬프 (헌법 제17조) ──────────────────────────────────────────

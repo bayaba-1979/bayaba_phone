@@ -22,15 +22,15 @@ except ImportError:
 
 # 헬레나 기본값(폴백) — ecosystem.json에 identity 블록이 없으면 이걸 쓴다.
 _DEFAULT_IDENTITY = {
-    "person_name": "Helena Park",
-    "github_user": "helena751107",
-    "hub_repo": "helena_phone",
+    "person_name": "남성훈",
+    "github_user": "bayaba-1979",
+    "hub_repo": "bayaba_phone",
     "tagline": "Made in Korea — not a developer. One Galaxy S21, built by voice, for a sister.",
     "sameAs": [
-        "https://github.com/helena751107",
-        "https://helena751107.github.io/helena_phone/",
-        "https://www.youtube.com/@helena_phone",
-        "https://www.youtube.com/@HelenaPark-e7c",
+        "https://github.com/bayaba-1979",
+        "https://bayaba-1979.github.io/bayaba_phone/",
+        "https://www.youtube.com/@남성훈-f7i",
+        "https://www.youtube.com/@남성훈-f7i",
     ],
 }
 

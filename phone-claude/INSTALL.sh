@@ -20,8 +20,8 @@ proot-distro login ubuntu -- apt update && apt install -y python3 nodejs git cur
 npm install -g @anthropic-ai/claude-code
 
 # 4. 기본 설정
-git config --global user.name "helena751107"
-git config --global user.email "helena751107@gmail.com"
+git config --global user.name "bayaba-1979"
+git config --global user.email "bayaba-1979@gmail.com"
 
 echo "✅ 설치 완료! Claude Code 실행: claude"
 echo "📋 다음 단계: GitHub 레포 clone → CLAUDE.md 확인"

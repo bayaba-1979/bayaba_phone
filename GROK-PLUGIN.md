@@ -3,7 +3,7 @@
 온디바이스 수첩과 이 레포가 **같은 파일**이다.
 
 - **폰 안 수첩:** `_notebook/83-momentum-2026-08-14_Grok.md`
-- **이 레포:** `helena751107/helena_phone` (이 파일과 같은 커밋)
+- **이 레포:** `bayaba-1979/bayaba_phone` (이 파일과 같은 커밋)
 - **어디에 있나 표:** `_notebook/85-grok-plugin-where-saved_Grok.md`
 
 ## 지금 역할

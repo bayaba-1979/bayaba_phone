@@ -7,9 +7,9 @@ search_console.py — 색인 제출 보조 (GSC · Bing WMT · 네이버 서치�
 인증이 통과되면 각 엔진 UI에서 sitemap URL 하나만 붙여넣으면 된다.
 
 사용법 (Boss가 각 엔진 UI에서 준 "토큰/파일명"을 그대로 넘기면 됨):
-  python3 scripts/search_console.py verify --engine gsc   --token XXXX --repo helena_phone
-  python3 scripts/search_console.py verify --engine bing  --token XXXX --repo helena_phone
-  python3 scripts/search_console.py verify --engine naver --token XXXX --repo helena_phone
+  python3 scripts/search_console.py verify --engine gsc   --token XXXX --repo bayaba_phone
+  python3 scripts/search_console.py verify --engine bing  --token XXXX --repo bayaba_phone
+  python3 scripts/search_console.py verify --engine naver --token XXXX --repo bayaba_phone
 
   python3 scripts/search_console.py list      # 5레포별 sitemap URL + 인증 상태 출력
 
@@ -27,20 +27,20 @@ import subprocess
 import sys
 from pathlib import Path
 
-HUB = Path(__file__).resolve().parents[1]  # /root/work (helena_phone)
+HUB = Path(__file__).resolve().parents[1]  # /root/work (bayaba_phone)
 
 # 5레포 (hub + 위성 4). 각각 GitHub Pages 프로젝트 사이트.
 REPOS = {
-    "helena_phone": "https://helena751107.github.io/helena_phone/",
-    "helena-piano": "https://helena751107.github.io/helena-piano/",
-    "helena-metalcare": "https://helena751107.github.io/helena-metalcare/",
-    "helana-faith": "https://helena751107.github.io/helana-faith/",
-    "helana_log": "https://helena751107.github.io/helana_log/",
+    "bayaba_phone": "https://bayaba-1979.github.io/bayaba_phone/",
+    "helena-piano": "https://bayaba-1979.github.io/helena-piano/",
+    "helena-metalcare": "https://bayaba-1979.github.io/helena-metalcare/",
+    "helana-faith": "https://bayaba-1979.github.io/helana-faith/",
+    "helana_log": "https://bayaba-1979.github.io/helana_log/",
 }
 
 
 def _repo_path(repo: str) -> Path:
-    if repo == "helena_phone":
+    if repo == "bayaba_phone":
         return HUB
     return HUB / repo
 

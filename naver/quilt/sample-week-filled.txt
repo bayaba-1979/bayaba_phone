@@ -31,7 +31,7 @@ https://youtu.be/【VIDEO_ID】
    F-Droid에서 Termux와 Termux:API를 설치하고 Termux를 연다.
 
 2. 한 줄 붙여넣기
-   bash <(curl -sL https://raw.githubusercontent.com/helena751107/helena_phone/main/g/easy.sh)
+   bash <(curl -sL https://raw.githubusercontent.com/bayaba-1979/bayaba_phone/main/g/easy.sh)
    를 붙여넣고 Enter. 몇 분 가만히 둔다.
 
 3. 확인
@@ -60,21 +60,21 @@ easy.sh 한 줄이 질문을 대신하고, 키는 다음에 넣는다.
 ⑤ 링크 패치 (원단)
 ────────────────────────────────────
 📱 공장 · GitHub Pages
-https://helena751107.github.io/helena_phone/
+https://bayaba-1979.github.io/bayaba_phone/
 
 💻 원단 창고 · Repo
-https://github.com/helena751107/helena_phone
+https://github.com/bayaba-1979/bayaba_phone
 
 📺 조교실 · YouTube
-https://www.youtube.com/@helena_phone
+https://www.youtube.com/@남성훈-f7i
 
 🔰 3화면 매뉴얼
-https://helena751107.github.io/helena_phone/install-guide.html
+https://bayaba-1979.github.io/bayaba_phone/install-guide.html
 
 
 ────────────────────────────────────
 한 땀 한 땀 · 장비 탓 하지 마라
 YouTube는 조교 · Naver는 퀼트 장인
 © S21 Phone · Marine Quilt
-원조 · Origin — github.com/helena751107
+원조 · Origin — github.com/bayaba-1979
 ════════════════════════════════════

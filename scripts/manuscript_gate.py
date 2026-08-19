@@ -99,7 +99,7 @@ ASSERT_MARKERS = [
 # ── 원천 경로 해석 (SPEC §3: "레포:경로") ────────────────────────────────────
 HELENA_PHONE_ROOT = Path(__file__).resolve().parent.parent
 REPO_ROOTS = {
-    "helena_phone": HELENA_PHONE_ROOT,
+    "bayaba_phone": HELENA_PHONE_ROOT,
     "helana_log": HELENA_PHONE_ROOT / "helana_log",
 }
 

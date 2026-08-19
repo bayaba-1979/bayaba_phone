@@ -236,4 +236,4 @@ python3 server.py --daemon
 
 > **v2.0 | 2026-08-11**
 > Helena Ticket · S21 Phone 단독 구동 · 월 0원
-> GitHub: `helena751107/helena-programming/apps/radio-ticket`
+> GitHub: `bayaba-1979/helena-programming/apps/radio-ticket`

@@ -50,6 +50,6 @@ Helena Programming은 **콘텐츠 제작을 온디바이스(APK)와 웹MCP(Verce
 
 ## 부칙 — 관련 문서
 
-- 모레포: `helena751107/helena_phone` (워크스페이스)
+- 모레포: `bayaba-1979/bayaba_phone` (워크스페이스)
 - 냉장고: `REDACTED/*` (28종 자산 풀)
 - 전문: `_notebook/46-fridge-architecture_Claude.md`
