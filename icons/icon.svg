@@ -8,11 +8,25 @@
       <stop offset="0%" stop-color="#2dd4bf"/>
       <stop offset="100%" stop-color="#3db8a8"/>
     </linearGradient>
+    <linearGradient id="screen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f4d46"/>
+      <stop offset="100%" stop-color="#16332e"/>
+    </linearGradient>
   </defs>
   <rect width="512" height="512" fill="url(#bg)"/>
-  <circle cx="256" cy="256" r="168" fill="none" stroke="url(#ac)" stroke-width="3" opacity="0.85"/>
-  <circle cx="256" cy="256" r="156" fill="none" stroke="#2dd4bf" stroke-width="1" opacity="0.35"/>
-  <text x="256" y="300" text-anchor="middle" font-family="system-ui,sans-serif" font-size="200" font-weight="700" fill="url(#ac)">폰</text>
-  <circle cx="340" cy="168" r="10" fill="#2dd4bf"/>
-  <text x="256" y="420" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="600" fill="#7a7064" letter-spacing="10">PHONE</text>
+  <circle cx="256" cy="256" r="172" fill="none" stroke="url(#ac)" stroke-width="2.5" opacity="0.6"/>
+  <circle cx="256" cy="256" r="158" fill="none" stroke="#2dd4bf" stroke-width="1" opacity="0.25"/>
+
+  <!-- Z Fold4 펼친 실루엣 (넓은 폴더블 화면) -->
+  <rect x="118" y="140" width="276" height="232" rx="18" fill="none" stroke="url(#ac)" stroke-width="7"/>
+  <!-- 화면 -->
+  <rect x="130" y="152" width="252" height="208" rx="10" fill="url(#screen)"/>
+  <!-- 중앙 힌지 라인 (세로 접힘선) -->
+  <line x1="256" y1="152" x2="256" y2="360" stroke="url(#ac)" stroke-width="2" opacity="0.7"/>
+  <!-- 펀치홀 카메라 (우상단) -->
+  <circle cx="356" cy="168" r="6" fill="#2dd4bf"/>
+  <!-- 홈 인디케이터 -->
+  <rect x="228" y="344" width="56" height="4" rx="2" fill="#2dd4bf" opacity="0.8"/>
+
+  <text x="256" y="432" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" font-weight="600" fill="#7a7064" letter-spacing="8">FOLD4</text>
 </svg>
