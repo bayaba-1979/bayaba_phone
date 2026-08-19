@@ -1,5 +1,5 @@
 """
-티스토리 스킨 표준설정 일괄 적용 — galaxys21 외 나머지 4개 블로그
+티스토리 스킨 표준설정 일괄 적용 — 5개 bayaba 블로그
 - 각 블로그: ① Whatever 스킨 전환(set.json) ② skin-premium.css + S21 레이아웃 주입(html.json)
 - 로그인 1회(동일 Daum 계정, TSSESSION 공유) 후 4개 블로그 순회
 실행: python3 tistory-naver/batch_apply.py [--only mynote,faith] [--dry-run]
@@ -20,7 +20,7 @@ from apply_layout import (CSS_START, CSS_END, HTML_START, HTML_END,
                           THEME_MAP, render_layout, replace_block)  # noqa: E402
 
 TARGET_SKIN = "pg_Whatever"
-SKIP = {"galaxys21"}  # 이미 적용된 메인 블로그
+SKIP = set()  # 5개 전부 적용
 
 
 def log(msg):
@@ -123,7 +123,7 @@ async def switch_skin(page, slug):
 
 async def apply_layout(page, aid, slug, css_add, dry_run):
     html_url = f"https://{slug}.tistory.com/manage/design/skin/html.json"
-    layout_html = render_layout(THEME_MAP.get(aid, THEME_MAP["galaxys21"]))
+    layout_html = render_layout(THEME_MAP.get(aid, THEME_MAP["hub"]))
     r = await page.request.get(html_url)
     if r.status != 200:
         log(f"    ❌ html.json GET {r.status}")
@@ -179,13 +179,13 @@ async def main():
 
     async with async_playwright() as pw:
         ctx = await pw.chromium.launch_persistent_context(
-            str(COOKIES_DIR / "galaxys21"), headless=True,
+            str(COOKIES_DIR / "hub"), headless=True,
             viewport={"width": 1280, "height": 900}, locale="ko-KR",
             args=["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"])
         page = ctx.pages[0] if ctx.pages else await ctx.new_page()
 
         # 저장된 state 파일 쿠키 복원 — TSSESSION(세션쿠키)은 프로파일에 영속 안 되므로 재실행 시 유실됨.
-        st_path = COOKIES_DIR / "galaxys21_state.json"
+        st_path = COOKIES_DIR / "hub_state.json"
         if st_path.exists():
             st = json.loads(st_path.read_text())
             now = int(time.time())
@@ -213,7 +213,7 @@ async def main():
                 fixed.append(c)
             if fixed:
                 await ctx.add_cookies(fixed)
-            await ctx.storage_state(path=str(COOKIES_DIR / "galaxys21_state.json"))
+            await ctx.storage_state(path=str(COOKIES_DIR / "hub_state.json"))
             log("✅ 로그인 성공 — 세션 영속화")
         else:
             log("✅ 기존 세션 유효")

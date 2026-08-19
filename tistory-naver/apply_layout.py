@@ -3,7 +3,7 @@
 - HTML: section.container 안에 <aside id="category-nav">([##_category_##] 치환자) + 줌컨트롤 + JS
 - CSS : skin-premium.css append (마커 멱등)
 - 마커: <!-- HELENA-LAYOUT-START/END --> (HTML) / /* HELENA-ORBITAL-SKIN-START/END */ (CSS)
-실행: python3 tistory-naver/apply_layout.py [--account galaxys21] [--dry-run]
+실행: python3 tistory-naver/apply_layout.py [--account hub] [--dry-run]
 """
 
 import asyncio, argparse, json, time, sys, random
@@ -70,10 +70,10 @@ _LAYOUT_BODY = """<aside id="category-nav">
 </script>"""
 
 # ── 블로그별 테마 (색 + 스타필드) — Boss 2026-08-15 ─────────────────────────
-# 각 블로그 정체성에 맞춘 액센트·성운·별·유성. CSS :root 기본값 = galaxys21.
+# 각 블로그 정체성에 맞춘 액센트·성운·별·유성. CSS :root 기본값 = hub.
 # account id 키. seed 는 별/유성 좌표 결정적 생성용(재적용해도 동일 결과).
 THEME_MAP = {
-    "galaxys21": {  # 개발·도구(원본) — 틸-퍼플 은하수
+    "hub": {  # bayaba_phone — 개발·도구, 틸-퍼플 은하수
         "accent": "#2dd4bf", "accent_rgb": "45, 212, 191",
         "accent2": "#e8b45a", "accent2_rgb": "232, 180, 90",
         "nebula_a": "rgba(96, 70, 180, 0.52)",
@@ -129,6 +129,39 @@ THEME_MAP = {
         "meteor": "#f0c898",
         "stars": 18, "meteors": 3, "pace": 1.15, "seed": 42,
         "meteor_ang": "-45deg", "meteor_dx": "-90px", "meteor_dy": "50px",
+    },
+    "jokbal": {  # 족발 — 딥레드/브라운, 진득한 갈색빛
+        "accent": "#d85c47", "accent_rgb": "216, 92, 71",
+        "accent2": "#7a4a3a", "accent2_rgb": "122, 74, 58",
+        "nebula_a": "rgba(216, 92, 71, 0.42)",
+        "nebula_b": "rgba(122, 74, 58, 0.40)",
+        "nebula_c": "rgba(255, 200, 150, 0.22)",
+        "star1": "#fff1e6", "star2": "#ffb08a", "star3": "#e8a37a",
+        "meteor": "#ffb08a",
+        "stars": 18, "meteors": 3, "pace": 1.1, "seed": 55,
+        "meteor_ang": "-35deg", "meteor_dx": "-170px", "meteor_dy": "90px",
+    },
+    "chicken": {  # 치킨 — 골드/앰버, 바삭한 황금빛
+        "accent": "#f0b429", "accent_rgb": "240, 180, 41",
+        "accent2": "#8a5a1a", "accent2_rgb": "138, 90, 26",
+        "nebula_a": "rgba(240, 180, 41, 0.44)",
+        "nebula_b": "rgba(138, 90, 26, 0.40)",
+        "nebula_c": "rgba(255, 240, 190, 0.24)",
+        "star1": "#fff8e0", "star2": "#ffd980", "star3": "#f5c860",
+        "meteor": "#ffd980",
+        "stars": 20, "meteors": 3, "pace": 1.0, "seed": 77,
+        "meteor_ang": "-30deg", "meteor_dx": "-180px", "meteor_dy": "100px",
+    },
+    "installation": {  # 인스톨레이션 — 아이보리/실버, 정갈한 셋업
+        "accent": "#c9d4e0", "accent_rgb": "201, 212, 224",
+        "accent2": "#6b7a8c", "accent2_rgb": "107, 122, 140",
+        "nebula_a": "rgba(201, 212, 224, 0.42)",
+        "nebula_b": "rgba(107, 122, 140, 0.40)",
+        "nebula_c": "rgba(240, 244, 248, 0.22)",
+        "star1": "#f6f8fb", "star2": "#cddae8", "star3": "#b8c6d6",
+        "meteor": "#cddae8",
+        "stars": 14, "meteors": 2, "pace": 1.3, "seed": 31,
+        "meteor_ang": "-40deg", "meteor_dx": "-140px", "meteor_dy": "70px",
     },
 }
 
@@ -373,8 +406,8 @@ def render_layout(theme):
     return HTML_START + "\n" + body + "\n" + HTML_END
 
 
-# 기본(galaxys21) — 하위호환 import 용
-LAYOUT_HTML = render_layout(THEME_MAP["galaxys21"])
+# 기본(hub) — 하위호환 import 용
+LAYOUT_HTML = render_layout(THEME_MAP["hub"])
 
 
 def log(msg):
@@ -437,7 +470,7 @@ def replace_block(text, start_marker, end_marker, new_block):
 
 async def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--account", type=str, default="galaxys21")
+    parser.add_argument("--account", type=str, default="hub")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
@@ -492,7 +525,7 @@ async def main():
         log(f"  skinname={j.get('skinname')} | html={len(html)}자 | css={len(css)}자")
 
         # HTML 주입 (좌측 카테고리 + 줌 + 스타필드) — section.container 바로 뒤
-        theme = THEME_MAP.get(args.account, THEME_MAP["galaxys21"])
+        theme = THEME_MAP.get(args.account, THEME_MAP["hub"])
         layout_html = render_layout(theme)
         if HTML_START in html:
             new_html = replace_block(html, HTML_START, HTML_END, layout_html)
